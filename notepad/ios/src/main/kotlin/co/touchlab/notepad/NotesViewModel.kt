@@ -3,30 +3,37 @@ package co.touchlab.notepad
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.multiplatform.architecture.threads.*
 import co.touchlab.notepad.data.*
+import co.touchlab.notepad.display.DaySchedule
 import konan.worker.*
 
 class NotesViewModel{
 
     val noteModel = NoteModel().freeze()
-    var notesObserver:Observer<List<SessionWithRoom>>? = null
+    var notesObserver:Observer<List<DaySchedule>>? = null
 
-    fun registerForChanges(proc:(notes:List<SessionWithRoom>)->Unit){
+    fun registerForChanges(proc:(notes:List<DaySchedule>)->Unit){
 
-        noteModel.primeData()
-
-        notesObserver = object : Observer<List<SessionWithRoom>>{
-            override fun onChanged(t: List<SessionWithRoom>?){
+        notesObserver = object : Observer<List<DaySchedule>>{
+            override fun onChanged(t: List<DaySchedule>?){
+                for(ds in t!!){
+                    println("ds: $ds")
+                }
                 if(t != null)
                     proc(t)
             }
         }
 
-        noteModel.sessionsLiveData().observeForever(notesObserver!!)
+        noteModel.dayFormatLiveData().observeForever(notesObserver!!)
     }
 
     fun unregister(){
-        noteModel.sessionsLiveData().removeObserver(notesObserver!!)
+        noteModel.dayFormatLiveData().removeObserver(notesObserver!!)
         notesObserver = null
+        noteModel.shutDown()
+    }
+
+    fun primeData(speakerJson:String, scheduleJson:String){
+        noteModel.primeData(speakerJson, scheduleJson)
     }
 
     fun insertNote(title:String, description:String){

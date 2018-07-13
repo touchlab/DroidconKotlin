@@ -27,10 +27,10 @@ class NoteDbHelper {
 
     fun getSessionsQuery(): Query<SessionWithRoom> = queryWrapper.sessionQueries.sessionWithRoom()
 
-    fun primeAll(){
+    fun primeAll(speakerJson:String, scheduleJson:String){
         queryWrapper.sessionQueries.transaction {
-            primeSpeakers()
-            primeSessions()
+            primeSpeakers(speakerJson)
+            primeSessions(scheduleJson)
         }
 
         queryWrapper.userAccountQueries.selectAll().executeAsList().forEach {
@@ -38,8 +38,8 @@ class NoteDbHelper {
         }
     }
 
-    private fun primeSpeakers(){
-        val speakers = DefaultData.parseSpeakers()
+    private fun primeSpeakers(speakerJson:String){
+        val speakers = DefaultData.parseSpeakers(speakerJson)
         for (speaker in speakers) {
             var twitter:String? = null
             var linkedIn:String? = null
@@ -83,8 +83,8 @@ class NoteDbHelper {
         }
     }
 
-    private fun primeSessions(){
-        val parseAll = DefaultData.parseAll()
+    private fun primeSessions(scheduleJson:String){
+        val parseAll = DefaultData.parseAll(scheduleJson)
         queryWrapper.sessionSpeakerQueries.deleteAll()
         for (session in parseAll) {
             queryWrapper.roomQueries.insertRoot(session.roomId.toLong(), session.room)

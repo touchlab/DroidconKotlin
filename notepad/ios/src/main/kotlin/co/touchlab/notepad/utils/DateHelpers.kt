@@ -12,7 +12,6 @@ actual class DateFormatHelper actual constructor(format:String){
         formatter.dateFormat = format
     }
 
-    actual fun toDate(s:String):Date{
-        return Date(formatter.dateFromString(s)!!)
-    }
+    actual fun toDate(s:String):Date = Date(formatter.dateFromString(s)!!)
+    actual fun format(d:Date):String = formatter.stringFromDate(d.iosDate)
 }

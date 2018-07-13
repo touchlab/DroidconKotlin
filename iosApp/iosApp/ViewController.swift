@@ -17,15 +17,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var inputButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    var users:[NotepadArchitectureSessionWithRoom]? = nil
+    var users:[NotepadArchitectureDaySchedule]? = nil
+    var hourBlocks:[NotepadArchitectureHourBlock]? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("swift A")
         
         viewModel.registerForChanges(proc: updateUi)
         
-        print("swift B")
+        let speakersFile = Bundle.main.path(forResource: "speakers", ofType: "json")
+        let scheduleFile = Bundle.main.path(forResource: "schedule", ofType: "json")
+
+        do{
+            try viewModel.primeData(speakerJson: String(contentsOfFile: speakersFile!), scheduleJson: String(contentsOfFile: scheduleFile!))
+        } catch {
+            print(error)
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -35,8 +43,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         viewModel.unregister()
     }
     
-    func updateUi(users:[NotepadArchitectureSessionWithRoom]) -> NotepadArchitectureStdlibUnit{
+    func updateUi(users:[NotepadArchitectureDaySchedule]) -> NotepadArchitectureStdlibUnit{
         self.users = users
+        self.hourBlocks = users[1].hourBlock
         tableView.reloadData()
         inputButton.isEnabled = true
         print("array size \(users.count)")
@@ -60,10 +69,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // number of rows in table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(self.users == nil)
+        if(self.hourBlocks == nil)
         {return 0}
         else
-        {return self.users!.count}
+        {return self.hourBlocks!.count}
     }
     
     // create a cell for each table view row
@@ -72,23 +81,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // create a new cell if needed or reuse an old one
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "cell") as UITableViewCell!
         
-        let user = self.users![indexPath.row]
+        let user = self.hourBlocks![indexPath.row]
         // set the text from the data model
         
-        print(user.title)
+        print("Values: \(user.timeBlock.title)")
         
-        print("Values: \(user.title) \(user.allNames)")
-        
-        cell.textLabel?.text = user.allNames
+        cell.textLabel?.text = "\(user.hourStringDisplay) : \(user.timeBlock.title)"
         
         return cell
     }
     
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = self.users![indexPath.row]
+        let user = self.hourBlocks![indexPath.row]
         
-        print("Description: \(user.description)")
+        print("dayString: \(user.timeBlock.allNames)")
     }
 }
 

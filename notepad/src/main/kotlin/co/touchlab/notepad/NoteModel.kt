@@ -8,6 +8,9 @@ import co.touchlab.notepad.utils.backgroundTask
 import co.touchlab.notepad.utils.currentTimeMillis
 import co.touchlab.multiplatform.architecture.threads.*
 import co.touchlab.notepad.db.QueryLiveData
+import co.touchlab.notepad.display.DaySchedule
+import co.touchlab.notepad.display.convertMapToDaySchedule
+import co.touchlab.notepad.display.formatHourBlocks
 import co.touchlab.notepad.display.sortSessions
 import com.squareup.sqldelight.Query
 
@@ -32,14 +35,15 @@ class NoteModel {
 
     fun shutDown(){
         dbHelper.getSpeakers().removeListener(liveData)
+        dbHelper.getSessionsQuery().removeListener(liveSessions)
     }
 
     fun notesLiveData():MutableLiveData<List<UserAccount>> = liveData
     fun sessionsLiveData():MutableLiveData<List<SessionWithRoom>> = liveSessions
 
-    fun primeData(){
+    fun primeData(speakerJson:String, scheduleJson:String){
         backgroundTask {
-            dbHelper.primeAll()
+            dbHelper.primeAll(speakerJson, scheduleJson)
         }
     }
 
@@ -63,7 +67,18 @@ class NoteModel {
         override fun extractData(q: Query<*>): List<UserAccount>  = q.executeAsList() as List<UserAccount>
     }
 
+    fun dayFormatLiveData():MediatorLiveData<List<DaySchedule>>
+    {
+        val liveDataMerger = MediatorLiveData<List<DaySchedule>>()
 
+        liveDataMerger.addSource(liveSessions) {
+            val dayschedules = convertMapToDaySchedule(formatHourBlocks(it))
+
+            liveDataMerger.setValue(dayschedules)
+        }
+
+        return liveDataMerger
+    }
 
     class SessionListLiveData(q: Query<SessionWithRoom>) : QueryLiveData<SessionWithRoom, List<SessionWithRoom>>(q), Query.Listener{
         override fun extractData(q: Query<*>): List<SessionWithRoom> {
