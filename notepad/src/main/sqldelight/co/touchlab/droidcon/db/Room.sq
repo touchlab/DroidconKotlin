@@ -1,0 +1,13 @@
+CREATE TABLE room(
+id INTEGER NOT NULL PRIMARY KEY,
+name TEXT NOT NULL
+);
+
+insertRoot:
+INSERT OR REPLACE INTO room(id, name)VALUES(?,?);
+
+selectAll:
+SELECT * FROM room;
+
+selectById:
+SELECT * FROM room WHERE id = ?;

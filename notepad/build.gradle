@@ -1,0 +1,23 @@
+apply plugin: 'kotlin-platform-common'
+//apply plugin: 'org.jetbrains.kotlin.platform.common'
+apply plugin: 'com.squareup.sqldelight'
+
+//group = 'org.jetbrains.kotlin.konan.samples'
+
+dependencies {
+    implementation deps.kotlin.stdlib.common
+    implementation deps.sqldelight.runtime
+    implementation deps.knarch.db
+    implementation deps.knarch.threads
+    implementation deps.sqldelight.multiplatformdriver
+}
+
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
+sqldelight{
+    packageName = "co.touchlab.droidcon.db"
+}

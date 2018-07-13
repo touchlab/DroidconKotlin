@@ -1,0 +1,104 @@
+buildscript {
+    ext.buildConfig = [
+            'compileSdk': 27,
+            'minSdk'    : 24,
+            'targetSdk' : 27,
+
+            'version'   : [
+                    'major': 1,
+                    'minor': 2,
+                    'patch': 1,
+                    'build': 0,
+            ],
+    ]
+
+    ext.versions = [
+            'supportLibrary'  : '27.1.0',
+            'kotlin'          : '1.2.50',
+            'kotlin_native_version' : '0.8',
+            'kotlinCoroutines': '0.22.5',
+            'knarchDb'      : '0.7-alpha1',
+            'knarchThreads'      : '0.2.0',
+            'sqldelight'      : '1.0.0-alpha4',
+            'sqldelightKnarch'      : '1.0.0-alpha4.6'
+    ]
+
+    ext.deps = [
+            'kotlin'    : [
+                    'stdlib'    : [
+                            'common': "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.kotlin}",
+                            'jdk'   : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+                            'js'    : "org.jetbrains.kotlin:kotlin-stdlib-js:${versions.kotlin}",
+                    ],
+                    'coroutines': [
+                            'common' : "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${versions.kotlinCoroutines}",
+                            'jdk'    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinCoroutines}",
+                            'js'     : "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:${versions.kotlinCoroutines}",
+                            'android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutines}",
+                            'rx2'    : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${versions.kotlinCoroutines}",
+                    ],
+            ],
+            'android'   : [
+                    'arch': [
+                            'dbFramework': 'android.arch.persistence:db-framework:1.0.0',
+                    ],
+            ],
+            'knarch'  : [
+                    'db': "co.touchlab.knarch:knarch-common:${versions.knarchDb}",
+                    'dbNative': "co.touchlab.knarch:knarch:${versions.knarchDb}",
+                    'threads':"co.touchlab.knarch.threads:knarch-common:${versions.knarchThreads}",
+                    'threadsNative':"co.touchlab.knarch.threads:knarchThreads:${versions.knarchThreads}",
+            ]
+            ,
+            'sqldelight': [
+                    'android': "com.squareup.sqldelight:android-driver:${versions.sqldelight}",
+                    'runtime': "com.squareup.sqldelight:runtime-common:${versions.sqldelight}",
+                    'runtimeNative': "com.squareup.sqldelight:sqldelightruntimeios:${versions.sqldelightKnarch}",
+                    'multiplatformdriver': "com.squareup.sqldelight:sqldelight-multiplatform-driver:${versions.sqldelightKnarch}",
+                    'multiplatformdriverNative': "com.squareup.sqldelight:sqldelightmultiplatformdriverios:${versions.sqldelightKnarch}",
+            ]
+    ]
+
+    repositories {
+        maven { url j2objcMavenDeploy }
+        jcenter()
+        google()
+        mavenCentral()
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        gradlePluginPortal()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven {
+            url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+        if(project.hasProperty('j2objcMavenDeploy')) {
+            maven {
+                url project.property('j2objcMavenDeploy')
+            }
+        }
+        maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha08'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelightKnarch}"
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:${versions.kotlin_native_version}"
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url j2objcMavenDeploy }
+        jcenter()
+        google()
+        mavenCentral()
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        if(project.hasProperty('j2objcMavenDeploy')) {
+            maven {
+                url project.property('j2objcMavenDeploy')
+            }
+        }
+        maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+    }
+}

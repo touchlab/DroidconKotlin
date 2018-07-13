@@ -1,0 +1,24 @@
+CREATE TABLE userAccount(
+id TEXT NOT NULL PRIMARY KEY,
+fullName TEXT NOT NULL,
+bio TEXT,
+tagLine TEXT,
+profilePicture TEXT,
+twitter TEXT,
+linkedIn TEXT,
+website TEXT
+);
+
+insertUserAccount:
+INSERT OR REPLACE INTO userAccount(id, fullName, bio, tagLine, profilePicture, twitter, linkedIn, website)
+VALUES(?,?,?,?,?,?,?,?)
+;
+
+selectById:
+SELECT *
+FROM userAccount
+WHERE id = ?;
+
+selectAll:
+SELECT *
+FROM userAccount;
