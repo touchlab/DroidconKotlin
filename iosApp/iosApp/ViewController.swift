@@ -10,7 +10,7 @@ import UIKit
 import NotepadArchitecture
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let viewModel =  NotepadArchitectureNotesViewModel()
+    let viewModel =  NotepadArchitectureScheduleViewModel()
     
     @IBOutlet weak var inputText: UITextField!
     @IBOutlet weak var inputDescription: UITextField!

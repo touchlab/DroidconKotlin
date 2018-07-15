@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NotepadArchitecture
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let speakersFile = Bundle.main.path(forResource: "speakers", ofType: "json")
+        let scheduleFile = Bundle.main.path(forResource: "schedule", ofType: "json")
+        
+        do{
+            try NotepadArchitectureAppContext().primeData(speakerJson: String(contentsOfFile: speakersFile!), scheduleJson: String(contentsOfFile: scheduleFile!))
+        } catch {
+            print(error)
+        }
+        
         return true
     }
 

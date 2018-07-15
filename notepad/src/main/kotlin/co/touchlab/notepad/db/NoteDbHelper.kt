@@ -15,12 +15,14 @@ import com.squareup.sqldelight.db.SqlDatabase
 
 class NoteDbHelper {
 
-    private val queryWrapper: QueryWrapper
+    val queryWrapper: QueryWrapper
     private val database:SqlDatabase
+
     init {
         val helperFactory = initContext()
-        database = QueryWrapper.create("holla6", openHelperFactory = helperFactory)
-        queryWrapper = QueryWrapper(database)
+        val dateAdapter = DateAdapter()
+        database = QueryWrapper.create("droidconDb", openHelperFactory = helperFactory)
+        queryWrapper = QueryWrapper(database, Session.Adapter(dateAdapter, dateAdapter))
     }
 
     fun getSpeakers(): Query<UserAccount> = queryWrapper.userAccountQueries.selectAll()
@@ -90,7 +92,11 @@ class NoteDbHelper {
             queryWrapper.roomQueries.insertRoot(session.roomId.toLong(), session.room)
 
             queryWrapper.sessionQueries.insertUpdate(
-                    session.id, session.title, session.description, session.startsAt, session.endsAt,
+                    session.id,
+                    session.title,
+                    session.description,
+                    queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt),
+                    queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt),
                     if(session.serviceSession){1}else{0}, session.roomId.toLong()
             )
 

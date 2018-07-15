@@ -11,7 +11,7 @@ actual fun currentTimeMillis():Long = getTimeMillis()
 //This definitely needs a rethink
 actual fun initContext():NativeOpenHelperFactory {
     val context = DefaultSystemContext()
-    println("DB Path: ${context.getDatabasePath("holla6")}")
+    println("DB Path: ${context.getDatabasePath("droidconDb")}")
     val factory = IosNativeOpenHelperFactory(context)
     return factory
 }
