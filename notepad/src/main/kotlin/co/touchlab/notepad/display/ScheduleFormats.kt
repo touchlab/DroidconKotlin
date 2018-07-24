@@ -37,6 +37,15 @@ fun HourBlock.isConflict(others: List<HourBlock>): Boolean {
     return false
 }
 
+fun HourBlock.rsvpConflictString(others: List<HourBlock>):String {
+    if(isConflict(others))
+        return " (Conflict)"
+    else if(timeBlock.isRsvp())
+        return " (Selected)"
+    else
+        return ""
+}
+
 fun sortSessions(sessions: List<SessionWithRoom>): List<SessionWithRoom> {
     val copyList = ArrayList(sessions)
     copyList.sortWith(Comparator { a, b -> sortTimeBlocks(a, b) })

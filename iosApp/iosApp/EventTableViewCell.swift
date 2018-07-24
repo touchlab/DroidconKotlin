@@ -26,17 +26,17 @@ class EventTableViewCell: UITableViewCell {
         self.sessionInfo = sessionInfo
         
         titleLabel.text = sessionInfo.session.title/*.replacingOccurrences(of: "Android", with: "Lulu")*/
-        let time = TimeUtils.getEventTime(startTime: networkEvent.getStartFormatted()! as NSString, andEnd: networkEvent.getEndFormatted()! as NSString)
-        timeInfoLabel.text = "Track " + sessionInfo.session.roomName + ", " + time
+//        let time = TimeUtils.getEventTime(startTime: networkEvent.getStartFormatted()! as NSString, andEnd: networkEvent.getEndFormatted()! as NSString)
+        timeInfoLabel.text = "Track " + sessionInfo.session.roomName + ", "// + time
         descriptionLabel.text = sessionInfo.session.description.replacingOccurrences(of: "/n/n", with: "/n")
 
         if sessionInfo.isNow() {
             timeConflictLabel.isHidden = false
             timeConflictLabel.text = "This session is happening now"
-        } else if networkEvent.isPast() {
+        } else if sessionInfo.isPast() {
             timeConflictLabel.isHidden = false
             timeConflictLabel.text = "This session has already ended"
-        } else if (conflict != nil && conflict!) {
+        } else if (sessionInfo.conflict) {
             timeConflictLabel.isHidden = false
             timeConflictLabel.text = "This session conflicts with another session in your schedule"
         } else {
@@ -53,8 +53,10 @@ class EventTableViewCell: UITableViewCell {
         let modifiedFont = NSString(format:"<span style=\"font: -apple-system-body; font-size: 12px\">%@</span>", htmlString) as String
 
         let attrStr = NSAttributedString(
-            string: modifiedFont,
-            attributes: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: String.Encoding.utf8]
+            string: modifiedFont
+//            ,
+//            attributes: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: String.Encoding.utf8]
+//            attributes: [NSDocumentTypeDocumentOption: NSHTMLTextDocumentType, NSCharacterEncodingDocumentOption: String.Encoding.utf8]
         )
         
         return attrStr

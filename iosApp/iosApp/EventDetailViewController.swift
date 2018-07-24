@@ -71,10 +71,10 @@ import NotepadArchitecture
         self.present(alert, animated: true) {}
     }
     
-    func updateRsvp(with event: DDATEvent!) {
-        self.event = event
-        updateAllUi()
-    }
+//    func updateRsvp(with event: DDATEvent!) {
+//        self.event = event
+//        updateAllUi()
+//    }
     
     func updateAllUi() {
         updateButton()
@@ -101,17 +101,17 @@ import NotepadArchitecture
         if (indexPath as NSIndexPath).section == 0 {
             let cell:EventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventCell") as! EventTableViewCell
             cell.descriptionLabel.numberOfLines = 0
-            if (event != nil) {
+            if (sessionInfo != nil) {
                 cell.loadInfo(sessionInfo, viewModel: viewModel)
             }
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             return cell
         } else {
             let cell:SpeakerTableViewCell = tableView.dequeueReusableCell(withIdentifier: "speakerCell") as! SpeakerTableViewCell
-            let speaker = speakers![indexPath.row]
-            if let speakerDescription = (speaker.getProfile()) {
-                let imageUrl = speaker.avatarImageUrl() ?? ""
-                cell.loadInfo(speaker.getName()!, info: speakerDescription, imgUrl: imageUrl)
+            let speaker = sessionInfo.speakers[indexPath.row]
+            if let speakerDescription = (speaker.bio) {
+                let imageUrl = speaker.profilePicture ?? ""
+                cell.loadInfo(speaker.fullName, info: speakerDescription, imgUrl: imageUrl)
             }
             
             cell.selectionStyle = UITableViewCellSelectionStyle.none
@@ -131,7 +131,7 @@ import NotepadArchitecture
         tableView.deselectRow(at: indexPath, animated: false)
         
         if (indexPath as NSIndexPath).section == 1 {
-            let speaker = speakers![indexPath.row] as DDATUserAccount
+            let speaker = sessionInfo.speakers[indexPath.row] as NotepadArchitectureSpeakerForSession
             showSpeakerDetailView(speaker: speaker)
         }
     }
@@ -149,11 +149,11 @@ import NotepadArchitecture
     }
     
     func updateButton() {
-        if event.isPast() {
+        if sessionInfo.isPast() {
             rsvpButton.isHidden = true
         } else {
             rsvpButton.isHidden = false
-            if (event.isRsvped()) {
+            if (sessionInfo.isRsvped()) {
                 rsvpButton.setImage(UIImage(named: "ic_done"), for: UIControlState())
                 rsvpButton.backgroundColor = UIColor.white
             } else {
@@ -164,20 +164,15 @@ import NotepadArchitecture
     }
     
     func updateHeaderImage() {
-        let track : DDATTrack  = (event.getCategory() ?? "").isEmpty ?
-            DDATTrack.findByServerName(with: "Design") : // Default to design (Same as Android)
-            DDATTrack.findByServerName(with: event.getCategory())
-        
         let imageName = "talkheader"
-        
         headerImage.image =  UIImage(named:imageName)!
     }
     
     @IBAction func toggleRsvp(_ sender: UIButton) {
-        eventDetailPresenter.setRsvpWithBoolean(!event.isRsvped(), withLong: event.getId(), with: self)
+        viewModel.toggleRsvp(rsvp: !sessionInfo.isRsvped())
     }
     
-    func showSpeakerDetailView(speaker: DDATUserAccount) {
+    func showSpeakerDetailView(speaker: NotepadArchitectureSpeakerForSession) {
         performSegue(withIdentifier: "ShowSpeakerDetail", sender: speaker)
     }
 }

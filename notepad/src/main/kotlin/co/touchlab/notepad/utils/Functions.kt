@@ -10,3 +10,6 @@ expect fun backgroundTask(backJob:()->Unit)
 
 expect fun initContext():NativeOpenHelperFactory
 
+expect fun sleepThread(millis:Long)
+
+expect fun <T> goFreeze(a:T):T

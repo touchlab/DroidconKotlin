@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">notepad</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="conflict">Conflict</string>
+    <string name="cd_live_now">Live now</string>
+    <string name="lorem_long" translatable="false">Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </string>
+</resources>

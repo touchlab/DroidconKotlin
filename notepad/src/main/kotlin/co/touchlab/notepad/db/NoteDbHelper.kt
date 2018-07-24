@@ -5,13 +5,10 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.notepad.data.DefaultData
-import co.touchlab.notepad.sqldelight.Note
-import co.touchlab.notepad.sqldelight.NoteQueries
-import com.squareup.sqldelight.multiplatform.create
-
 import co.touchlab.notepad.utils.initContext
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDatabase
+import com.squareup.sqldelight.multiplatform.create
 
 class NoteDbHelper {
 
@@ -91,14 +88,37 @@ class NoteDbHelper {
         for (session in parseAll) {
             queryWrapper.roomQueries.insertRoot(session.roomId.toLong(), session.room)
 
-            queryWrapper.sessionQueries.insertUpdate(
-                    session.id,
-                    session.title,
-                    session.description,
-                    queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt),
-                    queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt),
-                    if(session.serviceSession){1}else{0}, session.roomId.toLong()
-            )
+            val dbSession = queryWrapper.sessionQueries.sessionById(session.id).executeAsOneOrNull()
+
+            if(dbSession == null) {
+                queryWrapper.sessionQueries.insert(
+                        session.id,
+                        session.title,
+                        session.description,
+                        queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt),
+                        queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt),
+                        if (session.serviceSession) {
+                            1
+                        } else {
+                            0
+                        }, session.roomId.toLong()
+                )
+            }else{
+                queryWrapper.sessionQueries.update(
+                        title = session.title,
+                        description = session.description,
+                        startsAt = queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt),
+                        endsAt = queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt),
+                        serviceSession = if (session.serviceSession) {
+                            1
+                        } else {
+                            0
+                        },
+                        roomId = session.roomId.toLong(),
+                        rsvp = dbSession.rsvp,
+                        id = session.id
+                )
+            }
 
             var displayOrder = 0L
             for (sessionSpeaker in session.speakers) {

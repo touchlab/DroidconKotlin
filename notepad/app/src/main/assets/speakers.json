@@ -1,0 +1,1861 @@
+ [
+  {
+  "id": "5424a4f2-0ada-4c78-a72b-bf6f100a3fd7",
+  "firstName": "Adrian",
+  "lastName": "Catalan",
+  "fullName": "Adrian Catalan",
+  "bio": "Adrián has been involved in software industry for 13+ years, working both in web and mobile apps. GDG Guatemala, GuatemalaJS and Nodebots former co-organizer. Currently he leads the Innovation Lab at Galileo University and is a Google Developer Expert(GDE) for Android, IoT and Firebase.",
+  "tagLine": "Innovation Lab Led",
+  "profilePicture": "https://sessionize.com/image?f=ca008a62d4fc96d5a0bf24ed7db3b030,200,200,True,False,f058fd36-bb11-40e9-8c85-5338830ea222.jpg",
+  "sessions": [
+               {
+               "id": 42115,
+               "name": "Party like it's 1970: Conversational interfaces are back (into your Android app)"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/ykro",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "http://linkedin.com/in/adriancatalan",
+            "linkType": "LinkedIn"
+            }
+            ]
+  },
+  {
+  "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
+  "firstName": "Alec",
+  "lastName": "Strong",
+  "fullName": "Alec Strong",
+  "bio": "Android, Bass, Super Smash Bros Melee",
+  "tagLine": "Android Developer @ Square",
+  "profilePicture": "https://sessionize.com/image?f=edad71fb808e1d5fa975948179ffd491,200,200,True,False,2194d24b-4ede-4943-9010-bfa66f4f17e8.jpg",
+  "sessions": [
+               {
+               "id": 57259,
+               "name": "Multiplatform Persistence"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/strongolopolis",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "65390815-a286-426c-b2a1-aa0e98939b70",
+  "firstName": "Andrew",
+  "lastName": "Orobator",
+  "fullName": "Andrew Orobator",
+  "bio": "Andrew taught himself Android development in 2013 when he started working on Auracle Music Player. Since then he's shared his passion for teaching and sharing Android knowledge through teaching a class at Carnegie Mellon University, appearing as a guest on popular podcasts such as Fragmented, writing articles, and speaking at Android conferences across the country. Currently, he works as an Android Engineer at SmartThings on the Audio Video Platform. When he’s not working on Auracle or writing a blog post, you can find Andrew on the dance floor busting a move or at a karaoke bar singing to his heart’s content.",
+  "tagLine": "Android Engineer at SmartThings",
+  "profilePicture": "https://sessionize.com/image?f=c1d556c16519ef083297cc6fffead145,200,200,True,False,928b0970-9315-4be8-9c0a-f0c775c181d0.jpg",
+  "sessions": [
+               {
+               "id": 46277,
+               "name": "Effective Kotlin"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/AOrobator",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/andrew-orobator-78031939/",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@andreworobator/",
+            "linkType": "Blog"
+            },
+            {
+            "title": "StackOverflow",
+            "url": "https://stackoverflow.com/users/2294683/andrew-orobator",
+            "linkType": "Other"
+            }
+            ]
+  },
+  {
+  "id": "28b4c291-7aa0-4ebf-879e-2dce4ff8449c",
+  "firstName": "Artem",
+  "lastName": "Zinnatullin",
+  "fullName": "Artem Zinnatullin",
+  "bio": "Tools, libraries, CI, builds @lyft\r\n\r\nCo-host of \"The Context\" podcast.",
+  "tagLine": "Software Engineering Hipster @lyft.",
+  "profilePicture": "https://sessionize.com/image?f=10b8bad093cd2c4f8192ac9cdfdce86e,200,200,True,False,2b425c9d-aa73-472d-bbbb-a80d2b6964f7.jpg",
+  "sessions": [
+               {
+               "id": 45050,
+               "name": "Domic — Reactive Virtual DOM. Why we built it, how it works."
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/artem_zin",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "https://artemzin.com",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "317a55a7-b9e4-495e-a4b6-fe3515a2b3e9",
+  "firstName": "Arun",
+  "lastName": "Nagarajan",
+  "fullName": "Arun Nagarajan",
+  "bio": "Sr. Engineering Manager at Uber. I work on all things Restaurant Facing for Uber Eats!",
+  "tagLine": "Engineering @ Uber Eats",
+  "profilePicture": "https://sessionize.com/image?f=9fa5075132215b87e5096118a77b316d,200,200,True,False,9aaf50b7-b55f-44ad-9be6-a65c2993a827.jpg",
+  "sessions": [
+               {
+               "id": 57059,
+               "name": "React Native at Uber Eats - handling scale and complexity"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "http://twitter.com/entaq",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "http://ubereats.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "1b4b967a-ae8d-42e9-9925-1472213075f9",
+  "firstName": "Barry",
+  "lastName": "Burd",
+  "fullName": "Barry Burd",
+  "bio": "Barry Burd is the author of many books, articles, and videos, including \"Android Application Development All-in-One For Dummies\", \"Java Programming for Android Development For Dummies\", and O'Reilly's \"Introduction to Functional Programming\" video course. ",
+  "tagLine": "Professor, Drew University",
+  "profilePicture": "https://sessionize.com/image?f=774e68431cac2130f00969ef5647c36f,200,200,True,False,7a-ae8d-42e9-9925-1472213075f9.151470a7-8970-44f5-b8e0-b6e8db5dd36a.jpg",
+  "sessions": [
+               {
+               "id": 45962,
+               "name": "Android Programming for Bluetooth Beacons"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "http://twitter.com/allmycode",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "http://allmycode.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "cea28ab6-6cce-43f4-82d9-740898e72ada",
+  "firstName": "Ben",
+  "lastName": "Oberkfell",
+  "fullName": "Ben Oberkfell",
+  "bio": "Ben is a Senior Android Engineer on the games team at The New York Times, helping build the Android experience for the Crosswords product. \r\n\r\nBen's also built Android products at American Express and Jive Software.\r\n\r\nHe lives in St. Louis, where he is co-organizer of the local chapter of the Google Developers Group.",
+  "tagLine": "The New York Times",
+  "profilePicture": "https://sessionize.com/image?f=855d437d809acd18c4fb80fa224a3241,200,200,True,False,55d97e4f-9258-46a2-97ce-86e76fbe792a.jpg",
+  "sessions": [
+               {
+               "id": 57248,
+               "name": "To Protect And Confirm"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/benlikestocode",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "7da3d811-05f3-42c2-a252-9527f40c92c4",
+  "firstName": "Benjamin",
+  "lastName": "Sautner",
+  "fullName": "Benjamin Sautner",
+  "bio": "Benjamin Sautner spent 10 years working in Process Control and Automation in the chemical industry and another 10 years working as a freelance software developer.  He got into Android development when he took a tech lead position designing the Horizon TV Android app, and is now the platform lead for Xfinity Home, where he has been building and maintaining the Xfinity Home Android App for the last 4 years. ",
+  "tagLine": "Senior Principal Engineer Xfinity Home ",
+  "profilePicture": "https://sessionize.com/image?f=e8e6d74d0f1a1494627ce6839a25ce10,200,200,True,False,5fff379f-7a25-47e7-bedb-965e59e076bf.jpg",
+  "sessions": [
+               {
+               "id": 57027,
+               "name": "Xfinity Home Android - a 4 year retrospective"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "https://www.xfinity.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "288473ce-efb4-43a4-bdde-95b5543be36f",
+  "firstName": "Bolot",
+  "lastName": "Kerimbaev",
+  "fullName": "Bolot Kerimbaev",
+  "bio": "As an Android and iOS sensei at Big Nerd Ranch, Bolot has taught hundreds of professional and up-and-coming developers how to build their first mobile applications. He also builds apps and systems for Fortune 500 companies and teaches Taido.",
+  "tagLine": "Sensei at Big Nerd Ranch",
+  "profilePicture": "https://sessionize.com/image?f=616e8eb09058d62885a0a79a1b3503ea,200,200,True,False,ce-efb4-43a4-bdde-95b5543be36f.6f24074f-8612-43b1-8a6d-5f1a59c313f0.jpeg",
+  "sessions": [
+               {
+               "id": 45779,
+               "name": "Kotlin Coroutines: Beyond async/await"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/bolot",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.bignerdranch.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "31fc3c23-dc47-4937-bef5-4ecac667377e",
+  "firstName": "Brent",
+  "lastName": "Watson",
+  "fullName": "Brent Watson",
+  "bio": "Brent runs the New York City Kotlin meetup group.  He is an Android engineer in NYC at Percolate, an entrepreneur, a published author, speaker, and Kotlin advocate.  He can be found at http://brentwatson.com/.",
+  "tagLine": "Chuck Norris of the Internet",
+  "profilePicture": "https://sessionize.com/image?f=e73eb8a7b9c28b4b9fbb167601459f57,200,200,True,False,23-dc47-4937-bef5-4ecac667377e.af1b89b7-b162-437a-b573-d44f99cabbd7.jpg",
+  "sessions": [
+               {
+               "id": 41211,
+               "name": "Advanced Kotlin"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/brent_watson",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "b46e887c-afac-4b0d-b79d-15df537c122d",
+  "firstName": "Brian",
+  "lastName": "Gardner",
+  "fullName": "Brian Gardner",
+  "bio": "Brian Gardner is an Android developer and instructor at Big Nerd Ranch and a co-organizer of GDG\r\nAtlanta. He is passionate about building apps, playing with new technologies and libraries, and\r\nteaching others. A lover of learning, he balances keeping up to date with the latest and greatest\r\ntrends with his masters classes in machine learning from Georgia Tech. Outside of work he enjoys\r\nmore artistic pursuits such as photography, learning to draw, and the occasional crochet project.",
+  "tagLine": "Developer & Instructor at Big Nerd Ranch",
+  "profilePicture": "https://sessionize.com/image?f=4a49e57bbe4ec8c96ecbdebd6e651c0b,200,200,True,False,0c4b4707-3df1-44d8-86f7-a2985868dbac.jpg",
+  "sessions": [
+               {
+               "id": 41401,
+               "name": "Mocks, Stubs, and Spies, Oh My"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/BrianGardnerAtl",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "f9544911-1242-484c-a974-430fb1f693f1",
+  "firstName": "Britt",
+  "lastName": "Barak",
+  "fullName": "Britt Barak",
+  "bio": "Britt is a Google Developer Expert for Android, born and raised in Israel, the “Startup Nation”, where she has started and lead the mobile teams on various startup companies.\r\n\r\nShe is a worldwide public speaker, a mentor at Google Campus TLV, and a blogger about Android development.\r\nBritt is also Women Techmakers Israel community lead, where she manages unique mentorship programs and acts to promote diversity in the tech industry.",
+  "tagLine": "Android GDE",
+  "profilePicture": "https://sessionize.com/image?f=741aaad8b1fc1d4e63d2dbf5b825d4ed,200,200,True,False,11-1242-484c-a974-430fb1f693f1.d9c2d5a6-dbdf-44c6-98c8-de1f4f0497fc.jpg",
+  "sessions": [
+               {
+               "id": 57123,
+               "name": "Constraint-ly motion ~*~ making your app dance with With ConstraintLayout"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "http://twitter.com/BrittBarak",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/brittbarak/",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@britt.barak",
+            "linkType": "Blog"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.nexmo.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "161e959e-be4f-4829-88c2-38fc14420785",
+  "firstName": "Christina",
+  "lastName": "Lee",
+  "fullName": "Christina Lee",
+  "bio": "Christina is a software engineer and GDE at Pinterest, where she works on UI frameworks.",
+  "tagLine": "Android Engineer @ Pinterest",
+  "profilePicture": "https://sessionize.com/image?f=f4b8a83da61f7d8d36556b177614e689,200,200,True,False,9e-be4f-4829-88c2-38fc14420785.4405903c-b186-40e5-bd9d-cb6b205cb711.jpg",
+  "sessions": [
+               {
+               "id": 57369,
+               "name": "Coroutines by Example"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/RunChristinaRun",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.pinterest.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "36b53fcf-430a-4425-ac8c-d1a36263b612",
+  "firstName": "Dan",
+  "lastName": "Kim",
+  "fullName": "Dan Kim",
+  "bio": "Dan has been an Android programmer at Basecamp for four years, and prior to that had been working with Java for...a long time. \r\n\r\nHe's always enjoyed Android development, but working with Kotlin over the last two years has rocketed that enthusiasm to a whole new level. The Android community has been instrumental to his work and career, and he's a big believer in paying that forward.\r\n\r\nOutside of work, he's an avid Dad 👴, donut aficionado 🍩, pizza lover 🍕, and emoji enthusiast 😉.\r\n",
+  "tagLine": "Android @ Basecamp",
+  "profilePicture": "https://sessionize.com/image?f=6168b6992de27ef1d0c14acd7baead78,200,200,True,False,cf-430a-4425-ac8c-d1a36263b612.5d0fb304-8a1c-41f5-9eb4-e4e2f1ef34be.jpg",
+  "sessions": [
+               {
+               "id": 57042,
+               "name": "Keynote: The future of our community is YOU"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "https://basecamp.com/",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/dankim",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@lateplate",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "6157874c-02af-479a-b949-99ab98398ebe",
+  "firstName": "Daniel",
+  "lastName": "Galpin",
+  "fullName": "Daniel Galpin",
+  "bio": "Dan leads outreach for the Android Developer Relations team at Google, where he's written blogs, developed videos, spoken at conferences, designed Udacity courseware, and written libraries for over eight years, and Kotlin + Jetpack is the thing that makes being on the Android team fun and exciting again.",
+  "tagLine": "Android Developer Advocate and Fast Talking YouTuber",
+  "profilePicture": "https://sessionize.com/image?f=dafcf66f137821b97e69c20df2bd590d,200,200,True,False,4c-02af-479a-b949-99ab98398ebe.d393e4ac-5777-43ad-ac0b-29f5e65475e1.jpg",
+  "sessions": [
+               {
+               "id": 45650,
+               "name": "Adventures in Navigation"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/dagalpin",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://developer.android.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "4d3a31b1-61e5-4a26-9ca3-c9f30e3eaa08",
+  "firstName": "Danny",
+  "lastName": "Preussler",
+  "fullName": "Danny Preussler",
+  "bio": "Danny built mobile applications for companies like Viacom, Groupon, eBay and Alcatel. He is a Google Developer Expert for Android and Kotlin. Before Android he was part of the Blackberry developer community, teaching unit testing for java mobile platforms.",
+  "tagLine": "Head of Mobile, sporttotal.tv",
+  "profilePicture": "https://sessionize.com/image?f=17d9043162652153f147c6d889b5f829,200,200,True,False,b1-61e5-4a26-9ca3-c9f30e3eaa08.47115491-ddf4-4f76-bc65-4008353af5fa.jpg",
+  "sessions": [
+               {
+               "id": 57152,
+               "name": "Junit5: the next gen of testing, don't stay behind"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "http://www.sporttotal.tv/",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/PreusslerBerlin",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@dpreussler",
+            "linkType": "Blog"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/danny-preussler-557a3b79/",
+            "linkType": "LinkedIn"
+            }
+            ]
+  },
+  {
+  "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
+  "firstName": "Doug",
+  "lastName": "Stevenson",
+  "fullName": "Doug Stevenson",
+  "bio": "Doug is a veteran engineer, experienced public speaker, and developer advocate at Google with the Firebase team.  He's been developing for Android since the very first Android device was on the market, and has bootstrapped the efforts of silicon valley startups.  Outside of work, Doug follows professional ice hockey and enjoys craft beer.",
+  "tagLine": "Developer Advocate at Google",
+  "profilePicture": "https://sessionize.com/image?f=f43108cb985a32317d6dca43eef52b08,200,200,True,False,f2-7e34-41b6-8337-56703cb18e82.565eacfa-1b10-4abf-b390-2a610e35ca64.jpg",
+  "sessions": [
+               {
+               "id": 57164,
+               "name": "Firebase and Android Architecture Components: fit like a glove"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/CodingDoug",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://firebase.google.com",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/codingdoug/",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@CodingDoug",
+            "linkType": "Blog"
+            },
+            {
+            "title": "Firebase",
+            "url": "http://firebase.google.com/",
+            "linkType": "Other"
+            }
+            ]
+  },
+  {
+  "id": "5085327b-78aa-414a-86fc-03cd276113db",
+  "firstName": "Effie",
+  "lastName": "Barak",
+  "fullName": "Effie Barak",
+  "bio": "I work at Pinterest as a Senior Android developer on the Android Performance – Core Experience team. Before that I was a Senior Android developer at Udemy, responsible for the Android app development and leading the development of the Android TV prototype. I began working as a C# developer 10 years ago. I became a mobile developer 4 years ago, and released many Windows and Windows Phone apps. After moving to San Francisco in 2013, I worked for Slack on the Windows Phone app.",
+  "tagLine": "Making Android faster @Pinterest",
+  "profilePicture": "https://sessionize.com/image?f=9c5de730579f838b9a56ce99e19df561,200,200,True,False,621159a5-e3fa-4530-b15b-2b172580fc25.jpg",
+  "sessions": [
+               {
+               "id": 45187,
+               "name": "Images 101"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "http://www.twitter.com/codingchick",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "http://www.pinterest.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "c42b74f3-0751-4fc8-b857-200b65e7e089",
+  "firstName": "Egor",
+  "lastName": "Andreevici",
+  "fullName": "Egor Andreevici",
+  "bio": "Egor is a Software Developer at Square, where he works on the Cash app for Android",
+  "tagLine": "Software Developer at Square",
+  "profilePicture": "https://sessionize.com/image?f=9e0dbee507c32f781e584bb07b25d7db,200,200,True,False,f3-0751-4fc8-b857-200b65e7e089.b5b3f473-a91e-445b-9eae-f4d20a9a671d.jpeg",
+  "sessions": [
+               {
+               "id": 56666,
+               "name": "Ok Multiplatform!"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/EgorAnd",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://squareup.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "a0586acc-ac50-4560-ac22-8d0d50229245",
+  "firstName": "Eliza",
+  "lastName": "Camber",
+  "fullName": "Eliza Camber",
+  "bio": "Eliza is an Android developer at Pixplicity in the Netherlands, and the WomenTechmakers lead and a GDG organizer for the Dutch chapters. She’s also a speaker in many tech conferences for community, Android and conversational apps topics. Her studies were on Robotics and Automation Engineering.",
+  "tagLine": "Android developer at Pixplicity",
+  "profilePicture": "https://sessionize.com/image?f=c567acbb966f2c81d4a5799fd1d4859c,200,200,True,False,cc-ac50-4560-ac22-8d0d50229245.00ec0854-4121-4c95-aa77-4bf315a7c59b.png",
+  "sessions": [
+               {
+               "id": 57662,
+               "name": "Taking your agent to the next level"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/ElizaCamber",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://pixplicity.com/",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/elizacamber/",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@elizacamber/",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "4d2a54b5-0c51-46cf-82ac-f46f12f64886",
+  "firstName": "Elizabeth",
+  "lastName": "Irizarry",
+  "fullName": "Elizabeth Irizarry",
+  "bio": "Elizabeth is an Android engineer for Instagram, where she leads infrastructure efforts to improve mobile performance for a globally growing user base. Prior to Instagram, Elizabeth worked at Foursquare, managing the Android teams of both Foursquare City Guide and Swarm. Before making the switch to mobile, Elizabeth worked at Macromedia/Adobe Systems and was the first female engineer on the Flash authoring team. Elizabeth volunteers with Coalition for Queens, providing industry insights to their diverse population of students; many of whom hail from her hometown borough of Queens, NY.",
+  "tagLine": "Android Engineer, Instagram",
+  "profilePicture": "https://sessionize.com/image?f=dc163511bc215e5726cd9e934090dedc,200,200,True,False,b5-0c51-46cf-82ac-f46f12f64886.7d8e2aa8-8412-432f-bce2-b61dd931a86f.jpg",
+  "sessions": [
+               {
+               "id": 57272,
+               "name": "Detangling Your Dependency Graph: How App Modularization Can Unlock Performance Wins."
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/eliz_iriz",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.instagram.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "f5080455-7419-4fc4-91c4-dff6a7d54c53",
+  "firstName": "Eric",
+  "lastName": "Cochran",
+  "fullName": "Eric Cochran",
+  "bio": "Eric works on making the Pinterest Android app even better, meanwhile trying to give back to and learn from open-source software whenever he can.",
+  "tagLine": "Performance Person",
+  "profilePicture": "https://sessionize.com/image?f=40e5e00f1a74f2e34b241351085f6387,200,200,True,False,72bed5d3-f273-4903-815a-10386a81f9e0.jpg",
+  "sessions": [
+               {
+               "id": 57251,
+               "name": "Performant Multiplatform Kotlin Serialization"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "https://www.pinterest.com/",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/Eric_Cochran/",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "http://blog.nightlynexus.com/",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "6f970913-2db5-4260-871e-b733e1d707f2",
+  "firstName": "Faisal",
+  "lastName": "Abid",
+  "fullName": "Faisal Abid",
+  "bio": "Faisal is a Google Developer Expert, Entrepreneur, and Engineer. He is a programming language enthusiast and loves solving software engineering challenges across the stack.\r\n\r\nCurrently, you can find Faisal working on mobile applications in Flutter, building services with Tensorflow and writing backends in Dart or Node.js.",
+  "tagLine": "Zoom.ai",
+  "profilePicture": "https://sessionize.com/image?f=d64d9943bca4f20165ac14c3fb8faacb,200,200,True,False,f000c895-d197-44d0-a204-33675e630f85.jpg",
+  "sessions": [
+               {
+               "id": 57231,
+               "name": "Flutter for Android developers!"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://www.twitter.com/FaisalAbid",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "5d93a033-2cbe-4286-acc8-1b928e616210",
+  "firstName": "Gabriel",
+  "lastName": "Peal",
+  "fullName": "Gabriel Peal",
+  "bio": "Gabriel is an Android engineer at Airbnb.\r\nAt Airbnb, he supports 70 product engineers to ensure that the app is stable and fun to develop for.\r\nHe also wrote Lottie for Android.\r\n\r\nPrior to Airbnb, he worked on Android Auto at Google.",
+  "tagLine": "Android at Airbnb",
+  "profilePicture": "https://sessionize.com/image?f=3da4dcee7c12c3bec67aa83d6fc146a2,200,200,True,False,c23f54d0-48bb-45f4-b24e-e01f7a5fe6f0.jpg",
+  "sessions": [
+               {
+               "id": 46161,
+               "name": "Lessons Learned from React Native at Airbnb"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/gpeal8",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.airbnb.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "833790eb-c1a5-47f9-ab5d-576e30943b62",
+  "firstName": "Gautam",
+  "lastName": "Korlam",
+  "fullName": "Gautam Korlam",
+  "bio": "I lead the Android Developer Experience Team at Uber. I am very passionate about tooling, infrastructure and build systems for building android apps at scale.",
+  "tagLine": "Android Developer Experience, Uber",
+  "profilePicture": "https://sessionize.com/image?f=552edd144c9453e6800d07dd30edb5e8,200,200,True,False,fcb79c1d-238b-494d-a47e-b7f3c459b22a.jpg",
+  "sessions": [
+               {
+               "id": 43649,
+               "name": "Dude, Where's My Build? Android CI/CD at Uber"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/kageiit",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.uber.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "2d41d3fb-3321-4b47-a401-ae84a5de2423",
+  "firstName": "Huyen Tue",
+  "lastName": "Dao",
+  "fullName": "Huyen Tue Dao",
+  "bio": "Huyen Tue Dao is an Android developer and Google Developer Expert for Android and Kotlin. She currently works on the Trello Android app at Atlasssian and is also co-producer of the \"Android Dialogs\" YouTube channel.\r\n\r\nHuyen lives in Denver, CO though is often found in the DC Metro area. When not up late programming, she is often found up late gaming (video, board, card, anything).",
+  "tagLine": "Android Code Monkey @ Trello",
+  "profilePicture": "https://sessionize.com/image?f=269ca848041d01c2fd498fa5d2ffcd1e,200,200,True,False,082b63d1-68c8-4245-862e-15f1263325ff.jpg",
+  "sessions": [
+               {
+               "id": 57236,
+               "name": "Dissecting the stdlib"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/queencodemonkey",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "https://www.randomlytyping.com",
+            "linkType": "Blog"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/huyentuedao/",
+            "linkType": "LinkedIn"
+            }
+            ]
+  },
+  {
+  "id": "3eabdd46-6cb5-4083-9eb8-1ad9a3b7a5eb",
+  "firstName": "Jake",
+  "lastName": "Wharton",
+  "fullName": "Jake Wharton",
+  "bio": "Android Framework engineer at Google working on Kotlin things.",
+  "tagLine": "Android Framework at Google, Inc.",
+  "profilePicture": "https://sessionize.com/image?f=9194a60313da419c38449cd66b5f5a83,200,200,True,False,5b966c61-164b-4292-945e-e5e435d350d2.jpg",
+  "sessions": [
+               {
+               "id": 57261,
+               "name": "Digging into D8 and R8"
+               },
+               {
+               "id": 57278,
+               "name": "Rinsing the Brush: Picasso 3.0"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/JakeWharton",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "http://jakewharton.com",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "56115ae3-406f-47af-818c-20354acc07b2",
+  "firstName": "Jeremy",
+  "lastName": "Meiss",
+  "fullName": "Jeremy Meiss",
+  "bio": "Jeremy is the Head of Community at Auth0 and former Community Manager at XDA-Developers. He is a lover of all things coffee, community, open source, and tech. He has a wife, 3 kids, and a beagle who all profess undying love.",
+  "tagLine": "Nerd-herder, Cat-wrangler, Community Fiend",
+  "profilePicture": "https://sessionize.com/image?f=c85090d1f52dc825c676506e12ea0e6a,200,200,True,False,279c2b37-6fa7-4cb0-af46-1399434cff05.jpg",
+  "sessions": [
+               {
+               "id": 43584,
+               "name": "Community - What is it good for?"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/IAmJerdog",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://linkedin.com/in/jeremymeiss",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Blog",
+            "url": "https://jmeiss.me",
+            "linkType": "Blog"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://auth0.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "4a13d160-c8c3-4214-926f-24a5b15c78dd",
+  "firstName": "Jesse",
+  "lastName": "Wilson",
+  "fullName": "Jesse Wilson",
+  "bio": "Android and jokes. Sometimes also inclusivity & sustainability. 🦕",
+  "tagLine": "Programmer at Square",
+  "profilePicture": "https://sessionize.com/image?f=2c86ac775bdfebb95d2aa2c815de9081,200,200,True,False,440831a7-e4b6-4b23-8de4-4ff52a44f884.jpg",
+  "sessions": [
+               {
+               "id": 43698,
+               "name": "Writing Code That Lasts Forever"
+               },
+               {
+               "id": 56666,
+               "name": "Ok Multiplatform!"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/jessewilson",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://cash.app",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "903c7a65-63f0-4244-8f8c-7ab8f7acae75",
+  "firstName": "John",
+  "lastName": "Rodriguez",
+  "fullName": "John Rodriguez",
+  "bio": "John is an Android engineer on Square Cash. Contributor to Picasso and LeakCanary. Previously at Amplify and Major League Baseball.",
+  "tagLine": "Android @ Square",
+  "profilePicture": "https://sessionize.com/image?f=11ed0861de0ad67add4acfea7e5a6787,200,200,True,False,516ffc11-9939-47e8-aea9-42b3046a2ba3.jpg",
+  "sessions": [
+               {
+               "id": 57278,
+               "name": "Rinsing the Brush: Picasso 3.0"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/jrodbx",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://squareup.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "910f395b-9d2b-4f7d-8ab4-c4008bd9f0c4",
+  "firstName": "Jonathan",
+  "lastName": "Petit-Frere",
+  "fullName": "Jonathan Petit-Frere",
+  "bio": "Jonathan is an Android Engineer at Button in NYC. He enjoys reading about clean architecture, testing, and IoT. On his free time he likes to work on a variety of IoT projects with Android Things.",
+  "tagLine": "Android Engineer",
+  "profilePicture": "https://sessionize.com/image?f=4363c9cd35ea07e27b2bdcd6e269ac60,200,200,True,False,adc372d9-d6c2-4490-b30e-b4541cc38c5b.jpg",
+  "sessions": [
+               {
+               "id": 46331,
+               "name": "Intro to Android Things"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": []
+  },
+  {
+  "id": "83b4b946-663b-46cb-8be5-f5272ecd262c",
+  "firstName": "Jorge",
+  "lastName": "Coca",
+  "fullName": "Jorge Coca",
+  "bio": "Spanish engineer lost in Chicago. I work for the BMW Group, where we craft the Android apps for BMW, MINI and Rolls Royce. When I am not coding, you’ll likely find me playing guitar, and trying to sing at the same time, although we can all agree that singing is not one of my strengths!",
+  "tagLine": "Android Lead Engineer at BMW",
+  "profilePicture": "https://sessionize.com/image?f=7775695f542425e9aa214542a7f59c82,200,200,True,False,46-663b-46cb-8be5-f5272ecd262c.13b1f1d4-9eb1-4125-b8d5-b2fff2dd3949.jpg",
+  "sessions": [
+               {
+               "id": 42639,
+               "name": "let swift == val kotlin -> Why iOS is so important for Android, and vice versa"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/jcocaramos",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.bmw.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "b0fd89f3-4cf0-4134-a70f-ac41c3473688",
+  "firstName": "Junfeng",
+  "lastName": "Yang",
+  "fullName": "Junfeng Yang",
+  "bio": "Junfeng Yang is Co-founder of NimbleDroid, a tech startup that helps businesses build better mobile apps faster.  He's also a professor at Columbia University where he co-invented the initial NimbleDroid technology.  Junfeng is an expert in software systems and tools, a pioneer in leveraging advanced program analysis to check real-world software.  He was a consultant and researcher at Microsoft.  He earned his PhD in CS at Stanford. He has been working on making performant, reliable, and secure software for over 18 years. His inventions have been applied to analyze, test, debug, monitor, and optimize real-world software, including Android, Linux, Berkeley DB, and production systems at Microsoft and VMware, benefiting hundreds of millions of users. His work has been covered by presses including Communications of ACM and The Register, and won many awards.  He has published and refereed in many top systems, security, programming languages, and software engineering conferences.",
+  "tagLine": "Co-founder of NimbleDroid, Columbia Professor",
+  "profilePicture": "https://sessionize.com/image?f=4edb6af6923ca0e2b7f38c9c56d74fa1,200,200,True,False,f566f08f-8fd9-4000-ab9b-d26202d17be7.jpg",
+  "sessions": [
+               {
+               "id": 57256,
+               "name": "A quantitative analysis of Kotlin's performance"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/junfengy",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "http://nimble.app",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "b97dd341-5743-4f33-b57d-848ed79751b5",
+  "firstName": "Keerthana",
+  "lastName": "Kumar",
+  "fullName": "Keerthana Kumar",
+  "bio": "KK has been working at Microsoft for 3 years as a Software Engineer in HockeyApp and AppCenter teams. She enjoys app development and teaching high school students computer science.",
+  "tagLine": "Code Ninja, Microsoft",
+  "profilePicture": "https://sessionize.com/image?f=ff70e2ef4c582425a2cc61813f14c1e9,200,200,True,False,41-5743-4f33-b57d-848ed79751b5.35a27bc0-1e2f-42b1-a53d-8e0b112acfcc.jpg",
+  "sessions": [
+               {
+               "id": 57078,
+               "name": "Lighting Fast Update to your Android App with React Native"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": []
+  },
+  {
+  "id": "7a094732-2918-4be4-9e51-1fed7d6635d0",
+  "firstName": "Kenneth",
+  "lastName": "Ford",
+  "fullName": "Kenneth Ford",
+  "bio": "Kenneth is a Developer Advocate at Google where he's been heavily focusing on app compatibility and usability on Chrome OS.",
+  "tagLine": "Developer Advocate at Google",
+  "profilePicture": "https://sessionize.com/image?f=771df9f02dff0e3d406e749b368ccb61,200,200,True,False,32-2918-4be4-9e51-1fed7d6635d0.0bf74fcb-229c-464a-bfb9-5deab32be4ae.jpg",
+  "sessions": [
+               {
+               "id": 56997,
+               "name": "Android on Chrome OS: What you need to know"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/KennethFSWE",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.google.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "355899b3-60c9-43ec-9b86-514d5ae81cb3",
+  "firstName": "Kurt",
+  "lastName": "Nelson",
+  "fullName": "Kurt Nelson",
+  "bio": "Kurt has been working with Android at the framework and application level since 2010 and bought a Motorola Xoom. At Google, he worked on Glass, Google Buds and the internal application framework used by apps such as Tez & Google Go.",
+  "tagLine": "Android Xoogler making public transit more accessible",
+  "profilePicture": "https://sessionize.com/image?f=8e61b7ee1599728aef227ef75d520dd7,200,200,True,False,f3661157-539d-4686-b8a9-9566465ac2a4.jpg",
+  "sessions": [
+               {
+               "id": 46148,
+               "name": "Why Jetpack?"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "http://twitter.com/kurtisnelson",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "http://hopthru.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "4b5caeb3-6896-484a-8831-d4c2ae5f56c4",
+  "firstName": "Lyla",
+  "lastName": "Fujiwara",
+  "fullName": "Lyla Fujiwara",
+  "bio": "Lyla Fujiwara is an Android Developer Advocate at Google. Prior to joining Google, she worked at Udacity on the Android team, where she taught introductory to advanced Android and Firebase content to over a hundred thousand developers. She's a returned Peace Corps volunteer and has taught and lived on three continents.",
+  "tagLine": "Android Developer Advocate",
+  "profilePicture": "https://sessionize.com/image?f=27d2f620856d9778dcf766d46fcae75f,200,200,True,False,b3-6896-484a-8831-d4c2ae5f56c4.b9d9c34d-ee48-4eb8-aa7b-a00d503b3026.jpg",
+  "sessions": [
+               {
+               "id": 45650,
+               "name": "Adventures in Navigation"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/ceruleanotter",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "bf2d5f77-1bd0-4cc9-b35e-ca6d82ee782c",
+  "firstName": "Marcos Paulo",
+  "lastName": "Damasceno",
+  "fullName": "Marcos Paulo Damasceno",
+  "bio": "Marcos is a Senior Android Dev who has been working with android for 8 years now. He carries in his career big projects in Canada for companies like Bell, AmpMe and GCM Group and he has worked in great companies like Transit and Shopify.\r\n\r\nActive in the Android community for quite some time now, Marcos is a Google Developer Expert for Android and has given many talks in big conferences like Droidcon NYC, Android TO, Droidcon London and many others. He is passionate about UI, User Experience and architecture and advocates for awesome looking apps before Material Design was a thing.",
+  "tagLine": "Android GDE and Senior Android Dev",
+  "profilePicture": "https://sessionize.com/image?f=48aa4c1416e3fa2dc826fbb7ac8745e4,200,200,True,False,77-1bd0-4cc9-b35e-ca6d82ee782c.42b36940-cc37-4da3-b072-264fffe874aa.jpg",
+  "sessions": [
+               {
+               "id": 57178,
+               "name": "Bringing your app to life - Motion Animations everywhere"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/marcospaulosd",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://tech.gotinder.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "b308cbd1-215d-461a-8b10-8814798ab6f8",
+  "firstName": "Michael",
+  "lastName": "Bailey",
+  "fullName": "Michael Bailey",
+  "bio": "Michael is a Google Developer Expert and a Principal Engineer on the Android team responsible for American Express’ flagship consumer Android apps in the U.S. market. Development on these apps began in 2010. Since joining the company in 2008, Michael has worked on a number initiatives at American Express including analytics, enterprise content management, AmexLabs, iOS apps, international mobile applications, NFC payments, the U.S. homepage and the U.S. online card applications site. Michael holds a BS in Computer Science from Harvey Mudd College and an MS in Computer Science from the University of Southern California, where he specialized in computer security. Including the U.S. consumer apps that Michael works on, American Express has 8 Android apps in the U.S. Google Play Store (https://play.google.com/store/apps/developer?id=American%20Express) and more in the international Play Stores.",
+  "tagLine": "Principal Engineer, American Express",
+  "profilePicture": "https://sessionize.com/image?f=98c4719a97b828e3ad495c7b8899c425,200,200,True,False,d1-215d-461a-8b10-8814798ab6f8.9028b3e3-3b12-4604-827a-852ad6cef5a1.jpg",
+  "sessions": [
+               {
+               "id": 46401,
+               "name": "Android Studio Tips and tricks"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/yogurtearl",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "3f55bd8e-d9d8-4d1f-b866-7a04f72ba621",
+  "firstName": "Michael",
+  "lastName": "Evans",
+  "fullName": "Michael Evans",
+  "bio": "Michael Evans is a Senior Android Engineer at Twitter in New York City. He is a Google Developer Expert and has been working on Android since 2009. Previously, he was a mobile developer at LivingSocial and a backend infrastructure engineer at The Washington Post. He is also known to eat too many donuts in one sitting.",
+  "tagLine": "Twitter Inc.",
+  "profilePicture": "https://sessionize.com/image?f=b9b2667cccfc3dcdc257afe0e8ef4ac1,200,200,True,False,8e-d9d8-4d1f-b866-7a04f72ba621.441a8419-2a2c-437d-a2e2-3a8a6132a4cb.png",
+  "sessions": [
+               {
+               "id": 57346,
+               "name": "Android U+2764 (❤) Emoji"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/m_evans10",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://twitter.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "555a184f-c8f2-4ea8-a116-6ca5ac306a38",
+  "firstName": "Mike",
+  "lastName": "Castleman",
+  "fullName": "Mike Castleman",
+  "bio": "Mike Castleman has been a mobile engineer at Meetup for six years or so, and built other things using other technologies before that.",
+  "tagLine": "Staff Engineer, Meetup",
+  "profilePicture": "https://sessionize.com/image?f=b241452ca76c50c52641061862cee0a1,200,200,True,False,5c4b9028-2a78-41d0-9099-c1708c83da67.jpg",
+  "sessions": [
+               {
+               "id": 43983,
+               "name": "React Native for Android Engineers"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/vermicelli",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.meetup.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "a79f3682-df5c-40e4-8aa8-1b6eaa7bdeec",
+  "firstName": "Mohit",
+  "lastName": "Sarveiya",
+  "fullName": "Mohit Sarveiya",
+  "bio": "Mohit Sarveiya is an Android Engineer at Vimeo and a Kotlin advocate. Prior to building Android apps for many years, he was a Backend Engineer. He started using Kotlin 3 years ago in production and absolutely loves the language. He has given talks at Kotlin NYC meetups and has given workshops on Kotlin.",
+  "tagLine": "Android Engineer at Vimeo",
+  "profilePicture": "https://sessionize.com/image?f=03f963ee5760363dd5bf470355752887,200,200,True,False,82-df5c-40e4-8aa8-1b6eaa7bdeec.45065e17-9acb-4e60-a5ae-bcf5bb902956.jpeg",
+  "sessions": [
+               {
+               "id": 42148,
+               "name": "Static Code Analysis For Kotlin"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/heyitsmohit",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://vimeo.com/",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@heyitsmohit",
+            "linkType": "Blog"
+            },
+            {
+            "title": "Speakerdeck",
+            "url": "https://speakerdeck.com/heyitsmohit",
+            "linkType": "Other"
+            }
+            ]
+  },
+  {
+  "id": "b552006b-241d-4d1b-a67d-b5c89ef258e1",
+  "firstName": "Moyinoluwa",
+  "lastName": "Adeyemi",
+  "fullName": "Moyinoluwa Adeyemi",
+  "bio": "Moyinoluwa is an Android Developer who enjoys exploring the latest technologies in Android Development. She loves sharing her knowledge by writing on Medium. She also cares a lot about building apps that look good and work well on all devices.",
+  "tagLine": "Android Developer at Offgrid Electric",
+  "profilePicture": "https://sessionize.com/image?f=4d58cf3980590edb9f807465472572ad,200,200,True,False,6b-241d-4d1b-a67d-b5c89ef258e1.557c848a-271b-45dd-8020-e77fbc7dbcb1.jpg",
+  "sessions": [
+               {
+               "id": 56833,
+               "name": "Building smarter apps with ML Kit"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "http://offgrid-electric.com/",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/moyheen",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "71df3369-6fb1-4f12-9e56-c0c2889aaa43",
+  "firstName": "Nate",
+  "lastName": "Ebel",
+  "fullName": "Nate Ebel",
+  "bio": "Nate is an Android developer working on mobile apps at Udacity who believes in lifelong education and helping others do the same.\r\nHe’s worked across the android ecosystem building education products, mapping applications, as well as evolving autonomous robots.\r\nHe loves to chat about Android, tech, careers, geekery or anything else; so feel free to reach out.\r\n– Android dev at Udacity\r\n– Blogger\r\n– Co-organizer of Udacious Seattle\r\n– Runner\r\n– Self-proclaimed geek",
+  "tagLine": "Android dev at Udacity",
+  "profilePicture": "https://sessionize.com/image?f=86baada6690c84166abee6d3391c7563,200,200,True,False,dd8b7825-9590-410e-8448-48cccd4ff88e.jpg",
+  "sessions": [
+               {
+               "id": 45982,
+               "name": "Working Effectively Across Space-Time"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "http://www.udacity.com",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/n8ebel",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "https://n8ebel.com/",
+            "linkType": "Blog"
+            },
+            {
+            "title": "YouTube",
+            "url": "https://www.youtube.com/channel/UCVysWoMPvvHQMEJvRkslbAQ",
+            "linkType": "Other"
+            }
+            ]
+  },
+  {
+  "id": "8392fe39-196e-4dc1-b8ef-4796919fddfb",
+  "firstName": "Nelmer",
+  "lastName": "De La Cruz",
+  "fullName": "Nelmer De La Cruz",
+  "bio": "Nelmer is a Product Designer and UI Developer with 7 years in the industry. Currently he works as mentor for Udacity’s Connect program where he helps students with their development projects.",
+  "tagLine": "Product Designer",
+  "profilePicture": "https://sessionize.com/image?f=348af37dba2b9c0e23048dc4879b1106,200,200,True,False,90cb7a7f-4f71-4e56-8062-b16869dee7e3.jpg",
+  "sessions": [
+               {
+               "id": 57275,
+               "name": "Achieving seamless experience with Flutter and Material Components"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/nelmerr",
+            "linkType": "Twitter"
+            }
+            ]
+  },
+  {
+  "id": "0c0396e3-89a3-49bb-bdb9-323ceb9617c9",
+  "firstName": "Nish",
+  "lastName": "Tahir",
+  "fullName": "Nish Tahir",
+  "bio": "Nish Tahir is a Senior Software Engineer at where he spends most of his time building digital products for the world’s leading companies. ",
+  "tagLine": "Senior Software Engineer @ WillowTree Inc",
+  "profilePicture": "https://sessionize.com/image?f=5dc48fc91315cb98987a4cbad595c18d,200,200,True,False,e3-89a3-49bb-bdb9-323ceb9617c9.0ad75b2c-b04d-4e75-80d0-8e4bf2ea152f.jpg",
+  "sessions": [
+               {
+               "id": 42433,
+               "name": "Redux on Android, the nitty gritty"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/nish_tahir/",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "https://blog.nishtahir.com",
+            "linkType": "Blog"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://willowtreeapps.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "f282d713-75e2-48e9-a84a-696b3f609345",
+  "firstName": "Nitya",
+  "lastName": "Narasimhan",
+  "fullName": "Nitya Narasimhan",
+  "bio": "Nitya Narasimhan is a PhD with experience in software design, research & development spanning industry, academia, startups and consultancy. She is an innovator, polyglot, speaker & consultant with a passion for building pragmatic tech solutions and inclusive tech communities. She organizes Google Developer Group chapters in NYC & Hudson Valley, runs DevFest NYC, and watches BattleBots with her mayhem-loving 9yo. ",
+  "tagLine": "Pragmatic developer. Passionate educator. Perpetual learner.",
+  "profilePicture": "https://sessionize.com/image?f=0ece1dade14a6b20a58daee9a7ace87b,200,200,True,False,13-75e2-48e9-a84a-696b3f609345.e628a78d-d1e2-4022-aa60-3a0dd10066bb.png",
+  "sessions": [
+               {
+               "id": 46160,
+               "name": "Get Animated with Flutter!"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://www.twitter.com/nitya",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://nityan.me",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Blog",
+            "url": "https://nityan.me",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "728504d0-97f2-4f34-8558-0e91b2aa1419",
+  "firstName": "Noe",
+  "lastName": "Branagan",
+  "fullName": "Noe Branagan",
+  "bio": "Lead developer at instacarro.com a buying car service company based Brazil, mobile app developer since 2009 and 100% focused in Android since 2011, extensive experience in the area of research and development to meet needs for emerging markets(Africa and Latin America). He has over 10 years of experience as developer; passionate about in any type of activity related with education specially those that help other developers grow or to get people into software development ; likes to serve as a mentor/coach, if you have anything in mind send him a message @noeBranagan.",
+  "tagLine": "am i a mutant ;-D",
+  "profilePicture": "https://sessionize.com/image?f=055ae5b7d03eb99a3616ccb9c675077e,200,200,True,False,d0-97f2-4f34-8558-0e91b2aa1419.f4840259-c74b-4077-9296-2227f2bf1a50.jpg",
+  "sessions": [
+               {
+               "id": 57228,
+               "name": "Using multiplatform frameworks to target Android in emerging markets."
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/noeBranagan",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.instacarro.com/",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/noebranagan/",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@noeBranagan",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "d3cbd6c6-dce7-4d40-8164-bbf484ebc1c6",
+  "firstName": "Rahul",
+  "lastName": "Dandamudi",
+  "fullName": "Rahul Dandamudi",
+  "bio": "Software Engineer at Facebook/Instagram. Focusing on improving Mobile Frameworks and tooling at Instagram. Prior to Instagram I have worked at Geico.",
+  "tagLine": "Facebook/Instagram",
+  "profilePicture": "https://sessionize.com/image?f=ec9da8626592aff8fd8d9fe3b468f49c,200,200,True,False,c6-dce7-4d40-8164-bbf484ebc1c6.c9bf53e9-e63a-4bac-8d7d-ad806ac87d6a.jpg",
+  "sessions": [
+               {
+               "id": 57084,
+               "name": "Scaling Instagram's Launcher Activity"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": []
+  },
+  {
+  "id": "646237bf-ccc5-43fa-a659-0b361b08d651",
+  "firstName": "Ralf",
+  "lastName": "Wondratschek",
+  "fullName": "Ralf Wondratschek",
+  "bio": "Ralf is the tech lead for Android at Evernote. He's leading a team of 7 engineers working on the product by providing technical guidance and coordinating technical tasks. His main focus lies on the architecture of the Android related projects to be able to move forward fast.\r\n\r\nRalf also maintains several open-source projects on Github, e.g. android-job, which is used by many other companies like Twitter, Dropbox, Square, Pocket and The New York Times.\r\n\r\nPrior to Evernote, Ralf worked together with several companies in Germany and published as independent developer four apps in the Google Play Store.",
+  "tagLine": "Tech lead for Android at Evernote",
+  "profilePicture": "https://sessionize.com/image?f=92f8af2464441c9700285368993f5d85,200,200,True,False,dd98533c-fbc1-45da-998f-53a6da1d5cf4.jpg",
+  "sessions": [
+               {
+               "id": 43749,
+               "name": "From AlarmManager to WorkManager"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/vRallev",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://evernote.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "7a1d47f2-dfd1-4af1-b097-5c415f9b29c3",
+  "firstName": "Russell",
+  "lastName": "Wolf",
+  "fullName": "Russell Wolf",
+  "bio": "Russell started tinkering with Android development in 2012, and has been using Kotlin since late 2015. He has worked on Android projects in domains such as gaming, fitness tracking, identity protection, and bluetooth communication.\r\n\r\nIn addition, Russell is an organizer behind Kotlin Office Hours, a monthly meetup for Boston-area software developers that holds tech talks on Kotlin and related topics.",
+  "tagLine": "Android Developer at Intrepid, an Accenture Studio",
+  "profilePicture": "https://sessionize.com/image?f=4fde490066cd392b2e70e38f03d79a79,200,200,True,False,f2-dfd1-4af1-b097-5c415f9b29c3.470f3945-b994-4a1b-9b48-78258211bccd.png",
+  "sessions": [
+               {
+               "id": 57276,
+               "name": "Building a Multiplatform Kotlin Library"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/RussHWolf",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.intrepid.io/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "f1275dc9-492b-4ab1-b31b-3e19bccde628",
+  "firstName": "Ryan",
+  "lastName": "Harter",
+  "fullName": "Ryan Harter",
+  "bio": "I'm the Android developer at Pixite where I work on Pigment, and I'm also a Google Developer Expert for Kotlin and Android. I've been developing Android apps since 2009 and love working on anything fun, usually graphics related.",
+  "tagLine": "Android @ Pixite",
+  "profilePicture": "https://sessionize.com/image?f=04dcc0802ff75fbcdf4f32aeb220248e,200,200,True,False,420c9d30-d1e7-4882-b2e0-7572b2038982.jpg",
+  "sessions": [
+               {
+               "id": 57255,
+               "name": "Testing In App Billing the Easy Way"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "http://pixiteapps.com/",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/rharter",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "http://ryanharter.com/",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "66296294-ca8f-4d03-85f3-d26aa5035c5d",
+  "firstName": "Siyamed",
+  "lastName": "Sınır",
+  "fullName": "Siyamed Sınır",
+  "bio": "Siyamed is a tech lead on the Android UI Toolkit team focused on text and UI widgets. Prior to Google, he developed consumer internet and Android applications in San Francisco, and co-founded a vertical search engine platform. He has a bachelor's degree in computer science.",
+  "tagLine": "Android Text Lead / Google",
+  "profilePicture": "https://sessionize.com/image?f=318c9cbfb22fda98ea2f30b61948de70,200,200,True,False,94-ca8f-4d03-85f3-d26aa5035c5d.feb5ef4c-f9a1-4780-9d8f-3eadcbba3542.jpg",
+  "sessions": [
+               {
+               "id": 57273,
+               "name": "Android Text, The Good The Bad and The ugly"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/siyamed",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.google.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "ce1d1fe2-96af-47a8-a07e-57c8e9a75b18",
+  "firstName": "Stephen",
+  "lastName": "D'Amico",
+  "fullName": "Stephen D'Amico",
+  "bio": "Stephen is the Android Lead at SeatGeek, based here in NYC. Working professionally on Android for over 6 years, ",
+  "tagLine": "Android Lead @ SeatGeek",
+  "profilePicture": "https://sessionize.com/image?f=fdce2326a103da2ae29ea6ed361165de,200,200,True,False,5f373001-ce9f-4f55-a8fd-16b9bc77c242.jpg",
+  "sessions": [
+               {
+               "id": 56990,
+               "name": "Architecting an app with MVP and ViewModels"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/sddamico",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://seatgeek.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "0edcfcd6-2189-412f-aa43-b324c35f3d99",
+  "firstName": "Sunitha",
+  "lastName": "Burri",
+  "fullName": "Sunitha Burri",
+  "bio": "Sunitha is a passionate Android developer working at Oath, who has keen interest in UI development. She likes to work with product and design closely to provide valuable thoughts in coming up with best experience for users. She is currently focusing on performance improvements in Newsroom app. She recently received DCFemTech Award for being power women in code. ",
+  "tagLine": "Android Ninja",
+  "profilePicture": "https://sessionize.com/image?f=632572bdb1f2e52809e39be2c0eef208,200,200,True,False,d6-2189-412f-aa43-b324c35f3d99.e18498b4-0ea1-4e6a-91d1-af595228f151.png",
+  "sessions": [
+               {
+               "id": 57262,
+               "name": "Wanna get rid of UI Jank?"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/SunithaBurri",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://www.oath.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "83baf5d7-31ed-4621-ad77-be79699a86fb",
+  "firstName": "Tatyana",
+  "lastName": "Casino",
+  "fullName": "Tatyana Casino",
+  "bio": "Tatyana Casino is a software engineer at WillowTree, a mobile innovation agency. Tatyana has been building mobile apps for a variety of leading brands and clients. She has been developing for Android for 5 years, has done cross-platform development with Xamarin and worked on native iOS projects as well. She is passionate about learning, writing great code and exploring emerging technologies.",
+  "tagLine": "Software Engineer at WillowTree",
+  "profilePicture": "https://sessionize.com/image?f=b685837c4916e007ec9f5adc338a54eb,200,200,True,False,d7-31ed-4621-ad77-be79699a86fb.629cc2c6-ef29-4a2b-8467-c435b962e318.jpg",
+  "sessions": [
+               {
+               "id": 44703,
+               "name": "Slice It Up: Driving the user engagement outside your app"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "https://willowtreeapps.com",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/tatyana-casino-274a6a68",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Blog",
+            "url": "https://willowtreeapps.com/ideas/google-i-o-2018-highlights-big-advancements-for-google-assistant",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "6a3de662-ef86-4c62-bb68-2f7ebe607f76",
+  "firstName": "Ty",
+  "lastName": "Smith",
+  "fullName": "Ty Smith",
+  "bio": "Ty has been working on Android since 2009. He is an Android Engineer at Uber, focused on frameworks and open-source. He is a member of the Google Developer Expert program and regularly speaks at international conferences on Android. He organizes the SF Android Meetup group and Droidcon SF. He is a member of the technical advisory and investment group, Specialized Types. Prior to Uber, Ty worked on the Fabric tools at Twitter, the Evernote Android App and SDK, a messaging platform for Sprint, and Zagat for Android.",
+  "tagLine": "TECH LEAD MANAGER AND GDE",
+  "profilePicture": "https://sessionize.com/image?f=97337da77a037ea418540247381f0cc0,200,200,True,False,62-ef86-4c62-bb68-2f7ebe607f76.68085f15-d909-4d5e-8175-cd1a784f855e.jpg",
+  "sessions": [
+               {
+               "id": 57659,
+               "name": "Tools of the Trade"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "http://twitter.com/tsmith",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "http://tysmith.me",
+            "linkType": "Blog"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "http://linkedin.com/in/tyvsmith",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Company Website",
+            "url": "http://uber.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "e9820baa-c040-4c39-9318-b6439fca3c61",
+  "firstName": "Victoria",
+  "lastName": "Gonda",
+  "fullName": "Victoria Gonda",
+  "bio": "Victoria was drawn to programming because of its potential to help people in a meaningful way. She is currently an Android Engineer at Buffer. The conferences she has spoken at have been an enjoyable way to connect with the technical community and exchange information with others. In her spare time, Victoria enjoys dancing and curling up with a good book.",
+  "tagLine": "Android Engineer at Buffer",
+  "profilePicture": "https://sessionize.com/image?f=37430049ed5dcd2f90ab1ab9c7edb83c,200,200,True,False,aa-c040-4c39-9318-b6439fca3c61.34df600c-1407-48ba-8b20-3ac14bfb00b5.png",
+  "sessions": [
+               {
+               "id": 41068,
+               "name": "Functional Android"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/TTGonda",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "http://www.victoriagonda.com/blogs/",
+            "linkType": "Blog"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/victoriagonda/",
+            "linkType": "LinkedIn"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://buffer.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "225f7363-624e-418f-9610-2d65817a4ac6",
+  "firstName": "Yousuf",
+  "lastName": "Haque",
+  "fullName": "Yousuf Haque",
+  "bio": "Yousuf is an Android developer at Restaurant Brands International on the Tim Hortons App. He's done client side and server side development in the past, but these days he's trying to figure out how many different ways he can use Kotlin day to day.",
+  "tagLine": "Android Engineer",
+  "profilePicture": "https://sessionize.com/image?f=f6711eea7168a1967f730ca1a1b7c3c1,200,200,True,False,c47c25e5-3165-46ba-92bf-a8c0ec53e730.jpg",
+  "sessions": [
+               {
+               "id": 46277,
+               "name": "Effective Kotlin"
+               }
+               ],
+  "isTopSpeaker": false,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/YousufHaque",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/yousuf-haque-b2b6215b/",
+            "linkType": "LinkedIn"
+            }
+            ]
+  },
+  {
+  "id": "8ce6cf3a-735e-4a2a-b05f-e2081e5b6741",
+  "firstName": "Zac",
+  "lastName": "Sweers",
+  "fullName": "Zac Sweers",
+  "bio": "Zac is a mobile engineer at Uber with primary focus areas in Android, code gen, Kotlin, OSS, and avoiding sniffly APIs. He’s the creator of a few open source libraries like AutoDispose and Barber, and active contributor to several more.",
+  "tagLine": "Mobile @ Uber",
+  "profilePicture": "https://sessionize.com/image?f=45cccf90b70b9e01c4b03bc196b05199,200,200,True,False,3a-735e-4a2a-b05f-e2081e5b6741.217980d7-51ef-494f-b123-94011276b254.jpg",
+  "sessions": [
+               {
+               "id": 43846,
+               "name": "Breaking the Android ClassLoader"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "https://www.uber.com",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/pandanomic",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "https://medium.com/@sweers",
+            "linkType": "Blog"
+            }
+            ]
+  },
+  {
+  "id": "69f4c795-e73e-4839-894a-9160152f8c54",
+  "firstName": "Zakeel",
+  "lastName": "Muhammad",
+  "fullName": "Zakeel Muhammad",
+  "bio": "Was born the same year as Windows 95 was released. Mobile Enthusiast. PM @ Microsoft. ",
+  "tagLine": "PM @ Microsoft ",
+  "profilePicture": "https://sessionize.com/image?f=6893f725d4022f2f5824f3d5ed687b66,200,200,True,False,95-e73e-4839-894a-9160152f8c54.3b1a7859-ab2d-4d53-8eec-f4d925a232ad.jpg",
+  "sessions": [
+               {
+               "id": 57078,
+               "name": "Lighting Fast Update to your Android App with React Native"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/Zakeelmsft",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "http://microsoft.com",
+            "linkType": "Company_Website"
+            }
+            ]
+  },
+  {
+  "id": "56eefe06-593b-4455-94dc-e3422fc4f81e",
+  "firstName": "Zan",
+  "lastName": "Markan",
+  "fullName": "Zan Markan",
+  "bio": "Zan is a Developer turned Evangelist at Pusher with over 8 years of experience in software development. He spends the days educating developers across the world about the wonders of realtime technologies and good API design, and nights fighting crime.\r\nBefore DevRel he used to dabble in mobile and SDK development, especially on Android. Currently he fancies Kotlin, Node, TypeScript, and the UX of APIs in general.\r\nOther hobbies include speaking at conferences and yelling at computers.",
+  "tagLine": "Developer Evangelist, Pusher",
+  "profilePicture": "https://sessionize.com/image?f=f33c23c7e5371d86650672a3fe0d44b9,200,200,True,False,06-593b-4455-94dc-e3422fc4f81e.63cd5534-77a5-4007-89d0-dc5358bc63fe.jpg",
+  "sessions": [
+               {
+               "id": 42658,
+               "name": "The State of the Kotlin ecosystem"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Company Website",
+            "url": "https://www.pusher.com",
+            "linkType": "Company_Website"
+            },
+            {
+            "title": "Twitter",
+            "url": "https://www.twitter.com/zmarkan",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Blog",
+            "url": "https://markan.me",
+            "linkType": "Blog"
+            },
+            {
+            "title": "LinkedIn",
+            "url": "https://www.linkedin.com/in/zmarkan/",
+            "linkType": "LinkedIn"
+            }
+            ]
+  },
+  {
+  "id": "8186dcc4-3868-48ff-af5d-d1fce1f97496",
+  "firstName": "Zarah",
+  "lastName": "Dominguez",
+  "fullName": "Zarah Dominguez",
+  "bio": "Zarah is an Android developer based in Sydney, Australia. She started doing mobile development work in 2007, and has been on a constant rollercoaster of emotions with the Android platform since the days of Donut. \r\n\r\nRecognised as a Google Developer Expert for Android, she helps organise GDG Sydney and the Android User Group Sydney. She loves board games, books, and dessert, and has a knack for eating breakfast food for dinner.\r\n",
+  "tagLine": "Android Developer",
+  "profilePicture": "https://sessionize.com/image?f=0804dc38b988ebe87f172aa2867dbe0d,200,200,True,False,c4-3868-48ff-af5d-d1fce1f97496.4231530b-bc7d-4619-9054-c164a695a023.jpg",
+  "sessions": [
+               {
+               "id": 57364,
+               "name": "Don’t Sweat the Small Stuff"
+               }
+               ],
+  "isTopSpeaker": true,
+  "links": [
+            {
+            "title": "Twitter",
+            "url": "https://twitter.com/zarahjutz",
+            "linkType": "Twitter"
+            },
+            {
+            "title": "Company Website",
+            "url": "https://zdominguez.com/",
+            "linkType": "Company_Website"
+            }
+            ]
+  }
+  ]

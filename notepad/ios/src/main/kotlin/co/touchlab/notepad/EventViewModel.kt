@@ -16,11 +16,15 @@ class EventViewModel(sessionId: String){
             }
         }
 
-        eventModel.sessionInfoLiveData.observeForever(eventObserver!!)
+        eventModel.evenLiveData.observeForever(eventObserver!!)
+    }
+
+    fun toggleRsvp(rsvp:Boolean){
+        eventModel.toggleRsvp(rsvp)
     }
 
     fun unregister(){
-        eventModel.sessionInfoLiveData.removeObserver(eventObserver!!)
+        eventModel.evenLiveData.removeObserver(eventObserver!!)
         eventObserver = null
         eventModel.shutDown()
     }

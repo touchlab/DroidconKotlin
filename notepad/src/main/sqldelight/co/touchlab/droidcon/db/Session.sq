@@ -12,10 +12,25 @@ roomId INTEGER,
 FOREIGN KEY (roomId) REFERENCES room(id)
 );
 
-insertUpdate:
-INSERT OR REPLACE INTO session(id, title, description, startsAt, endsAt, serviceSession, roomId)
+insert:
+INSERT INTO session(id, title, description, startsAt, endsAt, serviceSession, roomId)
 VALUES (?,?,?,?,?,?,?)
 ;
+
+update:
+UPDATE session SET title = ?, description = ?, startsAt = ?,
+endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?
+WHERE id = ?;
+
+sessionById:
+SELECT * FROM session WHERE id = ?;
+
+mySessions:
+SELECT id, startsAt, endsAt FROM session WHERE
+rsvp != 0;
+
+updateRsvp:
+UPDATE session SET rsvp = ? WHERE id = ?;
 
 sessionWithRoom:
 SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,

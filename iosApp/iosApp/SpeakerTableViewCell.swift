@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import NotepadArchitecture
 
 class SpeakerTableViewCell: UITableViewCell {
 
@@ -25,7 +26,7 @@ class SpeakerTableViewCell: UITableViewCell {
             speakerImage.layer.cornerRadius = 24
             speakerImage.layer.masksToBounds = true
         } else {
-            speakerImageLabel.text = DUTEmojiUtil.getEmojiForUser(with: name)
+            speakerImageLabel.text = NotepadArchitectureEmojiUtil().getEmojiForUser(displayName: name)
         }
     
         nameLabel.sizeToFit()
@@ -43,7 +44,7 @@ class SpeakerTableViewCell: UITableViewCell {
         
         let attrStr = try! NSAttributedString(
             data: modifiedFont.data(using: String.Encoding.unicode, allowLossyConversion: true)!,
-            options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: String.Encoding.utf8],
+//            options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: String.Encoding.utf8],
             documentAttributes: nil)
         
         return attrStr

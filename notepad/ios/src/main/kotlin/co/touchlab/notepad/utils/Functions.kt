@@ -2,6 +2,7 @@ package co.touchlab.notepad.utils
 
 import kotlin.system.getTimeMillis
 import platform.darwin.*
+import platform.Foundation.*
 import konan.worker.*
 import co.touchlab.multiplatform.architecture.db.sqlite.*
 import co.touchlab.knarch.*
@@ -59,5 +60,11 @@ actual fun backgroundTask(backJob:()->Unit){
         it()
     }
 }
+
+actual fun sleepThread(millis:Long){
+    NSThread.sleepForTimeInterval(millis.toDouble()/1000.toDouble())
+}
+
+actual fun <T> goFreeze(a:T):T = a.freeze()
 
 data class JobWrapper<B>(val backJob:()-> B, val mainJob:(B) -> Unit)

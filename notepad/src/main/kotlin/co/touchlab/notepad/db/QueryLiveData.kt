@@ -4,11 +4,15 @@ import co.touchlab.multiplatform.architecture.threads.MutableLiveData
 import co.touchlab.notepad.utils.backgroundTask
 import com.squareup.sqldelight.Query
 
-abstract class QueryLiveData<T, Z>(val q: Query<*>) : MutableLiveData<Z>(), Query.Listener {
+abstract class QueryLiveData<T, Z>(val q: Query<*>, skipInit:Boolean = false) : MutableLiveData<Z>(), Query.Listener {
     init {
-        q.addListener(this)
-        backgroundTask {
-            queryResultsChanged()
+        println("QueryLiveData-Before")
+        q.addListener(listener = this)
+
+        if(!skipInit) {
+            backgroundTask {
+                queryResultsChanged()
+            }
         }
     }
 

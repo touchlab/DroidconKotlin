@@ -1,0 +1,104 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="drawer_width">280dp</dimen>
+    <dimen name="drawer_header_height">172dp</dimen>
+    <dimen name="status_bar_height">0dip</dimen>
+    <dimen name="profile_header">41dp</dimen>
+    <dimen name="profile_header_vertical_margin">17dp</dimen>
+    <dimen name="profile_right_padding">78dp</dimen>
+
+    <dimen name="padding_xmicro">.5dp</dimen>
+    <dimen name="padding_micro">2dp</dimen>
+    <dimen name="padding_tiny">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_wedge">12dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_xlarge">32dp</dimen>
+    <dimen name="padding_xxlarge">48dp</dimen>
+
+    <dimen name="height_xxtiny">24dp</dimen>
+    <dimen name="height_xtiny">32dp</dimen>
+    <dimen name="height_tiny">36dp</dimen>
+    <dimen name="height_small">48dp</dimen>
+    <dimen name="height_medium">56dp</dimen>
+    <dimen name="height_large">64dp</dimen>
+    <dimen name="height_xlarge">72dp</dimen>
+    <dimen name="height_xxlarge">80dp</dimen>
+
+    <dimen name="text_xxtiny">8sp</dimen>
+    <dimen name="text_xtiny">10sp</dimen>
+    <dimen name="text_tiny">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">18sp</dimen>
+    <dimen name="text_largeish">22sp</dimen>
+    <dimen name="text_xlarge">24sp</dimen>
+    <dimen name="text_xxlarge">28sp</dimen>
+    <dimen name="text_xxxlarge">32sp</dimen>
+    <dimen name="text_xxxxlarge">36sp</dimen>
+    <dimen name="text_huge">48sp</dimen>
+    <dimen name="text_xhuge">64sp</dimen>
+    <dimen name="social_icon">24dp</dimen>
+    <dimen name="live_icon_width">12dp</dimen>
+    <dimen name="live_icon_height">12dp</dimen>
+
+    <dimen name="event_top_spacing">51dp</dimen>
+    <dimen name="event_speaker_image">40dp</dimen>
+    <dimen name="event_entry_icon">26dp</dimen>
+    <dimen name="event_fab_margin">0dp</dimen>
+
+    <dimen name="sponsor_platinum_width">328dp</dimen>
+    <dimen name="sponsor_platinum_height">77dp</dimen>
+
+    <dimen name="sponsor_gold_width">164dp</dimen>
+    <dimen name="sponsor_gold_height">38dp</dimen>
+
+    <dimen name="sponsor_silver_width">136dp</dimen>
+    <dimen name="sponsor_silver_height">32dp</dimen>
+
+    <dimen name="sponsor_bronze_width">102dp</dimen>
+    <dimen name="sponsor_bronze_height">24dp</dimen>
+
+    <dimen name="sponsor_padding">5dp</dimen>
+    <dimen name="sponsor_section_padding">15dp</dimen>
+    <dimen name="sponsor_section_padding2">20dp</dimen>
+
+    <dimen name="sponsor_top_padding">24dp</dimen>
+    <dimen name="welcome_image_side">396dp</dimen>
+
+    <dimen name="sponsor_section_title">24sp</dimen>
+
+    <dimen name="about_body_top">8dp</dimen>
+
+    <dimen name="toolbar_title_margin_top">13dp</dimen>
+    <dimen name="toolbar_title_margin_left">56dp</dimen>
+
+    <dimen name="item_root_padding_bottom">@dimen/padding_xmicro</dimen>
+    <dimen name="item_root_padding_top">@dimen/padding_small</dimen>
+    <dimen name="notify_card_margin_start">@dimen/height_xlarge</dimen>
+    <dimen name="item_new_row_width">0dp</dimen>
+    <dimen name="item_new_row_height">0dp</dimen>
+    <dimen name="item_event_layout_width">@dimen/wrap_content</dimen>
+    <dimen name="item_event_layout_height">82dp</dimen>
+    <dimen name="item_event_padding_bottom">@dimen/padding_xmicro</dimen>
+    <dimen name="item_event_padding_top">@dimen/padding_small</dimen>
+    <dimen name="conflict_text_width">@dimen/height_xlarge</dimen>
+    <dimen name="item_event_card_margin_start">@dimen/height_xlarge</dimen>
+    <dimen name="live_icon_margin">@dimen/padding_medium</dimen>
+    <dimen name="location_time_margin_bottom">@dimen/padding_medium</dimen>
+    <dimen name="event_divider_width">0dp</dimen>
+    <dimen name="event_divider_height">0dp</dimen>
+    <dimen name="event_description_width">0dp</dimen>
+    <dimen name="event_description_height">0dp</dimen>
+    <dimen name="event_description_margin_bottom">0dp</dimen>
+    <dimen name="event_description_margin_start">0dp</dimen>
+    <dimen name="event_description_margin_top">0dp</dimen>
+    <dimen name="event_list_margin_start">0dp</dimen>
+
+    <dimen name="match_parent">-1px</dimen>
+    <dimen name="wrap_content">-2px</dimen>
+    <dimen name="pager_margin">16dp</dimen>
+</resources>

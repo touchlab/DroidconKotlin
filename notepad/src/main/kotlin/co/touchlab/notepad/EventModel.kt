@@ -1,61 +1,69 @@
 package co.touchlab.notepad
 
+import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.SessionWithRoomById
 import co.touchlab.droidcon.db.SpeakerForSession
-import co.touchlab.multiplatform.architecture.threads.MediatorLiveData
-import co.touchlab.multiplatform.architecture.threads.addSource
 import co.touchlab.notepad.db.QueryLiveData
+import co.touchlab.notepad.utils.backgroundTask
 import co.touchlab.notepad.utils.currentTimeMillis
+import co.touchlab.notepad.utils.goFreeze
+import co.touchlab.notepad.utils.sleepThread
 import com.squareup.sqldelight.Query
 
 class EventModel(val sessionId: String) {
 
-    val sessionInfoLiveData = MediatorLiveData<SessionInfo>()
-    var sessionData: SessionWithRoomById? = null
-    var speakerData: List<SpeakerForSession>? = null
-    private val evenLiveData:EventLiveData
-    private val speakerForSessionLiveData:SpeakerForSessionLiveData
+    val evenLiveData:EventLiveData
 
     init {
-        evenLiveData = EventLiveData(AppContext.dbHelper.queryWrapper.sessionQueries.sessionWithRoomById(sessionId))
-        sessionInfoLiveData.addSource(
-                evenLiveData
-        ) {
-            sessionData = it
-            checkAndPush()
-        }
-
-        speakerForSessionLiveData = SpeakerForSessionLiveData(AppContext.dbHelper.queryWrapper.sessionSpeakerQueries.speakerForSession(sessionId))
-        sessionInfoLiveData.addSource(
-                speakerForSessionLiveData
-        ) {
-            speakerData = it
-            checkAndPush()
-        }
+        val query = goFreeze(AppContext.dbHelper.queryWrapper.sessionQueries.sessionWithRoomById(sessionId))
+        evenLiveData = EventLiveData(query)
     }
 
     fun shutDown(){
         evenLiveData.removeListener()
-        speakerForSessionLiveData.removeListener()
     }
 
-    private fun checkAndPush(){
-        if(sessionData != null && speakerData != null)
-            sessionInfoLiveData.setValue(SessionInfo(sessionData!!, speakerData!!))
+    fun toggleRsvp(rsvp:Boolean){
+        backgroundTask {
+            AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if(rsvp){1}else{0}, sessionId)
+        }
     }
 
-    class EventLiveData(q: Query<SessionWithRoomById>) : QueryLiveData<SessionWithRoomById, SessionWithRoomById>(q), Query.Listener {
-        override fun extractData(q: Query<*>): SessionWithRoomById = q.executeAsOne() as SessionWithRoomById
-    }
+    class EventLiveData(q: Query<SessionWithRoomById>) : QueryLiveData<SessionWithRoomById, SessionInfo>(q, false),
+            Query.Listener {
+        override fun extractData(q: Query<*>): SessionInfo {
+            val sessionStuff = q.executeAsOne() as SessionWithRoomById
+            val speakers = AppContext.dbHelper.queryWrapper.sessionSpeakerQueries.speakerForSession(sessionStuff.id).executeAsList()
+            val mySessions = AppContext.dbHelper.queryWrapper.sessionQueries.mySessions().executeAsList() as List<MySessions>
 
-    class SpeakerForSessionLiveData(q: Query<SpeakerForSession>) : QueryLiveData<SpeakerForSession, List<SpeakerForSession>>(q), Query.Listener {
-        override fun extractData(q: Query<*>): List<SpeakerForSession> = q.executeAsList() as List<SpeakerForSession>
+            return SessionInfo(sessionStuff, speakers, conflict(sessionStuff, mySessions))
+        }
+
+        private fun conflict(session:SessionWithRoomById, others: List<MySessions>): Boolean {
+            if(session.rsvp == 0L)
+                return false
+
+            val now = currentTimeMillis()
+            if (now <= session.endsAt.toLongMillis()) {
+                for (other in others.filter {
+                    now <= it.endsAt.toLongMillis() &&
+                            session.id != it.id
+                }) {
+                    if (session.startsAt.toLongMillis() < other.endsAt.toLongMillis() &&
+                            session.endsAt.toLongMillis() > other.startsAt.toLongMillis())
+                        return true
+                }
+            }
+
+            return false
+        }
     }
 }
 
 data class SessionInfo(
         val session: SessionWithRoomById,
-        val speakers: List<SpeakerForSession>
+        val speakers: List<SpeakerForSession>,
+        val conflict: Boolean
 )
 
 fun SessionInfo.isNow(): Boolean {
@@ -66,4 +74,8 @@ fun SessionInfo.isNow(): Boolean {
 
 fun SessionInfo.isPast(): Boolean {
     return currentTimeMillis() > this.session.endsAt.toLongMillis()
+}
+
+fun SessionInfo.isRsvped(): Boolean {
+    return this.session.rsvp != 0L
 }

@@ -18,6 +18,6 @@ kotlin {
     }
 }
 
-sqldelight{
+sqldelight {
     packageName = "co.touchlab.droidcon.db"
 }

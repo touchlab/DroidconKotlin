@@ -12,7 +12,7 @@ import NotepadArchitecture
 
 class ScheduleViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let viewModel =  NotepadArchitectureScheduleViewModel()
+    var viewModel:NotepadArchitectureScheduleViewModel!
     
     @IBOutlet weak var dayChooser: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -25,12 +25,14 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.registerForChanges(proc: updateUi)
+        allEvents = self.tabBarController?.selectedIndex == 0
+        
+        viewModel =  NotepadArchitectureScheduleViewModel()
+        viewModel.registerForChanges(proc: updateUi, allEvents: allEvents)
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        allEvents = self.tabBarController?.selectedIndex == 0
         navigationItem.title = allEvents ? "Droidcon NYC" : "My Agenda"
         
         // Hide the nav bar shadow
@@ -50,19 +52,24 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func replaceDayTabs(conferenceDays:[NotepadArchitectureDaySchedule]) {
+        let lastSelected = dayChooser.selectedSegmentIndex
+        
         dayChooser.removeAllSegments()
         for day in conferenceDays {
             dayChooser.insertSegment(withTitle: day.dayString, at: dayChooser.numberOfSegments, animated: false)
         }
-        dayChooser.selectedSegmentIndex = 0
+        
+        if(dayChooser.numberOfSegments > 0){
+            dayChooser.selectedSegmentIndex = lastSelected == -1 ? 0 : min(lastSelected, dayChooser.numberOfSegments-1)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "ShowEventDetail" {
-//            let detailViewController = segue.destination as! EventDetailViewController
-//            let networkEvent = sender as! DDATEvent
-//            detailViewController.eventId = networkEvent.getId()
-//        }
+        if segue.identifier == "ShowEventDetail" {
+            let detailViewController = segue.destination as! EventDetailViewController
+            let networkEvent = sender as! NotepadArchitectureHourBlock
+            detailViewController.sessionId = networkEvent.timeBlock.id
+        }
     }
     
     deinit {
@@ -74,9 +81,9 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
         tableView.reloadData()
     }
     
-//    func showEventDetailView(with networkEvent: DDATTimeBlock, andIndex index: Int) {
-//        performSegue(withIdentifier: "ShowEventDetail", sender: networkEvent)
-//    }
+    func showEventDetailView(with hourBlock: NotepadArchitectureHourBlock, andIndex index: Int) {
+        performSegue(withIdentifier: "ShowEventDetail", sender: hourBlock)
+    }
     
     //MARK: TableView
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
@@ -90,12 +97,10 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-//        let eventObj = hourBlocks[indexPath.row].getTime()
-//        if let networkEvent = eventObj {
-//            if networkEvent is DDATEvent {
-//                showEventDetailView(with: networkEvent, andIndex: indexPath.row)
-//            }
-//        }
+        let cday = conferenceDays![dayChooser.selectedSegmentIndex]
+        let hourHolder = cday.hourBlock[indexPath.row]
+        
+        showEventDetailView(with: hourHolder, andIndex: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -120,7 +125,8 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
         
         let eventObj = hourHolder.timeBlock
         
-        cell.titleLabel.text = eventObj.title//.replacingOccurrences(of: "Android", with: "Lulu")
+        let rsvpConflict = hourHolder.rsvpConflictString(others: cday.hourBlock)
+        cell.titleLabel.text = "\(eventObj.title)\(rsvpConflict)"//.replacingOccurrences(of: "Android", with: "Lulu")
         cell.speakerNamesLabel.text = eventObj.allNames
         cell.timeLabel.text = hourHolder.hourStringDisplay.lowercased()
         cell.startOfBlock = hourHolder.hourStringDisplay.count > 0

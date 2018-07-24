@@ -1,6 +1,6 @@
 buildscript {
     ext.buildConfig = [
-            'compileSdk': 27,
+            'compileSdk': 28,
             'minSdk'    : 24,
             'targetSdk' : 27,
 
@@ -19,8 +19,7 @@ buildscript {
             'kotlinCoroutines': '0.22.5',
             'knarchDb'      : '0.7-alpha1',
             'knarchThreads'      : '0.2.0',
-            'sqldelight'      : '1.0.0-alpha4',
-            'sqldelightKnarch'      : '1.0.0-alpha4.6'
+            'sqldelight'      : '1.0.0-alpha4.8'
     ]
 
     ext.deps = [
@@ -45,17 +44,20 @@ buildscript {
             ],
             'knarch'  : [
                     'db': "co.touchlab.knarch:knarch-common:${versions.knarchDb}",
+                    'dbAndroid': "co.touchlab.knarch:knarch-android:${versions.knarchDb}",
                     'dbNative': "co.touchlab.knarch:knarch:${versions.knarchDb}",
-                    'threads':"co.touchlab.knarch.threads:knarch-common:${versions.knarchThreads}",
+                    'threads':"co.touchlab.knarch.threads:threads-common:${versions.knarchThreads}",
+                    'threadsAndroid':"co.touchlab.knarch.threads:threads-androidx:${versions.knarchThreads}",
                     'threadsNative':"co.touchlab.knarch.threads:knarchThreads:${versions.knarchThreads}",
             ]
             ,
             'sqldelight': [
-                    'android': "com.squareup.sqldelight:android-driver:${versions.sqldelight}",
                     'runtime': "com.squareup.sqldelight:runtime-common:${versions.sqldelight}",
-                    'runtimeNative': "com.squareup.sqldelight:sqldelightruntimeios:${versions.sqldelightKnarch}",
-                    'multiplatformdriver': "com.squareup.sqldelight:sqldelight-multiplatform-driver:${versions.sqldelightKnarch}",
-                    'multiplatformdriverNative': "com.squareup.sqldelight:sqldelightmultiplatformdriverios:${versions.sqldelightKnarch}",
+                    'runtimeJdk': "com.squareup.sqldelight:runtime-jdk:${versions.sqldelight}",
+                    'runtimeNative': "com.squareup.sqldelight:sqldelightruntimeios:${versions.sqldelight}",
+                    'multiplatformdriver': "com.squareup.sqldelight:sqldelight-multiplatform-driver:${versions.sqldelight}",
+                    'multiplatformdriverNative': "com.squareup.sqldelight:sqldelightmultiplatformdriverios:${versions.sqldelight}",
+                    'multiplatformdriverAndroid': "com.squareup.sqldelight:sqldelight-multiplatform-android:${versions.sqldelight}",
             ]
     ]
 
@@ -81,7 +83,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-alpha08'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelightKnarch}"
+        classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
         classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:${versions.kotlin_native_version}"
     }
 }

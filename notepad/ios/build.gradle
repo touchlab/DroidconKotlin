@@ -1,7 +1,7 @@
 
 apply plugin: 'konan'
 
-konan.targets = ['iphone', 'iphone_sim']
+konan.targets = [/*'iphone',*/ 'iphone_sim']
 
 konanArtifacts {
     framework('NotepadArchitecture') {
