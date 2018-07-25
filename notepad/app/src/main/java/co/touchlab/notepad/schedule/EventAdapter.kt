@@ -9,21 +9,22 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import co.touchlab.notepad.EventRow
 import co.touchlab.notepad.R
+import co.touchlab.notepad.ScheduleModel
 import co.touchlab.notepad.db.isBlock
 import co.touchlab.notepad.display.HourBlock
-import co.touchlab.notepad.display.isPast
+import co.touchlab.notepad.display.RowType
 import co.touchlab.notepad.utils.setViewVisibility
-import java.lang.UnsupportedOperationException
 
 /**
  *
  * Created by izzyoji :) on 8/6/15.
  */
-
 class EventAdapter(private val context: Context,
+                   private val scheduleModel: ScheduleModel,
                    private val allEvents: Boolean,
-                   private val eventClickListener: ((event: HourBlock)->Unit)) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                   private val eventClickListener: ((event: HourBlock) -> Unit)) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var dataSet: List<HourBlock> = emptyList()
 
@@ -32,75 +33,31 @@ class EventAdapter(private val context: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        println("fuckers")
-        return when (viewType) {
-            VIEW_TYPE_EVENT -> {
-                val v = LayoutInflater.from(context).inflate(R.layout.item_event, parent, false)
-                ScheduleBlockViewHolder(v)
+        val rowType = RowType.values()[viewType]
+        val layoutId = when (rowType) {
+            RowType.FutureEvent -> {
+                R.layout.item_event
             }
-            VIEW_TYPE_PAST_EVENT, VIEW_TYPE_BLOCK -> {
-                val v = LayoutInflater.from(context).inflate(R.layout.item_block, parent, false)
-                ScheduleBlockViewHolder(v)
+            RowType.PastEvent, RowType.Block -> {
+                R.layout.item_block
             }
-            VIEW_TYPE_NEW_ROW -> {
-                val v = LayoutInflater.from(context).inflate(R.layout.item_new_row, parent, false)
-                NewRowViewHolder(v)
-            }
-            else -> throw UnsupportedOperationException()
         }
+
+        val v = LayoutInflater.from(context).inflate(layoutId, parent, false)
+        return ScheduleBlockViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ScheduleBlockViewHolder) {
-            val scheduleBlockHour = dataSet[position]
+        val scheduleHolder = holder as ScheduleBlockViewHolder
+        val scheduleBlockHour = dataSet[position]
 
-            scheduleBlockHour.let {
-                EventUtils.styleEventRow(scheduleBlockHour, dataSet, holder, allEvents)
-
-                if (!scheduleBlockHour.timeBlock.isBlock()) {
-                    holder.setOnClickListener { eventClickListener(scheduleBlockHour) }
-                }
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-
-//        if (dataSet[position] == null) {
-//            return VIEW_TYPE_NEW_ROW
-//        }
-
-        val item = dataSet[position]
-
-        return if(item.timeBlock.isBlock())
-        {
-            VIEW_TYPE_BLOCK
-        }
-        else
-        {
-            if(item.isPast())
-                VIEW_TYPE_PAST_EVENT
-            else
-                VIEW_TYPE_EVENT
+        scheduleModel.weaveSessionDetailsUi(scheduleBlockHour, dataSet, scheduleHolder, allEvents)
+        if (!scheduleBlockHour.timeBlock.isBlock()) {
+            scheduleHolder.setOnClickListener { eventClickListener(scheduleBlockHour) }
         }
     }
 
     private fun updateData() {
-//        filteredData.clear()
-        /*for (item in dataSet) {
-            val position = filteredData.size
-            if (item.hourStringDisplay.isNotBlank() && position.isOdd()) {
-                // Insert an empty block to indicate a new row
-                filteredData.add(null)
-            }
-            else
-            {
-                Log.e("EventAdapter", "What not odd?!")
-            }
-            filteredData.add(item)
-        }*/
-
-//        filteredData = ArrayList(dataSet)
         notifyDataSetChanged()
     }
 
@@ -109,13 +66,15 @@ class EventAdapter(private val context: Context,
         updateData()
     }
 
-    inner abstract class ScheduleCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ScheduleBlockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), EventRow {
 
-    inner class ScheduleBlockViewHolder(itemView: View) : ScheduleCardViewHolder(itemView), EventUtils.EventRow {
+        override fun setTitleText(s: String) {
+            itemView.findViewById<TextView>(R.id.title).text = s
+        }
 
-        override fun setTitleText(s: String) { itemView.findViewById<TextView>(R.id.title).text = s }
-
-        override fun setTimeText(s: String) { itemView.findViewById<TextView>(R.id.time).text = s }
+        override fun setTimeText(s: String) {
+            itemView.findViewById<TextView>(R.id.time).text = s
+        }
 
         override fun setSpeakerText(s: String) {
             itemView.findViewById<TextView>(R.id.speaker).text = s
@@ -144,35 +103,15 @@ class EventAdapter(private val context: Context,
         }
 
         override fun setTimeGap(gap: Boolean) {
-            if (!isTablet(itemView)) {
-                val topPadding = if (gap) R.dimen.padding_small else R.dimen.padding_xmicro
-                itemView.setPadding(itemView.paddingLeft,
-                        itemView.context.resources.getDimensionPixelOffset(topPadding),
-                        itemView.paddingRight,
-                        itemView.paddingBottom)
-            }
+            val topPadding = if (gap) R.dimen.padding_small else R.dimen.padding_xmicro
+            itemView.setPadding(itemView.paddingLeft,
+                    itemView.context.resources.getDimensionPixelOffset(topPadding),
+                    itemView.paddingRight,
+                    itemView.paddingBottom)
         }
 
         fun setOnClickListener(listener: () -> Unit) {
             itemView.findViewById<CardView>(R.id.card).setOnClickListener { listener() }
         }
-
-        fun isTablet(itemView: View): Boolean {
-            //TODO: This?
-            return false
-        }
-    }
-
-    inner class NewRowViewHolder(itemView: View) : ScheduleCardViewHolder(itemView)
-
-    companion object {
-        private val VIEW_TYPE_EVENT = 0
-        private val VIEW_TYPE_BLOCK = 1
-        private val VIEW_TYPE_PAST_EVENT = 2
-        private val VIEW_TYPE_NEW_ROW = 4
-        private val HEADER_ITEMS_COUNT = 1
     }
 }
-
-
-data class UpdateAllowNotificationEvent(val allow: Boolean)

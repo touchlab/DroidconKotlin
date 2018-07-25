@@ -1,6 +1,4 @@
 include ':notepad'
-//include ':notepad:android'
-//include ':notepad:android2'
 include ':notepad:app'
 include ':notepad:ios'
 enableFeaturePreview('GRADLE_METADATA')

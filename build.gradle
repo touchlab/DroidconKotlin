@@ -72,11 +72,11 @@ buildscript {
         maven {
             url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
         }
-        if(project.hasProperty('j2objcMavenDeploy')) {
+        /*if(project.hasProperty('j2objcMavenDeploy')) {
             maven {
                 url project.property('j2objcMavenDeploy')
             }
-        }
+        }*/
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
     }
 
@@ -96,11 +96,11 @@ allprojects {
         mavenCentral()
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        if(project.hasProperty('j2objcMavenDeploy')) {
+        /*if(project.hasProperty('j2objcMavenDeploy')) {
             maven {
                 url project.property('j2objcMavenDeploy')
             }
-        }
+        }*/
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
     }
 }

@@ -9,10 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.touchlab.notepad.NavigationHost
 import co.touchlab.notepad.R
 import co.touchlab.notepad.ScheduleModel
 import co.touchlab.notepad.display.DaySchedule
 import co.touchlab.notepad.display.HourBlock
+import co.touchlab.notepad.event.EventFragment
 import com.google.android.material.tabs.TabLayout
 
 class ScheduleFragment:Fragment() {
@@ -26,26 +28,24 @@ class ScheduleFragment:Fragment() {
     lateinit var eventAdapter: EventAdapter
     var days: List<DaySchedule> = ArrayList()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.scheduleModel.dayFormatLiveData(true).observe(this,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        viewModel.scheduleModel.dayFormatLiveData(true).observe(viewLifecycleOwner,
                 Observer {
                     days = it
                     updateTabs(it)
                     updateDisplay()
                 }
         )
-    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
         scheduleDaysTab = view.findViewById(R.id.scheduleDaysTab)
         eventList = view.findViewById(R.id.eventList)
 
         eventList.layoutManager = LinearLayoutManager(activity)
 
-        eventAdapter = EventAdapter(context!!, true){
-            println(it.timeBlock.title)
+        eventAdapter = EventAdapter(context!!, viewModel.scheduleModel, true){
+            (activity as NavigationHost).navigateTo(EventFragment.newInstance(it.timeBlock.id), true)
         }
 
         eventList.adapter = eventAdapter
@@ -65,6 +65,11 @@ class ScheduleFragment:Fragment() {
         })
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("onResume called")
     }
 
     fun updateTabs(days: List<DaySchedule>) {

@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(), NavigationHost {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-
         navigateTo(ScheduleFragment(), false)
     }
 

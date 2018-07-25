@@ -35,7 +35,7 @@
             android:visibility="invisible"
             tools:visibility="visible"/>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
             android:id="@+id/card"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -115,6 +115,6 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

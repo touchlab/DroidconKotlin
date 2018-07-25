@@ -10,4 +10,10 @@
         eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis
         nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     </string>
+    <string name="event_speaker_name" >%1$s, %2$s</string>
+    <string name="cd_event_description">Event description</string>
+    <string name="lorem_short" translatable="false">Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </string>
 </resources>

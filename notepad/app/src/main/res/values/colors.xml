@@ -6,11 +6,16 @@
 
     <color name="accent">#68d1fd</color>
     <color name="white">#FFF</color>
+    <color name="black">#000</color>
     <color name="card_bg_event">@color/white</color>
     <color name="red">#f1582c</color>
     <color name="primary_dark_50">#104769</color>
     <color name="card_text_title">@color/primary_dark_50</color>
     <color name="card_text_subtitle">@color/text_gray</color>
     <color name="text_gray">#777777</color>
+    <color name="profile_circle">#dcdcdc</color>
     <color name="card_bg_block">#fafafa</color>
+
+    <color name="primary_dark">#166494</color>
+    <color name="glyph_background_dark">@color/primary_dark</color>
 </resources>

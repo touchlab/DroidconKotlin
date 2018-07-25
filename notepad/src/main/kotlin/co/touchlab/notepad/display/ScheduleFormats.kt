@@ -19,6 +19,19 @@ data class HourBlock(
         val endDateLong: Long = timeBlock.endsAt.toLongMillis()
 )
 
+enum class RowType {
+    Block, FutureEvent, PastEvent
+}
+
+fun HourBlock.rowType(): RowType = if (this.timeBlock.isBlock()) {
+    RowType.Block
+} else {
+    if (this.isPast())
+        RowType.PastEvent
+    else
+        RowType.FutureEvent
+}
+
 fun HourBlock.isPast(): Boolean = currentTimeMillis() > endDateLong
 
 fun HourBlock.isConflict(others: List<HourBlock>): Boolean {
