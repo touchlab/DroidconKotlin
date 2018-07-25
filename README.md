@@ -1,32 +1,34 @@
-# SQLite & SQLDelight Sample
+# Sessionize/Droidcon Mobile Clients
 
-This example shows how to use SQLDelight with Kotlin Multiplatform on iOS.
+This project has the mobile clients for Droidcon NYC, but as Droidcon NYC uses Sessionize, this project could serve 
+as the base for any event using Sessionize.
 
-## The App
-
-It's a simple "notepad" app. Obviously not super useful on its own. You type in a title and note, and click the button.
-This will add the note to the local database and update the table view. If you click on a note title in the table, it'll 
-write the note detail to the log.
-
-### NO ANDROID!!!
-
-We haven't completed the android side yet, but that's not really the interesting part of the sample. Soon...
+The apps are native Android and iOS, using Kotlin Multiplatform for shared logic and architecture.
 
 ## Building
 
-Run 
+Clone, and at the base, run:
 
 ```
 ./gradlew build
 ```
 
-Assuming that builds, open the iosApp/iosApp.xcodeproj project in Xcode and run the sample.
+## Intellij
 
-## Status
+To see the project, use the latest Intellij EAP, and make sure Android and anything Kotlin related is installed and updated.
+There are modules for Android (app), iOS (ios), and the common code (src).
 
-This release of db support and SQLDelight libraries is *very* early and will be going under 
-significant refactoring in the near future.
+## Xcode
 
-[SQLDelight branch with multiplatform iOS support](https://github.com/touchlab/sqldelight/tree/iossupport)
+After building the kotlin code, open and run the Xcode project in iosApp. Run Cocoapod install first.
+
+
+## Architecture
+
+The shared code includes the sqldelight declarations, as well as the LiveData setup. Both the Android and iOS code sets 
+wire up the view models and UI's.
+
+ 
+
 
 
