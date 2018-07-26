@@ -5,7 +5,9 @@ import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import co.touchlab.notepad.about.AboutFragment
 import co.touchlab.notepad.schedule.ScheduleFragment
+import co.touchlab.notepad.sponsors.SponsorsFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,20 +22,13 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_schedule -> {
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_my_agenda -> {
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_sponsors -> {
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_about -> {
-                return@OnNavigationItemSelectedListener true
-            }
+            R.id.navigation_schedule -> navigateTo(ScheduleFragment(), false)
+            R.id.navigation_my_agenda -> navigateTo(ScheduleFragment(), false)
+            R.id.navigation_sponsors -> navigateTo(SponsorsFragment(), false)
+            R.id.navigation_about -> navigateTo(AboutFragment(), false)
+            else -> return@OnNavigationItemSelectedListener false
         }
-        false
+        true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
