@@ -13,3 +13,7 @@ expect fun initContext():NativeOpenHelperFactory
 expect fun sleepThread(millis:Long)
 
 expect fun <T> goFreeze(a:T):T
+
+expect fun simpleGet(url:String):String
+
+expect fun logException(t:Throwable)

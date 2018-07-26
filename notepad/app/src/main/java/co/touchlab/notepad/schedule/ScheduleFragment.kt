@@ -15,12 +15,24 @@ import co.touchlab.notepad.display.DaySchedule
 import co.touchlab.notepad.event.EventFragment
 import com.google.android.material.tabs.TabLayout
 
-class ScheduleFragment:Fragment() {
+class ScheduleFragment private constructor():Fragment() {
+    companion object {
+        val ALLEVENTS = "allevents"
+
+        fun newInstance(allEvents: Boolean): ScheduleFragment {
+            return ScheduleFragment().apply {
+                arguments = Bundle().apply {
+                    putBoolean(ALLEVENTS, allEvents)
+                }
+            }
+        }
+    }
 
     private val viewModel: ScheduleViewModel by lazy {
         ViewModelProviders.of(this)[ScheduleViewModel::class.java]
     }
 
+    val allEvents: Boolean by lazy { arguments!!.getBoolean(ScheduleFragment.ALLEVENTS, true) }
     lateinit var dayChooser: TabLayout
     lateinit var eventList: RecyclerView
     lateinit var eventAdapter: EventAdapter
@@ -29,7 +41,7 @@ class ScheduleFragment:Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        viewModel.scheduleModel.dayFormatLiveData(true).observe(viewLifecycleOwner,
+        viewModel.scheduleModel.dayFormatLiveData(allEvents).observe(viewLifecycleOwner,
                 Observer {
                     conferenceDays = it
                     updateTabs(it)
@@ -43,7 +55,7 @@ class ScheduleFragment:Fragment() {
 
         eventList.layoutManager = LinearLayoutManager(activity)
 
-        eventAdapter = EventAdapter(context!!, viewModel.scheduleModel, true){
+        eventAdapter = EventAdapter(context!!, viewModel.scheduleModel, allEvents){
             (activity as NavigationHost).navigateTo(EventFragment.newInstance(it.timeBlock.id), true)
         }
 

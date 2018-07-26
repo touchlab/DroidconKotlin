@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import co.touchlab.multiplatform.architecture.db.sqlite.AndroidNativeOpenHelperFactory
 import co.touchlab.multiplatform.architecture.db.sqlite.NativeOpenHelperFactory
+import java.net.URL
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
 
@@ -53,4 +54,10 @@ object AndroidAppContext{
             }
         }
     }
+}
+
+actual fun simpleGet(url: String): String = URL(url).readText()
+
+actual fun logException(t: Throwable) {
+    t.printStackTrace()
 }

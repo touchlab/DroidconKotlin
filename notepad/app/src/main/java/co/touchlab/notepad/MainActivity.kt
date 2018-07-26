@@ -21,9 +21,11 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_schedule -> {
+                navigateTo(ScheduleFragment.newInstance(true), false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_my_agenda -> {
+                navigateTo(ScheduleFragment.newInstance(false), false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_sponsors -> {
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        navigateTo(ScheduleFragment(), false)
+        navigateTo(ScheduleFragment.newInstance(true), false)
     }
 
     override fun navigateTo(fragment: Fragment, addToBackstack: Boolean) {
