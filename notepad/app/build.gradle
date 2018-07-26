@@ -44,7 +44,7 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.0.0-beta01'
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

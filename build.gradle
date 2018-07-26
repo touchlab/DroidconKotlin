@@ -62,7 +62,6 @@ buildscript {
     ]
 
     repositories {
-        maven { url j2objcMavenDeploy }
         jcenter()
         google()
         mavenCentral()
@@ -90,7 +89,6 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url j2objcMavenDeploy }
         jcenter()
         google()
         mavenCentral()

@@ -90,7 +90,13 @@ class EventDetailAdapter(private val context: Context) : RecyclerView.Adapter<Re
                 val user = data[position] as SpeakerDetail
 
                 if (!user.avatar.isNullOrBlank()) {
-                    Picasso.with(context).load(user.avatar)
+                    Picasso.Builder(context)
+                            .listener { picasso, uri, exception ->
+                                exception.printStackTrace()
+                            }
+                            .build()
+//                    Picasso.get()
+                            .load(user.avatar)
                             .noFade()
                             .placeholder(R.drawable.circle_profile_placeholder)
                             .into(view.findViewById<ImageView>(R.id.profile_image))

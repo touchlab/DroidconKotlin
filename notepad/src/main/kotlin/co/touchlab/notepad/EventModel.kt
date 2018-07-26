@@ -4,11 +4,9 @@ import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.SessionWithRoomById
 import co.touchlab.droidcon.db.SpeakerForSession
 import co.touchlab.notepad.db.QueryLiveData
-import co.touchlab.notepad.utils.backgroundTask
-import co.touchlab.notepad.utils.currentTimeMillis
-import co.touchlab.notepad.utils.goFreeze
-import co.touchlab.notepad.utils.sleepThread
+import co.touchlab.notepad.utils.*
 import com.squareup.sqldelight.Query
+import kotlin.math.max
 
 class EventModel(val sessionId: String) {
 
@@ -78,4 +76,22 @@ fun SessionInfo.isPast(): Boolean {
 
 fun SessionInfo.isRsvped(): Boolean {
     return this.session.rsvp != 0L
+}
+
+fun SessionInfo.formattedRoomTime():String {
+    var formattedStart = SessionInfoStuff.roomNameTimeFormatter.format(this.session.startsAt)
+    val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.format(this.session.endsAt)
+
+    val startMarker = formattedStart.substring(max(formattedStart.length - 3, 0))
+    val endMarker = formattedEnd.substring(max(formattedEnd.length - 3, 0))
+    if (startMarker == endMarker) {
+        formattedStart = formattedStart.substring(0, max(formattedStart.length - 3, 0))
+    }
+
+    return "${this.session.roomName}, $formattedStart - $formattedEnd"
+}
+
+object SessionInfoStuff{
+    private val TIME_FORMAT = "h:mm a"
+    val roomNameTimeFormatter = DateFormatHelper(TIME_FORMAT)
 }

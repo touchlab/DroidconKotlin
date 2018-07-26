@@ -158,7 +158,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dayChooser" destination="wbn-Gb-vOR" id="97X-pB-xzl"/>
-                        <outlet property="tableView" destination="HxQ-mU-XME" id="BxE-5s-lYG"/>
+                        <outlet property="eventList" destination="HxQ-mU-XME" id="WCK-CQ-Xeg"/>
                         <segue destination="eMM-Ow-Y8D" kind="show" identifier="ShowEventDetail" id="Y1n-90-loS"/>
                     </connections>
                 </viewController>

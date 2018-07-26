@@ -15,7 +15,7 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     var viewModel:NotepadArchitectureScheduleViewModel!
     
     @IBOutlet weak var dayChooser: UISegmentedControl!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var eventList: UITableView!
     
     // MARK: Properties
     var conferenceDays: [NotepadArchitectureDaySchedule]?
@@ -30,8 +30,8 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
         viewModel =  NotepadArchitectureScheduleViewModel()
         viewModel.registerForChanges(proc: updateUi, allEvents: allEvents)
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        eventList.delegate = self
+        eventList.dataSource = self
         
         navigationItem.title = allEvents ? "Droidcon NYC" : "My Agenda"
         
@@ -40,18 +40,18 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.isTranslucent = false
         
-        tableView.estimatedRowHeight = 44
-        tableView.rowHeight = UITableViewAutomaticDimension
+        eventList.estimatedRowHeight = 44
+        eventList.rowHeight = UITableViewAutomaticDimension
     }
     
     func updateUi(conferenceDays:[NotepadArchitectureDaySchedule]) -> NotepadArchitectureStdlibUnit{
         self.conferenceDays = conferenceDays
-        replaceDayTabs(conferenceDays: conferenceDays)
-        tableView.reloadData()
+        updateTabs(conferenceDays: conferenceDays)
+        eventList.reloadData()
         return NotepadArchitectureStdlibUnit()
     }
     
-    func replaceDayTabs(conferenceDays:[NotepadArchitectureDaySchedule]) {
+    func updateTabs(conferenceDays:[NotepadArchitectureDaySchedule]) {
         let lastSelected = dayChooser.selectedSegmentIndex
         
         dayChooser.removeAllSegments()
@@ -78,7 +78,7 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: Data refresh
     @IBAction func updateTable(_ sender: AnyObject) {
-        tableView.reloadData()
+        eventList.reloadData()
     }
     
     func showEventDetailView(with hourBlock: NotepadArchitectureHourBlock, andIndex index: Int) {
@@ -135,3 +135,4 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
 }
+

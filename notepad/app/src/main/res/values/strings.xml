@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">notepad</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_my_agenda">My Agenda</string>
+    <string name="title_sponsors">Sponsors</string>
+    <string name="title_about">About</string>
     <string name="title_notifications">Notifications</string>
     <string name="conflict">Conflict</string>
     <string name="cd_live_now">Live now</string>
@@ -16,4 +18,8 @@
         adipiscing elit, sed do
         eiusmod tempor incididunt ut labore et dolore magna aliqua.
     </string>
+    <string name="event_now" >This session is happening now</string>
+    <string name="event_past" >This session has already ended</string>
+    <string name="event_conflict">This session conflicts with another session in your schedule</string>
+
 </resources>

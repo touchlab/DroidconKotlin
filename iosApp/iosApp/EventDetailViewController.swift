@@ -71,11 +71,6 @@ import NotepadArchitecture
         self.present(alert, animated: true) {}
     }
     
-//    func updateRsvp(with event: DDATEvent!) {
-//        self.event = event
-//        updateAllUi()
-//    }
-    
     func updateAllUi() {
         updateButton()
         updateHeaderImage()

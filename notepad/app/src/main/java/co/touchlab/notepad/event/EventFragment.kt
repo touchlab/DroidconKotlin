@@ -13,20 +13,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.notepad.R
-import co.touchlab.notepad.R.id.recycler
-import co.touchlab.notepad.R.id.toolbar
-import co.touchlab.notepad.SessionInfo
-import co.touchlab.notepad.display.TIME_FORMAT
-import co.touchlab.notepad.isPast
-import co.touchlab.notepad.isRsvped
+import co.touchlab.notepad.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class EventFragment:Fragment(){
+class EventFragment : Fragment() {
     companion object {
         val SESSION_ID = "sessionId"
 
-        fun newInstance(sessionId: String) : EventFragment {
+        fun newInstance(sessionId: String): EventFragment {
             return EventFragment().apply {
                 arguments = Bundle().apply {
                     putString(SESSION_ID, sessionId)
@@ -35,10 +29,10 @@ class EventFragment:Fragment(){
         }
     }
 
-    val sessionId: String by lazy { arguments?.getString(SESSION_ID) ?: ""}
-    lateinit var eventViewModel : EventViewModel
-    lateinit var fab : FloatingActionButton
-    lateinit var recycler : RecyclerView
+    val sessionId: String by lazy { arguments?.getString(SESSION_ID) ?: "" }
+    lateinit var eventViewModel: EventViewModel
+    lateinit var fab: FloatingActionButton
+    lateinit var recycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,19 +64,12 @@ class EventFragment:Fragment(){
 
     }
 
-
     private fun dataRefresh(eventInfo: SessionInfo) {
-
-//        val event = eventInfo.event
-
         updateFAB(eventInfo)
-
         updateContent(eventInfo)
     }
 
     private fun updateFAB(event: SessionInfo) {
-        //Follow Fab
-//        fab.backgroundTintList = fabColorList
         fab.rippleColor = ContextCompat.getColor(context!!, R.color.white)
 
         if (event.isRsvped()) {
@@ -112,27 +99,14 @@ class EventFragment:Fragment(){
     private fun updateContent(event: SessionInfo) {
         val adapter = EventDetailAdapter(activity!!)
 
-        //Construct the time and venue string and add it to the adapter
-//        var formattedStart = event.session.startDateLong!!.formatDate(TIME_FORMAT)
-//        val formattedEnd = event.endDateLong!!.formatDate(TIME_FORMAT)
-//
-//        val startMarker = formattedStart.substring(Math.max(formattedStart.length - 3, 0))
-//        val endMarker = formattedEnd.substring(Math.max(formattedEnd.length - 3, 0))
-//        if (startMarker == endMarker) {
-//            formattedStart = formattedStart.substring(0, Math.max(formattedStart.length - 3, 0))
-//        }
+        adapter.addHeader(event.session.title, event.formattedRoomTime())
 
-//        val venueFormatString = resources.getString(R.string.event_venue_time)
-//        adapter.addHeader(event.name, venueFormatString.format(event.venue.name, formattedStart, formattedEnd))
+        when {
+            event.isNow() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_now) + "</b></i>")
+            event.isPast() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_past) + "</b></i>")
+            event.conflict -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_conflict) + "</b></i>")
+        }
 
-        /*if (event.isNow)
-            adapter.addInfo("<i><b>" + resources.getString(R.string.event_now) + "</b></i>")
-        else if (event.isPast)
-            adapter.addInfo("<i><b>" + resources.getString(R.string.event_past) + "</b></i>")
-        else if (conflict)
-            adapter.addInfo("<i><b>" + resources.getString(R.string.event_conflict) + "</b></i>")*/
-
-        //Description text
         if (!event.session.description.isBlank())
             adapter.addBody(event.session.description)
 
@@ -140,96 +114,7 @@ class EventFragment:Fragment(){
             adapter.addSpeaker(item)
         }
 
-        //TODO add feedback link
-        //adapter.addFeedback("feedback link goes here")
-
         recycler.adapter = adapter
     }
-/*
-    override fun reportError(error: String) {
-        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
-    }
 
-    override fun updateRsvp(event: Event) {
-        updateFAB(event)
-    }
-
-    /**
-     * Sets up the floating action bar according to the event details. This includes setting the color
-     * and adjusting the icon according to rsvp status
-     */
-    private fun updateFAB(event: Event) {
-        //Follow Fab
-        fab.backgroundTintList = fabColorList
-        fab.setColorFilter(trackColor)
-        fab.rippleColor = ContextCompat.getColor(context, R.color.white)
-
-        if (event.isRsvped) {
-            fab.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_check))
-            fab.isActivated = true
-        } else {
-            fab.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_plus))
-            fab.isActivated = false
-        }
-
-        val layoutParams = fab.layoutParams as CoordinatorLayout.LayoutParams
-        if (event.isPast) {
-            layoutParams.anchorId = View.NO_ID
-            fab.layoutParams = layoutParams
-            fab.visibility = View.GONE
-        } else {
-            fab.setOnClickListener {
-                if (event.isRsvped) {
-                    viewModel.setRsvp(false, eventId, this)
-                } else {
-                    viewModel.setRsvp(true, eventId, this)
-                }
-            }
-
-            layoutParams.anchorId = R.id.appbar
-            fab.layoutParams = layoutParams
-            fab.visibility = View.VISIBLE
-        }
-    }
-
-    /**
-     * Adds all the content to the recyclerView
-     */
-    private fun updateContent(event: Event, speakers: List<UserAccount>?, conflict: Boolean) {
-        val adapter = EventDetailAdapter(activity, viewModel, trackColor)
-
-        //Construct the time and venue string and add it to the adapter
-        var formattedStart = event.startDateLong!!.formatDate(TIME_FORMAT)
-        val formattedEnd = event.endDateLong!!.formatDate(TIME_FORMAT)
-
-        val startMarker = formattedStart.substring(Math.max(formattedStart.length - 3, 0))
-        val endMarker = formattedEnd.substring(Math.max(formattedEnd.length - 3, 0))
-        if (startMarker == endMarker) {
-            formattedStart = formattedStart.substring(0, Math.max(formattedStart.length - 3, 0))
-        }
-
-        val venueFormatString = resources.getString(R.string.event_venue_time)
-        adapter.addHeader(event.name, venueFormatString.format(event.venue.name, formattedStart, formattedEnd))
-
-        if (event.isNow)
-            adapter.addInfo("<i><b>" + resources.getString(R.string.event_now) + "</b></i>")
-        else if (event.isPast)
-            adapter.addInfo("<i><b>" + resources.getString(R.string.event_past) + "</b></i>")
-        else if (conflict)
-            adapter.addInfo("<i><b>" + resources.getString(R.string.event_conflict) + "</b></i>")
-
-        //Description text
-        if (!event.description.isNullOrBlank())
-            adapter.addBody(event.description)
-
-        for (item: UserAccount in speakers as ArrayList) {
-            adapter.addSpeaker(item)
-        }
-
-        //TODO add feedback link
-        //adapter.addFeedback("feedback link goes here")
-
-        recycler.adapter = adapter
-    }
-     */
 }
