@@ -10,6 +10,7 @@ dependencies {
     implementation deps.knarch.db
     implementation deps.knarch.threads
     implementation deps.sqldelight.multiplatformdriver
+    implementation "com.russhwolf:multiplatform-settings-common:0.1-alpha4"
 }
 
 kotlin {

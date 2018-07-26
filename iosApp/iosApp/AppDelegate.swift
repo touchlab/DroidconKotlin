@@ -17,16 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let speakersFile = Bundle.main.path(forResource: "speakers", ofType: "json")
-        let scheduleFile = Bundle.main.path(forResource: "schedule", ofType: "json")
-        
-        do{
-            try NotepadArchitectureAppContext().primeData(speakerJson: String(contentsOfFile: speakersFile!), scheduleJson: String(contentsOfFile: scheduleFile!))
-        } catch {
-            print(error)
-        }
+        NotepadArchitectureAppContext().doInitPlatformClient(staticFileLoader: loadAsset)
         
         return true
+    }
+    
+    func loadAsset(filePrefix:String, fileType:String) -> String?{
+        do{
+            let bundleFile = Bundle.main.path(forResource: filePrefix, ofType: fileType)
+            return try String(contentsOfFile: bundleFile!)
+        } catch {
+            print(error)
+            return nil
+        }
+    
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

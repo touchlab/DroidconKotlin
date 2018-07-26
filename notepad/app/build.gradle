@@ -34,6 +34,7 @@ dependencies {
     implementation deps.sqldelight.multiplatformdriverAndroid
     implementation "co.touchlab.knarch:knarch-android:0.7-alpha1"
     implementation "co.touchlab.knarch.threads:threads-androidx:0.2.0"
+    implementation "com.russhwolf:multiplatform-settings-android:0.1-alpha4"
 
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-beta01"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-beta01"
