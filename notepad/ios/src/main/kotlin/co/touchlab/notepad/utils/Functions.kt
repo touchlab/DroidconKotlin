@@ -6,6 +6,8 @@ import platform.Foundation.*
 import konan.worker.*
 import co.touchlab.multiplatform.architecture.db.sqlite.*
 import co.touchlab.knarch.*
+import com.russhwolf.settings.PlatformSettings
+import com.russhwolf.settings.Settings
 
 actual fun currentTimeMillis():Long = getTimeMillis()
 
@@ -17,16 +19,16 @@ actual fun initContext():NativeOpenHelperFactory {
     return factory
 }
 
-private var worker :Worker?=null
-
-
+private var workerMap = HashMap<String, Worker?>()
 
 //Multiple worker contexts get a copy of global state. Not sure about threads created outside of K/N (probably not)
 //Lazy create ensures we don't try to create multiple queues
-private fun makeQueue():Worker{
+private fun makeQueue(key:String):Worker{
+    var worker = workerMap.get(key)
     if(worker == null)
     {
         worker = startWorker()
+        workerMap.put(key, worker)
     }
     return worker!!
 }
@@ -41,7 +43,7 @@ actual fun <B> backgroundTask(backJob:()-> B, mainJob:(B) -> Unit){
 
     val jobWrapper = JobWrapper(backJob, mainJob).freeze()
 
-    val worker = makeQueue()
+    val worker = makeQueue("back")
     worker.schedule(TransferMode.CHECKED,
             { jobWrapper }){
         val result  = detachObjectGraph { it.backJob().freeze() as Any }
@@ -54,7 +56,15 @@ actual fun <B> backgroundTask(backJob:()-> B, mainJob:(B) -> Unit){
 
 actual fun backgroundTask(backJob:()->Unit){
 
-    val worker = makeQueue()
+    backgroundTaskRun(backJob, "back")
+}
+
+actual fun networkBackgroundTask(backJob: () -> Unit) {
+    backgroundTaskRun(backJob, "network")
+}
+
+private fun backgroundTaskRun(backJob: () -> Unit, key:String){
+    val worker = makeQueue(key)
     worker.schedule(TransferMode.CHECKED,
             { backJob.freeze() }){
         it()
@@ -89,3 +99,5 @@ actual fun simpleGet(url: String): String {
 actual fun logException(t: Throwable) {
     t.printStackTrace()
 }
+
+actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory()
