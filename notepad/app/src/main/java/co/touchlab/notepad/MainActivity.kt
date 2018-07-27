@@ -5,6 +5,7 @@ import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import co.touchlab.notepad.about.AboutFragment
 import co.touchlab.notepad.schedule.ScheduleFragment
 import co.touchlab.notepad.sponsors.SponsorsFragment
@@ -41,6 +42,10 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
     }
 
     override fun navigateTo(fragment: Fragment, addToBackstack: Boolean) {
+        if(!addToBackstack){
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+
         val transaction = supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, fragment)
