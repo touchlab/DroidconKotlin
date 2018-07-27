@@ -4,9 +4,8 @@ import co.touchlab.multiplatform.architecture.threads.MutableLiveData
 import co.touchlab.notepad.utils.backgroundTask
 import com.squareup.sqldelight.Query
 
-abstract class QueryLiveData<Z>(val q: Query<*>, skipInit:Boolean = false) : MutableLiveData<Z>(), Query.Listener {
+abstract class QueryLiveData<Q:Any, Z>(val q: Query<Q>, skipInit:Boolean = false) : MutableLiveData<Z>(), Query.Listener {
     init {
-        println("QueryLiveData-Before")
         q.addListener(listener = this)
 
         if(!skipInit) {
@@ -16,11 +15,18 @@ abstract class QueryLiveData<Z>(val q: Query<*>, skipInit:Boolean = false) : Mut
         }
     }
 
+    /**
+     * You need to call this manually because of https://youtrack.jetbrains.com/issue/KT-19848
+     *
+     * We can't typealias 'onActive' and 'onInactive' in LiveData because they're protected. For future versions
+     * it might make sense to create a whole different type hierarchy that delegates to LiveData, but some thinking
+     * needs to happen around that.
+     */
     fun removeListener() {
         q.removeListener(this)
     }
 
-    abstract fun extractData(q: Query<*>): Z
+    abstract fun extractData(q: Query<Q>): Z
 
     override fun queryResultsChanged() {
         println("queryResultsChanged: Value changed")

@@ -1,0 +1,181 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:targetApi="m">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="139dp"
+            android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/glyph_background_dark"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:statusBarScrim="@android:color/transparent">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/padding_xxlarge"
+                    android:layout_gravity="center_vertical"
+                    android:fitsSystemWindows="true"
+                    android:gravity="bottom|start">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="@dimen/height_xlarge"
+                        android:layout_height="@dimen/height_xlarge"
+                        android:layout_marginBottom="@dimen/padding_xlarge"
+                        android:layout_marginEnd="@dimen/padding_medium"
+                        android:layout_marginLeft="@dimen/padding_medium"
+                        android:layout_marginRight="@dimen/padding_medium"
+                        android:layout_marginStart="@dimen/padding_medium"
+                        android:src="@drawable/circle_profile_placeholder"/>
+
+                <TextView
+                        android:id="@+id/placeholder_emoji"
+                        android:layout_width="@dimen/height_xlarge"
+                        android:layout_height="@dimen/height_xlarge"
+                        android:layout_alignStart="@id/profile_image"
+                        android:layout_alignTop="@id/profile_image"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_xxxxlarge"
+                        tools:text=":)"/>
+
+                <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/profile_image"
+                        android:layout_toEndOf="@id/profile_image"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_xxlarge"
+                        tools:text="John Doe"/>
+
+                <TextView
+                        android:id="@+id/company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/name"
+                        android:layout_margin="@dimen/padding_micro"
+                        android:layout_toEndOf="@id/profile_image"
+                        android:textColor="@color/white"
+                        android:visibility="gone"
+                        tools:text="Company"
+                        tools:visibility="visible"/>
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    app:layout_collapseMode="pin">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/padding_xxlarge"
+                android:paddingTop="@dimen/padding_xlarge">
+
+            <TextView
+                    android:id="@+id/company2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_xxlarge"
+                    android:drawablePadding="@dimen/padding_medium"
+                    android:drawableStart="@drawable/vic_company_black_24dp"
+                    android:drawableTint="@color/primary_dark_50"
+                    android:padding="@dimen/padding_medium"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/primary_dark_50"
+                    android:visibility="gone"
+                    tools:text="Company"
+                    tools:visibility="visible"/>
+
+            <TextView
+                    android:id="@+id/website"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_xxlarge"
+                    android:drawablePadding="@dimen/padding_medium"
+                    android:drawableStart="@drawable/vic_website_black_24dp"
+                    android:drawableTint="@color/primary_dark_50"
+                    android:padding="@dimen/padding_medium"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/primary_dark_50"
+                    android:visibility="gone"
+                    tools:text="www.touchlab.co"
+                    tools:visibility="visible"/>
+
+            <TextView
+                    android:id="@+id/twitter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_xxlarge"
+                    android:drawablePadding="@dimen/padding_medium"
+                    android:drawableStart="@drawable/vic_twitter_24dp"
+                    android:padding="@dimen/padding_medium"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    tools:text="\@TouchLabNY"
+                    tools:visibility="visible"/>
+
+            <TextView
+                    android:id="@+id/linkedIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_xxlarge"
+                    android:drawablePadding="@dimen/padding_medium"
+                    android:drawableStart="@drawable/vic_linkedin_24dp"
+                    android:padding="@dimen/padding_medium"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    tools:text="LinkedIn"
+                    tools:visibility="visible"/>
+
+            <TextView
+                    android:id="@+id/bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_xxlarge"
+                    android:autoLink="web"
+                    android:drawablePadding="@dimen/padding_medium"
+                    android:drawableStart="@drawable/vic_bio_black_24dp"
+                    android:drawableTint="@color/primary_dark_50"
+                    android:padding="@dimen/padding_medium"
+                    android:textColor="@color/primary_dark_50"
+                    android:visibility="gone"
+                    tools:text="Bio"
+                    tools:visibility="visible"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
