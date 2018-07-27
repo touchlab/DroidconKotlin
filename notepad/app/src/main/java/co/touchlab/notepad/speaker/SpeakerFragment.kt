@@ -1,5 +1,6 @@
 package co.touchlab.notepad.speaker
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.notepad.R
 import co.touchlab.notepad.SpeakerModel
 import com.squareup.picasso.Picasso
+
+
 
 class SpeakerFragment : Fragment() {
     companion object {
@@ -38,12 +43,18 @@ class SpeakerFragment : Fragment() {
     }
 
     lateinit var mainView : View
+    lateinit var speakerInfoAdapter: SpeakerInfoAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mainView = inflater.inflate(R.layout.fragment_speaker, container, false)
         speakerViewModel.speakerModel.uiLiveData().observe(viewLifecycleOwner, Observer {
             updateDisplay(it)
         })
+        val list = mainView.findViewById<RecyclerView>(R.id.speakerInfoList)
+        list.layoutManager = LinearLayoutManager(activity)
+        speakerInfoAdapter = SpeakerInfoAdapter()
+        list.adapter = speakerInfoAdapter
+
         return mainView
     }
 
@@ -65,8 +76,41 @@ class SpeakerFragment : Fragment() {
         if(speakerUiData.profilePicture != null){
             Picasso.get().load(speakerUiData.profilePicture).into(mainView.findViewById<ImageView>(R.id.profile_image))
         }
+        speakerInfoAdapter.updateDate(speakerUiData.infoRows)
+    }
+
+    inner class SpeakerInfoAdapter : RecyclerView.Adapter<SpeakerInfoViewHolder>() {
+
+        var infoList:List<SpeakerModel.SpeakerInfo> = emptyList()
+
+        fun updateDate(data:List<SpeakerModel.SpeakerInfo>){
+            infoList = data
+            notifyDataSetChanged()
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpeakerInfoViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_speaker_info, parent, false)
+
+            return SpeakerInfoViewHolder(view)
+        }
+
+        override fun getItemCount(): Int = infoList.size
+
+        override fun onBindViewHolder(holder: SpeakerInfoViewHolder, position: Int) {
+            val speakerInfo = infoList.get(position)
+            holder.infoTextView.text = speakerInfo.info
+            holder.infoIconView.setImageResource(finDrawableId(requireContext(), speakerInfo.type.icon))
+        }
+    }
+
+    class SpeakerInfoViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
+        val infoTextView = itemView.findViewById<TextView>(R.id.infoTextView)
+        val infoIconView = itemView.findViewById<ImageView>(R.id.infoIconView)
     }
 }
+
+fun finDrawableId(ctx: Context, str: String): Int = ctx.getResources().getIdentifier(str, "drawable", ctx.getPackageName())
 
 class SpeakerViewModel(userId:String):ViewModel(){
     val speakerModel = SpeakerModel(userId)

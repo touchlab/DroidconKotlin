@@ -7,7 +7,7 @@ import co.touchlab.notepad.db.QueryLiveData
 import co.touchlab.notepad.utils.goFreeze
 import com.squareup.sqldelight.Query
 
-class SpeakerModel(val speakerId:String){
+class SpeakerModel(speakerId:String){
 
     private val speakerLiveData:SpeakerLiveData
 
@@ -50,7 +50,8 @@ class SpeakerModel(val speakerId:String){
 
     data class SpeakerInfo(val type: InfoType, val info:String)
 
-    enum class InfoType {
-        Company, Website, Twitter, Linkedin, Profile
+    enum class InfoType(val icon:String) {
+        Company("icon_company"), Website("icon_website"), Twitter("icon_twitter"),
+        Linkedin("icon_linkedin"), Profile("icon_profile")
     }
 }
