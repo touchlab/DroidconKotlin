@@ -27,12 +27,12 @@ class EventModel(val sessionId: String) {
         }
     }
 
-    class EventLiveData(q: Query<SessionWithRoomById>) : QueryLiveData<SessionInfo>(q, false),
+    class EventLiveData(q: Query<SessionWithRoomById>) : QueryLiveData<SessionWithRoomById, SessionInfo>(q, false),
             Query.Listener {
-        override fun extractData(q: Query<*>): SessionInfo {
-            val sessionStuff = q.executeAsOne() as SessionWithRoomById
+        override fun extractData(q: Query<SessionWithRoomById>): SessionInfo {
+            val sessionStuff = q.executeAsOne()
             val speakers = AppContext.dbHelper.queryWrapper.sessionSpeakerQueries.speakerForSession(sessionStuff.id).executeAsList()
-            val mySessions = AppContext.dbHelper.queryWrapper.sessionQueries.mySessions().executeAsList() as List<MySessions>
+            val mySessions = AppContext.dbHelper.queryWrapper.sessionQueries.mySessions().executeAsList()
 
             return SessionInfo(sessionStuff, speakers, conflict(sessionStuff, mySessions))
         }

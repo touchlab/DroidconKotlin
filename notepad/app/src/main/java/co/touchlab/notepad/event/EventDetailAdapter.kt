@@ -1,5 +1,6 @@
 package co.touchlab.notepad.event
 
+import android.app.Activity
 import android.content.Context
 import android.text.Html
 import android.view.LayoutInflater
@@ -9,11 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.droidcon.db.SpeakerForSession
+import co.touchlab.notepad.NavigationHost
 import co.touchlab.notepad.R
+import co.touchlab.notepad.speaker.SpeakerFragment
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
-class EventDetailAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var data = ArrayList<Detail>()
 
@@ -41,19 +44,19 @@ class EventDetailAdapter(private val context: Context) : RecyclerView.Adapter<Re
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (EntryType.values()[viewType]) {
             EntryType.TYPE_HEADER -> {
-                val view = LayoutInflater.from(context).inflate(R.layout.item_event_header, parent, false)
+                val view = LayoutInflater.from(activity).inflate(R.layout.item_event_header, parent, false)
                 HeaderVH(view)
             }
             EntryType.TYPE_BODY -> {
-                val view = LayoutInflater.from(context).inflate(R.layout.item_event_text, parent, false)
+                val view = LayoutInflater.from(activity).inflate(R.layout.item_event_text, parent, false)
                 TextVH(view)
             }
             EntryType.TYPE_INFO -> {
-                val view = LayoutInflater.from(context).inflate(R.layout.item_event_info, parent, false)
+                val view = LayoutInflater.from(activity).inflate(R.layout.item_event_info, parent, false)
                 InfoVH(view)
             }
             EntryType.TYPE_SPEAKER -> {
-                val view = LayoutInflater.from(context).inflate(R.layout.item_speaker_summary, parent, false)
+                val view = LayoutInflater.from(activity).inflate(R.layout.item_speaker_summary, parent, false)
                 SpeakerVH(view)
             }
         }
@@ -90,12 +93,7 @@ class EventDetailAdapter(private val context: Context) : RecyclerView.Adapter<Re
                 val user = data[position] as SpeakerDetail
 
                 if (!user.avatar.isNullOrBlank()) {
-                    Picasso.Builder(context)
-                            .listener { picasso, uri, exception ->
-                                exception.printStackTrace()
-                            }
-                            .build()
-//                    Picasso.get()
+                    Picasso.get()
                             .load(user.avatar)
                             .noFade()
                             .placeholder(R.drawable.circle_profile_placeholder)
@@ -103,9 +101,11 @@ class EventDetailAdapter(private val context: Context) : RecyclerView.Adapter<Re
                 }
 
                 val companyName = if (user.company.isNullOrEmpty()) "" else user.company
-                view.findViewById<TextView>(R.id.name).text = context.getString(R.string.event_speaker_name).format(user.name, companyName)
+                view.findViewById<TextView>(R.id.name).text = activity.getString(R.string.event_speaker_name).format(user.name, companyName)
 
-//                view.setOnClickListener { UserDetailActivity.callMe(context as Activity, user.userId) }
+                view.setOnClickListener {
+                    (activity as NavigationHost).navigateTo(SpeakerFragment.newInstance(user.userId), true)
+                }
                 if(user.bio == null)
                     view.findViewById<TextView>(R.id.bio).text =""
                 else
