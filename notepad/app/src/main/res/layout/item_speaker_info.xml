@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <ImageView
+            android:id="@+id/infoIconView"
+            android:layout_marginLeft="@dimen/padding_xxlarge"
+            android:padding="@dimen/padding_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/infoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTint="@color/primary_dark_50"
+            android:padding="@dimen/padding_medium"
+            android:gravity="center_vertical"
+            android:textColor="@color/primary_dark_50"
+            tools:text="www.touchlab.co"
+            tools:visibility="visible"/>
+</LinearLayout>

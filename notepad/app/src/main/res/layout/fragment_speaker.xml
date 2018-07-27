@@ -87,95 +87,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/speakerInfoList"/>
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/padding_xxlarge"
-                android:paddingTop="@dimen/padding_xlarge">
 
-            <TextView
-                    android:id="@+id/company2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/padding_xxlarge"
-                    android:drawablePadding="@dimen/padding_medium"
-                    android:drawableStart="@drawable/vic_company_black_24dp"
-                    android:drawableTint="@color/primary_dark_50"
-                    android:padding="@dimen/padding_medium"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/primary_dark_50"
-                    android:visibility="gone"
-                    tools:text="Company"
-                    tools:visibility="visible"/>
-
-            <TextView
-                    android:id="@+id/website"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/padding_xxlarge"
-                    android:drawablePadding="@dimen/padding_medium"
-                    android:drawableStart="@drawable/vic_website_black_24dp"
-                    android:drawableTint="@color/primary_dark_50"
-                    android:padding="@dimen/padding_medium"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/primary_dark_50"
-                    android:visibility="gone"
-                    tools:text="www.touchlab.co"
-                    tools:visibility="visible"/>
-
-            <TextView
-                    android:id="@+id/twitter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/padding_xxlarge"
-                    android:drawablePadding="@dimen/padding_medium"
-                    android:drawableStart="@drawable/vic_twitter_24dp"
-                    android:padding="@dimen/padding_medium"
-                    android:gravity="center_vertical"
-                    android:visibility="gone"
-                    tools:text="\@TouchLabNY"
-                    tools:visibility="visible"/>
-
-            <TextView
-                    android:id="@+id/linkedIn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/padding_xxlarge"
-                    android:drawablePadding="@dimen/padding_medium"
-                    android:drawableStart="@drawable/vic_linkedin_24dp"
-                    android:padding="@dimen/padding_medium"
-                    android:gravity="center_vertical"
-                    android:visibility="gone"
-                    tools:text="LinkedIn"
-                    tools:visibility="visible"/>
-
-            <TextView
-                    android:id="@+id/bio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/padding_xxlarge"
-                    android:autoLink="web"
-                    android:drawablePadding="@dimen/padding_medium"
-                    android:drawableStart="@drawable/vic_bio_black_24dp"
-                    android:drawableTint="@color/primary_dark_50"
-                    android:padding="@dimen/padding_medium"
-                    android:textColor="@color/primary_dark_50"
-                    android:visibility="gone"
-                    tools:text="Bio"
-                    tools:visibility="visible"/>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
