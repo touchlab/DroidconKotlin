@@ -101,3 +101,7 @@ actual fun logException(t: Throwable) {
 }
 
 actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory()
+
+actual fun logEvent(name: String, vararg params: String) {
+    println("ANALYTICS-$name: ${params.joinToString()}")
+}

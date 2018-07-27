@@ -55,7 +55,7 @@ class ScheduleModel {
         }
     }
 
-    private class SessionListLiveData(q: Query<SessionWithRoom>) : QueryLiveData<SessionWithRoom, List<SessionWithRoom>>(q), Query.Listener{
+    private class SessionListLiveData(q: Query<SessionWithRoom>) : QueryLiveData<List<SessionWithRoom>>(q), Query.Listener{
         override fun extractData(q: Query<*>): List<SessionWithRoom> = q.executeAsList() as List<SessionWithRoom>
     }
 }
