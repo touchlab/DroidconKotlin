@@ -27,7 +27,7 @@ class EventModel(val sessionId: String) {
         }
     }
 
-    class EventLiveData(q: Query<SessionWithRoomById>) : QueryLiveData<SessionWithRoomById, SessionInfo>(q, false),
+    class EventLiveData(q: Query<SessionWithRoomById>) : QueryLiveData<SessionInfo>(q, false),
             Query.Listener {
         override fun extractData(q: Query<*>): SessionInfo {
             val sessionStuff = q.executeAsOne() as SessionWithRoomById

@@ -3,6 +3,7 @@ package co.touchlab.notepad.utils
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import co.touchlab.multiplatform.architecture.db.sqlite.AndroidNativeOpenHelperFactory
 import co.touchlab.multiplatform.architecture.db.sqlite.NativeOpenHelperFactory
 import com.russhwolf.settings.PlatformSettings
@@ -80,3 +81,7 @@ actual fun logException(t: Throwable) {
 }
 
 actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory(AndroidAppContext.app)
+
+actual fun logEvent(name: String, vararg params: String) {
+    Log.i("ANALYTICS", "$name: ${params.joinToString()}")
+}
