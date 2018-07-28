@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -33,20 +34,25 @@ class EventFragment : Fragment() {
     lateinit var eventViewModel: EventViewModel
     lateinit var fab: FloatingActionButton
     lateinit var recycler: RecyclerView
+    lateinit var eventTitle: TextView
+    lateinit var eventRoomTime: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventViewModel = ViewModelProviders.of(this, EventViewModelFactory(sessionId))[EventViewModel::class.java]
-        eventViewModel.eventModel.evenLiveData.observe(this, Observer {
-            dataRefresh(it)
-        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_event, container, false)
 
         fab = view.findViewById(R.id.fab)
+        eventTitle = view.findViewById(R.id.eventTitle)
+        eventRoomTime = view.findViewById(R.id.eventRoomTime)
         recycler = view.findViewById(R.id.recycler)
+
+        eventViewModel.eventModel.evenLiveData.observe(viewLifecycleOwner, Observer {
+            dataRefresh(it)
+        })
 
         return view
     }
@@ -54,8 +60,8 @@ class EventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = activity as AppCompatActivity
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-        toolbar.title = ""
+//        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+//        toolbar.title = ""
 //        activity.setSupportActionBar(toolbar)
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         activity.supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -99,7 +105,9 @@ class EventFragment : Fragment() {
     private fun updateContent(event: SessionInfo) {
         val adapter = EventDetailAdapter(activity!!)
 
-        adapter.addHeader(event.session.title, event.formattedRoomTime())
+        eventTitle.text = event.session.title
+        eventRoomTime.text = event.formattedRoomTime()
+        adapter.addHeader(event.session.title)
 
         when {
             event.isNow() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_now) + "</b></i>")

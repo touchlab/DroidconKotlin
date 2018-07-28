@@ -22,25 +22,14 @@
         android:textSize="@dimen/text_small"
         tools:text="Design lab - exploring material with paper surfaces"/>
 
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/padding_large"
-        android:layout_toEndOf="@id/image"
-        android:autoLink="web"
-        android:textSize="@dimen/text_small"
-        tools:text="Pencil 3, 10am"/>
-
     <ImageView
-        android:id="@+id/image"
-        android:layout_width="@dimen/event_entry_icon"
-        android:layout_height="@dimen/event_entry_icon"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/padding_large"
-        android:contentDescription="@null"
-        android:layout_marginTop="@dimen/padding_large"/>
+            android:id="@+id/image"
+            android:layout_width="@dimen/event_entry_icon"
+            android:layout_height="@dimen/event_entry_icon"
+            android:layout_marginStart="@dimen/padding_large"
+            android:contentDescription="@string/cd_event_description"
+            android:src="@drawable/vic_info_outline_black_24dp"
+            android:visibility="invisible"
+            android:tint="@color/primary_dark_50"/>
 
 </RelativeLayout>
