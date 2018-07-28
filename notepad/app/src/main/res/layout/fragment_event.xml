@@ -64,7 +64,7 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/event_fab_margin"
+            android:layout_marginStart="@dimen/padding_large"
             app:borderWidth="0dp"
             app:fabSize="mini"
             app:layout_anchorGravity="bottom"/>
