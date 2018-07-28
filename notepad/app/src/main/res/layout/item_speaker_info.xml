@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:layout_marginEnd="@dimen/activity_horizontal_margin"
+              android:layout_marginBottom="@dimen/padding_small"
+              android:layout_marginTop="@dimen/padding_small">
     <ImageView
             android:id="@+id/infoIconView"
-            android:layout_marginLeft="@dimen/padding_xxlarge"
-            android:padding="@dimen/padding_medium"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="@dimen/padding_medium"
+            />
+
     <TextView
             android:id="@+id/infoTextView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:drawableTint="@color/primary_dark_50"
-            android:padding="@dimen/padding_medium"
-            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+
+            android:autoLink="web"
             android:textColor="@color/primary_dark_50"
             tools:text="www.touchlab.co"
             tools:visibility="visible"/>

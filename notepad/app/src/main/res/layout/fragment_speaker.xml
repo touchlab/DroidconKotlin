@@ -24,7 +24,7 @@
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/padding_xxlarge"
+                    android:layout_marginStart="@dimen/padding_medium"
                     android:layout_gravity="center_vertical"
                     android:fitsSystemWindows="true"
                     android:gravity="bottom|start">
