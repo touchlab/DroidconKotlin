@@ -20,8 +20,8 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
 
     private var data = ArrayList<Detail>()
 
-    fun addHeader(title: String, venue: String) {
-        data.add(HeaderDetail(EntryType.TYPE_HEADER, title, venue))
+    fun addHeader(title: String) {
+        data.add(HeaderDetail(EntryType.TYPE_HEADER, title))
     }
 
     fun addBody(description: String) {
@@ -75,7 +75,6 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
             EntryType.TYPE_HEADER -> {
                 val view = (holder as HeaderVH).itemView
                 view.findViewById<TextView>(R.id.title).text = (data[position] as HeaderDetail).title
-                view.findViewById<TextView>(R.id.subtitle).text = (data[position] as HeaderDetail).subtitle
             }
 
             EntryType.TYPE_INFO -> {
@@ -127,7 +126,7 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
         }
     }
 
-    inner class HeaderDetail(type: EntryType, val title: String, val subtitle: String) : Detail(type)
+    inner class HeaderDetail(type: EntryType, val title: String) : Detail(type)
 
     inner class TextDetail(type: EntryType, val text: String, val icon: Int) : Detail(type)
 

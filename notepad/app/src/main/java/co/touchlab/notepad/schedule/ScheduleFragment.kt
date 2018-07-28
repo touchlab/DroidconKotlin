@@ -15,7 +15,7 @@ import co.touchlab.notepad.display.DaySchedule
 import co.touchlab.notepad.event.EventFragment
 import com.google.android.material.tabs.TabLayout
 
-class ScheduleFragment private constructor():Fragment() {
+class ScheduleFragment():Fragment() {
     companion object {
         val ALLEVENTS = "allevents"
 
@@ -76,11 +76,6 @@ class ScheduleFragment private constructor():Fragment() {
         })
 
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        println("onResume called")
     }
 
     fun updateTabs(days: List<DaySchedule>) {
