@@ -18,7 +18,6 @@
             android:paddingEnd="@dimen/padding_small"
             android:paddingStart="0dp"
             android:paddingTop="@dimen/padding_wedge"
-            android:textColor="@color/card_text_title"
             tools:text="9:10am"/>
 
     <TextView
@@ -30,7 +29,7 @@
             android:paddingEnd="@dimen/padding_small"
             android:paddingStart="0dp"
             android:text="@string/conflict"
-            android:textColor="@color/red"
+            android:textColor="@color/rsvpConflictColor"
             android:textSize="@dimen/text_tiny"
             android:visibility="invisible"
             tools:visibility="visible"/>
@@ -50,8 +49,7 @@
                 android:id="@+id/rsvp"
                 android:layout_width="@dimen/padding_micro"
                 android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:background="@color/card_text_subtitle"/>
+                android:layout_gravity="start"/>
 
         <ImageView
                 android:id="@+id/live"
@@ -62,14 +60,12 @@
                 android:layout_marginEnd="@dimen/live_icon_margin"
                 android:contentDescription="@string/cd_live_now"
                 android:src="@drawable/ic_play_24dp"
-                android:tint="@color/card_text_title"
                 tools:visibility="visible"/>
 
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
             <TextView
@@ -79,7 +75,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="@dimen/padding_large"
-                    android:textColor="@color/card_text_subtitle"
                     tools:text="This is a title"/>
 
             <TextView
@@ -90,7 +85,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="@dimen/padding_tiny"
                     android:layout_marginEnd="@dimen/padding_large"
-                    android:textColor="@color/card_text_subtitle"
                     tools:text="Keanu Reeves"/>
 
             <View
@@ -110,7 +104,6 @@
                     android:ellipsize="end"
                     android:maxLines="4"
                     android:minLines="4"
-                    android:textColor="@color/card_text_subtitle"
                     tools:text="@string/lorem_long"/>
 
         </LinearLayout>

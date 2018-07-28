@@ -15,17 +15,14 @@
             android:layout_marginRight="8dp"
             android:padding="@dimen/padding_medium"
             />
-
     <TextView
             android:id="@+id/infoTextView"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:drawableTint="@color/primary_dark_50"
             android:layout_gravity="center_vertical"
-
             android:autoLink="web"
-            android:textColor="@color/primary_dark_50"
             tools:text="www.touchlab.co"
             tools:visibility="visible"/>
+
 </LinearLayout>

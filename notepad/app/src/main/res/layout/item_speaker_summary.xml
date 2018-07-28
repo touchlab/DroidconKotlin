@@ -26,7 +26,6 @@
         android:layout_toEndOf="@id/profile_image"
         android:paddingBottom="@dimen/padding_wedge"
         android:paddingTop="@dimen/padding_wedge"
-        android:textColor="@color/primary_dark_50"
         android:textSize="@dimen/text_small"
         tools:text="Liam Spradlin, touchlab"/>
 

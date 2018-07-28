@@ -86,8 +86,8 @@ class EventAdapter(private val context: Context,
         }
 
         override fun setRsvpVisible(rsvp: Boolean, past: Boolean) {
-            val rsvpColor = if (past) ContextCompat.getColor(itemView.context, R.color.card_text_subtitle)
-            else ContextCompat.getColor(itemView.context, R.color.accent)
+            val rsvpColor = if (past) ContextCompat.getColor(itemView.context, R.color.textColor)
+            else ContextCompat.getColor(itemView.context, R.color.rsvpColor)
             itemView.findViewById<View>(R.id.rsvp).setBackgroundColor(rsvpColor)
             itemView.findViewById<View>(R.id.rsvp).setViewVisibility(rsvp)
         }
@@ -95,7 +95,7 @@ class EventAdapter(private val context: Context,
         override fun setRsvpConflict(hasConflict: Boolean) {
             itemView.findViewById<TextView>(R.id.conflict_text).setViewVisibility(hasConflict)
             if (hasConflict)
-                itemView.findViewById<View>(R.id.rsvp).setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.red))
+                itemView.findViewById<View>(R.id.rsvp).setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.rsvpConflictColor))
         }
 
         override fun setLiveNowVisible(liveNow: Boolean) {
