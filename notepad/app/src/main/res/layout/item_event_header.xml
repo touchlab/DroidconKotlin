@@ -18,7 +18,6 @@
         android:layout_marginStart="@dimen/padding_large"
         android:layout_toEndOf="@id/image"
         android:autoLink="web"
-        android:textColor="@color/primary_dark_50"
         android:textSize="@dimen/text_small"
         tools:text="Design lab - exploring material with paper surfaces"/>
 
@@ -29,7 +28,6 @@
             android:layout_marginStart="@dimen/padding_xxlarge"
             android:contentDescription="@string/cd_event_description"
             android:src="@drawable/vic_info_outline_black_24dp"
-            android:visibility="invisible"
-            android:tint="@color/primary_dark_50"/>
+            android:visibility="invisible"/>
 
 </RelativeLayout>

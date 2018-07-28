@@ -3,21 +3,22 @@
 
     <item
         android:id="@+id/navigation_schedule"
-        android:icon="@drawable/outlined"
+        android:icon="@drawable/menu_schedule"
         android:title="@string/title_schedule"/>
 
     <item
         android:id="@+id/navigation_my_agenda"
-        android:icon="@drawable/outlined"
+        android:icon="@drawable/menu_my_agenda"
         android:title="@string/title_my_agenda"/>
-<item
+
+    <item
         android:id="@+id/navigation_sponsors"
-        android:icon="@drawable/outline_stars_24_px"
+        android:icon="@drawable/menu_sponsor"
         android:title="@string/title_sponsors"/>
 
     <item
         android:id="@+id/navigation_about"
-        android:icon="@drawable/round_error_outline_24_px"
+        android:icon="@drawable/menu_info"
         android:title="@string/title_about"/>
 
 </menu>

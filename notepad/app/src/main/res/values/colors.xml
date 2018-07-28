@@ -4,25 +4,23 @@
     <!--<color name="colorPrimary">#E0E0E0</color>-->
     <!--<color name="colorPrimaryDark">#FBB8AC</color>-->
     <!--<color name="colorAccent">#FEDBD0</color>-->
-    <color name="toolbarIconColor">#FFFFFF</color>
     <!--<color name="loginPageBackgroundColor">#FFFFFF</color>-->
     <!--<color name="productGridBackgroundColor">#FFFFFF</color>-->
 
+    <color name="textColor">#000</color>
     <color name="colorPrimary">#233096</color>
     <color name="colorPrimaryDark">#1e2981</color>
-    <color name="colorAccent">#D81B60</color>
+    <!--<color name="colorAccent">#a59956</color>-->
+    <color name="colorAccent">#6bac89</color>
+    <color name="colorMenu">#e4e02f</color>
 
-    <color name="accent">#68d1fd</color>
     <color name="white">#FFF</color>
     <color name="black">#000</color>
-    <color name="card_bg_event">@color/white</color>
-    <color name="red">#f1582c</color>
-    <color name="primary_dark_50">#104769</color>
-    <color name="card_text_title">@color/primary_dark_50</color>
-    <color name="card_text_subtitle">@color/text_gray</color>
-    <color name="text_gray">#777777</color>
+
+    <color name="rsvpColor">#68d1fd</color>
+    <color name="rsvpConflictColor">#f1582c</color>
+
     <color name="profile_circle">#dcdcdc</color>
     <color name="card_bg_block">#fafafa</color>
-
 
 </resources>
