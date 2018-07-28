@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#E0E0E0</color>
-    <color name="colorPrimaryDark">#FBB8AC</color>
-    <color name="colorAccent">#FEDBD0</color>
+    <!--<color name="colorPrimary">#E0E0E0</color>-->
+    <!--<color name="colorPrimaryDark">#FBB8AC</color>-->
+    <!--<color name="colorAccent">#FEDBD0</color>-->
     <color name="toolbarIconColor">#FFFFFF</color>
-    <color name="loginPageBackgroundColor">#FFFFFF</color>
-    <color name="productGridBackgroundColor">#FFFFFF</color>
+    <!--<color name="loginPageBackgroundColor">#FFFFFF</color>-->
+    <!--<color name="productGridBackgroundColor">#FFFFFF</color>-->
 
-    <!--<color name="colorPrimary">#008577</color>-->
-    <!--<color name="colorPrimaryDark">#00574B</color>-->
-    <!--<color name="colorAccent">#D81B60</color>-->
+    <color name="colorPrimary">#233096</color>
+    <color name="colorPrimaryDark">#1e2981</color>
+    <color name="colorAccent">#D81B60</color>
 
     <color name="accent">#68d1fd</color>
     <color name="white">#FFF</color>
