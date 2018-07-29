@@ -1,10 +1,12 @@
 package co.touchlab.notepad.schedule
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -79,6 +81,19 @@ class ScheduleFragment():Fragment() {
         })
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        activity.supportActionBar?.title = findApplicationName(activity)
+    }
+
+    private fun findApplicationName(context: Context): String {
+        val applicationInfo = context.applicationInfo
+        val stringId = applicationInfo.labelRes
+        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
     }
 
     fun updateTabs(days: List<DaySchedule>) {

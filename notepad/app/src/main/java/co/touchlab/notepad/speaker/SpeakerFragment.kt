@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -56,6 +57,13 @@ class SpeakerFragment : Fragment() {
         list.adapter = speakerInfoAdapter
 
         return mainView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.title = "Speaker"
     }
 
     override fun onDestroyView() {

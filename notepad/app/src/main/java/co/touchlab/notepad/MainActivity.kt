@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import co.touchlab.notepad.about.AboutFragment
@@ -11,6 +12,8 @@ import co.touchlab.notepad.schedule.ScheduleFragment
 import co.touchlab.notepad.sponsors.SponsorsFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import android.view.MenuItem
+
 
 class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
     override fun showSnack(message: String, length: Int) {
@@ -38,8 +41,21 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
+        setSupportActionBar(findViewById(R.id.app_bar) as Toolbar)
+
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                supportFragmentManager.popBackStack()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

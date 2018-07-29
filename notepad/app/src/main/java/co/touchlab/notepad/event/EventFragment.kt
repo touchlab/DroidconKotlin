@@ -70,6 +70,13 @@ class EventFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.title = "Session"
+    }
+
     private fun dataRefresh(eventInfo: SessionInfo) {
         updateFAB(eventInfo)
         updateContent(eventInfo)
@@ -88,7 +95,6 @@ class EventFragment : Fragment() {
 
         val layoutParams = fab.layoutParams as CoordinatorLayout.LayoutParams
         if (event.isPast()) {
-            layoutParams.anchorId = View.NO_ID
             fab.layoutParams = layoutParams
             fab.visibility = View.GONE
         } else {
@@ -96,7 +102,6 @@ class EventFragment : Fragment() {
                 eventViewModel.eventModel.toggleRsvp(!event.isRsvped())
             }
 
-            layoutParams.anchorId = R.id.appbar
             fab.layoutParams = layoutParams
             fab.visibility = View.VISIBLE
         }

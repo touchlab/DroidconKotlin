@@ -14,7 +14,7 @@
         android:id="@+id/image"
         android:layout_width="@dimen/event_entry_icon"
         android:layout_height="@dimen/event_entry_icon"
-        android:layout_marginStart="@dimen/padding_xlarge"
+        android:layout_marginStart="@dimen/padding_large"
         android:contentDescription="@string/cd_event_description"
         android:src="@drawable/vic_info_outline_black_24dp"
         />
