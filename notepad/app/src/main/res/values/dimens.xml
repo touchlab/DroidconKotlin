@@ -86,6 +86,7 @@
     <dimen name="item_event_padding_bottom">@dimen/padding_xmicro</dimen>
     <dimen name="item_event_padding_top">@dimen/padding_small</dimen>
     <dimen name="conflict_text_width">@dimen/height_xlarge</dimen>
+    <dimen name="item_event_rsvp_margin_start">@dimen/height_medium</dimen>
     <dimen name="item_event_card_margin_start">@dimen/height_xlarge</dimen>
     <dimen name="live_icon_margin">@dimen/padding_medium</dimen>
     <dimen name="location_time_margin_bottom">@dimen/padding_medium</dimen>

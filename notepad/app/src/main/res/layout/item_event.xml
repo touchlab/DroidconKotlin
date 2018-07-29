@@ -17,23 +17,19 @@
             android:gravity="end"
             android:paddingEnd="@dimen/padding_small"
             android:paddingStart="0dp"
-            android:paddingTop="@dimen/padding_wedge"
+            android:paddingTop="@dimen/padding_small"
             tools:text="9:00am"/>
 
-
-    <TextView
-            android:id="@+id/conflict_text"
-            android:layout_width="@dimen/conflict_text_width"
+    <ImageView
+            android:id="@+id/rsvpIndicator"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/item_event_rsvp_margin_start"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/time"
-            android:gravity="end"
-            android:paddingEnd="@dimen/padding_small"
-            android:paddingStart="0dp"
-            android:text="@string/conflict"
-            android:textColor="@color/rsvpConflictColor"
-            android:textSize="@dimen/text_tiny"
-            android:visibility="invisible"
-            tools:visibility="visible"/>
+            android:paddingBottom="@dimen/padding_xmicro"
+            android:src="@drawable/rsvp_vector"
+            />
 
     <androidx.cardview.widget.CardView
             android:id="@+id/card"
@@ -45,12 +41,6 @@
             android:layout_marginStart="@dimen/item_event_card_margin_start"
             card_view:cardCornerRadius="0dp">
 
-        <View
-                android:id="@+id/rsvp"
-                android:layout_width="@dimen/padding_micro"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"/>
-
         <ImageView
                 android:id="@+id/live"
                 android:layout_width="24dp"
@@ -61,6 +51,7 @@
                 android:contentDescription="@string/cd_live_now"
                 android:src="@drawable/ic_play_24dp"
                 tools:visibility="visible"/>
+
 
         <LinearLayout
                 android:layout_width="match_parent"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -35,6 +36,7 @@ class ScheduleFragment():Fragment() {
     val allEvents: Boolean by lazy { arguments!!.getBoolean(ScheduleFragment.ALLEVENTS, true) }
     lateinit var dayChooser: TabLayout
     lateinit var eventList: RecyclerView
+    lateinit var noDataText: TextView
     lateinit var eventAdapter: EventAdapter
 
     var conferenceDays: List<DaySchedule> = ArrayList()
@@ -52,6 +54,7 @@ class ScheduleFragment():Fragment() {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
         dayChooser = view.findViewById(R.id.dayChooser)
         eventList = view.findViewById(R.id.eventList)
+        noDataText = view.findViewById(R.id.noData)
 
         eventList.layoutManager = LinearLayoutManager(activity)
 
@@ -82,12 +85,24 @@ class ScheduleFragment():Fragment() {
         val current = dayChooser.selectedTabPosition
         dayChooser.removeAllTabs()
 
-        for (day in days) {
-            dayChooser.addTab(dayChooser.newTab().setText(day.dayString))
+        if(days.size == 0)
+        {
+            dayChooser.visibility = View.GONE
+            eventList.visibility = View.GONE
+            noDataText.visibility = View.VISIBLE
         }
+        else {
+            dayChooser.visibility = View.VISIBLE
+            eventList.visibility = View.VISIBLE
+            noDataText.visibility = View.GONE
 
-        if (current >= 0 && current < dayChooser.tabCount)
-            dayChooser.getTabAt(current)?.select()
+            for (day in days) {
+                dayChooser.addTab(dayChooser.newTab().setText(day.dayString))
+            }
+
+            if (current >= 0 && current < dayChooser.tabCount)
+                dayChooser.getTabAt(current)?.select()
+        }
     }
 
     fun updateDisplay()
