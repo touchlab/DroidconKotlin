@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.notepad.EventRow
 import co.touchlab.notepad.R
+import co.touchlab.notepad.RsvpState
 import co.touchlab.notepad.ScheduleModel
 import co.touchlab.notepad.db.isBlock
 import co.touchlab.notepad.display.HourBlock
-import co.touchlab.notepad.display.RowType
 import co.touchlab.notepad.utils.setViewVisibility
 
 /**
@@ -33,17 +32,7 @@ class EventAdapter(private val context: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val rowType = RowType.values()[viewType]
-        val layoutId = when (rowType) {
-            RowType.FutureEvent -> {
-                R.layout.item_event
-            }
-            RowType.PastEvent, RowType.Block -> {
-                R.layout.item_block
-            }
-        }
-
-        val v = LayoutInflater.from(context).inflate(layoutId, parent, false)
+        val v = LayoutInflater.from(context).inflate(R.layout.item_event, parent, false)
         return ScheduleBlockViewHolder(v)
     }
 
@@ -85,29 +74,41 @@ class EventAdapter(private val context: Context,
             itemView.findViewById<TextView>(R.id.event_description)?.text = s
         }
 
-        override fun setRsvpVisible(rsvp: Boolean, past: Boolean) {
-            val rsvpColor = if (past) ContextCompat.getColor(itemView.context, R.color.textColor)
-            else ContextCompat.getColor(itemView.context, R.color.rsvpColor)
-            itemView.findViewById<View>(R.id.rsvp).setBackgroundColor(rsvpColor)
-            itemView.findViewById<View>(R.id.rsvp).setViewVisibility(rsvp)
-        }
-
-        override fun setRsvpConflict(hasConflict: Boolean) {
-            itemView.findViewById<TextView>(R.id.conflict_text).setViewVisibility(hasConflict)
-            if (hasConflict)
-                itemView.findViewById<View>(R.id.rsvp).setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.rsvpConflictColor))
-        }
-
         override fun setLiveNowVisible(liveNow: Boolean) {
             itemView.findViewById<ImageView>(R.id.live).setViewVisibility(liveNow)
         }
 
+        override fun setRsvpState(state: RsvpState) {
+            val imageView = itemView.findViewById<ImageView>(R.id.rsvpIndicator)
+            imageView.visibility = View.VISIBLE
+            when(state){
+                RsvpState.None -> {
+                    imageView.visibility = View.INVISIBLE
+                }
+                RsvpState.Rsvp -> {
+                    imageView.setImageResource(R.drawable.rsvp_vector)
+                }
+                RsvpState.Conflict -> {
+                    imageView.setImageResource(R.drawable.rsvp_conflict_vector)
+                }
+                RsvpState.RsvpPast -> {
+                    imageView.setImageResource(R.drawable.rsvp_past_vector)
+                }
+            }
+        }
+
         override fun setTimeGap(gap: Boolean) {
             val topPadding = if (gap) R.dimen.padding_small else R.dimen.padding_xmicro
+            val offset = itemView.context.resources.getDimensionPixelOffset(topPadding)
             itemView.setPadding(itemView.paddingLeft,
-                    itemView.context.resources.getDimensionPixelOffset(topPadding),
+                    offset,
                     itemView.paddingRight,
                     itemView.paddingBottom)
+            val rsvpIndicator = itemView.findViewById<ImageView>(R.id.rsvpIndicator)
+            rsvpIndicator.setPadding(rsvpIndicator.paddingLeft,
+                    offset,
+                    rsvpIndicator.paddingRight,
+                    rsvpIndicator.paddingBottom)
         }
 
         fun setOnClickListener(listener: () -> Unit) {

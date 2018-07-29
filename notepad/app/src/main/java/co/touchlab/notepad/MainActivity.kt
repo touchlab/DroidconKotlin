@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        navigateTo(ScheduleFragment.newInstance(true), false)
+        if(savedInstanceState == null) {
+            navigateTo(ScheduleFragment.newInstance(true), false)
+        }
     }
 
     override fun navigateTo(fragment: Fragment, addToBackstack: Boolean) {

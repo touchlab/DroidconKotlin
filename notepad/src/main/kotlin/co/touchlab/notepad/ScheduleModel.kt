@@ -45,19 +45,37 @@ class ScheduleModel {
 
         if (hourBlock.timeBlock.isBlock()) {
             row.setLiveNowVisible(false)
-            row.setRsvpVisible(false, false)
-            row.setRsvpConflict(false)
+            row.setRsvpState(RsvpState.None)
         } else {
             //TODO: Add live
             row.setLiveNowVisible(false)
-            row.setRsvpVisible(allEvents && hourBlock.timeBlock.isRsvp(), hourBlock.isPast())
-            row.setRsvpConflict(allEvents && hourBlock.isConflict(allBlocks))
+
+            val rsvpShow = allEvents && hourBlock.timeBlock.isRsvp()
+            val state = if(rsvpShow){
+                if(hourBlock.isPast()) {
+                    RsvpState.RsvpPast
+                }else{
+                    if(hourBlock.isConflict(allBlocks)){
+                        RsvpState.Conflict
+                    }
+                    else{
+                        RsvpState.Rsvp
+                    }
+                }
+            }else{
+                RsvpState.None
+            }
+            row.setRsvpState(state)
         }
     }
 
     private class SessionListLiveData(q: Query<SessionWithRoom>) : QueryLiveData<SessionWithRoom, List<SessionWithRoom>>(q), Query.Listener{
         override fun extractData(q: Query<SessionWithRoom>): List<SessionWithRoom> = q.executeAsList()
     }
+}
+
+enum class RsvpState {
+    None, Rsvp, Conflict, RsvpPast
 }
 
 interface EventRow {
@@ -73,7 +91,5 @@ interface EventRow {
 
     fun setLiveNowVisible(b: Boolean)
 
-    fun setRsvpVisible(rsvp: Boolean, past: Boolean)
-
-    fun setRsvpConflict(b: Boolean)
+    fun setRsvpState(state:RsvpState)
 }

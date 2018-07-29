@@ -84,6 +84,7 @@ fun sortTimeBlocks(o1: SessionWithRoom, o2: SessionWithRoom): Int {
 }
 
 val DATE_FORMAT = DateFormatHelper("MM/dd/yyyy")
+val TAB_DATE_FORMAT = DateFormatHelper("MMM dd")
 val TIME_FORMAT = DateFormatHelper("h:mma")
 
 fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<HourBlock>> {
@@ -95,7 +96,7 @@ fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<H
 
     for (timeBlock in eventAndBlockList) {
         val startDateObj = timeBlock.startsAt
-        val startDate = DATE_FORMAT.format(startDateObj)
+        val startDate = TAB_DATE_FORMAT.format(startDateObj)
         var blockHourList: ArrayList<HourBlock>? = dateWithBlocksTreeMap.get(startDate)
         if (blockHourList == null) {
             blockHourList = ArrayList()
@@ -120,7 +121,9 @@ fun convertMapToDaySchedule(dateWithBlocksTreeMap: HashMap<String, ArrayList<Hou
         dayScheduleList.add(daySchedule)
     }
 
-    dayScheduleList.sortWith(Comparator { a, b -> a.dayString.compareTo(b.dayString) })
+    dayScheduleList.sortWith(Comparator { a, b ->
+        a.hourBlock[0].startDateLong.compareTo(b.hourBlock[0].startDateLong)
+    })
 
     return dayScheduleList
 }
