@@ -18,7 +18,8 @@
                 style="@style/Widget.Shrine.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                app:title="Droicon NYC" />
+                />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
