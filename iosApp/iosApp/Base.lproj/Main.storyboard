@@ -569,11 +569,11 @@
             </objects>
             <point key="canvasLocation" x="2552.5" y="186.5"/>
         </scene>
-        <!--Droidcon Tab Bar View Controller-->
+        <!--Material Tab Nav Controller-->
         <scene sceneID="R1K-Rd-8j6">
             <objects>
-                <tabBarController id="hAB-Au-Rvm" customClass="DroidconTabBarViewController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="IcF-cV-AQW">
+                <tabBarController id="hAB-Au-Rvm" customClass="MaterialTabNavController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" hidden="YES" contentMode="scaleToFill" translucent="NO" id="IcF-cV-AQW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.25490196078431371" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
