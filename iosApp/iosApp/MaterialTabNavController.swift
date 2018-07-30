@@ -16,11 +16,19 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomNavBar.items = tabBar.items!
-        bottomNavBar.selectedItem = tabBar.selectedItem
+        if(tabBar.selectedItem == nil){
+            bottomNavBar.selectedItem = bottomNavBar.items[0]
+        }else{
+            bottomNavBar.selectedItem = tabBar.selectedItem
+        }
         
         view.addSubview(bottomNavBar)
         
         bottomNavBar.delegate = self
+        
+        MDCBottomNavigationBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.menuColorScheme, toBottomNavigation: bottomNavBar)
+        bottomNavBar.unselectedItemTintColor = bottomNavBar.selectedItemTintColor
+//        MDCAppBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.colorScheme, to:bottomNavBar)
     }
     
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {

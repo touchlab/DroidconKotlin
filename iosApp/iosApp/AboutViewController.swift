@@ -7,21 +7,21 @@
 //
 
 import UIKit
-
-class AboutViewController: UIViewController {
+import MaterialComponents.MaterialAppBar
+import MaterialComponents.MaterialAppBar_ColorThemer
+import MaterialComponents.MaterialAppBar_TypographyThemer
+class AboutViewController: MaterialAppBarUIViewController {
     
-    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navBar.isTranslucent = false
+        
     }
     
     override func viewDidLayoutSubviews() {
-        scrollView.addSubview(contentView)
-        scrollView.contentSize = contentView.frame.size
+        
     }
     
     override func didReceiveMemoryWarning() {
