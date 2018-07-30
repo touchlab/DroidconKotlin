@@ -22,8 +22,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wbn-Gb-vOR">
+                                <rect key="frame" x="0.0" y="64" width="375" height="41"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="CLt-Rj-Hbr"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Sep 29"/>
+                                    <segment title="Sep 30"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="updateTable:" destination="BYZ-38-t0r" eventType="valueChanged" id="Vpa-d6-M6p"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" rowHeight="54" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HxQ-mU-XME">
-                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="104" width="375" height="514"/>
                                 <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="8ej-MW-TfQ" userLabel="Footer View to Eliminate Separator">
@@ -109,49 +124,22 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wbn-Gb-vOR">
-                                <rect key="frame" x="56" y="64" width="263" height="29"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <segments>
-                                    <segment title="Sep 29"/>
-                                    <segment title="Sep 30"/>
-                                </segments>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="updateTable:" destination="BYZ-38-t0r" eventType="valueChanged" id="Vpa-d6-M6p"/>
-                                </connections>
-                            </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTX-92-PKJ" customClass="MDCTabBar">
+                                <rect key="frame" x="23" y="20" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.22745098039215686" green="0.27058823529411763" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="HxQ-mU-XME" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6qn-hG-0yz"/>
                             <constraint firstItem="HxQ-mU-XME" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DBd-R6-tCZ"/>
+                            <constraint firstItem="wbn-Gb-vOR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="EoB-8G-b9X"/>
                             <constraint firstAttribute="trailing" secondItem="HxQ-mU-XME" secondAttribute="trailing" id="G0u-J4-hNg"/>
-                            <constraint firstAttribute="trailing" secondItem="HxQ-mU-XME" secondAttribute="trailing" constant="20" id="I0z-b4-QBf"/>
-                            <constraint firstItem="wbn-Gb-vOR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Qlw-kg-Fsd"/>
-                            <constraint firstItem="HxQ-mU-XME" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="Wfa-FK-0UR"/>
-                            <constraint firstAttribute="trailing" secondItem="HxQ-mU-XME" secondAttribute="trailing" constant="10" id="Wvj-2I-dRw"/>
-                            <constraint firstItem="HxQ-mU-XME" firstAttribute="top" secondItem="wbn-Gb-vOR" secondAttribute="bottom" constant="16" id="ZQh-mP-jNE"/>
-                            <constraint firstItem="HxQ-mU-XME" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="akA-a1-Z6L"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="wbn-Gb-vOR" secondAttribute="trailing" constant="40" id="cRL-xq-fhw"/>
-                            <constraint firstItem="HxQ-mU-XME" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="fBT-P7-PVA"/>
-                            <constraint firstItem="HxQ-mU-XME" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="fjK-it-Mzg"/>
-                            <constraint firstAttribute="trailing" secondItem="HxQ-mU-XME" secondAttribute="trailing" id="lhe-To-48l"/>
-                            <constraint firstItem="wbn-Gb-vOR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="sln-gX-WOL"/>
+                            <constraint firstItem="HxQ-mU-XME" firstAttribute="top" secondItem="wbn-Gb-vOR" secondAttribute="bottom" id="GQz-Q4-gUo"/>
+                            <constraint firstAttribute="trailing" secondItem="wbn-Gb-vOR" secondAttribute="trailing" id="bTs-Id-zxj"/>
+                            <constraint firstItem="wbn-Gb-vOR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="krg-sJ-Cz4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HxQ-mU-XME" secondAttribute="bottom" id="x7E-Uq-H7c"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="6qn-hG-0yz"/>
-                                <exclude reference="I0z-b4-QBf"/>
-                                <exclude reference="Wfa-FK-0UR"/>
-                                <exclude reference="Wvj-2I-dRw"/>
-                                <exclude reference="akA-a1-Z6L"/>
-                                <exclude reference="fBT-P7-PVA"/>
-                                <exclude reference="fjK-it-Mzg"/>
-                                <exclude reference="lhe-To-48l"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Droidcon NYC" id="yTq-zZ-gpx">
                         <barButtonItem key="backBarButtonItem" title="Back" id="xTs-Kd-f1i"/>
@@ -355,7 +343,7 @@
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ifb-Yr-TpH">
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" misplaced="YES" id="Ifb-Yr-TpH">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -384,13 +372,13 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="GYg-kk-lHq">
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" misplaced="YES" id="GYg-kk-lHq">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.22745098039215686" green="0.27058823529411763" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -400,6 +388,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAY-F3-QQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1793" y="187"/>
+        </scene>
+        <!--ABOUT-->
+        <scene sceneID="c57-bu-9Lb">
+            <objects>
+                <navigationController id="j1g-7R-Nwn" userLabel="ABOUT" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="About" image="ic_info_outline_white" id="1Zd-Rv-551"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QSU-IP-Sfu">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.0" green="0.25490196079999999" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="36T-Of-k6h" kind="relationship" relationship="rootViewController" id="scf-WU-NVq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mae-lX-AAv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2247" y="-577"/>
+        </scene>
+        <!--Test-->
+        <scene sceneID="Oca-Fl-QEa">
+            <objects>
+                <navigationController id="N5h-xZ-hhW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Test" image="ic_business_white" id="tCu-fN-Rdb"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3Ha-KQ-s9M">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dZw-3I-M71" kind="relationship" relationship="rootViewController" id="CrW-QA-YkK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8d1-L6-CaB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3526" y="-971"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="Qef-gn-j4t">
+            <objects>
+                <viewController id="dZw-3I-M71" customClass="TestAppBarViewController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="osM-CL-c05"/>
+                        <viewControllerLayoutGuide type="bottom" id="uv3-u1-zws"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hlg-Hp-ZvT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello testing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fu4-nZ-8dT">
+                                <rect key="frame" x="81" y="64" width="213" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fu4-nZ-8dT" firstAttribute="top" secondItem="osM-CL-c05" secondAttribute="bottom" id="lCJ-iA-JGm"/>
+                            <constraint firstItem="fu4-nZ-8dT" firstAttribute="centerX" secondItem="Hlg-Hp-ZvT" secondAttribute="centerX" id="v7i-dx-Tan"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="Item" image="TransparentPixel" id="Tac-1y-nFo"/>
+                    <navigationItem key="navigationItem" id="PAl-0C-FOe"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xQo-kM-7em" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4506" y="-633"/>
         </scene>
         <!--About-->
         <scene sceneID="ZE3-ed-YrL">
@@ -414,26 +475,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSQ-hI-l2X">
-                                <rect key="frame" x="-4" y="84" width="383" height="534"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udt-ka-FgF">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="500"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About the Droidcon NYC 2017 app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5W-0Y-4as">
-                                                <rect key="frame" x="38" y="38" width="337" height="15"/>
+                                                <rect key="frame" x="38" y="38" width="329" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIh-7I-yAB">
-                                                <rect key="frame" x="38" y="60" width="327" height="57.5"/>
+                                                <rect key="frame" x="38" y="60" width="319" height="57.5"/>
                                                 <string key="text">This app was built at touchlab, using Doppl code sharing to provide everything under the UI. That includes Android Architecture, Room DB, Retrofit 2, Rx 2, and various other bits.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="http://doppl.co/" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Zfz-Gq-Rpg">
-                                                <rect key="frame" x="38" y="125.5" width="337" height="38"/>
+                                                <rect key="frame" x="38" y="125.5" width="329" height="38"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="38" id="uEi-1G-J1A"/>
                                                 </constraints>
@@ -443,19 +504,19 @@
                                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Droidcon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mrh-Pz-tMC">
-                                                <rect key="frame" x="38" y="171.5" width="337" height="15"/>
+                                                <rect key="frame" x="38" y="171.5" width="329" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About touchlab" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDI-Rb-l4S">
-                                                <rect key="frame" x="38" y="301.5" width="337" height="15"/>
+                                                <rect key="frame" x="38" y="301.5" width="329" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Me-pN-hgs">
-                                                <rect key="frame" x="38" y="324.5" width="327" height="28"/>
+                                                <rect key="frame" x="38" y="324.5" width="319" height="28"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Touchlab Accelerates Mobile Innovation for Enterprise and Startups. Get in touch.">
                                                         <attributes>
@@ -468,14 +529,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZmA-0b-uKl">
-                                                <rect key="frame" x="38" y="194.5" width="327" height="86"/>
+                                                <rect key="frame" x="38" y="194.5" width="319" height="86"/>
                                                 <string key="text">Droidcon conferences around the world support mobile development and create a global network for developers and companies. We offer best-in-class presentations from leaders in all parts of the mobile ecosystem, including core development, embedded solutions, augmented reality, business solutions, and games.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="http://touchlab.co" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4x5-1P-Yeg">
-                                                <rect key="frame" x="38" y="360.5" width="337" height="38"/>
+                                                <rect key="frame" x="38" y="360.5" width="329" height="38"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="38" id="Q1n-Bh-XzO"/>
                                                 </constraints>
@@ -516,40 +577,20 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="udt-ka-FgF" secondAttribute="trailing" id="0Q1-Ed-QOv"/>
-                                    <constraint firstItem="udt-ka-FgF" firstAttribute="top" secondItem="DSQ-hI-l2X" secondAttribute="top" id="ISZ-Jg-Sa9"/>
-                                    <constraint firstItem="udt-ka-FgF" firstAttribute="leading" secondItem="DSQ-hI-l2X" secondAttribute="leading" id="SC8-4x-kwn"/>
+                                    <constraint firstItem="udt-ka-FgF" firstAttribute="top" secondItem="DSQ-hI-l2X" secondAttribute="top" id="452-74-xrw"/>
+                                    <constraint firstAttribute="bottom" secondItem="udt-ka-FgF" secondAttribute="bottom" id="5fO-tc-3U1"/>
+                                    <constraint firstAttribute="trailing" secondItem="udt-ka-FgF" secondAttribute="trailing" id="JBf-6g-Idw"/>
                                     <constraint firstItem="E5W-0Y-4as" firstAttribute="width" secondItem="DSQ-hI-l2X" secondAttribute="width" constant="-46" id="WWe-Ab-GEh"/>
-                                    <constraint firstItem="udt-ka-FgF" firstAttribute="leading" secondItem="DSQ-hI-l2X" secondAttribute="leading" id="ZG2-9Z-GX2"/>
-                                    <constraint firstAttribute="trailing" secondItem="udt-ka-FgF" secondAttribute="trailing" id="pyr-k8-4FR"/>
-                                    <constraint firstAttribute="bottom" secondItem="udt-ka-FgF" secondAttribute="bottom" constant="-13" id="sbH-iq-lrM"/>
+                                    <constraint firstItem="udt-ka-FgF" firstAttribute="leading" secondItem="DSQ-hI-l2X" secondAttribute="leading" id="aiI-SN-QZV"/>
                                 </constraints>
                             </scrollView>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TT5-5I-JdE">
-                                <rect key="frame" x="-4" y="8" width="383" height="64"/>
-                                <color key="backgroundColor" red="0.22745098039215686" green="0.27058823529411763" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="1P4-d6-NJj"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="blY-Ax-SlC"/>
-                                </constraints>
-                                <color key="barTintColor" red="0.22745098039215686" green="0.27058823529411763" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="About" id="82e-EG-pfM"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="DSQ-hI-l2X" firstAttribute="top" secondItem="TT5-5I-JdE" secondAttribute="bottom" id="Emj-sl-IYG"/>
-                            <constraint firstItem="TT5-5I-JdE" firstAttribute="leading" secondItem="MKK-rS-hLa" secondAttribute="leadingMargin" constant="-20" id="FG7-DD-OPa"/>
-                            <constraint firstItem="DSQ-hI-l2X" firstAttribute="leading" secondItem="TT5-5I-JdE" secondAttribute="leading" id="bhY-Xr-GB8"/>
-                            <constraint firstItem="DSQ-hI-l2X" firstAttribute="trailing" secondItem="TT5-5I-JdE" secondAttribute="trailing" id="muN-8E-pGV"/>
-                            <constraint firstItem="TT5-5I-JdE" firstAttribute="top" secondItem="MKK-rS-hLa" secondAttribute="topMargin" id="ocL-bJ-N8S"/>
+                            <constraint firstItem="DSQ-hI-l2X" firstAttribute="leading" secondItem="MKK-rS-hLa" secondAttribute="leading" id="7vF-pD-T0Y"/>
+                            <constraint firstItem="DSQ-hI-l2X" firstAttribute="top" secondItem="zWU-Qy-PKt" secondAttribute="bottom" id="8ps-aq-tTY"/>
+                            <constraint firstAttribute="trailing" secondItem="DSQ-hI-l2X" secondAttribute="trailing" id="PX2-zx-p5Y"/>
                             <constraint firstItem="DSQ-hI-l2X" firstAttribute="bottom" secondItem="o6d-84-LyN" secondAttribute="top" id="ooJ-Rf-ctn"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="TT5-5I-JdE" secondAttribute="trailing" constant="-20" id="v6T-yI-Fu5"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="ABOUT" image="ic_info_outline_white" id="fz8-KM-NeQ">
@@ -559,9 +600,9 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
+                    <navigationItem key="navigationItem" title="About" id="Dh7-HY-owl"/>
                     <connections>
                         <outlet property="contentView" destination="udt-ka-FgF" id="Epd-aQ-RST"/>
-                        <outlet property="navBar" destination="TT5-5I-JdE" id="geg-al-dPz"/>
                         <outlet property="scrollView" destination="DSQ-hI-l2X" id="egN-1G-S3E"/>
                     </connections>
                 </viewController>
@@ -585,7 +626,8 @@
                         <segue destination="34T-rw-TB2" kind="relationship" relationship="viewControllers" id="k09-hi-70M"/>
                         <segue destination="REP-p4-TLr" kind="relationship" relationship="viewControllers" id="dsH-sq-16Y"/>
                         <segue destination="LeH-tB-hip" kind="relationship" relationship="viewControllers" id="0e9-p8-9Lk"/>
-                        <segue destination="36T-Of-k6h" kind="relationship" relationship="viewControllers" id="I7C-Ik-y8H"/>
+                        <segue destination="j1g-7R-Nwn" kind="relationship" relationship="viewControllers" id="ZlY-HV-llU"/>
+                        <segue destination="N5h-xZ-hhW" kind="relationship" relationship="viewControllers" id="i0g-9J-4yq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4k8-ou-SUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -969,6 +1011,7 @@
     </scenes>
     <resources>
         <image name="TransparentPixel" width="1" height="1"/>
+        <image name="ic_business_white" width="24" height="24"/>
         <image name="ic_info_outline_white" width="24" height="24"/>
         <image name="ic_insert_invitation_white" width="24" height="24"/>
         <image name="ic_keyboard_arrow_right_white" width="24" height="24"/>

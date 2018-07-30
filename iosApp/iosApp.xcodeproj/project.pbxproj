@@ -16,6 +16,9 @@
 		6356316620DC592000BCCDF9 /* NotepadArchitecture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6356315F20DC592000BCCDF9 /* NotepadArchitecture.framework */; };
 		6356316720DC592000BCCDF9 /* NotepadArchitecture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6356315F20DC592000BCCDF9 /* NotepadArchitecture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		637100CD210E409E0099FF25 /* MaterialTabNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100CC210E409E0099FF25 /* MaterialTabNavController.swift */; };
+		637100CF210F5FE90099FF25 /* TestAppBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100CE210F5FE90099FF25 /* TestAppBarViewController.swift */; };
+		637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D0210F69160099FF25 /* ApplicationScheme.swift */; };
+		637100D3210F7B410099FF25 /* MaterialAppBarUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D2210F7B410099FF25 /* MaterialAppBarUIViewController.swift */; };
 		6372423720F914D60049263B /* speakers.json in Resources */ = {isa = PBXBuildFile; fileRef = 6372423620F914D60049263B /* speakers.json */; };
 		6372423920F915EA0049263B /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 6372423820F915EA0049263B /* schedule.json */; };
 		6372423C20F973370049263B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6372423A20F973370049263B /* Main.storyboard */; };
@@ -80,6 +83,9 @@
 		6356318820DC5A2900BCCDF9 /* NoteModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NoteModel.kt; sourceTree = "<group>"; };
 		6356318A20DC5A2900BCCDF9 /* NoteDbHelper.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NoteDbHelper.kt; sourceTree = "<group>"; };
 		637100CC210E409E0099FF25 /* MaterialTabNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTabNavController.swift; sourceTree = "<group>"; };
+		637100CE210F5FE90099FF25 /* TestAppBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppBarViewController.swift; sourceTree = "<group>"; };
+		637100D0210F69160099FF25 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
+		637100D2210F7B410099FF25 /* MaterialAppBarUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialAppBarUIViewController.swift; sourceTree = "<group>"; };
 		6372423620F914D60049263B /* speakers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = speakers.json; sourceTree = "<group>"; };
 		6372423820F915EA0049263B /* schedule.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schedule.json; sourceTree = "<group>"; };
 		6372423B20F973370049263B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -161,6 +167,7 @@
 				6372424820FAD9B30049263B /* SpeakerTableViewCell.xib */,
 				6372423A20F973370049263B /* Main.storyboard */,
 				6356313A20DC58F600BCCDF9 /* AppDelegate.swift */,
+				637100D0210F69160099FF25 /* ApplicationScheme.swift */,
 				6356313E20DC58F600BCCDF9 /* MainOrig.storyboard */,
 				6356314120DC58F700BCCDF9 /* Assets.xcassets */,
 				6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */,
@@ -173,6 +180,8 @@
 				6372424420F9B7800049263B /* AboutViewController.swift */,
 				6372424620FAD04F0049263B /* EventDetailViewController.swift */,
 				637100CC210E409E0099FF25 /* MaterialTabNavController.swift */,
+				637100CE210F5FE90099FF25 /* TestAppBarViewController.swift */,
+				637100D2210F7B410099FF25 /* MaterialAppBarUIViewController.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -467,11 +476,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */,
+				637100D3210F7B410099FF25 /* MaterialAppBarUIViewController.swift in Sources */,
+				637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */,
 				6372424720FAD04F0049263B /* EventDetailViewController.swift in Sources */,
 				6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */,
 				6372424520F9B7800049263B /* AboutViewController.swift in Sources */,
 				6372424220F9AE240049263B /* ScheduleListCell.swift in Sources */,
 				637100CD210E409E0099FF25 /* MaterialTabNavController.swift in Sources */,
+				637100CF210F5FE90099FF25 /* TestAppBarViewController.swift in Sources */,
 				6372423E20F975470049263B /* LaunchViewController.swift in Sources */,
 				6356313B20DC58F600BCCDF9 /* AppDelegate.swift in Sources */,
 				6372424020F975A70049263B /* ScheduleViewController.swift in Sources */,

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import NotepadArchitecture
 
-class ScheduleViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var viewModel:NotepadArchitectureScheduleViewModel!
     
