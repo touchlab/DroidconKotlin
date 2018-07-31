@@ -21,7 +21,7 @@ class MaterialAppBarUIViewController: UIViewController {
         appBar.headerViewController.headerView.trackingScrollView = nil
     }
     
-    init(){
+init(){
         super.init(nibName: nil, bundle: nil)
         self.addChildViewController(appBar.headerViewController)
     }
@@ -52,15 +52,45 @@ class MaterialAppBarUIViewController: UIViewController {
         // Step 2: Register the App Bar views.
         appBar.addSubviewsToParent()
         
-        appBar.navigationBar.observe(self.navigationItem)
+//        appBar.navigationBar.observe(self.navigationItem)
+        
+    }
+    
+    func showArrowBack(){
+        let backButtonImage = MDCIcons.imageFor_ic_arrow_back()
+        
+        let barItem = UIBarButtonItem(image: backButtonImage, style: .done, target: self,
+                                      action: #selector(dismissMe))
+        
+        appBar.navigationBar.backItem = barItem
+    }
+    
+    @objc func dismissMe(){
+        navigationController?.popViewController(animated: true)
     }
 
+    // Optional step: If you allow the header view to hide the status bar you must implement this
+    //                method and return the headerViewController.
+    override var childViewControllerForStatusBarHidden: UIViewController? {
+        return appBar.headerViewController
+    }
+    
+    // Optional step: The Header View Controller does basic inspection of the header view's background
+    //                color to identify whether the status bar should be light or dark-themed.
+    override var childViewControllerForStatusBarStyle: UIViewController? {
+        return appBar.headerViewController
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

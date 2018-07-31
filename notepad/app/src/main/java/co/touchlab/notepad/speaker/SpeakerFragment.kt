@@ -16,7 +16,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.notepad.R
+import co.touchlab.notepad.SpeakerInfo
 import co.touchlab.notepad.SpeakerModel
+import co.touchlab.notepad.SpeakerUiData
 import com.squareup.picasso.Picasso
 
 
@@ -71,7 +73,7 @@ class SpeakerFragment : Fragment() {
         speakerViewModel.speakerModel.shutDown()
     }
 
-    private fun updateDisplay(speakerUiData: SpeakerModel.SpeakerUiData) {
+    private fun updateDisplay(speakerUiData: SpeakerUiData) {
         mainView.findViewById<TextView>(R.id.name).text = speakerUiData.fullName
         val companyView = mainView.findViewById<TextView>(R.id.company)
         if(speakerUiData.company.isNullOrBlank()) {
@@ -89,9 +91,9 @@ class SpeakerFragment : Fragment() {
 
     inner class SpeakerInfoAdapter : RecyclerView.Adapter<SpeakerInfoViewHolder>() {
 
-        var infoList:List<SpeakerModel.SpeakerInfo> = emptyList()
+        var infoList:List<SpeakerInfo> = emptyList()
 
-        fun updateDate(data:List<SpeakerModel.SpeakerInfo>){
+        fun updateDate(data:List<SpeakerInfo>){
             infoList = data
             notifyDataSetChanged()
         }
