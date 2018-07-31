@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-import NotepadArchitecture
+import SessionizeArch
 
 class SpeakerTableViewCell: UITableViewCell {
 
@@ -26,7 +26,7 @@ class SpeakerTableViewCell: UITableViewCell {
             speakerImage.layer.cornerRadius = 24
             speakerImage.layer.masksToBounds = true
         } else {
-            speakerImageLabel.text = NotepadArchitectureEmojiUtil().getEmojiForUser(displayName: name)
+            speakerImageLabel.text = SessionizeArchEmojiUtil().getEmojiForUser(displayName: name)
         }
     
         nameLabel.sizeToFit()

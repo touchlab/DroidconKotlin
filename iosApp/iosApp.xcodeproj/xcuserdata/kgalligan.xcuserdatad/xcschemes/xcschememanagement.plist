@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>20</integer>
 		</dict>
+		<key>SessionizeArch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
 		<key>iosApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>

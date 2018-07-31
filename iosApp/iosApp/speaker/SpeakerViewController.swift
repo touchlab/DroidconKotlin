@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import NotepadArchitecture
+import SessionizeArch
 import Kingfisher
 
 class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -18,8 +18,8 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
     @IBOutlet weak var tableView: UITableView!
     
     var speakerId:String!
-    var viewModel:NotepadArchitectureSpeakerViewModel!
-    var speakerUiData:NotepadArchitectureSpeakerUiData?
+    var viewModel:SessionizeArchSpeakerViewModel!
+    var speakerUiData:SessionizeArchSpeakerUiData?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -33,7 +33,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
         
-        viewModel = NotepadArchitectureSpeakerViewModel(sessionId: speakerId)
+        viewModel = SessionizeArchSpeakerViewModel(sessionId: speakerId)
         viewModel.registerForChanges(proc: updateUi)
         
         // Do any additional setup after loading the view.
@@ -44,7 +44,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    func updateUi(speakerUiData:NotepadArchitectureSpeakerUiData) -> NotepadArchitectureStdlibUnit{
+    func updateUi(speakerUiData:SessionizeArchSpeakerUiData) -> SessionizeArchStdlibUnit{
         self.speakerUiData = speakerUiData
         speakerName.text = speakerUiData.fullName
         speakerCompany.text = speakerUiData.company
@@ -57,7 +57,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         tableView.reloadData()
 //        styleButton()
 //        updateAllUi()
-        return NotepadArchitectureStdlibUnit()
+        return SessionizeArchStdlibUnit()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

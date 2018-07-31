@@ -7,18 +7,18 @@
 //
 
 import UIKit
-import NotepadArchitecture
+import SessionizeArch
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let viewModel =  NotepadArchitectureScheduleViewModel()
+    let viewModel =  SessionizeArchScheduleViewModel()
     
     @IBOutlet weak var inputText: UITextField!
     @IBOutlet weak var inputDescription: UITextField!
     @IBOutlet weak var inputButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    var users:[NotepadArchitectureDaySchedule]? = nil
-    var hourBlocks:[NotepadArchitectureHourBlock]? = nil
+    var users:[SessionizeArchDaySchedule]? = nil
+    var hourBlocks:[SessionizeArchHourBlock]? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +43,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         viewModel.unregister()
     }
     
-    func updateUi(users:[NotepadArchitectureDaySchedule]) -> NotepadArchitectureStdlibUnit{
+    func updateUi(users:[SessionizeArchDaySchedule]) -> SessionizeArchStdlibUnit{
         self.users = users
         self.hourBlocks = users[1].hourBlock
         tableView.reloadData()
         inputButton.isEnabled = true
         print("array size \(users.count)")
-        return NotepadArchitectureStdlibUnit()
+        return SessionizeArchStdlibUnit()
     }
     
     override func didReceiveMemoryWarning() {

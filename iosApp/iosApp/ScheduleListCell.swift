@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import NotepadArchitecture
+import SessionizeArch
 
-@objc class ScheduleListCell: UITableViewCell, NotepadArchitectureEventRow {
+@objc class ScheduleListCell: UITableViewCell, SessionizeArchEventRow {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var speakerNamesLabel: UILabel!
@@ -42,17 +42,17 @@ import NotepadArchitecture
         
     }
     
-    func setRsvpState(state: NotepadArchitectureRsvpState) {
-        if(state == NotepadArchitectureRsvpState.none){
+    func setRsvpState(state: SessionizeArchRsvpState) {
+        if(state == SessionizeArchRsvpState.none){
             rsvpDot.isHidden = true
         }
         else {
             rsvpDot.isHidden = false
-            if(state == NotepadArchitectureRsvpState.conflict){
+            if(state == SessionizeArchRsvpState.conflict){
                 rsvpDot.backgroundColor = ApplicationScheme.shared.rsvpColorConflict
-            }else if(state == NotepadArchitectureRsvpState.rsvp){
+            }else if(state == SessionizeArchRsvpState.rsvp){
                 rsvpDot.backgroundColor = ApplicationScheme.shared.rsvpColor
-            }else if(state == NotepadArchitectureRsvpState.rsvppast){
+            }else if(state == SessionizeArchRsvpState.rsvppast){
                 rsvpDot.backgroundColor = ApplicationScheme.shared.rsvpColorPast
             }
         }

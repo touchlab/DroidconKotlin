@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import NotepadArchitecture
+import SessionizeArch
 import MaterialComponents
 
 @objc class EventDetailViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -20,8 +20,8 @@ import MaterialComponents
     
     // MARK: Properties
     var sessionId: String!
-    var viewModel:NotepadArchitectureEventViewModel!
-    var sessionInfo: NotepadArchitectureSessionInfo!
+    var viewModel:SessionizeArchEventViewModel!
+    var sessionInfo: SessionizeArchSessionInfo!
     
     // MARK: Lifecycle events
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +32,7 @@ import MaterialComponents
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = NotepadArchitectureEventViewModel(sessionId: sessionId)
+        viewModel = SessionizeArchEventViewModel(sessionId: sessionId)
         viewModel.registerForChanges(proc: updateUi)
         
         tableView.estimatedRowHeight = tableView.rowHeight
@@ -51,17 +51,17 @@ import MaterialComponents
         headerImage.backgroundColor = ApplicationScheme.shared.colorScheme.secondaryColor
     }
     
-    func updateUi(sessionInfo:NotepadArchitectureSessionInfo) -> NotepadArchitectureStdlibUnit{
+    func updateUi(sessionInfo:SessionizeArchSessionInfo) -> SessionizeArchStdlibUnit{
         self.sessionInfo = sessionInfo
         styleButton()
         updateAllUi()
-        return NotepadArchitectureStdlibUnit()
+        return SessionizeArchStdlibUnit()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowSpeakerDetail" {
             let detailViewController = segue.destination as! SpeakerViewController
-            let speaker = sender as! NotepadArchitectureSpeakerForSession
+            let speaker = sender as! SessionizeArchSpeakerForSession
             detailViewController.speakerId = speaker.id
         }
     }
@@ -132,7 +132,7 @@ import MaterialComponents
         tableView.deselectRow(at: indexPath, animated: false)
         
         if (indexPath as NSIndexPath).section == 1 {
-            let speaker = sessionInfo.speakers[indexPath.row] as NotepadArchitectureSpeakerForSession
+            let speaker = sessionInfo.speakers[indexPath.row] as SessionizeArchSpeakerForSession
             showSpeakerDetailView(speaker: speaker)
         }
     }
@@ -168,7 +168,7 @@ import MaterialComponents
         viewModel.toggleRsvp(rsvp: !sessionInfo.isRsvped())
     }
     
-    func showSpeakerDetailView(speaker: NotepadArchitectureSpeakerForSession) {
+    func showSpeakerDetailView(speaker: SessionizeArchSpeakerForSession) {
         performSegue(withIdentifier: "ShowSpeakerDetail", sender: speaker)
     }
 }
