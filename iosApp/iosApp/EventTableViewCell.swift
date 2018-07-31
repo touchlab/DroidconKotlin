@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import NotepadArchitecture
+import SessionizeArch
 
 class EventTableViewCell: UITableViewCell {
 
@@ -16,11 +16,11 @@ class EventTableViewCell: UITableViewCell {
     @IBOutlet weak var timeInfoLabel : UILabel!
     @IBOutlet weak var timeConflictLabel: UILabel!
 
-    var viewModel:NotepadArchitectureEventViewModel!
-    var sessionInfo: NotepadArchitectureSessionInfo!
+    var viewModel:SessionizeArchEventViewModel!
+    var sessionInfo: SessionizeArchSessionInfo!
     
-    func loadInfo(_ sessionInfo: NotepadArchitectureSessionInfo,
-                  viewModel:NotepadArchitectureEventViewModel) {
+    func loadInfo(_ sessionInfo: SessionizeArchSessionInfo,
+                  viewModel:SessionizeArchEventViewModel) {
         
         self.viewModel = viewModel
         self.sessionInfo = sessionInfo

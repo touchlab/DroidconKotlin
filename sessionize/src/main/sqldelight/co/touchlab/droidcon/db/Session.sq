@@ -1,0 +1,55 @@
+import co.touchlab.sessionize.utils.Date;
+
+CREATE TABLE session(
+id TEXT NOT NULL PRIMARY KEY,
+title TEXT NOT NULL,
+description TEXT NOT NULL,
+startsAt TEXT AS Date NOT NULL,
+endsAt TEXT AS Date NOT NULL,
+serviceSession INTEGER NOT NULL DEFAULT 0,
+rsvp INTEGER NOT NULL DEFAULT 0,
+roomId INTEGER,
+FOREIGN KEY (roomId) REFERENCES room(id)
+);
+
+insert:
+INSERT INTO session(id, title, description, startsAt, endsAt, serviceSession, roomId)
+VALUES (?,?,?,?,?,?,?)
+;
+
+update:
+UPDATE session SET title = ?, description = ?, startsAt = ?,
+endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?
+WHERE id = ?;
+
+sessionById:
+SELECT * FROM session WHERE id = ?;
+
+mySessions:
+SELECT id, startsAt, endsAt FROM session WHERE
+rsvp != 0;
+
+updateRsvp:
+UPDATE session SET rsvp = ? WHERE id = ?;
+
+sessionWithRoom:
+SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,
+session.serviceSession, session.rsvp, session.roomId, room.name AS roomName,
+speakers.allNames
+FROM session
+JOIN (
+SELECT sessionId,group_concat(fullName, ', ') AS allNames
+FROM sessionSpeaker
+JOIN userAccount ON userAccount.id = sessionSpeaker.userAccountId
+GROUP BY sessionId
+) AS speakers ON speakers.sessionId = session.id
+JOIN room ON session.roomId = room.id
+;
+
+sessionWithRoomById:
+SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,
+session.serviceSession, session.rsvp, session.roomId, room.name AS roomName
+FROM session
+JOIN room ON session.roomId = room.id
+WHERE session.id = ?
+;
