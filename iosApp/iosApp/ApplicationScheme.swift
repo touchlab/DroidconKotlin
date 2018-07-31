@@ -34,11 +34,15 @@ class ApplicationScheme: NSObject {
     
     public let buttonScheme = MDCButtonScheme()
     
+    public let rsvpColor = colorWithHexString(hexString: "68d1fd")
+    public let rsvpColorConflict = colorWithHexString(hexString: "f1582c")
+    public let rsvpColorPast = colorWithHexString(hexString: "666666")
+    
     public let colorScheme: MDCColorScheming = {
         let scheme = MDCSemanticColorScheme(defaults: .material201804)
         
-        scheme.primaryColor = colorWithHexString(hexString: "233096")
-        scheme.primaryColorVariant = colorWithHexString(hexString: "1e2981")
+        scheme.primaryColor = colorWithHexString(hexString: "1e2981")
+        scheme.primaryColorVariant = colorWithHexString(hexString: "233096")
         scheme.onPrimaryColor = colorWithHexString(hexString: "ffffff")
         scheme.secondaryColor = colorWithHexString(hexString: "3f4caf")
         scheme.onSecondaryColor = colorWithHexString(hexString: "ffffff")

@@ -43,15 +43,17 @@ class SpeakerModel(speakerId:String){
         override fun extractData(q: Query<UserAccount>): UserAccount = q.executeAsOne()
     }
 
-    data class SpeakerUiData(val fullName:String,
-                             val company:String?,
-                             val profilePicture:String?,
-                             val infoRows: List<SpeakerInfo>)
 
-    data class SpeakerInfo(val type: InfoType, val info:String)
+}
 
-    enum class InfoType(val icon:String) {
-        Company("icon_company"), Website("icon_website"), Twitter("icon_twitter"),
-        Linkedin("icon_linkedin"), Profile("icon_profile")
-    }
+data class SpeakerUiData(val fullName:String,
+                         val company:String?,
+                         val profilePicture:String?,
+                         val infoRows: List<SpeakerInfo>)
+
+data class SpeakerInfo(val type: InfoType, val info:String)
+
+enum class InfoType(val icon:String) {
+    Company("icon_company"), Website("icon_website"), Twitter("icon_twitter"),
+    Linkedin("icon_linkedin"), Profile("icon_profile")
 }

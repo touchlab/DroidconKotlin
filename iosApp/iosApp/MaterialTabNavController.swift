@@ -31,6 +31,8 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
 //        MDCAppBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.colorScheme, to:bottomNavBar)
     }
     
+    
+    
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
         var count = 0
         for barItem in bottomNavBar.items {
