@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'iosApp' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -6,4 +6,5 @@ target 'iosApp' do
 
   # Pods for ios
     pod 'Kingfisher', '~> 4.0'
+    pod 'MaterialComponents'
 end
