@@ -70,7 +70,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         let info = speakerUiData!.infoRows[indexPath.row]
         cell.info.text = info.info
         
-        cell.icon.image = UIImage(named: info.type.icon)
+        cell.icon.image = UIImage(named: info.type.icon)?.withRenderingMode(.alwaysOriginal)
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         
 //        cell.icon.tintColor = nil
