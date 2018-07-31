@@ -19,7 +19,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
     
     var speakerId:String!
     var viewModel:NotepadArchitectureSpeakerViewModel!
-    var speakerInfo:NotepadArchitectureSpeakerUiData!
+    var speakerUiData:NotepadArchitectureSpeakerUiData?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -30,8 +30,12 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 80
+        
         viewModel = NotepadArchitectureSpeakerViewModel(sessionId: speakerId)
         viewModel.registerForChanges(proc: updateUi)
+        
         // Do any additional setup after loading the view.
     }
 
@@ -40,45 +44,46 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    func updateUi(speakerInfo:NotepadArchitectureSpeakerUiData) -> NotepadArchitectureStdlibUnit{
-        self.speakerInfo = speakerInfo
-        speakerName.text = speakerInfo.fullName
-        speakerCompany.text = speakerInfo.company
-        if (speakerInfo.profilePicture != nil) {
-            speakerImage.kf.setImage(with: URL(string: speakerInfo.profilePicture!)!)
+    func updateUi(speakerUiData:NotepadArchitectureSpeakerUiData) -> NotepadArchitectureStdlibUnit{
+        self.speakerUiData = speakerUiData
+        speakerName.text = speakerUiData.fullName
+        speakerCompany.text = speakerUiData.company
+        if (speakerUiData.profilePicture != nil) {
+            speakerImage.kf.setImage(with: URL(string: speakerUiData.profilePicture!)!)
             speakerImage.layer.cornerRadius = 36
             speakerImage.layer.masksToBounds = true
         }
         
+        tableView.reloadData()
 //        styleButton()
 //        updateAllUi()
         return NotepadArchitectureStdlibUnit()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return speakerInfos.count
-        return 0
+        return speakerUiData == nil ? 0 : speakerUiData!.infoRows.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell: UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: "userCell") as! UserTableViewCell
-//
-//        let speakerInfo = speakerInfos[indexPath.row]
-//        cell.loadInfo(speakerInfo)
-//        cell.selectionStyle = UITableViewCellSelectionStyle.none
-//        return cell
-        return UITableViewCell()
+        let cell: SpeakerInfoCellTableViewCell = tableView.dequeueReusableCell(withIdentifier: "speakerInfoCell") as! SpeakerInfoCellTableViewCell
+
+        let info = speakerUiData!.infoRows[indexPath.row]
+        cell.info.text = info.info
+        
+        cell.icon.image = UIImage(named: info.type.icon)
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        
+//        cell.icon.tintColor = nil
+        
+        return cell
     }
     
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableViewAutomaticDimension
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableViewAutomaticDimension
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let info = speakerUiData!.infoRows[indexPath.row]
+        if(info.info.starts(with: "http")){
+            UIApplication.shared.open(URL(string: info.info)!)
+        }
+        //UIApplication.shared.open(URL(string: url)!)
 //        tableView.deselectRow(at: indexPath, animated: false)
 //
 //        let selected = speakerInfos[indexPath.row]
