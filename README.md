@@ -1,9 +1,10 @@
 # Sessionize/Droidcon Mobile Clients
 
-This project has the mobile clients for Droidcon NYC, but as Droidcon NYC uses Sessionize, this project could serve 
-as the base for any event using Sessionize.
+This project has a pair of native mobile applications backed by the Sessionize data api for use in 
+events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
+be forked and customized for anything run on Sessionize.
 
-The apps are native Android and iOS, using Kotlin Multiplatform for shared logic and architecture.
+
 
 ## Building
 

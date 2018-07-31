@@ -15,6 +15,12 @@
 		6356315020DC58F800BCCDF9 /* iosAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6356314F20DC58F800BCCDF9 /* iosAppTests.swift */; };
 		6356316620DC592000BCCDF9 /* NotepadArchitecture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6356315F20DC592000BCCDF9 /* NotepadArchitecture.framework */; };
 		6356316720DC592000BCCDF9 /* NotepadArchitecture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6356315F20DC592000BCCDF9 /* NotepadArchitecture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		637100CD210E409E0099FF25 /* MaterialTabNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100CC210E409E0099FF25 /* MaterialTabNavController.swift */; };
+		637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D0210F69160099FF25 /* ApplicationScheme.swift */; };
+		637100D3210F7B410099FF25 /* MaterialAppBarUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D2210F7B410099FF25 /* MaterialAppBarUIViewController.swift */; };
+		637100D7210FC9740099FF25 /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D6210FC9740099FF25 /* DotView.swift */; };
+		637100D9210FF7BD0099FF25 /* SpeakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D8210FF7BD0099FF25 /* SpeakerViewController.swift */; };
+		637100DC211086360099FF25 /* SpeakerInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100DB211086360099FF25 /* SpeakerInfoCellTableViewCell.swift */; };
 		6372423720F914D60049263B /* speakers.json in Resources */ = {isa = PBXBuildFile; fileRef = 6372423620F914D60049263B /* speakers.json */; };
 		6372423920F915EA0049263B /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 6372423820F915EA0049263B /* schedule.json */; };
 		6372423C20F973370049263B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6372423A20F973370049263B /* Main.storyboard */; };
@@ -78,6 +84,12 @@
 		6356318720DC5A2900BCCDF9 /* Functions.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Functions.kt; sourceTree = "<group>"; };
 		6356318820DC5A2900BCCDF9 /* NoteModel.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NoteModel.kt; sourceTree = "<group>"; };
 		6356318A20DC5A2900BCCDF9 /* NoteDbHelper.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NoteDbHelper.kt; sourceTree = "<group>"; };
+		637100CC210E409E0099FF25 /* MaterialTabNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTabNavController.swift; sourceTree = "<group>"; };
+		637100D0210F69160099FF25 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
+		637100D2210F7B410099FF25 /* MaterialAppBarUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialAppBarUIViewController.swift; sourceTree = "<group>"; };
+		637100D6210FC9740099FF25 /* DotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotView.swift; sourceTree = "<group>"; };
+		637100D8210FF7BD0099FF25 /* SpeakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerViewController.swift; sourceTree = "<group>"; };
+		637100DB211086360099FF25 /* SpeakerInfoCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerInfoCellTableViewCell.swift; sourceTree = "<group>"; };
 		6372423620F914D60049263B /* speakers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = speakers.json; sourceTree = "<group>"; };
 		6372423820F915EA0049263B /* schedule.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schedule.json; sourceTree = "<group>"; };
 		6372423B20F973370049263B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -153,12 +165,14 @@
 		6356313920DC58F600BCCDF9 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				637100DA211085F80099FF25 /* speaker */,
 				6372424A20FAD9B40049263B /* EventTableViewCell.swift */,
 				6372424B20FAD9B40049263B /* EventTableViewCell.xib */,
 				6372424920FAD9B30049263B /* SpeakerTableViewCell.swift */,
 				6372424820FAD9B30049263B /* SpeakerTableViewCell.xib */,
 				6372423A20F973370049263B /* Main.storyboard */,
 				6356313A20DC58F600BCCDF9 /* AppDelegate.swift */,
+				637100D0210F69160099FF25 /* ApplicationScheme.swift */,
 				6356313E20DC58F600BCCDF9 /* MainOrig.storyboard */,
 				6356314120DC58F700BCCDF9 /* Assets.xcassets */,
 				6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */,
@@ -170,6 +184,9 @@
 				6372424120F9AE240049263B /* ScheduleListCell.swift */,
 				6372424420F9B7800049263B /* AboutViewController.swift */,
 				6372424620FAD04F0049263B /* EventDetailViewController.swift */,
+				637100CC210E409E0099FF25 /* MaterialTabNavController.swift */,
+				637100D2210F7B410099FF25 /* MaterialAppBarUIViewController.swift */,
+				637100D6210FC9740099FF25 /* DotView.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -242,6 +259,15 @@
 				6356318A20DC5A2900BCCDF9 /* NoteDbHelper.kt */,
 			);
 			path = db;
+			sourceTree = "<group>";
+		};
+		637100DA211085F80099FF25 /* speaker */ = {
+			isa = PBXGroup;
+			children = (
+				637100D8210FF7BD0099FF25 /* SpeakerViewController.swift */,
+				637100DB211086360099FF25 /* SpeakerInfoCellTableViewCell.swift */,
+			);
+			path = speaker;
 			sourceTree = "<group>";
 		};
 		F51C475F4737FE9D915D4236 /* Pods */ = {
@@ -388,10 +414,22 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionInterchange.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -451,11 +489,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				637100D9210FF7BD0099FF25 /* SpeakerViewController.swift in Sources */,
 				6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */,
+				637100D3210F7B410099FF25 /* MaterialAppBarUIViewController.swift in Sources */,
+				637100D7210FC9740099FF25 /* DotView.swift in Sources */,
+				637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */,
+				637100DC211086360099FF25 /* SpeakerInfoCellTableViewCell.swift in Sources */,
 				6372424720FAD04F0049263B /* EventDetailViewController.swift in Sources */,
 				6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */,
 				6372424520F9B7800049263B /* AboutViewController.swift in Sources */,
 				6372424220F9AE240049263B /* ScheduleListCell.swift in Sources */,
+				637100CD210E409E0099FF25 /* MaterialTabNavController.swift in Sources */,
 				6372423E20F975470049263B /* LaunchViewController.swift in Sources */,
 				6356313B20DC58F600BCCDF9 /* AppDelegate.swift in Sources */,
 				6372424020F975A70049263B /* ScheduleViewController.swift in Sources */,
@@ -635,7 +679,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = iosApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.iosApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -651,7 +698,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = iosApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.iosApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -666,7 +716,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iosAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.iosAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -682,7 +736,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iosAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.iosAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -708,7 +766,11 @@
 				KONAN_TASK = "";
 				"KONAN_TASK[sdk=iphoneos*]" = compileKonanNotepadArchitectureIos_arm64;
 				"KONAN_TASK[sdk=iphonesimulator*]" = compileKonanNotepadArchitectureIos_x64;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.NotepadArchitecture;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -735,7 +797,11 @@
 				KONAN_TASK = "";
 				"KONAN_TASK[sdk=iphoneos*]" = compileKonanNotepadArchitectureIos_arm64;
 				"KONAN_TASK[sdk=iphonesimulator*]" = compileKonanNotepadArchitectureIos_x64;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.NotepadArchitecture;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

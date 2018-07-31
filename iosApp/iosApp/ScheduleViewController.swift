@@ -9,13 +9,15 @@
 import Foundation
 import UIKit
 import NotepadArchitecture
+import MaterialComponents
 
-class ScheduleViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource, MDCTabBarDelegate {
     
     var viewModel:NotepadArchitectureScheduleViewModel!
     
-    @IBOutlet weak var dayChooser: UISegmentedControl!
+    @IBOutlet weak var dayChooserTab: MDCTabBar!
     @IBOutlet weak var eventList: UITableView!
+    @IBOutlet weak var noData: UILabel!
     
     // MARK: Properties
     var conferenceDays: [NotepadArchitectureDaySchedule]?
@@ -42,6 +44,17 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
         
         eventList.estimatedRowHeight = 44
         eventList.rowHeight = UITableViewAutomaticDimension
+        
+        dayChooserTab.alignment = .justified
+        dayChooserTab.itemAppearance = .titles
+        
+        MDCTabBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.menuColorScheme, toTabs: dayChooserTab);
+        dayChooserTab.inkColor = UIColor.white.withAlphaComponent(0.15)
+        dayChooserTab.delegate = self
+        
+        noData.isHidden = true
+        
+        dayChooserTab.topAnchor.constraint(equalTo: appBar.navigationBar.bottomAnchor).isActive = true
     }
     
     func updateUi(conferenceDays:[NotepadArchitectureDaySchedule]) -> NotepadArchitectureStdlibUnit{
@@ -52,15 +65,28 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func updateTabs(conferenceDays:[NotepadArchitectureDaySchedule]) {
-        let lastSelected = dayChooser.selectedSegmentIndex
-        
-        dayChooser.removeAllSegments()
+        let selectedTag = dayChooserTab.selectedItem?.tag
+
+        dayChooserTab.items.removeAll()
+
+        var count = 0
         for day in conferenceDays {
-            dayChooser.insertSegment(withTitle: day.dayString, at: dayChooser.numberOfSegments, animated: false)
+            dayChooserTab.items.append(UITabBarItem(title: day.dayString, image: nil, tag: count))
+            count = count + 1
         }
-        
-        if(dayChooser.numberOfSegments > 0){
-            dayChooser.selectedSegmentIndex = lastSelected == -1 ? 0 : min(lastSelected, dayChooser.numberOfSegments-1)
+
+        if(count == 0){
+            noData.isHidden = false
+            dayChooserTab.isHidden = true
+            eventList.isHidden = true
+        }else{
+            noData.isHidden = true
+            dayChooserTab.isHidden = false
+            eventList.isHidden = false
+            
+            if(selectedTag != nil && selectedTag! >= 0){
+                dayChooserTab.selectedItem = dayChooserTab.items[selectedTag!]
+            }
         }
     }
     
@@ -77,7 +103,8 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: Data refresh
-    @IBAction func updateTable(_ sender: AnyObject) {
+    
+    func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
         eventList.reloadData()
     }
     
@@ -97,19 +124,27 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        let cday = conferenceDays![dayChooser.selectedSegmentIndex]
+        let cday = conferenceDays![selectedDayIndex()]
         let hourHolder = cday.hourBlock[indexPath.row]
         
         showEventDetailView(with: hourHolder, andIndex: indexPath.row)
     }
     
+    func selectedDayIndex() -> Int {
+        if(dayChooserTab.selectedItem == nil){
+            return -1
+        }else{
+            return dayChooserTab.selectedItem!.tag
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(conferenceDays == nil)
+        if(conferenceDays == nil || conferenceDays?.count == 0)
         {
             return 0
         }
         
-        let index = dayChooser.selectedSegmentIndex
+        let index = selectedDayIndex()
         guard let days = self.conferenceDays, days.count > index else {
             return 0
         }
@@ -120,16 +155,15 @@ class ScheduleViewController : UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleListCellIdentifier", for: indexPath) as! ScheduleListCell
-        let cday = conferenceDays![dayChooser.selectedSegmentIndex]
-        let hourHolder = cday.hourBlock[indexPath.row]
+        let cday = conferenceDays![selectedDayIndex()]
+        let scheduleBlockHour = cday.hourBlock[indexPath.row]
+
+        viewModel.scheduleModel.weaveSessionDetailsUi(
+            hourBlock: scheduleBlockHour,
+            allBlocks: cday.hourBlock,
+            row: cell,
+            allEvents: allEvents)
         
-        let eventObj = hourHolder.timeBlock
-        
-        let rsvpConflict = hourHolder.rsvpConflictString(others: cday.hourBlock)
-        cell.titleLabel.text = "\(eventObj.title)\(rsvpConflict)"//.replacingOccurrences(of: "Android", with: "Lulu")
-        cell.speakerNamesLabel.text = eventObj.allNames
-        cell.timeLabel.text = hourHolder.hourStringDisplay.lowercased()
-        cell.startOfBlock = hourHolder.hourStringDisplay.count > 0
         cell.layer.isOpaque = true
         
         return cell

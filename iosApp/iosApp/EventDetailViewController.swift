@@ -8,12 +8,15 @@
 
 import UIKit
 import NotepadArchitecture
+import MaterialComponents
 
-@objc class EventDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+@objc class EventDetailViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView : UITableView!
     @IBOutlet weak var rsvpButton: UIButton!
     @IBOutlet weak var headerImage: UIImageView!
+    @IBOutlet weak var eventTitle: UILabel!
+    @IBOutlet weak var eventRoomTime: UILabel!
     
     // MARK: Properties
     var sessionId: String!
@@ -23,7 +26,7 @@ import NotepadArchitecture
     // MARK: Lifecycle events
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationItem.hidesBackButton = false
+        showArrowBack()
     }
     
     override func viewDidLoad() {
@@ -44,6 +47,8 @@ import NotepadArchitecture
         self.tableView.contentInset = UIEdgeInsets.zero
         self.tableView.separatorStyle = .none
         self.tableView.reloadData()
+        
+        headerImage.backgroundColor = ApplicationScheme.shared.colorScheme.secondaryColor
     }
     
     func updateUi(sessionInfo:NotepadArchitectureSessionInfo) -> NotepadArchitectureStdlibUnit{
@@ -54,11 +59,11 @@ import NotepadArchitecture
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "ShowSpeakerDetail" {
-//            let detailViewController = segue.destination as! UserDetailViewController
-//            let speaker = sender as! DDATUserAccount
-//            detailViewController.userId = speaker.getId().longLongValue()
-//        }
+        if segue.identifier == "ShowSpeakerDetail" {
+            let detailViewController = segue.destination as! SpeakerViewController
+            let speaker = sender as! NotepadArchitectureSpeakerForSession
+            detailViewController.speakerId = speaker.id
+        }
     }
     
     deinit {
@@ -73,7 +78,8 @@ import NotepadArchitecture
     
     func updateAllUi() {
         updateButton()
-        updateHeaderImage()
+        eventTitle.text = sessionInfo.session.title
+        eventRoomTime.text = sessionInfo.formattedRoomTime()
         tableView.reloadData()
     }
     
@@ -156,11 +162,6 @@ import NotepadArchitecture
                 rsvpButton.backgroundColor = UIColor(red: 93/255.0, green: 253/255.0, blue: 173/255.0, alpha: 1.0)
             }
         }
-    }
-    
-    func updateHeaderImage() {
-        let imageName = "talkheader"
-        headerImage.image =  UIImage(named:imageName)!
     }
     
     @IBAction func toggleRsvp(_ sender: UIButton) {

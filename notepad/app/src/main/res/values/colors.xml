@@ -3,6 +3,7 @@
 
     <color name="tabBackground">#3f4caf</color>
     <color name="textColor">#000</color>
+
     <color name="colorPrimary">#233096</color>
     <color name="colorPrimaryDark">#1e2981</color>
     <color name="colorAccent">#6bac89</color>
