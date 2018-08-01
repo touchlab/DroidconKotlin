@@ -127,7 +127,9 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         let cday = conferenceDays![selectedDayIndex()]
         let hourHolder = cday.hourBlock[indexPath.row]
         
-        showEventDetailView(with: hourHolder, andIndex: indexPath.row)
+        if(!(hourHolder.rowType() == SessionizeArchRowType.block)){
+            showEventDetailView(with: hourHolder, andIndex: indexPath.row)
+        }
     }
     
     func selectedDayIndex() -> Int {

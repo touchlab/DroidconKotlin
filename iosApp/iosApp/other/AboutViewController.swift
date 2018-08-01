@@ -50,6 +50,10 @@ class AboutViewController: MaterialAppBarUIViewController, UITableViewDelegate, 
             cell.logoImage.isHidden = true
         }else{
             cell.logoImage.isHidden = false
+            let aboutIcon = UIImage(named: info.icon)!.withRenderingMode(.alwaysOriginal)
+            cell.logoImage.image = aboutIcon
+//            let newHeight = (aboutIcon.size.height * 240)/aboutIcon.size.width
+//            cell.logoImage.frame = CGRect(x: 0, y: 0, width: 240, height: newHeight)
         }
         
 //        cell.info.text = info.info

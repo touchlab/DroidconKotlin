@@ -37,7 +37,7 @@ SELECT session.id, session.title, session.description, session.startsAt, session
 session.serviceSession, session.rsvp, session.roomId, room.name AS roomName,
 speakers.allNames
 FROM session
-JOIN (
+LEFT JOIN (
 SELECT sessionId,group_concat(fullName, ', ') AS allNames
 FROM sessionSpeaker
 JOIN userAccount ON userAccount.id = sessionSpeaker.userAccountId

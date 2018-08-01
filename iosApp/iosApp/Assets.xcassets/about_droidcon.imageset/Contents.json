@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "illo_binky.png",
+      "filename" : "droidconbar.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "illo_binky-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "illo_binky-2.png",
       "scale" : "3x"
     }
   ],
