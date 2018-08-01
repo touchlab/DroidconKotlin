@@ -40,7 +40,8 @@ class ScheduleModel {
 
         row.setTitleText(hourBlock.timeBlock.title)
         row.setTimeText(hourBlock.hourStringDisplay)
-        row.setSpeakerText(hourBlock.timeBlock.allNames)
+        val speakerNames = if(hourBlock.timeBlock.allNames.isNullOrBlank()){""}else{hourBlock.timeBlock.allNames!!}
+        row.setSpeakerText(speakerNames)
         row.setDescription(hourBlock.timeBlock.description)
 
         if (hourBlock.timeBlock.isBlock()) {

@@ -1,17 +1,22 @@
  [
   {
-  "icon": "",
+  "icon": "about_kotlin",
   "title": "Droidcon App",
-  "detail": "Some Droidcon detail"
+  "detail": "The Droidcon app is a Kotlin Multiplatform app by the touchlab team and some folks from the mobile development community.\n\nSee the repo and read more at:\nhttps://github.com/touchlab/DroidconKotlin.\n\nThe non-UI logic of the application is built using Kotlin Multiplatform and Kotlin/Native.\n\nLibraries include KNarch.db, SQLDelight, and multiplatform-settings. See the project github for more detail on libraries used and the architecture."
+  },
+  {
+  "icon": "about_touchlab",
+  "title": "About Touchlab",
+  "detail": "Touchlab Accelerates Mobile Innovation for Enterprise and Startups.\n\nGet in touch.\n\nhttp://touchlab.co"
+  },
+  {
+  "icon": "about_droidcon",
+  "title": "Droidcon",
+  "detail": "Droidcon conferences around the world support the Android platform and create a global network for developers and companies.\n\nWe offer best-in-class presentations from leaders in all parts of the Android ecosystem, including core development, embedded solutions, augmented reality, business solutions, and games."
   },
   {
   "icon": "",
-  "title": "Droidcon App",
-  "detail": "Some Droidcon detail"
-  },
-  {
-  "icon": "",
-  "title": "Droidcon App",
-  "detail": "Hey hey, something something. Here's a link: https://touchlab.co. That was a link."
+  "title": "",
+  "detail": ""
   }
 ]
