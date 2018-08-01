@@ -21,7 +21,7 @@ class MaterialAppBarUIViewController: UIViewController {
         appBar.headerViewController.headerView.trackingScrollView = nil
     }
     
-init(){
+    init(){
         super.init(nibName: nil, bundle: nil)
         self.addChildViewController(appBar.headerViewController)
     }
@@ -40,39 +40,9 @@ init(){
         MDCAppBarTypographyThemer.applyTypographyScheme(ApplicationScheme.shared.typographyScheme, to: appBar)
         
         self.view.backgroundColor = ApplicationScheme.shared.colorScheme.surfaceColor
-        //        self.collectionView?.backgroundColor = ApplicationScheme.shared.colorScheme
-        //            .surfaceColor
-        
-        // Allows us to avoid forwarding events, but means we can't enable shift behaviors.
-        //        appBar.headerViewController.headerView.observesTrackingScrollViewScrollEvents = true
-        
-        // Recommended step: Set the tracking scroll view.
-        //        appBar.headerViewController.headerView.trackingScrollView = self.tableView
-        
-        // Step 2: Register the App Bar views.
         appBar.addSubviewsToParent()
+        appBar.navigationBar.observe(self.navigationItem)
         
-//        appBar.navigationBar.observe(self.navigationItem)
-        
-    }
-    
-    func showArrowBack(){
-        let backButtonImage = MDCIcons.imageFor_ic_arrow_back()
-        
-        let barItem = UIBarButtonItem(image: backButtonImage, style: .done, target: self,
-                                      action: #selector(dismissMe))
-        
-        appBar.navigationBar.backItem = barItem
-    }
-    
-    @objc func dismissMe(){
-        navigationController?.popViewController(animated: true)
-    }
-
-    // Optional step: If you allow the header view to hide the status bar you must implement this
-    //                method and return the headerViewController.
-    override var childViewControllerForStatusBarHidden: UIViewController? {
-        return appBar.headerViewController
     }
     
     // Optional step: The Header View Controller does basic inspection of the header view's background
@@ -80,25 +50,4 @@ init(){
     override var childViewControllerForStatusBarStyle: UIViewController? {
         return appBar.headerViewController
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

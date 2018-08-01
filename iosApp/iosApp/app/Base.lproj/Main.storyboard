@@ -139,9 +139,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HxQ-mU-XME" secondAttribute="bottom" id="x7E-Uq-H7c"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Droidcon NYC" id="yTq-zZ-gpx">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="xTs-Kd-f1i"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Droidcon NYC" id="yTq-zZ-gpx"/>
                     <connections>
                         <outlet property="dayChooserTab" destination="JTX-92-PKJ" id="mPV-x3-wif"/>
                         <outlet property="eventList" destination="HxQ-mU-XME" id="WCK-CQ-Xeg"/>
@@ -153,10 +151,10 @@
             </objects>
             <point key="canvasLocation" x="1412" y="1002.5487256371815"/>
         </scene>
-        <!--Event Detail View Controller-->
+        <!--Event-->
         <scene sceneID="7Q1-LW-v1f">
             <objects>
-                <viewController storyboardIdentifier="EventDetail" automaticallyAdjustsScrollViewInsets="NO" id="eMM-Ow-Y8D" customClass="EventDetailViewController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventDetail" title="Event" id="eMM-Ow-Y8D" customClass="EventDetailViewController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="evr-4l-2Pv"/>
                         <viewControllerLayoutGuide type="bottom" id="mXV-h5-qs4"/>
@@ -241,7 +239,6 @@
                             <constraint firstItem="xQK-un-yDe" firstAttribute="bottom" secondItem="ZbT-NM-odG" secondAttribute="bottom" constant="24" id="v0X-49-xBX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="QGW-s4-6wP"/>
                     <connections>
                         <outlet property="eventRoomTime" destination="i6j-fb-JCb" id="YF4-7D-3Tt"/>
                         <outlet property="eventTitle" destination="PPg-k7-c8J" id="Y3m-ht-PjM"/>
@@ -255,10 +252,10 @@
             </objects>
             <point key="canvasLocation" x="1412" y="1795.9520239880062"/>
         </scene>
-        <!--Speaker View Controller-->
+        <!--Speaker-->
         <scene sceneID="BXR-gd-H4l">
             <objects>
-                <viewController id="K4g-B7-LAe" customClass="SpeakerViewController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Speaker" id="K4g-B7-LAe" customClass="SpeakerViewController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sd2-KI-YLm"/>
                         <viewControllerLayoutGuide type="bottom" id="BBy-uH-kXL"/>
@@ -429,28 +426,6 @@
             </objects>
             <point key="canvasLocation" x="1793" y="187"/>
         </scene>
-        <!--ABOUT-->
-        <scene sceneID="c57-bu-9Lb">
-            <objects>
-                <navigationController id="j1g-7R-Nwn" userLabel="ABOUT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="About" image="ic_info_outline_white" id="1Zd-Rv-551"/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QSU-IP-Sfu">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.0" green="0.25490196079999999" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="36T-Of-k6h" kind="relationship" relationship="rootViewController" id="scf-WU-NVq"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mae-lX-AAv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2247" y="-577"/>
-        </scene>
         <!--About-->
         <scene sceneID="ZE3-ed-YrL">
             <objects>
@@ -464,7 +439,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dEN-GW-7qU">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="aboutInfoCell" rowHeight="145" id="bbX-lI-hxs" customClass="AboutInfoTableViewCell" customModule="iosApp" customModuleProvider="target">
@@ -535,12 +510,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TEE-Uo-vuv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3000.8000000000002" y="229.83508245877064"/>
+            <point key="canvasLocation" x="2426" y="-528"/>
         </scene>
-        <!--Material Tab Nav Controller-->
+        <!--About-->
         <scene sceneID="R1K-Rd-8j6">
             <objects>
-                <tabBarController id="hAB-Au-Rvm" customClass="MaterialTabNavController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="About" id="hAB-Au-Rvm" customClass="MaterialTabNavController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" hidden="YES" contentMode="scaleToFill" translucent="NO" id="IcF-cV-AQW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -552,39 +527,13 @@
                     <connections>
                         <segue destination="34T-rw-TB2" kind="relationship" relationship="viewControllers" id="k09-hi-70M"/>
                         <segue destination="REP-p4-TLr" kind="relationship" relationship="viewControllers" id="dsH-sq-16Y"/>
-                        <segue destination="LeH-tB-hip" kind="relationship" relationship="viewControllers" id="0e9-p8-9Lk"/>
-                        <segue destination="j1g-7R-Nwn" kind="relationship" relationship="viewControllers" id="ZlY-HV-llU"/>
+                        <segue destination="FUc-pL-b20" kind="relationship" relationship="viewControllers" id="ayu-U0-tOW"/>
+                        <segue destination="36T-Of-k6h" kind="relationship" relationship="viewControllers" id="ege-Uf-RkW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4k8-ou-SUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1043" y="-607"/>
-        </scene>
-        <!--Sponsors-->
-        <scene sceneID="Qgo-yy-06A">
-            <objects>
-                <navigationController navigationBarHidden="YES" id="LeH-tB-hip" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sponsors" image="icon_sponsors" id="QJT-C7-tJL">
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                <color key="value" red="0.32549019607843138" green="1" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </tabBarItem>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" translucent="NO" id="PRm-cm-CNc">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="HIv-yy-qOO">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="FUc-pL-b20" kind="relationship" relationship="rootViewController" id="3cr-xW-iex"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XEU-Cb-iZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1834" y="-1241"/>
         </scene>
         <!--Sponsors View Controller-->
         <scene sceneID="45q-F7-s0a">
@@ -710,11 +659,12 @@
                             <constraint firstItem="iud-fN-M5p" firstAttribute="centerX" secondItem="vuf-yl-IJJ" secondAttribute="centerX" id="ybD-Yh-z3b"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Sponsors" image="icon_sponsors" id="YOb-kY-7DK"/>
                     <navigationItem key="navigationItem" title="Sponsors" id="0Eh-hD-0wf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oa4-Xw-qHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3068" y="-1242"/>
+            <point key="canvasLocation" x="1916" y="-1228"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="pvd-7g-3y8">
