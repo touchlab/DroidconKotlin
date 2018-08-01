@@ -26,7 +26,7 @@ class SpeakerTableViewCell: UITableViewCell {
             speakerImage.layer.cornerRadius = 24
             speakerImage.layer.masksToBounds = true
         } else {
-            speakerImageLabel.text = SessionizeArchEmojiUtil().getEmojiForUser(displayName: name)
+            speakerImageLabel.text = ""
         }
     
         nameLabel.sizeToFit()

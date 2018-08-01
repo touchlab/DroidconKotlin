@@ -25,4 +25,10 @@
         <item name="tabTextAppearance">@style/TextAppearance.Sessionize.Tab</item>
     </style>
 
+    <style name="about_item">
+        <item name="android:layout_marginStart">@dimen/padding_medium</item>
+        <item name="android:layout_marginEnd">@dimen/padding_medium</item>
+        <item name="android:layout_marginTop">@dimen/padding_medium</item>
+    </style>
+
 </resources>
