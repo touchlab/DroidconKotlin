@@ -21,11 +21,6 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
     var viewModel:SessionizeArchSpeakerViewModel!
     var speakerUiData:SessionizeArchSpeakerUiData?
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        showArrowBack()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self

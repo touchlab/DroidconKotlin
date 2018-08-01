@@ -24,11 +24,6 @@ import MaterialComponents
     var sessionInfo: SessionizeArchSessionInfo!
     
     // MARK: Lifecycle events
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        showArrowBack()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
