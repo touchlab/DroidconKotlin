@@ -2,6 +2,9 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.db.NoteDbHelper
 import co.touchlab.sessionize.utils.*
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonTreeParser
 
 object AppContext{
 
@@ -9,8 +12,10 @@ object AppContext{
 
     val appSettings = settingsFactory().create("DROIDCON_SETTINGS")
     val KEY_FIRST_RUN = "FIRST_RUN1"
+    lateinit var staticFileLoader:(filePrefix:String, fileType:String)->String?
 
     fun initPlatformClient(staticFileLoader:(filePrefix:String, fileType:String)->String?){
+        this.staticFileLoader = staticFileLoader
         if(firstRun()){
             val speakerJson = staticFileLoader("speakers", "json")
             val scheduleJson = staticFileLoader("schedule", "json")
@@ -56,4 +61,29 @@ object AppContext{
             }
         }
     }
+
+    /**
+     * Should be called in background. Kind of hacky, but works.
+     */
+    fun parseAbout():List<AboutInfo>{
+        val aboutJson = staticFileLoader("about", "json")!!
+        val aboutList = ArrayList<AboutInfo>()
+
+        val json = JsonTreeParser(aboutJson).readFully()
+
+        (json as JsonArray).forEach {
+            val aboutJson = it as JsonObject
+            aboutList.add(
+                    AboutInfo(
+                            aboutJson.getAsValue("icon").content,
+                            aboutJson.getAsValue("title").content,
+                            aboutJson.getAsValue("detail").content
+                    )
+            )
+        }
+
+        return aboutList
+    }
 }
+
+data class AboutInfo(val icon:String, val title:String, val detail:String)

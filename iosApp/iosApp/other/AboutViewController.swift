@@ -10,23 +10,55 @@ import UIKit
 import MaterialComponents.MaterialAppBar
 import MaterialComponents.MaterialAppBar_ColorThemer
 import MaterialComponents.MaterialAppBar_TypographyThemer
-class AboutViewController: MaterialAppBarUIViewController {
+import SessionizeArch
+
+class AboutViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var aboutInfoData:[SessionizeArchAboutInfo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 80
+        SessionizeArchAboutModel().loadAboutInfo(proc: updateUi)
+    }
+    
+    func updateUi(aboutInfoData:[SessionizeArchAboutInfo]) -> SessionizeArchStdlibUnit{
+        self.aboutInfoData = aboutInfoData
+        tableView.reloadData()
+        return SessionizeArchStdlibUnit()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return aboutInfoData == nil ? 0 : aboutInfoData!.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: AboutInfoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "aboutInfoCell") as! AboutInfoTableViewCell
         
-    }
-    
-    override func viewDidLayoutSubviews() {
+        let info = aboutInfoData![indexPath.row]
+        cell.headerText.text = info.title
+        cell.bodyText.text = info.detail
         
+        if(info.icon.isEmpty){
+            cell.logoImage.isHidden = true
+        }else{
+            cell.logoImage.isHidden = false
+        }
+        
+//        cell.info.text = info.info
+//
+//        cell.icon.image = UIImage(named: info.type.icon)?.withRenderingMode(.alwaysOriginal)
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        
+        //        cell.icon.tintColor = nil
+        
+        return cell
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 }
