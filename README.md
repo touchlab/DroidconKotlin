@@ -21,8 +21,18 @@ There are modules for Android (app), iOS (ios), and the common code (src).
 
 ## Xcode
 
-After building the kotlin code, open and run the Xcode project in iosApp. Run Cocoapod install first.
+The ios project is in the iosApp folder. CD there, then run cocoapods
 
+```
+cd iosApp
+pod install
+```
+
+After building the kotlin code, open and run the Xcode workspace.
+
+```
+open iosApp.xcworkspace
+```
 
 ## Architecture
 
