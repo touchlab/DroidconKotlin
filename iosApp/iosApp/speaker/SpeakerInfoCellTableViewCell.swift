@@ -11,6 +11,6 @@ import UIKit
 class SpeakerInfoCellTableViewCell: UITableViewCell {
 
     @IBOutlet weak var icon: UIImageView!
-    @IBOutlet weak var info: UILabel!
+    @IBOutlet weak var info: UITextView!
     
 }
