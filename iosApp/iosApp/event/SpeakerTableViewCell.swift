@@ -13,7 +13,7 @@ import SessionizeArch
 class SpeakerTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel : UILabel!
-    @IBOutlet weak var infoLabel : UILabel!
+    @IBOutlet weak var infoLabel : UITextView!
     @IBOutlet weak var speakerImage: UIImageView!
     @IBOutlet weak var speakerImageLabel: UILabel!
     

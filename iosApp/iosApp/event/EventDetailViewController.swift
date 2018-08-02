@@ -96,7 +96,7 @@ import MaterialComponents
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath as NSIndexPath).section == 0 {
             let cell:EventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventCell") as! EventTableViewCell
-            cell.descriptionLabel.numberOfLines = 0
+            
             if (sessionInfo != nil) {
                 cell.loadInfo(sessionInfo, viewModel: viewModel)
             }

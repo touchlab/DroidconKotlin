@@ -298,25 +298,27 @@
                                                         <constraint firstAttribute="height" constant="24" id="XKN-5v-vxH"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlO-l0-nsx">
-                                                    <rect key="frame" x="72" y="24" width="279" height="765"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="o5Q-ti-Njw" customClass="UITextViewFixed" customModule="iosApp" customModuleProvider="target">
+                                                    <rect key="frame" x="72" y="26" width="280" height="774"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Pjl-wV-M9K" firstAttribute="top" secondItem="5GC-hQ-wnk" secondAttribute="top" constant="24" id="1hd-C7-9KI"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="NlO-l0-nsx" secondAttribute="bottom" id="DoI-91-SGa"/>
+                                                <constraint firstItem="o5Q-ti-Njw" firstAttribute="leading" secondItem="Pjl-wV-M9K" secondAttribute="trailing" constant="24" id="Aou-QZ-uyb"/>
                                                 <constraint firstItem="Pjl-wV-M9K" firstAttribute="leading" secondItem="5GC-hQ-wnk" secondAttribute="leading" constant="24" id="MwR-gn-Bg8"/>
-                                                <constraint firstAttribute="trailing" secondItem="NlO-l0-nsx" secondAttribute="trailing" constant="24" id="V1d-hM-fRL"/>
-                                                <constraint firstItem="NlO-l0-nsx" firstAttribute="top" secondItem="5GC-hQ-wnk" secondAttribute="top" constant="24" id="kgL-vG-i9O"/>
-                                                <constraint firstItem="NlO-l0-nsx" firstAttribute="leading" secondItem="Pjl-wV-M9K" secondAttribute="trailing" constant="24" id="sYK-fj-atR"/>
+                                                <constraint firstAttribute="bottom" secondItem="o5Q-ti-Njw" secondAttribute="bottom" id="c3S-oM-1Hm"/>
+                                                <constraint firstItem="o5Q-ti-Njw" firstAttribute="top" secondItem="5GC-hQ-wnk" secondAttribute="top" constant="26" id="nDA-sq-1Dj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="o5Q-ti-Njw" secondAttribute="trailing" constant="8" id="z2f-JS-K94"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="icon" destination="Pjl-wV-M9K" id="mSU-n5-FIk"/>
-                                            <outlet property="info" destination="NlO-l0-nsx" id="c78-nt-dx2"/>
+                                            <outlet property="info" destination="o5Q-ti-Njw" id="0sd-JT-0fT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
