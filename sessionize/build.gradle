@@ -22,3 +22,5 @@ kotlin {
 sqldelight {
     packageName = "co.touchlab.droidcon.db"
 }
+
+tasks.findByName("classes").dependsOn("generateSqlDelightInterface")
