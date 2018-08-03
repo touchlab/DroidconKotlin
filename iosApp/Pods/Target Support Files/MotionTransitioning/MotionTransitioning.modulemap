@@ -1,0 +1,6 @@
+framework module MotionTransitioning {
+  umbrella header "MotionTransitioning-umbrella.h"
+
+  export *
+  module * { export * }
+}
