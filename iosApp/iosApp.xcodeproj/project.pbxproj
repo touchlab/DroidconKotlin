@@ -13,7 +13,6 @@
 		6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */; };
 		6356315020DC58F800BCCDF9 /* iosAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6356314F20DC58F800BCCDF9 /* iosAppTests.swift */; };
 		6359EB8F2112650200424B73 /* UITextViewFixed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359EB8E2112650200424B73 /* UITextViewFixed.swift */; };
-		6359EB912113813500424B73 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6359EB902113813500424B73 /* GoogleService-Info.plist */; };
 		637100CD210E409E0099FF25 /* MaterialTabNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100CC210E409E0099FF25 /* MaterialTabNavController.swift */; };
 		637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D0210F69160099FF25 /* ApplicationScheme.swift */; };
 		637100D3210F7B410099FF25 /* MaterialAppBarUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D2210F7B410099FF25 /* MaterialAppBarUIViewController.swift */; };
@@ -81,7 +80,6 @@
 		6356314F20DC58F800BCCDF9 /* iosAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosAppTests.swift; sourceTree = "<group>"; };
 		6356315120DC58F800BCCDF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6359EB8E2112650200424B73 /* UITextViewFixed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewFixed.swift; sourceTree = "<group>"; };
-		6359EB902113813500424B73 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		637100CC210E409E0099FF25 /* MaterialTabNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTabNavController.swift; sourceTree = "<group>"; };
 		637100D0210F69160099FF25 /* ApplicationScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationScheme.swift; sourceTree = "<group>"; };
 		637100D2210F7B410099FF25 /* MaterialAppBarUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialAppBarUIViewController.swift; sourceTree = "<group>"; };
@@ -500,7 +498,7 @@
 		637103382110B69F0099FF25 /* inline-functions.tab_i.len */ = {isa = PBXFileReference; lastKnownFileType = file; path = "inline-functions.tab_i.len"; sourceTree = "<group>"; };
 		637103392110B69F0099FF25 /* proto.tab */ = {isa = PBXFileReference; lastKnownFileType = file; path = proto.tab; sourceTree = "<group>"; };
 		6371033A2110B69F0099FF25 /* proto.tab.len */ = {isa = PBXFileReference; lastKnownFileType = file; path = proto.tab.len; sourceTree = "<group>"; };
-		6371033B2110B69F0099FF25 /* java-sources-proto-map.tab.keystream */ = {isa = PBXFileReference; lastKnownFileType = file; path = "java-sources-proto-map.tab.keystream"; sourceTree = "<group>"; };
+		6371033B2110B69F0099FF25 /* java-sources-proto-map.tab.keystream */ = {isa = PBXFileReference; lastKnownFileType = text; path = "java-sources-proto-map.tab.keystream"; sourceTree = "<group>"; };
 		6371033C2110B69F0099FF25 /* package-parts.tab.keystream */ = {isa = PBXFileReference; lastKnownFileType = file; path = "package-parts.tab.keystream"; sourceTree = "<group>"; };
 		6371033D2110B69F0099FF25 /* class-fq-name-to-source.tab */ = {isa = PBXFileReference; lastKnownFileType = file; path = "class-fq-name-to-source.tab"; sourceTree = "<group>"; };
 		6371033E2110B69F0099FF25 /* java-sources-proto-map.tab */ = {isa = PBXFileReference; lastKnownFileType = file; path = "java-sources-proto-map.tab"; sourceTree = "<group>"; };
@@ -22730,7 +22728,6 @@
 		63711D3A2110F9040099FF25 /* app */ = {
 			isa = PBXGroup;
 			children = (
-				6359EB902113813500424B73 /* GoogleService-Info.plist */,
 				6372423A20F973370049263B /* Main.storyboard */,
 				6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */,
 				6372423D20F975470049263B /* LaunchViewController.swift */,
@@ -22867,7 +22864,6 @@
 			files = (
 				6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */,
 				6372423920F915EA0049263B /* schedule.json in Resources */,
-				6359EB912113813500424B73 /* GoogleService-Info.plist in Resources */,
 				6372424C20FAD9B40049263B /* SpeakerTableViewCell.xib in Resources */,
 				6356314220DC58F700BCCDF9 /* Assets.xcassets in Resources */,
 				6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */,
