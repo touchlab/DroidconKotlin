@@ -13,9 +13,12 @@ object AppContext{
     val appSettings = settingsFactory().create("DROIDCON_SETTINGS")
     val KEY_FIRST_RUN = "FIRST_RUN1"
     lateinit var staticFileLoader:(filePrefix:String, fileType:String)->String?
+    lateinit var analyticsCallback:(name: String, params: Map<String, Any>)->Unit
 
-    fun initPlatformClient(staticFileLoader:(filePrefix:String, fileType:String)->String?){
+    fun initPlatformClient(staticFileLoader:(filePrefix:String, fileType:String)->String?,
+                           analyticsCallback:(name: String, params: Map<String, Any>)->Unit){
         this.staticFileLoader = staticFileLoader
+        this.analyticsCallback = analyticsCallback
         if(firstRun()){
             val speakerJson = staticFileLoader("speakers", "json")
             val scheduleJson = staticFileLoader("schedule", "json")
@@ -28,6 +31,10 @@ object AppContext{
         }else{
             networkDataUpdate()
         }
+    }
+
+    fun logEvent(name: String, params: Map<String, Any>){
+        analyticsCallback(name, params)
     }
 
     private fun firstRun():Boolean = appSettings.getBoolean(KEY_FIRST_RUN, true)

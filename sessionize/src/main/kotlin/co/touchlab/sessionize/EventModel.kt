@@ -21,9 +21,22 @@ class EventModel(val sessionId: String) {
         evenLiveData.removeListener()
     }
 
+    private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(rsvp:Boolean){
+
+        backgroundTask({
+            AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
+        }){
+            val params = HashMap<String, Any>()
+            params.put("slot", analyticsDateFormat.format(it.startsAt))
+            params.put("sessionId", sessionId)
+            params.put("count", if(rsvp){1}else{-1})
+            AppContext.logEvent("RSVP_EVENT",
+                    params)
+        }
         backgroundTask {
             AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if(rsvp){1}else{0}, sessionId)
+
         }
     }
 

@@ -77,13 +77,16 @@ buildscript {
             }
         }*/
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-beta04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath 'com.google.gms:google-services:4.0.1'
         classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
         classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:${versions.kotlin_native_version}"
+        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 
@@ -100,5 +103,6 @@ allprojects {
             }
         }*/
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+        maven { url 'https://maven.fabric.io/public' }
     }
 }

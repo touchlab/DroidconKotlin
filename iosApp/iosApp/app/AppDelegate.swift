@@ -8,6 +8,8 @@
 
 import UIKit
 import SessionizeArch
+import Fabric
+import Answers
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        Fabric.with([Answers.self])
         UIApplication.shared.statusBarStyle = .lightContent
-        SessionizeArchAppContext().doInitPlatformClient(staticFileLoader: loadAsset)
+        SessionizeArchAppContext().doInitPlatformClient(staticFileLoader: loadAsset, analyticsCallback: analyticsCallback)
         
         return true
     }
@@ -31,6 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return nil
         }
     
+    }
+    
+    func analyticsCallback(name:String, params:[String:Any]) -> SessionizeArchStdlibUnit{
+        Answers.logCustomEvent(withName: name, customAttributes: params)
+        return SessionizeArchStdlibUnit()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

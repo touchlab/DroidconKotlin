@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-platform-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "co.touchlab.sessionize"
+        applicationId "co.touchlab.droidconnyc2018"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -21,6 +22,7 @@ android {
     lintOptions {
         abortOnError false
     }
+//    enableJetifier=true
 }
 
 dependencies {
@@ -46,6 +48,9 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation ('com.crashlytics.sdk.android:answers:1.4.2@aar') {
+        transitive = true;
+    }
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
