@@ -64,4 +64,4 @@ a work in progress, but eventually you should be able to modify central files fo
 It would be super great if you could keep us in the about section of your app, though. We're a consulting company that turns 
 project revenue into open source stuff, so we need eyeballs. Thanks XOXO. Speaking of...
 
-[![Touchlab Logo](iosApp/iosApp/Assets.xcassets/about_touchlab.imageset/TL_Gradient.png "Touchlab Logo")](https://touchlab.co)
+[![Touchlab Logo](tlsmall.png "Touchlab Logo")](https://touchlab.co)
