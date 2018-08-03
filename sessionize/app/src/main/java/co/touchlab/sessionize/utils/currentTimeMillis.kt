@@ -82,6 +82,3 @@ actual fun logException(t: Throwable) {
 
 actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory(AndroidAppContext.app)
 
-actual fun logEvent(name: String, vararg params: String) {
-    Log.i("ANALYTICS", "$name: ${params.joinToString()}")
-}

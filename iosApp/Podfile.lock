@@ -1,4 +1,7 @@
 PODS:
+  - Answers (1.3.7):
+    - Fabric (~> 1.7.7)
+  - Fabric (1.7.9)
   - Kingfisher (4.8.0)
   - MaterialComponents (58.0.0):
     - MaterialComponents/ActivityIndicator (= 58.0.0)
@@ -446,10 +449,14 @@ PODS:
   - MotionTransitioning (5.0.0)
 
 DEPENDENCIES:
+  - Answers
+  - Fabric
   - Kingfisher (~> 4.0)
   - MaterialComponents
 
 SPEC CHECKSUMS:
+  Answers: bca35eedaed069c392d01b9dcb2673e0f77d9926
+  Fabric: a2917d3895e4c1569b9c3170de7320ea1b1e6661
   Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   MaterialComponents: 0520466595b729ebd106e84b96626803aca4a8d2
   MDFInternationalization: e355b0cebecf53d60233bd267084e49366c82513
@@ -458,6 +465,6 @@ SPEC CHECKSUMS:
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
   MotionTransitioning: 23d25edc2f4606efb922403cbac6d81af37aa33a
 
-PODFILE CHECKSUM: b84bd626002cf73cedf9a77b6be10a22f7f94e9e
+PODFILE CHECKSUM: e0d3ffb119cf733b71cb960cc8cf8072638a5a05
 
 COCOAPODS: 1.4.0

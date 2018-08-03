@@ -7,4 +7,6 @@ target 'iosApp' do
   # Pods for ios
     pod 'Kingfisher', '~> 4.0'
     pod 'MaterialComponents'
+    pod 'Fabric'
+    pod 'Answers'
 end
