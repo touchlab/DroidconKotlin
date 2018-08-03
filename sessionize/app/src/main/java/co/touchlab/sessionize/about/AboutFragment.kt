@@ -58,7 +58,11 @@ class AboutFragment : Fragment() {
             holder.body.text = aboutInfo.detail
             if(!aboutInfo.icon.isNullOrBlank()) {
                 holder.logo.setImageResource(finDrawableId(requireContext(), aboutInfo.icon))
+                holder.logo.visibility = View.VISIBLE
+            }else{
+                holder.logo.visibility = View.GONE
             }
+
         }
 
     }
