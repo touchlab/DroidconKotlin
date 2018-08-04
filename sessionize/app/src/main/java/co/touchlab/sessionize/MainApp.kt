@@ -2,7 +2,7 @@ package co.touchlab.sessionize
 
 import android.app.Application
 import android.content.Context
-import co.touchlab.sessionize.utils.AndroidAppContext
+import co.touchlab.sessionize.platform.AndroidAppContext
 import com.crashlytics.android.answers.Answers
 import io.fabric.sdk.android.Fabric
 import com.crashlytics.android.answers.CustomEvent

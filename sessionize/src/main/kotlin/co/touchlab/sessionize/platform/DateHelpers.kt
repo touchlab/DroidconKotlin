@@ -1,6 +1,8 @@
-package co.touchlab.sessionize.utils
+package co.touchlab.sessionize.platform
 
-val SESSIONIZE_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+expect class Date {
+    fun toLongMillis():Long
+}
 
 expect class DateFormatHelper(format:String){
     fun toDate(s:String):Date

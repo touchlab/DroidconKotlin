@@ -1,4 +1,4 @@
-package co.touchlab.sessionize.data
+package co.touchlab.sessionize.jsondata
 
 data class Session(
         val id:String,
@@ -33,9 +33,3 @@ data class SpeakerLink(
         val url:String,
         val linkType:String
 )
-
-/*
-"title": "Twitter",
-        "url": "https://twitter.com/ykro",
-        "linkType": "Twitter"
- */

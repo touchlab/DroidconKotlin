@@ -3,8 +3,8 @@ package co.touchlab.sessionize.display
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
-import co.touchlab.sessionize.utils.DateFormatHelper
-import co.touchlab.sessionize.utils.currentTimeMillis
+import co.touchlab.sessionize.platform.DateFormatHelper
+import co.touchlab.sessionize.platform.currentTimeMillis
 
 data class DaySchedule(
         val dayString: String,
@@ -50,15 +50,6 @@ fun HourBlock.isConflict(others: List<HourBlock>): Boolean {
     return false
 }
 
-fun HourBlock.rsvpConflictString(others: List<HourBlock>):String {
-    if(isConflict(others))
-        return " (Conflict)"
-    else if(timeBlock.isRsvp())
-        return " (Selected)"
-    else
-        return ""
-}
-
 fun sortSessions(sessions: List<SessionWithRoom>): List<SessionWithRoom> {
     val copyList = ArrayList(sessions)
     copyList.sortWith(Comparator { a, b -> sortTimeBlocks(a, b) })
@@ -83,7 +74,6 @@ fun sortTimeBlocks(o1: SessionWithRoom, o2: SessionWithRoom): Int {
     } else o1.roomName.compareTo(o2.roomName)
 }
 
-val DATE_FORMAT = DateFormatHelper("MM/dd/yyyy")
 val TAB_DATE_FORMAT = DateFormatHelper("MMM dd")
 val TIME_FORMAT = DateFormatHelper("h:mma")
 

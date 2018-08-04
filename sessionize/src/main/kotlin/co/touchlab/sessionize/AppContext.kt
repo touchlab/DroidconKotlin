@@ -1,10 +1,7 @@
 package co.touchlab.sessionize
 
 import co.touchlab.sessionize.db.NoteDbHelper
-import co.touchlab.sessionize.utils.*
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonTreeParser
+import co.touchlab.sessionize.platform.*
 
 object AppContext{
 
@@ -55,11 +52,11 @@ object AppContext{
         networkBackgroundTask {
             try {
                 val networkSpeakerJson = simpleGet(
-                        "https://sessionize.com/api/v2/tovwb4kd/view/speakers"
+                        "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/speakers"
                 )
 
                 val networkSessionJson = simpleGet(
-                        "https://sessionize.com/api/v2/tovwb4kd/view/gridtable"
+                        "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/gridtable"
                 )
 
                 dbHelper.primeAll(networkSpeakerJson, networkSessionJson)
@@ -68,29 +65,5 @@ object AppContext{
             }
         }
     }
-
-    /**
-     * Should be called in background. Kind of hacky, but works.
-     */
-    fun parseAbout():List<AboutInfo>{
-        val aboutJson = staticFileLoader("about", "json")!!
-        val aboutList = ArrayList<AboutInfo>()
-
-        val json = JsonTreeParser(aboutJson).readFully()
-
-        (json as JsonArray).forEach {
-            val aboutJson = it as JsonObject
-            aboutList.add(
-                    AboutInfo(
-                            aboutJson.getAsValue("icon").content,
-                            aboutJson.getAsValue("title").content,
-                            aboutJson.getAsValue("detail").content
-                    )
-            )
-        }
-
-        return aboutList
-    }
 }
 
-data class AboutInfo(val icon:String, val title:String, val detail:String)

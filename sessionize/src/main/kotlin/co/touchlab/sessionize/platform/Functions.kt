@@ -1,4 +1,4 @@
-package co.touchlab.sessionize.utils
+package co.touchlab.sessionize.platform
 
 import co.touchlab.multiplatform.architecture.db.sqlite.NativeOpenHelperFactory
 import com.russhwolf.settings.Settings
@@ -12,8 +12,6 @@ expect fun backgroundTask(backJob:()->Unit)
 expect fun networkBackgroundTask(backJob:()->Unit)
 
 expect fun initContext():NativeOpenHelperFactory
-
-expect fun sleepThread(millis:Long)
 
 expect fun <T> goFreeze(a:T):T
 

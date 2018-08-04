@@ -1,6 +1,13 @@
-package co.touchlab.sessionize.utils
+package co.touchlab.sessionize.platform
 
 import platform.Foundation.*
+import kotlin.math.floor
+
+actual class Date(val iosDate:NSDate) {
+    actual fun toLongMillis():Long{
+        return floor(iosDate.timeIntervalSince1970).toLong() * 1000L
+    }
+}
 
 actual class DateFormatHelper actual constructor(format:String){
 

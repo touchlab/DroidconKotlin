@@ -1,4 +1,4 @@
-package co.touchlab.sessionize.utils
+package co.touchlab.sessionize.platform
 
 import kotlin.system.getTimeMillis
 import platform.darwin.*
@@ -68,10 +68,6 @@ private fun backgroundTaskRun(backJob: () -> Unit, key:String){
             { backJob.freeze() }){
         it()
     }
-}
-
-actual fun sleepThread(millis:Long){
-    NSThread.sleepForTimeInterval(millis.toDouble()/1000.toDouble())
 }
 
 actual fun <T> goFreeze(a:T):T = a.freeze()

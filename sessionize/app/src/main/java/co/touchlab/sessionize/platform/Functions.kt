@@ -1,9 +1,8 @@
-package co.touchlab.sessionize.utils
+package co.touchlab.sessionize.platform
 
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import co.touchlab.multiplatform.architecture.db.sqlite.AndroidNativeOpenHelperFactory
 import co.touchlab.multiplatform.architecture.db.sqlite.NativeOpenHelperFactory
 import com.russhwolf.settings.PlatformSettings
@@ -13,7 +12,6 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
 
-actual fun sleepThread(millis: Long) {}
 actual fun <T> goFreeze(a: T): T = a
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
