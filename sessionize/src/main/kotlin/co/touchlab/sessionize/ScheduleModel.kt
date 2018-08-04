@@ -25,8 +25,6 @@ class ScheduleModel {
         liveSessions.removeListener()
     }
 
-    fun isConflict(hourBlock: HourBlock, others:List<HourBlock>) = hourBlock.isConflict(others)
-
     fun dayFormatLiveData(allEvents:Boolean):MutableLiveData<List<DaySchedule>> {
         return liveSessions.map {
             val sessions = if(allEvents){it}else{it.filter {it.rsvp != 0L}}

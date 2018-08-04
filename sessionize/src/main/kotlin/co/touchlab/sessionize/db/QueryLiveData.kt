@@ -1,7 +1,7 @@
 package co.touchlab.sessionize.db
 
 import co.touchlab.multiplatform.architecture.threads.MutableLiveData
-import co.touchlab.sessionize.utils.backgroundTask
+import co.touchlab.sessionize.platform.backgroundTask
 import com.squareup.sqldelight.Query
 
 abstract class QueryLiveData<Q:Any, Z>(val q: Query<Q>, skipInit:Boolean = false) : MutableLiveData<Z>(), Query.Listener {

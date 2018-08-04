@@ -14,7 +14,6 @@ import co.touchlab.sessionize.RsvpState
 import co.touchlab.sessionize.ScheduleModel
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.display.HourBlock
-import co.touchlab.sessionize.utils.setViewVisibility
 
 /**
  *
@@ -75,7 +74,8 @@ class EventAdapter(private val context: Context,
         }
 
         override fun setLiveNowVisible(liveNow: Boolean) {
-            itemView.findViewById<ImageView>(R.id.live).setViewVisibility(liveNow)
+            itemView.findViewById<ImageView>(R.id.live)
+                    .visibility = if (liveNow) View.VISIBLE else View.INVISIBLE
         }
 
         override fun setRsvpState(state: RsvpState) {

@@ -1,11 +1,11 @@
-package co.touchlab.sessionize.data
+package co.touchlab.sessionize.jsondata
 
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonTreeParser
 
 object DefaultData{
-    fun parseAll(scheduleJson:String):List<Session> {
+    fun parseSchedule(scheduleJson:String):List<Session> {
         val sessionDataList = ArrayList<Session>()
 
         val json = JsonTreeParser(scheduleJson).readFully()

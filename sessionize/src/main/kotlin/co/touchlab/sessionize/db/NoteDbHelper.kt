@@ -3,9 +3,8 @@ package co.touchlab.sessionize.db
 import co.touchlab.droidcon.db.QueryWrapper
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
-import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.data.DefaultData
-import co.touchlab.sessionize.utils.initContext
+import co.touchlab.sessionize.jsondata.DefaultData
+import co.touchlab.sessionize.platform.initContext
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDatabase
 import com.squareup.sqldelight.multiplatform.create
@@ -21,8 +20,6 @@ class NoteDbHelper {
         database = QueryWrapper.create("droidconDb", openHelperFactory = helperFactory)
         queryWrapper = QueryWrapper(database, Session.Adapter(dateAdapter, dateAdapter))
     }
-
-    fun getSpeakers(): Query<UserAccount> = queryWrapper.userAccountQueries.selectAll()
 
     fun getSessionsQuery(): Query<SessionWithRoom> = queryWrapper.sessionQueries.sessionWithRoom()
 
@@ -83,7 +80,7 @@ class NoteDbHelper {
     }
 
     private fun primeSessions(scheduleJson:String){
-        val parseAll = DefaultData.parseAll(scheduleJson)
+        val parseAll = DefaultData.parseSchedule(scheduleJson)
         queryWrapper.sessionSpeakerQueries.deleteAll()
         for (session in parseAll) {
             queryWrapper.roomQueries.insertRoot(session.roomId.toLong(), session.room)

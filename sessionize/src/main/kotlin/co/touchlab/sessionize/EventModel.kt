@@ -4,7 +4,7 @@ import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.SessionWithRoomById
 import co.touchlab.droidcon.db.SpeakerForSession
 import co.touchlab.sessionize.db.QueryLiveData
-import co.touchlab.sessionize.utils.*
+import co.touchlab.sessionize.platform.*
 import com.squareup.sqldelight.Query
 import kotlin.math.max
 
