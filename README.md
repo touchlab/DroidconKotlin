@@ -24,6 +24,12 @@ Show some love.
 * [knarch.threads](https://github.com/touchlab/knarch.threads/) - Threading support library. Temporary until something 
 more mature appears. Implements a simple LiveData analog and ThreadLocal helpers. 
 
+## Video
+
+[https://youtu.be/YAeDK3Ei0Lk](https://youtu.be/YAeDK3Ei0Lk)
+
+Video explaining how to build the apps, with an achitectural overview.
+
 ## Building
 
 Clone, and at the base, run:
@@ -39,18 +45,14 @@ There are modules for Android (app), iOS (ios), and the common code (src).
 
 ## Xcode
 
-The ios project is in the iosApp folder. CD there, then run cocoapods
+The ios project is in the iosApp folder. CD into it and open the xcworkspace file with Xcode.
 
 ```
 cd iosApp
-pod install
-```
-
-After building the kotlin code, open and run the Xcode workspace.
-
-```
 open iosApp.xcworkspace
 ```
+
+**NOTE** Originally you would've needed to run 'pod install'. We've included the full Pods folder in the repo because of some type of cocoapods issue. You shouldn't actually need to run 'pod install', but optionally you can to refresh.
 
 ## Customizing
 
