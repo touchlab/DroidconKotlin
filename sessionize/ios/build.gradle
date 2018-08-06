@@ -7,7 +7,7 @@ konanArtifacts {
     framework('SessionizeArch') {
         dependencies {
             artifactSessionizeArch deps.sqldelight.multiplatformdriverNative
-            artifactSessionizeArch "com.russhwolf:library:0.1-alpha4"
+            artifactSessionizeArch "com.russhwolf:multiplatform-settings-ios:0.1-alpha4"
         }
 
         linkerOpts "-lsqlite3"

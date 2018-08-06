@@ -9,6 +9,8 @@ object AppContext{
 
     val appSettings = settingsFactory().create("DROIDCON_SETTINGS")
     val KEY_FIRST_RUN = "FIRST_RUN1"
+    val USER_UUID = "USER_UUID"
+
     lateinit var staticFileLoader:(filePrefix:String, fileType:String)->String?
     lateinit var analyticsCallback:(name: String, params: Map<String, Any>)->Unit
 
@@ -38,6 +40,14 @@ object AppContext{
 
     private fun updateFirstRun(){
         appSettings.putBoolean(KEY_FIRST_RUN, false)
+    }
+
+    public fun userUuid():String{
+        if(appSettings.getString(USER_UUID).isBlank())
+        {
+            appSettings.putString(USER_UUID, createUuid())
+        }
+        return appSettings.getString(USER_UUID)
     }
 
     private fun primeData(speakerJson:String, scheduleJson:String){

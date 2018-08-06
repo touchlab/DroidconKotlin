@@ -24,6 +24,13 @@ class EventModel(val sessionId: String) {
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(rsvp:Boolean){
 
+        networkBackgroundTask {
+            val methodName = if(rsvp){"sessionizeRsvpEvent"}else{"sessionizeUnrsvpEvent"}
+            val callingUrl = "https://droidcon-server.herokuapp.com/dataTest/$methodName/$sessionId/${AppContext.userUuid()}"
+            println("CALLING: $callingUrl")
+            simpleGet(callingUrl)
+        }
+
         backgroundTask({
             AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
         }){

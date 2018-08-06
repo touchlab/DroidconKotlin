@@ -97,3 +97,4 @@ actual fun logException(t: Throwable) {
 
 actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory()
 
+actual fun createUuid(): String  = NSUUID.UUID().UUIDString

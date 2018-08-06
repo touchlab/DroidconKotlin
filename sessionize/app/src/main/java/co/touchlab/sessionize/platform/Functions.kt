@@ -8,6 +8,7 @@ import co.touchlab.multiplatform.architecture.db.sqlite.NativeOpenHelperFactory
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import java.net.URL
+import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
@@ -80,3 +81,4 @@ actual fun logException(t: Throwable) {
 
 actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory(AndroidAppContext.app)
 
+actual fun createUuid(): String  = UUID.randomUUID().toString()
