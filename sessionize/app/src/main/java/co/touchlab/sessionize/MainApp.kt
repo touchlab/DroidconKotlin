@@ -3,6 +3,9 @@ package co.touchlab.sessionize
 import android.app.Application
 import android.content.Context
 import co.touchlab.sessionize.platform.AndroidAppContext
+//import com.facebook.sonar.android.utils.*
+//import com.facebook.sonar.android.AndroidSonarClient
+//import com.facebook.sonar.plugins.inspector.*
 import com.crashlytics.android.answers.Answers
 import io.fabric.sdk.android.Fabric
 import com.crashlytics.android.answers.CustomEvent
@@ -11,6 +14,12 @@ class MainApp :Application(){
     override fun onCreate() {
         super.onCreate()
         AndroidAppContext.app = this
+//        if (BuildConfig.DEBUG && SonarUtils.shouldEnableSonar(this)) {
+//            val client = AndroidSonarClient.getInstance(this)
+//            val descriptorMapping = DescriptorMapping.withDefaults()
+//            client.addPlugin(InspectorSonarPlugin(this, descriptorMapping))
+//            client.start()
+//        }
         Fabric.with(this, Answers())
         AppContext.initPlatformClient ({filePrefix, fileType ->
             loadAsset("${filePrefix}.${fileType}")},

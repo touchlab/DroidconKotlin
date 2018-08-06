@@ -20,3 +20,5 @@ expect fun simpleGet(url:String):String
 expect fun logException(t:Throwable)
 
 expect fun settingsFactory(): Settings.Factory
+
+expect fun createUuid():String

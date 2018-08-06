@@ -46,11 +46,15 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     implementation 'androidx.vectordrawable:vectordrawable:1.0.0-beta01'
 
+//    implementation 'com.facebook.sonar:sonar:0.6.13'
+
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation ('com.crashlytics.sdk.android:answers:1.4.2@aar') {
-        transitive = true;
+        transitive = true
     }
+
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
