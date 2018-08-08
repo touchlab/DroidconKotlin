@@ -14,12 +14,13 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'  : '27.1.0',
-            'kotlin'          : '1.2.50',
-            'kotlin_native_version' : '0.8.1',
-            'kotlinCoroutines': '0.22.5',
-            'knarchDb'      : '0.7-alpha1',
-            'knarchThreads'      : '0.2.0',
-            'sqldelight'      : '1.0.0-alpha4.8'
+            'kotlin'          : '1.2.60',
+            'kotlin_native_version' : '0.9-dev-2922',
+            'kotlinCoroutines': '0.24.0',
+            'knarchDb'      : '0.7-alpha4',
+            'knarchThreads'      : '0.2.3',
+            'multiplatformSettings'      : '0.1-alpha5',
+            'sqldelight'      : '1.0.0-alpha4.9'
     ]
 
     ext.deps = [
@@ -27,19 +28,13 @@ buildscript {
                     'stdlib'    : [
                             'common': "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.kotlin}",
                             'jdk'   : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
-                            'js'    : "org.jetbrains.kotlin:kotlin-stdlib-js:${versions.kotlin}",
                     ],
                     'coroutines': [
                             'common' : "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${versions.kotlinCoroutines}",
                             'jdk'    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinCoroutines}",
-                            'js'     : "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:${versions.kotlinCoroutines}",
+                            'native' : "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${versions.kotlinCoroutines}",
                             'android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutines}",
                             'rx2'    : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${versions.kotlinCoroutines}",
-                    ],
-            ],
-            'android'   : [
-                    'arch': [
-                            'dbFramework': 'android.arch.persistence:db-framework:1.0.0',
                     ],
             ],
             'knarch'  : [
@@ -49,6 +44,12 @@ buildscript {
                     'threads':"co.touchlab.knarch.threads:threads-common:${versions.knarchThreads}",
                     'threadsAndroid':"co.touchlab.knarch.threads:threads-androidx:${versions.knarchThreads}",
                     'threadsNative':"co.touchlab.knarch.threads:knarchThreads:${versions.knarchThreads}",
+            ]
+            ,
+            'multiplatformSettings': [
+                    'common': "com.russhwolf:multiplatform-settings-common:${versions.multiplatformSettings}",
+                    'ios': "com.russhwolf:MultiplatformSettingsIos:${versions.multiplatformSettings}",
+                    'android': "com.russhwolf:multiplatform-settings-android:${versions.multiplatformSettings}",
             ]
             ,
             'sqldelight': [
@@ -71,11 +72,11 @@ buildscript {
         maven {
             url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
         }
-        /*if(project.hasProperty('j2objcMavenDeploy')) {
+        if(project.hasProperty('j2objcMavenDeploy')) {
             maven {
                 url project.property('j2objcMavenDeploy')
             }
-        }*/
+        }
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url 'https://maven.fabric.io/public' }
     }
@@ -97,11 +98,14 @@ allprojects {
         mavenCentral()
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        /*if(project.hasProperty('j2objcMavenDeploy')) {
+        maven {
+            url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+        if(project.hasProperty('j2objcMavenDeploy')) {
             maven {
                 url project.property('j2objcMavenDeploy')
             }
-        }*/
+        }
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://dl.bintray.com/russhwolf/multiplatform-settings' }
