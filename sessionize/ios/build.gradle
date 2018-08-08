@@ -1,20 +1,34 @@
+apply plugin: 'kotlin-platform-native'
 
-apply plugin: 'konan'
-
-konan.targets = ['iphone', 'iphone_sim']
-
-konanArtifacts {
-    framework('SessionizeArch') {
-        dependencies {
-            artifactSessionizeArch deps.sqldelight.multiplatformdriverNative
-            artifactSessionizeArch "com.russhwolf:multiplatform-settings-ios:0.1-alpha4"
+sourceSets {
+    main {
+        component {
+            baseName.set("SessionizeArch")
+            target 'ios_arm64', 'ios_x64'
+            outputKinds = [FRAMEWORK]
+            extraOpts("-linkerOpts", "-lsqlite3")
         }
-
-        linkerOpts "-lsqlite3"
-        enableMultiplatform true
     }
 }
 
 dependencies {
+    // Specify dependency on a common project for Kotlin multiplatform build
     expectedBy project(':sessionize')
+    implementation deps.sqldelight.multiplatformdriverNative
+    implementation deps.multiplatformSettings.ios
+    implementation deps.kotlin.coroutines.native
+}
+
+//noinspection GroovyAssignabilityCheck
+task copyFramework() {
+    doLast {
+        def srcFile = tasks[getProperty("konan.task").toString()].outputFile
+        def targetDir = getProperty("konan.configuration.build.dir")
+        copy {
+            from srcFile.parent
+            into targetDir
+            include '*.framework/**'
+            include '*.framework.dSYM'
+        }
+    }
 }
