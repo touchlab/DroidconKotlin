@@ -11,7 +11,6 @@ dependencies {
     implementation deps.knarch.threads
     implementation deps.sqldelight.multiplatformdriver
     implementation deps.multiplatformSettings.common
-    implementation deps.kotlin.coroutines.common
 }
 
 kotlin {
