@@ -16,7 +16,6 @@ dependencies {
     expectedBy project(':sessionize')
     implementation deps.sqldelight.multiplatformdriverNative
     implementation deps.multiplatformSettings.ios
-    implementation deps.kotlin.coroutines.native
 }
 
 //noinspection GroovyAssignabilityCheck

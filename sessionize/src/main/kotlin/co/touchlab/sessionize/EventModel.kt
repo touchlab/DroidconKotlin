@@ -43,7 +43,6 @@ class EventModel(val sessionId: String) {
         }
         backgroundTask {
             AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if(rsvp){1}else{0}, sessionId)
-
         }
     }
 
