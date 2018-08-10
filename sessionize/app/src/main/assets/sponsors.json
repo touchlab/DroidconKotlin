@@ -1,0 +1,132 @@
+[
+  {
+    "groupName": "Gold",
+    "sponsors": [
+      {
+        "name": "Actian",
+        "url": "http://www.actian.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_aa7aa9c3c3b64107a7d30ac9a308007c~mv2.png/v1/fill/w_139,h_139,al_c,usm_0.66_1.00_0.01/6e1ab2_aa7aa9c3c3b64107a7d30ac9a308007c~mv2.png"
+      },
+      {
+        "name": "Facebook",
+        "url": "https://www.facebook.com/careers/",
+        "icon": "https://static.wixstatic.com/media/b1f32d_c19b2bb47bb14136a04d7ed7eeed6e64~mv2.png/v1/fill/w_139,h_139,al_c,usm_0.66_1.00_0.01/b1f32d_c19b2bb47bb14136a04d7ed7eeed6e64~mv2.png"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/",
+        "icon": "https://static.wixstatic.com/media/b1f32d_cf48a63a88354cf9935825a3275ea338~mv2.png/v1/fill/w_139,h_139,al_c,usm_0.66_1.00_0.01/b1f32d_cf48a63a88354cf9935825a3275ea338~mv2.png"
+      }
+    ]
+  },
+  {
+    "groupName": "Silver",
+    "sponsors": [
+      {
+        "name": "Squarespace",
+        "url": "https://www.squarespace.com/about/careers?gh_src=fpw4yfhi1",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_a749e34cb6a7477bb80ec275e33b48ca~mv2.png/v1/fill/w_134,h_138,al_c,usm_0.66_1.00_0.01/6e1ab2_a749e34cb6a7477bb80ec275e33b48ca~mv2.png"
+      },
+      {
+        "name": "Square",
+        "url": "https://squareup.com/developers",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_fdea54c469494411958b703fe5e74c4e~mv2.png/v1/fill/w_134,h_138,al_c,usm_0.66_1.00_0.01/6e1ab2_fdea54c469494411958b703fe5e74c4e~mv2.png"
+      },
+      {
+        "name": "Zebra",
+        "url": "https://www.zebra.com/us/en/products/oem.html",
+        "icon": "https://static.wixstatic.com/media/b1f32d_aeb5c9471fb64e929401027d71871d66~mv2.png/v1/fill/w_134,h_138,al_c,usm_0.66_1.00_0.01/b1f32d_aeb5c9471fb64e929401027d71871d66~mv2.png"
+      },
+      {
+        "name": "Here",
+        "url": "http://here.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png/v1/fill/w_134,h_138,al_c,usm_0.66_1.00_0.01/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png"
+      },
+      {
+        "name": "Jet",
+        "url": "https://medium.com/jettech",
+        "icon": "https://static.wixstatic.com/media/a378f5_2d282621a0424897b3d3a10a0d23e8e0~mv2.png/v1/fill/w_134,h_138,al_c,usm_0.66_1.00_0.01/a378f5_2d282621a0424897b3d3a10a0d23e8e0~mv2.png"
+      },
+      {
+        "name": "Peloton",
+        "url": "http://www.onepeloton.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_955244f240b449adad27de3f21a4a384~mv2.png/v1/fill/w_134,h_138,al_c,usm_0.66_1.00_0.01/a378f5_955244f240b449adad27de3f21a4a384~mv2.png"
+      },
+      {
+        "name": "Gradle",
+        "url": "http://gradle.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_c8ec6717157d47ec8a19ad92899ea302~mv2.png/v1/fill/w_134,h_138,al_c,usm_0.66_1.00_0.01/a378f5_c8ec6717157d47ec8a19ad92899ea302~mv2.png"
+      }
+    ]
+  },
+  {
+    "groupName": "Bronze",
+    "sponsors": [
+      {
+        "name": "American Express",
+        "url": "https://americanexpress.io/android-jobs",
+        "icon": "https://static.wixstatic.com/media/b1f32d_8d54360cc9e2414b89c92085cc22c03d~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/b1f32d_8d54360cc9e2414b89c92085cc22c03d~mv2.png"
+      },
+      {
+        "name": "Button",
+        "url": "https://www.usebutton.com/",
+        "icon": "https://static.wixstatic.com/media/b1f32d_15bbe43e073e4094a2f806c6a4a909f3~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/b1f32d_15bbe43e073e4094a2f806c6a4a909f3~mv2.png"
+      },
+      {
+        "name": "Firebase",
+        "url": "https://firebase.google.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_850605bfa7714e76ae4752b92cf708cf~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_850605bfa7714e76ae4752b92cf708cf~mv2.png"
+      },
+      {
+        "name": "Etsy",
+        "url": "https://www.etsy.com/careers",
+        "icon": "https://static.wixstatic.com/media/a378f5_78e3e5dd485348db9c7c4cf77c2df3b3~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_78e3e5dd485348db9c7c4cf77c2df3b3~mv2.png"
+      }
+    ]
+  },
+  {
+    "groupName": "Speaker Sponsors",
+    "sponsors": [
+      {
+        "name": "Willow Tree",
+        "url": "http://www.willowtreeapps.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_36ae24897e4a4e5bad7d6ddb788d0560~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_36ae24897e4a4e5bad7d6ddb788d0560~mv2.png"
+      },
+      {
+        "name": "Auth0",
+        "url": "https://auth0.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_5a0665592c0c44f081b8e26645597fa5~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_5a0665592c0c44f081b8e26645597fa5~mv2.png"
+      },
+      {
+        "name": "Nexmo",
+        "url": "https://www.nexmo.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_9dcca22be143407193b17df5d9375f87~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_9dcca22be143407193b17df5d9375f87~mv2.png"
+      },
+      {
+        "name": "Woolworths",
+        "url": "https://www.woolworths.com.au/",
+        "icon": "https://static.wixstatic.com/media/a378f5_7e54d2bf32314ae8ba9c861b5e78faa7~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_7e54d2bf32314ae8ba9c861b5e78faa7~mv2.png"
+      }
+    ]
+  },
+  {
+    "groupName": "Community Partners",
+    "sponsors": [
+      {
+        "name": "Android Weekly",
+        "url": "https://androidweekly.net/",
+        "icon": "https://static.wixstatic.com/media/a378f5_5352f0f87cbc4498a0ee942709bad751~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_5352f0f87cbc4498a0ee942709bad751~mv2.png"
+      },
+      {
+        "name": "NY Android Developers Meetup",
+        "url": "https://www.meetup.com/nyandroiddevelopers/",
+        "icon": "https://static.wixstatic.com/media/a378f5_3969a2471b844a9badaba1e9e9de8312~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_3969a2471b844a9badaba1e9e9de8312~mv2.png"
+      },
+      {
+        "name": "GDG NYC",
+        "url": "https://www.meetup.com/gdgnyc/",
+        "icon": "https://static.wixstatic.com/media/a378f5_e4169c45fe0c4d53aee468556ac5ca48~mv2.png/v1/fill/w_143,h_135,al_c,usm_0.66_1.00_0.01/a378f5_e4169c45fe0c4d53aee468556ac5ca48~mv2.png"
+      }
+    ]
+  }
+]
