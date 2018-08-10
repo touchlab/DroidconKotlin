@@ -78,5 +78,27 @@ object DefaultData{
         return speakerList
     }
 
+    fun parseSponsors(sponsorJsonString:String):List<SponsorGroup>{
+        val json = JsonTreeParser(sponsorJsonString).readFully()
+        val sponsorGroups = ArrayList<SponsorGroup>()
+        (json as JsonArray).forEach {
+            val sponsorGroupJson = it as JsonObject
+            val groupName = sponsorGroupJson.getAsValue("groupName").content
+            val sponsorsJson = sponsorGroupJson.getAsArray("sponsors")
+            val sponsorList = ArrayList<Sponsor>()
 
+            sponsorsJson.forEach {
+                val sponsorJson = it as JsonObject
+                sponsorList.add(Sponsor(
+                        sponsorJson.getAsValue("name").content,
+                        sponsorJson.getAsValue("url").content,
+                        sponsorJson.getAsValue("icon").content
+                ))
+            }
+
+            sponsorGroups.add(SponsorGroup(groupName, sponsorList))
+        }
+
+        return sponsorGroups
+    }
 }

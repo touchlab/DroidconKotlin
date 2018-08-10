@@ -38,13 +38,14 @@ dependencies {
     implementation deps.knarch.threadsAndroid
     implementation deps.multiplatformSettings.android
 
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-beta01"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-beta01"
+    implementation 'com.nex3z:flow-layout:1.2.2'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-rc01"
 
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'com.google.android.material:material:1.0.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    implementation 'androidx.vectordrawable:vectordrawable:1.0.0-beta01'
+    implementation 'androidx.vectordrawable:vectordrawable:1.0.0-rc01'
 
 //    implementation 'com.facebook.sonar:sonar:0.6.13'
 
@@ -53,8 +54,6 @@ dependencies {
     implementation ('com.crashlytics.sdk.android:answers:1.4.2@aar') {
         transitive = true
     }
-
-
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
