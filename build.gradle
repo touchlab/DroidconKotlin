@@ -18,9 +18,9 @@ buildscript {
             'kotlin_native_version' : '0.9-dev-2922',
             'kotlinCoroutines': '0.24.0',
             'knarchDb'      : '0.7-alpha4',
-            'knarchThreads'      : '0.2.3',
+            'knarchThreads'      : '0.3.0',
             'multiplatformSettings'      : '0.1-alpha5',
-            'sqldelight'      : '1.0.0-alpha4.9'
+            'sqldelight'      : '1.0.0-alpha4.10'
     ]
 
     ext.deps = [
@@ -42,8 +42,11 @@ buildscript {
                     'dbAndroid': "co.touchlab.knarch:knarch-android:${versions.knarchDb}",
                     'dbNative': "co.touchlab.knarch:knarch:${versions.knarchDb}",
                     'threads':"co.touchlab.knarch.threads:threads-common:${versions.knarchThreads}",
-                    'threadsAndroid':"co.touchlab.knarch.threads:threads-androidx:${versions.knarchThreads}",
+                    'threadsAndroid':"co.touchlab.knarch.threads:threads-android:${versions.knarchThreads}",
                     'threadsNative':"co.touchlab.knarch.threads:knarchThreads:${versions.knarchThreads}",
+                    'threadsLivedata':"co.touchlab.knarch.threads:livedata-common:${versions.knarchThreads}",
+                    'threadsLivedataAndroid':"co.touchlab.knarch.threads:livedata-androidx:${versions.knarchThreads}",
+                    'threadsLivedataNative':"co.touchlab.knarch.threads:knarchLivedata:${versions.knarchThreads}",
             ]
             ,
             'multiplatformSettings': [
@@ -109,5 +112,6 @@ allprojects {
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://dl.bintray.com/russhwolf/multiplatform-settings' }
+        maven { url 'https://dl.bintray.com/kotlin/ktor' }
     }
 }

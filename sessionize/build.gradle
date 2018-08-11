@@ -9,6 +9,7 @@ dependencies {
     implementation deps.sqldelight.runtime
     implementation deps.knarch.db
     implementation deps.knarch.threads
+    implementation deps.knarch.threadsLivedata
     implementation deps.sqldelight.multiplatformdriver
     implementation deps.multiplatformSettings.common
 }

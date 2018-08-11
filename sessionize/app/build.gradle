@@ -36,6 +36,7 @@ dependencies {
     implementation deps.sqldelight.multiplatformdriverAndroid
     implementation deps.knarch.dbAndroid
     implementation deps.knarch.threadsAndroid
+    implementation deps.knarch.threadsLivedataAndroid
     implementation deps.multiplatformSettings.android
 
     implementation 'com.nex3z:flow-layout:1.2.2'

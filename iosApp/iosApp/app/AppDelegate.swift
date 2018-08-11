@@ -24,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+//    func aboutBack(result:String) -> SessionizeArchStdlibUnit{
+//        print("Debug coroutines out \(description)")
+//        return SessionizeArchUnit()
+//    }
+    
     func loadAsset(filePrefix:String, fileType:String) -> String?{
         do{
             let bundleFile = Bundle.main.path(forResource: filePrefix, ofType: fileType)
