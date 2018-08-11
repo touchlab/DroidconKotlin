@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iosApp/app/AppDelegate.swift"
-            timestampString = "555444521.011212"
+            timestampString = "555696540.023159"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iosApp/app/AppDelegate.swift"
-            timestampString = "555444521.011279"
+            timestampString = "555696540.023656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
             endingLineNumber = "39"
-            landmarkName = "analyticsCallback(name:params:)"
+            landmarkName = "loadAsset(filePrefix:fileType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

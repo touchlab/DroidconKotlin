@@ -7,6 +7,12 @@ sourceSets {
             target 'ios_arm64', 'ios_x64'
             outputKinds = [FRAMEWORK]
             extraOpts("-linkerOpts", "-lsqlite3")
+            extraOpts '--disable', 'devirtualization'//, '-module_name', ''
+        }
+    }
+    test {
+        component {
+            target 'ios_x64', 'ios_arm64'
         }
     }
 }
@@ -15,7 +21,9 @@ dependencies {
     // Specify dependency on a common project for Kotlin multiplatform build
     expectedBy project(':sessionize')
     implementation deps.sqldelight.multiplatformdriverNative
+    implementation deps.knarch.threadsLivedataNative
     implementation deps.multiplatformSettings.ios
+    implementation "io.ktor:ktor-client-ios:0.9.4-alpha-2"
 }
 
 //noinspection GroovyAssignabilityCheck

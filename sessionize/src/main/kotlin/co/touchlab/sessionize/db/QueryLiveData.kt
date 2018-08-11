@@ -1,6 +1,6 @@
 package co.touchlab.sessionize.db
 
-import co.touchlab.multiplatform.architecture.threads.MutableLiveData
+import co.touchlab.multiplatform.architecture.livedata.MutableLiveData
 import co.touchlab.sessionize.platform.backgroundTask
 import com.squareup.sqldelight.Query
 

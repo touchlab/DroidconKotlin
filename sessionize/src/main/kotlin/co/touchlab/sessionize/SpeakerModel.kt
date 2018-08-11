@@ -1,8 +1,8 @@
 package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.multiplatform.architecture.threads.MutableLiveData
-import co.touchlab.multiplatform.architecture.threads.map
+import co.touchlab.multiplatform.architecture.livedata.MutableLiveData
+import co.touchlab.multiplatform.architecture.livedata.map
 import co.touchlab.sessionize.db.QueryLiveData
 import co.touchlab.sessionize.platform.goFreeze
 import com.squareup.sqldelight.Query

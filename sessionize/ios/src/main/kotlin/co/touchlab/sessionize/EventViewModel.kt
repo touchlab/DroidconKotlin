@@ -1,6 +1,6 @@
 package co.touchlab.sessionize
 
-import co.touchlab.multiplatform.architecture.threads.*
+import co.touchlab.multiplatform.architecture.livedata.*
 import konan.worker.*
 
 class EventViewModel(sessionId: String){
