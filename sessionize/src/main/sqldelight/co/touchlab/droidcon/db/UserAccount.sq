@@ -19,6 +19,12 @@ SELECT *
 FROM userAccount
 WHERE id = ?;
 
+selectBySession:
+SELECT userAccount.*
+FROM userAccount
+JOIN sessionSpeaker ON sessionSpeaker.userAccountId = id
+WHERE sessionSpeaker.sessionId = ?;
+
 selectAll:
 SELECT *
 FROM userAccount;

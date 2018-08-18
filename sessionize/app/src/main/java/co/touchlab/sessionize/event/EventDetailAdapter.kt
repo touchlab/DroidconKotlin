@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.droidcon.db.SpeakerForSession
+import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.speaker.SpeakerFragment
@@ -31,7 +31,7 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
         data.add(TextDetail(EntryType.TYPE_INFO, description, 0))
     }
 
-    fun addSpeaker(speaker: SpeakerForSession) {
+    fun addSpeaker(speaker: UserAccount) {
         data.add(SpeakerDetail(EntryType.TYPE_SPEAKER,
                 speaker.profilePicture,
                 speaker.fullName,

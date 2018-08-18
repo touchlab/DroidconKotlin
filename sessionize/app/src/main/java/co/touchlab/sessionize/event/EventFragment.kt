@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.*
+import co.touchlab.sessionize.db.CoObserver
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class EventFragment : Fragment() {
@@ -49,7 +50,7 @@ class EventFragment : Fragment() {
         eventRoomTime = view.findViewById(R.id.eventRoomTime)
         recycler = view.findViewById(R.id.recycler)
 
-        eventViewModel.eventModel.evenLiveData.observe(viewLifecycleOwner, Observer {
+        eventViewModel.eventModel.evenLiveData.observe(viewLifecycleOwner, CoObserver {
             dataRefresh(it)
         })
 

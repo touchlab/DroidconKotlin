@@ -13,14 +13,15 @@ buildscript {
     ]
 
     ext.versions = [
-            'supportLibrary'  : '27.1.0',
-            'kotlin'          : '1.2.60',
-            'kotlin_native_version' : '0.9-dev-2922',
-            'kotlinCoroutines': '0.24.0',
-            'knarchDb'      : '0.7-alpha4',
-            'knarchThreads'      : '0.3.0',
-            'multiplatformSettings'      : '0.1-alpha5',
-            'sqldelight'      : '1.0.0-alpha4.10'
+            'supportLibrary'       : '27.1.0',
+            'kotlin'               : '1.2.60',
+            'kotlin_native_version': '0.9-dev-2922',
+            'kotlinCoroutines'     : '0.24.0',
+            'ktor'                 : '0.9.4-alpha-2',
+            'knarchDb'             : '0.7-alpha4',
+            'knarchThreads'        : '0.3.0',
+            'multiplatformSettings': '0.1-alpha5',
+            'sqldelight'           : '1.0.0-alpha4.10'
     ]
 
     ext.deps = [
@@ -36,6 +37,11 @@ buildscript {
                             'android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutines}",
                             'rx2'    : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${versions.kotlinCoroutines}",
                     ],
+            ],
+            'ktor': [
+                    'common' : "io.ktor:ktor-client:${versions.ktor}",
+                    'ios'    : "io.ktor:ktor-client-ios:${versions.ktor}",
+                    'android': "io.ktor:ktor-client-android:${versions.ktor}"
             ],
             'knarch'  : [
                     'db': "co.touchlab.knarch:knarch-common:${versions.knarchDb}",
