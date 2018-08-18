@@ -2,7 +2,7 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.SessionWithRoomById
-import co.touchlab.droidcon.db.SpeakerForSession
+import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.db.QueryLiveData
 import co.touchlab.sessionize.platform.*
 import com.squareup.sqldelight.Query
@@ -50,7 +50,7 @@ class EventModel(val sessionId: String) {
             Query.Listener {
         override fun extractData(q: Query<SessionWithRoomById>): SessionInfo {
             val sessionStuff = q.executeAsOne()
-            val speakers = AppContext.dbHelper.queryWrapper.sessionSpeakerQueries.speakerForSession(sessionStuff.id).executeAsList()
+            val speakers = AppContext.dbHelper.queryWrapper.userAccountQueries.selectBySession(sessionStuff.id).executeAsList()
             val mySessions = AppContext.dbHelper.queryWrapper.sessionQueries.mySessions().executeAsList()
 
             return SessionInfo(sessionStuff, speakers, conflict(sessionStuff, mySessions))
@@ -79,7 +79,7 @@ class EventModel(val sessionId: String) {
 
 data class SessionInfo(
         val session: SessionWithRoomById,
-        val speakers: List<SpeakerForSession>,
+        val speakers: List<UserAccount>,
         val conflict: Boolean
 )
 

@@ -12,10 +12,3 @@ VALUES (?,?,?)
 
 deleteAll:
 DELETE FROM sessionSpeaker;
-
-speakerForSession:
-SELECT *
-FROM sessionSpeaker
-JOIN userAccount ON sessionSpeaker.userAccountId = userAccount.id
-WHERE sessionSpeaker.sessionId = ?
-;

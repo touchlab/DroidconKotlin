@@ -24,20 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-//    func aboutBack(result:String) -> SessionizeArchStdlibUnit{
-//        print("Debug coroutines out \(description)")
-//        return SessionizeArchUnit()
-//    }
-    
     func loadAsset(filePrefix:String, fileType:String) -> String?{
         do{
             let bundleFile = Bundle.main.path(forResource: filePrefix, ofType: fileType)
             return try String(contentsOfFile: bundleFile!)
         } catch {
-            print(error)
             return nil
         }
-    
     }
     
     func analyticsCallback(name:String, params:[String:Any]) -> SessionizeArchStdlibUnit{

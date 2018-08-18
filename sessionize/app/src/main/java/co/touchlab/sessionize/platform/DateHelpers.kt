@@ -12,7 +12,7 @@ actual class DateFormatHelper actual constructor(format: String) {
         override fun initialValue(): DateFormat = SimpleDateFormat(format)
     }
 
-    actual fun toDate(s: String): Date = Date(dateFormatter.get().parse(s))
+    actual fun toDate(s: String): Date = Date(dateFormatter.get()!!.parse(s))
 
-    actual fun format(d: Date): String = dateFormatter.get().format(d.date)
+    actual fun format(d: Date): String = dateFormatter.get()!!.format(d.date)
 }

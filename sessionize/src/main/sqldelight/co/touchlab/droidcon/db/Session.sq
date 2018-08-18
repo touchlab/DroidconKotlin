@@ -29,6 +29,11 @@ mySessions:
 SELECT id, startsAt, endsAt FROM session WHERE
 rsvp != 0;
 
+userSessions:
+SELECT session.* FROM session
+JOIN sessionSpeaker ON session.id = sessionSpeaker.sessionId
+WHERE sessionSpeaker.userAccountId = ?;
+
 updateRsvp:
 UPDATE session SET rsvp = ? WHERE id = ?;
 
