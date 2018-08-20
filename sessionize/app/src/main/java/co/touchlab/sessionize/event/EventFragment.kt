@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -77,7 +76,7 @@ class EventFragment : Fragment() {
         activity.supportActionBar?.title = "Session"
     }
 
-    private fun dataRefresh(eventInfo: SessionInfo) {
+    private suspend fun dataRefresh(eventInfo: SessionInfo) {
         updateFAB(eventInfo)
         updateContent(eventInfo)
     }
@@ -107,11 +106,11 @@ class EventFragment : Fragment() {
         }
     }
 
-    private fun updateContent(event: SessionInfo) {
+    private suspend fun updateContent(event: SessionInfo) {
         val adapter = EventDetailAdapter(activity!!)
 
         eventTitle.text = event.session.title
-        eventRoomTime.text = event.formattedRoomTime()
+        eventRoomTime.text = event.formattedRoomTime
         adapter.addHeader(event.session.title)
 
         when {

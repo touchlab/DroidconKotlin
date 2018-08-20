@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.db
 
+import co.touchlab.droidcon.db.Room
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.droidcon.db.UserAccount
@@ -17,4 +18,9 @@ fun SessionWithRoom.isRsvp():Boolean = this.rsvp != 0L
 internal fun UserAccount.sessionsAsync(): Deferred<List<Session>> {
     val id = this.id
     return async(ApplicationDispatcher) { AppContext.dbHelper.queryWrapper.sessionQueries.userSessions(id).executeAsList() }
+}
+
+internal fun Session.roomAsync(): Deferred<Room> {
+    val id = this.roomId!!
+    return async(ApplicationDispatcher) { AppContext.dbHelper.queryWrapper.roomQueries.selectById(id).executeAsOne() }
 }

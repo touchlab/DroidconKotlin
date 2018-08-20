@@ -40,7 +40,7 @@ class SpeakerModel(speakerId:String){
     }
 
     class SpeakerLiveData(q: Query<UserAccount>) : QueryLiveData<UserAccount, UserAccount>(q){
-        override fun extractData(q: Query<UserAccount>): UserAccount = q.executeAsOne()
+        override suspend fun extractData(q: Query<UserAccount>): UserAccount = q.executeAsOne()
     }
 
 
