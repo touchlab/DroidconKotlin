@@ -1,8 +1,11 @@
 package co.touchlab.sessionize.db
 
 import co.touchlab.multiplatform.architecture.livedata.MutableLiveData
+import co.touchlab.sessionize.platform.ApplicationDispatcher
 import co.touchlab.sessionize.platform.backgroundTask
 import com.squareup.sqldelight.Query
+import kotlinx.coroutines.experimental.launch
+
 
 abstract class QueryLiveData<Q:Any, Z>(val q: Query<Q>, skipInit:Boolean = false) : MutableLiveData<Z>(), Query.Listener {
     init {
@@ -26,10 +29,13 @@ abstract class QueryLiveData<Q:Any, Z>(val q: Query<Q>, skipInit:Boolean = false
         q.removeListener(this)
     }
 
-    abstract fun extractData(q: Query<Q>): Z
+    abstract suspend fun extractData(q: Query<Q>): Z
 
     override fun queryResultsChanged() {
         println("queryResultsChanged: Value changed")
-        postValue(extractData(q))
+        launch (ApplicationDispatcher){
+            postValue(extractData(q))
+        }
+
     }
 }

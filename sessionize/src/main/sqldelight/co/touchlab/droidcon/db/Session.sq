@@ -50,11 +50,3 @@ GROUP BY sessionId
 ) AS speakers ON speakers.sessionId = session.id
 JOIN room ON session.roomId = room.id
 ;
-
-sessionWithRoomById:
-SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,
-session.serviceSession, session.rsvp, session.roomId, room.name AS roomName
-FROM session
-JOIN room ON session.roomId = room.id
-WHERE session.id = ?
-;

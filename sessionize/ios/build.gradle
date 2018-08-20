@@ -9,7 +9,7 @@ dependencies {
     implementation deps.multiplatformSettings.ios
     implementation deps.kotlin.coroutines.native
 
-    implementation deps.ktor.ios
+//    implementation deps.ktor.ios
 }
 
 

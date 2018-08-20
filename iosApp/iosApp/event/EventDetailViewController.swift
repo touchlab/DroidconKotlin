@@ -74,7 +74,7 @@ import MaterialComponents
     func updateAllUi() {
         updateButton()
         eventTitle.text = sessionInfo.session.title
-        eventRoomTime.text = sessionInfo.formattedRoomTime()
+        eventRoomTime.text = sessionInfo.formattedRoomTime
         tableView.reloadData()
     }
     
