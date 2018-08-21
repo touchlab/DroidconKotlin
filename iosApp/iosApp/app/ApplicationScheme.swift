@@ -60,7 +60,7 @@ class ApplicationScheme: NSObject {
         
         scheme.primaryColor = colorWithHexString(hexString: "233096")
         scheme.primaryColorVariant = colorWithHexString(hexString: "1e2981")
-        scheme.onPrimaryColor = colorWithHexString(hexString: "e4e02f")
+        scheme.onPrimaryColor = colorWithHexString(hexString: "f4f04f")
         scheme.secondaryColor = colorWithHexString(hexString: "3f4caf")
         scheme.onSecondaryColor = colorWithHexString(hexString: "ffffff")
         scheme.surfaceColor = colorWithHexString(hexString: "ffffff")

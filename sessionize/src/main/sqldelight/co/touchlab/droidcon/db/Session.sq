@@ -37,6 +37,7 @@ WHERE sessionSpeaker.userAccountId = ?;
 updateRsvp:
 UPDATE session SET rsvp = ? WHERE id = ?;
 
+--Special query for schedule view
 sessionWithRoom:
 SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,
 session.serviceSession, session.rsvp, session.roomId, room.name AS roomName,

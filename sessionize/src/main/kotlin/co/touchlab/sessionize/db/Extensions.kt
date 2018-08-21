@@ -22,5 +22,8 @@ internal fun UserAccount.sessionsAsync(): Deferred<List<Session>> {
 
 internal fun Session.roomAsync(): Deferred<Room> {
     val id = this.roomId!!
-    return async(ApplicationDispatcher) { AppContext.dbHelper.queryWrapper.roomQueries.selectById(id).executeAsOne() }
+    return async(ApplicationDispatcher) {
+        AppContext.dbHelper.queryWrapper.
+                roomQueries.selectById(id).executeAsOne()
+    }
 }

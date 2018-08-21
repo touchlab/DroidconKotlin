@@ -16,4 +16,8 @@ class LaunchViewController: UIViewController{
         let segueName = "Schedule"
         performSegue(withIdentifier: segueName, sender: self)
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
