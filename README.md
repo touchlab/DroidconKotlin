@@ -24,11 +24,15 @@ Show some love.
 * [knarch.threads](https://github.com/touchlab/knarch.threads/) - Threading support library. Temporary until something 
 more mature appears. Implements a simple LiveData analog and ThreadLocal helpers. 
 
-## Video
+## Media
 
-[https://youtu.be/YAeDK3Ei0Lk](https://youtu.be/YAeDK3Ei0Lk)
+[Medium - Droidcon NYC App!](https://medium.com/@kpgalligan/droidcon-nyc-app-da868bdef387)
 
-Video explaining how to build the apps, with an achitectural overview.
+[Medium - Kotlin Multiplatform in the App Store!](https://medium.com/@kpgalligan/kotlin-multiplatform-in-the-app-store-c3a50c24f93b)
+
+[Youtube - Kotlin Multiplatform @ Android Summit](https://www.youtube.com/watch?v=oeREzhXx7uw)
+
+[Youtube - Droidcon App Kotlin Multiplatform](https://www.youtube.com/watch?v=YAeDK3Ei0Lk&feature=youtu.be)
 
 ## Building
 
