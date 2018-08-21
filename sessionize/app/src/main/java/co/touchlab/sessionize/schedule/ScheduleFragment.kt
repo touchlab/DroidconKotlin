@@ -77,6 +77,7 @@ class ScheduleFragment():Fragment() {
             }
 
             override fun onTabSelected(p0: TabLayout.Tab?) {
+                eventList.scrollToPosition(0)
                 updateDisplay()
             }
         })
@@ -85,6 +86,13 @@ class ScheduleFragment():Fragment() {
     }
 
     fun updateTabs(days: List<DaySchedule>) {
+
+        //We're doing a slightly lazy compare here. If you change the days of your conference,
+        //but do not change the number of days, if the user is on screen when it happens, the
+        //dates won't refresh right away. Assume we can live with it.
+        if(days.isNotEmpty() && dayChooser.tabCount == days.size)
+            return
+
         val current = dayChooser.selectedTabPosition
         dayChooser.removeAllTabs()
 
