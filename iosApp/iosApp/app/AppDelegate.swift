@@ -9,7 +9,7 @@
 import UIKit
 import SessionizeArch
 import Fabric
-import Answers
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Answers.self])
+      Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
         SessionizeArchAppContext().doInitPlatformClient(staticFileLoader: loadAsset, analyticsCallback: analyticsCallback)
         

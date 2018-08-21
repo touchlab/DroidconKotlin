@@ -64,13 +64,6 @@ class SpeakerFragment : Fragment() {
         return mainView
     }
 
-    override fun onResume() {
-        super.onResume()
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.title = "Speaker"
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         speakerViewModel.speakerModel.shutDown()

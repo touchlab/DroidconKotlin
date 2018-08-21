@@ -58,22 +58,8 @@ class EventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activity = activity as AppCompatActivity
-//        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-//        toolbar.title = ""
-//        activity.setSupportActionBar(toolbar)
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.setDisplayShowHomeEnabled(true)
         val recycler = view.findViewById<RecyclerView>(R.id.recycler)
         recycler.layoutManager = LinearLayoutManager(getActivity())
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.title = "Session"
     }
 
     private suspend fun dataRefresh(eventInfo: SessionInfo) {
