@@ -27,7 +27,7 @@ class EventTableViewCell: UITableViewCell {
         
         titleLabel.text = sessionInfo.session.title/*.replacingOccurrences(of: "Android", with: "Lulu")*/
 
-        timeInfoLabel.text = sessionInfo.formattedRoomTime()
+        timeInfoLabel.text = sessionInfo.formattedRoomTime
         descriptionLabel.text = sessionInfo.session.description.replacingOccurrences(of: "/n/n", with: "/n")
 
         if sessionInfo.isNow() {

@@ -1,8 +1,7 @@
-apply plugin: 'kotlin-platform-common'
-//apply plugin: 'org.jetbrains.kotlin.platform.common'
-apply plugin: 'com.squareup.sqldelight'
 
-//group = 'org.jetbrains.kotlin.konan.samples'
+
+apply plugin: 'kotlin-platform-common'
+apply plugin: 'com.squareup.sqldelight'
 
 dependencies {
     implementation deps.kotlin.stdlib.common
@@ -12,6 +11,8 @@ dependencies {
     implementation deps.knarch.threadsLivedata
     implementation deps.sqldelight.multiplatformdriver
     implementation deps.multiplatformSettings.common
+//    implementation deps.ktor.common
+    implementation deps.kotlin.coroutines.common
 }
 
 kotlin {

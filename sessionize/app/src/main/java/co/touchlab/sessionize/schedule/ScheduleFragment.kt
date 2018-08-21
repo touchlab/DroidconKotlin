@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
+import co.touchlab.sessionize.db.CoObserver
 import co.touchlab.sessionize.display.DaySchedule
 import co.touchlab.sessionize.event.EventFragment
 import com.google.android.material.tabs.TabLayout
@@ -46,7 +47,7 @@ class ScheduleFragment():Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         viewModel.scheduleModel.dayFormatLiveData(allEvents).observe(viewLifecycleOwner,
-                Observer {
+                CoObserver {
                     conferenceDays = it
                     updateTabs(it)
                     updateDisplay()
@@ -81,19 +82,6 @@ class ScheduleFragment():Fragment() {
         })
 
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        activity.supportActionBar?.title = findApplicationName(activity)
-    }
-
-    private fun findApplicationName(context: Context): String {
-        val applicationInfo = context.applicationInfo
-        val stringId = applicationInfo.labelRes
-        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
     }
 
     fun updateTabs(days: List<DaySchedule>) {

@@ -642,7 +642,7 @@
         <!--Sponsors-->
         <scene sceneID="Khf-1X-jsv">
             <objects>
-                <viewController id="FUc-pL-b20" customClass="MaterialAppBarUIViewController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FUc-pL-b20" customClass="SponsorViewController" customModule="iosApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GGw-s2-OAY"/>
                         <viewControllerLayoutGuide type="bottom" id="LjX-ra-3Z5"/>
@@ -651,25 +651,80 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¯\_(ツ)_/¯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iud-fN-M5p">
-                                <rect key="frame" x="64.5" y="120" width="247" height="72"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="igf-tg-kap">
+                                <rect key="frame" x="16" y="20" width="343" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sHH-Ea-1rV">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sponsorIconView" id="1My-RO-GeL" customClass="SponsorCollectionViewCell" customModule="iosApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YWP-7b-Ppi">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="B5g-mr-DHc"/>
+                                                        <constraint firstAttribute="height" constant="80" id="DMB-az-zpE"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="YWP-7b-Ppi" firstAttribute="top" secondItem="1My-RO-GeL" secondAttribute="top" id="SsT-hK-Cou"/>
+                                            <constraint firstItem="YWP-7b-Ppi" firstAttribute="leading" secondItem="1My-RO-GeL" secondAttribute="leading" id="rXo-b9-Dts"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="sponsorImageView" destination="YWP-7b-Ppi" id="ePf-79-CHC"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="sponsorGroupHeader" id="Q05-uP-AKE" customClass="SponsorGroupCollectionReusableView" customModule="iosApp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cP-NW-rTx">
+                                            <rect key="frame" x="8" y="10" width="52" height="30"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="6cP-NW-rTx" secondAttribute="bottom" constant="2" id="6U9-DS-Vm6"/>
+                                        <constraint firstItem="6cP-NW-rTx" firstAttribute="leading" secondItem="Q05-uP-AKE" secondAttribute="leadingMargin" id="6ri-pE-6TB"/>
+                                        <constraint firstItem="6cP-NW-rTx" firstAttribute="top" secondItem="Q05-uP-AKE" secondAttribute="topMargin" constant="2" id="D2m-w1-UTs"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="sponsorGroupLabel" destination="6cP-NW-rTx" id="Np3-cc-zLM"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="iud-fN-M5p" firstAttribute="top" secondItem="GGw-s2-OAY" secondAttribute="bottom" constant="100" id="8Tb-Se-Qdm"/>
-                            <constraint firstItem="iud-fN-M5p" firstAttribute="centerX" secondItem="vuf-yl-IJJ" secondAttribute="centerX" id="ybD-Yh-z3b"/>
+                            <constraint firstItem="igf-tg-kap" firstAttribute="leading" secondItem="vuf-yl-IJJ" secondAttribute="leadingMargin" id="YIr-Sa-0oM"/>
+                            <constraint firstItem="igf-tg-kap" firstAttribute="top" secondItem="GGw-s2-OAY" secondAttribute="bottom" id="hzS-fU-vj2"/>
+                            <constraint firstItem="LjX-ra-3Z5" firstAttribute="top" secondItem="igf-tg-kap" secondAttribute="bottom" constant="30" id="y5E-Ou-eOc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="igf-tg-kap" secondAttribute="trailing" id="zPB-f0-pDv"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Sponsors" image="icon_sponsors" id="YOb-kY-7DK"/>
                     <navigationItem key="navigationItem" title="Sponsors" id="0Eh-hD-0wf"/>
+                    <connections>
+                        <outlet property="sponsorsCollectionView" destination="igf-tg-kap" id="g8o-Yn-PV8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oa4-Xw-qHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1916" y="-1228"/>
+            <point key="canvasLocation" x="1916" y="-1228.3358320839582"/>
         </scene>
         <!--Entry Controller-->
         <scene sceneID="bJN-GJ-YrV">

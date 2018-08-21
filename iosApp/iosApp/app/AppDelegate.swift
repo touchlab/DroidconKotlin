@@ -9,7 +9,7 @@
 import UIKit
 import SessionizeArch
 import Fabric
-import Answers
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,27 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Answers.self])
-        UIApplication.shared.statusBarStyle = .lightContent
+      Fabric.with([Crashlytics.self])
+        application.statusBarStyle = .lightContent
         SessionizeArchAppContext().doInitPlatformClient(staticFileLoader: loadAsset, analyticsCallback: analyticsCallback)
         
         return true
     }
-    
-//    func aboutBack(result:String) -> SessionizeArchStdlibUnit{
-//        print("Debug coroutines out \(description)")
-//        return SessionizeArchUnit()
-//    }
     
     func loadAsset(filePrefix:String, fileType:String) -> String?{
         do{
             let bundleFile = Bundle.main.path(forResource: filePrefix, ofType: fileType)
             return try String(contentsOfFile: bundleFile!)
         } catch {
-            print(error)
             return nil
         }
-    
     }
     
     func analyticsCallback(name:String, params:[String:Any]) -> SessionizeArchStdlibUnit{

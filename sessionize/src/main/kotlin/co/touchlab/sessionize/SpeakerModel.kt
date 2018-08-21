@@ -31,7 +31,7 @@ class SpeakerModel(speakerId:String){
             if(!it.bio.isNullOrBlank())
                 infoSections.add(SpeakerInfo(InfoType.Profile, it.bio!!))
 
-            SpeakerUiData(it.fullName, it.tagLine, it.profilePicture, infoSections)
+            SpeakerUiData(it, it.fullName, it.tagLine, it.profilePicture, infoSections)
         }
     }
 
@@ -40,15 +40,16 @@ class SpeakerModel(speakerId:String){
     }
 
     class SpeakerLiveData(q: Query<UserAccount>) : QueryLiveData<UserAccount, UserAccount>(q){
-        override fun extractData(q: Query<UserAccount>): UserAccount = q.executeAsOne()
+        override suspend fun extractData(q: Query<UserAccount>): UserAccount = q.executeAsOne()
     }
 
 
 }
 
-data class SpeakerUiData(val fullName:String,
-                         val company:String?,
-                         val profilePicture:String?,
+data class SpeakerUiData(val user: UserAccount,
+                         val fullName: String,
+                         val company: String?,
+                         val profilePicture: String?,
                          val infoRows: List<SpeakerInfo>)
 
 data class SpeakerInfo(val type: InfoType, val info:String)

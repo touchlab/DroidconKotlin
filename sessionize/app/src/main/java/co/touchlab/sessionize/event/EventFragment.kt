@@ -9,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.*
+import co.touchlab.sessionize.db.CoObserver
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class EventFragment : Fragment() {
@@ -49,7 +49,7 @@ class EventFragment : Fragment() {
         eventRoomTime = view.findViewById(R.id.eventRoomTime)
         recycler = view.findViewById(R.id.recycler)
 
-        eventViewModel.eventModel.evenLiveData.observe(viewLifecycleOwner, Observer {
+        eventViewModel.eventModel.evenLiveData.observe(viewLifecycleOwner, CoObserver {
             dataRefresh(it)
         })
 
@@ -58,25 +58,11 @@ class EventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activity = activity as AppCompatActivity
-//        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-//        toolbar.title = ""
-//        activity.setSupportActionBar(toolbar)
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.setDisplayShowHomeEnabled(true)
         val recycler = view.findViewById<RecyclerView>(R.id.recycler)
         recycler.layoutManager = LinearLayoutManager(getActivity())
-
     }
 
-    override fun onResume() {
-        super.onResume()
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.title = "Session"
-    }
-
-    private fun dataRefresh(eventInfo: SessionInfo) {
+    private suspend fun dataRefresh(eventInfo: SessionInfo) {
         updateFAB(eventInfo)
         updateContent(eventInfo)
     }
@@ -106,11 +92,11 @@ class EventFragment : Fragment() {
         }
     }
 
-    private fun updateContent(event: SessionInfo) {
+    private suspend fun updateContent(event: SessionInfo) {
         val adapter = EventDetailAdapter(activity!!)
 
         eventTitle.text = event.session.title
-        eventRoomTime.text = event.formattedRoomTime()
+        eventRoomTime.text = event.formattedRoomTime
         adapter.addHeader(event.session.title)
 
         when {

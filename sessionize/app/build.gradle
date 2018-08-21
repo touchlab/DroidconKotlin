@@ -3,14 +3,24 @@ apply plugin: 'kotlin-platform-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 
+Properties properties = new Properties()
+try {
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
+catch(Exception e) {
+
+}
+
+def releasePassword = properties.getProperty('releasePassword')
+
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "co.touchlab.droidconnyc2018"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 10001
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -22,7 +32,23 @@ android {
     lintOptions {
         abortOnError false
     }
-//    enableJetifier=true
+
+    signingConfigs {
+        release {
+            storeFile file("release.jks")
+            keyAlias "key0"
+            storePassword "$releasePassword"
+            keyPassword "$releasePassword"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
 }
 
 dependencies {
@@ -38,6 +64,8 @@ dependencies {
     implementation deps.knarch.threadsAndroid
     implementation deps.knarch.threadsLivedataAndroid
     implementation deps.multiplatformSettings.android
+//    implementation deps.ktor.android
+    implementation deps.kotlin.coroutines.android
 
     implementation 'com.nex3z:flow-layout:1.2.2'
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01"

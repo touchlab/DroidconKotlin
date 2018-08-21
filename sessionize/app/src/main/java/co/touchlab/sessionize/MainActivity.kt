@@ -1,5 +1,6 @@
 package co.touchlab.sessionize
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -41,11 +42,41 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
+        supportFragmentManager.addOnBackStackChangedListener {
+            val name = topFragmentName
+            if(name == "") {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                supportActionBar?.title = findApplicationName(this)
+            }else{
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                if(name.contains("Speaker"))
+                    supportActionBar?.title = "Speaker"
+                else if(name.contains("Event"))
+                    supportActionBar?.title = "Session"
+            }
+        }
+
         setSupportActionBar(findViewById(R.id.app_bar) as Toolbar)
 
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
         }
+    }
+
+    private fun findApplicationName(context: Context): String {
+        val applicationInfo = context.applicationInfo
+        val stringId = applicationInfo.labelRes
+        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
+    }
+
+    private val topFragmentName:String
+    get() {
+        val index = supportFragmentManager.backStackEntryCount - 1
+        if(index < 0)
+            return ""
+        val backEntry = supportFragmentManager.getBackStackEntryAt(index)
+
+        return backEntry.name?:""
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -66,10 +97,12 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
         val transaction = supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, fragment)
 
         if (addToBackstack) {
-            transaction.addToBackStack(null)
+            transaction.add(R.id.container, fragment)
+            transaction.addToBackStack(fragment.javaClass.simpleName)
+        }else{
+            transaction.replace(R.id.container, fragment)
         }
 
         transaction.commit()

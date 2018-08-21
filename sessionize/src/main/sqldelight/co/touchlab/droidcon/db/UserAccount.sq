@@ -19,6 +19,13 @@ SELECT *
 FROM userAccount
 WHERE id = ?;
 
+selectBySession:
+SELECT userAccount.*
+FROM userAccount
+JOIN sessionSpeaker ON sessionSpeaker.userAccountId = id
+WHERE sessionSpeaker.sessionId = ?
+ORDER BY sessionSpeaker.displayOrder;
+
 selectAll:
 SELECT *
 FROM userAccount;

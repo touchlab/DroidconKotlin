@@ -29,9 +29,15 @@ mySessions:
 SELECT id, startsAt, endsAt FROM session WHERE
 rsvp != 0;
 
+userSessions:
+SELECT session.* FROM session
+JOIN sessionSpeaker ON session.id = sessionSpeaker.sessionId
+WHERE sessionSpeaker.userAccountId = ?;
+
 updateRsvp:
 UPDATE session SET rsvp = ? WHERE id = ?;
 
+--Special query for schedule view
 sessionWithRoom:
 SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,
 session.serviceSession, session.rsvp, session.roomId, room.name AS roomName,
@@ -44,12 +50,4 @@ JOIN userAccount ON userAccount.id = sessionSpeaker.userAccountId
 GROUP BY sessionId
 ) AS speakers ON speakers.sessionId = session.id
 JOIN room ON session.roomId = room.id
-;
-
-sessionWithRoomById:
-SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,
-session.serviceSession, session.rsvp, session.roomId, room.name AS roomName
-FROM session
-JOIN room ON session.roomId = room.id
-WHERE session.id = ?
 ;

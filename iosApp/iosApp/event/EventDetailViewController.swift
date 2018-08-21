@@ -56,7 +56,7 @@ import MaterialComponents
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowSpeakerDetail" {
             let detailViewController = segue.destination as! SpeakerViewController
-            let speaker = sender as! SessionizeArchSpeakerForSession
+            let speaker = sender as! SessionizeArchUserAccount
             detailViewController.speakerId = speaker.id
         }
     }
@@ -74,7 +74,7 @@ import MaterialComponents
     func updateAllUi() {
         updateButton()
         eventTitle.text = sessionInfo.session.title
-        eventRoomTime.text = sessionInfo.formattedRoomTime()
+        eventRoomTime.text = sessionInfo.formattedRoomTime
         tableView.reloadData()
     }
     
@@ -127,7 +127,7 @@ import MaterialComponents
         tableView.deselectRow(at: indexPath, animated: false)
         
         if (indexPath as NSIndexPath).section == 1 {
-            let speaker = sessionInfo.speakers[indexPath.row] as SessionizeArchSpeakerForSession
+            let speaker = sessionInfo.speakers[indexPath.row] as SessionizeArchUserAccount
             showSpeakerDetailView(speaker: speaker)
         }
     }
@@ -163,7 +163,7 @@ import MaterialComponents
         viewModel.toggleRsvp(rsvp: !sessionInfo.isRsvped())
     }
     
-    func showSpeakerDetailView(speaker: SessionizeArchSpeakerForSession) {
+    func showSpeakerDetailView(speaker: SessionizeArchUserAccount) {
         performSegue(withIdentifier: "ShowSpeakerDetail", sender: speaker)
     }
 }
