@@ -19,8 +19,8 @@ android {
         applicationId "co.touchlab.droidconnyc2018"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10001
-        versionName "1.0.1"
+        versionCode 10002
+        versionName "1.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
