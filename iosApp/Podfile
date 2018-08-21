@@ -8,5 +8,5 @@ target 'iosApp' do
     pod 'Kingfisher', '~> 4.0'
     pod 'MaterialComponents'
     pod 'Fabric'
-    pod 'Answers'
+    pod 'Crashlytics'
 end

@@ -84,19 +84,6 @@ class ScheduleFragment():Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        activity.supportActionBar?.title = findApplicationName(activity)
-    }
-
-    private fun findApplicationName(context: Context): String {
-        val applicationInfo = context.applicationInfo
-        val stringId = applicationInfo.labelRes
-        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
-    }
-
     fun updateTabs(days: List<DaySchedule>) {
         val current = dayChooser.selectedTabPosition
         dayChooser.removeAllTabs()
