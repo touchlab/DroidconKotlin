@@ -66,10 +66,12 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
         val transaction = supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, fragment)
 
         if (addToBackstack) {
+            transaction.add(R.id.container, fragment)
             transaction.addToBackStack(null)
+        }else{
+            transaction.replace(R.id.container, fragment)
         }
 
         transaction.commit()

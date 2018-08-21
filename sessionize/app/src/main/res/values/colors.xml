@@ -9,6 +9,7 @@
     <color name="colorPrimaryDark">#1e2981</color>
     <color name="colorAccent">#6bac89</color>
     <color name="colorMenu">#e4e02f</color>
+    <color name="colorMenuOff">#aae4e02f</color>
 
     <color name="white">#FFF</color>
     <color name="black">#000</color>

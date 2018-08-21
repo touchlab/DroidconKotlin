@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Answers.self])
-        UIApplication.shared.statusBarStyle = .lightContent
+        application.statusBarStyle = .lightContent
         SessionizeArchAppContext().doInitPlatformClient(staticFileLoader: loadAsset, analyticsCallback: analyticsCallback)
         
         return true

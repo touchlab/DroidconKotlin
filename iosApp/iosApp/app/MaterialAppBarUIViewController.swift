@@ -50,4 +50,8 @@ class MaterialAppBarUIViewController: UIViewController {
     override var childViewControllerForStatusBarStyle: UIViewController? {
         return appBar.headerViewController
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }

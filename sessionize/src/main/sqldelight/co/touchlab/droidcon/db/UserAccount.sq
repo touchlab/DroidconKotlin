@@ -23,7 +23,8 @@ selectBySession:
 SELECT userAccount.*
 FROM userAccount
 JOIN sessionSpeaker ON sessionSpeaker.userAccountId = id
-WHERE sessionSpeaker.sessionId = ?;
+WHERE sessionSpeaker.sessionId = ?
+ORDER BY sessionSpeaker.displayOrder;
 
 selectAll:
 SELECT *

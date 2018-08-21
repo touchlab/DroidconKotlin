@@ -71,6 +71,10 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         bottomNavBar.frame = bottomNavBarFrame
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     /*
     // MARK: - Navigation
 
