@@ -19,21 +19,8 @@ object AppContext {
                            analyticsCallback: (name: String, params: Map<String, Any>) -> Unit) {
         this.staticFileLoader = staticFileLoader
         this.analyticsCallback = analyticsCallback
-        if (firstRun()) {
-            val sponsorJson = staticFileLoader("sponsors", "json")
-            val speakerJson = staticFileLoader("speakers", "json")
-            val scheduleJson = staticFileLoader("schedule", "json")
 
-            if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
-                appSettings.putString(SPONSOR_JSON, sponsorJson)
-                primeData(speakerJson = speakerJson,
-                        scheduleJson = scheduleJson)
-            } else {
-                throw NullPointerException("Couldn't load static files")
-            }
-        } else {
-            networkDataUpdate()
-        }
+        dataLoad()
     }
 
     fun logEvent(name: String, params: Map<String, Any>) {
@@ -53,20 +40,30 @@ object AppContext {
         return appSettings.getString(USER_UUID)
     }
 
-    private fun primeData(speakerJson: String, scheduleJson: String) {
-        backgroundTask({
-            dbHelper.primeAll(speakerJson, scheduleJson)
-        }) {
-            updateFirstRun()
-        }
-    }
-
     val sponsorJson:String
         get() = appSettings.getString(SPONSOR_JSON)
 
     //Split these up so they can individually succeed/fail
-    private fun networkDataUpdate(){
+    private fun dataLoad(){
         networkBackgroundTask {
+            try {
+                if (firstRun()) {
+                    val sponsorJson = staticFileLoader("sponsors", "json")
+                    val speakerJson = staticFileLoader("speakers", "json")
+                    val scheduleJson = staticFileLoader("schedule", "json")
+
+                    if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
+                        storeAll(sponsorJson, speakerJson, scheduleJson)
+                        updateFirstRun()
+                    } else {
+                        //This should only ever happen in dev
+                        throw NullPointerException("Couldn't load static files")
+                    }
+                }
+            } catch (e: Exception) {
+                logException(e)
+            }
+
             try {
                 val networkSpeakerJson = simpleGet(
                         "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/speakers"
@@ -80,12 +77,17 @@ object AppContext {
                         "https://s3.amazonaws.com/droidconsponsers/sponsors.json"
                 )
 
-                dbHelper.primeAll(networkSpeakerJson, networkSessionJson)
-                appSettings.putString(SPONSOR_JSON, networkSponsorJson)
+                storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)
+
             } catch (e: Exception) {
                 logException(e)
             }
         }
+    }
+
+    fun storeAll(networkSponsorJson: String, networkSpeakerJson: String, networkSessionJson: String) {
+        appSettings.putString(SPONSOR_JSON, networkSponsorJson)
+        dbHelper.primeAll(networkSpeakerJson, networkSessionJson)
     }
 }
 
