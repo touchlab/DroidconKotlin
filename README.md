@@ -24,6 +24,10 @@ Show some love.
 * [knarch.threads](https://github.com/touchlab/knarch.threads/) - Threading support library. Temporary until something 
 more mature appears. Implements a simple LiveData analog and ThreadLocal helpers. 
 
+* [Timber](https://github.com/touchlab/timber/tree/native) - Popular logging library on Android/Java, now with more platforms!
+
+As an aside, I added Timber, but I didn't exactly add much "logging". On the todo list.
+
 ## Media
 
 [Medium - Droidcon NYC App!](https://medium.com/@kpgalligan/droidcon-nyc-app-da868bdef387)
