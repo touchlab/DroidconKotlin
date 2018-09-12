@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
 
+
 actual fun <T> goFreeze(a: T): T = a
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
@@ -82,3 +83,10 @@ actual fun logException(t: Throwable) {
 actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory(AndroidAppContext.app)
 
 actual fun createUuid(): String  = UUID.randomUUID().toString()
+
+@Target(AnnotationTarget.FIELD)
+@Retention(AnnotationRetention.BINARY)
+actual
+annotation class SharedImmutable
+
+actual fun <T> T.freeze2(): T = this

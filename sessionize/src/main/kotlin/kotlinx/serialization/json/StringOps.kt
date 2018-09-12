@@ -20,7 +20,7 @@ package kotlinx.serialization.json
  * Creates a string by concatenating given chars.
  * Can be more efficient than `joinToString` on some platforms.
  *
- * charArrayOf('a','b','c').createString(2) = "ab"
+ * `charArrayOf('a','b','c').createString(2) = "ab"`
  */
 expect fun CharArray.createString(length: Int): String
 
@@ -52,7 +52,7 @@ private val ESCAPE_CHARS: Array<String?> = arrayOfNulls<String>(128).apply {
 }
 
 internal fun StringBuilder.printQuoted(value: String)  {
-    append(STRING)
+    append(ParserConstants.STRING)
     var lastPos = 0
     val length = value.length
     for (i in 0 until length) {
@@ -66,5 +66,5 @@ internal fun StringBuilder.printQuoted(value: String)  {
         lastPos = i + 1
     }
     append(value, lastPos, length)
-    append(STRING)
+    append(ParserConstants.STRING)
 }

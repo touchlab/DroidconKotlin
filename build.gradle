@@ -21,7 +21,7 @@ buildscript {
             'knarchThreads'        : '0.3.2-kn0.9-a2',
             'multiplatformSettings': '0.1',
             'timber': '5.0.0-kn0.9-a3',
-            'sqldelight'           : '1.0.0-kn0.9-a6'
+            'sqldelight'           : '1.0.0-kn0.9-a7'
     ]
 
     ext.deps = [

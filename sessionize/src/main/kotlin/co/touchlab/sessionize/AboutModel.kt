@@ -23,9 +23,9 @@ object AboutModel{
             val aboutJson = it as JsonObject
             aboutList.add(
                     AboutInfo(
-                            aboutJson.getAsValue("icon").content,
-                            aboutJson.getAsValue("title").content,
-                            aboutJson.getAsValue("detail").content
+                            aboutJson.getPrimitive("icon").content,
+                            aboutJson.getPrimitive("title").content,
+                            aboutJson.getPrimitive("detail").content
                     )
             )
         }

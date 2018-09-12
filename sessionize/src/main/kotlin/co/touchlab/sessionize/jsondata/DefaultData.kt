@@ -10,31 +10,31 @@ object DefaultData{
 
         val json = JsonTreeParser(scheduleJson).readFully()
         (json as JsonArray).content.forEach {
-            (it as JsonObject).getAsArray("rooms").forEach {
-                (it as JsonObject).getAsArray("sessions").forEach {
+            (it as JsonObject).getArray("rooms").forEach {
+                (it as JsonObject).getArray("sessions").forEach {
                     val session = it as JsonObject
 
                     val speakersList = ArrayList<SessionSpeaker>()
 
-                    val jsonSpeakers = session.getAsArray("speakers")
+                    val jsonSpeakers = session.getArray("speakers")
                     jsonSpeakers.content.forEach {
                         val spakerJson = it as JsonObject
                         speakersList.add(SessionSpeaker(
-                                spakerJson.getAsValue("id").content,
-                                spakerJson.getAsValue("name").content
+                                spakerJson.getPrimitive("id").content,
+                                spakerJson.getPrimitive("name").content
                         ))
                     }
 
                     val sessionData = Session(
-                            session.getAsValue("id").content,
-                            session.getAsValue("title").content,
-                            session.getAsValue("description").content,
-                            session.getAsValue("startsAt").content,
-                            session.getAsValue("endsAt").content,
-                            session.getAsValue("isServiceSession").asBoolean,
+                            session.getPrimitive("id").content,
+                            session.getPrimitive("title").content,
+                            session.getPrimitive("description").content,
+                            session.getPrimitive("startsAt").content,
+                            session.getPrimitive("endsAt").content,
+                            session.getPrimitive("isServiceSession").boolean,
                             speakersList,
-                            session.getAsValue("roomId").asInt,
-                            session.getAsValue("room").content
+                            session.getPrimitive("roomId").intt,
+                            session.getPrimitive("room").content
                     )
 
                     sessionDataList.add(sessionData)
@@ -52,24 +52,24 @@ object DefaultData{
 
         (json as JsonArray).forEach {
             val speakerJson = it as JsonObject
-            val linksJson = speakerJson.getAsArray("links")
+            val linksJson = speakerJson.getArray("links")
             val links = ArrayList<SpeakerLink>()
             linksJson.forEach {
                 val linkJson = (it as JsonObject)
                 links.add(SpeakerLink(
-                        linkJson.getAsValue("title").content,
-                        linkJson.getAsValue("url").content,
-                        linkJson.getAsValue("linkType").content
+                        linkJson.getPrimitive("title").content,
+                        linkJson.getPrimitive("url").content,
+                        linkJson.getPrimitive("linkType").content
                 ))
             }
             val speaker = Speaker(
-                    speakerJson.getAsValue("id").content,
-                    speakerJson.getAsValue("firstName").content,
-                    speakerJson.getAsValue("lastName").content,
-                    speakerJson.getAsValue("fullName").content,
-                    speakerJson.getAsValue("bio").content,
-                    speakerJson.getAsValue("tagLine").content,
-                    speakerJson.getAsValue("profilePicture").content,
+                    speakerJson.getPrimitive("id").content,
+                    speakerJson.getPrimitive("firstName").content,
+                    speakerJson.getPrimitive("lastName").content,
+                    speakerJson.getPrimitive("fullName").content,
+                    speakerJson.getPrimitive("bio").content,
+                    speakerJson.getPrimitive("tagLine").content,
+                    speakerJson.getPrimitive("profilePicture").content,
                     links
             )
             speakerList.add(speaker)
@@ -83,16 +83,16 @@ object DefaultData{
         val sponsorGroups = ArrayList<SponsorGroup>()
         (json as JsonArray).forEach {
             val sponsorGroupJson = it as JsonObject
-            val groupName = sponsorGroupJson.getAsValue("groupName").content
-            val sponsorsJson = sponsorGroupJson.getAsArray("sponsors")
+            val groupName = sponsorGroupJson.getPrimitive("groupName").content
+            val sponsorsJson = sponsorGroupJson.getArray("sponsors")
             val sponsorList = ArrayList<Sponsor>()
 
             sponsorsJson.forEach {
                 val sponsorJson = it as JsonObject
                 sponsorList.add(Sponsor(
-                        sponsorJson.getAsValue("name").content,
-                        sponsorJson.getAsValue("url").content,
-                        sponsorJson.getAsValue("icon").content
+                        sponsorJson.getPrimitive("name").content,
+                        sponsorJson.getPrimitive("url").content,
+                        sponsorJson.getPrimitive("icon").content
                 ))
             }
 

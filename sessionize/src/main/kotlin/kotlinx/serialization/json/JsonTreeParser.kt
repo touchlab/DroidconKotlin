@@ -20,39 +20,39 @@ class JsonTreeParser internal constructor(private val p: Parser) {
     constructor(input: String) : this(Parser(input))
 
     private fun readObject(): JsonElement {
-        p.requireTc(TC_BEGIN_OBJ) { "Expected start of object" }
+        p.requireTc(ParserConstants.TC_BEGIN_OBJ) { "Expected start of object" }
         p.nextToken()
         val result: MutableMap<String, JsonElement> = hashMapOf()
         while (true) {
-            if (p.tc == TC_COMMA) p.nextToken()
+            if (p.tc == ParserConstants.TC_COMMA) p.nextToken()
             if (!p.canBeginValue) break
             val key = p.takeStr()
-            p.requireTc(TC_COLON) { "Expected ':'" }
+            p.requireTc(ParserConstants.TC_COLON) { "Expected ':'" }
             p.nextToken()
             val elem = read()
             result[key] = elem
         }
-        p.requireTc(TC_END_OBJ) { "Expected end of object" }
+        p.requireTc(ParserConstants.TC_END_OBJ) { "Expected end of object" }
         p.nextToken()
         return JsonObject(result)
     }
 
-    private fun readValue(asLiteral: Boolean = false): JsonElement {
+    private fun readValue(isString: Boolean): JsonElement {
         val str = p.takeStr()
-        return if (asLiteral) JsonLiteral(str) else JsonString(str)
+        return JsonLiteral(str, isString)
     }
 
     private fun readArray(): JsonElement {
-        p.requireTc(TC_BEGIN_LIST) { "Expected start of array" }
+        p.requireTc(ParserConstants.TC_BEGIN_LIST) { "Expected start of array" }
         p.nextToken()
         val result: MutableList<JsonElement> = arrayListOf()
         while (true) {
-            if (p.tc == TC_COMMA) p.nextToken()
+            if (p.tc == ParserConstants.TC_COMMA) p.nextToken()
             if (!p.canBeginValue) break
             val elem = read()
             result.add(elem)
         }
-        p.requireTc(TC_END_LIST) { "Expected end of array" }
+        p.requireTc(ParserConstants.TC_END_LIST) { "Expected end of array" }
         p.nextToken()
         return JsonArray(result)
     }
@@ -61,18 +61,18 @@ class JsonTreeParser internal constructor(private val p: Parser) {
         if (!p.canBeginValue) fail(p.curPos, "Can't begin reading value from here")
         val tc = p.tc
         return when (tc) {
-            TC_NULL -> JsonNull.also { p.nextToken() }
-            TC_STRING -> readValue(asLiteral = false)
-            TC_OTHER -> readValue(asLiteral = true)
-            TC_BEGIN_OBJ -> readObject()
-            TC_BEGIN_LIST -> readArray()
+            ParserConstants.TC_NULL -> JsonNull.also { p.nextToken() }
+            ParserConstants.TC_STRING -> readValue(isString = true)
+            ParserConstants.TC_OTHER -> readValue(isString = false)
+            ParserConstants.TC_BEGIN_OBJ -> readObject()
+            ParserConstants.TC_BEGIN_LIST -> readArray()
             else -> fail(p.curPos, "Can't begin reading element")
         }
     }
 
     fun readFully(): JsonElement {
         val r = read()
-        p.requireTc(TC_EOF) { "Input wasn't consumed fully" }
+        p.requireTc(ParserConstants.TC_EOF) { "Input wasn't consumed fully" }
         return r
     }
 }

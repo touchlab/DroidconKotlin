@@ -101,5 +101,9 @@ actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory()
 actual fun createUuid(): String  = NSUUID.UUID().UUIDString
 
 fun initTimber(priority:Int){
-    Timber.plant(NSLogTree(4))
+    Timber.plant(NSLogTree(2))
 }
+
+actual typealias SharedImmutable = kotlin.native.SharedImmutable
+
+actual fun <T> T.freeze2(): T = this.freeze()

@@ -16,56 +16,62 @@
 
 package kotlinx.serialization.json
 
-// special strings
-internal const val NULL = "null"
+import co.touchlab.multiplatform.architecture.threads.AtomicRef
+import co.touchlab.sessionize.platform.SharedImmutable
+import co.touchlab.sessionize.platform.freeze2
 
-// special chars
-internal const val COMMA = ','
-internal const val COLON = ':'
-internal const val BEGIN_OBJ = '{'
-internal const val END_OBJ = '}'
-internal const val BEGIN_LIST = '['
-internal const val END_LIST = ']'
-internal const val STRING = '"'
-internal const val STRING_ESC = '\\'
+internal object ParserConstants {
+    // special strings
+    internal const val NULL = "null"
 
-internal const val INVALID = 0.toChar()
-internal const val UNICODE_ESC = 'u'
+    // special chars
+    internal const val COMMA = ','
+    internal const val COLON = ':'
+    internal const val BEGIN_OBJ = '{'
+    internal const val END_OBJ = '}'
+    internal const val BEGIN_LIST = '['
+    internal const val END_LIST = ']'
+    internal const val STRING = '"'
+    internal const val STRING_ESC = '\\'
 
-// token classes
-internal const val TC_OTHER: Byte = 0
-internal const val TC_STRING: Byte = 1
-internal const val TC_STRING_ESC: Byte = 2
-internal const val TC_WS: Byte = 3
-internal const val TC_COMMA: Byte = 4
-internal const val TC_COLON: Byte = 5
-internal const val TC_BEGIN_OBJ: Byte = 6
-internal const val TC_END_OBJ: Byte = 7
-internal const val TC_BEGIN_LIST: Byte = 8
-internal const val TC_END_LIST: Byte = 9
-internal const val TC_NULL: Byte = 10
-internal const val TC_INVALID: Byte = 11
-internal const val TC_EOF: Byte = 12
+    internal const val INVALID = 0.toChar()
+    internal const val UNICODE_ESC = 'u'
 
+    // token classes
+    internal const val TC_OTHER: Byte = 0
+    internal const val TC_STRING: Byte = 1
+    internal const val TC_STRING_ESC: Byte = 2
+    internal const val TC_WS: Byte = 3
+    internal const val TC_COMMA: Byte = 4
+    internal const val TC_COLON: Byte = 5
+    internal const val TC_BEGIN_OBJ: Byte = 6
+    internal const val TC_END_OBJ: Byte = 7
+    internal const val TC_BEGIN_LIST: Byte = 8
+    internal const val TC_END_LIST: Byte = 9
+    internal const val TC_NULL: Byte = 10
+    internal const val TC_INVALID: Byte = 11
+    internal const val TC_EOF: Byte = 12
+}
 // mapping from chars to token classes
 private const val CTC_MAX = 0x7e
 
+@SharedImmutable
 private val C2TC = ByteArray(CTC_MAX).apply {
     for (i in 0..0x20)
-        initC2TC(i, TC_INVALID)
-    initC2TC(0x09, TC_WS)
-    initC2TC(0x0a, TC_WS)
-    initC2TC(0x0d, TC_WS)
-    initC2TC(0x20, TC_WS)
-    initC2TC(COMMA, TC_COMMA)
-    initC2TC(COLON, TC_COLON)
-    initC2TC(BEGIN_OBJ, TC_BEGIN_OBJ)
-    initC2TC(END_OBJ, TC_END_OBJ)
-    initC2TC(BEGIN_LIST, TC_BEGIN_LIST)
-    initC2TC(END_LIST, TC_END_LIST)
-    initC2TC(STRING, TC_STRING)
-    initC2TC(STRING_ESC, TC_STRING_ESC)
-}
+        initC2TC(i, ParserConstants.TC_INVALID)
+    initC2TC(0x09, ParserConstants.TC_WS)
+    initC2TC(0x0a, ParserConstants.TC_WS)
+    initC2TC(0x0d, ParserConstants.TC_WS)
+    initC2TC(0x20, ParserConstants.TC_WS)
+    initC2TC(ParserConstants.COMMA, ParserConstants.TC_COMMA)
+    initC2TC(ParserConstants.COLON, ParserConstants.TC_COLON)
+    initC2TC(ParserConstants.BEGIN_OBJ, ParserConstants.TC_BEGIN_OBJ)
+    initC2TC(ParserConstants.END_OBJ, ParserConstants.TC_END_OBJ)
+    initC2TC(ParserConstants.BEGIN_LIST, ParserConstants.TC_BEGIN_LIST)
+    initC2TC(ParserConstants.END_LIST, ParserConstants.TC_END_LIST)
+    initC2TC(ParserConstants.STRING, ParserConstants.TC_STRING)
+    initC2TC(ParserConstants.STRING_ESC, ParserConstants.TC_STRING_ESC)
+}.freeze2()
 
 private fun ByteArray.initC2TC(c: Int, cl: Byte) {
     this[c] = cl
@@ -75,35 +81,41 @@ private fun ByteArray.initC2TC(c: Char, cl: Byte) {
     initC2TC(c.toInt(), cl)
 }
 
-internal fun charToTokenClass(c: Char) = if (c.toInt() < CTC_MAX) C2TC[c.toInt()] else TC_OTHER
+internal fun charToTokenClass(c: Char) = if (c.toInt() < CTC_MAX) C2TC[c.toInt()] else ParserConstants.TC_OTHER
 
 // mapping from escape chars real chars
 private const val C2ESC_MAX = 0x5d
 private const val ESC2C_MAX = 0x75
 
-private val ESC2C = CharArray(ESC2C_MAX)
+@SharedImmutable
+private val ESC2C = AtomicRef(CharArray(ESC2C_MAX).freeze2())
 
+@SharedImmutable
 private val C2ESC = CharArray(C2ESC_MAX).apply {
     for (i in 0x00..0x1f)
-        initC2ESC(i, UNICODE_ESC)
+        initC2ESC(i, ParserConstants.UNICODE_ESC)
     initC2ESC(0x08, 'b')
     initC2ESC(0x09, 't')
     initC2ESC(0x0a, 'n')
     initC2ESC(0x0c, 'f')
     initC2ESC(0x0d, 'r')
     initC2ESC('/', '/')
-    initC2ESC(STRING, STRING)
-    initC2ESC(STRING_ESC, STRING_ESC)
-}
+    initC2ESC(ParserConstants.STRING, ParserConstants.STRING)
+    initC2ESC(ParserConstants.STRING_ESC, ParserConstants.STRING_ESC)
+}.freeze2()
 
 private fun CharArray.initC2ESC(c: Int, esc: Char) {
     this[c] = esc
-    if (esc != UNICODE_ESC) ESC2C[esc.toInt()] = c.toChar()
+    if (esc != ParserConstants.UNICODE_ESC) {
+        val mod = ESC2C.value.copyOf()
+        mod[esc.toInt()] = c.toChar()
+        ESC2C.value = mod.freeze2()
+    }
 }
 
 private fun CharArray.initC2ESC(c: Char, esc: Char) = initC2ESC(c.toInt(), esc)
 
-internal fun escapeToChar(c: Int): Char = if (c < ESC2C_MAX) ESC2C[c] else INVALID
+internal fun escapeToChar(c: Int): Char = if (c < ESC2C_MAX) ESC2C.value[c] else ParserConstants.INVALID
 
 
 // JSON low level parser
@@ -114,7 +126,7 @@ internal class Parser(val source: String) {
     // updated by nextToken
     var tokenPos: Int = 0
         private set
-    var tc: Byte = TC_EOF
+    var tc: Byte = ParserConstants.TC_EOF
         private set
 
     // update by nextString/nextLiteral
@@ -133,12 +145,12 @@ internal class Parser(val source: String) {
 
     val canBeginValue: Boolean
         get() = when (tc) {
-            TC_BEGIN_LIST, TC_BEGIN_OBJ, TC_OTHER, TC_STRING, TC_NULL -> true
+            ParserConstants.TC_BEGIN_LIST, ParserConstants.TC_BEGIN_OBJ, ParserConstants.TC_OTHER, ParserConstants.TC_STRING, ParserConstants.TC_NULL -> true
             else -> false
         }
 
     fun takeStr(): String {
-        if (tc != TC_OTHER && tc != TC_STRING) fail(tokenPos, "Expected string or non-null literal")
+        if (tc != ParserConstants.TC_OTHER && tc != ParserConstants.TC_STRING) fail(tokenPos, "Expected string or non-null literal")
         val prevStr = if (offset < 0)
             buf.createString(length) else
             source.substring(offset, offset + length)
@@ -168,18 +180,18 @@ internal class Parser(val source: String) {
         while (true) {
             if (curPos >= maxLen) {
                 tokenPos = curPos
-                tc = TC_EOF
+                tc = ParserConstants.TC_EOF
                 return
             }
             val ch = source[curPos]
             val tc = charToTokenClass(ch)
             when (tc) {
-                TC_WS -> curPos++ // skip whitespace
-                TC_OTHER -> {
+                ParserConstants.TC_WS -> curPos++ // skip whitespace
+                ParserConstants.TC_OTHER -> {
                     nextLiteral(source, curPos)
                     return
                 }
-                TC_STRING -> {
+                ParserConstants.TC_STRING -> {
                     nextString(source, curPos)
                     return
                 }
@@ -200,11 +212,11 @@ internal class Parser(val source: String) {
         val maxLen = source.length
         while (true) {
             curPos++
-            if (curPos >= maxLen || charToTokenClass(source[curPos]) != TC_OTHER) break
+            if (curPos >= maxLen || charToTokenClass(source[curPos]) != ParserConstants.TC_OTHER) break
         }
         this.curPos = curPos
         length = curPos - offset
-        tc = if (rangeEquals(source, offset, length, NULL)) TC_NULL else TC_OTHER
+        tc = if (rangeEquals(source, offset, length, ParserConstants.NULL)) ParserConstants.TC_NULL else ParserConstants.TC_OTHER
     }
 
     private fun nextString(source: String, startPos: Int) {
@@ -215,9 +227,9 @@ internal class Parser(val source: String) {
         val maxLen = source.length
         parse@ while (true) {
             if (curPos >= maxLen) fail(curPos, "Unexpected end in string")
-            if (source[curPos] == STRING) {
+            if (source[curPos] == ParserConstants.STRING) {
                 break@parse
-            } else if (source[curPos] == STRING_ESC) {
+            } else if (source[curPos] == ParserConstants.STRING_ESC) {
                 appendRange(source, lastPos, curPos)
                 val newPos = appendEsc(source, curPos + 1)
                 curPos = newPos
@@ -236,18 +248,18 @@ internal class Parser(val source: String) {
             this.offset = -1
         }
         this.curPos = curPos + 1
-        tc = TC_STRING
+        tc = ParserConstants.TC_STRING
     }
 
     private fun appendEsc(source: String, startPos: Int): Int {
         var curPos = startPos
         require(curPos < source.length, curPos) { "Unexpected end after escape char" }
         val curChar = source[curPos++]
-        if (curChar == UNICODE_ESC) {
+        if (curChar == ParserConstants.UNICODE_ESC) {
             curPos = appendHex(source, curPos)
         } else {
             val c = escapeToChar(curChar.toInt())
-            require(c != INVALID, curPos) { "Invalid escaped char '$curChar'" }
+            require(c != ParserConstants.INVALID, curPos) { "Invalid escaped char '$curChar'" }
             append(c)
         }
         return curPos
@@ -265,20 +277,20 @@ internal class Parser(val source: String) {
     }
 
     fun skipElement() {
-        if (tc != TC_BEGIN_OBJ && tc != TC_BEGIN_LIST) {
+        if (tc != ParserConstants.TC_BEGIN_OBJ && tc != ParserConstants.TC_BEGIN_LIST) {
             nextToken()
             return
         }
         val tokenStack = mutableListOf<Byte>()
         do {
             when (tc) {
-                TC_BEGIN_LIST, TC_BEGIN_OBJ -> tokenStack.add(tc)
-                TC_END_LIST -> {
-                    if (tokenStack.last() != TC_BEGIN_LIST) throw IllegalStateException("Invalid JSON at $curPos: found ] instead of }")
+                ParserConstants.TC_BEGIN_LIST, ParserConstants.TC_BEGIN_OBJ -> tokenStack.add(tc)
+                ParserConstants.TC_END_LIST -> {
+                    if (tokenStack.last() != ParserConstants.TC_BEGIN_LIST) throw IllegalStateException("Invalid JSON at $curPos: found ] instead of }")
                     tokenStack.removeAt(tokenStack.size - 1)
                 }
-                TC_END_OBJ -> {
-                    if (tokenStack.last() != TC_BEGIN_OBJ) throw IllegalStateException("Invalid JSON at $curPos: found } instead of ]")
+                ParserConstants.TC_END_OBJ -> {
+                    if (tokenStack.last() != ParserConstants.TC_BEGIN_OBJ) throw IllegalStateException("Invalid JSON at $curPos: found } instead of ]")
                     tokenStack.removeAt(tokenStack.size - 1)
                 }
             }
