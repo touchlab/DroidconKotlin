@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.db.CoObserver
 import co.touchlab.sessionize.display.DaySchedule
 import co.touchlab.sessionize.event.EventFragment
 import com.google.android.material.tabs.TabLayout
@@ -47,7 +46,7 @@ class ScheduleFragment():Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         viewModel.scheduleModel.dayFormatLiveData(allEvents).observe(viewLifecycleOwner,
-                CoObserver {
+                Observer {
                     conferenceDays = it
                     updateTabs(it)
                     updateDisplay()

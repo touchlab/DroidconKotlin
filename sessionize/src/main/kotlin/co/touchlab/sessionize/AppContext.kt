@@ -1,7 +1,10 @@
 package co.touchlab.sessionize
 
+import co.touchlab.multiplatform.architecture.threads.AtomicRef
 import co.touchlab.sessionize.db.NoteDbHelper
 import co.touchlab.sessionize.platform.*
+import timber.log.Timber
+import timber.log.info
 
 object AppContext {
 
@@ -9,22 +12,36 @@ object AppContext {
 
     val appSettings = settingsFactory().create("DROIDCON_SETTINGS")
     val KEY_FIRST_RUN = "FIRST_RUN1"
+    val KEY_LAST_LOAD = "LAST_LOAD"
     val USER_UUID = "USER_UUID"
+    val TWO_HOURS_MILLIS = 2*60*60*1000
+
     private val SPONSOR_JSON = "SPONSOR_JSON"
 
-    lateinit var staticFileLoader: (filePrefix: String, fileType: String) -> String?
-    lateinit var analyticsCallback: (name: String, params: Map<String, Any>) -> Unit
+    val lambdas = AtomicRef<PlatformLambdas?>(null)
 
     fun initPlatformClient(staticFileLoader: (filePrefix: String, fileType: String) -> String?,
-                           analyticsCallback: (name: String, params: Map<String, Any>) -> Unit) {
-        this.staticFileLoader = staticFileLoader
-        this.analyticsCallback = analyticsCallback
+                           analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
+                           clLogCallback: (s: String) -> Unit) {
+        lambdas.value = goFreeze(PlatformLambdas(staticFileLoader, analyticsCallback, clLogCallback))
 
         dataLoad()
+
+        Timber.info { "Init complete" }
     }
 
+    data class PlatformLambdas(val staticFileLoader: (filePrefix: String, fileType: String) -> String?,
+                               val analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
+                               val clLogCallback: (s: String) -> Unit)
+
+    val staticFileLoader: (filePrefix: String, fileType: String) -> String?
+        get() = lambdas.value!!.staticFileLoader
+
+    val clLogCallback: (s: String) -> Unit
+        get() = lambdas.value!!.clLogCallback
+
     fun logEvent(name: String, params: Map<String, Any>) {
-        analyticsCallback(name, params)
+        lambdas.value!!.analyticsCallback(name, params)
     }
 
     private fun firstRun(): Boolean = appSettings.getBoolean(KEY_FIRST_RUN, true)
@@ -33,21 +50,22 @@ object AppContext {
         appSettings.putBoolean(KEY_FIRST_RUN, false)
     }
 
-    public fun userUuid(): String {
+    fun userUuid(): String {
         if (appSettings.getString(USER_UUID).isBlank()) {
             appSettings.putString(USER_UUID, createUuid())
         }
         return appSettings.getString(USER_UUID)
     }
 
-    val sponsorJson:String
+    val sponsorJson: String
         get() = appSettings.getString(SPONSOR_JSON)
 
     //Split these up so they can individually succeed/fail
-    private fun dataLoad(){
+    private fun dataLoad() {
         networkBackgroundTask {
             try {
                 if (firstRun()) {
+                    val staticFileLoader = lambdas.value!!.staticFileLoader
                     val sponsorJson = staticFileLoader("sponsors", "json")
                     val speakerJson = staticFileLoader("speakers", "json")
                     val scheduleJson = staticFileLoader("schedule", "json")
@@ -63,24 +81,36 @@ object AppContext {
             } catch (e: Exception) {
                 logException(e)
             }
+        }
+    }
 
-            try {
-                val networkSpeakerJson = simpleGet(
-                        "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/speakers"
-                )
+    private fun dataCalls() {
+        try {
+            val networkSpeakerJson = simpleGet(
+                    "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/speakers"
+            )
 
-                val networkSessionJson = simpleGet(
-                        "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/gridtable"
-                )
+            val networkSessionJson = simpleGet(
+                    "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/gridtable"
+            )
 
-                val networkSponsorJson = simpleGet(
-                        "https://s3.amazonaws.com/droidconsponsers/sponsors.json"
-                )
+            val networkSponsorJson = simpleGet(
+                    "https://s3.amazonaws.com/droidconsponsers/sponsors.json"
+            )
 
-                storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)
+            storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)
 
-            } catch (e: Exception) {
-                logException(e)
+            appSettings.putLong(KEY_LAST_LOAD, currentTimeMillis())
+        } catch (e: Exception) {
+            logException(e)
+        }
+    }
+
+    fun refreshData(){
+        val lastLoad = appSettings.getLong(KEY_LAST_LOAD)
+        if(lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
+            networkBackgroundTask {
+                dataCalls()
             }
         }
     }
@@ -91,3 +121,9 @@ object AppContext {
     }
 }
 
+/**
+ * Log statement to Crashlytics
+ */
+fun clLog(s: String) {
+    AppContext.clLogCallback(s)
+}

@@ -17,11 +17,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        SessionizeArchCoTouchlabSessionizePlatform.doInitTimber(priority: 4)
       Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
-        SessionizeArchAppContext().doInitPlatformClient(staticFileLoader: loadAsset, analyticsCallback: analyticsCallback)
+        let appContext = SessionizeArchAppContext()
+        appContext.doInitPlatformClient(staticFileLoader: loadAsset,
+                                                        analyticsCallback: analyticsCallback,
+                                                        clLogCallback: csLog)
+        
+        appContext.refreshData()
         
         return true
+    }
+    
+    func csLog(s:String) -> SessionizeArchStdlibUnit{
+        CLSLogv(s, getVaList([]))
+        return SessionizeArchStdlibUnit()
     }
     
     func loadAsset(filePrefix:String, fileType:String) -> String?{

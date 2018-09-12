@@ -3,7 +3,8 @@ package co.touchlab.sessionize
 import co.touchlab.multiplatform.architecture.livedata.*
 import co.touchlab.sessionize.platform.*
 import co.touchlab.sessionize.*
-import konan.worker.*
+import kotlin.native.*
+import kotlin.native.concurrent.*
 
 class SpeakerViewModel(sessionId: String){
     val speakerModel = SpeakerModel(sessionId).freeze()
@@ -18,8 +19,6 @@ class SpeakerViewModel(sessionId: String){
         }
 
         speakerModel.uiLiveData().observeForever(speakerObserver!!)
-        if(currentTimeMillis() % 4 == 0L)
-            throw IllegalStateException("Just want to see what happens")
     }
 
     fun unregister(){

@@ -19,11 +19,8 @@ import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SpeakerInfo
 import co.touchlab.sessionize.SpeakerModel
 import co.touchlab.sessionize.SpeakerUiData
-import co.touchlab.sessionize.db.CoObserver
 import co.touchlab.sessionize.db.sessionsAsync
-import co.touchlab.sessionize.platform.MainDispatcher
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.experimental.launch
 
 
 class SpeakerFragment : Fragment() {
@@ -53,7 +50,7 @@ class SpeakerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mainView = inflater.inflate(R.layout.fragment_speaker, container, false)
-        speakerViewModel.speakerModel.uiLiveData().observe(viewLifecycleOwner, CoObserver {
+        speakerViewModel.speakerModel.uiLiveData().observe(viewLifecycleOwner, Observer {
             updateDisplay(it)
         })
         val list = mainView.findViewById<RecyclerView>(R.id.speakerInfoList)
@@ -69,7 +66,7 @@ class SpeakerFragment : Fragment() {
         speakerViewModel.speakerModel.shutDown()
     }
 
-    private suspend fun updateDisplay(speakerUiData: SpeakerUiData) {
+    private /*suspend */fun updateDisplay(speakerUiData: SpeakerUiData) {
         mainView.findViewById<TextView>(R.id.name).text = speakerUiData.fullName
         val companyView = mainView.findViewById<TextView>(R.id.company)
         if(speakerUiData.company.isNullOrBlank()) {
@@ -83,7 +80,7 @@ class SpeakerFragment : Fragment() {
             Picasso.get().load(speakerUiData.profilePicture).into(mainView.findViewById<ImageView>(R.id.profile_image))
         }
         speakerInfoAdapter.updateDate(speakerUiData.infoRows)
-        speakerUiData.user.sessionsAsync().await().forEach {
+        speakerUiData.user.sessionsAsync().forEach {
             println(it.title)
         }
     }

@@ -7,6 +7,7 @@ import kotlinx.serialization.json.JsonTreeParser
 
 object AboutModel{
     fun loadAboutInfo(proc:(aboutInfo:List<AboutInfo>)->Unit){
+        clLog("loadAboutInfo AboutModel()")
         backgroundTask({
             parseAbout()
         }, proc)

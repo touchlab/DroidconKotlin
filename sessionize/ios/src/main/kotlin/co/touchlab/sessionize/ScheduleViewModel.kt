@@ -3,7 +3,8 @@ package co.touchlab.sessionize
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.multiplatform.architecture.livedata.*
 import co.touchlab.sessionize.display.DaySchedule
-import konan.worker.*
+import kotlin.native.*
+import kotlin.native.concurrent.*
 
 class ScheduleViewModel{
 

@@ -5,7 +5,7 @@
     "rooms": [
       {
         "id": 1856,
-        "name": "Room 🍕",
+        "name": "Room 1",
         "sessions": [
           {
             "id": "57042",
@@ -23,7 +23,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "57261",
@@ -41,7 +41,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "45650",
@@ -63,7 +63,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "a451395b-b173-4d9c-bb98-afd9de642081",
@@ -76,7 +76,7 @@
             "speakers": [],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "57236",
@@ -94,7 +94,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "57369",
@@ -112,7 +112,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "56666",
@@ -134,7 +134,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "c5db6508-7761-4c35-9bd5-dd417dda21ec",
@@ -147,25 +147,25 @@
             "speakers": [],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
-            "id": "57259",
-            "title": "Multiplatform Persistence",
-            "description": "A lot of client code is already multiplatform - the tools underneath client backends like SQLite, protobufs, and HTTP are themselves platform agnostic. Codebases for Android and iOS already look similar on top of these tools until exposed to platform specific interfaces. Realistically how much could be shared across multiple platforms without affecting any codebase significantly?\r\n\r\nThis talk will go over SQLDelight 1.0 - a recent release which has enabled multiplatform SQLite development using Kotlin Native, as well as how to architect your app’s data layer to be shared across platforms. It will focus on how SQLDelight can be best used from both Android and iOS while feeling natural to Kotlin and Swift users alike, and go over features introduced in the release that affect all platforms. Finally we will explore the future of multiplatform including other components of your app which are good or bad candidates for making platform agnostic and what future releases of SQLDelight will include.",
+            "id": "57158",
+            "title": "Human Centered API Design",
+            "description": "Have you ever wondered why some APIs are a pain to use (fragments cough cough), while others are pure joy?  API design is perceived as a craft, something that we get better at by learning best practices and applying a set of rules. Read Effective Java & Clean Code, that should be enough, right?\r\n\r\nAt Square, we wanted to create a remarkable API for a new SDK, and I started researching the topic of usability and API design. It turns out that there's a science to this madness, and we can all learn to build better APIs without just blindly following good practices. Come to this talk to learn the practical steps we took to get there.",
             "startsAt": "2018-08-27T16:10:00",
             "endsAt": "2018-08-27T16:50:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
-                "name": "Alec Strong"
+                "id": "a733fc42-dcb9-4107-9675-70335f2889e9",
+                "name": "Pierre-Yves Ricau"
               }
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "57278",
@@ -187,381 +187,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
-          },
-          {
-            "id": "57273",
-            "title": "Android Text, The Good The Bad and The ugly",
-            "description": "Learn about internals of Android Text stack, starting with TextView and EditText. We will focus on how to effectively use various features of Text stack in order to improve functionality and performance of your applications.",
-            "startsAt": "2018-08-27T17:50:00",
-            "endsAt": "2018-08-27T18:30:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "66296294-ca8f-4d03-85f3-d26aa5035c5d",
-                "name": "Siyamed Sınır"
-              }
-            ],
-            "categories": [],
-            "roomId": 1856,
-            "room": "Room 🍕"
-          }
-        ],
-        "hasOnlyPlenumSessions": false
-      },
-      {
-        "id": 1857,
-        "name": "Room 🍷",
-        "sessions": [
-          {
-            "id": "57364",
-            "title": "Don’t Sweat the Small Stuff",
-            "description": "Or, how to find joy in development through small things.\r\n\r\nBeing an Android developer is hard work. Chances are, we spend our whole day in Android Studio and there are hundreds of settings, configurations, and shortcuts. Getting to know the tool can easily become overwhelming.\r\n\r\nIn this talk, we will go through tools and helpers that will help make our day-to-day development work easier, prettier, and more joyful. We will discuss useful configurations for Android Studio, plugins and tools that help with debugging, and tips on code organisation and styling.",
-            "startsAt": "2018-08-27T09:50:00",
-            "endsAt": "2018-08-27T10:30:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "8186dcc4-3868-48ff-af5d-d1fce1f97496",
-                "name": "Zarah Dominguez"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "57276",
-            "title": "Building a Multiplatform Kotlin Library",
-            "description": "Multiplatform Kotlin is still in its early stages, which makes it an exciting time to contribute to the open source ecosystem around it. In this session, we'll talk through how to configure a library that can be consumed from Kotlin common code and exposed to both Android and iOS apps, using a simple Settings library as an example. After this talk, you'll be ready to write your own multiplatform library, which you'll be able to share not just between your own Android and iOS code, but with the whole world.",
-            "startsAt": "2018-08-27T10:40:00",
-            "endsAt": "2018-08-27T11:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "7a1d47f2-dfd1-4af1-b097-5c415f9b29c3",
-                "name": "Russell Wolf"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "42639",
-            "title": "let swift == val kotlin -> Why iOS is so important for Android, and vice versa",
-            "description": "UIViewControllers and Activities. UITableViews and ReyclerViews. UILabels and TextViews. XIBs and XML layouts. Although it might seem that the mobile world is divided in two, that does not mean that iOS and Android apps can find ways to be speak “the same language”. It is crucial for Android developers to understand what happens on the iOS side, and vice versa. \r\n\r\nI believe that, part of the success for Android and iOS apps, resides in being able to find those similarities between the platforms, embrace them, and provide a common architecture between that two platform that facilitates the development… and who knows, maybe one day you can be writing for both platforms in Kotlin/Native ;)\r\n\r\nLet my explain in this talk why iOS is so important for Android developers, why Swift is so easy to understand when you know Kotlin, and how you can architect your apps in such a way that transitioning to Kotlin/Native will be a pice of cake!",
-            "startsAt": "2018-08-27T11:50:00",
-            "endsAt": "2018-08-27T12:30:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "83b4b946-663b-46cb-8be5-f5272ecd262c",
-                "name": "Jorge Coca"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "45779",
-            "title": "Kotlin Coroutines: Beyond async/await",
-            "description": "Kotlin coroutines support the familiar async/await style, as well as channel and goroutine styles. Learning from the predecessors, designers of the language managed to accomplish this with only one reserved keyword: suspend.\r\n\r\nCoroutines were invented at the dawn of programming languages, but were quickly forgotten when threads and other fashionable techniques were popularized. They are making a major comeback as many mainstream languages have introduced support for coroutines and similar mechanisms: async/await, channels, goroutines. Kotlin language designers figured out a way to emulate many of those patterns by pushing the details to the library functions and reserving only one keyword: suspend.",
-            "startsAt": "2018-08-27T12:40:00",
-            "endsAt": "2018-08-27T13:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "288473ce-efb4-43a4-bdde-95b5543be36f",
-                "name": "Bolot Kerimbaev"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "57164",
-            "title": "Firebase and Android Architecture Components: fit like a glove",
-            "description": "Join this session to get a deep dive into the use of Jetpack’s Android Architecture Components along with Firebase to keep your app’s data fully synchronized and automatically refreshed with live updates from Realtime Database and Firestore.  Bring an Android device to participate in a live demo!",
-            "startsAt": "2018-08-27T13:30:00",
-            "endsAt": "2018-08-27T14:10:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
-                "name": "Doug Stevenson"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "43749",
-            "title": "From AlarmManager to WorkManager",
-            "description": "Android has a variety of tools to deal with background work. Android provides different APIs with the AlarmManager and JobScheduler, but there are also many third party libraries like android-job and Firebase JobDispatcher. And more recently, Android architecture components introduced the WorkManager. How does this new component fit into the existing APIs and which gaps does it try to fill?\r\n\r\nThis talk gives an overview of the various job scheduler engines and how their capabilities have evolved alongside mobile ecosystems. The different APIs will be discussed and most importantly we will cover some best practices to avoid repeating yourself.",
-            "startsAt": "2018-08-27T14:20:00",
-            "endsAt": "2018-08-27T15:00:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "646237bf-ccc5-43fa-a659-0b361b08d651",
-                "name": "Ralf Wondratschek"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "57659",
-            "title": "Tools of the Trade",
-            "description": "With all the great resources and libraries available, building a new mobile app is easier than it’s ever been! But when your users come to expect your product to be as reliable as running water at a global scale, you’ll need to go above and beyond what’s currently available.\r\n\r\nJoin Ty as he walks down memory lane to cover the history of the Uber app development process. He’ll cover how it grew, the pain points discovered and lessons learned, and the tooling developed and open-sourced to scale to millions of users served by hundreds of contributors across many apps.\r\n\r\nTopics covered will include: Buck, Uber’s architecture solution, RIBs, Proper Experimentation, Continuous integration, Code Verification and Static Analysis, and the company processes needed to facilitate a large app.\r\n",
-            "startsAt": "2018-08-27T15:10:00",
-            "endsAt": "2018-08-27T15:50:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "6a3de662-ef86-4c62-bb68-2f7ebe607f76",
-                "name": "Ty Smith"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "57158",
-            "title": "Human Centered API Design",
-            "description": "Have you ever wondered why some APIs are a pain to use (fragments cough cough), while others are pure joy?  API design is perceived as a craft, something that we get better at by learning best practices and applying a set of rules. Read Effective Java & Clean Code, that should be enough, right?\r\n\r\nAt Square, we wanted to create a remarkable API for a new SDK, and I started researching the topic of usability and API design. It turns out that there's a science to this madness, and we can all learn to build better APIs without just blindly following good practices. Come to this talk to learn the practical steps we took to get there.",
-            "startsAt": "2018-08-27T16:10:00",
-            "endsAt": "2018-08-27T16:50:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "a733fc42-dcb9-4107-9675-70335f2889e9",
-                "name": "Pierre-Yves Ricau"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "43846",
-            "title": "Breaking the Android ClassLoader",
-            "description": "ClassLoaders are not new. They've existed since Java 1.0 and are a core part of how the JVM works. Things work a bit different under the hood in Android, but the core principles are the same and we, as Android developers, largely take it for granted. This talk will be a deep dive into how class loading works in Android and later explore the implications of trying to manipulate the application's ClassLoader at runtime (for better or worse 🔥) in the context of logging, hot fixing, adding features, and interacting with 3rd party code.",
-            "startsAt": "2018-08-27T17:00:00",
-            "endsAt": "2018-08-27T17:40:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "8ce6cf3a-735e-4a2a-b05f-e2081e5b6741",
-                "name": "Zac Sweers"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          },
-          {
-            "id": "45962",
-            "title": "Android Programming for Bluetooth Beacons",
-            "description": "A Bluetooth beacon is an inexpensive device that broadcasts information to nearby portable electronic devices. As you pass by a shoe store, your phone picks up a signal from a walnut-sized beacon in the store window. In response to the signal, your phone buzzes and tells you about the store's sale on running shoes. This presentation describes features of Estimote's SDK for beacon-enabled Android apps. The presentation includes demonstrations using real beacons in the real-life Droidcon conference environment.",
-            "startsAt": "2018-08-27T17:50:00",
-            "endsAt": "2018-08-27T18:30:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "1b4b967a-ae8d-42e9-9925-1472213075f9",
-                "name": "Barry Burd"
-              }
-            ],
-            "categories": [],
-            "roomId": 1857,
-            "room": "Room 🍷"
-          }
-        ],
-        "hasOnlyPlenumSessions": false
-      },
-      {
-        "id": 1858,
-        "name": "Room 🍩",
-        "sessions": [
-          {
-            "id": "57084",
-            "title": "Scaling Instagram's Launcher Activity",
-            "description": "This talk will discuss the way Instagram approached Scaling Launcher Activity silently under the hood with out having  any impact on engineering velocity of our engineers or on user experience of millions of users in production. \r\n",
-            "startsAt": "2018-08-27T09:50:00",
-            "endsAt": "2018-08-27T10:30:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "d3cbd6c6-dce7-4d40-8164-bbf484ebc1c6",
-                "name": "Rahul Dandamudi"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
-          },
-          {
-            "id": "57178",
-            "title": "Bringing your app to life - Motion Animations everywhere",
-            "description": "At Google I/O, we had a big update on Material Design to adapt the needs for more customization and also to include lessons learned in the last few years. One of the big changes we can already notice is how motion is now present everywhere.\r\n\r\nIn this talk, we will explore why motion is so important and how it can help your app stand out and improve its User Experience. We will go through best practices and how we can use illusion to make complicated animations seems easy.\r\n\r\nWe will look in details how can we take advantage of the new MotionLayout to bring motion to our Android apps and achieve similar results to what the updated material design documentations bring for new components.",
-            "startsAt": "2018-08-27T10:40:00",
-            "endsAt": "2018-08-27T11:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "bf2d5f77-1bd0-4cc9-b35e-ca6d82ee782c",
-                "name": "Marcos Paulo Damasceno"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
-          },
-          {
-            "id": "56990",
-            "title": "Architecting an app with MVP and ViewModels",
-            "description": "At SeatGeek, we've explored ways that we can integrate the Architecture Components into our existing MVP infrastructure. In this talk, Stephen will demonstrate how we made our Presenters more simple and easier to test by creating a pseudo-unidirectional data-flow using the ViewModel architecture component, Kotlin data classes and MVP.",
-            "startsAt": "2018-08-27T11:50:00",
-            "endsAt": "2018-08-27T12:30:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "ce1d1fe2-96af-47a8-a07e-57c8e9a75b18",
-                "name": "Stephen D'Amico"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
-          },
-          {
-            "id": "46401",
-            "title": "Android Studio Tips and tricks",
-            "description": "Come learn about the new features and some tips and tricks to make you more productive. We will cover some features from the underlying IntelliJ platform.\r\n",
-            "startsAt": "2018-08-27T12:40:00",
-            "endsAt": "2018-08-27T13:20:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "b308cbd1-215d-461a-8b10-8814798ab6f8",
-                "name": "Michael Bailey"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
-          },
-          {
-            "id": "57152",
-            "title": "Junit5: the next gen of testing, don't stay behind",
-            "description": "Junit 5 is a big step for the world of unit testing. A new very flexible testing framework, based on learning from many years of Junit 4.\r\nAt sporttotal we use this for our Android unit tests and it changed the way we write tests. Hard for us to imagine living without features like @Nested. Other features we ignored as those are more leaning towards Java and are solved already by Kotlin or other Kotlin libraries. And some features are even breaking changes. How do you test on Android in a world without TestRunner and TestRules? \r\nAndroid testing team was always very slowly in adopting to new Junit versions, so how far can we bypass this?\r\nLet's do a deep dive into Junit5, how it works and how we can use it on Android",
-            "startsAt": "2018-08-27T13:30:00",
-            "endsAt": "2018-08-27T14:10:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "4d3a31b1-61e5-4a26-9ca3-c9f30e3eaa08",
-                "name": "Danny Preussler"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
-          },
-          {
-            "id": "57248",
-            "title": "To Protect And Confirm",
-            "description": "Android P introduces new APIs for biometric authentication and securely authorizing actions on behalf of the user. \r\n\r\nLet's take a look at what's changed on the biometric front since Droidcon NYC 2016's \"Fingerprint Authentication In Action,\" and check out the new Protected Confirmation API for authorizing sensitive actions.",
-            "startsAt": "2018-08-27T14:20:00",
-            "endsAt": "2018-08-27T15:00:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "cea28ab6-6cce-43f4-82d9-740898e72ada",
-                "name": "Ben Oberkfell"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
-          },
-          {
-            "id": "45187",
-            "title": "Images 101",
-            "description": "Images are Hard, there are many things to learn about, many (often conflicting) APIs to use, libraries to choose from, formats to consider, rendering, and things that can go wrong.\r\nIn this talk I’m gonna break down images, starting from the basic, and giving you the fundamental things you need to know, in order to images right the first time, and give your users a great experience using images. We’re gonna talk about what are images and image formats, what libraries we can use, what Android APIs to use, and how to configure our app to create a good user experience.",
-            "startsAt": "2018-08-27T15:10:00",
-            "endsAt": "2018-08-27T15:50:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "5085327b-78aa-414a-86fc-03cd276113db",
-                "name": "Effie Barak"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
-          },
-          {
-            "id": "41401",
-            "title": "Mocks, Stubs, and Spies, Oh My",
-            "description": "The object you use to satisfy a dependency during testing depends on\r\nwhat kind of test you are writing. The dependency you would provide an object\r\nin a unit test is different from that of an integration test. In a unit test\r\nyou want an object you have full control over. This allows you to specify the\r\nreturn values of any method calls and verify the right methods are called. In\r\nan integration test you want an object as close to the real object it replaces\r\nas possible.\r\n\r\nIn this talk you will learn about the different types of test doubles available\r\nto you. From mocks to spies and fakes, you will learn to use the right kind\r\nof test double for each type of test to get the most benefit from your test\r\nsuite.",
-            "startsAt": "2018-08-27T16:10:00",
-            "endsAt": "2018-08-27T16:50:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "b46e887c-afac-4b0d-b79d-15df537c122d",
-                "name": "Brian Gardner"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
-          },
-          {
-            "id": "45050",
-            "title": "Domic — Reactive Virtual DOM. Why we built it, how it works.",
-            "description": "In-depth technical talk explaining why Domic — Reactive Virtual DOM exists and how it works.\r\n\r\nYou'll learn how Domic:\r\n\r\n- Uses diffing, debouncing, double buffering and other techniques to render changes efficiently\r\n- Keeps state consistent with mutable Android DOM\r\n- Uses advanced RxJava under the hood: sharing, custom operators, scheduling, subscription management\r\n- Minimizes allocations and interactions with main thread \r\n- Renders UI state in memory for unit/integration testing on JVM\r\n- Integrates with existing design patterns: MVP, MVVM, MVI, Redux",
-            "startsAt": "2018-08-27T17:00:00",
-            "endsAt": "2018-08-27T17:40:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "28b4c291-7aa0-4ebf-879e-2dce4ff8449c",
-                "name": "Artem Zinnatullin"
-              }
-            ],
-            "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 1"
           },
           {
             "id": "46277",
@@ -582,15 +208,15 @@
               }
             ],
             "categories": [],
-            "roomId": 1858,
-            "room": "Room 🍩"
+            "roomId": 1856,
+            "room": "Room 1"
           }
         ],
         "hasOnlyPlenumSessions": false
       },
       {
-        "id": 1859,
-        "name": "Room 🍿",
+        "id": 1857,
+        "name": "Room 2",
         "sessions": [
           {
             "id": "46148",
@@ -607,30 +233,418 @@
               }
             ],
             "categories": [],
-            "roomId": 1859,
-            "room": "Room 🍿"
+            "roomId": 1857,
+            "room": "Room 2"
           },
           {
-            "id": "62023",
-            "title": "Road to MV*: A Process Talk",
-            "description": "Do you agonize over the choice of library or framework for your project? Are there extended arguments about why MVVM is better than MVP? Do you think this is one of the most important decisions for your team?\r\n\r\nAt Peloton, we've scaled our Android team from 3 to 20 people in 18 months. What we learned is that the process of making such decisions is more important than the choices themselves.\r\n\r\nIn this talk, you will: \r\n- Learn how to make technical choices easier\r\n- How to allow your entire team to effectively participate in decision making\r\n- Ensure that there is space to make corrections in the future\r\n- Get to a high level of technical consistency (don't worry, we'll explain this too)",
+            "id": "57178",
+            "title": "Bringing your app to life - Motion Animations everywhere",
+            "description": "At Google I/O, we had a big update on Material Design to adapt the needs for more customization and also to include lessons learned in the last few years. One of the big changes we can already notice is how motion is now present everywhere.\r\n\r\nIn this talk, we will explore why motion is so important and how it can help your app stand out and improve its User Experience. We will go through best practices and how we can use illusion to make complicated animations seems easy.\r\n\r\nWe will look in details how can we take advantage of the new MotionLayout to bring motion to our Android apps and achieve similar results to what the updated material design documentations bring for new components.",
+            "startsAt": "2018-08-27T10:40:00",
+            "endsAt": "2018-08-27T11:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "bf2d5f77-1bd0-4cc9-b35e-ca6d82ee782c",
+                "name": "Marcos Paulo Damasceno"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          },
+          {
+            "id": "56990",
+            "title": "Architecting an app with MVP and ViewModels",
+            "description": "At SeatGeek, we've explored ways that we can integrate the Architecture Components into our existing MVP infrastructure. In this talk, Stephen will demonstrate how we made our Presenters more simple and easier to test by creating a pseudo-unidirectional data-flow using the ViewModel architecture component, Kotlin data classes and MVP.",
+            "startsAt": "2018-08-27T11:50:00",
+            "endsAt": "2018-08-27T12:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "ce1d1fe2-96af-47a8-a07e-57c8e9a75b18",
+                "name": "Stephen D'Amico"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          },
+          {
+            "id": "45779",
+            "title": "Kotlin Coroutines: Beyond async/await",
+            "description": "Kotlin coroutines support the familiar async/await style, as well as channel and goroutine styles. Learning from the predecessors, designers of the language managed to accomplish this with only one reserved keyword: suspend.\r\n\r\nCoroutines were invented at the dawn of programming languages, but were quickly forgotten when threads and other fashionable techniques were popularized. They are making a major comeback as many mainstream languages have introduced support for coroutines and similar mechanisms: async/await, channels, goroutines. Kotlin language designers figured out a way to emulate many of those patterns by pushing the details to the library functions and reserving only one keyword: suspend.",
+            "startsAt": "2018-08-27T12:40:00",
+            "endsAt": "2018-08-27T13:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "288473ce-efb4-43a4-bdde-95b5543be36f",
+                "name": "Bolot Kerimbaev"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          },
+          {
+            "id": "57152",
+            "title": "Junit5: the next gen of testing, don't stay behind",
+            "description": "Junit 5 is a big step for the world of unit testing. A new very flexible testing framework, based on learning from many years of Junit 4.\r\nAt sporttotal we use this for our Android unit tests and it changed the way we write tests. Hard for us to imagine living without features like @Nested. Other features we ignored as those are more leaning towards Java and are solved already by Kotlin or other Kotlin libraries. And some features are even breaking changes. How do you test on Android in a world without TestRunner and TestRules? \r\nAndroid testing team was always very slowly in adopting to new Junit versions, so how far can we bypass this?\r\nLet's do a deep dive into Junit5, how it works and how we can use it on Android",
             "startsAt": "2018-08-27T13:30:00",
             "endsAt": "2018-08-27T14:10:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "3a18ff70-3f11-4850-a41a-96fe4abdd479",
-                "name": "Gennadiy Shafranovich"
-              },
+                "id": "4d3a31b1-61e5-4a26-9ca3-c9f30e3eaa08",
+                "name": "Danny Preussler"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          },
+          {
+            "id": "43749",
+            "title": "From AlarmManager to WorkManager",
+            "description": "Android has a variety of tools to deal with background work. Android provides different APIs with the AlarmManager and JobScheduler, but there are also many third party libraries like android-job and Firebase JobDispatcher. And more recently, Android architecture components introduced the WorkManager. How does this new component fit into the existing APIs and which gaps does it try to fill?\r\n\r\nThis talk gives an overview of the various job scheduler engines and how their capabilities have evolved alongside mobile ecosystems. The different APIs will be discussed and most importantly we will cover some best practices to avoid repeating yourself.",
+            "startsAt": "2018-08-27T14:20:00",
+            "endsAt": "2018-08-27T15:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
               {
-                "id": "bec4f48a-417b-4921-b924-90fa6c74b838",
-                "name": "Richard Luick"
+                "id": "646237bf-ccc5-43fa-a659-0b361b08d651",
+                "name": "Ralf Wondratschek"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          },
+          {
+            "id": "57659",
+            "title": "Tools of the Trade",
+            "description": "With all the great resources and libraries available, building a new mobile app is easier than it’s ever been! But when your users come to expect your product to be as reliable as running water at a global scale, you’ll need to go above and beyond what’s currently available.\r\n\r\nJoin Ty as he walks down memory lane to cover the history of the Uber app development process. He’ll cover how it grew, the pain points discovered and lessons learned, and the tooling developed and open-sourced to scale to millions of users served by hundreds of contributors across many apps.\r\n\r\nTopics covered will include: Buck, Uber’s architecture solution, RIBs, Proper Experimentation, Continuous integration, Code Verification and Static Analysis, and the company processes needed to facilitate a large app.\r\n",
+            "startsAt": "2018-08-27T15:10:00",
+            "endsAt": "2018-08-27T15:50:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "6a3de662-ef86-4c62-bb68-2f7ebe607f76",
+                "name": "Ty Smith"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          },
+          {
+            "id": "57259",
+            "title": "Multiplatform Persistence",
+            "description": "A lot of client code is already multiplatform - the tools underneath client backends like SQLite, protobufs, and HTTP are themselves platform agnostic. Codebases for Android and iOS already look similar on top of these tools until exposed to platform specific interfaces. Realistically how much could be shared across multiple platforms without affecting any codebase significantly?\r\n\r\nThis talk will go over SQLDelight 1.0 - a recent release which has enabled multiplatform SQLite development using Kotlin Native, as well as how to architect your app’s data layer to be shared across platforms. It will focus on how SQLDelight can be best used from both Android and iOS while feeling natural to Kotlin and Swift users alike, and go over features introduced in the release that affect all platforms. Finally we will explore the future of multiplatform including other components of your app which are good or bad candidates for making platform agnostic and what future releases of SQLDelight will include.",
+            "startsAt": "2018-08-27T16:10:00",
+            "endsAt": "2018-08-27T16:50:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
+                "name": "Alec Strong"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          },
+          {
+            "id": "43846",
+            "title": "Breaking the Android ClassLoader",
+            "description": "ClassLoaders are not new. They've existed since Java 1.0 and are a core part of how the JVM works. Things work a bit different under the hood in Android, but the core principles are the same and we, as Android developers, largely take it for granted. This talk will be a deep dive into how class loading works in Android and later explore the implications of trying to manipulate the application's ClassLoader at runtime (for better or worse 🔥) in the context of logging, hot fixing, adding features, and interacting with 3rd party code.",
+            "startsAt": "2018-08-27T17:00:00",
+            "endsAt": "2018-08-27T17:40:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "8ce6cf3a-735e-4a2a-b05f-e2081e5b6741",
+                "name": "Zac Sweers"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          },
+          {
+            "id": "57273",
+            "title": "Android Text, The Good The Bad and The ugly",
+            "description": "Learn about internals of Android Text stack, starting with TextView and EditText. We will focus on how to effectively use various features of Text stack in order to improve functionality and performance of your applications.",
+            "startsAt": "2018-08-27T17:50:00",
+            "endsAt": "2018-08-27T18:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "66296294-ca8f-4d03-85f3-d26aa5035c5d",
+                "name": "Siyamed Sınır"
+              }
+            ],
+            "categories": [],
+            "roomId": 1857,
+            "room": "Room 2"
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      },
+      {
+        "id": 1858,
+        "name": "Room 3",
+        "sessions": [
+          {
+            "id": "57084",
+            "title": "Scaling Instagram's Launcher Activity",
+            "description": "This talk will discuss the way Instagram approached Scaling Launcher Activity silently under the hood with out having  any impact on engineering velocity of our engineers or on user experience of millions of users in production. \r\n",
+            "startsAt": "2018-08-27T09:50:00",
+            "endsAt": "2018-08-27T10:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "d3cbd6c6-dce7-4d40-8164-bbf484ebc1c6",
+                "name": "Rahul Dandamudi"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "57276",
+            "title": "Building a Multiplatform Kotlin Library",
+            "description": "Multiplatform Kotlin is still in its early stages, which makes it an exciting time to contribute to the open source ecosystem around it. In this session, we'll talk through how to configure a library that can be consumed from Kotlin common code and exposed to both Android and iOS apps, using a simple Settings library as an example. After this talk, you'll be ready to write your own multiplatform library, which you'll be able to share not just between your own Android and iOS code, but with the whole world.",
+            "startsAt": "2018-08-27T10:40:00",
+            "endsAt": "2018-08-27T11:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "7a1d47f2-dfd1-4af1-b097-5c415f9b29c3",
+                "name": "Russell Wolf"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "42639",
+            "title": "let swift == val kotlin -> Why iOS is so important for Android, and vice versa",
+            "description": "UIViewControllers and Activities. UITableViews and ReyclerViews. UILabels and TextViews. XIBs and XML layouts. Although it might seem that the mobile world is divided in two, that does not mean that iOS and Android apps can find ways to be speak “the same language”. It is crucial for Android developers to understand what happens on the iOS side, and vice versa. \r\n\r\nI believe that, part of the success for Android and iOS apps, resides in being able to find those similarities between the platforms, embrace them, and provide a common architecture between that two platform that facilitates the development… and who knows, maybe one day you can be writing for both platforms in Kotlin/Native ;)\r\n\r\nLet my explain in this talk why iOS is so important for Android developers, why Swift is so easy to understand when you know Kotlin, and how you can architect your apps in such a way that transitioning to Kotlin/Native will be a pice of cake!",
+            "startsAt": "2018-08-27T11:50:00",
+            "endsAt": "2018-08-27T12:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "83b4b946-663b-46cb-8be5-f5272ecd262c",
+                "name": "Jorge Coca"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "46401",
+            "title": "Android Studio Tips and tricks",
+            "description": "Come learn about the new features and some tips and tricks to make you more productive. We will cover some features from the underlying IntelliJ platform.\r\n",
+            "startsAt": "2018-08-27T12:40:00",
+            "endsAt": "2018-08-27T13:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "b308cbd1-215d-461a-8b10-8814798ab6f8",
+                "name": "Michael Bailey"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "57164",
+            "title": "Firebase and Android Architecture Components: fit like a glove",
+            "description": "Join this session to get a deep dive into the use of Jetpack’s Android Architecture Components along with Firebase to keep your app’s data fully synchronized and automatically refreshed with live updates from Realtime Database and Firestore.  Bring an Android device to participate in a live demo!",
+            "startsAt": "2018-08-27T13:30:00",
+            "endsAt": "2018-08-27T14:10:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
+                "name": "Doug Stevenson"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "57248",
+            "title": "To Protect And Confirm",
+            "description": "Android P introduces new APIs for biometric authentication and securely authorizing actions on behalf of the user. \r\n\r\nLet's take a look at what's changed on the biometric front since Droidcon NYC 2016's \"Fingerprint Authentication In Action,\" and check out the new Protected Confirmation API for authorizing sensitive actions.",
+            "startsAt": "2018-08-27T14:20:00",
+            "endsAt": "2018-08-27T15:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "cea28ab6-6cce-43f4-82d9-740898e72ada",
+                "name": "Ben Oberkfell"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "45187",
+            "title": "Images 101",
+            "description": "Images are Hard, there are many things to learn about, many (often conflicting) APIs to use, libraries to choose from, formats to consider, rendering, and things that can go wrong.\r\nIn this talk I’m gonna break down images, starting from the basic, and giving you the fundamental things you need to know, in order to images right the first time, and give your users a great experience using images. We’re gonna talk about what are images and image formats, what libraries we can use, what Android APIs to use, and how to configure our app to create a good user experience.",
+            "startsAt": "2018-08-27T15:10:00",
+            "endsAt": "2018-08-27T15:50:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "5085327b-78aa-414a-86fc-03cd276113db",
+                "name": "Effie Barak"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "41401",
+            "title": "Mocks, Stubs, and Spies, Oh My",
+            "description": "The object you use to satisfy a dependency during testing depends on\r\nwhat kind of test you are writing. The dependency you would provide an object\r\nin a unit test is different from that of an integration test. In a unit test\r\nyou want an object you have full control over. This allows you to specify the\r\nreturn values of any method calls and verify the right methods are called. In\r\nan integration test you want an object as close to the real object it replaces\r\nas possible.\r\n\r\nIn this talk you will learn about the different types of test doubles available\r\nto you. From mocks to spies and fakes, you will learn to use the right kind\r\nof test double for each type of test to get the most benefit from your test\r\nsuite.",
+            "startsAt": "2018-08-27T16:10:00",
+            "endsAt": "2018-08-27T16:50:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "b46e887c-afac-4b0d-b79d-15df537c122d",
+                "name": "Brian Gardner"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "45050",
+            "title": "Domic — Reactive Virtual DOM. Why we built it, how it works.",
+            "description": "In-depth technical talk explaining why Domic — Reactive Virtual DOM exists and how it works.\r\n\r\nYou'll learn how Domic:\r\n\r\n- Uses diffing, debouncing, double buffering and other techniques to render changes efficiently\r\n- Keeps state consistent with mutable Android DOM\r\n- Uses advanced RxJava under the hood: sharing, custom operators, scheduling, subscription management\r\n- Minimizes allocations and interactions with main thread \r\n- Renders UI state in memory for unit/integration testing on JVM\r\n- Integrates with existing design patterns: MVP, MVVM, MVI, Redux",
+            "startsAt": "2018-08-27T17:00:00",
+            "endsAt": "2018-08-27T17:40:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "28b4c291-7aa0-4ebf-879e-2dce4ff8449c",
+                "name": "Artem Zinnatullin"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          },
+          {
+            "id": "45962",
+            "title": "Android Programming for Bluetooth Beacons",
+            "description": "A Bluetooth beacon is an inexpensive device that broadcasts information to nearby portable electronic devices. As you pass by a shoe store, your phone picks up a signal from a walnut-sized beacon in the store window. In response to the signal, your phone buzzes and tells you about the store's sale on running shoes. This presentation describes features of Estimote's SDK for beacon-enabled Android apps. The presentation includes demonstrations using real beacons in the real-life Droidcon conference environment.",
+            "startsAt": "2018-08-27T17:50:00",
+            "endsAt": "2018-08-27T18:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "1b4b967a-ae8d-42e9-9925-1472213075f9",
+                "name": "Barry Burd"
+              }
+            ],
+            "categories": [],
+            "roomId": 1858,
+            "room": "Room 3"
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      },
+      {
+        "id": 1859,
+        "name": "Room 4",
+        "sessions": [
+          {
+            "id": "57364",
+            "title": "Don’t Sweat the Small Stuff",
+            "description": "Or, how to find joy in development through small things.\r\n\r\nBeing an Android developer is hard work. Chances are, we spend our whole day in Android Studio and there are hundreds of settings, configurations, and shortcuts. Getting to know the tool can easily become overwhelming.\r\n\r\nIn this talk, we will go through tools and helpers that will help make our day-to-day development work easier, prettier, and more joyful. We will discuss useful configurations for Android Studio, plugins and tools that help with debugging, and tips on code organisation and styling.",
+            "startsAt": "2018-08-27T09:50:00",
+            "endsAt": "2018-08-27T10:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "8186dcc4-3868-48ff-af5d-d1fce1f97496",
+                "name": "Zarah Dominguez"
               }
             ],
             "categories": [],
             "roomId": 1859,
-            "room": "Room 🍿"
+            "room": "Room 4"
+          },
+          {
+            "id": "62340",
+            "title": "Building your own ride share app",
+            "description": "When was the last time you were truly lost? Thanks to the maps and location technology in our smartphones, a whole generation has now grown up in a world where getting lost is truly a thing of the past.\r\n\r\nLocation technology goes far beyond maps in the palm of our hand, however. Today it is at the heart of a broad range of applications, from logistics to games, from social networks to ridesharing.\r\n\r\nIn this talk, we will explore how a ridesharing app works.  We will ask questions such as: How do we find out where the passenger is located? How do we discover our destination? How do we find the closest driver? How do we provide a correct ETA to the passenger in heavy traffic? How do we display this information on a map? How do we find the best route to the destination?\r\n\r\nTo answer these questions, we will be learning about a variety of location APIs, including Maps, Positioning, Geocoding, Routing, Traffic, Places, and much more.\r\n\r\nAt the end you should be able to build your own ridesharing app or any clever app for which location matters.",
+            "startsAt": "2018-08-27T10:40:00",
+            "endsAt": "2018-08-27T11:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "80d278b7-0978-4879-bc85-f1a9f1dfc175",
+                "name": "Richard Sueselbeck"
+              }
+            ],
+            "categories": [],
+            "roomId": 1859,
+            "room": "Room 4"
+          },
+          {
+            "id": "62132",
+            "title": "Image Alchemy: Efficient Processing of Images",
+            "description": "As the Android community, we have figured out best-practices for displaying images and baked them into libraries such as Glide, Picasso and Fresco. However, handling local files in creation flows is still a fuzzy business: copy-pasted sampling ratio calculations, estimating compression parameters or having to allocate Bitmaps on the Java heap. A classic challenge is resizing large camera images for upload.\r\n\r\nAt Facebook we've also failed hard with these issues. But we've learned a lot along the way about image format internals, native libraries and keeping image processing efficient, reliable and sane.\r\n\r\nTogether, we'll go down to the metal and see how you can utilize this knowledge to make your users benefit: process images losslessly, choose the right parameters, avoid BitmapFactory fiddling and employ compression best-practices. We'll also cover established and upcoming image formats.",
+            "startsAt": "2018-08-27T13:30:00",
+            "endsAt": "2018-08-27T14:10:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "d46106ad-29a6-4a7e-8212-edf43c4f7060",
+                "name": "Daniel Hugenroth"
+              }
+            ],
+            "categories": [],
+            "roomId": 1859,
+            "room": "Room 4"
           },
           {
             "id": "44703",
@@ -648,7 +662,7 @@
             ],
             "categories": [],
             "roomId": 1859,
-            "room": "Room 🍿"
+            "room": "Room 4"
           },
           {
             "id": "57255",
@@ -666,7 +680,7 @@
             ],
             "categories": [],
             "roomId": 1859,
-            "room": "Room 🍿"
+            "room": "Room 4"
           },
           {
             "id": "42115",
@@ -684,7 +698,25 @@
             ],
             "categories": [],
             "roomId": 1859,
-            "room": "Room 🍿"
+            "room": "Room 4"
+          },
+          {
+            "id": "62669",
+            "title": "Improving Android Build performance",
+            "description": "We all know a fast build makes for a happy developer.   Unfortunately, it’s easy for Android builds get complex and slow.   You’ve updated to the latest Android Plugin, but your still waiting more than you like, what do you do?\r\n\r\nRecent Gradle releases give you new capabilities to improve your build speed up to an order of magnitude.    This session discusses how you can :\r\n\r\n>Identify performance bottlenecks with build scans\r\n>Fix common problems like: slow configuration time, tasks running when they shouldn’t, and builds that don’t parallelize well. \r\n>Use new Gradle annotation processing features to enable incremental builds instead of full builds",
+            "startsAt": "2018-08-27T17:00:00",
+            "endsAt": "2018-08-27T17:40:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "416def82-5405-422f-880e-995a38106b78",
+                "name": "Tony Robalik"
+              }
+            ],
+            "categories": [],
+            "roomId": 1859,
+            "room": "Room 4"
           },
           {
             "id": "57262",
@@ -702,7 +734,32 @@
             ],
             "categories": [],
             "roomId": 1859,
-            "room": "Room 🍿"
+            "room": "Room 4"
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      },
+      {
+        "id": 2333,
+        "name": "Codelab",
+        "sessions": [
+          {
+            "id": "62686",
+            "title": "Introduction to Cloud Firestore",
+            "description": "In this codelab you will build a restaurant recommendation app on Android backed by Cloud Firestore. You will learn how to:\r\n\r\nRead and write data to Firestore from an Android app\r\nListen to changes in Firestore data in realtime\r\nUse Firebase Authentication and security rules to secure Firestore data\r\nWrite complex Firestore queries\r\n",
+            "startsAt": "2018-08-27T13:30:00",
+            "endsAt": "2018-08-27T15:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "0a42f535-f8d0-43c5-8918-d00a4a21e483",
+                "name": "Todd Burner"
+              }
+            ],
+            "categories": [],
+            "roomId": 2333,
+            "room": "Codelab"
           }
         ],
         "hasOnlyPlenumSessions": false
@@ -714,7 +771,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "57042",
               "title": "Keynote: The future of our community is YOU",
@@ -731,7 +788,7 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           }
@@ -742,7 +799,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "57261",
               "title": "Digging into D8 and R8",
@@ -759,36 +816,36 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
-              "id": "57364",
-              "title": "Don’t Sweat the Small Stuff",
-              "description": "Or, how to find joy in development through small things.\r\n\r\nBeing an Android developer is hard work. Chances are, we spend our whole day in Android Studio and there are hundreds of settings, configurations, and shortcuts. Getting to know the tool can easily become overwhelming.\r\n\r\nIn this talk, we will go through tools and helpers that will help make our day-to-day development work easier, prettier, and more joyful. We will discuss useful configurations for Android Studio, plugins and tools that help with debugging, and tips on code organisation and styling.",
+              "id": "46148",
+              "title": "Why Jetpack?",
+              "description": "Jetpack & androidx are more than just libraries for you to use but a change in the approach Android is taking towards fragmentation and developer velocity.",
               "startsAt": "2018-08-27T09:50:00",
               "endsAt": "2018-08-27T10:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "8186dcc4-3868-48ff-af5d-d1fce1f97496",
-                  "name": "Zarah Dominguez"
+                  "id": "355899b3-60c9-43ec-9b86-514d5ae81cb3",
+                  "name": "Kurt Nelson"
                 }
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "57084",
               "title": "Scaling Instagram's Launcher Activity",
@@ -805,30 +862,30 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           },
           {
             "id": 1859,
-            "name": "Room 🍿",
+            "name": "Room 4",
             "session": {
-              "id": "46148",
-              "title": "Why Jetpack?",
-              "description": "Jetpack & androidx are more than just libraries for you to use but a change in the approach Android is taking towards fragmentation and developer velocity.",
+              "id": "57364",
+              "title": "Don’t Sweat the Small Stuff",
+              "description": "Or, how to find joy in development through small things.\r\n\r\nBeing an Android developer is hard work. Chances are, we spend our whole day in Android Studio and there are hundreds of settings, configurations, and shortcuts. Getting to know the tool can easily become overwhelming.\r\n\r\nIn this talk, we will go through tools and helpers that will help make our day-to-day development work easier, prettier, and more joyful. We will discuss useful configurations for Android Studio, plugins and tools that help with debugging, and tips on code organisation and styling.",
               "startsAt": "2018-08-27T09:50:00",
               "endsAt": "2018-08-27T10:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "355899b3-60c9-43ec-9b86-514d5ae81cb3",
-                  "name": "Kurt Nelson"
+                  "id": "8186dcc4-3868-48ff-af5d-d1fce1f97496",
+                  "name": "Zarah Dominguez"
                 }
               ],
               "categories": [],
               "roomId": 1859,
-              "room": "Room 🍿"
+              "room": "Room 4"
             },
             "index": 3
           }
@@ -839,7 +896,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "45650",
               "title": "Adventures in Navigation",
@@ -860,36 +917,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
-            "session": {
-              "id": "57276",
-              "title": "Building a Multiplatform Kotlin Library",
-              "description": "Multiplatform Kotlin is still in its early stages, which makes it an exciting time to contribute to the open source ecosystem around it. In this session, we'll talk through how to configure a library that can be consumed from Kotlin common code and exposed to both Android and iOS apps, using a simple Settings library as an example. After this talk, you'll be ready to write your own multiplatform library, which you'll be able to share not just between your own Android and iOS code, but with the whole world.",
-              "startsAt": "2018-08-27T10:40:00",
-              "endsAt": "2018-08-27T11:20:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "7a1d47f2-dfd1-4af1-b097-5c415f9b29c3",
-                  "name": "Russell Wolf"
-                }
-              ],
-              "categories": [],
-              "roomId": 1857,
-              "room": "Room 🍷"
-            },
-            "index": 1
-          },
-          {
-            "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 2",
             "session": {
               "id": "57178",
               "title": "Bringing your app to life - Motion Animations everywhere",
@@ -905,10 +939,56 @@
                 }
               ],
               "categories": [],
+              "roomId": 1857,
+              "room": "Room 2"
+            },
+            "index": 1
+          },
+          {
+            "id": 1858,
+            "name": "Room 3",
+            "session": {
+              "id": "57276",
+              "title": "Building a Multiplatform Kotlin Library",
+              "description": "Multiplatform Kotlin is still in its early stages, which makes it an exciting time to contribute to the open source ecosystem around it. In this session, we'll talk through how to configure a library that can be consumed from Kotlin common code and exposed to both Android and iOS apps, using a simple Settings library as an example. After this talk, you'll be ready to write your own multiplatform library, which you'll be able to share not just between your own Android and iOS code, but with the whole world.",
+              "startsAt": "2018-08-27T10:40:00",
+              "endsAt": "2018-08-27T11:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "7a1d47f2-dfd1-4af1-b097-5c415f9b29c3",
+                  "name": "Russell Wolf"
+                }
+              ],
+              "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
+          },
+          {
+            "id": 1859,
+            "name": "Room 4",
+            "session": {
+              "id": "62340",
+              "title": "Building your own ride share app",
+              "description": "When was the last time you were truly lost? Thanks to the maps and location technology in our smartphones, a whole generation has now grown up in a world where getting lost is truly a thing of the past.\r\n\r\nLocation technology goes far beyond maps in the palm of our hand, however. Today it is at the heart of a broad range of applications, from logistics to games, from social networks to ridesharing.\r\n\r\nIn this talk, we will explore how a ridesharing app works.  We will ask questions such as: How do we find out where the passenger is located? How do we discover our destination? How do we find the closest driver? How do we provide a correct ETA to the passenger in heavy traffic? How do we display this information on a map? How do we find the best route to the destination?\r\n\r\nTo answer these questions, we will be learning about a variety of location APIs, including Maps, Positioning, Geocoding, Routing, Traffic, Places, and much more.\r\n\r\nAt the end you should be able to build your own ridesharing app or any clever app for which location matters.",
+              "startsAt": "2018-08-27T10:40:00",
+              "endsAt": "2018-08-27T11:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "80d278b7-0978-4879-bc85-f1a9f1dfc175",
+                  "name": "Richard Sueselbeck"
+                }
+              ],
+              "categories": [],
+              "roomId": 1859,
+              "room": "Room 4"
+            },
+            "index": 3
           }
         ]
       },
@@ -917,7 +997,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "a451395b-b173-4d9c-bb98-afd9de642081",
               "title": "Break",
@@ -929,7 +1009,7 @@
               "speakers": [],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           }
@@ -940,30 +1020,7 @@
         "rooms": [
           {
             "id": 1857,
-            "name": "Room 🍷",
-            "session": {
-              "id": "42639",
-              "title": "let swift == val kotlin -> Why iOS is so important for Android, and vice versa",
-              "description": "UIViewControllers and Activities. UITableViews and ReyclerViews. UILabels and TextViews. XIBs and XML layouts. Although it might seem that the mobile world is divided in two, that does not mean that iOS and Android apps can find ways to be speak “the same language”. It is crucial for Android developers to understand what happens on the iOS side, and vice versa. \r\n\r\nI believe that, part of the success for Android and iOS apps, resides in being able to find those similarities between the platforms, embrace them, and provide a common architecture between that two platform that facilitates the development… and who knows, maybe one day you can be writing for both platforms in Kotlin/Native ;)\r\n\r\nLet my explain in this talk why iOS is so important for Android developers, why Swift is so easy to understand when you know Kotlin, and how you can architect your apps in such a way that transitioning to Kotlin/Native will be a pice of cake!",
-              "startsAt": "2018-08-27T11:50:00",
-              "endsAt": "2018-08-27T12:30:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "83b4b946-663b-46cb-8be5-f5272ecd262c",
-                  "name": "Jorge Coca"
-                }
-              ],
-              "categories": [],
-              "roomId": 1857,
-              "room": "Room 🍷"
-            },
-            "index": 1
-          },
-          {
-            "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 2",
             "session": {
               "id": "56990",
               "title": "Architecting an app with MVP and ViewModels",
@@ -979,8 +1036,31 @@
                 }
               ],
               "categories": [],
+              "roomId": 1857,
+              "room": "Room 2"
+            },
+            "index": 1
+          },
+          {
+            "id": 1858,
+            "name": "Room 3",
+            "session": {
+              "id": "42639",
+              "title": "let swift == val kotlin -> Why iOS is so important for Android, and vice versa",
+              "description": "UIViewControllers and Activities. UITableViews and ReyclerViews. UILabels and TextViews. XIBs and XML layouts. Although it might seem that the mobile world is divided in two, that does not mean that iOS and Android apps can find ways to be speak “the same language”. It is crucial for Android developers to understand what happens on the iOS side, and vice versa. \r\n\r\nI believe that, part of the success for Android and iOS apps, resides in being able to find those similarities between the platforms, embrace them, and provide a common architecture between that two platform that facilitates the development… and who knows, maybe one day you can be writing for both platforms in Kotlin/Native ;)\r\n\r\nLet my explain in this talk why iOS is so important for Android developers, why Swift is so easy to understand when you know Kotlin, and how you can architect your apps in such a way that transitioning to Kotlin/Native will be a pice of cake!",
+              "startsAt": "2018-08-27T11:50:00",
+              "endsAt": "2018-08-27T12:30:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "83b4b946-663b-46cb-8be5-f5272ecd262c",
+                  "name": "Jorge Coca"
+                }
+              ],
+              "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           }
@@ -991,7 +1071,7 @@
         "rooms": [
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "45779",
               "title": "Kotlin Coroutines: Beyond async/await",
@@ -1008,13 +1088,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "46401",
               "title": "Android Studio Tips and tricks",
@@ -1031,7 +1111,7 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           }
@@ -1042,7 +1122,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "57236",
               "title": "Dissecting the stdlib",
@@ -1059,36 +1139,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
-            "session": {
-              "id": "57164",
-              "title": "Firebase and Android Architecture Components: fit like a glove",
-              "description": "Join this session to get a deep dive into the use of Jetpack’s Android Architecture Components along with Firebase to keep your app’s data fully synchronized and automatically refreshed with live updates from Realtime Database and Firestore.  Bring an Android device to participate in a live demo!",
-              "startsAt": "2018-08-27T13:30:00",
-              "endsAt": "2018-08-27T14:10:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
-                  "name": "Doug Stevenson"
-                }
-              ],
-              "categories": [],
-              "roomId": 1857,
-              "room": "Room 🍷"
-            },
-            "index": 1
-          },
-          {
-            "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 2",
             "session": {
               "id": "57152",
               "title": "Junit5: the next gen of testing, don't stay behind",
@@ -1104,37 +1161,79 @@
                 }
               ],
               "categories": [],
-              "roomId": 1858,
-              "room": "Room 🍩"
+              "roomId": 1857,
+              "room": "Room 2"
             },
-            "index": 2
+            "index": 1
           },
           {
-            "id": 1859,
-            "name": "Room 🍿",
+            "id": 1858,
+            "name": "Room 3",
             "session": {
-              "id": "62023",
-              "title": "Road to MV*: A Process Talk",
-              "description": "Do you agonize over the choice of library or framework for your project? Are there extended arguments about why MVVM is better than MVP? Do you think this is one of the most important decisions for your team?\r\n\r\nAt Peloton, we've scaled our Android team from 3 to 20 people in 18 months. What we learned is that the process of making such decisions is more important than the choices themselves.\r\n\r\nIn this talk, you will: \r\n- Learn how to make technical choices easier\r\n- How to allow your entire team to effectively participate in decision making\r\n- Ensure that there is space to make corrections in the future\r\n- Get to a high level of technical consistency (don't worry, we'll explain this too)",
+              "id": "57164",
+              "title": "Firebase and Android Architecture Components: fit like a glove",
+              "description": "Join this session to get a deep dive into the use of Jetpack’s Android Architecture Components along with Firebase to keep your app’s data fully synchronized and automatically refreshed with live updates from Realtime Database and Firestore.  Bring an Android device to participate in a live demo!",
               "startsAt": "2018-08-27T13:30:00",
               "endsAt": "2018-08-27T14:10:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "3a18ff70-3f11-4850-a41a-96fe4abdd479",
-                  "name": "Gennadiy Shafranovich"
-                },
+                  "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
+                  "name": "Doug Stevenson"
+                }
+              ],
+              "categories": [],
+              "roomId": 1858,
+              "room": "Room 3"
+            },
+            "index": 2
+          },
+          {
+            "id": 1859,
+            "name": "Room 4",
+            "session": {
+              "id": "62132",
+              "title": "Image Alchemy: Efficient Processing of Images",
+              "description": "As the Android community, we have figured out best-practices for displaying images and baked them into libraries such as Glide, Picasso and Fresco. However, handling local files in creation flows is still a fuzzy business: copy-pasted sampling ratio calculations, estimating compression parameters or having to allocate Bitmaps on the Java heap. A classic challenge is resizing large camera images for upload.\r\n\r\nAt Facebook we've also failed hard with these issues. But we've learned a lot along the way about image format internals, native libraries and keeping image processing efficient, reliable and sane.\r\n\r\nTogether, we'll go down to the metal and see how you can utilize this knowledge to make your users benefit: process images losslessly, choose the right parameters, avoid BitmapFactory fiddling and employ compression best-practices. We'll also cover established and upcoming image formats.",
+              "startsAt": "2018-08-27T13:30:00",
+              "endsAt": "2018-08-27T14:10:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
                 {
-                  "id": "bec4f48a-417b-4921-b924-90fa6c74b838",
-                  "name": "Richard Luick"
+                  "id": "d46106ad-29a6-4a7e-8212-edf43c4f7060",
+                  "name": "Daniel Hugenroth"
                 }
               ],
               "categories": [],
               "roomId": 1859,
-              "room": "Room 🍿"
+              "room": "Room 4"
             },
             "index": 3
+          },
+          {
+            "id": 2333,
+            "name": "Codelab",
+            "session": {
+              "id": "62686",
+              "title": "Introduction to Cloud Firestore",
+              "description": "In this codelab you will build a restaurant recommendation app on Android backed by Cloud Firestore. You will learn how to:\r\n\r\nRead and write data to Firestore from an Android app\r\nListen to changes in Firestore data in realtime\r\nUse Firebase Authentication and security rules to secure Firestore data\r\nWrite complex Firestore queries\r\n",
+              "startsAt": "2018-08-27T13:30:00",
+              "endsAt": "2018-08-27T15:00:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "0a42f535-f8d0-43c5-8918-d00a4a21e483",
+                  "name": "Todd Burner"
+                }
+              ],
+              "categories": [],
+              "roomId": 2333,
+              "room": "Codelab"
+            },
+            "index": 4
           }
         ]
       },
@@ -1143,7 +1242,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "57369",
               "title": "Coroutines by Example",
@@ -1160,13 +1259,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "43749",
               "title": "From AlarmManager to WorkManager",
@@ -1183,13 +1282,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "57248",
               "title": "To Protect And Confirm",
@@ -1206,13 +1305,13 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           },
           {
             "id": 1859,
-            "name": "Room 🍿",
+            "name": "Room 4",
             "session": {
               "id": "44703",
               "title": "Slice It Up: Driving the user engagement outside your app",
@@ -1229,7 +1328,7 @@
               ],
               "categories": [],
               "roomId": 1859,
-              "room": "Room 🍿"
+              "room": "Room 4"
             },
             "index": 3
           }
@@ -1240,7 +1339,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "56666",
               "title": "Ok Multiplatform!",
@@ -1261,13 +1360,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "57659",
               "title": "Tools of the Trade",
@@ -1284,13 +1383,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "45187",
               "title": "Images 101",
@@ -1307,13 +1406,13 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           },
           {
             "id": 1859,
-            "name": "Room 🍿",
+            "name": "Room 4",
             "session": {
               "id": "57255",
               "title": "Testing In App Billing the Easy Way",
@@ -1330,7 +1429,7 @@
               ],
               "categories": [],
               "roomId": 1859,
-              "room": "Room 🍿"
+              "room": "Room 4"
             },
             "index": 3
           }
@@ -1341,7 +1440,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "c5db6508-7761-4c35-9bd5-dd417dda21ec",
               "title": "Break",
@@ -1353,7 +1452,7 @@
               "speakers": [],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           }
@@ -1364,30 +1463,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
-            "session": {
-              "id": "57259",
-              "title": "Multiplatform Persistence",
-              "description": "A lot of client code is already multiplatform - the tools underneath client backends like SQLite, protobufs, and HTTP are themselves platform agnostic. Codebases for Android and iOS already look similar on top of these tools until exposed to platform specific interfaces. Realistically how much could be shared across multiple platforms without affecting any codebase significantly?\r\n\r\nThis talk will go over SQLDelight 1.0 - a recent release which has enabled multiplatform SQLite development using Kotlin Native, as well as how to architect your app’s data layer to be shared across platforms. It will focus on how SQLDelight can be best used from both Android and iOS while feeling natural to Kotlin and Swift users alike, and go over features introduced in the release that affect all platforms. Finally we will explore the future of multiplatform including other components of your app which are good or bad candidates for making platform agnostic and what future releases of SQLDelight will include.",
-              "startsAt": "2018-08-27T16:10:00",
-              "endsAt": "2018-08-27T16:50:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
-                  "name": "Alec Strong"
-                }
-              ],
-              "categories": [],
-              "roomId": 1856,
-              "room": "Room 🍕"
-            },
-            "index": 0
-          },
-          {
-            "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 1",
             "session": {
               "id": "57158",
               "title": "Human Centered API Design",
@@ -1403,14 +1479,37 @@
                 }
               ],
               "categories": [],
+              "roomId": 1856,
+              "room": "Room 1"
+            },
+            "index": 0
+          },
+          {
+            "id": 1857,
+            "name": "Room 2",
+            "session": {
+              "id": "57259",
+              "title": "Multiplatform Persistence",
+              "description": "A lot of client code is already multiplatform - the tools underneath client backends like SQLite, protobufs, and HTTP are themselves platform agnostic. Codebases for Android and iOS already look similar on top of these tools until exposed to platform specific interfaces. Realistically how much could be shared across multiple platforms without affecting any codebase significantly?\r\n\r\nThis talk will go over SQLDelight 1.0 - a recent release which has enabled multiplatform SQLite development using Kotlin Native, as well as how to architect your app’s data layer to be shared across platforms. It will focus on how SQLDelight can be best used from both Android and iOS while feeling natural to Kotlin and Swift users alike, and go over features introduced in the release that affect all platforms. Finally we will explore the future of multiplatform including other components of your app which are good or bad candidates for making platform agnostic and what future releases of SQLDelight will include.",
+              "startsAt": "2018-08-27T16:10:00",
+              "endsAt": "2018-08-27T16:50:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
+                  "name": "Alec Strong"
+                }
+              ],
+              "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "41401",
               "title": "Mocks, Stubs, and Spies, Oh My",
@@ -1427,13 +1526,13 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           },
           {
             "id": 1859,
-            "name": "Room 🍿",
+            "name": "Room 4",
             "session": {
               "id": "42115",
               "title": "Party like it's 1970: Conversational interfaces are back (into your Android app)",
@@ -1450,7 +1549,7 @@
               ],
               "categories": [],
               "roomId": 1859,
-              "room": "Room 🍿"
+              "room": "Room 4"
             },
             "index": 3
           }
@@ -1461,7 +1560,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "57278",
               "title": "Rinsing the Brush: Picasso 3.0",
@@ -1482,13 +1581,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "43846",
               "title": "Breaking the Android ClassLoader",
@@ -1505,13 +1604,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "45050",
               "title": "Domic — Reactive Virtual DOM. Why we built it, how it works.",
@@ -1528,9 +1627,32 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
+          },
+          {
+            "id": 1859,
+            "name": "Room 4",
+            "session": {
+              "id": "62669",
+              "title": "Improving Android Build performance",
+              "description": "We all know a fast build makes for a happy developer.   Unfortunately, it’s easy for Android builds get complex and slow.   You’ve updated to the latest Android Plugin, but your still waiting more than you like, what do you do?\r\n\r\nRecent Gradle releases give you new capabilities to improve your build speed up to an order of magnitude.    This session discusses how you can :\r\n\r\n>Identify performance bottlenecks with build scans\r\n>Fix common problems like: slow configuration time, tasks running when they shouldn’t, and builds that don’t parallelize well. \r\n>Use new Gradle annotation processing features to enable incremental builds instead of full builds",
+              "startsAt": "2018-08-27T17:00:00",
+              "endsAt": "2018-08-27T17:40:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "416def82-5405-422f-880e-995a38106b78",
+                  "name": "Tony Robalik"
+                }
+              ],
+              "categories": [],
+              "roomId": 1859,
+              "room": "Room 4"
+            },
+            "index": 3
           }
         ]
       },
@@ -1539,53 +1661,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
-            "session": {
-              "id": "57273",
-              "title": "Android Text, The Good The Bad and The ugly",
-              "description": "Learn about internals of Android Text stack, starting with TextView and EditText. We will focus on how to effectively use various features of Text stack in order to improve functionality and performance of your applications.",
-              "startsAt": "2018-08-27T17:50:00",
-              "endsAt": "2018-08-27T18:30:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "66296294-ca8f-4d03-85f3-d26aa5035c5d",
-                  "name": "Siyamed Sınır"
-                }
-              ],
-              "categories": [],
-              "roomId": 1856,
-              "room": "Room 🍕"
-            },
-            "index": 0
-          },
-          {
-            "id": 1857,
-            "name": "Room 🍷",
-            "session": {
-              "id": "45962",
-              "title": "Android Programming for Bluetooth Beacons",
-              "description": "A Bluetooth beacon is an inexpensive device that broadcasts information to nearby portable electronic devices. As you pass by a shoe store, your phone picks up a signal from a walnut-sized beacon in the store window. In response to the signal, your phone buzzes and tells you about the store's sale on running shoes. This presentation describes features of Estimote's SDK for beacon-enabled Android apps. The presentation includes demonstrations using real beacons in the real-life Droidcon conference environment.",
-              "startsAt": "2018-08-27T17:50:00",
-              "endsAt": "2018-08-27T18:30:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "1b4b967a-ae8d-42e9-9925-1472213075f9",
-                  "name": "Barry Burd"
-                }
-              ],
-              "categories": [],
-              "roomId": 1857,
-              "room": "Room 🍷"
-            },
-            "index": 1
-          },
-          {
-            "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 1",
             "session": {
               "id": "46277",
               "title": "Effective Kotlin",
@@ -1605,14 +1681,60 @@
                 }
               ],
               "categories": [],
+              "roomId": 1856,
+              "room": "Room 1"
+            },
+            "index": 0
+          },
+          {
+            "id": 1857,
+            "name": "Room 2",
+            "session": {
+              "id": "57273",
+              "title": "Android Text, The Good The Bad and The ugly",
+              "description": "Learn about internals of Android Text stack, starting with TextView and EditText. We will focus on how to effectively use various features of Text stack in order to improve functionality and performance of your applications.",
+              "startsAt": "2018-08-27T17:50:00",
+              "endsAt": "2018-08-27T18:30:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "66296294-ca8f-4d03-85f3-d26aa5035c5d",
+                  "name": "Siyamed Sınır"
+                }
+              ],
+              "categories": [],
+              "roomId": 1857,
+              "room": "Room 2"
+            },
+            "index": 1
+          },
+          {
+            "id": 1858,
+            "name": "Room 3",
+            "session": {
+              "id": "45962",
+              "title": "Android Programming for Bluetooth Beacons",
+              "description": "A Bluetooth beacon is an inexpensive device that broadcasts information to nearby portable electronic devices. As you pass by a shoe store, your phone picks up a signal from a walnut-sized beacon in the store window. In response to the signal, your phone buzzes and tells you about the store's sale on running shoes. This presentation describes features of Estimote's SDK for beacon-enabled Android apps. The presentation includes demonstrations using real beacons in the real-life Droidcon conference environment.",
+              "startsAt": "2018-08-27T17:50:00",
+              "endsAt": "2018-08-27T18:30:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "1b4b967a-ae8d-42e9-9925-1472213075f9",
+                  "name": "Barry Burd"
+                }
+              ],
+              "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           },
           {
             "id": 1859,
-            "name": "Room 🍿",
+            "name": "Room 4",
             "session": {
               "id": "57262",
               "title": "Wanna get rid of UI Jank?",
@@ -1629,7 +1751,7 @@
               ],
               "categories": [],
               "roomId": 1859,
-              "room": "Room 🍿"
+              "room": "Room 4"
             },
             "index": 3
           }
@@ -1642,7 +1764,7 @@
     "rooms": [
       {
         "id": 1856,
-        "name": "Room 🍕",
+        "name": "Room 1",
         "sessions": [
           {
             "id": "41211",
@@ -1660,11 +1782,11 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "42136",
-            "title": "Netflix's componetization architecture with RxJava + Kotlin",
+            "title": "Netflix's componentization architecture with RxJava + Kotlin",
             "description": "Recently we rewrote the Netflix's player UI using a new architecture that allows great reusability, testability and extendability.\r\n\r\nThis talk is about our journey from a monolithic fragment to several independent and reusable components and how it is helping us to move fast with our AB tests.",
             "startsAt": "2018-08-28T09:50:00",
             "endsAt": "2018-08-28T10:30:00",
@@ -1678,7 +1800,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "43698",
@@ -1696,7 +1818,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "46161",
@@ -1714,7 +1836,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "fc5526cd-681d-4a5b-8b78-4fc7310db6b9",
@@ -1727,7 +1849,7 @@
             "speakers": [],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "43649",
@@ -1745,7 +1867,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "41068",
@@ -1763,7 +1885,25 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
+          },
+          {
+            "id": "42658",
+            "title": "The State of the Kotlin ecosystem",
+            "description": "Over the last three months I ran a survey of the global Kotlin ecosystem. My goal was to learn how developers use and adopt Kotlin - either in work or side projects, or just for playing around, and what are some of the most popular resources for learning it.\r\nThe survey was a great success, and gained 2744 responses in total! The results are meant to become a resource for the Kotlin community. Something we can all look at for interesting insights that will also help drive adoption of Kotlin in our teams and organisations.\r\n\r\nTo give you a taster, here’s a few questions I asked in the survey:\r\nHow big is Android as a proportion of all Kotlin developers?\r\nAre people happy naming libraries and tooling with K?\r\nWhat are the favourite features of the language?\r\nWhat kind of DSLs are people building with Kotlin and for what use-cases\r\n\r\nIn my talk will answer all these questions, and more. But be warned, some answers might surprise you. \r\n",
+            "startsAt": "2018-08-28T14:50:00",
+            "endsAt": "2018-08-28T15:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "56eefe06-593b-4455-94dc-e3422fc4f81e",
+                "name": "Zan Markan"
+              }
+            ],
+            "categories": [],
+            "roomId": 1856,
+            "room": "Room 1"
           },
           {
             "id": "422d1057-a6b3-4d17-9ee1-728e1a3d241f",
@@ -1776,7 +1916,7 @@
             "speakers": [],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "42148",
@@ -1794,7 +1934,7 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           },
           {
             "id": "57272",
@@ -1812,14 +1952,14 @@
             ],
             "categories": [],
             "roomId": 1856,
-            "room": "Room 🍕"
+            "room": "Room 1"
           }
         ],
         "hasOnlyPlenumSessions": false
       },
       {
         "id": 1857,
-        "name": "Room 🍷",
+        "name": "Room 2",
         "sessions": [
           {
             "id": "61453",
@@ -1837,7 +1977,7 @@
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           },
           {
             "id": "57123",
@@ -1855,43 +1995,43 @@
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           },
           {
-            "id": "46331",
-            "title": "Intro to Android Things",
-            "description": "Introduction to Android Things and how to start creating IoT devices using Android Things",
+            "id": "57231",
+            "title": "Flutter for Android developers!",
+            "description": "From the writer of the official Flutter for Android docs on Flutter.io comes this AMAZING session on how to transfer your Android skills to Flutter and go zero to one in record time.",
             "startsAt": "2018-08-28T10:40:00",
             "endsAt": "2018-08-28T11:20:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "910f395b-9d2b-4f7d-8ab4-c4008bd9f0c4",
-                "name": "Jonathan Petit-Frere"
+                "id": "6f970913-2db5-4260-871e-b733e1d707f2",
+                "name": "Faisal Abid"
               }
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           },
           {
-            "id": "57346",
-            "title": "Android U+2764 (❤) Emoji",
-            "description": "Android U+2764 (❤) Emoji\r\n\r\nEveryone 😍 Emoji. They’re everywhere nowadays -- July 17th is World 🌎 Emoji Day, Oxford Dictionaries 📖 have an Emoji of the Year, and there was even a REAL MOVIE 🎥 made about them. Have you ever wondered 🤔 where they come from and how are they made, or why your iPhone-toting📱 friends keep sending you � in their messages?\r\n\r\nIn this 💬, we’ll:\r\n\r\n* ⏳ Review the origins of Emoji and how they work\u2028\r\n* 🔎 Find tips and tricks to best handle Unicode\u2028\r\n* 👀 Look under the hood of the Emoji-Compat support library\u2028\r\n* 🎓 Learn how to make sure users never see � again",
+            "id": "56997",
+            "title": "Android on Chrome OS: What you need to know",
+            "description": "With the Play Store out of beta on ChromeOS and exciting new desktop form factors being released like the Samsung Dex Station, it’s time to start thinking about how your application performs on these new form environments.\r\n\r\nIn this talk we’ll go what Android on Chrome OS looks like, the tools available to you as a developer, and how to handle some of the major use cases and challenges in these new environments such as being free-form resizable, new first-class input methods, as well as others to help you reach more users with an even better experience.",
             "startsAt": "2018-08-28T11:30:00",
             "endsAt": "2018-08-28T12:10:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "3f55bd8e-d9d8-4d1f-b866-7a04f72ba621",
-                "name": "Michael Evans"
+                "id": "7a094732-2918-4be4-9e51-1fed7d6635d0",
+                "name": "Kenneth Ford"
               }
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           },
           {
             "id": "57251",
@@ -1909,43 +2049,51 @@
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           },
           {
-            "id": "43584",
-            "title": "Community - What is it good for?",
-            "description": "Communities - they’re all around us, right? You may say, “Why do I need a community with my software project?” or “What good is hand-holding users of my app or company’s service?” or “Who drank all the LaCroix?” Regardless of your question or where you stand on communities, we’re going to jump right in to our elbows on the subject of communities, what they are, how to build them, and how to keep them.",
+            "id": "62023",
+            "title": "Growing your team while remaining efficient",
+            "description": "Do you agonize over the choice of library or framework for your project? Are there extended arguments about why MVVM is better than MVP? Do you think this is one of the most important decisions for your team?\r\n\r\nAt Peloton, we've scaled our Android team from 3 to 20 people in 18 months. What we learned is that the process of making such decisions is more important than the choices themselves.\r\n\r\nIn this talk, you will: \r\n- Learn how to make technical choices easier\r\n- How to allow your entire team to effectively participate in decision making\r\n- Ensure that there is space to make corrections in the future\r\n- Get to a high level of technical consistency (don't worry, we'll explain this too)",
             "startsAt": "2018-08-28T14:00:00",
             "endsAt": "2018-08-28T14:40:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "56115ae3-406f-47af-818c-20354acc07b2",
-                "name": "Jeremy Meiss"
+                "id": "3a18ff70-3f11-4850-a41a-96fe4abdd479",
+                "name": "Gennadiy Shafranovich"
+              },
+              {
+                "id": "bec4f48a-417b-4921-b924-90fa6c74b838",
+                "name": "Richard Luick"
               }
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           },
           {
-            "id": "57662",
-            "title": "Taking your agent to the next level",
-            "description": "The last 2 years Google made it clear that its virtual assistant is here not just to stay but to change completely the way we interact with our devices. But engaging your users has never been more difficult. Without a graphic UI to wow your users, the solution is to design a helpful, intelligent and fun agent. As trivial as it may sound, standing out with a conversational app is certainly not an easy feat! During this talk we will explore how we can design a better agent by not falling into some pitfalls, how to customize our agent for each user but also for each platform and how to add payment transactions for maximum user engagement and efficiency.",
+            "id": "61517",
+            "title": "Reactive Workflows a Year Later",
+            "description": "At droidcon NYC 2017 I presented the Reactive Workflow pattern that we had begun adopting in Square Point of Sale, our flagship Android app. It promised state driven navigation UIs that compose nicely.\r\n\r\nA year later, we’re still using it, we’re still liking it, and we’re a lot better at it. Come hear what we’ve learned and take a peek at the code.",
             "startsAt": "2018-08-28T14:50:00",
             "endsAt": "2018-08-28T15:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "a0586acc-ac50-4560-ac22-8d0d50229245",
-                "name": "Eliza Camber"
+                "id": "be1bf411-f71e-44f9-9724-84a07db119c8",
+                "name": "Ray Ryan"
+              },
+              {
+                "id": "4bd6efc1-637a-42a5-bca3-7f56c55ef386",
+                "name": "Timothy Donnelly"
               }
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           },
           {
             "id": "42433",
@@ -1963,7 +2111,7 @@
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           },
           {
             "id": "57027",
@@ -1981,14 +2129,14 @@
             ],
             "categories": [],
             "roomId": 1857,
-            "room": "Room 🍷"
+            "room": "Room 2"
           }
         ],
         "hasOnlyPlenumSessions": false
       },
       {
         "id": 1858,
-        "name": "Room 🍩",
+        "name": "Room 3",
         "sessions": [
           {
             "id": "57241",
@@ -2006,7 +2154,7 @@
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           },
           {
             "id": "57059",
@@ -2024,43 +2172,43 @@
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           },
           {
-            "id": "57231",
-            "title": "Flutter for Android developers!",
-            "description": "From the writer of the official Flutter for Android docs on Flutter.io comes this AMAZING session on how to transfer your Android skills to Flutter and go zero to one in record time.",
+            "id": "46331",
+            "title": "Intro to Android Things",
+            "description": "Introduction to Android Things and how to start creating IoT devices using Android Things",
             "startsAt": "2018-08-28T10:40:00",
             "endsAt": "2018-08-28T11:20:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "6f970913-2db5-4260-871e-b733e1d707f2",
-                "name": "Faisal Abid"
+                "id": "910f395b-9d2b-4f7d-8ab4-c4008bd9f0c4",
+                "name": "Jonathan Petit-Frere"
               }
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           },
           {
-            "id": "56997",
-            "title": "Android on Chrome OS: What you need to know",
-            "description": "With the Play Store out of beta on ChromeOS and exciting new desktop form factors being released like the Samsung Dex Station, it’s time to start thinking about how your application performs on these new form environments.\r\n\r\nIn this talk we’ll go what Android on Chrome OS looks like, the tools available to you as a developer, and how to handle some of the major use cases and challenges in these new environments such as being free-form resizable, new first-class input methods, as well as others to help you reach more users with an even better experience.",
+            "id": "57346",
+            "title": "Android U+2764 (❤) Emoji",
+            "description": "Android U+2764 (❤) Emoji\r\n\r\nEveryone 😍 Emoji. They’re everywhere nowadays -- July 17th is World 🌎 Emoji Day, Oxford Dictionaries 📖 have an Emoji of the Year, and there was even a REAL MOVIE 🎥 made about them. Have you ever wondered 🤔 where they come from and how are they made, or why your iPhone-toting📱 friends keep sending you � in their messages?\r\n\r\nIn this 💬, we’ll:\r\n\r\n* ⏳ Review the origins of Emoji and how they work\u2028\r\n* 🔎 Find tips and tricks to best handle Unicode\u2028\r\n* 👀 Look under the hood of the Emoji-Compat support library\u2028\r\n* 🎓 Learn how to make sure users never see � again",
             "startsAt": "2018-08-28T11:30:00",
             "endsAt": "2018-08-28T12:10:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "7a094732-2918-4be4-9e51-1fed7d6635d0",
-                "name": "Kenneth Ford"
+                "id": "3f55bd8e-d9d8-4d1f-b866-7a04f72ba621",
+                "name": "Michael Evans"
               }
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           },
           {
             "id": "45982",
@@ -2078,7 +2226,7 @@
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           },
           {
             "id": "46160",
@@ -2096,25 +2244,25 @@
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           },
           {
-            "id": "42658",
-            "title": "The State of the Kotlin ecosystem",
-            "description": "Over the last three months I ran a survey of the global Kotlin ecosystem. My goal was to learn how developers use and adopt Kotlin - either in work or side projects, or just for playing around, and what are some of the most popular resources for learning it.\r\nThe survey was a great success, and gained 2744 responses in total! The results are meant to become a resource for the Kotlin community. Something we can all look at for interesting insights that will also help drive adoption of Kotlin in our teams and organisations.\r\n\r\nTo give you a taster, here’s a few questions I asked in the survey:\r\nHow big is Android as a proportion of all Kotlin developers?\r\nAre people happy naming libraries and tooling with K?\r\nWhat are the favourite features of the language?\r\nWhat kind of DSLs are people building with Kotlin and for what use-cases\r\n\r\nIn my talk will answer all these questions, and more. But be warned, some answers might surprise you. \r\n",
+            "id": "57662",
+            "title": "Taking your agent to the next level",
+            "description": "The last 2 years Google made it clear that its virtual assistant is here not just to stay but to change completely the way we interact with our devices. But engaging your users has never been more difficult. Without a graphic UI to wow your users, the solution is to design a helpful, intelligent and fun agent. As trivial as it may sound, standing out with a conversational app is certainly not an easy feat! During this talk we will explore how we can design a better agent by not falling into some pitfalls, how to customize our agent for each user but also for each platform and how to add payment transactions for maximum user engagement and efficiency.",
             "startsAt": "2018-08-28T14:50:00",
             "endsAt": "2018-08-28T15:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "56eefe06-593b-4455-94dc-e3422fc4f81e",
-                "name": "Zan Markan"
+                "id": "a0586acc-ac50-4560-ac22-8d0d50229245",
+                "name": "Eliza Camber"
               }
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           },
           {
             "id": "57275",
@@ -2132,7 +2280,7 @@
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           },
           {
             "id": "57078",
@@ -2154,21 +2302,93 @@
             ],
             "categories": [],
             "roomId": 1858,
-            "room": "Room 🍩"
+            "room": "Room 3"
           }
         ],
         "hasOnlyPlenumSessions": false
       },
       {
         "id": 1859,
-        "name": "Room 🍿",
+        "name": "Room 4",
         "sessions": [
+          {
+            "id": "63777",
+            "title": "KEYNOTE: WHAT'S NEXT FOR ANDROID IN THE ENTERPRISE",
+            "description": "This session will provide a background on Android's success in enterprise business and new platform investments coming in Android P to make enterprise apps better than ever. ",
+            "startsAt": "2018-08-28T09:00:00",
+            "endsAt": "2018-08-28T09:40:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "8b4462bb-d9c1-49da-8adf-4fd75bef0458",
+                "name": "Sean Ginevan"
+              }
+            ],
+            "categories": [],
+            "roomId": 1859,
+            "room": "Room 4"
+          },
+          {
+            "id": "63203",
+            "title": "BEST PRACTICES FOR ANDROID ENTERPRISE APPLICATION DEVELOPMENT",
+            "description": "Building Android applications for the Enterprise can be a challenge, come to listen to Google recommended best practices for building safe, secure, and overall great apps for the enterprise. We will cover topics such as Jetpack, configuration, security, and recommended methods for deployment on Managed Google Play.",
+            "startsAt": "2018-08-28T09:50:00",
+            "endsAt": "2018-08-28T10:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "060018a6-9917-4cad-8e1e-78dc433e1bc1",
+                "name": "Jon Markoff"
+              }
+            ],
+            "categories": [],
+            "roomId": 1859,
+            "room": "Room 4"
+          },
+          {
+            "id": "62322",
+            "title": "HERE BE DRAGONS* - THE ENTERPRISE MOBILE SECURITY JOURNEY",
+            "description": "From Golden Images to Rolling Releases--Managing security lifecycles in Android Enterprise deployments.\r\nSince 2016 I've been involved in multiple projects explaining to enterprises how the new mobile security scenario requires new rules of engagement.\r\nIt’s now necessary to move from a \"Golden Image\" mentality to the idea that mobile devices need to be updated regularly with \"Rolling Releases\" at the OS and application levels.\r\nThis talk is about the challenges, and the opportunities, that enterprises and enterprise developers need to be prepared to address when deploying a modern mobile solution.\r\nWe’re going to look into some of the common questions, like:\r\n-What does security mean for an enterprise?\r\n-What needs to be in place to manage a secure solution?\r\n-What mitigating factors can a developer utilize?\r\nand present the state of the art solutions available in 2018.\r\n\r\n* \"Here be dragons\" means dangerous or unexplored territories, in imitation of a medieval practice of putting illustrations of dragons, sea monsters and other mythological creatures on uncharted areas of maps.",
+            "startsAt": "2018-08-28T10:40:00",
+            "endsAt": "2018-08-28T11:20:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "65916041-d2b0-4cac-b0dc-476dadc5e55c",
+                "name": "George DellaRatta"
+              }
+            ],
+            "categories": [],
+            "roomId": 1859,
+            "room": "Room 4"
+          },
+          {
+            "id": "43584",
+            "title": "Community - What is it good for?",
+            "description": "Communities - they’re all around us, right? You may say, “Why do I need a community with my software project?” or “What good is hand-holding users of my app or company’s service?” or “Who drank all the LaCroix?” Regardless of your question or where you stand on communities, we’re going to jump right in to our elbows on the subject of communities, what they are, how to build them, and how to keep them.",
+            "startsAt": "2018-08-28T14:00:00",
+            "endsAt": "2018-08-28T14:40:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "56115ae3-406f-47af-818c-20354acc07b2",
+                "name": "Jeremy Meiss"
+              }
+            ],
+            "categories": [],
+            "roomId": 1859,
+            "room": "Room 4"
+          },
           {
             "id": "43983",
             "title": "React Native for Android Engineers",
             "description": "Building a successful product on mobile means that you have to provide a quality experience to both Android and iOS users. But, sometimes, building the full experience from scratch in both Kotlin and Swift is not a good option.\r\n\r\nWhen we at Meetup were launching a new, mobile-first product and wanted a new mobile app — only the second native app in our fifteen-year history — we wanted to build a great product on both platforms, but we only had a few engineers and a couple of months to do so.\r\n\r\nReact Native, with its promise to deliver truly native-quality experiences from a completely shared codebase, is one of the popular alternative ways to build a mobile app, but a lot of its documentation is targeted at web developers who want to make iOS apps. How should mobile engineers think about React Native? What dragons need particularly careful slaying on Android?\r\n\r\nIn this talk, we’ll give a brief overview of how React Native works. We’ll share how we went from \"git init\" to a functioning app in two months, and talk about where we went from there. We’ll cover the things that still excite us about React Native, but be frank about its continued pitfalls. We’ll talk about how React Native fits into the broader space of cross-platform mobile solutions, and when you might want to choose something else. And we’ll be sure, throughout it all, not to treat Android as the second-most-important mobile platform.",
-            "startsAt": "2018-08-28T09:00:00",
-            "endsAt": "2018-08-28T09:40:00",
+            "startsAt": "2018-08-28T14:50:00",
+            "endsAt": "2018-08-28T15:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
@@ -2179,32 +2399,14 @@
             ],
             "categories": [],
             "roomId": 1859,
-            "room": "Room 🍿"
-          },
-          {
-            "id": "56833",
-            "title": "Building smarter apps with ML Kit",
-            "description": "Machine Learning on Android has evolved since the release of the Mobile Vision APIs. At I/O 2018, Google released the Firebase ML Kit which offers a lot of more opportunity for Android Developers to build smarter apps with no previous Machine Learning expertise.\r\n\r\nThe Mobile Vision APIs introduced Face, Text and Barcode Detection and the Firebase ML Kit offers all these features and much more. Your apps can now also label images, identify popular landmarks in a picture and very soon will able to provide smart replies to messages.\r\n\r\nIn this talk, you’ll learn about\r\n- All the functionality the ML Kit has to offer\r\n- How the ML Kit compares with the Mobile Vision API\r\n- A basic introduction to Machine Learning concepts\r\n \r\nYou’ll leave this talk empowered to introduce Machine Learning into your apps.",
-            "startsAt": "2018-08-28T13:10:00",
-            "endsAt": "2018-08-28T13:50:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "b552006b-241d-4d1b-a67d-b5c89ef258e1",
-                "name": "Moyinoluwa Adeyemi"
-              }
-            ],
-            "categories": [],
-            "roomId": 1859,
-            "room": "Room 🍿"
+            "room": "Room 4"
           },
           {
             "id": "57228",
             "title": "Using multiplatform frameworks to target Android in emerging markets.",
             "description": "Now days we want to develop and ship our Apps as soon as possible in order to reduce the time to market but in some situations our project generate a great track and gain dozens of users and there is when we notice that our number os bugs/crashes increase in a phase that our focus is mainly on support those users and dedicate must of our time in fixing bugs that get more complicated over the time. During this talk we are going to walk through strategies that you can use when you have this situation or even better when you need to decide when to use a framework and which one will be better for my needs or not use one, using real world scenarios base on my own experience.\r\n",
-            "startsAt": "2018-08-28T14:50:00",
-            "endsAt": "2018-08-28T15:30:00",
+            "startsAt": "2018-08-28T16:00:00",
+            "endsAt": "2018-08-28T16:40:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
@@ -2215,7 +2417,7 @@
             ],
             "categories": [],
             "roomId": 1859,
-            "room": "Room 🍿"
+            "room": "Room 4"
           }
         ],
         "hasOnlyPlenumSessions": false
@@ -2227,7 +2429,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "41211",
               "title": "Advanced Kotlin",
@@ -2244,13 +2446,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "61453",
               "title": "Improving App Upgrade Rates & Reducing APK Size",
@@ -2267,13 +2469,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "57241",
               "title": "The Importance of Measure",
@@ -2290,30 +2492,30 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           },
           {
             "id": 1859,
-            "name": "Room 🍿",
+            "name": "Room 4",
             "session": {
-              "id": "43983",
-              "title": "React Native for Android Engineers",
-              "description": "Building a successful product on mobile means that you have to provide a quality experience to both Android and iOS users. But, sometimes, building the full experience from scratch in both Kotlin and Swift is not a good option.\r\n\r\nWhen we at Meetup were launching a new, mobile-first product and wanted a new mobile app — only the second native app in our fifteen-year history — we wanted to build a great product on both platforms, but we only had a few engineers and a couple of months to do so.\r\n\r\nReact Native, with its promise to deliver truly native-quality experiences from a completely shared codebase, is one of the popular alternative ways to build a mobile app, but a lot of its documentation is targeted at web developers who want to make iOS apps. How should mobile engineers think about React Native? What dragons need particularly careful slaying on Android?\r\n\r\nIn this talk, we’ll give a brief overview of how React Native works. We’ll share how we went from \"git init\" to a functioning app in two months, and talk about where we went from there. We’ll cover the things that still excite us about React Native, but be frank about its continued pitfalls. We’ll talk about how React Native fits into the broader space of cross-platform mobile solutions, and when you might want to choose something else. And we’ll be sure, throughout it all, not to treat Android as the second-most-important mobile platform.",
+              "id": "63777",
+              "title": "KEYNOTE: WHAT'S NEXT FOR ANDROID IN THE ENTERPRISE",
+              "description": "This session will provide a background on Android's success in enterprise business and new platform investments coming in Android P to make enterprise apps better than ever. ",
               "startsAt": "2018-08-28T09:00:00",
               "endsAt": "2018-08-28T09:40:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "555a184f-c8f2-4ea8-a116-6ca5ac306a38",
-                  "name": "Mike Castleman"
+                  "id": "8b4462bb-d9c1-49da-8adf-4fd75bef0458",
+                  "name": "Sean Ginevan"
                 }
               ],
               "categories": [],
               "roomId": 1859,
-              "room": "Room 🍿"
+              "room": "Room 4"
             },
             "index": 3
           }
@@ -2324,10 +2526,10 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "42136",
-              "title": "Netflix's componetization architecture with RxJava + Kotlin",
+              "title": "Netflix's componentization architecture with RxJava + Kotlin",
               "description": "Recently we rewrote the Netflix's player UI using a new architecture that allows great reusability, testability and extendability.\r\n\r\nThis talk is about our journey from a monolithic fragment to several independent and reusable components and how it is helping us to move fast with our AB tests.",
               "startsAt": "2018-08-28T09:50:00",
               "endsAt": "2018-08-28T10:30:00",
@@ -2341,13 +2543,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "57123",
               "title": "Constraint-ly motion ~*~ making your app dance with With ConstraintLayout",
@@ -2364,13 +2566,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "57059",
               "title": "React Native at Uber Eats - handling scale and complexity",
@@ -2387,9 +2589,32 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
+          },
+          {
+            "id": 1859,
+            "name": "Room 4",
+            "session": {
+              "id": "63203",
+              "title": "BEST PRACTICES FOR ANDROID ENTERPRISE APPLICATION DEVELOPMENT",
+              "description": "Building Android applications for the Enterprise can be a challenge, come to listen to Google recommended best practices for building safe, secure, and overall great apps for the enterprise. We will cover topics such as Jetpack, configuration, security, and recommended methods for deployment on Managed Google Play.",
+              "startsAt": "2018-08-28T09:50:00",
+              "endsAt": "2018-08-28T10:30:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "060018a6-9917-4cad-8e1e-78dc433e1bc1",
+                  "name": "Jon Markoff"
+                }
+              ],
+              "categories": [],
+              "roomId": 1859,
+              "room": "Room 4"
+            },
+            "index": 3
           }
         ]
       },
@@ -2398,7 +2623,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "43698",
               "title": "Writing Code That Lasts Forever",
@@ -2415,36 +2640,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
-            "session": {
-              "id": "46331",
-              "title": "Intro to Android Things",
-              "description": "Introduction to Android Things and how to start creating IoT devices using Android Things",
-              "startsAt": "2018-08-28T10:40:00",
-              "endsAt": "2018-08-28T11:20:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "910f395b-9d2b-4f7d-8ab4-c4008bd9f0c4",
-                  "name": "Jonathan Petit-Frere"
-                }
-              ],
-              "categories": [],
-              "roomId": 1857,
-              "room": "Room 🍷"
-            },
-            "index": 1
-          },
-          {
-            "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 2",
             "session": {
               "id": "57231",
               "title": "Flutter for Android developers!",
@@ -2460,10 +2662,56 @@
                 }
               ],
               "categories": [],
+              "roomId": 1857,
+              "room": "Room 2"
+            },
+            "index": 1
+          },
+          {
+            "id": 1858,
+            "name": "Room 3",
+            "session": {
+              "id": "46331",
+              "title": "Intro to Android Things",
+              "description": "Introduction to Android Things and how to start creating IoT devices using Android Things",
+              "startsAt": "2018-08-28T10:40:00",
+              "endsAt": "2018-08-28T11:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "910f395b-9d2b-4f7d-8ab4-c4008bd9f0c4",
+                  "name": "Jonathan Petit-Frere"
+                }
+              ],
+              "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
+          },
+          {
+            "id": 1859,
+            "name": "Room 4",
+            "session": {
+              "id": "62322",
+              "title": "HERE BE DRAGONS* - THE ENTERPRISE MOBILE SECURITY JOURNEY",
+              "description": "From Golden Images to Rolling Releases--Managing security lifecycles in Android Enterprise deployments.\r\nSince 2016 I've been involved in multiple projects explaining to enterprises how the new mobile security scenario requires new rules of engagement.\r\nIt’s now necessary to move from a \"Golden Image\" mentality to the idea that mobile devices need to be updated regularly with \"Rolling Releases\" at the OS and application levels.\r\nThis talk is about the challenges, and the opportunities, that enterprises and enterprise developers need to be prepared to address when deploying a modern mobile solution.\r\nWe’re going to look into some of the common questions, like:\r\n-What does security mean for an enterprise?\r\n-What needs to be in place to manage a secure solution?\r\n-What mitigating factors can a developer utilize?\r\nand present the state of the art solutions available in 2018.\r\n\r\n* \"Here be dragons\" means dangerous or unexplored territories, in imitation of a medieval practice of putting illustrations of dragons, sea monsters and other mythological creatures on uncharted areas of maps.",
+              "startsAt": "2018-08-28T10:40:00",
+              "endsAt": "2018-08-28T11:20:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "65916041-d2b0-4cac-b0dc-476dadc5e55c",
+                  "name": "George DellaRatta"
+                }
+              ],
+              "categories": [],
+              "roomId": 1859,
+              "room": "Room 4"
+            },
+            "index": 3
           }
         ]
       },
@@ -2472,7 +2720,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "46161",
               "title": "Lessons Learned from React Native at Airbnb",
@@ -2489,36 +2737,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
-            "session": {
-              "id": "57346",
-              "title": "Android U+2764 (❤) Emoji",
-              "description": "Android U+2764 (❤) Emoji\r\n\r\nEveryone 😍 Emoji. They’re everywhere nowadays -- July 17th is World 🌎 Emoji Day, Oxford Dictionaries 📖 have an Emoji of the Year, and there was even a REAL MOVIE 🎥 made about them. Have you ever wondered 🤔 where they come from and how are they made, or why your iPhone-toting📱 friends keep sending you � in their messages?\r\n\r\nIn this 💬, we’ll:\r\n\r\n* ⏳ Review the origins of Emoji and how they work\u2028\r\n* 🔎 Find tips and tricks to best handle Unicode\u2028\r\n* 👀 Look under the hood of the Emoji-Compat support library\u2028\r\n* 🎓 Learn how to make sure users never see � again",
-              "startsAt": "2018-08-28T11:30:00",
-              "endsAt": "2018-08-28T12:10:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "3f55bd8e-d9d8-4d1f-b866-7a04f72ba621",
-                  "name": "Michael Evans"
-                }
-              ],
-              "categories": [],
-              "roomId": 1857,
-              "room": "Room 🍷"
-            },
-            "index": 1
-          },
-          {
-            "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 2",
             "session": {
               "id": "56997",
               "title": "Android on Chrome OS: What you need to know",
@@ -2534,8 +2759,31 @@
                 }
               ],
               "categories": [],
+              "roomId": 1857,
+              "room": "Room 2"
+            },
+            "index": 1
+          },
+          {
+            "id": 1858,
+            "name": "Room 3",
+            "session": {
+              "id": "57346",
+              "title": "Android U+2764 (❤) Emoji",
+              "description": "Android U+2764 (❤) Emoji\r\n\r\nEveryone 😍 Emoji. They’re everywhere nowadays -- July 17th is World 🌎 Emoji Day, Oxford Dictionaries 📖 have an Emoji of the Year, and there was even a REAL MOVIE 🎥 made about them. Have you ever wondered 🤔 where they come from and how are they made, or why your iPhone-toting📱 friends keep sending you � in their messages?\r\n\r\nIn this 💬, we’ll:\r\n\r\n* ⏳ Review the origins of Emoji and how they work\u2028\r\n* 🔎 Find tips and tricks to best handle Unicode\u2028\r\n* 👀 Look under the hood of the Emoji-Compat support library\u2028\r\n* 🎓 Learn how to make sure users never see � again",
+              "startsAt": "2018-08-28T11:30:00",
+              "endsAt": "2018-08-28T12:10:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "3f55bd8e-d9d8-4d1f-b866-7a04f72ba621",
+                  "name": "Michael Evans"
+                }
+              ],
+              "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           }
@@ -2546,7 +2794,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "fc5526cd-681d-4a5b-8b78-4fc7310db6b9",
               "title": "Lunch",
@@ -2558,7 +2806,7 @@
               "speakers": [],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           }
@@ -2569,7 +2817,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "43649",
               "title": "Dude, Where's My Build? Android CI/CD at Uber",
@@ -2586,13 +2834,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "57251",
               "title": "Performant Multiplatform Kotlin Serialization",
@@ -2609,13 +2857,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "45982",
               "title": "Working Effectively Across Space-Time",
@@ -2632,32 +2880,9 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
-          },
-          {
-            "id": 1859,
-            "name": "Room 🍿",
-            "session": {
-              "id": "56833",
-              "title": "Building smarter apps with ML Kit",
-              "description": "Machine Learning on Android has evolved since the release of the Mobile Vision APIs. At I/O 2018, Google released the Firebase ML Kit which offers a lot of more opportunity for Android Developers to build smarter apps with no previous Machine Learning expertise.\r\n\r\nThe Mobile Vision APIs introduced Face, Text and Barcode Detection and the Firebase ML Kit offers all these features and much more. Your apps can now also label images, identify popular landmarks in a picture and very soon will able to provide smart replies to messages.\r\n\r\nIn this talk, you’ll learn about\r\n- All the functionality the ML Kit has to offer\r\n- How the ML Kit compares with the Mobile Vision API\r\n- A basic introduction to Machine Learning concepts\r\n \r\nYou’ll leave this talk empowered to introduce Machine Learning into your apps.",
-              "startsAt": "2018-08-28T13:10:00",
-              "endsAt": "2018-08-28T13:50:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "b552006b-241d-4d1b-a67d-b5c89ef258e1",
-                  "name": "Moyinoluwa Adeyemi"
-                }
-              ],
-              "categories": [],
-              "roomId": 1859,
-              "room": "Room 🍿"
-            },
-            "index": 3
           }
         ]
       },
@@ -2666,7 +2891,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "41068",
               "title": "Functional Android",
@@ -2683,36 +2908,40 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
-              "id": "43584",
-              "title": "Community - What is it good for?",
-              "description": "Communities - they’re all around us, right? You may say, “Why do I need a community with my software project?” or “What good is hand-holding users of my app or company’s service?” or “Who drank all the LaCroix?” Regardless of your question or where you stand on communities, we’re going to jump right in to our elbows on the subject of communities, what they are, how to build them, and how to keep them.",
+              "id": "62023",
+              "title": "Growing your team while remaining efficient",
+              "description": "Do you agonize over the choice of library or framework for your project? Are there extended arguments about why MVVM is better than MVP? Do you think this is one of the most important decisions for your team?\r\n\r\nAt Peloton, we've scaled our Android team from 3 to 20 people in 18 months. What we learned is that the process of making such decisions is more important than the choices themselves.\r\n\r\nIn this talk, you will: \r\n- Learn how to make technical choices easier\r\n- How to allow your entire team to effectively participate in decision making\r\n- Ensure that there is space to make corrections in the future\r\n- Get to a high level of technical consistency (don't worry, we'll explain this too)",
               "startsAt": "2018-08-28T14:00:00",
               "endsAt": "2018-08-28T14:40:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "56115ae3-406f-47af-818c-20354acc07b2",
-                  "name": "Jeremy Meiss"
+                  "id": "3a18ff70-3f11-4850-a41a-96fe4abdd479",
+                  "name": "Gennadiy Shafranovich"
+                },
+                {
+                  "id": "bec4f48a-417b-4921-b924-90fa6c74b838",
+                  "name": "Richard Luick"
                 }
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "46160",
               "title": "Get Animated with Flutter!",
@@ -2729,9 +2958,32 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
+          },
+          {
+            "id": 1859,
+            "name": "Room 4",
+            "session": {
+              "id": "43584",
+              "title": "Community - What is it good for?",
+              "description": "Communities - they’re all around us, right? You may say, “Why do I need a community with my software project?” or “What good is hand-holding users of my app or company’s service?” or “Who drank all the LaCroix?” Regardless of your question or where you stand on communities, we’re going to jump right in to our elbows on the subject of communities, what they are, how to build them, and how to keep them.",
+              "startsAt": "2018-08-28T14:00:00",
+              "endsAt": "2018-08-28T14:40:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "56115ae3-406f-47af-818c-20354acc07b2",
+                  "name": "Jeremy Meiss"
+                }
+              ],
+              "categories": [],
+              "roomId": 1859,
+              "room": "Room 4"
+            },
+            "index": 3
           }
         ]
       },
@@ -2739,31 +2991,8 @@
         "slotStart": "14:50:00",
         "rooms": [
           {
-            "id": 1857,
-            "name": "Room 🍷",
-            "session": {
-              "id": "57662",
-              "title": "Taking your agent to the next level",
-              "description": "The last 2 years Google made it clear that its virtual assistant is here not just to stay but to change completely the way we interact with our devices. But engaging your users has never been more difficult. Without a graphic UI to wow your users, the solution is to design a helpful, intelligent and fun agent. As trivial as it may sound, standing out with a conversational app is certainly not an easy feat! During this talk we will explore how we can design a better agent by not falling into some pitfalls, how to customize our agent for each user but also for each platform and how to add payment transactions for maximum user engagement and efficiency.",
-              "startsAt": "2018-08-28T14:50:00",
-              "endsAt": "2018-08-28T15:30:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "a0586acc-ac50-4560-ac22-8d0d50229245",
-                  "name": "Eliza Camber"
-                }
-              ],
-              "categories": [],
-              "roomId": 1857,
-              "room": "Room 🍷"
-            },
-            "index": 1
-          },
-          {
-            "id": 1858,
-            "name": "Room 🍩",
+            "id": 1856,
+            "name": "Room 1",
             "session": {
               "id": "42658",
               "title": "The State of the Kotlin ecosystem",
@@ -2779,31 +3008,81 @@
                 }
               ],
               "categories": [],
-              "roomId": 1858,
-              "room": "Room 🍩"
+              "roomId": 1856,
+              "room": "Room 1"
             },
-            "index": 2
+            "index": 0
           },
           {
-            "id": 1859,
-            "name": "Room 🍿",
+            "id": 1857,
+            "name": "Room 2",
             "session": {
-              "id": "57228",
-              "title": "Using multiplatform frameworks to target Android in emerging markets.",
-              "description": "Now days we want to develop and ship our Apps as soon as possible in order to reduce the time to market but in some situations our project generate a great track and gain dozens of users and there is when we notice that our number os bugs/crashes increase in a phase that our focus is mainly on support those users and dedicate must of our time in fixing bugs that get more complicated over the time. During this talk we are going to walk through strategies that you can use when you have this situation or even better when you need to decide when to use a framework and which one will be better for my needs or not use one, using real world scenarios base on my own experience.\r\n",
+              "id": "61517",
+              "title": "Reactive Workflows a Year Later",
+              "description": "At droidcon NYC 2017 I presented the Reactive Workflow pattern that we had begun adopting in Square Point of Sale, our flagship Android app. It promised state driven navigation UIs that compose nicely.\r\n\r\nA year later, we’re still using it, we’re still liking it, and we’re a lot better at it. Come hear what we’ve learned and take a peek at the code.",
               "startsAt": "2018-08-28T14:50:00",
               "endsAt": "2018-08-28T15:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "728504d0-97f2-4f34-8558-0e91b2aa1419",
-                  "name": "Noe Branagan"
+                  "id": "be1bf411-f71e-44f9-9724-84a07db119c8",
+                  "name": "Ray Ryan"
+                },
+                {
+                  "id": "4bd6efc1-637a-42a5-bca3-7f56c55ef386",
+                  "name": "Timothy Donnelly"
+                }
+              ],
+              "categories": [],
+              "roomId": 1857,
+              "room": "Room 2"
+            },
+            "index": 1
+          },
+          {
+            "id": 1858,
+            "name": "Room 3",
+            "session": {
+              "id": "57662",
+              "title": "Taking your agent to the next level",
+              "description": "The last 2 years Google made it clear that its virtual assistant is here not just to stay but to change completely the way we interact with our devices. But engaging your users has never been more difficult. Without a graphic UI to wow your users, the solution is to design a helpful, intelligent and fun agent. As trivial as it may sound, standing out with a conversational app is certainly not an easy feat! During this talk we will explore how we can design a better agent by not falling into some pitfalls, how to customize our agent for each user but also for each platform and how to add payment transactions for maximum user engagement and efficiency.",
+              "startsAt": "2018-08-28T14:50:00",
+              "endsAt": "2018-08-28T15:30:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "a0586acc-ac50-4560-ac22-8d0d50229245",
+                  "name": "Eliza Camber"
+                }
+              ],
+              "categories": [],
+              "roomId": 1858,
+              "room": "Room 3"
+            },
+            "index": 2
+          },
+          {
+            "id": 1859,
+            "name": "Room 4",
+            "session": {
+              "id": "43983",
+              "title": "React Native for Android Engineers",
+              "description": "Building a successful product on mobile means that you have to provide a quality experience to both Android and iOS users. But, sometimes, building the full experience from scratch in both Kotlin and Swift is not a good option.\r\n\r\nWhen we at Meetup were launching a new, mobile-first product and wanted a new mobile app — only the second native app in our fifteen-year history — we wanted to build a great product on both platforms, but we only had a few engineers and a couple of months to do so.\r\n\r\nReact Native, with its promise to deliver truly native-quality experiences from a completely shared codebase, is one of the popular alternative ways to build a mobile app, but a lot of its documentation is targeted at web developers who want to make iOS apps. How should mobile engineers think about React Native? What dragons need particularly careful slaying on Android?\r\n\r\nIn this talk, we’ll give a brief overview of how React Native works. We’ll share how we went from \"git init\" to a functioning app in two months, and talk about where we went from there. We’ll cover the things that still excite us about React Native, but be frank about its continued pitfalls. We’ll talk about how React Native fits into the broader space of cross-platform mobile solutions, and when you might want to choose something else. And we’ll be sure, throughout it all, not to treat Android as the second-most-important mobile platform.",
+              "startsAt": "2018-08-28T14:50:00",
+              "endsAt": "2018-08-28T15:30:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "555a184f-c8f2-4ea8-a116-6ca5ac306a38",
+                  "name": "Mike Castleman"
                 }
               ],
               "categories": [],
               "roomId": 1859,
-              "room": "Room 🍿"
+              "room": "Room 4"
             },
             "index": 3
           }
@@ -2814,7 +3093,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "422d1057-a6b3-4d17-9ee1-728e1a3d241f",
               "title": "Break",
@@ -2826,7 +3105,7 @@
               "speakers": [],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           }
@@ -2837,7 +3116,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "42148",
               "title": "Static Code Analysis For Kotlin",
@@ -2854,13 +3133,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "42433",
               "title": "Redux on Android, the nitty gritty",
@@ -2877,13 +3156,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "57275",
               "title": "Achieving seamless experience with Flutter and Material Components",
@@ -2900,9 +3179,32 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
+          },
+          {
+            "id": 1859,
+            "name": "Room 4",
+            "session": {
+              "id": "57228",
+              "title": "Using multiplatform frameworks to target Android in emerging markets.",
+              "description": "Now days we want to develop and ship our Apps as soon as possible in order to reduce the time to market but in some situations our project generate a great track and gain dozens of users and there is when we notice that our number os bugs/crashes increase in a phase that our focus is mainly on support those users and dedicate must of our time in fixing bugs that get more complicated over the time. During this talk we are going to walk through strategies that you can use when you have this situation or even better when you need to decide when to use a framework and which one will be better for my needs or not use one, using real world scenarios base on my own experience.\r\n",
+              "startsAt": "2018-08-28T16:00:00",
+              "endsAt": "2018-08-28T16:40:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "728504d0-97f2-4f34-8558-0e91b2aa1419",
+                  "name": "Noe Branagan"
+                }
+              ],
+              "categories": [],
+              "roomId": 1859,
+              "room": "Room 4"
+            },
+            "index": 3
           }
         ]
       },
@@ -2911,7 +3213,7 @@
         "rooms": [
           {
             "id": 1856,
-            "name": "Room 🍕",
+            "name": "Room 1",
             "session": {
               "id": "57272",
               "title": "Detangling Your Dependency Graph: How App Modularization Can Unlock Performance Wins.",
@@ -2928,13 +3230,13 @@
               ],
               "categories": [],
               "roomId": 1856,
-              "room": "Room 🍕"
+              "room": "Room 1"
             },
             "index": 0
           },
           {
             "id": 1857,
-            "name": "Room 🍷",
+            "name": "Room 2",
             "session": {
               "id": "57027",
               "title": "Xfinity Home Android - a 4 year retrospective",
@@ -2951,13 +3253,13 @@
               ],
               "categories": [],
               "roomId": 1857,
-              "room": "Room 🍷"
+              "room": "Room 2"
             },
             "index": 1
           },
           {
             "id": 1858,
-            "name": "Room 🍩",
+            "name": "Room 3",
             "session": {
               "id": "57078",
               "title": "Lighting Fast Update to your Android App with React Native",
@@ -2978,7 +3280,7 @@
               ],
               "categories": [],
               "roomId": 1858,
-              "room": "Room 🍩"
+              "room": "Room 3"
             },
             "index": 2
           }

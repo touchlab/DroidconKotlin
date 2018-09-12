@@ -17,6 +17,7 @@ class ScheduleModel {
     private val liveSessions:SessionListLiveData
 
     init {
+        clLog("init ScheduleModel()")
         val sessionQuery = dbHelper.getSessionsQuery()
         liveSessions = SessionListLiveData(sessionQuery)
     }
@@ -69,7 +70,7 @@ class ScheduleModel {
     }
 
     private class SessionListLiveData(q: Query<SessionWithRoom>) : QueryLiveData<SessionWithRoom, List<SessionWithRoom>>(q), Query.Listener{
-        override suspend fun extractData(q: Query<SessionWithRoom>): List<SessionWithRoom> = q.executeAsList()
+        override /*suspend*/ fun extractData(q: Query<SessionWithRoom>): List<SessionWithRoom> = q.executeAsList()
     }
 }
 
