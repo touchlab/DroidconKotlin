@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        AppContext.refreshData()
+    }
+
     private fun findApplicationName(context: Context): String {
         val applicationInfo = context.applicationInfo
         val stringId = applicationInfo.labelRes

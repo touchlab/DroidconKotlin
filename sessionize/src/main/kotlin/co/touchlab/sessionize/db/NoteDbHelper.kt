@@ -82,8 +82,14 @@ class NoteDbHelper {
     private fun primeSessions(scheduleJson:String){
         val parseAll = DefaultData.parseSchedule(scheduleJson)
         queryWrapper.sessionSpeakerQueries.deleteAll()
+        val allSessions = queryWrapper.sessionQueries.allSessions().executeAsList()
+
+        val newIdSet = HashSet<String>()
+
         for (session in parseAll) {
             queryWrapper.roomQueries.insertRoot(session.roomId.toLong(), session.room)
+
+            newIdSet.add(session.id)
 
             val dbSession = queryWrapper.sessionQueries.sessionById(session.id).executeAsOneOrNull()
 
@@ -123,6 +129,12 @@ class NoteDbHelper {
                         session.id,
                         sessionSpeaker.id,
                         displayOrder++)
+            }
+        }
+
+        allSessions.forEach {
+            if(!newIdSet.contains(it.id)){
+                queryWrapper.sessionQueries.deleteById(it.id)
             }
         }
     }

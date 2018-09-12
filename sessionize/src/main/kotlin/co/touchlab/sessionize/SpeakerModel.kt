@@ -12,6 +12,7 @@ class SpeakerModel(speakerId:String){
     private val speakerLiveData:SpeakerLiveData
 
     init {
+        clLog("init SpeakerModel($speakerId)")
         val query = goFreeze(AppContext.dbHelper.queryWrapper.userAccountQueries.selectById(speakerId))
         speakerLiveData = SpeakerLiveData(query)
     }
@@ -40,7 +41,7 @@ class SpeakerModel(speakerId:String){
     }
 
     class SpeakerLiveData(q: Query<UserAccount>) : QueryLiveData<UserAccount, UserAccount>(q){
-        override suspend fun extractData(q: Query<UserAccount>): UserAccount = q.executeAsOne()
+        override /*suspend*/ fun extractData(q: Query<UserAccount>): UserAccount = q.executeAsOne()
     }
 
 

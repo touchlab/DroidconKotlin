@@ -1,4 +1,9 @@
  [
+   {
+   "icon": "",
+   "title": "Venue Map",
+   "detail": "https://s3.amazonaws.com/droidconimages/dcmap.png"
+  },
   {
   "icon": "about_kotlin",
   "title": "Droidcon App",

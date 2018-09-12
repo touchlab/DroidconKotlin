@@ -14,14 +14,14 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'       : '27.1.0',
-            'kotlin'               : '1.2.60',
-            'kotlin_native_version': '0.9-dev-2922',
-            'kotlinCoroutines'     : '0.24.0',
-            'ktor'                 : '0.9.4-alpha-2',
-            'knarchDb'             : '0.7-alpha4',
-            'knarchThreads'        : '0.3.0',
-            'multiplatformSettings': '0.1-alpha5',
-            'sqldelight'           : '1.0.0-alpha4.10'
+            'kotlin'               : '1.2.61',
+            'kotlin_native_version': '0.9',
+//            'kotlinCoroutines'     : '0.25.0',
+            'knarchDb'             : '0.7.2-kn0.9-a2',
+            'knarchThreads'        : '0.3.2-kn0.9-a2',
+            'multiplatformSettings': '0.1',
+            'timber': '5.0.0-kn0.9-a3',
+            'sqldelight'           : '1.0.0-kn0.9-a6'
     ]
 
     ext.deps = [
@@ -30,13 +30,19 @@ buildscript {
                             'common': "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.kotlin}",
                             'jdk'   : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
                     ],
-                    'coroutines': [
+                    'test': [
+                            'common': "org.jetbrains.kotlin:kotlin-test-common:${versions.kotlin}",
+                            'annotations': "org.jetbrains.kotlin:kotlin-test-annotations-common:${versions.kotlin}",
+                            'junit': "org.jetbrains.kotlin:kotlin-test-junit:${versions.kotlin}",
+                            'reflect': "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
+                    ],
+                    /*'coroutines': [
                             'common' : "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${versions.kotlinCoroutines}",
                             'jdk'    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinCoroutines}",
                             'native' : "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${versions.kotlinCoroutines}",
                             'android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutines}",
                             'rx2'    : "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:${versions.kotlinCoroutines}",
-                    ],
+                    ],*/
             ],
             'ktor': [
                     'common' : "io.ktor:ktor-client:${versions.ktor}",
@@ -55,9 +61,14 @@ buildscript {
                     'threadsLivedataNative':"co.touchlab.knarch.threads:knarchLivedata:${versions.knarchThreads}",
             ]
             ,
+            'timber' : [
+                    'common' : "com.jakewharton.timber:timber-common:${versions.timber}",
+                    'ios'    : "com.jakewharton.timber:timberNative:${versions.timber}",
+                    'android': "com.jakewharton.timber:timber-android:${versions.timber}"
+            ],
             'multiplatformSettings': [
                     'common': "com.russhwolf:multiplatform-settings-common:${versions.multiplatformSettings}",
-                    'ios': "com.russhwolf:MultiplatformSettingsIos:${versions.multiplatformSettings}",
+                    'ios': "com.russhwolf:multiplatform-settings-ios:${versions.multiplatformSettings}",
                     'android': "com.russhwolf:multiplatform-settings-android:${versions.multiplatformSettings}",
             ]
             ,

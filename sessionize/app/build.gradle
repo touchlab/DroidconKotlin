@@ -19,8 +19,8 @@ android {
         applicationId "co.touchlab.droidconnyc2018"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10003
-        versionName "1.0.3"
+        versionCode 10100
+        versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -64,8 +64,9 @@ dependencies {
     implementation deps.knarch.threadsAndroid
     implementation deps.knarch.threadsLivedataAndroid
     implementation deps.multiplatformSettings.android
+    implementation deps.timber.android
 //    implementation deps.ktor.android
-    implementation deps.kotlin.coroutines.android
+//    implementation deps.kotlin.coroutines.android
 
     implementation 'com.nex3z:flow-layout:1.2.2'
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01"

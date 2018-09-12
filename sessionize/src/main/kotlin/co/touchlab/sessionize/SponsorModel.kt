@@ -6,6 +6,7 @@ import co.touchlab.sessionize.platform.backgroundTask
 
 object SponsorModel{
     fun loadSponsor(proc:(aboutInfo:List<SponsorGroup>)->Unit){
+        clLog("loadSponsor SponsorModel()")
         backgroundTask({
             DefaultData.parseSponsors(AppContext.sponsorJson)
         }, proc)

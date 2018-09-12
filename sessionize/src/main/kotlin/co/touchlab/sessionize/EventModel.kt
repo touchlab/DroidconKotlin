@@ -14,6 +14,7 @@ class EventModel(val sessionId: String) {
     val evenLiveData:EventLiveData
 
     init {
+        clLog("init EventModel($sessionId)")
         val query = goFreeze(AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId))
         evenLiveData = EventLiveData(query)
     }
@@ -68,7 +69,7 @@ class EventModel(val sessionId: String) {
 
     class EventLiveData(q: Query<Session>) : QueryLiveData<Session, SessionInfo>(q, false),
             Query.Listener {
-        override suspend fun extractData(q: Query<Session>): SessionInfo {
+        override /*suspend*/ fun extractData(q: Query<Session>): SessionInfo {
             val sessionStuff = q.executeAsOne()
             val speakers = AppContext.dbHelper.queryWrapper.userAccountQueries.selectBySession(sessionStuff.id).executeAsList()
             val mySessions = AppContext.dbHelper.queryWrapper.sessionQueries.mySessions().executeAsList()
@@ -118,7 +119,7 @@ fun SessionInfo.isRsvped(): Boolean {
     return this.session.rsvp != 0L
 }
 
-suspend fun Session.formattedRoomTime():String {
+/*suspend*/ fun Session.formattedRoomTime():String {
     var formattedStart = SessionInfoStuff.roomNameTimeFormatter.format(this.startsAt)
     val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.format(this.endsAt)
 
@@ -128,7 +129,7 @@ suspend fun Session.formattedRoomTime():String {
         formattedStart = formattedStart.substring(0, max(formattedStart.length - 3, 0))
     }
 
-    return "${this.roomAsync().await().name}, $formattedStart - $formattedEnd"
+    return "${this.roomAsync()./*await().*/name}, $formattedStart - $formattedEnd"
 }
 
 object SessionInfoStuff{

@@ -9,7 +9,6 @@
 import UIKit
 import SessionizeArch
 import MaterialComponents
-import Crashlytics
 
 @objc class EventDetailViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -51,7 +50,6 @@ import Crashlytics
         self.sessionInfo = sessionInfo
         styleButton()
         updateAllUi()
-        Crashlytics.sharedInstance().throwException()
         return SessionizeArchStdlibUnit()
     }
     

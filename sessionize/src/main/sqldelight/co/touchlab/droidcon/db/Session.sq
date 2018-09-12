@@ -22,6 +22,12 @@ UPDATE session SET title = ?, description = ?, startsAt = ?,
 endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?
 WHERE id = ?;
 
+deleteById:
+DELETE FROM session WHERE id = ?;
+
+allSessions:
+SELECT * FROM session;
+
 sessionById:
 SELECT * FROM session WHERE id = ?;
 

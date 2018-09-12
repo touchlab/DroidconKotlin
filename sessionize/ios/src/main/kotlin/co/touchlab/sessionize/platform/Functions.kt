@@ -3,11 +3,13 @@ package co.touchlab.sessionize.platform
 import kotlin.system.getTimeMillis
 import platform.darwin.*
 import platform.Foundation.*
-import konan.worker.*
+import kotlin.native.*
+import kotlin.native.concurrent.*
 import co.touchlab.multiplatform.architecture.db.sqlite.*
 import co.touchlab.knarch.*
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
+import timber.log.*
 
 actual fun currentTimeMillis():Long = getTimeMillis()
 
@@ -26,7 +28,7 @@ private fun makeQueue(key:String):Worker{
     var worker = workerMap.get(key)
     if(worker == null)
     {
-        worker = startWorker()
+        worker = Worker.start()
         workerMap.put(key, worker)
     }
     return worker!!
@@ -43,11 +45,11 @@ actual fun <B> backgroundTask(backJob:()-> B, mainJob:(B) -> Unit){
     val jobWrapper = JobWrapper(backJob, mainJob).freeze()
 
     val worker = makeQueue("back")
-    worker.schedule(TransferMode.CHECKED,
+    worker.execute(TransferMode.SAFE,
             { jobWrapper }){
-        val result  = detachObjectGraph { it.backJob().freeze() as Any }
+        val result  = DetachedObjectGraph<Any> { it.backJob().freeze() as Any }
         dispatch_async(dispatch_get_main_queue()){
-            val mainResult = attachObjectGraph<Any>(result) as B
+            val mainResult = result.attach() as B
             it.mainJob(mainResult)
         }
     }
@@ -63,7 +65,7 @@ actual fun networkBackgroundTask(backJob: () -> Unit) {
 
 private fun backgroundTaskRun(backJob: () -> Unit, key:String){
     val worker = makeQueue(key)
-    worker.schedule(TransferMode.CHECKED,
+    worker.execute(TransferMode.SAFE,
             { backJob.freeze() }){
         it()
     }
@@ -97,3 +99,7 @@ actual fun logException(t: Throwable) {
 actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory()
 
 actual fun createUuid(): String  = NSUUID.UUID().UUIDString
+
+fun initTimber(priority:Int){
+    Timber.plant(NSLogTree(4))
+}

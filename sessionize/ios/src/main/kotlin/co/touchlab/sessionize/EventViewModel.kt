@@ -1,7 +1,8 @@
 package co.touchlab.sessionize
 
 import co.touchlab.multiplatform.architecture.livedata.*
-import konan.worker.*
+import kotlin.native.*
+import kotlin.native.concurrent.*
 
 class EventViewModel(sessionId: String){
     val eventModel = EventModel(sessionId).freeze()
