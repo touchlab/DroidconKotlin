@@ -15,6 +15,8 @@ expect fun initContext():NativeOpenHelperFactory
 
 expect fun <T> goFreeze(a:T):T
 
+expect fun <T> T.freeze2(): T
+
 expect fun simpleGet(url:String):String
 
 expect fun logException(t:Throwable)
@@ -22,3 +24,7 @@ expect fun logException(t:Throwable)
 expect fun settingsFactory(): Settings.Factory
 
 expect fun createUuid():String
+
+@Target(AnnotationTarget.FIELD)
+@Retention(AnnotationRetention.BINARY)
+expect annotation class SharedImmutable()
