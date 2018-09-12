@@ -87,27 +87,20 @@ object AppContext {
 
     private fun dataCalls() {
         try {
-            Timber.verbose { "a" }
             val networkSpeakerJson = simpleGet(
                     "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/speakers"
             )
 
-            Timber.verbose { "b" }
             val networkSessionJson = simpleGet(
                     "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/gridtable"
             )
 
-            Timber.verbose { "c" }
             val networkSponsorJson = simpleGet(
                     "https://s3.amazonaws.com/droidconsponsers/sponsors.json"
             )
 
-            Timber.verbose { "d" }
             storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)
-
-            Timber.verbose { "e" }
             appSettings.putLong(KEY_LAST_LOAD, currentTimeMillis())
-            Timber.verbose { "f" }
         } catch (e: Exception) {
             logException(e)
         }
