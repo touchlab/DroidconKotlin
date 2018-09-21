@@ -1,6 +1,7 @@
 
+/*
 
-apply plugin: 'kotlin-platform-common'
+apply plugin: 'kotlin-multiplatform'
 apply plugin: 'com.squareup.sqldelight'
 
 dependencies {
@@ -17,13 +18,42 @@ dependencies {
 }
 
 kotlin {
-    experimental {
-        coroutines 'enable'
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'com.example:sample-lib:1.0'
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+            }
+        }
+        allJvm {
+            dependsOn commonMain
+            dependencies {
+                implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.4'
+            }
+        }
+        jvm6Main.dependsOn allJvm
+        jvm8Main.dependsOn allJvm
+    }
+
+    targets {
+        fromPreset(presets.jvm, 'jvm6') {
+            compilations.main.source(sourceSets.allJvm)
+        }
+        fromPreset(presets.jvm, 'jvm8') {
+            compilations.main.source(sourceSets.allJvm)
+        }
+
+        fromPreset(presets.linuxX64, 'linux')
+        fromPreset(presets.mingwX64, 'windows')
+        fromPreset(presets.macosX64, 'mac')
+
+        configure([linux, windows, mac]) {
+            compilations.main.outputKinds('EXECUTABLE')
+        }
     }
 }
-
 sqldelight {
     packageName = "co.touchlab.droidcon.db"
 }
 
-tasks.findByName("classes").dependsOn("generateSqlDelightInterface")
+tasks.findByName("classes").dependsOn("generateSqlDelightInterface")*/
