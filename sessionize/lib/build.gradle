@@ -1,0 +1,82 @@
+apply plugin: 'kotlin-multiplatform'
+apply plugin: 'com.squareup.sqldelight'
+
+kotlin {
+    sourceSets {
+
+        commonMain {
+            dependencies {
+                implementation deps.kotlin.stdlib.common
+                implementation deps.sqldelight.runtime
+                implementation deps.knarch.db
+                implementation deps.knarch.threads
+                implementation deps.knarch.threadsLivedata
+                implementation deps.sqldelight.multiplatformdriver
+                implementation deps.multiplatformSettings.common
+                implementation deps.timber.common
+//    implementation deps.ktor.common
+//    implementation deps.kotlin.coroutines.common
+            }
+        }
+        /*allJvm {
+            dependsOn commonMain
+            dependencies {
+                implementation deps.kotlin.stdlib.jdk
+                implementation deps.sqldelight.runtimeJdk
+                implementation deps.sqldelight.multiplatformdriverAndroid
+                implementation deps.knarch.dbAndroid
+                implementation deps.knarch.threadsAndroid
+                implementation deps.knarch.threadsLivedataAndroid
+                implementation deps.multiplatformSettings.android
+                implementation deps.timber.android
+//    implementation deps.ktor.android
+//    implementation deps.kotlin.coroutines.android
+            }
+        }
+        jvm6Main.dependsOn allJvm
+        jvm8Main.dependsOn allJvm*/
+
+        nativeCommonMain {
+            dependsOn commonMain
+            dependencies {
+//                implementation deps.sqldelight.multiplatformdriverNative
+//                implementation deps.knarch.threadsLivedataNative
+//                implementation deps.multiplatformSettings.ios
+//                implementation deps.timber.ios
+//
+
+//    implementation deps.kotlin.coroutines.native
+
+//    implementation deps.ktor.ios
+            }
+        }
+
+    }
+
+    targets {
+//        fromPreset(presets.android, 'androidApp')
+//        fromPreset(presets.jvm, 'jvmApp')
+        //fromPreset(preset.iosX64, 'ios') {
+          //  compilations.main.outputKinds('FRAMEWORK')
+        //}
+        fromPreset(presets.iosX64, 'iosX64')
+        fromPreset(presets.iosArm64, 'iosArm64')
+        configure([iosArm64, iosArm64]) {
+            compilations.main.source(sourceSets.nativeCommonMain)
+//            compilations.test.source(sourceSets.nativeTest)
+
+            compilations.each {
+                it.extraOpts("-linkerOpts", "-lsqlite3")
+            }
+            //compilations.main.outputKinds('FRAMEWORK')
+//            compilations.main.extraOpts("-linkerOpts", "-lsqlite3")
+//            compilations.main.extraOpts('--disable', 'devirtualization')
+            //compilations.main.baseName.set("SessionizeArch")
+        }
+    }
+}
+
+sqldelight {
+    packageName = "co.touchlab.droidcon.db"
+//    sourceSet = "src/commonMain/sqldelight"
+}

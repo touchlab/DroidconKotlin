@@ -1,4 +1,5 @@
 
+/*
 
 apply plugin: 'kotlin-platform-native'
 
@@ -43,4 +44,4 @@ task copyFramework() {
             include '*.framework.dSYM'
         }
     }
-}
+}*/

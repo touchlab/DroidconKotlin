@@ -14,14 +14,14 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'       : '27.1.0',
-            'kotlin'               : '1.2.61',
+            'kotlin'               : '1.3.0-dev-496',
             'kotlin_native_version': '0.9',
 //            'kotlinCoroutines'     : '0.25.0',
-            'knarchDb'             : '0.7.2-kn0.9-a2',
-            'knarchThreads'        : '0.3.2-kn0.9-a2',
-            'multiplatformSettings': '0.1',
-            'timber': '5.0.0-kn0.9-a3',
-            'sqldelight'           : '1.0.0-kn0.9-a7'
+            'knarchDb'             : '0.7.2-kn0.9-a3',
+            'knarchThreads'        : '0.3.2-kn0.9-a3',
+            'multiplatformSettings': '0.1-kn0.9-a1',
+            'timber': '5.0.0-kn0.9-a4',
+            'sqldelight'           : '1.0.0-kn0.9-a8'
     ]
 
     ext.deps = [
@@ -98,15 +98,17 @@ buildscript {
             }
         }
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
         maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-beta04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.0.1'
         classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
-        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:${versions.kotlin_native_version}"
+        //classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:${versions.kotlin_native_version}"
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
@@ -127,6 +129,7 @@ allprojects {
             }
         }
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://dl.bintray.com/russhwolf/multiplatform-settings' }
         maven { url 'https://dl.bintray.com/kotlin/ktor' }
