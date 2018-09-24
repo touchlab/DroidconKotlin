@@ -18,8 +18,8 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
     @IBOutlet weak var tableView: UITableView!
     
     var speakerId:String!
-    var viewModel:SessionizeArchSpeakerViewModel!
-    var speakerUiData:SessionizeArchSpeakerUiData?
+    var viewModel:SpeakerViewModel!
+    var speakerUiData:SpeakerUiData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
         
-        viewModel = SessionizeArchSpeakerViewModel(sessionId: speakerId)
+        viewModel = SpeakerViewModel(sessionId: speakerId)
         viewModel.registerForChanges(proc: updateUi)
         
         // Do any additional setup after loading the view.
@@ -39,7 +39,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    func updateUi(speakerUiData:SessionizeArchSpeakerUiData) -> SessionizeArchStdlibUnit{
+    func updateUi(speakerUiData:SpeakerUiData) -> KotlinUnit{
         self.speakerUiData = speakerUiData
         speakerName.text = speakerUiData.fullName
         speakerCompany.text = speakerUiData.company
@@ -52,7 +52,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         tableView.reloadData()
 //        styleButton()
 //        updateAllUi()
-        return SessionizeArchStdlibUnit()
+        return KotlinUnit()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

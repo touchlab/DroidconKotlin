@@ -5,7 +5,7 @@ import co.touchlab.sessionize.db.NoteDbHelper
 import co.touchlab.sessionize.platform.*
 import timber.log.Timber
 import timber.log.info
-import timber.log.verbose
+import kotlinx.atomicfu.*
 
 object AppContext {
 

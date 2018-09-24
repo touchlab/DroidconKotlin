@@ -17,10 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        SessionizeArchCoTouchlabSessionizePlatform.doInitTimber(priority: 4)
-      Fabric.with([Crashlytics.self])
+        FunctionsKt.doInitTimber(priority: 4)
+        Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
-        let appContext = SessionizeArchAppContext()
+        let appContext = AppContext()
         appContext.doInitPlatformClient(staticFileLoader: loadAsset,
                                                         analyticsCallback: analyticsCallback,
                                                         clLogCallback: csLog)
@@ -30,9 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func csLog(s:String) -> SessionizeArchStdlibUnit{
+    func csLog(s:String) -> KotlinUnit{
         CLSLogv(s, getVaList([]))
-        return SessionizeArchStdlibUnit()
+        return KotlinUnit()
     }
     
     func loadAsset(filePrefix:String, fileType:String) -> String?{
@@ -44,9 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func analyticsCallback(name:String, params:[String:Any]) -> SessionizeArchStdlibUnit{
+    func analyticsCallback(name:String, params:[String:Any]) -> KotlinUnit{
         Answers.logCustomEvent(withName: name, customAttributes: params)
-        return SessionizeArchStdlibUnit()
+        return KotlinUnit()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

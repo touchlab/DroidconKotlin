@@ -65,6 +65,7 @@ dependencies {
     implementation deps.knarch.threadsLivedataAndroid
     implementation deps.multiplatformSettings.android
     implementation deps.timber.android
+    implementation deps.atomicfu.jdk
 //    implementation deps.ktor.android
 //    implementation deps.kotlin.coroutines.android
 
