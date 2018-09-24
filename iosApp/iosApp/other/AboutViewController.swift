@@ -18,7 +18,7 @@ class AboutViewController: MaterialAppBarUIViewController, UITableViewDelegate, 
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
-    var aboutInfoData:[SessionizeArchAboutInfo]?
+    var aboutInfoData:[AboutInfo]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,13 +26,13 @@ class AboutViewController: MaterialAppBarUIViewController, UITableViewDelegate, 
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
-        SessionizeArchAboutModel().loadAboutInfo(proc: updateUi)
+        AboutModel().loadAboutInfo(proc: updateUi)
     }
     
-    func updateUi(aboutInfoData:[SessionizeArchAboutInfo]) -> SessionizeArchStdlibUnit{
+    func updateUi(aboutInfoData:[AboutInfo]) -> KotlinUnit{
         self.aboutInfoData = aboutInfoData
         tableView.reloadData()
-        return SessionizeArchStdlibUnit()
+        return KotlinUnit()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

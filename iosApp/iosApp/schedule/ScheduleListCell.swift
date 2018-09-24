@@ -9,7 +9,7 @@
 import UIKit
 import SessionizeArch
 
-@objc class ScheduleListCell: UITableViewCell, SessionizeArchEventRow {
+@objc class ScheduleListCell: UITableViewCell, EventRow {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var speakerNamesLabel: UILabel!
@@ -42,17 +42,17 @@ import SessionizeArch
         
     }
     
-    func setRsvpState(state: SessionizeArchRsvpState) {
-        if(state == SessionizeArchRsvpState.none){
+    func setRsvpState(state: RsvpState) {
+        if(state == RsvpState.none){
             rsvpDot.isHidden = true
         }
         else {
             rsvpDot.isHidden = false
-            if(state == SessionizeArchRsvpState.conflict){
+            if(state == RsvpState.conflict){
                 rsvpDot.backgroundColor = ApplicationScheme.shared.rsvpColorConflict
-            }else if(state == SessionizeArchRsvpState.rsvp){
+            }else if(state == RsvpState.rsvp){
                 rsvpDot.backgroundColor = ApplicationScheme.shared.rsvpColor
-            }else if(state == SessionizeArchRsvpState.rsvppast){
+            }else if(state == RsvpState.rsvppast){
                 rsvpDot.backgroundColor = ApplicationScheme.shared.rsvpColorPast
             }
         }
