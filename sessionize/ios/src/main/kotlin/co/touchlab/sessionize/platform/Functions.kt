@@ -5,6 +5,7 @@ import platform.darwin.*
 import platform.Foundation.*
 import kotlin.native.*
 import kotlin.native.concurrent.*
+import kotlinx.cinterop.*
 import co.touchlab.multiplatform.architecture.db.sqlite.*
 import co.touchlab.knarch.*
 import com.russhwolf.settings.PlatformSettings
@@ -47,13 +48,24 @@ actual fun <B> backgroundTask(backJob:()-> B, mainJob:(B) -> Unit){
     val worker = makeQueue("back")
     worker.execute(TransferMode.SAFE,
             { jobWrapper }){
-        val result  = DetachedObjectGraph<Any> { it.backJob().freeze() as Any }
+        /*val result  = DetachedObjectGraph<Any> { it.backJob().freeze() as Any }
         dispatch_async(dispatch_get_main_queue()){
             val mainResult = result.attach() as B
             it.mainJob(mainResult)
-        }
+        }*/
+
+        dispatch_async_f(dispatch_get_main_queue(), DetachedObjectGraph {
+            ResultAndMain(it.backJob(), it.mainJob).freeze()
+        }.asCPointer(), staticCFunction {
+            it:COpaquePointer? ->
+            initRuntimeIfNeeded()
+            val data = DetachedObjectGraph<ResultAndMain<B>>(it).attach()
+            data.mainJob(data.result)
+        })
     }
 }
+
+data class ResultAndMain<B>(val result:B, val mainJob:(B) -> Unit)
 
 actual fun backgroundTask(backJob:()->Unit){
     backgroundTaskRun(backJob, "back")
