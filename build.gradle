@@ -13,16 +13,16 @@ buildscript {
     ]
 
     ext.versions = [
-            'atomicfu'             : '0.11.7-kn0.9.1-a2',
+//            'atomicfu'             : '0.11.7-kn0.9.1-a2',
             'supportLibrary'       : '27.1.0',
             'kotlin'               : '1.3.0-rc-57',
             'kotlin_native_version': '0.9.1',
 //            'kotlinCoroutines'     : '0.25.0',
-            'knarchDb'             : '0.7.2-kn0.9.1-a1',
-            'knarchThreads'        : '0.3.2-kn0.9.1-a5',
+            'knarchDb'             : '0.7.2-kn0.9.1-a3',
+            'knarchThreads'        : '0.3.2-kn0.9.1-a6',
             'multiplatformSettings': '0.1-kn0.9.1-a2',
-            'timber'               : '5.0.0-kn0.9.1-a2',
-            'sqldelight'           : '1.0.0-kn0.9.1-a1'
+            'timber'               : '5.0.0-kn0.9.1-a3',
+            'sqldelight'           : '1.0.0-kn0.9.1-a2'
     ]
 
     ext.deps = [
@@ -50,11 +50,11 @@ buildscript {
                     'ios'    : "io.ktor:ktor-client-ios:${versions.ktor}",
                     'android': "io.ktor:ktor-client-android:${versions.ktor}"
             ],
-            'atomicfu': [
+            /*'atomicfu': [
                     'common': "org.jetbrains.kotlinx:atomicfu-common:${versions.atomicfu}",
                     'jdk'   : "org.jetbrains.kotlinx:atomicfu:${versions.atomicfu}",
                     'native': "org.jetbrains.kotlinx:atomicfu-native:${versions.atomicfu}"
-            ],
+            ],*/
             'knarch'  : [
                     'db': "co.touchlab.knarch:knarch-common:${versions.knarchDb}",
                     'dbAndroid': "co.touchlab.knarch:knarch-android:${versions.knarchDb}",
@@ -98,12 +98,7 @@ buildscript {
         maven {
             url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
         }
-        if(project.hasProperty('j2objcMavenDeploy')) {
-            maven {
-                url project.property('j2objcMavenDeploy')
-            }
-        }
-//        maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+        maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url "https://dl.bintray.com/kotlin/kotlin-eap/" }
         maven { url 'https://maven.fabric.io/public' }
     }
@@ -128,12 +123,7 @@ allprojects {
         maven {
             url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
         }
-        if(project.hasProperty('j2objcMavenDeploy')) {
-            maven {
-                url project.property('j2objcMavenDeploy')
-            }
-        }
-//        maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+        maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url "https://dl.bintray.com/kotlin/kotlin-eap/" }
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://dl.bintray.com/russhwolf/multiplatform-settings' }
