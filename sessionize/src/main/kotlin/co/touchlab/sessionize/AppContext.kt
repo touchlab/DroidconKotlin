@@ -1,10 +1,11 @@
 package co.touchlab.sessionize
 
+import co.touchlab.multiplatform.architecture.threads.AtomicRef
 import co.touchlab.sessionize.db.NoteDbHelper
 import co.touchlab.sessionize.platform.*
 import timber.log.Timber
 import timber.log.info
-import kotlinx.atomicfu.*
+//import kotlinx.atomicfu.*
 
 object AppContext {
 
@@ -18,7 +19,7 @@ object AppContext {
 
     private val SPONSOR_JSON = "SPONSOR_JSON"
 
-    val lambdas = atomic<PlatformLambdas?>(null)
+    val lambdas = AtomicRef<PlatformLambdas?>(null)
 
     fun initPlatformClient(staticFileLoader: (filePrefix: String, fileType: String) -> String?,
                            analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,

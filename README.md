@@ -43,6 +43,12 @@ As an aside, I added Timber, but I didn't exactly add much "logging". On the tod
 Clone, and at the base, run:
 
 ```
+./gradlew generateSqlDelightInterface
+```
+
+then ...
+
+```
 ./gradlew build
 ```
 
