@@ -11,7 +11,7 @@ dependencies {
     implementation deps.knarch.threadsLivedata
     implementation deps.sqldelight.multiplatformdriver
     implementation deps.multiplatformSettings.common
-//    implementation deps.atomicfu.common
+    implementation deps.atomicfu.common
     implementation deps.timber.common
 //    implementation deps.ktor.common
 //    implementation deps.kotlin.coroutines.common
