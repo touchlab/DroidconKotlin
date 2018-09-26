@@ -59,6 +59,10 @@ then ...
 To see the project, use the latest Intellij EAP, and make sure Android and anything Kotlin related is installed and updated.
 There are modules for Android (app), iOS (ios), and the common code (src).
 
+## NOTE ON GRADLE!!!
+
+Until the new Multiplatform gradle plugins and dependencies are stable, you need to stick to Gradle 4.7.
+
 ## Xcode
 
 The ios project is in the iosApp folder. CD into it and open the xcworkspace file with Xcode.
@@ -72,8 +76,8 @@ open iosApp.xcworkspace
 
 ## Customizing
 
-If you're using Sessionize for your event, you can use the app pretty easily. Customizing config touches a number of places
-which will be refactored in the coming weeks. Primarily you'll need to point to your data urls, change the data seed files, and
+If you're using Sessionize for your event, you can use the app pretty easily. Customized config is kind of spread throughout the app. 
+Primarily you'll need to point to your data urls, change the data seed files for speakers/sessions/sponsors, and
 change the color settings.
 
 The UI is in the process of being fully ported to Google's Material Components, with a centralized color and font theme. That's 
