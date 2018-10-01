@@ -26,10 +26,10 @@ import MaterialComponents
     // MARK: Lifecycle events
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         viewModel = EventViewModel(sessionId: sessionId)
         viewModel.registerForChanges(proc: updateUi)
-        
+
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         
