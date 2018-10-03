@@ -16,7 +16,7 @@ buildscript {
             'supportLibrary'       : '27.1.0',
             'kotlin'               : '1.3.0-rc-116',
 //            'kotlinCoroutines'     : '0.25.0',
-            'atomicfu'             : '0.11.7-kn0.9.3-a1',
+            'atomicfu'             : '0.11.7-kn0.9.3-a3',
             'knarchDb'             : '0.7.2-kn0.9.3-a1',
             'knarchThreads'        : '0.3.2-kn0.9.3-a1',
             'multiplatformSettings': '0.1-kn0.9.3-a2',
@@ -100,11 +100,11 @@ buildscript {
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url "https://dl.bintray.com/kotlin/kotlin-eap/" }
         maven { url 'https://maven.fabric.io/public' }
-        if(project.hasProperty('j2objcMavenDeploy')) {
+        /*if(project.hasProperty('j2objcMavenDeploy')) {
             maven {
                 url project.property('j2objcMavenDeploy')
             }
-        }
+        }*/
     }
 
     dependencies {
@@ -132,10 +132,10 @@ allprojects {
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://dl.bintray.com/russhwolf/multiplatform-settings' }
         maven { url 'https://dl.bintray.com/kotlin/ktor' }
-        if(project.hasProperty('j2objcMavenDeploy')) {
+        /*if(project.hasProperty('j2objcMavenDeploy')) {
             maven {
                 url project.property('j2objcMavenDeploy')
             }
-        }
+        }*/
     }
 }
