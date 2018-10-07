@@ -11,7 +11,7 @@ import SessionizeArch
 
 class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var sponsorGroups: [SessionizeArchSponsorGroup]?
+    var sponsorGroups: [SponsorGroup]?
     @IBOutlet weak var sponsorsCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -20,14 +20,14 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         sponsorsCollectionView.delegate = self
         sponsorsCollectionView.dataSource = self
         
-        SessionizeArchSponsorModel().loadSponsor(proc: sponsorResult)
+        SponsorModel().loadSponsor(proc: sponsorResult)
         // Do any additional setup after loading the view.
     }
     
-    func sponsorResult(sponsorGroups:[SessionizeArchSponsorGroup]) -> SessionizeArchStdlibUnit {
+    func sponsorResult(sponsorGroups:[SponsorGroup]) -> KotlinUnit {
         self.sponsorGroups = sponsorGroups
         sponsorsCollectionView.reloadData()
-        return SessionizeArchStdlibUnit()
+        return KotlinUnit()
     }
 
     override func didReceiveMemoryWarning() {

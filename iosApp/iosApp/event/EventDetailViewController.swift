@@ -20,16 +20,16 @@ import MaterialComponents
     
     // MARK: Properties
     var sessionId: String!
-    var viewModel:SessionizeArchEventViewModel!
-    var sessionInfo: SessionizeArchSessionInfo!
+    var viewModel:EventViewModel!
+    var sessionInfo: SessionInfo!
     
     // MARK: Lifecycle events
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel = SessionizeArchEventViewModel(sessionId: sessionId)
+
+        viewModel = EventViewModel(sessionId: sessionId)
         viewModel.registerForChanges(proc: updateUi)
-        
+
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -46,17 +46,17 @@ import MaterialComponents
         headerImage.backgroundColor = ApplicationScheme.shared.colorScheme.secondaryColor
     }
     
-    func updateUi(sessionInfo:SessionizeArchSessionInfo) -> SessionizeArchStdlibUnit{
+    func updateUi(sessionInfo:SessionInfo) -> KotlinUnit{
         self.sessionInfo = sessionInfo
         styleButton()
         updateAllUi()
-        return SessionizeArchStdlibUnit()
+        return KotlinUnit()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowSpeakerDetail" {
             let detailViewController = segue.destination as! SpeakerViewController
-            let speaker = sender as! SessionizeArchUserAccount
+            let speaker = sender as! UserAccount
             detailViewController.speakerId = speaker.id
         }
     }
@@ -127,7 +127,7 @@ import MaterialComponents
         tableView.deselectRow(at: indexPath, animated: false)
         
         if (indexPath as NSIndexPath).section == 1 {
-            let speaker = sessionInfo.speakers[indexPath.row] as SessionizeArchUserAccount
+            let speaker = sessionInfo.speakers[indexPath.row] as UserAccount
             showSpeakerDetailView(speaker: speaker)
         }
     }
@@ -163,7 +163,7 @@ import MaterialComponents
         viewModel.toggleRsvp(rsvp: !sessionInfo.isRsvped())
     }
     
-    func showSpeakerDetailView(speaker: SessionizeArchUserAccount) {
+    func showSpeakerDetailView(speaker: UserAccount) {
         performSegue(withIdentifier: "ShowSpeakerDetail", sender: speaker)
     }
 }

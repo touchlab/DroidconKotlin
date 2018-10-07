@@ -16,11 +16,11 @@ class EventTableViewCell: UITableViewCell {
     @IBOutlet weak var timeInfoLabel : UILabel!
     @IBOutlet weak var timeConflictLabel: UILabel!
 
-    var viewModel:SessionizeArchEventViewModel!
-    var sessionInfo: SessionizeArchSessionInfo!
+    var viewModel:EventViewModel!
+    var sessionInfo: SessionInfo!
     
-    func loadInfo(_ sessionInfo: SessionizeArchSessionInfo,
-                  viewModel:SessionizeArchEventViewModel) {
+    func loadInfo(_ sessionInfo: SessionInfo,
+                  viewModel:EventViewModel) {
         
         self.viewModel = viewModel
         self.sessionInfo = sessionInfo
