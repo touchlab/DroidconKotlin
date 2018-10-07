@@ -14,7 +14,7 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'       : '27.1.0',
-            'kotlin'               : '1.3.0-rc-116',
+            'kotlin'               : '1.3.0-rc-146',
 //            'kotlinCoroutines'     : '0.25.0',
             'atomicfu'             : '0.11.7-kn0.9.3-a3',
             'knarchDb'             : '0.7.2-kn0.9.3-a1',
