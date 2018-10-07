@@ -29,3 +29,4 @@ class EventViewModel(sessionId: String){
         eventModel.shutDown()
     }
 }
+

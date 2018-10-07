@@ -8,6 +8,7 @@ dependencies {
     implementation deps.sqldelight.multiplatformdriverNative
     implementation deps.knarch.threadsLivedataNative
     implementation deps.multiplatformSettings.ios
+    implementation deps.atomicfu.native
     implementation deps.timber.ios
 //    implementation deps.kotlin.coroutines.native
 

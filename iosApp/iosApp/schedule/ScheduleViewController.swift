@@ -13,14 +13,14 @@ import MaterialComponents
 
 class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource, MDCTabBarDelegate {
     
-    var viewModel:SessionizeArchScheduleViewModel!
+    var viewModel:ScheduleViewModel!
     
     @IBOutlet weak var dayChooserTab: MDCTabBar!
     @IBOutlet weak var eventList: UITableView!
     @IBOutlet weak var noData: UILabel!
     
     // MARK: Properties
-    var conferenceDays: [SessionizeArchDaySchedule]?
+    var conferenceDays: [DaySchedule]?
 
     var allEvents = true
     
@@ -29,7 +29,7 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         
         allEvents = self.tabBarController?.selectedIndex == 0
         
-        viewModel =  SessionizeArchScheduleViewModel()
+        viewModel = ScheduleViewModel()
         viewModel.registerForChanges(proc: updateUi, allEvents: allEvents)
         
         eventList.delegate = self
@@ -57,14 +57,14 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         dayChooserTab.topAnchor.constraint(equalTo: appBar.navigationBar.bottomAnchor).isActive = true
     }
     
-    func updateUi(conferenceDays:[SessionizeArchDaySchedule]) -> SessionizeArchStdlibUnit{
+    func updateUi(conferenceDays:[DaySchedule]) -> KotlinUnit{
         self.conferenceDays = conferenceDays
         updateTabs(conferenceDays: conferenceDays)
         eventList.reloadData()
-        return SessionizeArchStdlibUnit()
+        return KotlinUnit()
     }
     
-    func updateTabs(conferenceDays:[SessionizeArchDaySchedule]) {
+    func updateTabs(conferenceDays:[DaySchedule]) {
         let selectedTag = dayChooserTab.selectedItem?.tag
 
         dayChooserTab.items.removeAll()
@@ -93,7 +93,7 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowEventDetail" {
             let detailViewController = segue.destination as! EventDetailViewController
-            let networkEvent = sender as! SessionizeArchHourBlock
+            let networkEvent = sender as! HourBlock
             detailViewController.sessionId = networkEvent.timeBlock.id
         }
     }
@@ -108,7 +108,7 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         eventList.reloadData()
     }
     
-    func showEventDetailView(with hourBlock: SessionizeArchHourBlock, andIndex index: Int) {
+    func showEventDetailView(with hourBlock: HourBlock, andIndex index: Int) {
         performSegue(withIdentifier: "ShowEventDetail", sender: hourBlock)
     }
     
@@ -127,7 +127,7 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         let cday = conferenceDays![selectedDayIndex()]
         let hourHolder = cday.hourBlock[indexPath.row]
         
-        if(!(hourHolder.rowType() == SessionizeArchRowType.block)){
+        if(!(hourHolder.rowType() == RowType.block)){
             showEventDetailView(with: hourHolder, andIndex: indexPath.row)
         }
     }

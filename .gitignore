@@ -63,3 +63,5 @@ fastlane/test_output
 
 #Because ugh
 .DS_Store
+
+buildboth.sh

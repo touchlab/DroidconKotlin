@@ -26,6 +26,8 @@ more mature appears. Implements a simple LiveData analog and ThreadLocal helpers
 
 * [Timber](https://github.com/touchlab/timber/tree/native) - Popular logging library on Android/Java, now with more platforms!
 
+* [kotlinx.atomicfu](https://github.com/touchlab/kotlinx.atomicfu) - Fork of Atomic Fu repo. Added native atomic multi-threaded support.
+
 As an aside, I added Timber, but I didn't exactly add much "logging". On the todo list.
 
 ## Media
@@ -43,6 +45,12 @@ As an aside, I added Timber, but I didn't exactly add much "logging". On the tod
 Clone, and at the base, run:
 
 ```
+./gradlew generateSqlDelightInterface
+```
+
+then ...
+
+```
 ./gradlew build
 ```
 
@@ -50,6 +58,10 @@ Clone, and at the base, run:
 
 To see the project, use the latest Intellij EAP, and make sure Android and anything Kotlin related is installed and updated.
 There are modules for Android (app), iOS (ios), and the common code (src).
+
+## NOTE ON GRADLE!!!
+
+Until the new Multiplatform gradle plugins and dependencies are stable, you need to stick to Gradle 4.7.
 
 ## Xcode
 
@@ -64,8 +76,8 @@ open iosApp.xcworkspace
 
 ## Customizing
 
-If you're using Sessionize for your event, you can use the app pretty easily. Customizing config touches a number of places
-which will be refactored in the coming weeks. Primarily you'll need to point to your data urls, change the data seed files, and
+If you're using Sessionize for your event, you can use the app pretty easily. Customized config is kind of spread throughout the app. 
+Primarily you'll need to point to your data urls, change the data seed files for speakers/sessions/sponsors, and
 change the color settings.
 
 The UI is in the process of being fully ported to Google's Material Components, with a centralized color and font theme. That's 

@@ -16,9 +16,9 @@
 
 package kotlinx.serialization.json
 
-import co.touchlab.multiplatform.architecture.threads.AtomicRef
 import co.touchlab.sessionize.platform.SharedImmutable
 import co.touchlab.sessionize.platform.freeze2
+import kotlinx.atomicfu.atomic
 
 internal object ParserConstants {
     // special strings
@@ -88,7 +88,7 @@ private const val C2ESC_MAX = 0x5d
 private const val ESC2C_MAX = 0x75
 
 @SharedImmutable
-private val ESC2C = AtomicRef(CharArray(ESC2C_MAX).freeze2())
+private val ESC2C = atomic(CharArray(ESC2C_MAX).freeze2())
 
 @SharedImmutable
 private val C2ESC = CharArray(C2ESC_MAX).apply {
