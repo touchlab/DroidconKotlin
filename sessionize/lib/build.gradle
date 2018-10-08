@@ -2,6 +2,41 @@ apply plugin: 'kotlin-multiplatform'
 apply plugin: 'com.squareup.sqldelight'
 
 kotlin {
+    targets {
+//        fromPreset(presets.android, 'androidApp')
+//        fromPreset(presets.jvm, 'jvmApp')
+        //fromPreset(preset.iosX64, 'ios') {
+        //  compilations.main.outputKinds('FRAMEWORK')
+        //}
+
+
+        fromPreset(presets.iosX64, 'ios') {
+            compilations.main.outputKinds('FRAMEWORK')
+//            compilations.main.baseName("SessionizeArch")
+            compilations.each {
+                it.extraOpts("-linkerOpts", "-lsqlite3")
+            }
+        }
+
+
+
+        /*fromPreset(presets.iosX64, 'iosX64')
+        fromPreset(presets.iosArm64, 'iosArm64')
+
+        configure([iosArm64, iosArm64]) {
+            compilations.main.source(sourceSets.nativeCommonMain)
+//            compilations.test.source(sourceSets.nativeTest)
+
+            compilations.each {
+                it.extraOpts("-linkerOpts", "-lsqlite3")
+            }
+            compilations.main.outputKinds('FRAMEWORK')
+            compilations.main.extraOpts("-linkerOpts", "-lsqlite3")
+            compilations.main.extraOpts('--disable', 'devirtualization')
+            //compilations.main.baseName.set("SessionizeArch")
+        }*/
+    }
+
     sourceSets {
 
         commonMain {
@@ -22,9 +57,8 @@ kotlin {
             }
         }
 
-
-        nativeCommonMain {
-            dependsOn commonMain
+        iosMain {
+//            dependsOn commonMain
 
             dependencies {
                 implementation deps.sqldelight.runtimeNative
@@ -38,30 +72,33 @@ kotlin {
 
     }
 
-    targets {
-//        fromPreset(presets.android, 'androidApp')
-//        fromPreset(presets.jvm, 'jvmApp')
-        //fromPreset(preset.iosX64, 'ios') {
-          //  compilations.main.outputKinds('FRAMEWORK')
-        //}
-        fromPreset(presets.iosX64, 'iosX64')
-        fromPreset(presets.iosArm64, 'iosArm64')
-        configure([iosArm64, iosArm64]) {
-            compilations.main.source(sourceSets.nativeCommonMain)
-//            compilations.test.source(sourceSets.nativeTest)
 
-            compilations.each {
-                it.extraOpts("-linkerOpts", "-lsqlite3")
-            }
-            compilations.main.outputKinds('FRAMEWORK')
-            compilations.main.extraOpts("-linkerOpts", "-lsqlite3")
-            compilations.main.extraOpts('--disable', 'devirtualization')
-            //compilations.main.baseName.set("SessionizeArch")
-        }
-    }
 }
 
 sqldelight {
     packageName = "co.touchlab.droidcon.db"
 //    sourceSet = "src/commonMain/sqldelight"
 }
+
+//tasks.build.dependsOn("generateSqlDelightInterface")
+
+//noinspection GroovyAssignabilityCheck
+task packForXCode(type: Sync) {
+    final File frameworkDir = new File(buildDir, "xcode-frameworks")
+    final String mode = System.getenv('CONFIGURATION')?.toUpperCase() ?: 'DEBUG'
+
+    inputs.property "mode", mode
+    dependsOn kotlin.targets.ios.compilations.main.linkTaskName("FRAMEWORK", mode)
+
+    from { kotlin.targets.ios.compilations.main.getBinary("FRAMEWORK", mode).parentFile }
+    into frameworkDir
+
+    doLast {
+        new File(frameworkDir, 'gradlew').with {
+            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            setExecutable(true)
+        }
+    }
+}
+
+tasks.build.dependsOn packForXCode

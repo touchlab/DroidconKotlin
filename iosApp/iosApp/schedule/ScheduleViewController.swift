@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import SessionizeArch
+import lib
 import MaterialComponents
 
 class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource, MDCTabBarDelegate {
