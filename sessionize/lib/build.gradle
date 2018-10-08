@@ -1,9 +1,38 @@
 apply plugin: 'kotlin-multiplatform'
+apply plugin: 'com.android.library'
 apply plugin: 'com.squareup.sqldelight'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-rc01"
+
+    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
+}
 
 kotlin {
     targets {
-//        fromPreset(presets.android, 'androidApp')
+        fromPreset(presets.android, 'android')
 //        fromPreset(presets.jvm, 'jvmApp')
         //fromPreset(preset.iosX64, 'ios') {
         //  compilations.main.outputKinds('FRAMEWORK')
@@ -70,6 +99,18 @@ kotlin {
             }
         }
 
+        androidMain {
+            dependencies {
+                implementation deps.sqldelight.runtimeJdk
+                implementation deps.sqldelight.multiplatformdriverAndroid
+                implementation deps.knarch.threadsLivedataAndroid
+                implementation deps.knarch.dbAndroid
+                implementation deps.multiplatformSettings.android
+                implementation deps.atomicfu.jdk
+                implementation deps.timber.android
+
+            }
+        }
     }
 
 
@@ -80,7 +121,7 @@ sqldelight {
 //    sourceSet = "src/commonMain/sqldelight"
 }
 
-//tasks.build.dependsOn("generateSqlDelightInterface")
+tasks.preBuild.dependsOn("generateSqlDelightInterface")
 
 //noinspection GroovyAssignabilityCheck
 task packForXCode(type: Sync) {
