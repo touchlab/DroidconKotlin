@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-import SessionizeArch
+import lib
 
 class SpeakerTableViewCell: UITableViewCell {
 

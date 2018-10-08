@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SessionizeArch
+import lib
 
 @objc class ScheduleListCell: UITableViewCell, EventRow {
     

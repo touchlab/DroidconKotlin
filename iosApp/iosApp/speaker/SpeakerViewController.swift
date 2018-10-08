@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SessionizeArch
+import lib
 import Kingfisher
 
 class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {

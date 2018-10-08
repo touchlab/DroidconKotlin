@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SessionizeArch
+import lib
 
 class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
