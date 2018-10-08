@@ -10,9 +10,6 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
-//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -33,37 +30,17 @@ dependencies {
 kotlin {
     targets {
         fromPreset(presets.android, 'android')
-//        fromPreset(presets.jvm, 'jvmApp')
-        //fromPreset(preset.iosX64, 'ios') {
-        //  compilations.main.outputKinds('FRAMEWORK')
-        //}
 
-
-        fromPreset(presets.iosX64, 'ios') {
+//        def buildForDevice = project.findProperty("device")?.toBoolean() ?: false
+        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") \
+                              ? presets.iosArm64 : presets.iosX64
+//        def iosPreset = (buildForDevice) ? presets.iosArm64 : presets.iosX64
+        fromPreset(iOSTarget, 'ios') {
             compilations.main.outputKinds('FRAMEWORK')
-//            compilations.main.baseName("SessionizeArch")
             compilations.each {
                 it.extraOpts("-linkerOpts", "-lsqlite3")
             }
         }
-
-
-
-        /*fromPreset(presets.iosX64, 'iosX64')
-        fromPreset(presets.iosArm64, 'iosArm64')
-
-        configure([iosArm64, iosArm64]) {
-            compilations.main.source(sourceSets.nativeCommonMain)
-//            compilations.test.source(sourceSets.nativeTest)
-
-            compilations.each {
-                it.extraOpts("-linkerOpts", "-lsqlite3")
-            }
-            compilations.main.outputKinds('FRAMEWORK')
-            compilations.main.extraOpts("-linkerOpts", "-lsqlite3")
-            compilations.main.extraOpts('--disable', 'devirtualization')
-            //compilations.main.baseName.set("SessionizeArch")
-        }*/
     }
 
     sourceSets {
@@ -112,13 +89,10 @@ kotlin {
             }
         }
     }
-
-
 }
 
 sqldelight {
     packageName = "co.touchlab.droidcon.db"
-//    sourceSet = "src/commonMain/sqldelight"
 }
 
 tasks.preBuild.dependsOn("generateSqlDelightInterface")
