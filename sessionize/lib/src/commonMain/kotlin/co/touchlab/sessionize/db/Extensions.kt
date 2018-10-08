@@ -12,12 +12,12 @@ fun SessionWithRoom.isRsvp():Boolean = this.rsvp != 0L
 /**
  * Provide for "ORM-like" associated query
  */
-internal fun UserAccount.sessionsAsync(): List<Session> {
+fun UserAccount.sessionsAsync(): List<Session> {
     val id = this.id
     return AppContext.dbHelper.queryWrapper.sessionQueries.userSessions(id).executeAsList()
 }
 
-internal fun Session.roomAsync(): Room {
+fun Session.roomAsync(): Room {
     val id = this.roomId!!
     return AppContext.dbHelper.queryWrapper.
             roomQueries.selectById(id).executeAsOne()
