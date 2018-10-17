@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import co.touchlab.sessionize.platform.AndroidAppContext
 import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import com.crashlytics.android.answers.CustomEvent
 import timber.log.LogcatTree
@@ -16,6 +17,7 @@ class MainApp :Application(){
         super.onCreate()
         AndroidAppContext.app = this
         Fabric.with(this, Answers())
+        Fabric.with(this, Crashlytics())
         Timber.plant(LogcatTree("Droidcon"))
         Timber.info { "Timber!!!" }
         AppContext.initPlatformClient ({filePrefix, fileType ->
