@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import co.touchlab.sessionize.about.AboutFragment
 import co.touchlab.sessionize.schedule.ScheduleFragment
 import co.touchlab.sessionize.sponsors.SponsorsFragment
@@ -95,19 +96,41 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         }
     }
 
-    override fun navigateTo(fragment: Fragment, addToBackstack: Boolean) {
+    override fun navigateTo(
+            fragment: Fragment,
+            addToBackstack: Boolean) {
+        val transaction = supportFragmentManager.beginTransaction()
+        commitFragmentTransaction(fragment, addToBackstack, transaction)
+    }
+
+    override fun navigateTo(
+            fragment: Fragment,
+            addToBackstack: Boolean,
+            enterAnim: Int,
+            exitAnim: Int,
+            popEnterAnim: Int,
+            popExitAnim: Int) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(
+                enterAnim,
+                exitAnim,
+                popEnterAnim,
+                popExitAnim)
+        commitFragmentTransaction(fragment, addToBackstack, transaction)
+    }
+
+    private fun commitFragmentTransaction(
+            fragment: Fragment,
+            addToBackstack: Boolean,
+            transaction: FragmentTransaction) {
+
         if(!addToBackstack){
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
-        val transaction = supportFragmentManager
-                .beginTransaction()
-
+        transaction.replace(R.id.container, fragment)
         if (addToBackstack) {
-            transaction.add(R.id.container, fragment)
             transaction.addToBackStack(fragment.javaClass.simpleName)
-        }else{
-            transaction.replace(R.id.container, fragment)
         }
 
         transaction.commit()
