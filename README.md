@@ -26,8 +26,6 @@ more mature appears. Implements a simple LiveData analog and ThreadLocal helpers
 
 * [Timber](https://github.com/touchlab/timber/tree/native) - Popular logging library on Android/Java, now with more platforms!
 
-* [kotlinx.atomicfu](https://github.com/touchlab/kotlinx.atomicfu) - Fork of Atomic Fu repo. Added native atomic multi-threaded support.
-
 As an aside, I added Timber, but I didn't exactly add much "logging". On the todo list.
 
 ## Media

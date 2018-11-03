@@ -18,6 +18,7 @@ class ScheduleViewModel{
 
         scheduleObserver = object : Observer<List<DaySchedule>>{
             override fun onChanged(t: List<DaySchedule>?){
+                (scheduleModel as ScheduleModel).sharedHash.put("asdf", ScheduleModel.TestData("qwert"))
                 if(t != null)
                     proc(t)
             }

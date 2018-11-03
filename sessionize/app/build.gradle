@@ -70,13 +70,13 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 
     implementation 'com.nex3z:flow-layout:1.2.2'
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
-    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
-    implementation 'com.google.android.material:material:1.0.0-rc01'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    implementation 'androidx.vectordrawable:vectordrawable:1.0.0-rc01'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.vectordrawable:vectordrawable:1.0.0'
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -89,7 +89,6 @@ dependencies {
     implementation deps.knarch.threadsLivedataAndroid
     implementation deps.knarch.dbAndroid
     implementation deps.multiplatformSettings.android
-    implementation deps.atomicfu.jdk
     implementation deps.timber.android
 
     testImplementation 'junit:junit:4.12'

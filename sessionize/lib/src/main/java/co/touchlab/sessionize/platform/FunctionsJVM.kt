@@ -3,18 +3,18 @@ package co.touchlab.sessionize.platform
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
+import co.touchlab.droidcon.db.QueryWrapper
 import co.touchlab.multiplatform.architecture.db.sqlite.AndroidNativeOpenHelperFactory
 import co.touchlab.multiplatform.architecture.db.sqlite.NativeOpenHelperFactory
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
+import com.squareup.sqldelight.db.SqlDatabase
+import com.squareup.sqldelight.multiplatform.create
 import java.net.URL
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
-
-
-actual fun <T> goFreeze(a: T): T = a
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
@@ -29,8 +29,6 @@ actual fun backgroundTask(backJob:()->Unit){
 actual fun networkBackgroundTask(backJob: () -> Unit) {
     AndroidAppContext.networkBackgroundTask(backJob)
 }
-
-actual fun initContext(): NativeOpenHelperFactory = AndroidNativeOpenHelperFactory(AndroidAppContext.app)
 
 object AndroidAppContext{
     lateinit var app: Application
@@ -84,9 +82,5 @@ actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory(Andro
 
 actual fun createUuid(): String  = UUID.randomUUID().toString()
 
-@Target(AnnotationTarget.FIELD)
-@Retention(AnnotationRetention.BINARY)
-actual
-annotation class SharedImmutable
-
-actual fun <T> T.freeze2(): T = this
+actual fun initSqldelightDatabase(): SqlDatabase =
+        QueryWrapper.create("droidconDb", openHelperFactory = AndroidNativeOpenHelperFactory(AndroidAppContext.app))

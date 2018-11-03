@@ -21,10 +21,10 @@ android {
 }
 
 dependencies {
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0-rc01"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
-    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 }
 
 kotlin {
@@ -50,7 +50,9 @@ kotlin {
                 srcDirs 'build/sqldelight'
             }
             dependencies {
+                implementation deps.stately.mpp
                 implementation deps.kotlin.stdlib.common
+                implementation deps.kotlin.coroutines.common
                 implementation deps.sqldelight.runtime
                 implementation deps.knarch.db
                 implementation deps.knarch.threads
@@ -58,32 +60,30 @@ kotlin {
                 implementation deps.sqldelight.runtime
                 implementation deps.sqldelight.multiplatformdriver
                 implementation deps.multiplatformSettings.common
-                implementation deps.atomicfu.common
                 implementation deps.timber.common
             }
         }
 
         iosMain {
-//            dependsOn commonMain
-
             dependencies {
+                implementation deps.kotlin.coroutines.native
                 implementation deps.sqldelight.runtimeNative
-                implementation deps.sqldelight.multiplatformdriverNative
+                implementation deps.sqliter.ios
                 implementation deps.knarch.threadsLivedataNative
                 implementation deps.multiplatformSettings.ios
-                implementation deps.atomicfu.native
                 implementation deps.timber.ios
             }
         }
 
         androidMain {
             dependencies {
+                implementation deps.kotlin.coroutines.jdk
+                implementation deps.kotlin.coroutines.android
                 implementation deps.sqldelight.runtimeJdk
                 implementation deps.sqldelight.multiplatformdriverAndroid
                 implementation deps.knarch.threadsLivedataAndroid
                 implementation deps.knarch.dbAndroid
                 implementation deps.multiplatformSettings.android
-                implementation deps.atomicfu.jdk
                 implementation deps.timber.android
 
             }
