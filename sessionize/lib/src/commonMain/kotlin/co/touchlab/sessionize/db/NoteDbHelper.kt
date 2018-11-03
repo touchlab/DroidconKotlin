@@ -4,10 +4,9 @@ import co.touchlab.droidcon.db.QueryWrapper
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.jsondata.DefaultData
-import co.touchlab.sessionize.platform.initContext
+import co.touchlab.sessionize.platform.initSqldelightDatabase
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDatabase
-import com.squareup.sqldelight.multiplatform.create
 
 class NoteDbHelper {
 
@@ -15,9 +14,8 @@ class NoteDbHelper {
     private val database:SqlDatabase
 
     init {
-        val helperFactory = initContext()
         val dateAdapter = DateAdapter()
-        database = QueryWrapper.create("droidconDb", openHelperFactory = helperFactory)
+        database = initSqldelightDatabase()
         queryWrapper = QueryWrapper(database, Session.Adapter(dateAdapter, dateAdapter))
     }
 

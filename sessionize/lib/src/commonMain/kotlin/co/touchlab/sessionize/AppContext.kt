@@ -2,9 +2,10 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.db.NoteDbHelper
 import co.touchlab.sessionize.platform.*
+import co.touchlab.stately.concurrency.AtomicReference
+import co.touchlab.stately.freeze
 import timber.log.Timber
 import timber.log.info
-import kotlinx.atomicfu.*
 
 object AppContext {
 
@@ -14,16 +15,20 @@ object AppContext {
     val KEY_FIRST_RUN = "FIRST_RUN1"
     val KEY_LAST_LOAD = "LAST_LOAD"
     val USER_UUID = "USER_UUID"
-    val TWO_HOURS_MILLIS = 2*60*60*1000
+    val TWO_HOURS_MILLIS = 2 * 60 * 60 * 1000
 
     private val SPONSOR_JSON = "SPONSOR_JSON"
 
-    val lambdas = atomic<PlatformLambdas?>(null)
+    val lambdas = AtomicReference<PlatformLambdas?>(null)
 
-    fun initPlatformClient(staticFileLoader: (filePrefix: String, fileType: String) -> String?,
-                           analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
-                           clLogCallback: (s: String) -> Unit) {
-        lambdas.value = goFreeze(PlatformLambdas(staticFileLoader, analyticsCallback, clLogCallback))
+    fun initPlatformClient(
+            staticFileLoader: (filePrefix: String, fileType: String) -> String?,
+            analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
+            clLogCallback: (s: String) -> Unit) {
+        lambdas.value = PlatformLambdas(
+                staticFileLoader,
+                analyticsCallback,
+                clLogCallback).freeze()
 
         dataLoad()
 
@@ -105,9 +110,9 @@ object AppContext {
         }
     }
 
-    fun refreshData(){
+    fun refreshData() {
         val lastLoad = appSettings.getLong(KEY_LAST_LOAD)
-        if(lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
+        if (lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
             networkBackgroundTask {
                 dataCalls()
             }

@@ -8,6 +8,8 @@ import co.touchlab.sessionize.db.QueryLiveData
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.display.*
+import co.touchlab.stately.collections.SharedHashMap
+import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
 
 /**
@@ -15,6 +17,9 @@ import com.squareup.sqldelight.Query
  */
 class ScheduleModel {
     private val liveSessions:SessionListLiveData
+
+    val sharedHash = SharedHashMap<String, TestData>().freeze()
+    data class TestData(val s:String)
 
     init {
         clLog("init ScheduleModel()")
@@ -36,6 +41,12 @@ class ScheduleModel {
     fun weaveSessionDetailsUi(hourBlock:HourBlock, allBlocks:List<HourBlock>, row:EventRow, allEvents: Boolean){
         val isFirstInBlock = !hourBlock.hourStringDisplay.isEmpty()
         row.setTimeGap(isFirstInBlock)
+
+        sharedHash.put("${hourBlock.timeBlock.id}", TestData(hourBlock.timeBlock.title))
+
+        sharedHash.entries.forEach {
+            println("From hash: ${it.key}/${it.value}")
+        }
 
         row.setTitleText(hourBlock.timeBlock.title)
         row.setTimeText(hourBlock.hourStringDisplay)

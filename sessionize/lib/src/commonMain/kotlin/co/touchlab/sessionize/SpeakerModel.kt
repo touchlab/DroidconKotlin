@@ -4,7 +4,7 @@ import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.multiplatform.architecture.livedata.MutableLiveData
 import co.touchlab.multiplatform.architecture.livedata.map
 import co.touchlab.sessionize.db.QueryLiveData
-import co.touchlab.sessionize.platform.goFreeze
+import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
 
 class SpeakerModel(speakerId:String){
@@ -13,7 +13,7 @@ class SpeakerModel(speakerId:String){
 
     init {
         clLog("init SpeakerModel($speakerId)")
-        val query = goFreeze(AppContext.dbHelper.queryWrapper.userAccountQueries.selectById(speakerId))
+        val query = AppContext.dbHelper.queryWrapper.userAccountQueries.selectById(speakerId).freeze()
         speakerLiveData = SpeakerLiveData(query)
     }
 

@@ -6,6 +6,7 @@ import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.db.QueryLiveData
 import co.touchlab.sessionize.db.roomAsync
 import co.touchlab.sessionize.platform.*
+import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
 import kotlin.math.max
 
@@ -15,7 +16,7 @@ class EventModel(val sessionId: String) {
 
     init {
         clLog("init EventModel($sessionId)")
-        val query = goFreeze(AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId))
+        val query = AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).freeze()
         evenLiveData = EventLiveData(query)
     }
 

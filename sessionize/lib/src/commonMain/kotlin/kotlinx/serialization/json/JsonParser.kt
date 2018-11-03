@@ -16,9 +16,9 @@
 
 package kotlinx.serialization.json
 
-import co.touchlab.sessionize.platform.SharedImmutable
-import co.touchlab.sessionize.platform.freeze2
-import kotlinx.atomicfu.atomic
+import co.touchlab.stately.annotation.SharedImmutable
+import co.touchlab.stately.concurrency.AtomicReference
+import co.touchlab.stately.freeze
 
 internal object ParserConstants {
     // special strings
@@ -71,7 +71,7 @@ private val C2TC = ByteArray(CTC_MAX).apply {
     initC2TC(ParserConstants.END_LIST, ParserConstants.TC_END_LIST)
     initC2TC(ParserConstants.STRING, ParserConstants.TC_STRING)
     initC2TC(ParserConstants.STRING_ESC, ParserConstants.TC_STRING_ESC)
-}.freeze2()
+}.freeze()
 
 private fun ByteArray.initC2TC(c: Int, cl: Byte) {
     this[c] = cl
@@ -88,7 +88,7 @@ private const val C2ESC_MAX = 0x5d
 private const val ESC2C_MAX = 0x75
 
 @SharedImmutable
-private val ESC2C = atomic(CharArray(ESC2C_MAX).freeze2())
+private val ESC2C = AtomicReference(CharArray(ESC2C_MAX).freeze())
 
 @SharedImmutable
 private val C2ESC = CharArray(C2ESC_MAX).apply {
@@ -102,14 +102,14 @@ private val C2ESC = CharArray(C2ESC_MAX).apply {
     initC2ESC('/', '/')
     initC2ESC(ParserConstants.STRING, ParserConstants.STRING)
     initC2ESC(ParserConstants.STRING_ESC, ParserConstants.STRING_ESC)
-}.freeze2()
+}.freeze()
 
 private fun CharArray.initC2ESC(c: Int, esc: Char) {
     this[c] = esc
     if (esc != ParserConstants.UNICODE_ESC) {
         val mod = ESC2C.value.copyOf()
         mod[esc.toInt()] = c.toChar()
-        ESC2C.value = mod.freeze2()
+        ESC2C.value = mod.freeze()
     }
 }
 
