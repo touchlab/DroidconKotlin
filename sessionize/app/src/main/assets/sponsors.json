@@ -3,24 +3,14 @@
     "groupName": "Gold",
     "sponsors": [
       {
-        "name": "Actian",
-        "url": "http://www.actian.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_aa7aa9c3c3b64107a7d30ac9a308007c~mv2.png"
+        "name": "Tinder",
+        "url": "https://www.gotinder.com/jobs/departments/software-engineering",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_eb78242c33eb42638871e3050230cedf~mv2.png"
       },
       {
-        "name": "Facebook",
-        "url": "https://www.facebook.com/careers/",
-        "icon": "https://static.wixstatic.com/media/b1f32d_c19b2bb47bb14136a04d7ed7eeed6e64~mv2.png"
-      },
-      {
-        "name": "Instagram",
-        "url": "https://www.instagram.com/",
-        "icon": "https://static.wixstatic.com/media/b1f32d_cf48a63a88354cf9935825a3275ea338~mv2.png"
-      },
-      {
-        "name": "Touchlab",
-        "url": "https://www.touchlab.co/",
-        "icon": "https://s3.amazonaws.com/droidconsponsers/touchlablogo.png"
+        "name": "Ridecell",
+        "url": "https://ridecell.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_68f131be32a940efbc5379266cffb5fb~mv2.png"
       }
     ]
   },
@@ -28,19 +18,19 @@
     "groupName": "Silver",
     "sponsors": [
       {
-        "name": "Squarespace",
-        "url": "https://www.squarespace.com/about/careers?gh_src=fpw4yfhi1",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_a749e34cb6a7477bb80ec275e33b48ca~mv2.png"
-      },
-      {
-        "name": "Square",
-        "url": "https://squareup.com/developers",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_fdea54c469494411958b703fe5e74c4e~mv2.png"
-      },
-      {
         "name": "Zebra",
-        "url": "https://www.zebra.com/us/en/products/oem.html",
-        "icon": "https://static.wixstatic.com/media/b1f32d_aeb5c9471fb64e929401027d71871d66~mv2.png"
+        "url": "https://developer.zebra.com/community/welcome",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_4da10292a4f843549148f082f4d9a8fe~mv2.png"
+      },
+      {
+        "name": "Pluralsight",
+        "url": "https://www.pluralsight.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_6f07ecb638174ae9bb6208a2fa2b9d83~mv2.png"
+      },
+      {
+        "name": "Agora.io",
+        "url": "https://www.agora.io/",
+        "icon": "https://static.wixstatic.com/media/26bcf1_f1548cd03b5246f5b06e1c32d4e370d9~mv2.png"
       },
       {
         "name": "Here",
@@ -48,30 +38,24 @@
         "icon": "https://static.wixstatic.com/media/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png"
       },
       {
-        "name": "Jet",
-        "url": "https://medium.com/jettech",
-        "icon": "https://static.wixstatic.com/media/a378f5_2d282621a0424897b3d3a10a0d23e8e0~mv2.png"
-      },
-      {
-        "name": "Peloton",
-        "url": "http://www.onepeloton.com/",
-        "icon": "https://static.wixstatic.com/media/a378f5_955244f240b449adad27de3f21a4a384~mv2.png"
+        "name": "Square",
+        "url": "https://slack.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_aeee0db19e884c3385446a8d293fbdc6~mv2.png"
       },
       {
         "name": "Gradle",
+        "url": "https://gradle.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_e0e5d5aad7034cd4a9d35eb15d9e3fd4~mv2.png"
+      },
+      {
+        "name": "Slack",
         "url": "http://gradle.com/",
-        "icon": "https://static.wixstatic.com/media/a378f5_c8ec6717157d47ec8a19ad92899ea302~mv2.png"
+        "icon": "https://static.wixstatic.com/media/a378f5_daf71c4a8445429fa10cec4a782db50b~mv2.png"
       },
       {
-        "name": "Meetup",
+        "name": "Clover",
         "url": "https://www.meetup.com/jobs",
-        "icon": "https://static.wixstatic.com/media/a378f5_08f580935cbd4b40a3f150d1a5853829~mv2.png",
-
-      },
-      {
-        "name": "Wework",
-        "url": "https://www.meetup.com/jobs",
-        "icon": "https://static.wixstatic.com/media/a378f5_ba5f139fe92940f9b97a61549534fb57~mv2.png",
+        "icon": "https://static.wixstatic.com/media/a378f5_2a33446f4ff644a4a53bb02dc67ce4e9~mv2.png"
       }
     ]
   },
@@ -79,39 +63,59 @@
     "groupName": "Bronze",
     "sponsors": [
       {
-        "name": "American Express",
-        "url": "https://americanexpress.io/android-jobs",
-        "icon": "https://static.wixstatic.com/media/b1f32d_8d54360cc9e2414b89c92085cc22c03d~mv2.png"
+        "name": "Ray Wenderlich",
+        "url": "https://www.raywenderlich.com/android",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_c8653d271150439681ea0b9736b78471~mv2.png"
       },
       {
-        "name": "Button",
-        "url": "https://www.usebutton.com/",
-        "icon": "https://static.wixstatic.com/media/b1f32d_15bbe43e073e4094a2f806c6a4a909f3~mv2.png"
+        "name": "Bugsnag",
+        "url": "https://www.bugsnag.com/platforms/android/?utm_source=conference-website&utm_medium=referral&utm_content=blurb&utm_campaign=droidcon&utm_term=",
+        "icon": "https://static.wixstatic.com/media/a378f5_ee6afe1ef9d24e1b9bc14175a059532b~mv2.png"
       },
       {
-        "name": "Firebase",
-        "url": "https://firebase.google.com/",
-        "icon": "https://static.wixstatic.com/media/a378f5_850605bfa7714e76ae4752b92cf708cf~mv2.png"
+        "name": "Arm",
+        "url": "https://developer.arm.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_49d1cc123d82426692ac17c90e5b9015~mv2.png"
       },
       {
-        "name": "Etsy",
-        "url": "https://www.etsy.com/careers",
-        "icon": "https://static.wixstatic.com/media/a378f5_78e3e5dd485348db9c7c4cf77c2df3b3~mv2.png"
+        "name": "NimbleDroid",
+        "url": "https://nimbledroid.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_51734d868b2b43bd9cbdf504511b0b52~mv2.png"
       },
       {
-        "name": "Uber",
-        "url": "https://uber.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_420c7c21369c4a36b4477af1fade4a5a~mv2.png"
+        "name": "Snapchat",
+        "url": "https://careers.snap.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_850cd75f825249338e73d4843eb0c681~mv2.png"
       },
       {
         "name": "Microsoft",
-        "url": "https://visualstudio.microsoft.com/de/app-center/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_b4200d38389148e7817227bca3071f73~mv2.png"
+        "url": "https://careers.microsoft.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_720c2cb5d8394047b7a2eeb423f5172e~mv2.png"
       },
       {
-        "name": "Braze",
-        "url": "https://www.braze.com/about/careers/",
-        "icon": "https://static.wixstatic.com/media/a378f5_75be16217046435aba8ebb38b3647449~mv2.png"
+        "name": "Uber",
+        "url": "https://www.uber.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_f9de5e586dff487595ac0bea17207e8a~mv2.png"
+      },
+      {
+        "name": "Yelp",
+        "url": "https://www.yelp.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_79a8333a8541447ca09a7af18a102a99~mv2.png"
+      },
+      {
+        "name": "Guardsquare",
+        "url": "https://www.guardsquare.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_56021b7f27b942e4ac45c539b8271368~mv2.png"
+      },
+      {
+        "name": "Button",
+        "url": "https://visualstudio.microsoft.com/de/app-center/",
+        "icon": "https://static.wixstatic.com/media/b1f32d_15bbe43e073e4094a2f806c6a4a909f3~mv2.png"
+      },
+      {
+        "name": "Etsy",
+        "url": "https://www.etsy.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_78e3e5dd485348db9c7c4cf77c2df3b3~mv2.png"
       }
     ]
   },
@@ -119,19 +123,29 @@
     "groupName": "Party",
     "sponsors": [
       {
-        "name": "Kickstarter",
-        "url": "http://kickstarter.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_8558b3110bee450daa964e9bb14ad29e~mv2.png"
+        "name": "Asana",
+        "url": "https://asana.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_519521924dcb4b128804ca0831c22e53~mv2.png"
       },
       {
-        "name": "American Express",
-        "url": "https://americanexpress.io/android-jobs",
-        "icon": "https://static.wixstatic.com/media/b1f32d_8d54360cc9e2414b89c92085cc22c03d~mv2.png"
+        "name": "Pluralsight",
+        "url": "https://www.pluralsight.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_6f07ecb638174ae9bb6208a2fa2b9d83~mv2.png"
       },
       {
-        "name": "Button",
-        "url": "https://www.usebutton.com/",
-        "icon": "https://static.wixstatic.com/media/b1f32d_15bbe43e073e4094a2f806c6a4a909f3~mv2.png"
+        "name": "Grammarly",
+        "url": "https://www.grammarly.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_6f324b8dd7114e9287196d2b9ee93d41~mv2.png"
+      }
+    ]
+  },
+  {
+    "groupName": "Video Sponsor",
+    "sponsors": [
+      {
+        "name": "Asana",
+        "url": "https://asana.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_519521924dcb4b128804ca0831c22e53~mv2.png"
       }
     ]
   },
@@ -139,14 +153,19 @@
     "groupName": "Startup Alley",
     "sponsors": [
       {
-        "name": "Butterfly",
-        "url": "http://www.butterflynetwork.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_35bf541843224c97ac88e97d387187cf~mv2.png"
+        "name": "Thrive Global",
+        "url": "https://www.thriveglobal.com/careers/",
+        "icon": "https://static.wixstatic.com/media/a378f5_40c44f75d734419a9a82131e28bbe982~mv2.png"
       },
       {
-        "name": "NimbleDroid",
-        "url": "https://nimbledroid.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_51734d868b2b43bd9cbdf504511b0b52~mv2.png"
+        "name": "Calm",
+        "url": "https://www.calm.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_4a34b1d193a1470faa48c69341c97256~mv2.png"
+      },
+      {
+        "name": "Grammarly",
+        "url": "https://www.grammarly.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_6f324b8dd7114e9287196d2b9ee93d41~mv2.png"
       }
     ]
   },
@@ -154,29 +173,54 @@
     "groupName": "Speaker Sponsors",
     "sponsors": [
       {
-        "name": "Willow Tree",
-        "url": "http://www.willowtreeapps.com/",
-        "icon": "https://static.wixstatic.com/media/a378f5_36ae24897e4a4e5bad7d6ddb788d0560~mv2.png"
+        "name": "Akamai Developer",
+        "url": "https://developer.akamai.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_f2ec207284284d79843149331918bec2~mv2.png"
       },
       {
-        "name": "Auth0",
-        "url": "https://auth0.com/",
-        "icon": "https://static.wixstatic.com/media/a378f5_5a0665592c0c44f081b8e26645597fa5~mv2.png"
+        "name": "Bottle Rocket",
+        "url": "https://www.bottlerocketstudios.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_5f45de61925042d8b05f2643d4314ccf~mv2.png"
+      },
+      {
+        "name": "Intercom",
+        "url": "https://www.intercom.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_83f36567092b425faaee61125469af1d~mv2.png"
+      },
+      {
+        "name": "Mapbox",
+        "url": "https://www.mapbox.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_b2d245a0b4854118b2fe2cad4b6eaa4a~mv2.png"
       },
       {
         "name": "Nexmo",
         "url": "https://www.nexmo.com/",
-        "icon": "https://static.wixstatic.com/media/a378f5_9dcca22be143407193b17df5d9375f87~mv2.png"
+        "icon": "https://static.wixstatic.com/media/a378f5_6d98db50075b4e6d807146c71915dac7~mv2.png"
       },
       {
-        "name": "Woolworths",
-        "url": "https://www.woolworths.com.au/",
-        "icon": "https://static.wixstatic.com/media/a378f5_7e54d2bf32314ae8ba9c861b5e78faa7~mv2.png"
+        "name": "Netflix",
+        "url": "https://www.netflix.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_fa552ceafe39480eab40c42707f482db~mv2.png"
       },
       {
-        "name": "Intrepid",
-        "url": "https://www.intrepid.io/",
-        "icon": "https://static.wixstatic.com/media/a378f5_874284b3e34648f596389823235a21b6~mv2.png"
+        "name": "Softvision",
+        "url": "https://www.softvision.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_2211bedbc27647c8826a666f3cbb1fdd~mv2.png"
+      },
+      {
+        "name": "Zoho",
+        "url": "https://www.zoho.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_aa55e21d0b1841da8e9b5c6a7d041c12~mv2.png"
+      },
+      {
+        "name": "Hotstar",
+        "url": "https://www.hotstar.com/",
+        "icon": "https://static.wixstatic.com/media/a378f5_e74a465c8c794fe6a6331883cb6c0d8e~mv2.png"
+      },
+      {
+        "name": "Weight Watchers",
+        "url": "https://www.weightwatchers.com/us/corporate-careers",
+        "icon": "https://static.wixstatic.com/media/a378f5_49cc32ec0fe34705a063971bbd7d608e~mv2.png"
       }
     ]
   },
@@ -184,19 +228,19 @@
     "groupName": "Community Partners",
     "sponsors": [
       {
+        "name": "Touchlab",
+        "url": "https://touchlab.co/",
+        "icon": "https://static.wixstatic.com/media/a378f5_15aa6c7e61c545969b93b4a5cd68ff86~mv2.png"
+      },
+      {
+        "name": "Pro Android Dev",
+        "url": "https://proandroiddev.com/",
+        "icon": "https://static.wixstatic.com/media/26bcf1_68dd3871b1a844ee9179ae6d1f7544f6~mv2.png"
+      },
+      {
         "name": "Android Weekly",
         "url": "https://androidweekly.net/",
-        "icon": "https://static.wixstatic.com/media/a378f5_5352f0f87cbc4498a0ee942709bad751~mv2.png"
-      },
-      {
-        "name": "NY Android Developers Meetup",
-        "url": "https://www.meetup.com/nyandroiddevelopers/",
-        "icon": "https://static.wixstatic.com/media/a378f5_3969a2471b844a9badaba1e9e9de8312~mv2.png"
-      },
-      {
-        "name": "GDG NYC",
-        "url": "https://www.meetup.com/gdgnyc/",
-        "icon": "https://static.wixstatic.com/media/a378f5_e4169c45fe0c4d53aee468556ac5ca48~mv2.png"
+        "icon": "https://static.wixstatic.com/media/26bcf1_4f4b869db90c43138d64150e3b047ef0~mv2.png"
       }
     ]
   }

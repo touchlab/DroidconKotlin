@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="tabBackground">#3f4caf</color>
+    <color name="tabBackground">#00A5FB</color>
     <color name="textColor">#000</color>
     <color name="textColorLight">#333</color>
 
-    <color name="colorPrimary">#233096</color>
-    <color name="colorPrimaryDark">#1e2981</color>
+    <color name="colorPrimary">#00A5FB</color>
+    <color name="colorPrimaryDark">#0045A8</color>
     <color name="colorAccent">#6bac89</color>
-    <color name="colorMenu">#e4e02f</color>
-    <color name="colorMenuOff">#aae4e02f</color>
+    <color name="colorMenu">#FFF</color>
+    <color name="colorMenuOff">#C2C2C2</color>
 
     <color name="white">#FFF</color>
     <color name="black">#000</color>

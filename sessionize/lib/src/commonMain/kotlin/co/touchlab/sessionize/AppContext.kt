@@ -114,7 +114,7 @@ object AppContext {
         val lastLoad = appSettings.getLong(KEY_LAST_LOAD)
         if (lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
             networkBackgroundTask {
-                dataCalls()
+//                dataCalls()
             }
         }
     }
