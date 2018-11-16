@@ -20,7 +20,7 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         sponsorsCollectionView.delegate = self
         sponsorsCollectionView.dataSource = self
         
-//        SponsorModel().loadSponsor(proc: sponsorResult)
+        SponsorModel().loadSponsor(proc: sponsorResult)
         // Do any additional setup after loading the view.
     }
     
