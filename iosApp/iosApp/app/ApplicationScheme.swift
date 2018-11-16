@@ -41,10 +41,10 @@ class ApplicationScheme: NSObject {
     public let colorScheme: MDCColorScheming = {
         let scheme = MDCSemanticColorScheme(defaults: .material201804)
         
-        scheme.primaryColor = colorWithHexString(hexString: "1e2981")
-        scheme.primaryColorVariant = colorWithHexString(hexString: "233096")
-        scheme.onPrimaryColor = colorWithHexString(hexString: "ffffff")
-        scheme.secondaryColor = colorWithHexString(hexString: "3f4caf")
+        scheme.primaryColor = colorWithHexString(hexString: "0086EC")
+        scheme.primaryColorVariant = colorWithHexString(hexString: "00A5FB")
+        scheme.onPrimaryColor = colorWithHexString(hexString: "FFFFFF")
+        scheme.secondaryColor = colorWithHexString(hexString: "00A5FB")
         scheme.onSecondaryColor = colorWithHexString(hexString: "ffffff")
         scheme.surfaceColor = colorWithHexString(hexString: "ffffff")
         scheme.onSurfaceColor = colorWithHexString(hexString: "000000")
@@ -58,10 +58,10 @@ class ApplicationScheme: NSObject {
     public let menuColorScheme: MDCColorScheming = {
         let scheme = MDCSemanticColorScheme(defaults: .material201804)
         
-        scheme.primaryColor = colorWithHexString(hexString: "233096")
+        scheme.primaryColor = colorWithHexString(hexString: "00A5FB")
         scheme.primaryColorVariant = colorWithHexString(hexString: "1e2981")
-        scheme.onPrimaryColor = colorWithHexString(hexString: "f4f04f")
-        scheme.secondaryColor = colorWithHexString(hexString: "3f4caf")
+        scheme.onPrimaryColor = colorWithHexString(hexString: "ffffff")
+        scheme.secondaryColor = colorWithHexString(hexString: "ffffff")
         scheme.onSecondaryColor = colorWithHexString(hexString: "ffffff")
         scheme.surfaceColor = colorWithHexString(hexString: "ffffff")
         scheme.onSurfaceColor = colorWithHexString(hexString: "000000")
