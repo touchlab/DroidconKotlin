@@ -35,7 +35,8 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         eventList.delegate = self
         eventList.dataSource = self
         
-        navigationItem.title = allEvents ? "Droidcon NYC" : "My Agenda"
+        let displayName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "Droidcon"
+        navigationItem.title = allEvents ? displayName : "My Agenda"
         
         // Hide the nav bar shadow
         navigationController?.navigationBar.shadowImage = UIImage()

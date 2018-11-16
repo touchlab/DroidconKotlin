@@ -1,9 +1,7 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.multiplatform.architecture.livedata.*
 import co.touchlab.sessionize.display.DaySchedule
-import kotlin.native.*
 import kotlin.native.concurrent.*
 
 class ScheduleViewModel{
@@ -18,7 +16,6 @@ class ScheduleViewModel{
 
         scheduleObserver = object : Observer<List<DaySchedule>>{
             override fun onChanged(t: List<DaySchedule>?){
-                (scheduleModel as ScheduleModel).sharedHash.put("asdf", ScheduleModel.TestData("qwert"))
                 if(t != null)
                     proc(t)
             }
