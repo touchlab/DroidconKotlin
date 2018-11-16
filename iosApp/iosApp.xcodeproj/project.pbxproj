@@ -39,6 +39,7 @@
 		63A76ACF2129E93F0000515D /* SponsorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACE2129E93F0000515D /* SponsorViewController.swift */; };
 		63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */; };
 		63A76AD32129F1FB0000515D /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A76AD22129F1FB0000515D /* sponsors.json */; };
+		63CF388E218E165000BA0367 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CF388D218E165000BA0367 /* UI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		63A76ACE2129E93F0000515D /* SponsorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorViewController.swift; sourceTree = "<group>"; };
 		63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorGroupCollectionReusableView.swift; sourceTree = "<group>"; };
 		63A76AD22129F1FB0000515D /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sponsors.json; sourceTree = "<group>"; };
+		63CF388D218E165000BA0367 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		E04CC97704F132875703ACD3 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -171,6 +173,7 @@
 				6372423820F915EA0049263B /* schedule.json */,
 				63711D3B211143390099FF25 /* about.json */,
 				6359EB8E2112650200424B73 /* UITextViewFixed.swift */,
+				63CF388D218E165000BA0367 /* UI.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				6372424520F9B7800049263B /* AboutViewController.swift in Sources */,
 				63711D3F2111470A0099FF25 /* AboutInfoTableViewCell.swift in Sources */,
 				6372424220F9AE240049263B /* ScheduleListCell.swift in Sources */,
+				63CF388E218E165000BA0367 /* UI.swift in Sources */,
 				637100CD210E409E0099FF25 /* MaterialTabNavController.swift in Sources */,
 				6372423E20F975470049263B /* LaunchViewController.swift in Sources */,
 				6356313B20DC58F600BCCDF9 /* AppDelegate.swift in Sources */,

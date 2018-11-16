@@ -8,24 +8,25 @@ import co.touchlab.sessionize.db.roomAsync
 import co.touchlab.sessionize.platform.*
 import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
+import kotlinx.coroutines.launch
 import kotlin.math.max
 
-class EventModel(val sessionId: String) {
+class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.value!!) {
 
-    val evenLiveData:EventLiveData
+    val evenLiveData: EventLiveData
 
     init {
         clLog("init EventModel($sessionId)")
         val query = AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).freeze()
-        evenLiveData = EventLiveData(query)
+        evenLiveData = EventLiveData(query).freeze()
     }
 
-    fun shutDown(){
+    fun shutDown() {
         evenLiveData.removeListener()
     }
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
-    fun toggleRsvp(rsvp:Boolean){
+    fun toggleRsvp(rsvp: Boolean) {
 
 
         /*launch(ApplicationDispatcher) {
@@ -46,25 +47,67 @@ class EventModel(val sessionId: String) {
             }
         }*/
 
+        val sessionIdLocal = sessionId
+
         networkBackgroundTask {
-            val methodName = if(rsvp){"sessionizeRsvpEvent"}else{"sessionizeUnrsvpEvent"}
-            val callingUrl = "https://droidcon-server.herokuapp.com/dataTest/$methodName/$sessionId/${AppContext.userUuid()}"
+            val methodName = if (rsvp) {
+                "sessionizeRsvpEvent"
+            } else {
+                "sessionizeUnrsvpEvent"
+            }
+            val callingUrl = "https://droidcon-server.herokuapp.com/dataTest/$methodName/$sessionIdLocal/${AppContext.userUuid()}"
             println("CALLING: $callingUrl")
             simpleGet(callingUrl)
         }
 
-        backgroundTask({
-            AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
-        }){
+        /*backgroundTask({
+            AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionIdLocal).executeAsOne()
+        }) {
             val params = HashMap<String, Any>()
             params.put("slot", analyticsDateFormat.format(it.startsAt))
-            params.put("sessionId", sessionId)
-            params.put("count", if(rsvp){1}else{-1})
-            AppContext.logEvent("RSVP_EVENT",
-                    params)
-        }
+            params.put("sessionId", sessionIdLocal)
+            params.put("count", if (rsvp) {
+                1
+            } else {
+                -1
+            })
+            AppContext.logEvent("RSVP_EVENT", params)
+        }*/
+  /*      if(cont == null) {
+            launch {
+                println("suspend trace 1")*/
+     /*           val session = backgroundSupend {
+                    println("suspend trace 2")
+                    val executeAsOne = AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
+                    println("Internal session $executeAsOne")
+                    executeAsOne
+                }
+                println("Outer session $session")
+                val params = HashMap<String, Any>()
+                params.put("slot", analyticsDateFormat.format((session as Session).startsAt))
+                params.put("sessionId", sessionId)
+                params.put("count", if(rsvp){1}else{-1})
+                AppContext.logEvent("RSVP_EVENT", params)
+
+*/
+    /*            backgroundSupendLight {
+                    println("Running in background")
+                }
+                println("meh 2")
+
+            }
+        }else{
+            val result = kotlin.Result.success("jjj")
+            cont!!.resumeWith(result)
+            cont = null
+        }*/
+
         backgroundTask {
-            AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if(rsvp){1}else{0}, sessionId)
+            AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if (rsvp) {
+                1
+            } else {
+                0
+            }, sessionIdLocal)
         }
     }
 
@@ -78,8 +121,8 @@ class EventModel(val sessionId: String) {
             return SessionInfo(sessionStuff, sessionStuff.formattedRoomTime(), speakers, conflict(sessionStuff, mySessions))
         }
 
-        private fun conflict(session:Session, others: List<MySessions>): Boolean {
-            if(session.rsvp == 0L)
+        private fun conflict(session: Session, others: List<MySessions>): Boolean {
+            if (session.rsvp == 0L)
                 return false
 
             val now = currentTimeMillis()
@@ -120,7 +163,7 @@ fun SessionInfo.isRsvped(): Boolean {
     return this.session.rsvp != 0L
 }
 
-/*suspend*/ fun Session.formattedRoomTime():String {
+/*suspend*/ fun Session.formattedRoomTime(): String {
     var formattedStart = SessionInfoStuff.roomNameTimeFormatter.format(this.startsAt)
     val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.format(this.endsAt)
 
@@ -133,7 +176,7 @@ fun SessionInfo.isRsvped(): Boolean {
     return "${this.roomAsync()./*await().*/name}, $formattedStart - $formattedEnd"
 }
 
-object SessionInfoStuff{
+object SessionInfoStuff {
     private val TIME_FORMAT = "h:mm a"
     val roomNameTimeFormatter = DateFormatHelper(TIME_FORMAT)
 }

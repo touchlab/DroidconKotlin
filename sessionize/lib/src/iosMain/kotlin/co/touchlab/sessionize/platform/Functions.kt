@@ -1,6 +1,7 @@
 package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.QueryWrapper
+import co.touchlab.multiplatform.architecture.threads.ThreadLocalImpl
 import kotlin.system.getTimeMillis
 import platform.darwin.*
 import platform.Foundation.*
@@ -12,6 +13,7 @@ import co.touchlab.sqliter.DatabaseMigration
 import co.touchlab.sqliter.NativeDatabaseManager
 import co.touchlab.sqliter.sqldelight.SQLiterConnection
 import co.touchlab.sqliter.sqldelight.SQLiterHelper
+import co.touchlab.stately.concurrency.ThreadLocalRef
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDatabase
@@ -19,7 +21,7 @@ import timber.log.*
 
 actual fun currentTimeMillis(): Long = getTimeMillis()
 
-private var workerMap = HashMap<String, Worker?>()
+private val workerMap = HashMap<String, Worker?>()
 
 //Multiple worker contexts get a copy of global state. Not sure about threads created outside of K/N (probably not)
 //Lazy create ensures we don't try to create multiple queues
@@ -40,28 +42,25 @@ private fun makeQueue(key: String): Worker {
  */
 actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
 
-    val jobWrapper = JobWrapper(backJob, mainJob).freeze()
+    val mainJobHolder = ThreadLocalRef<(B) -> Unit>()
+    mainJobHolder.value = mainJob
 
     val worker = makeQueue("back")
     worker.execute(TransferMode.SAFE,
-            { jobWrapper }) {
-        /*val result  = DetachedObjectGraph<Any> { it.backJob().freeze() as Any }
-        dispatch_async(dispatch_get_main_queue()){
-            val mainResult = result.attach() as B
-            it.mainJob(mainResult)
-        }*/
-
+            { JobWrapper(backJob, mainJobHolder).freeze() }) {
         dispatch_async_f(dispatch_get_main_queue(), DetachedObjectGraph {
-            ResultAndMain(it.backJob(), it.mainJob).freeze()
+            Result(it.backJob(), it.mainJobLocal).freeze()
         }.asCPointer(), staticCFunction { it: COpaquePointer? ->
             initRuntimeIfNeeded()
-            val data = DetachedObjectGraph<ResultAndMain<B>>(it).attach()
-            data.mainJob(data.result)
+            val result = DetachedObjectGraph<Result<B>>(it).attach()
+            val mainProc = result.mainJobLocal.value!!
+            mainProc(result.result)
         })
     }
 }
 
-data class ResultAndMain<B>(val result: B, val mainJob: (B) -> Unit)
+data class Result<B>(val result: B, val mainJobLocal: ThreadLocalRef<(B) -> Unit>)
+data class JobWrapper<B>(val backJob: () -> B, val mainJobLocal: ThreadLocalRef<(B) -> Unit>)
 
 actual fun backgroundTask(backJob: () -> Unit) {
     backgroundTaskRun(backJob, "back")
@@ -78,8 +77,6 @@ private fun backgroundTaskRun(backJob: () -> Unit, key: String) {
         it()
     }
 }
-
-data class JobWrapper<B>(val backJob: () -> B, val mainJob: (B) -> Unit)
 
 actual fun simpleGet(url: String): String {
     val urlObj = NSURL(string = url)

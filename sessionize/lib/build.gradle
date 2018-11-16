@@ -78,7 +78,7 @@ kotlin {
         androidMain {
             dependencies {
                 implementation deps.kotlin.coroutines.jdk
-                implementation deps.kotlin.coroutines.android
+//                implementation deps.kotlin.coroutines.android
                 implementation deps.sqldelight.runtimeJdk
                 implementation deps.sqldelight.multiplatformdriverAndroid
                 implementation deps.knarch.threadsLivedataAndroid
