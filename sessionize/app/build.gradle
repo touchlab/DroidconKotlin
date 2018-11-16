@@ -90,6 +90,8 @@ dependencies {
     implementation deps.knarch.dbAndroid
     implementation deps.multiplatformSettings.android
     implementation deps.timber.android
+//    implementation deps.kotlin.coroutines.jdk
+    implementation deps.kotlin.coroutines.android
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

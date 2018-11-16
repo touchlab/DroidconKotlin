@@ -10,6 +10,7 @@ import com.crashlytics.android.answers.CustomEvent
 import timber.log.LogcatTree
 import timber.log.Timber
 import timber.log.info
+import kotlinx.coroutines.*
 
 class MainApp :Application(){
     override fun onCreate() {
@@ -36,7 +37,9 @@ class MainApp :Application(){
 
                     Answers.getInstance().logCustom(event)
                 },
-                { Log.w("MainApp", it) })
+                { Log.w("MainApp", it) },
+                Dispatchers.Main
+                )
     }
 
     private fun loadAsset(name:String) = assets

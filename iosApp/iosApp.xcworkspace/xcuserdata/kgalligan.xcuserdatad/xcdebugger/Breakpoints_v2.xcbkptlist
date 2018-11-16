@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iosApp/app/AppDelegate.swift"
-            timestampString = "560702722.9848469"
+            timestampString = "564091870.535278"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "analyticsCallback(name:params:)"
             landmarkType = "7">
          </BreakpointContent>
