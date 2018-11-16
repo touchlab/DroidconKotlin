@@ -6,10 +6,10 @@
     <color name="textColorLight">#333</color>
 
     <color name="colorPrimary">#00A5FB</color>
-    <color name="colorPrimaryDark">#0045A8</color>
-    <color name="colorAccent">#6bac89</color>
+    <color name="colorPrimaryDark">#0086EC</color>
+    <color name="colorAccent">#FFD44F</color>
     <color name="colorMenu">#FFF</color>
-    <color name="colorMenuOff">#C2C2C2</color>
+    <color name="colorMenuOff">#DEDEDE</color>
 
     <color name="white">#FFF</color>
     <color name="black">#000</color>
