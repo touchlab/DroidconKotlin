@@ -5,8 +5,13 @@ import kotlin.native.*
 import kotlin.native.concurrent.*
 
 class EventViewModel(sessionId: String){
-    val eventModel = EventModel(sessionId).freeze()
+    val eventModel = EventModel(sessionId)
+
     var eventObserver:Observer<SessionInfo>? = null
+
+    init {
+        eventModel.ensureNeverFrozen()
+    }
 
     fun registerForChanges(proc:(sessionInfo:SessionInfo)->Unit){
         eventObserver = object : Observer<SessionInfo>{

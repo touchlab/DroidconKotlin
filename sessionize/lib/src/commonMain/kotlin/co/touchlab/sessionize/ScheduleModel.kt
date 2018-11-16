@@ -18,7 +18,6 @@ import com.squareup.sqldelight.Query
 class ScheduleModel {
     private val liveSessions:SessionListLiveData
 
-    val sharedHash = SharedHashMap<String, TestData>().freeze()
     data class TestData(val s:String)
 
     init {
@@ -41,12 +40,6 @@ class ScheduleModel {
     fun weaveSessionDetailsUi(hourBlock:HourBlock, allBlocks:List<HourBlock>, row:EventRow, allEvents: Boolean){
         val isFirstInBlock = !hourBlock.hourStringDisplay.isEmpty()
         row.setTimeGap(isFirstInBlock)
-
-        sharedHash.put("${hourBlock.timeBlock.id}", TestData(hourBlock.timeBlock.title))
-
-        sharedHash.entries.forEach {
-            println("From hash: ${it.key}/${it.value}")
-        }
 
         row.setTitleText(hourBlock.timeBlock.title)
         row.setTimeText(hourBlock.hourStringDisplay)
