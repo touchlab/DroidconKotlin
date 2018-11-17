@@ -279,6 +279,22 @@
               {
                 "id": "5d93a033-2cbe-4286-acc8-1b928e616210",
                 "name": "Gabriel Peal"
+              },
+              {
+                "id": "9d2ecd4c-fd6e-444f-b80f-bd8ef04106ae",
+                "name": "Kevin Galligan"
+              },
+              {
+                "id": "52f33c2d-0b1d-43ff-a746-936173efc506",
+                "name": "Ifeoma Okereke"
+              },
+              {
+                "id": "da0d0b74-71cf-4ac6-941b-94626dd92bf0",
+                "name": "Joaquim Verges"
+              },
+              {
+                "id": "9d0314c9-5030-489e-a3ce-9494c7bf63cf",
+                "name": "Matthias Wenz"
               }
             ],
             "categories": [],
@@ -764,6 +780,65 @@
           }
         ],
         "hasOnlyPlenumSessions": false
+      },
+      {
+        "id": 3425,
+        "name": "Coblenz",
+        "sessions": [
+          {
+            "id": "9a7ec59a-8348-4743-b429-07fe96ba8190",
+            "title": "Office Hours - CDNs, Web Performance, Akamai",
+            "description": "Office Hours hosted by Aman Alam",
+            "startsAt": "2018-11-19T13:00:00",
+            "endsAt": "2018-11-19T13:45:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 3425,
+            "room": "Coblenz"
+          },
+          {
+            "id": "cf0463ff-a823-4b65-85f8-adeac23b461a",
+            "title": "Office Hours - Kotlin Multiplatform",
+            "description": "Hosted by Kevin Galligan",
+            "startsAt": "2018-11-19T14:00:00",
+            "endsAt": "2018-11-19T14:45:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 3425,
+            "room": "Coblenz"
+          },
+          {
+            "id": "40ec6d69-32e8-4099-ba50-ff800c8663b6",
+            "title": "Office Hours: Android CI/CD and Build",
+            "description": "Hosted by Gautam Karla",
+            "startsAt": "2018-11-19T15:00:00",
+            "endsAt": "2018-11-19T15:45:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 3425,
+            "room": "Coblenz"
+          },
+          {
+            "id": "2bcd2da8-d6b1-4a57-8b09-745087423246",
+            "title": "Office Hours: Gradle, Android Build Times",
+            "description": "Hosted by Rooz and Tony",
+            "startsAt": "2018-11-19T17:00:00",
+            "endsAt": "2018-11-19T17:45:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 3425,
+            "room": "Coblenz"
+          }
+        ],
+        "hasOnlyPlenumSessions": false
       }
     ],
     "timeSlots": [
@@ -1174,6 +1249,24 @@
               "room": "Fisher West"
             },
             "index": 3
+          },
+          {
+            "id": 3425,
+            "name": "Coblenz",
+            "session": {
+              "id": "9a7ec59a-8348-4743-b429-07fe96ba8190",
+              "title": "Office Hours - CDNs, Web Performance, Akamai",
+              "description": "Office Hours hosted by Aman Alam",
+              "startsAt": "2018-11-19T13:00:00",
+              "endsAt": "2018-11-19T13:45:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 3425,
+              "room": "Coblenz"
+            },
+            "index": 4
           }
         ]
       },
@@ -1294,6 +1387,24 @@
               "room": "Fisher West"
             },
             "index": 3
+          },
+          {
+            "id": 3425,
+            "name": "Coblenz",
+            "session": {
+              "id": "cf0463ff-a823-4b65-85f8-adeac23b461a",
+              "title": "Office Hours - Kotlin Multiplatform",
+              "description": "Hosted by Kevin Galligan",
+              "startsAt": "2018-11-19T14:00:00",
+              "endsAt": "2018-11-19T14:45:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 3425,
+              "room": "Coblenz"
+            },
+            "index": 4
           }
         ]
       },
@@ -1418,6 +1529,24 @@
               "room": "Fisher West"
             },
             "index": 3
+          },
+          {
+            "id": 3425,
+            "name": "Coblenz",
+            "session": {
+              "id": "40ec6d69-32e8-4099-ba50-ff800c8663b6",
+              "title": "Office Hours: Android CI/CD and Build",
+              "description": "Hosted by Gautam Karla",
+              "startsAt": "2018-11-19T15:00:00",
+              "endsAt": "2018-11-19T15:45:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 3425,
+              "room": "Coblenz"
+            },
+            "index": 4
           }
         ]
       },
@@ -1666,6 +1795,24 @@
               "room": "Fisher West"
             },
             "index": 3
+          },
+          {
+            "id": 3425,
+            "name": "Coblenz",
+            "session": {
+              "id": "2bcd2da8-d6b1-4a57-8b09-745087423246",
+              "title": "Office Hours: Gradle, Android Build Times",
+              "description": "Hosted by Rooz and Tony",
+              "startsAt": "2018-11-19T17:00:00",
+              "endsAt": "2018-11-19T17:45:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 3425,
+              "room": "Coblenz"
+            },
+            "index": 4
           }
         ]
       },
@@ -1710,6 +1857,22 @@
                 {
                   "id": "5d93a033-2cbe-4286-acc8-1b928e616210",
                   "name": "Gabriel Peal"
+                },
+                {
+                  "id": "9d2ecd4c-fd6e-444f-b80f-bd8ef04106ae",
+                  "name": "Kevin Galligan"
+                },
+                {
+                  "id": "52f33c2d-0b1d-43ff-a746-936173efc506",
+                  "name": "Ifeoma Okereke"
+                },
+                {
+                  "id": "da0d0b74-71cf-4ac6-941b-94626dd92bf0",
+                  "name": "Joaquim Verges"
+                },
+                {
+                  "id": "9d0314c9-5030-489e-a3ce-9494c7bf63cf",
+                  "name": "Matthias Wenz"
                 }
               ],
               "categories": [],
@@ -2001,6 +2164,10 @@
               {
                 "id": "bf2d5f77-1bd0-4cc9-b35e-ca6d82ee782c",
                 "name": "Marcos Paulo Damasceno"
+              },
+              {
+                "id": "cdc513e8-cd46-49d8-a3d1-ac2ec53d11c6",
+                "name": "Akshata Ramesh"
               }
             ],
             "categories": [],
@@ -2588,6 +2755,52 @@
           }
         ],
         "hasOnlyPlenumSessions": false
+      },
+      {
+        "id": 3425,
+        "name": "Coblenz",
+        "sessions": [
+          {
+            "id": "5b88398a-36fe-40d0-a941-7e89941abc6c",
+            "title": "Office Hours: Image Formats, Images on Android, Fresco and Spectrum",
+            "description": "Hosted by Daniel Hugenroth, Hugo Cuvillier",
+            "startsAt": "2018-11-20T13:00:00",
+            "endsAt": "2018-11-20T13:45:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 3425,
+            "room": "Coblenz"
+          },
+          {
+            "id": "aae1fb60-9c25-4477-84f1-3c164072ad45",
+            "title": "Office Hours: All things Kotlin",
+            "description": "Hosted by Brent Watson",
+            "startsAt": "2018-11-20T14:00:00",
+            "endsAt": "2018-11-20T14:45:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 3425,
+            "room": "Coblenz"
+          },
+          {
+            "id": "37506f43-c36c-4f02-a2b0-2e894c5316ff",
+            "title": "Office Hours: Mindful Leadership",
+            "description": "Hosted by Lida Tohidi",
+            "startsAt": "2018-11-20T17:00:00",
+            "endsAt": "2018-11-20T17:45:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 3425,
+            "room": "Coblenz"
+          }
+        ],
+        "hasOnlyPlenumSessions": false
       }
     ],
     "timeSlots": [
@@ -3076,6 +3289,24 @@
               "room": "Fisher West"
             },
             "index": 3
+          },
+          {
+            "id": 3425,
+            "name": "Coblenz",
+            "session": {
+              "id": "5b88398a-36fe-40d0-a941-7e89941abc6c",
+              "title": "Office Hours: Image Formats, Images on Android, Fresco and Spectrum",
+              "description": "Hosted by Daniel Hugenroth, Hugo Cuvillier",
+              "startsAt": "2018-11-20T13:00:00",
+              "endsAt": "2018-11-20T13:45:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 3425,
+              "room": "Coblenz"
+            },
+            "index": 4
           }
         ]
       },
@@ -3196,6 +3427,24 @@
               "room": "Fisher West"
             },
             "index": 3
+          },
+          {
+            "id": 3425,
+            "name": "Coblenz",
+            "session": {
+              "id": "aae1fb60-9c25-4477-84f1-3c164072ad45",
+              "title": "Office Hours: All things Kotlin",
+              "description": "Hosted by Brent Watson",
+              "startsAt": "2018-11-20T14:00:00",
+              "endsAt": "2018-11-20T14:45:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 3425,
+              "room": "Coblenz"
+            },
+            "index": 4
           }
         ]
       },
@@ -3240,6 +3489,10 @@
                 {
                   "id": "bf2d5f77-1bd0-4cc9-b35e-ca6d82ee782c",
                   "name": "Marcos Paulo Damasceno"
+                },
+                {
+                  "id": "cdc513e8-cd46-49d8-a3d1-ac2ec53d11c6",
+                  "name": "Akshata Ramesh"
                 }
               ],
               "categories": [],
@@ -3564,6 +3817,24 @@
               "room": "Fisher West"
             },
             "index": 3
+          },
+          {
+            "id": 3425,
+            "name": "Coblenz",
+            "session": {
+              "id": "37506f43-c36c-4f02-a2b0-2e894c5316ff",
+              "title": "Office Hours: Mindful Leadership",
+              "description": "Hosted by Lida Tohidi",
+              "startsAt": "2018-11-20T17:00:00",
+              "endsAt": "2018-11-20T17:45:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 3425,
+              "room": "Coblenz"
+            },
+            "index": 4
           }
         ]
       },

@@ -18,8 +18,6 @@ import com.squareup.sqldelight.Query
 class ScheduleModel {
     private val liveSessions:SessionListLiveData
 
-    data class TestData(val s:String)
-
     init {
         clLog("init ScheduleModel()")
         val sessionQuery = dbHelper.getSessionsQuery()
