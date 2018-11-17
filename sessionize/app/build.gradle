@@ -16,11 +16,11 @@ def releasePassword = properties.getProperty('releasePassword')
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "co.touchlab.droidconnyc2018"
+        applicationId "co.touchlab.droidconsf2018"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10100
-        versionName "1.1.0"
+        versionCode 10201
+        versionName "1.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
