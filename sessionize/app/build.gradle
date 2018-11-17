@@ -83,6 +83,9 @@ dependencies {
     implementation ('com.crashlytics.sdk.android:answers:1.4.2@aar') {
         transitive = true
     }
+    compile('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
+        transitive = true;
+    }
 
     implementation deps.sqldelight.runtimeJdk
     implementation deps.sqldelight.multiplatformdriverAndroid
