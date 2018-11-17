@@ -1,7 +1,5 @@
 package co.touchlab.sessionize
 
-import android.support.annotation.AnimRes
-
 import androidx.fragment.app.Fragment
 
 /**
@@ -15,17 +13,13 @@ interface NavigationHost {
      */
     fun navigateTo(
             fragment: Fragment,
-            addToBackstack: Boolean)
-
-    /**
-     * Trigger an animated navigation to the specified fragment,
-     * optionally adding a transaction to the back stack to make this navigation reversible.
-     */
-    fun navigateTo(
-            fragment: Fragment,
             addToBackstack: Boolean,
-            @AnimRes enterAnim: Int,
-            @AnimRes exitAnim: Int,
-            @AnimRes popEnterAnim: Int,
-            @AnimRes popExitAnim: Int)
+            fragmentAnimation: FragmentAnimation? = null)
 }
+
+data class FragmentAnimation(
+        val enterAnim: Int,
+        val exitAnim: Int,
+        val popEnterAnim: Int,
+        val popExitAnim: Int
+)

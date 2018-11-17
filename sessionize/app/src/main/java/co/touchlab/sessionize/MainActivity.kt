@@ -98,39 +98,29 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
     override fun navigateTo(
             fragment: Fragment,
-            addToBackstack: Boolean) {
-        val transaction = supportFragmentManager.beginTransaction()
-        commitFragmentTransaction(fragment, addToBackstack, transaction)
-    }
-
-    override fun navigateTo(
-            fragment: Fragment,
             addToBackstack: Boolean,
-            enterAnim: Int,
-            exitAnim: Int,
-            popEnterAnim: Int,
-            popExitAnim: Int) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.setCustomAnimations(
-                enterAnim,
-                exitAnim,
-                popEnterAnim,
-                popExitAnim)
-        commitFragmentTransaction(fragment, addToBackstack, transaction)
-    }
-
-    private fun commitFragmentTransaction(
-            fragment: Fragment,
-            addToBackstack: Boolean,
-            transaction: FragmentTransaction) {
+            fragmentAnimation: FragmentAnimation?) {
 
         if(!addToBackstack){
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
-        transaction.replace(R.id.container, fragment)
+        val transaction = supportFragmentManager
+                .beginTransaction()
+
+        if(fragmentAnimation != null){
+            transaction.setCustomAnimations(
+                    fragmentAnimation.enterAnim,
+                    fragmentAnimation.exitAnim,
+                    fragmentAnimation.popEnterAnim,
+                    fragmentAnimation.popExitAnim)
+        }
+
         if (addToBackstack) {
+            transaction.add(R.id.container, fragment)
             transaction.addToBackStack(fragment.javaClass.simpleName)
+        }else{
+            transaction.replace(R.id.container, fragment)
         }
 
         transaction.commit()

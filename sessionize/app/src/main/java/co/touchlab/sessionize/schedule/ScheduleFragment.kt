@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.display.DaySchedule
@@ -88,10 +89,11 @@ class ScheduleFragment():Fragment() {
         (activity as NavigationHost).navigateTo(
                 EventFragment.newInstance(sessionId),
                 true,
-                R.anim.slide_from_right,
-                R.anim.slide_to_left,
-                R.anim.slide_from_left,
-                R.anim.slide_to_right)
+                FragmentAnimation(R.anim.slide_from_right,
+                        R.anim.slide_to_left,
+                        R.anim.slide_from_left,
+                        R.anim.slide_to_right)
+                )
     }
 
     fun updateTabs(days: List<DaySchedule>) {

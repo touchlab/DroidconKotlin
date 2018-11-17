@@ -42,6 +42,8 @@ class EventAdapter(private val context: Context,
         scheduleModel.weaveSessionDetailsUi(scheduleBlockHour, dataSet, scheduleHolder, allEvents)
         if (!scheduleBlockHour.timeBlock.isBlock()) {
             scheduleHolder.setOnClickListener { eventClickListener(scheduleBlockHour) }
+        }else{
+            scheduleHolder.setOnClickListener {}
         }
     }
 
