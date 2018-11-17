@@ -60,8 +60,8 @@ class ScheduleFragment():Fragment() {
 
         eventList.layoutManager = LinearLayoutManager(activity)
 
-        eventAdapter = EventAdapter(context!!, viewModel.scheduleModel, allEvents){
-            (activity as NavigationHost).navigateTo(EventFragment.newInstance(it.timeBlock.id), true)
+        eventAdapter = EventAdapter(context!!, viewModel.scheduleModel, allEvents) {
+            navigateToSession(it.timeBlock.id)
         }
 
         eventList.adapter = eventAdapter
@@ -82,6 +82,16 @@ class ScheduleFragment():Fragment() {
         })
 
         return view
+    }
+
+    fun navigateToSession(sessionId: String) {
+        (activity as NavigationHost).navigateTo(
+                EventFragment.newInstance(sessionId),
+                true,
+                R.anim.slide_from_right,
+                R.anim.slide_to_left,
+                R.anim.slide_from_left,
+                R.anim.slide_to_right)
     }
 
     fun updateTabs(days: List<DaySchedule>) {
