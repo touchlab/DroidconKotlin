@@ -359,6 +359,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="headerImage" destination="ES2-4u-Eso" id="cSu-vB-1KB"/>
                         <outlet property="speakerCompany" destination="d4f-PZ-Mzo" id="HXo-HK-8uF"/>
                         <outlet property="speakerImage" destination="z4R-BQ-1OO" id="Au0-kH-HNN"/>
                         <outlet property="speakerName" destination="H3A-2V-JCg" id="44r-uh-Mv1"/>
