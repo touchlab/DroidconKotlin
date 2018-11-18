@@ -16,6 +16,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
     @IBOutlet weak var speakerName: UILabel!
     @IBOutlet weak var speakerCompany: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var headerImage: UIImageView!
     
     var speakerId:String!
     var viewModel:SpeakerViewModel!
@@ -31,6 +32,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         viewModel = SpeakerViewModel(sessionId: speakerId)
         viewModel.registerForChanges(proc: updateUi)
         
+        headerImage.backgroundColor = ApplicationScheme.shared.colorScheme.secondaryColor
         // Do any additional setup after loading the view.
     }
 
