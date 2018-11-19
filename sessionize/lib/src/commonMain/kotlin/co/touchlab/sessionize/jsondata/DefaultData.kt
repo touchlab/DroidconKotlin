@@ -33,7 +33,7 @@ object DefaultData{
                             session.getPrimitive("endsAt").content,
                             session.getPrimitive("isServiceSession").boolean,
                             speakersList,
-                            session.getPrimitive("roomId").intt,
+                            session.getPrimitive("roomId").int,
                             session.getPrimitive("room").content
                     )
 

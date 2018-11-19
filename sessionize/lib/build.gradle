@@ -53,6 +53,7 @@ kotlin {
                 implementation deps.stately.mpp
                 implementation deps.kotlin.stdlib.common
                 implementation deps.kotlin.coroutines.common
+                implementation deps.kotlinxSerialization
                 implementation deps.sqldelight.runtime
                 implementation deps.knarch.db
                 implementation deps.knarch.threads
