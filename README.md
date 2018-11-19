@@ -8,9 +8,7 @@ be forked and customized for anything run on Sessionize.
 
 Kotlin multiplatform libraries used:
 
-* [KNarch.db](https://github.com/touchlab/knarch.db) - SQLite interaction library. Modeled on AOSP SQLite stack. From 
-[https://touchlab.co/](https://touchlab.co/) and [yours truly](https://github.com/kpgalligan). Click stars.
-Show some love.
+* SQLiter - New SQLite driver library. Not quite open source yet ...
 
 * [SQLDelight](https://github.com/square/sqldelight) - Amazing SQL model generator from Square and 
 [AlecStrong](https://github.com/AlecStrong).
@@ -21,8 +19,7 @@ Show some love.
 * [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization/) - JSON parsing provided by kotlinx.serialization.
 (Source copied directly due to packaging issues)
 
-* [knarch.threads](https://github.com/touchlab/knarch.threads/) - Threading support library. Temporary until something 
-more mature appears. Implements a simple LiveData analog and ThreadLocal helpers. 
+* [Stately](https://github.com/touchlab/Stately/) - Multiplatform threading state library. 
 
 * [Timber](https://github.com/touchlab/timber/tree/native) - Popular logging library on Android/Java, now with more platforms!
 
