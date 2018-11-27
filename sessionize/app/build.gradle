@@ -88,12 +88,11 @@ dependencies {
     }
 
     implementation deps.sqldelight.runtimeJdk
-    implementation deps.sqldelight.multiplatformdriverAndroid
+    implementation deps.sqldelight.driverAndroid
     implementation deps.knarch.threadsLivedataAndroid
-    implementation deps.knarch.dbAndroid
     implementation deps.multiplatformSettings.android
     implementation deps.timber.android
-//    implementation deps.kotlin.coroutines.jdk
+    implementation deps.kotlin.coroutines.jdk
     implementation deps.kotlin.coroutines.android
 
     testImplementation 'junit:junit:4.12'

@@ -1,22 +1,20 @@
 package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.QueryWrapper
-import co.touchlab.multiplatform.architecture.threads.ThreadLocalImpl
+import co.touchlab.sqliter.*
 import kotlin.system.getTimeMillis
 import platform.darwin.*
 import platform.Foundation.*
 import kotlin.native.*
 import kotlin.native.concurrent.*
 import kotlinx.cinterop.*
-import co.touchlab.sqliter.DatabaseConnection
-import co.touchlab.sqliter.DatabaseMigration
-import co.touchlab.sqliter.NativeDatabaseManager
-import co.touchlab.sqliter.sqldelight.SQLiterConnection
-import co.touchlab.sqliter.sqldelight.SQLiterHelper
+//import co.touchlab.sqliter.sqldelight.SQLiterConnection
+import com.squareup.sqldelight.drivers.ios.SQLiterHelper
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDatabase
+import com.squareup.sqldelight.drivers.ios.wrapConnection
 import timber.log.*
 
 actual fun currentTimeMillis(): Long = getTimeMillis()
@@ -108,7 +106,17 @@ fun initTimber(priority: Int) {
 }
 
 actual fun initSqldelightDatabase(): SqlDatabase {
-    return SQLiterHelper(NativeDatabaseManager(getDatabasePath("droidconDb2").path,
+    return SQLiterHelper(
+            createDatabaseManager(DatabaseConfiguration(
+                    "droidconDb3",
+                    1,
+                    {
+                        wrapConnection(it){
+                            QueryWrapper.Schema.create(it)
+                        }
+                    }
+            ))
+          /*  NativeDatabaseManager(getDatabasePath("droidconDb2").path,
             object : DatabaseMigration {
                 override fun onCreate(db: DatabaseConnection) {
                     QueryWrapper.onCreate(SQLiterConnection(db))
@@ -120,7 +128,8 @@ actual fun initSqldelightDatabase(): SqlDatabase {
 
             },
             1
-    ))
+        )*/
+    )
 }
 
 private fun getDirPath(folder: String): String {

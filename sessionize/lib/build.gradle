@@ -31,10 +31,9 @@ kotlin {
     targets {
         fromPreset(presets.android, 'android')
 
-//        def buildForDevice = project.findProperty("device")?.toBoolean() ?: false
         def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") \
                               ? presets.iosArm64 : presets.iosX64
-//        def iosPreset = (buildForDevice) ? presets.iosArm64 : presets.iosX64
+
         fromPreset(iOSTarget, 'ios') {
             compilations.main.outputKinds('FRAMEWORK')
             compilations.each {
@@ -46,19 +45,18 @@ kotlin {
     sourceSets {
 
         commonMain {
-            kotlin {
+            /*kotlin {
                 srcDirs 'build/sqldelight'
-            }
+            }*/
             dependencies {
                 implementation deps.stately.mpp
                 implementation deps.kotlin.stdlib.common
                 implementation deps.kotlin.coroutines.common
                 implementation deps.sqldelight.runtime
-                implementation deps.knarch.db
                 implementation deps.knarch.threads
                 implementation deps.knarch.threadsLivedata
                 implementation deps.sqldelight.runtime
-                implementation deps.sqldelight.multiplatformdriver
+//                implementation deps.sqldelight.multiplatformdriver
                 implementation deps.multiplatformSettings.common
                 implementation deps.timber.common
             }
@@ -66,8 +64,16 @@ kotlin {
 
         iosMain {
             dependencies {
-                implementation deps.kotlin.coroutines.native
-                implementation deps.sqldelight.runtimeNative
+                if(System.getenv('SDK_NAME')?.startsWith("iphoneos")) {
+                    implementation files('libs/atomicfu/ios_arm64/atomicfu-native.klib')
+                    implementation files('libs/coroutines/ios_arm64/kotlinx-coroutines-core-native.klib')
+                }else{
+                    implementation files('libs/atomicfu/ios_x64/atomicfu-native.klib')
+                    implementation files('libs/coroutines/ios_x64/kotlinx-coroutines-core-native.klib')
+                }
+//                implementation deps.kotlin.coroutines.native
+//                implementation deps.sqldelight.runtimeNative
+                implementation deps.sqldelight.driverIos
                 implementation deps.sqliter.ios
                 implementation deps.knarch.threadsLivedataNative
                 implementation deps.multiplatformSettings.ios
@@ -78,14 +84,12 @@ kotlin {
         androidMain {
             dependencies {
                 implementation deps.kotlin.coroutines.jdk
-//                implementation deps.kotlin.coroutines.android
-                implementation deps.sqldelight.runtimeJdk
-                implementation deps.sqldelight.multiplatformdriverAndroid
+                implementation deps.kotlin.coroutines.android
+//                implementation deps.sqldelight.runtimeJdk
+                implementation deps.sqldelight.driverAndroid
                 implementation deps.knarch.threadsLivedataAndroid
-                implementation deps.knarch.dbAndroid
                 implementation deps.multiplatformSettings.android
                 implementation deps.timber.android
-
             }
         }
     }
@@ -95,7 +99,7 @@ sqldelight {
     packageName = "co.touchlab.droidcon.db"
 }
 
-tasks.preBuild.dependsOn("generateSqlDelightInterface")
+//tasks.preBuild.dependsOn("generateSqlDelightInterface")
 
 //noinspection GroovyAssignabilityCheck
 task packForXCode(type: Sync) {
