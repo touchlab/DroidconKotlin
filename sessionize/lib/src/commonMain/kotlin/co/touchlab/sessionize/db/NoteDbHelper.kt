@@ -5,18 +5,33 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.jsondata.DefaultData
 import co.touchlab.sessionize.platform.initSqldelightDatabase
+import co.touchlab.stately.freeze
+import co.touchlab.stately.concurrency.AtomicReference
+import co.touchlab.stately.concurrency.QuickLock
+import co.touchlab.stately.concurrency.withLock
 import com.squareup.sqldelight.Query
-import com.squareup.sqldelight.db.SqlDatabase
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
 
 class NoteDbHelper {
 
-    val queryWrapper: QueryWrapper
-    private val database:SqlDatabase
+    val queryWrapper: QueryWrapper by FrozenLazy<NoteDbHelper, QueryWrapper> {
+        QueryWrapper(initSqldelightDatabase(), Session.Adapter(DateAdapter(), DateAdapter()))
+    }
 
-    init {
-        val dateAdapter = DateAdapter()
-        database = initSqldelightDatabase()
-        queryWrapper = QueryWrapper(database, Session.Adapter(dateAdapter, dateAdapter))
+    //This will be replaced when Stately 0.4.0 releases, along with sqldelight rc5(ish)
+    class FrozenLazy<R, T>(private val producer:()->T) : ReadOnlyProperty<R, T>{
+        override fun getValue(thisRef: R, property: KProperty<*>): T =
+            lock.withLock {
+                var value = valAtomic.value
+                if(value == null) {
+                    value = producer()
+                    valAtomic.value = value.freeze()
+                }
+                value!!
+            }
+        private val valAtomic = AtomicReference<T?>(null)
+        private val lock = QuickLock()
     }
 
     fun getSessionsQuery(): Query<SessionWithRoom> = queryWrapper.sessionQueries.sessionWithRoom()

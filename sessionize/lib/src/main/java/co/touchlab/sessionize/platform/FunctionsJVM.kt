@@ -3,13 +3,9 @@ package co.touchlab.sessionize.platform
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
-import co.touchlab.droidcon.db.QueryWrapper
-import co.touchlab.multiplatform.architecture.db.sqlite.AndroidNativeOpenHelperFactory
-import co.touchlab.multiplatform.architecture.db.sqlite.NativeOpenHelperFactory
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDatabase
-import com.squareup.sqldelight.multiplatform.create
 import java.net.URL
 import java.util.*
 import java.util.concurrent.ExecutorService
@@ -82,5 +78,7 @@ actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory(Andro
 
 actual fun createUuid(): String  = UUID.randomUUID().toString()
 
-actual fun initSqldelightDatabase(): SqlDatabase =
-        QueryWrapper.create("droidconDb", openHelperFactory = AndroidNativeOpenHelperFactory(AndroidAppContext.app))
+lateinit var sqlDatabase: SqlDatabase
+
+actual fun initSqldelightDatabase(): SqlDatabase = sqlDatabase
+//        QueryWrapper.create("droidconDb", openHelperFactory = AndroidNativeOpenHelperFactory(AndroidAppContext.app))
