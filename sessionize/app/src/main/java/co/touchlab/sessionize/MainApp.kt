@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import co.touchlab.sessionize.platform.AndroidAppContext
+import co.touchlab.sessionize.platform.initDatabase
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
@@ -21,6 +22,7 @@ class MainApp :Application(){
         Fabric.with(this, Crashlytics())
         Timber.plant(LogcatTree("Droidcon"))
         Timber.info { "Timber!!!" }
+        initDatabase(this)
         AppContext.initPlatformClient ({filePrefix, fileType ->
             loadAsset("${filePrefix}.${fileType}")},
                 {name: String, params: Map<String, Any> ->

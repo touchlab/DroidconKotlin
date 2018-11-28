@@ -1,5 +1,4 @@
-//include ':sessionize'
 include ':sessionize:lib'
-//include ':sessionize:app'
-//include ':sessionize:ios'
+include ':sessionize:app'
+
 enableFeaturePreview('GRADLE_METADATA')
