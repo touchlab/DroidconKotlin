@@ -65,6 +65,7 @@ buildscript {
             ,
             'sqldelight'           : [
                     'runtime'                   : "com.squareup.sqldelight:runtime:${versions.sqldelight}",
+                    'runtimeJdk'                : "com.squareup.sqldelight:runtime-jvm:${versions.sqldelight}",
                     'driverIos' : "com.squareup.sqldelight:ios-driver:${versions.sqldelight}",
                     'driverAndroid': "com.squareup.sqldelight:android-driver:${versions.sqldelight}",
             ]
@@ -79,13 +80,11 @@ buildscript {
     ]
 
     repositories {
-//        mavenLocal()
         jcenter()
         google()
         mavenCentral()
-//        maven { url "https://kotlin.bintray.com/kotlinx" }
         gradlePluginPortal()
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+//        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url 'https://maven.fabric.io/public' }
     }
@@ -101,12 +100,10 @@ buildscript {
 
 allprojects {
     repositories {
-//        mavenLocal()
         jcenter()
         google()
         mavenCentral()
-//        maven { url "https://kotlin.bintray.com/kotlinx" }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+//        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url 'https://maven.fabric.io/public' }
     }

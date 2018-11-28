@@ -4,6 +4,12 @@ This project has a pair of native mobile applications backed by the Sessionize d
 events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
 be forked and customized for anything run on Sessionize.
 
+## NOTE!!!
+
+This repo is being updated with newer library versions. Right now, after running 
+gradle build, you'll need to rerun 'generateSqlDelightInterface' again
+manually. Updates soon ...
+
 ## Libraries
 
 Kotlin multiplatform libraries used:
