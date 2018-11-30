@@ -29,7 +29,7 @@ dependencies {
 
 kotlin {
     targets {
-        fromPreset(presets.android, 'android')
+//        fromPreset(presets.android, 'android')
 
         def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") \
                               ? presets.iosArm64 : presets.iosX64
@@ -81,7 +81,7 @@ kotlin {
             }
         }
 
-        androidMain {
+        /*androidMain {
             dependencies {
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
@@ -91,7 +91,7 @@ kotlin {
                 implementation deps.multiplatformSettings.android
                 implementation deps.timber.android
             }
-        }
+        }*/
     }
 }
 

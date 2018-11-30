@@ -1,19 +1,17 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.db.NoteDbHelper
+import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.*
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.freeze
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Runnable
 import timber.log.Timber
 import timber.log.info
-import kotlin.coroutines.CoroutineContext
 
 object AppContext {
 
-    val dbHelper = NoteDbHelper()
+    val dbHelper = SessionizeDbHelper()
 
     val appSettings = settingsFactory().create("DROIDCON_SETTINGS")
     val KEY_FIRST_RUN = "FIRST_RUN1"
