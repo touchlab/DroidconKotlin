@@ -7,15 +7,15 @@ import co.touchlab.sessionize.jsondata.DefaultData
 import co.touchlab.sessionize.platform.initSqldelightDatabase
 import co.touchlab.stately.freeze
 import co.touchlab.stately.concurrency.AtomicReference
-import co.touchlab.stately.concurrency.QuickLock
+import co.touchlab.stately.concurrency.ReentrantLock
 import co.touchlab.stately.concurrency.withLock
 import com.squareup.sqldelight.Query
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-class NoteDbHelper {
+class SessionizeDbHelper {
 
-    val queryWrapper: QueryWrapper by FrozenLazy<NoteDbHelper, QueryWrapper> {
+    val queryWrapper: QueryWrapper by FrozenLazy<SessionizeDbHelper, QueryWrapper> {
         QueryWrapper(initSqldelightDatabase(), Session.Adapter(DateAdapter(), DateAdapter()))
     }
 
@@ -31,7 +31,7 @@ class NoteDbHelper {
                 value!!
             }
         private val valAtomic = AtomicReference<T?>(null)
-        private val lock = QuickLock()
+        private val lock = ReentrantLock()
     }
 
     fun getSessionsQuery(): Query<SessionWithRoom> = queryWrapper.sessionQueries.sessionWithRoom()

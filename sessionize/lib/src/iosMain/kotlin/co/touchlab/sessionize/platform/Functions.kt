@@ -1,7 +1,9 @@
 package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.QueryWrapper
+import co.touchlab.sessionize.SqlLighterDatabase
 import co.touchlab.sqliter.*
+
 import kotlin.system.getTimeMillis
 import platform.darwin.*
 import platform.Foundation.*
@@ -106,7 +108,7 @@ fun initTimber(priority: Int) {
 }
 
 actual fun initSqldelightDatabase(): SqlDatabase {
-    return SQLiterHelper(
+    return SqlLighterDatabase(
             createDatabaseManager(DatabaseConfiguration(
                     "droidconDb3",
                     1,

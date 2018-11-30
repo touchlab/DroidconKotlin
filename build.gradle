@@ -19,9 +19,9 @@ buildscript {
             'knarchThreads'        : '0.3.2-k1.3.0-g4.10.2-a2',
             'multiplatformSettings': '0.1-k1.3.0-g4.10.2-a1',
             'timber'               : '5.0.0-k1.3.0-g4.10-a4',
-            'sqldelight'           : '1.0.0-rc4',
-            'stately'              : '0.3.8',
-            'sqliter'              : '0.4.1'
+            'sqldelight'           : '1.0.0.2-SNAPSHOT',
+            'stately'              : '0.4.1-SNAPSHOT',
+            'sqliter'              : '0.5.3-SNAPSHOT'
     ]
 
     ext.deps = [
@@ -64,10 +64,10 @@ buildscript {
             ]
             ,
             'sqldelight'           : [
-                    'runtime'                   : "com.squareup.sqldelight:runtime:${versions.sqldelight}",
-                    'runtimeJdk'                : "com.squareup.sqldelight:runtime-jvm:${versions.sqldelight}",
-                    'driverIos' : "com.squareup.sqldelight:ios-driver:${versions.sqldelight}",
-                    'driverAndroid': "com.squareup.sqldelight:android-driver:${versions.sqldelight}",
+                    'runtime'                   : "co.touchlab.com.squareup.sqldelight:runtime:${versions.sqldelight}",
+                    'runtimeJdk'                : "co.touchlab.com.squareup.sqldelight:runtime-jvm:${versions.sqldelight}",
+                    'driverIos' : "co.touchlab.com.squareup.sqldelight:ios-driver:${versions.sqldelight}",
+                    'driverAndroid': "co.touchlab.com.squareup.sqldelight:android-driver:${versions.sqldelight}",
             ]
             ,
             'stately'              : [
@@ -80,11 +80,11 @@ buildscript {
     ]
 
     repositories {
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         jcenter()
         google()
         mavenCentral()
         gradlePluginPortal()
-//        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url 'https://maven.fabric.io/public' }
     }
@@ -93,18 +93,19 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.2.0-beta04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath 'com.google.gms:google-services:4.0.1'
-        classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
+        classpath "co.touchlab.com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 
 allprojects {
     repositories {
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         jcenter()
         google()
         mavenCentral()
-//        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url 'https://maven.fabric.io/public' }
+
     }
 }
