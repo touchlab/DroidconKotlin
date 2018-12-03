@@ -5,9 +5,11 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.jsondata.DefaultData
 import co.touchlab.sessionize.platform.initSqldelightDatabase
+import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.freeze
 import co.touchlab.stately.concurrency.AtomicReference
-import co.touchlab.stately.concurrency.ReentrantLock
+import co.touchlab.stately.concurrency.value
+import co.touchlab.stately.concurrency.Lock
 import co.touchlab.stately.concurrency.withLock
 import com.squareup.sqldelight.Query
 import kotlin.properties.ReadOnlyProperty
@@ -31,19 +33,19 @@ class SessionizeDbHelper {
                 value!!
             }
         private val valAtomic = AtomicReference<T?>(null)
-        private val lock = ReentrantLock()
+        private val lock = Lock()
     }
 
     fun getSessionsQuery(): Query<SessionWithRoom> = queryWrapper.sessionQueries.sessionWithRoom()
 
     fun primeAll(speakerJson:String, scheduleJson:String){
+        println("primeAll starting transaction")
         queryWrapper.sessionQueries.transaction {
+            println("primeAll a")
             primeSpeakers(speakerJson)
+            println("primeAll b")
             primeSessions(scheduleJson)
-        }
-
-        queryWrapper.userAccountQueries.selectAll().executeAsList().forEach {
-            println(it)
+            println("primeAll c")
         }
     }
 
@@ -73,22 +75,28 @@ class SessionizeDbHelper {
 
             }
 
-            queryWrapper.userAccountQueries.insertUserAccount(
-                    speaker.id,
-                    speaker.fullName,
-                    speaker.bio,
-                    speaker.tagLine,
-                    speaker.profilePicture,
-                    twitter,
-                    linkedIn,
-                    if(!companyWebsite.isNullOrEmpty()){
-                        companyWebsite
-                    }else if(!blog.isNullOrEmpty()){
-                        blog
-                    }else{
-                        other
-                    }
-            )
+            println("primeSpeakers a")
+            try {
+                queryWrapper.userAccountQueries.insertUserAccount(
+                        speaker.id,
+                        speaker.fullName,
+                        speaker.bio,
+                        speaker.tagLine,
+                        speaker.profilePicture,
+                        twitter,
+                        linkedIn,
+                        if(!companyWebsite.isNullOrEmpty()){
+                            companyWebsite
+                        }else if(!blog.isNullOrEmpty()){
+                            blog
+                        }else{
+                            other
+                        }
+                )
+            } catch (e: Exception) {
+                logException(e)
+            }
+            println("primeSpeakers b")
         }
     }
 
@@ -99,6 +107,7 @@ class SessionizeDbHelper {
 
         val newIdSet = HashSet<String>()
 
+        println("primeSessions a")
         for (session in parseAll) {
             queryWrapper.roomQueries.insertRoot(session.roomId.toLong(), session.room)
 
@@ -144,6 +153,7 @@ class SessionizeDbHelper {
                         displayOrder++)
             }
         }
+        println("primeSessions b")
 
         allSessions.forEach {
             if(!newIdSet.contains(it.id)){

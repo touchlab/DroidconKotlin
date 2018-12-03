@@ -5,10 +5,7 @@ import co.touchlab.stately.collections.AbstractSharedLinkedList
 import co.touchlab.stately.collections.SharedLinkedList
 import co.touchlab.stately.collections.frozenHashMap
 import co.touchlab.stately.collections.frozenLinkedList
-import co.touchlab.stately.concurrency.AtomicReference
-import co.touchlab.stately.concurrency.ReentrantLock
-import co.touchlab.stately.concurrency.ThreadRef
-import co.touchlab.stately.concurrency.withLock
+import co.touchlab.stately.concurrency.*
 import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Transacter
 import com.squareup.sqldelight.db.SqlCursor
@@ -17,22 +14,24 @@ import com.squareup.sqldelight.db.SqlDatabaseConnection
 import com.squareup.sqldelight.db.SqlPreparedStatement
 
 class SqlLighterDatabase(private val databaseManager: DatabaseManager) : SqlDatabase {
-    private val connectionInstanceThreadCache = frozenLinkedList<ThreadConnection>()
+    /*private val connectionInstanceThreadCache = frozenLinkedList<ThreadConnection>()
+    private val myThread = ThreadLocalRef<ThreadConnection>()*/
+
+    internal val connectionCache = ThreadLocalCache<ThreadConnection> {
+        ThreadConnection(databaseManager.createMultiThreadedConnection(), this)
+    }
 
     /**
      * Keep all outstanding cursors to close when closing the db, just in case the user didn't.
      */
     internal val cursorCollection = frozenLinkedList<Cursor>() as SharedLinkedList<Cursor>
-    private val connectionLock = ReentrantLock()
+
+    private val connectionLock = Lock()
     private val singleOpConnection = databaseManager.createMultiThreadedConnection()
     private val publicApiConnection = SqlLighterConnection(this)
 
     override fun close() = connectionLock.withLock {
-        connectionInstanceThreadCache.forEach {
-            it.connection.close()
-        }
-        connectionInstanceThreadCache.clear()
-
+        connectionCache.clear { it.connection.close() }
         singleOpConnection.close()
     }
 
@@ -43,41 +42,16 @@ class SqlLighterDatabase(private val databaseManager: DatabaseManager) : SqlData
      * use the open connection on which all other ops run.
      */
     internal fun <R> realConnectionMineOrUnaligned(block: DatabaseConnection.() -> R): R {
-        val mine = myConnection()
+        val mine = connectionCache.mineOrNone()
         return if (mine != null)
         {
-            println("realConnectionMineOrUnaligned mine")
             mine.connection.block()
         }
         else {
-            println("realConnectionMineOrUnaligned global")
             connectionLock.withLock {
                 singleOpConnection.block()
             }
         }
-    }
-
-    /**
-     * If we're in the middle of a transaction, the thread ref will point to us.
-     */
-    internal fun myConnection() = connectionInstanceThreadCache.find { it.threadRef.value.notNullSame() }
-
-    internal fun myConnectionOrNew(): ThreadConnection {
-        return myConnection() ?: connectionLock.withLock {
-            val empty = createNewPollConnection()
-            empty.threadRef.value = ThreadRef().freeze()
-            println("Connection created. Total: ${connectionInstanceThreadCache.size}")
-            empty
-        }
-    }
-
-    /**
-     * All connections tracked in our pool cache
-     */
-    private fun createNewPollConnection(): ThreadConnection {
-        val conn = ThreadConnection(databaseManager.createMultiThreadedConnection())
-        connectionInstanceThreadCache.add(conn)
-        return conn
     }
 
     internal fun recycleCursor(node: AbstractSharedLinkedList.Node<Cursor>) = connectionLock.withLock {
@@ -90,11 +64,25 @@ class SqlLighterDatabase(private val databaseManager: DatabaseManager) : SqlData
     }
 }
 
+fun wrapConnection(
+        connection: DatabaseConnection,
+        block: (SqlDatabaseConnection) -> Unit
+) {
+    val conn = SQLiterConnection(connection)
+    try {
+        block(conn)
+    } finally {
+        conn.close(closeDbConnection = false)
+    }
+}
+
 class SqlLighterConnection(private val database: SqlLighterDatabase) : SqlDatabaseConnection {
-    override fun currentTransaction(): Transacter.Transaction? = database.myConnection()?.transaction?.value
+    override fun currentTransaction(): Transacter.Transaction? = database.connectionCache.mineOrNone()?.transaction?.value
 
     override fun newTransaction(): Transacter.Transaction {
-        val myConn = database.myConnectionOrNew()
+        println("newTransaction a")
+        val myConn = database.connectionCache.mineOrAlign()
+        println("newTransaction b")
         return myConn.newTransaction()
     }
 
@@ -102,9 +90,7 @@ class SqlLighterConnection(private val database: SqlLighterDatabase) : SqlDataba
             SqlLighterStatement(sql, type, database)
 }
 
-class ThreadConnection(val connection: DatabaseConnection) {
-    val threadRef = AtomicReference<ThreadRef?>(null)
-    private val transLock = ReentrantLock()
+class ThreadConnection(val connection: DatabaseConnection, private val sqlLighterDatabase: SqlLighterDatabase) {
     internal val transaction: AtomicReference<Transaction?> = AtomicReference(null)
 
     fun newTransaction(): Transaction {
@@ -121,11 +107,9 @@ class ThreadConnection(val connection: DatabaseConnection) {
         return trans
     }
 
-    inner class Transaction(
-            override val enclosingTransaction: Transaction?
-    ) : Transacter.Transaction() {
+    inner class Transaction(override val enclosingTransaction: Transaction?) : Transacter.Transaction() {
 
-        override fun endTransaction(successful: Boolean) = transLock.withLock {
+        override fun endTransaction(successful: Boolean) {
             if (enclosingTransaction == null) {
                 try {
                     if (successful) {
@@ -134,7 +118,7 @@ class ThreadConnection(val connection: DatabaseConnection) {
 
                     connection.endTransaction()
                 } finally {
-                    threadRef.value = null
+                    sqlLighterDatabase.connectionCache.mineRelease()
                 }
 
             }
@@ -143,20 +127,17 @@ class ThreadConnection(val connection: DatabaseConnection) {
     }
 }
 
-internal fun ThreadRef?.notNullSame(): Boolean {
-    return this != null && same()
-}
-
 class SqlLighterStatement(
         private val sql: String,
         private val type: SqlPreparedStatement.Type,
         private val database: SqlLighterDatabase
 ) : SqlPreparedStatement {
 
-    //For each statement declared, there can be an instance per-thread.
-    private val statementInstanceThreadCache = frozenLinkedList<ThreadStatement>()
+    private val statementCache = ThreadLocalCache {ThreadStatement()}
 
-    private fun myThreadCachedStatementInstance() = statementInstanceThreadCache.find { it.mine }
+    //For each statement declared, there can be an instance per-thread.
+//    private val statementInstanceThreadCache = frozenLinkedList<ThreadStatement>()
+//    private val myStatementInstance = ThreadLocalRef<ThreadStatement>()
 
     override fun bindBytes(index: Int, value: ByteArray?) = myThreadStatementInstance().bindBytes(index, value)
     override fun bindDouble(index: Int, value: Double?) = myThreadStatementInstance().bindDouble(index, value)
@@ -197,7 +178,7 @@ class SqlLighterStatement(
     }
 
     private fun applyBindings(statement: Statement){
-        myThreadCachedStatementInstance()?.binds?.forEach {
+        statementCache.mineOrNone()?.binds?.forEach {
             it.value(statement)
         }
     }
@@ -205,19 +186,14 @@ class SqlLighterStatement(
     //These don't need to be locked because only *your* thread is adding/removing it's own entries
     //Assuming the list itself is thread safe, no problem
     private fun myThreadStatementInstance(): ThreadStatement {
-        return myThreadCachedStatementInstance() ?: createMyInstance()
-    }
-
-    private fun createMyInstance(): ThreadStatement {
-        val myInstance = ThreadStatement()
-        statementInstanceThreadCache.add(myInstance)
-        return myInstance
+//        println("myThreadStatementInstance before instance")
+        val instance = statementCache.mineOrAlign()
+//        println("myThreadStatementInstance $instance")
+        return instance
     }
 
     private fun removeMyInstance() {
-        val mine = myThreadCachedStatementInstance()
-        if (mine != null)
-            statementInstanceThreadCache.remove(mine)
+        statementCache.mineRelease()
     }
 }
 
@@ -239,12 +215,56 @@ class SQLiterCursor(private val cursorCollectionNode: AbstractSharedLinkedList.N
     override fun next(): Boolean = cursor.next()
 }
 
-class ThreadStatement {
-    private val threadRef = ThreadRef()
-    internal val binds = frozenHashMap<Int, (Statement) -> Unit>()
+class ThreadLocalCache<T>(private val producer:()->T){
+    private val cache = frozenLinkedList<CacheEntry<T>>()
+    val localRef = ThreadLocalRef<CacheEntry<T>>()
+    private val cacheLock = Lock()
 
-    val mine: Boolean
-        get() = threadRef.same()
+    fun mineOrNone():T? = localRef.value?.entry
+
+    fun mineOrAlign():T{
+        val mine = localRef.value
+        if(mine != null)
+            return mine.entry
+
+        return cacheLock.withLock {
+            val unaligned = cache.find { !it.inUse.value } ?: createEntry()
+            localRef.value = unaligned
+            unaligned.inUse.value = true
+            unaligned.entry
+        }
+    }
+
+    fun mineRelease() = cacheLock.withLock {
+        val myEntry = localRef.value
+        if(myEntry != null){
+            localRef.value = null
+            myEntry.inUse.value = false
+        }
+    }
+
+    private fun createEntry():CacheEntry<T>{
+        val newVal = producer().freeze()
+        val entry = CacheEntry(newVal)
+        cache.add(entry)
+        return entry
+    }
+
+    fun clear(clearBlock:(T)->Unit = {}) = cacheLock.withLock {
+        cache.forEach {
+            clearBlock(it.entry)
+        }
+        cache.clear()
+    }
+
+    class CacheEntry<T>(val entry:T){
+        val inUse = AtomicBoolean(false)
+    }
+
+}
+
+class ThreadStatement {
+    internal val binds = frozenHashMap<Int, (Statement) -> Unit>()
 
     fun bindBytes(index: Int, value: ByteArray?) {
         binds.put(index) { it.bindBlob(index, value) }
