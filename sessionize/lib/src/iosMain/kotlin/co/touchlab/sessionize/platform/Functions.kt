@@ -118,24 +118,11 @@ actual fun initSqldelightDatabase(): SqlDatabase {
                     "droidconDb3",
                     1,
                     {
-                        wrapConnection(it){
+                        wrapConnection(it) {
                             QueryWrapper.Schema.create(it)
                         }
                     }
             ))
-          /*  NativeDatabaseManager(getDatabasePath("droidconDb2").path,
-            object : DatabaseMigration {
-                override fun onCreate(db: DatabaseConnection) {
-                    QueryWrapper.onCreate(SQLiterConnection(db))
-                }
-
-                override fun onUpgrade(db: DatabaseConnection, oldVersion: Int, newVersion: Int) {
-                    QueryWrapper.onMigrate(SQLiterConnection(db), oldVersion, newVersion)
-                }
-
-            },
-            1
-        )*/
     )
 }
 

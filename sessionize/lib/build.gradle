@@ -45,9 +45,6 @@ kotlin {
     sourceSets {
 
         commonMain {
-            /*kotlin {
-                srcDirs 'build/sqldelight'
-            }*/
             dependencies {
                 implementation deps.stately.mpp
                 implementation deps.kotlin.stdlib.common

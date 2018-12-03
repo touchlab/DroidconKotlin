@@ -13,21 +13,14 @@ import com.squareup.sqldelight.db.SqlDatabase
 import com.squareup.sqldelight.db.SqlDatabaseConnection
 import com.squareup.sqldelight.db.SqlPreparedStatement
 
-class SqlLighterDatabase(private val databaseManager: DatabaseManager) : SqlDatabase {
-    /*private val connectionInstanceThreadCache = frozenLinkedList<ThreadConnection>()
-    private val myThread = ThreadLocalRef<ThreadConnection>()*/
+class SqlLighterDatabase(private val databaseManager: DatabaseManager) : SqlDatabase, RealDatabaseContext {
 
-    internal val connectionCache = ThreadLocalCache<ThreadConnection> {
+    internal val connectionCache = ThreadLocalCache {
         ThreadConnection(databaseManager.createMultiThreadedConnection(), this)
     }
 
-    /**
-     * Keep all outstanding cursors to close when closing the db, just in case the user didn't.
-     */
-    internal val cursorCollection = frozenLinkedList<Cursor>() as SharedLinkedList<Cursor>
-
     private val connectionLock = Lock()
-    private val singleOpConnection = databaseManager.createMultiThreadedConnection()
+    private val singleOpConnection = ThreadConnection(databaseManager.createMultiThreadedConnection(), this)
     private val publicApiConnection = SqlLighterConnection(this)
 
     override fun close() = connectionLock.withLock {
@@ -41,11 +34,11 @@ class SqlLighterDatabase(private val databaseManager: DatabaseManager) : SqlData
      * If we're in a transaction, then I have a connection. Otherwise we lock and
      * use the open connection on which all other ops run.
      */
-    internal fun <R> realConnectionMineOrUnaligned(block: DatabaseConnection.() -> R): R {
+    override fun <R> accessConnection(block: ThreadConnection.() -> R): R{
         val mine = connectionCache.mineOrNone()
         return if (mine != null)
         {
-            mine.connection.block()
+            mine.block()
         }
         else {
             connectionLock.withLock {
@@ -53,26 +46,32 @@ class SqlLighterDatabase(private val databaseManager: DatabaseManager) : SqlData
             }
         }
     }
-
-    internal fun recycleCursor(node: AbstractSharedLinkedList.Node<Cursor>) = connectionLock.withLock {
-        node.nodeValue.statement.finalizeStatement()
-        node.remove()
-    }
-
-    internal fun trackCursor(cursor: Cursor):AbstractSharedLinkedList.Node<Cursor> = connectionLock.withLock {
-        cursorCollection.addNode(cursor)
-    }
 }
 
 fun wrapConnection(
         connection: DatabaseConnection,
         block: (SqlDatabaseConnection) -> Unit
 ) {
-    val conn = SQLiterConnection(connection)
+    val conn = SqliterWrappedConnection(ThreadConnection(connection, null))
     try {
         block(conn)
     } finally {
-        conn.close(closeDbConnection = false)
+        conn.close()
+    }
+}
+
+class SqliterWrappedConnection(private val threadConnection: ThreadConnection):SqlDatabaseConnection, RealDatabaseContext{
+    override fun currentTransaction(): Transacter.Transaction? = threadConnection.transaction.value
+
+    override fun newTransaction(): Transacter.Transaction = threadConnection.newTransaction()
+
+    override fun prepareStatement(sql: String, type: SqlPreparedStatement.Type, parameters: Int): SqlPreparedStatement =
+            SqlLighterStatement(sql, type, this)
+
+    override fun <R> accessConnection(block: ThreadConnection.() -> R): R = threadConnection.block()
+
+    fun close() {
+        threadConnection.cleanUp()
     }
 }
 
@@ -80,9 +79,7 @@ class SqlLighterConnection(private val database: SqlLighterDatabase) : SqlDataba
     override fun currentTransaction(): Transacter.Transaction? = database.connectionCache.mineOrNone()?.transaction?.value
 
     override fun newTransaction(): Transacter.Transaction {
-        println("newTransaction a")
         val myConn = database.connectionCache.mineOrAlign()
-        println("newTransaction b")
         return myConn.newTransaction()
     }
 
@@ -90,8 +87,12 @@ class SqlLighterConnection(private val database: SqlLighterDatabase) : SqlDataba
             SqlLighterStatement(sql, type, database)
 }
 
-class ThreadConnection(val connection: DatabaseConnection, private val sqlLighterDatabase: SqlLighterDatabase) {
+class ThreadConnection(val connection: DatabaseConnection, private val sqlLighterDatabase: SqlLighterDatabase?) {
     internal val transaction: AtomicReference<Transaction?> = AtomicReference(null)
+    /**
+     * Keep all outstanding cursors to close when closing the db, just in case the user didn't.
+     */
+    internal val cursorCollection = frozenLinkedList<Cursor>() as SharedLinkedList<Cursor>
 
     fun newTransaction(): Transaction {
         val enclosing = transaction.value
@@ -118,26 +119,57 @@ class ThreadConnection(val connection: DatabaseConnection, private val sqlLighte
 
                     connection.endTransaction()
                 } finally {
-                    sqlLighterDatabase.connectionCache.mineRelease()
+                    sqlLighterDatabase?.connectionCache?.mineRelease()
                 }
 
             }
             transaction.value = enclosingTransaction
         }
     }
+
+    internal fun trackCursor(cursor: Cursor):Recycler = CursorRecycler(cursorCollection.addNode(cursor))
+
+    internal fun cleanUp(){
+        cursorCollection.cleanUp {
+            it.statement.finalizeStatement()
+        }
+    }
+
+    internal fun close(){
+        cleanUp()
+        connection.close()
+    }
+
+    private class CursorRecycler(private val node: AbstractSharedLinkedList.Node<Cursor>):Recycler{
+        override fun recycle() {
+            node.nodeValue.statement.finalizeStatement()
+            node.remove()
+        }
+    }
 }
 
-class SqlLighterStatement(
+fun <T> SharedLinkedList<T>.cleanUp(block:(T)->Unit){
+    val extractList = ArrayList<T>(size)
+    extractList.addAll(this)
+    this.clear()
+    extractList.forEach { block(it) }
+}
+
+internal interface RealDatabaseContext{
+    fun <R> accessConnection(block: ThreadConnection.() -> R):R
+}
+
+internal interface Recycler{
+    fun recycle()
+}
+
+internal class SqlLighterStatement(
         private val sql: String,
         private val type: SqlPreparedStatement.Type,
-        private val database: SqlLighterDatabase
+        private val realDatabaseContext: RealDatabaseContext
 ) : SqlPreparedStatement {
 
     private val statementCache = ThreadLocalCache {ThreadStatement()}
-
-    //For each statement declared, there can be an instance per-thread.
-//    private val statementInstanceThreadCache = frozenLinkedList<ThreadStatement>()
-//    private val myStatementInstance = ThreadLocalRef<ThreadStatement>()
 
     override fun bindBytes(index: Int, value: ByteArray?) = myThreadStatementInstance().bindBytes(index, value)
     override fun bindDouble(index: Int, value: Double?) = myThreadStatementInstance().bindDouble(index, value)
@@ -149,8 +181,8 @@ class SqlLighterStatement(
      * recycle these rather than letting them be deallocated in the future if that improves performance in some way.
      */
     override fun execute() {
-        database.realConnectionMineOrUnaligned {
-            withStatement(sql) {
+        realDatabaseContext.accessConnection {
+            connection.withStatement(sql) {
                 applyBindings(this)
                 when (type) {
                     SqlPreparedStatement.Type.SELECT -> throw kotlin.AssertionError()
@@ -171,10 +203,11 @@ class SqlLighterStatement(
      *
      * It does seem that executable statements and queries are designed somewhat differently, however.
      */
-    override fun executeQuery(): SqlCursor = database.realConnectionMineOrUnaligned {
-        val statement = createStatement(sql)
+    override fun executeQuery(): SqlCursor = realDatabaseContext.accessConnection {
+        val statement = connection.createStatement(sql)
         applyBindings(statement)
-        SQLiterCursor(database.trackCursor(statement.query()), database)
+        val cursor = statement.query()
+        SQLiterCursor(cursor, trackCursor(cursor))
     }
 
     private fun applyBindings(statement: Statement){
@@ -183,25 +216,16 @@ class SqlLighterStatement(
         }
     }
 
-    //These don't need to be locked because only *your* thread is adding/removing it's own entries
-    //Assuming the list itself is thread safe, no problem
-    private fun myThreadStatementInstance(): ThreadStatement {
-//        println("myThreadStatementInstance before instance")
-        val instance = statementCache.mineOrAlign()
-//        println("myThreadStatementInstance $instance")
-        return instance
-    }
+    private fun myThreadStatementInstance(): ThreadStatement = statementCache.mineOrAlign()
 
     private fun removeMyInstance() {
         statementCache.mineRelease()
     }
 }
 
-class SQLiterCursor(private val cursorCollectionNode: AbstractSharedLinkedList.Node<Cursor>, private val database: SqlLighterDatabase) : SqlCursor {
-    private val cursor = cursorCollectionNode.nodeValue
-
+internal class SQLiterCursor(private val cursor: Cursor, private val recycler: Recycler) : SqlCursor {
     override fun close() {
-        database.recycleCursor(cursorCollectionNode)
+        recycler.recycle()
     }
 
     override fun getBytes(index: Int): ByteArray? = cursor.getBytesOrNull(index)
