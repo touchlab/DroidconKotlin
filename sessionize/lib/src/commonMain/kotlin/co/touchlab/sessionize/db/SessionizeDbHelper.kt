@@ -39,13 +39,9 @@ class SessionizeDbHelper {
     fun getSessionsQuery(): Query<SessionWithRoom> = queryWrapper.sessionQueries.sessionWithRoom()
 
     fun primeAll(speakerJson:String, scheduleJson:String){
-        println("primeAll starting transaction")
         queryWrapper.sessionQueries.transaction {
-            println("primeAll a")
             primeSpeakers(speakerJson)
-            println("primeAll b")
             primeSessions(scheduleJson)
-            println("primeAll c")
         }
     }
 
@@ -75,28 +71,22 @@ class SessionizeDbHelper {
 
             }
 
-            println("primeSpeakers a")
-            try {
-                queryWrapper.userAccountQueries.insertUserAccount(
-                        speaker.id,
-                        speaker.fullName,
-                        speaker.bio,
-                        speaker.tagLine,
-                        speaker.profilePicture,
-                        twitter,
-                        linkedIn,
-                        if(!companyWebsite.isNullOrEmpty()){
-                            companyWebsite
-                        }else if(!blog.isNullOrEmpty()){
-                            blog
-                        }else{
-                            other
-                        }
-                )
-            } catch (e: Exception) {
-                logException(e)
-            }
-            println("primeSpeakers b")
+            queryWrapper.userAccountQueries.insertUserAccount(
+                    speaker.id,
+                    speaker.fullName,
+                    speaker.bio,
+                    speaker.tagLine,
+                    speaker.profilePicture,
+                    twitter,
+                    linkedIn,
+                    if(!companyWebsite.isNullOrEmpty()){
+                        companyWebsite
+                    }else if(!blog.isNullOrEmpty()){
+                        blog
+                    }else{
+                        other
+                    }
+            )
         }
     }
 
