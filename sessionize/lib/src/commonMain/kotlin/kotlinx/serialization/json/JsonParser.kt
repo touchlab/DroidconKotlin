@@ -18,6 +18,7 @@ package kotlinx.serialization.json
 
 import co.touchlab.stately.annotation.SharedImmutable
 import co.touchlab.stately.concurrency.AtomicReference
+import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
 
 internal object ParserConstants {
