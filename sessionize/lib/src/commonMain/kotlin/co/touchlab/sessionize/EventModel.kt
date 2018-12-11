@@ -8,10 +8,9 @@ import co.touchlab.sessionize.db.roomAsync
 import co.touchlab.sessionize.platform.*
 import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
-import kotlinx.coroutines.launch
 import kotlin.math.max
 
-class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.value!!) {
+class EventModel(val sessionId: String) {
 
     val evenLiveData: EventLiveData
 
@@ -28,86 +27,29 @@ class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.v
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(rsvp: Boolean) {
 
-
-        /*launch(ApplicationDispatcher) {
-            val methodName = if(rsvp){"sessionizeRsvpEvent"}else{"sessionizeUnrsvpEvent"}
-            val callingUrl = "dataTest/$methodName/$sessionId/${AppContext.userUuid()}"
-
-            try {
-                client.post {
-                    url {
-                        protocol = URLProtocol.HTTPS
-                        port = 443
-                        host = "droidcon-server.herokuapp.com"
-                        encodedPath = callingUrl
-                    }
-                }
-            } catch (e: Exception) {
-                logException(e)
-            }
-        }*/
-
-        val sessionIdLocal = sessionId
-
         networkBackgroundTask {
             val methodName = if (rsvp) {
                 "sessionizeRsvpEvent"
             } else {
                 "sessionizeUnrsvpEvent"
             }
-            val callingUrl = "https://droidcon-server.herokuapp.com/dataTest/$methodName/$sessionIdLocal/${AppContext.userUuid()}"
+            val callingUrl = "https://droidcon-server.herokuapp.com/dataTest/$methodName/$sessionId/${AppContext.userUuid()}"
             println("CALLING: $callingUrl")
             simpleGet(callingUrl)
         }
 
-        /*backgroundTask({
-            AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionIdLocal).executeAsOne()
-        }) {
+        backgroundTask({
+            AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
+        }){
             val params = HashMap<String, Any>()
             params.put("slot", analyticsDateFormat.format(it.startsAt))
-            params.put("sessionId", sessionIdLocal)
-            params.put("count", if (rsvp) {
-                1
-            } else {
-                -1
-            })
-            AppContext.logEvent("RSVP_EVENT", params)
-        }*/
-  /*      if(cont == null) {
-            launch {
-                println("suspend trace 1")*/
-     /*           val session = backgroundSupend {
-                    println("suspend trace 2")
-                    val executeAsOne = AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
-                    println("Internal session $executeAsOne")
-                    executeAsOne
-                }
-                println("Outer session $session")
-                val params = HashMap<String, Any>()
-                params.put("slot", analyticsDateFormat.format((session as Session).startsAt))
-                params.put("sessionId", sessionId)
-                params.put("count", if(rsvp){1}else{-1})
-                AppContext.logEvent("RSVP_EVENT", params)
-
-*/
-    /*            backgroundSupendLight {
-                    println("Running in background")
-                }
-                println("meh 2")
-
-            }
-        }else{
-            val result = kotlin.Result.success("jjj")
-            cont!!.resumeWith(result)
-            cont = null
-        }*/
-
+            params.put("sessionId", sessionId)
+            params.put("count", if(rsvp){1}else{-1})
+            AppContext.logEvent("RSVP_EVENT",
+                    params)
+        }
         backgroundTask {
-            AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if (rsvp) {
-                1
-            } else {
-                0
-            }, sessionIdLocal)
+            AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if(rsvp){1}else{0}, sessionId)
         }
     }
 

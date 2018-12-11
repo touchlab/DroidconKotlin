@@ -48,28 +48,23 @@ kotlin {
             dependencies {
                 implementation deps.stately.mpp
                 implementation deps.kotlin.stdlib.common
-                implementation deps.kotlin.coroutines.common
                 implementation deps.sqldelight.runtime
-                implementation deps.knarch.threads
                 implementation deps.knarch.threadsLivedata
                 implementation deps.sqldelight.runtime
-//                implementation deps.sqldelight.multiplatformdriver
                 implementation deps.multiplatformSettings.common
                 implementation deps.timber.common
             }
         }
 
+        commonTest {
+            dependencies {
+                implementation deps.kotlin.test.common
+                implementation deps.kotlin.test.annotations
+            }
+        }
+
         iosMain {
             dependencies {
-                if(System.getenv('SDK_NAME')?.startsWith("iphoneos")) {
-                    implementation files('libs/atomicfu/ios_arm64/atomicfu-native.klib')
-                    implementation files('libs/coroutines/ios_arm64/kotlinx-coroutines-core-native.klib')
-                }else{
-                    implementation files('libs/atomicfu/ios_x64/atomicfu-native.klib')
-                    implementation files('libs/coroutines/ios_x64/kotlinx-coroutines-core-native.klib')
-                }
-//                implementation deps.kotlin.coroutines.native
-//                implementation deps.sqldelight.runtimeNative
                 implementation deps.sqldelight.driverIos
                 implementation deps.sqliter.ios
                 implementation deps.knarch.threadsLivedataNative
@@ -113,6 +108,20 @@ task packForXCode(type: Sync) {
         new File(frameworkDir, 'gradlew').with {
             text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
             setExecutable(true)
+        }
+    }
+}
+
+task iosTest {
+    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+    dependsOn 'linkTestDebugExecutableIos'
+    group = JavaBasePlugin.VERIFICATION_GROUP
+    description = "Runs tests for target 'ios' on an iOS simulator"
+
+    doLast {
+        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
+        exec {
+            commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
         }
     }
 }

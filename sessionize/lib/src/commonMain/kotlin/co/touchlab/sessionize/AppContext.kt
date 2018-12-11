@@ -4,9 +4,7 @@ import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.*
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.value
-import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.freeze
-import kotlinx.coroutines.CoroutineDispatcher
 import timber.log.Timber
 import timber.log.info
 
@@ -23,23 +21,18 @@ object AppContext {
     private val SPONSOR_JSON = "SPONSOR_JSON"
 
     val lambdas = AtomicReference<PlatformLambdas?>(null)
-    val dispatcherLocal = ThreadLocalRef<CoroutineDispatcher>()
 
     fun initPlatformClient(
             staticFileLoader: (filePrefix: String, fileType: String) -> String?,
             analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
-            clLogCallback: (s: String) -> Unit,
-            dispatcher:CoroutineDispatcher) {
+            clLogCallback: (s: String) -> Unit) {
 
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
                 analyticsCallback,
                 clLogCallback).freeze()
 
-        dispatcherLocal.value = dispatcher
-
-        testLoadAll()
-//        dataLoad()
+        dataLoad()
 
         Timber.info { "Init complete" }
     }
@@ -74,23 +67,6 @@ object AppContext {
     val sponsorJson: String
         get() = appSettings.getString(SPONSOR_JSON)
 
-
-    private fun testLoadAll(){
-        val staticFileLoader = lambdas.value!!.staticFileLoader
-        val sponsorJson = staticFileLoader("sponsors", "json")
-        val speakerJson = staticFileLoader("speakers", "json")
-        val scheduleJson = staticFileLoader("schedule", "json")
-
-        if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
-            storeAll(sponsorJson, speakerJson, scheduleJson)
-//            updateFirstRun()
-        } else {
-            //This should only ever happen in dev
-            throw NullPointerException("Couldn't load static files")
-        }
-
-    }
-
     //Split these up so they can individually succeed/fail
     private fun dataLoad() {
         networkBackgroundTask {
@@ -117,7 +93,7 @@ object AppContext {
 
     private fun dataCalls() {
         try {
-            /*val networkSpeakerJson = simpleGet(
+            val networkSpeakerJson = simpleGet(
                     "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/speakers"
             )
 
@@ -129,7 +105,7 @@ object AppContext {
                     "https://s3.amazonaws.com/droidconsponsers/sponsors-$SESSIONIZE_INSTANCE_ID.json"
             )
 
-            storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)*/
+            storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)
             appSettings.putLong(KEY_LAST_LOAD, currentTimeMillis())
         } catch (e: Exception) {
             logException(e)
