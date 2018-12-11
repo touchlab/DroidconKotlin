@@ -23,20 +23,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appContext = AppContext()
         appContext.doInitPlatformClient(staticFileLoader: loadAsset,
                                                         analyticsCallback: analyticsCallback,
-                                                        clLogCallback: csLog,
-                                                        dispatcher: UI())
+                                                        clLogCallback: csLog
+        //    ,
+          //                                              dispatcher: UI()
+        )
         
         appContext.refreshData()
         
         return true
     }
     
-    func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
+    /*func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
         DispatchQueue.main.async {
             block.run()
         }
         return KotlinUnit()
-    }
+    }*/
     
     func csLog(s:String) -> KotlinUnit{
         CLSLogv(s, getVaList([]))

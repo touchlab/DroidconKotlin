@@ -1,8 +1,6 @@
 package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.QueryWrapper
-import co.touchlab.sessionize.SqlLighterDatabase
-import co.touchlab.sessionize.wrapConnection
 import co.touchlab.sqliter.*
 
 import kotlin.system.getTimeMillis
@@ -13,9 +11,12 @@ import kotlin.native.concurrent.*
 import kotlinx.cinterop.*
 
 import co.touchlab.stately.concurrency.ThreadLocalRef
+import co.touchlab.stately.concurrency.value
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDatabase
+import com.squareup.sqldelight.drivers.ios.NativeSqlDatabase
+import com.squareup.sqldelight.drivers.ios.wrapConnection
 
 import timber.log.*
 
@@ -113,7 +114,7 @@ fun initTimber(priority: Int) {
 }
 
 actual fun initSqldelightDatabase(): SqlDatabase {
-    return SqlLighterDatabase(
+    return NativeSqlDatabase(
             createDatabaseManager(DatabaseConfiguration(
                     "droidconDb3",
                     1,
