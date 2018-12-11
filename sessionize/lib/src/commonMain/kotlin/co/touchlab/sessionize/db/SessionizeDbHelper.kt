@@ -5,17 +5,19 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.jsondata.DefaultData
 import co.touchlab.sessionize.platform.initSqldelightDatabase
+import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.freeze
 import co.touchlab.stately.concurrency.AtomicReference
-import co.touchlab.stately.concurrency.QuickLock
+import co.touchlab.stately.concurrency.value
+import co.touchlab.stately.concurrency.Lock
 import co.touchlab.stately.concurrency.withLock
 import com.squareup.sqldelight.Query
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-class NoteDbHelper {
+class SessionizeDbHelper {
 
-    val queryWrapper: QueryWrapper by FrozenLazy<NoteDbHelper, QueryWrapper> {
+    val queryWrapper: QueryWrapper by FrozenLazy<SessionizeDbHelper, QueryWrapper> {
         QueryWrapper(initSqldelightDatabase(), Session.Adapter(DateAdapter(), DateAdapter()))
     }
 
@@ -31,7 +33,7 @@ class NoteDbHelper {
                 value!!
             }
         private val valAtomic = AtomicReference<T?>(null)
-        private val lock = QuickLock()
+        private val lock = Lock()
     }
 
     fun getSessionsQuery(): Query<SessionWithRoom> = queryWrapper.sessionQueries.sessionWithRoom()
@@ -40,10 +42,6 @@ class NoteDbHelper {
         queryWrapper.sessionQueries.transaction {
             primeSpeakers(speakerJson)
             primeSessions(scheduleJson)
-        }
-
-        queryWrapper.userAccountQueries.selectAll().executeAsList().forEach {
-            println(it)
         }
     }
 
@@ -99,6 +97,7 @@ class NoteDbHelper {
 
         val newIdSet = HashSet<String>()
 
+        println("primeSessions a")
         for (session in parseAll) {
             queryWrapper.roomQueries.insertRoot(session.roomId.toLong(), session.room)
 
@@ -144,6 +143,7 @@ class NoteDbHelper {
                         displayOrder++)
             }
         }
+        println("primeSessions b")
 
         allSessions.forEach {
             if(!newIdSet.contains(it.id)){

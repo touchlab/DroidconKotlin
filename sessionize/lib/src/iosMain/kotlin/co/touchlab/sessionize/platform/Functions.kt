@@ -2,19 +2,22 @@ package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.QueryWrapper
 import co.touchlab.sqliter.*
+
 import kotlin.system.getTimeMillis
 import platform.darwin.*
 import platform.Foundation.*
 import kotlin.native.*
 import kotlin.native.concurrent.*
 import kotlinx.cinterop.*
-//import co.touchlab.sqliter.sqldelight.SQLiterConnection
-import com.squareup.sqldelight.drivers.ios.SQLiterHelper
+
 import co.touchlab.stately.concurrency.ThreadLocalRef
+import co.touchlab.stately.concurrency.value
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDatabase
+import com.squareup.sqldelight.drivers.ios.NativeSqlDatabase
 import com.squareup.sqldelight.drivers.ios.wrapConnection
+
 import timber.log.*
 
 actual fun currentTimeMillis(): Long = getTimeMillis()
@@ -72,7 +75,12 @@ private fun backgroundTaskRun(backJob: () -> Unit, key: String) {
     val worker = makeQueue(key)
     worker.execute(TransferMode.SAFE,
             { backJob.freeze() }) {
-        it()
+        try {
+            it()
+        } catch (e: Exception) {
+            //TODO: This is clearly trash, but we don't really have a full blown threading strategy yet
+            e.printStackTrace()
+        }
     }
 }
 
@@ -106,29 +114,16 @@ fun initTimber(priority: Int) {
 }
 
 actual fun initSqldelightDatabase(): SqlDatabase {
-    return SQLiterHelper(
+    return NativeSqlDatabase(
             createDatabaseManager(DatabaseConfiguration(
                     "droidconDb3",
                     1,
                     {
-                        wrapConnection(it){
+                        wrapConnection(it) {
                             QueryWrapper.Schema.create(it)
                         }
                     }
             ))
-          /*  NativeDatabaseManager(getDatabasePath("droidconDb2").path,
-            object : DatabaseMigration {
-                override fun onCreate(db: DatabaseConnection) {
-                    QueryWrapper.onCreate(SQLiterConnection(db))
-                }
-
-                override fun onUpgrade(db: DatabaseConnection, oldVersion: Int, newVersion: Int) {
-                    QueryWrapper.onMigrate(SQLiterConnection(db), oldVersion, newVersion)
-                }
-
-            },
-            1
-        )*/
     )
 }
 
