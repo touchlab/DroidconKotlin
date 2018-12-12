@@ -1,19 +1,23 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.backgroundSupend
+import co.touchlab.stately.annotation.ThreadLocal
+import co.touchlab.stately.concurrency.value
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonTreeParser
 
-object AboutModel{
-    fun loadAboutInfo(proc:(aboutInfo:List<AboutInfo>)->Unit){
+@ThreadLocal
+object AboutModel: BaseModel(AppContext.dispatcherLocal.value!!) {
+    fun loadAboutInfo(proc: (aboutInfo: List<AboutInfo>) -> Unit) = launch{
         clLog("loadAboutInfo AboutModel()")
-        backgroundTask({
-            parseAbout()
-        }, proc)
+        proc(backgroundSupend { AboutProc.parseAbout() })
     }
+}
 
-    private fun parseAbout():List<AboutInfo>{
+internal object AboutProc{
+    fun parseAbout():List<AboutInfo>{
         val aboutJsonString = AppContext.staticFileLoader("about", "json")!!
         val aboutList = ArrayList<AboutInfo>()
 

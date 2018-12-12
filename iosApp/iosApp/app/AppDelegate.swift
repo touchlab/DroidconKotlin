@@ -23,9 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appContext = AppContext()
         appContext.doInitPlatformClient(staticFileLoader: loadAsset,
                                                         analyticsCallback: analyticsCallback,
-                                                        clLogCallback: csLog
-        //    ,
-          //                                              dispatcher: UI()
+                                                        clLogCallback: csLog,
+                                                        dispatcher: UI()
         )
         
         appContext.refreshData()
