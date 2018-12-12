@@ -30,7 +30,7 @@ dependencies {
 
 kotlin {
     targets {
-//        fromPreset(presets.android, 'android')
+        fromPreset(presets.android, 'android')
 
         def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") \
                               ? presets.iosArm64 : presets.iosX64
@@ -83,7 +83,7 @@ kotlin {
             }
         }
 
-        /*androidMain {
+        androidMain {
             dependencies {
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
@@ -92,8 +92,18 @@ kotlin {
                 implementation deps.knarch.threadsLivedataAndroid
                 implementation deps.multiplatformSettings.android
                 implementation deps.timber.android
+                implementation deps.ktor.jvmCore
+                implementation deps.ktor.jvmJson
+                implementation deps.serialization.jvmRuntime
             }
-        }*/
+        }
+
+        androidTest {
+            dependencies {
+                implementation deps.kotlin.test.jvm
+                implementation deps.kotlin.test.junit
+            }
+        }
     }
 }
 
@@ -136,4 +146,5 @@ task iosTest {
     }
 }
 
+tasks.preBuild.dependsOn "generateSqlDelightInterface"
 tasks.build.dependsOn packForXCode

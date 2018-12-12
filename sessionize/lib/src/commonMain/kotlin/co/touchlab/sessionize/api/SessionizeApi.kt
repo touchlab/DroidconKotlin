@@ -3,13 +3,13 @@ package co.touchlab.sessionize.api
 import co.touchlab.sessionize.jsondata.Speaker
 import io.ktor.client.features.json.serializer.*
 
-/*object ApiSupport{
+object ApiSupport{
     val serializer = KotlinxSerializer().apply {
         setMapper(Speaker::class, Speaker.serializer())
 //                setMapper(Favorite::class, Favorite.serializer())
 //                setMapper(Vote::class, Vote.serializer())
     }
-}*/
+}
 /*
 class SessionizeApi(private val endPoint: String){
     private val client = HttpClient {
