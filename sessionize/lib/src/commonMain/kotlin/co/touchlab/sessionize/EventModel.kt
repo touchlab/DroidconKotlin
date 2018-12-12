@@ -6,11 +6,13 @@ import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.db.QueryLiveData
 import co.touchlab.sessionize.db.roomAsync
 import co.touchlab.sessionize.platform.*
+import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
+import kotlinx.coroutines.launch
 import kotlin.math.max
 
-class EventModel(val sessionId: String) {
+class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.value!!){
 
     val evenLiveData: EventLiveData
 
@@ -27,29 +29,41 @@ class EventModel(val sessionId: String) {
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(rsvp: Boolean) {
 
+        val localSessionId = sessionId
         networkBackgroundTask {
             val methodName = if (rsvp) {
                 "sessionizeRsvpEvent"
             } else {
                 "sessionizeUnrsvpEvent"
             }
-            val callingUrl = "https://droidcon-server.herokuapp.com/dataTest/$methodName/$sessionId/${AppContext.userUuid()}"
+            val callingUrl = "https://droidcon-server.herokuapp.com/dataTest/$methodName/$localSessionId/${AppContext.userUuid()}"
             println("CALLING: $callingUrl")
             simpleGet(callingUrl)
         }
 
-        backgroundTask({
-            AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
-        }){
-            val params = HashMap<String, Any>()
-            params.put("slot", analyticsDateFormat.format(it.startsAt))
-            params.put("sessionId", sessionId)
-            params.put("count", if(rsvp){1}else{-1})
-            AppContext.logEvent("RSVP_EVENT",
-                    params)
-        }
+        sendAnalytics(localSessionId, rsvp)
+
         backgroundTask {
-            AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if(rsvp){1}else{0}, sessionId)
+            AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if(rsvp){1}else{0}, localSessionId)
+        }
+    }
+
+    private fun sendAnalytics(sessionId:String, rsvp: Boolean) = launch{
+        try {
+            val session = backgroundSupend {
+                AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
+            }
+            val params = HashMap<String, Any>()
+            params.put("slot", analyticsDateFormat.format(session.startsAt))
+            params.put("sessionId", sessionId)
+            params.put("count", if (rsvp) {
+                1
+            } else {
+                -1
+            })
+            AppContext.logEvent("RSVP_EVENT", params)
+        } catch (e: Exception) {
+            logException(e)
         }
     }
 
