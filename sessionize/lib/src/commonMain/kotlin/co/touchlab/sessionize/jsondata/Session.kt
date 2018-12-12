@@ -1,22 +1,34 @@
 package co.touchlab.sessionize.jsondata
 
+import kotlinx.serialization.*
+
+@Serializable
+data class Days(val date:String, val rooms:List<Room>)
+
+@Serializable
+data class Room(val id:String, val name:String, val sessions:List<Session>)
+
+@Serializable
 data class Session(
         val id:String,
         val title:String,
-        val description:String,
-        val startsAt:String,
-        val endsAt:String,
-        val serviceSession:Boolean,
+        @SerialName("description")
+        val descriptionText: String?,
+        val startsAt: String?,
+        val endsAt: String?,
+        val isServiceSession:Boolean,
         val speakers:List<SessionSpeaker>,
-        val roomId:Int,
+        val roomId: Int?,
         val room:String
 )
 
+@Serializable
 data class SessionSpeaker(
         val id:String,
         val name:String
 )
 
+@Serializable
 data class Speaker(
         val id:String,
         val firstName:String,
@@ -28,6 +40,7 @@ data class Speaker(
         val links:List<SpeakerLink>
 )
 
+@Serializable
 data class SpeakerLink(
         val title:String,
         val url:String,

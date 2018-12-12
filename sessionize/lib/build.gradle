@@ -1,4 +1,5 @@
 apply plugin: 'kotlin-multiplatform'
+apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.android.library'
 apply plugin: 'com.squareup.sqldelight'
 
@@ -54,6 +55,9 @@ kotlin {
                 implementation deps.sqldelight.runtime
                 implementation deps.multiplatformSettings.common
                 implementation deps.timber.common
+                implementation deps.ktor.commonCore
+                implementation deps.ktor.commonJson
+                implementation deps.serialization.commonRuntime
             }
         }
 
@@ -72,6 +76,10 @@ kotlin {
                 implementation deps.knarch.threadsLivedataNative
                 implementation deps.multiplatformSettings.ios
                 implementation deps.timber.ios
+                implementation deps.ktor.ios
+                implementation deps.ktor.iosCore
+                implementation deps.ktor.iosJson
+                implementation deps.serialization.iosRuntime
             }
         }
 

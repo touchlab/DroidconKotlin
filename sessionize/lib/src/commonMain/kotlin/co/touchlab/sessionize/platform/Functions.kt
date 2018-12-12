@@ -17,7 +17,7 @@ fun callCallback(id:Int, result:Any?){
     callbackMap.remove(id)!!(result)
 }
 
-suspend fun <R> backgroundSupend(backJob:()-> R):R{
+suspend fun <R> backgroundSuspend(backJob:()-> R):R{
     var continuation:Continuation<Any?>? = null
 
     val callbackIdLocal = callbackId++

@@ -50,9 +50,12 @@ class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.v
 
     private fun sendAnalytics(sessionId:String, rsvp: Boolean) = launch{
         try {
-            val session = backgroundSupend {
-                AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).executeAsOne()
+            val sessionQueries = AppContext.dbHelper.queryWrapper.sessionQueries
+
+            val session = backgroundSuspend {
+                sessionQueries.sessionById(sessionId).executeAsOne()
             }
+
             val params = HashMap<String, Any>()
             params.put("slot", analyticsDateFormat.format(session.startsAt))
             params.put("sessionId", sessionId)
