@@ -38,6 +38,7 @@ buildscript {
                     'test'      : [
                             'common'     : "org.jetbrains.kotlin:kotlin-test-common:${versions.kotlin}",
                             'annotations': "org.jetbrains.kotlin:kotlin-test-annotations-common:${versions.kotlin}",
+                            'jvm'      : "org.jetbrains.kotlin:kotlin-test:${versions.kotlin}",
                             'junit'      : "org.jetbrains.kotlin:kotlin-test-junit:${versions.kotlin}",
                             'reflect'    : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
                     ],
@@ -84,7 +85,7 @@ buildscript {
                     'commonCore' : "io.ktor:ktor-client-core:${versions.ktor}",
                     'commonJson' : "io.ktor:ktor-client-json:${versions.ktor}",
                     'jvmCore' : "io.ktor:ktor-client-core-jvm:${versions.ktor}",
-                    'jvmJson' : "io.ktor:ktor-client-json-jvm:${}versions.ktor",
+                    'jvmJson' : "io.ktor:ktor-client-json-jvm:${versions.ktor}",
                     'ios' : "io.ktor:ktor-client-ios:${versions.ktor}",
                     'iosCore' : "io.ktor:ktor-client-core-ios:${versions.ktor}",
                     'iosJson' : "io.ktor:ktor-client-json-ios:${versions.ktor}"
