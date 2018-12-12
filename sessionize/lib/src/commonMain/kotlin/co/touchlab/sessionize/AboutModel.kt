@@ -1,6 +1,6 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.platform.backgroundSupend
+import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.stately.annotation.ThreadLocal
 import co.touchlab.stately.concurrency.value
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import kotlinx.serialization.json.JsonTreeParser
 object AboutModel: BaseModel(AppContext.dispatcherLocal.value!!) {
     fun loadAboutInfo(proc: (aboutInfo: List<AboutInfo>) -> Unit) = launch{
         clLog("loadAboutInfo AboutModel()")
-        proc(backgroundSupend { AboutProc.parseAbout() })
+        proc(backgroundSuspend { AboutProc.parseAbout() })
     }
 }
 

@@ -24,7 +24,9 @@ buildscript {
             'timber'               : '5.0.0-k1.3.0-a1',
             'sqldelight'           : '1.0.0-M0.3-a1-SNAPSHOT',
             'stately'              : '0.5.1-M0.3-SNAPSHOT',
-            'sqliter'              : '0.5.7-M0.3-SNAPSHOT'
+            'sqliter'              : '0.5.7-M0.3-SNAPSHOT',
+            'ktor'                 : '1.0.1',
+            'serialization'        : '0.9.1'
     ]
 
     ext.deps = [
@@ -77,6 +79,22 @@ buildscript {
             'sqliter'              : [
                     'ios': "co.touchlab:sqliter:${versions.sqliter}",
             ]
+            ,
+            'ktor' : [
+                    'commonCore' : "io.ktor:ktor-client-core:${versions.ktor}",
+                    'commonJson' : "io.ktor:ktor-client-json:${versions.ktor}",
+                    'jvmCore' : "io.ktor:ktor-client-core-jvm:${versions.ktor}",
+                    'jvmJson' : "io.ktor:ktor-client-json-jvm:${}versions.ktor",
+                    'ios' : "io.ktor:ktor-client-ios:${versions.ktor}",
+                    'iosCore' : "io.ktor:ktor-client-core-ios:${versions.ktor}",
+                    'iosJson' : "io.ktor:ktor-client-json-ios:${versions.ktor}"
+            ]
+            ,
+            'serialization' : [
+                    'commonRuntime':"org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${versions.serialization}",
+                    'jvmRuntime':"org.jetbrains.kotlinx:kotlinx-serialization-runtime:${versions.serialization}",
+                    'iosRuntime':"org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${versions.serialization}",
+            ]
     ]
 
     repositories {
@@ -86,12 +104,14 @@ buildscript {
         mavenCentral()
         gradlePluginPortal()
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-beta04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:${versions.kotlin}"
         classpath 'com.google.gms:google-services:4.0.1'
         classpath "co.touchlab.com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
         classpath 'io.fabric.tools:gradle:1.+'
@@ -105,6 +125,7 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://maven.fabric.io/public' }
 
     }

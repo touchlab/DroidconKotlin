@@ -3,7 +3,8 @@ package co.touchlab.sessionize.db
 import co.touchlab.droidcon.db.QueryWrapper
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
-import co.touchlab.sessionize.jsondata.DefaultData
+import co.touchlab.sessionize.jsondata.Days
+import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.platform.initSqldelightDatabase
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.freeze
@@ -12,6 +13,8 @@ import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.concurrency.Lock
 import co.touchlab.stately.concurrency.withLock
 import com.squareup.sqldelight.Query
+import kotlinx.serialization.json.JSON
+import kotlinx.serialization.list
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -40,13 +43,21 @@ class SessionizeDbHelper {
 
     fun primeAll(speakerJson:String, scheduleJson:String){
         queryWrapper.sessionQueries.transaction {
-            primeSpeakers(speakerJson)
-            primeSessions(scheduleJson)
+
+            try {
+                primeSpeakers(speakerJson)
+                primeSessions(scheduleJson)
+            } catch (e: Exception) {
+                logException(e)
+                throw e
+            }
+
         }
     }
 
     private fun primeSpeakers(speakerJson:String){
-        val speakers = DefaultData.parseSpeakers(speakerJson)
+        val speakers = JSON.nonstrict.parse(Speaker.serializer().list, speakerJson)//DefaultData.parseSpeakers(speakerJson)
+
         for (speaker in speakers) {
             var twitter:String? = null
             var linkedIn:String? = null
@@ -91,15 +102,23 @@ class SessionizeDbHelper {
     }
 
     private fun primeSessions(scheduleJson:String){
-        val parseAll = DefaultData.parseSchedule(scheduleJson)
+        val days = JSON.nonstrict.parse(Days.serializer().list, scheduleJson)
+        val sessions = mutableListOf<co.touchlab.sessionize.jsondata.Session>()
+
+        days.forEach {day ->
+            day.rooms.forEach { room ->
+                sessions.addAll(room.sessions)
+            }
+        }
+
         queryWrapper.sessionSpeakerQueries.deleteAll()
         val allSessions = queryWrapper.sessionQueries.allSessions().executeAsList()
 
         val newIdSet = HashSet<String>()
 
         println("primeSessions a")
-        for (session in parseAll) {
-            queryWrapper.roomQueries.insertRoot(session.roomId.toLong(), session.room)
+        for (session in sessions) {
+            queryWrapper.roomQueries.insertRoot(session.roomId!!.toLong(), session.room)
 
             newIdSet.add(session.id)
 
@@ -109,27 +128,27 @@ class SessionizeDbHelper {
                 queryWrapper.sessionQueries.insert(
                         session.id,
                         session.title,
-                        session.description,
-                        queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt),
-                        queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt),
-                        if (session.serviceSession) {
+                        session.descriptionText?:"",
+                        queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
+                        queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        if (session.isServiceSession) {
                             1
                         } else {
                             0
-                        }, session.roomId.toLong()
+                        }, session.roomId!!.toLong()
                 )
             }else{
                 queryWrapper.sessionQueries.update(
                         title = session.title,
-                        description = session.description,
-                        startsAt = queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt),
-                        endsAt = queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt),
-                        serviceSession = if (session.serviceSession) {
+                        description = session.descriptionText?:"",
+                        startsAt = queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
+                        endsAt = queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        serviceSession = if (session.isServiceSession) {
                             1
                         } else {
                             0
                         },
-                        roomId = session.roomId.toLong(),
+                        roomId = session.roomId!!.toLong(),
                         rsvp = dbSession.rsvp,
                         id = session.id
                 )
