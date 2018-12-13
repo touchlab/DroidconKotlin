@@ -4,38 +4,35 @@ This project has a pair of native mobile applications backed by the Sessionize d
 events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
 be forked and customized for anything run on Sessionize.
 
-## NOTE!!!
-
-This repo is being updated with newer library versions. Right now, after running 
-gradle build, you'll need to rerun 'generateSqlDelightInterface' again
-manually. Updates soon ...
-
 ## Libraries
 
 Kotlin multiplatform libraries used:
 
-* SQLiter - New SQLite driver library. Not quite open source yet ...
-
-* [SQLDelight](https://github.com/square/sqldelight) - Amazing SQL model generator from Square and 
+* [SQLDelight](https://github.com/square/sqldelight) - SQL model generator from Square and 
 [AlecStrong](https://github.com/AlecStrong).
+
+* [SQLiter](https://github.com/touchlab/SQLiter) - Lightly opinionated sqlite access driver
 
 * [multiplatform-settings](https://github.com/russhwolf/multiplatform-settings) - Shared settings for Android and iOS from
 [russhwolf](https://github.com/russhwolf).
 
-* [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization/) - JSON parsing provided by kotlinx.serialization.
-(Source copied directly due to packaging issues)
+* [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization/)
+
+* [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 
 * [Stately](https://github.com/touchlab/Stately/) - Multiplatform threading state library. 
 
-* [Timber](https://github.com/touchlab/timber/tree/native) - Popular logging library on Android/Java, now with more platforms!
-
-As an aside, I added Timber, but I didn't exactly add much "logging". On the todo list.
+* [Timber](https://github.com/touchlab/timber/tree/native) - Popular logging library on Android/Java (fork for native support)
 
 ## Media
 
 [Medium - Droidcon NYC App!](https://medium.com/@kpgalligan/droidcon-nyc-app-da868bdef387)
 
 [Medium - Kotlin Multiplatform in the App Store!](https://medium.com/@kpgalligan/kotlin-multiplatform-in-the-app-store-c3a50c24f93b)
+
+[Youtube - Droidcon SF](https://www.youtube.com/watch?v=c8IkWGmlcNE)
+
+[Youtube - Kotlinconf](https://www.youtube.com/watch?v=Dul17VSiejo)
 
 [Youtube - Kotlin Multiplatform @ Android Summit](https://www.youtube.com/watch?v=oeREzhXx7uw)
 
@@ -46,23 +43,16 @@ As an aside, I added Timber, but I didn't exactly add much "logging". On the tod
 Clone, and at the base, run:
 
 ```
-./gradlew generateSqlDelightInterface
-```
-
-then ...
-
-```
 ./gradlew build
 ```
 
-## Intellij
-
-To see the project, use the latest Intellij EAP, and make sure Android and anything Kotlin related is installed and updated.
-There are modules for Android (app), iOS (ios), and the common code (src).
-
 ## NOTE ON GRADLE!!!
 
-Until the new Multiplatform gradle plugins and dependencies are stable, you need to stick to Gradle 4.7.
+Most Kotlin Multiplatform libraries are published on Gradle 4.7, but new Android Studio 3.3+ versions require Gradle 4.10. This application currently uses 4.7.
+
+## Intellij
+
+While the gradle issues are being sorted out, *you can't run this with Android Studio*. [Install Intellij 2018.3+](https://www.jetbrains.com/idea/download/)
 
 ## Xcode
 
