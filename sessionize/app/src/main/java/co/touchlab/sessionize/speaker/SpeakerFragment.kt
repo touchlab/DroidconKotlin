@@ -50,9 +50,11 @@ class SpeakerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mainView = inflater.inflate(R.layout.fragment_speaker, container, false)
-//        speakerViewModel.speakerModel.speakerLiveData.observe(viewLifecycleOwner, Observer {
-//            speakerViewModel.speakerModel.processUser(it, updateDisplay)
-//        })
+        speakerViewModel.speakerModel.register(object : SpeakerModel.View{
+            override fun update(speakerUiData: SpeakerUiData) {
+                updateDisplay(speakerUiData)
+            }
+        })
         val list = mainView.findViewById<RecyclerView>(R.id.speakerInfoList)
         list.layoutManager = LinearLayoutManager(activity)
         speakerInfoAdapter = SpeakerInfoAdapter()

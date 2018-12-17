@@ -2,32 +2,45 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.multiplatform.architecture.livedata.MutableLiveData
-import co.touchlab.multiplatform.architecture.livedata.map
 import co.touchlab.sessionize.AppContext.userAccountQueries
-import co.touchlab.sessionize.db.QueryLiveData
+import co.touchlab.sessionize.db.QueryUpdater
 import co.touchlab.sessionize.db.sessions
-import co.touchlab.stately.freeze
-import com.squareup.sqldelight.Query
 import kotlinx.coroutines.launch
 
 class SpeakerModel(speakerId:String) : BaseModel(AppContext.dispatcherLocal.lateValue){
+    internal var view : View? = null
 
-    val speakerLiveData:SpeakerLiveData
-
+    internal val speakerQueryUpdater = QueryUpdater(
+            q = userAccountQueries.selectById(speakerId),
+            extractData = {
+                it.executeAsOne()
+            },
+            updateSource = {
+                updateUi(it)
+            }
+    )
     init {
         clLog("init SpeakerModel($speakerId)")
-        speakerLiveData = SpeakerLiveData(userAccountQueries.selectById(speakerId).freeze())
+    }
+
+    fun register(view:View){
+        this.view = view
+        speakerQueryUpdater.refresh()
     }
 
     fun shutDown(){
-        speakerLiveData.removeListener()
+        speakerQueryUpdater.destroy()
+        view = null
+    }
+
+    interface View{
+        fun update(speakerUiData: SpeakerUiData)
     }
 
     /**
      * A little hacky, but it'll work
      */
-    fun processUser(it: UserAccount, block:(SpeakerUiData)->Unit) = launch{
+    private fun updateUi(it: UserAccount) = launch{
         val infoSections = ArrayList<SpeakerInfo>()
 
         if(!it.tagLine.isNullOrBlank())
@@ -41,12 +54,9 @@ class SpeakerModel(speakerId:String) : BaseModel(AppContext.dispatcherLocal.late
         if(!it.bio.isNullOrBlank())
             infoSections.add(SpeakerInfo(InfoType.Profile, it.bio!!))
 
-        val suid = SpeakerUiData(it, it.fullName, it.tagLine, it.profilePicture, infoSections, it.sessions())
-        block(suid)
-    }
-
-    class SpeakerLiveData(q: Query<UserAccount>) : QueryLiveData<UserAccount, UserAccount>(q) {
-        override fun extractData(q: Query<UserAccount>) = q.executeAsOne()
+        view?.let {view ->
+            view.update(SpeakerUiData(it, it.fullName, it.tagLine, it.profilePicture, infoSections, it.sessions()))
+        }
     }
 }
 

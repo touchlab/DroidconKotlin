@@ -51,7 +51,6 @@ kotlin {
                 implementation deps.kotlin.stdlib.common
                 implementation deps.kotlin.coroutines.common
                 implementation deps.sqldelight.runtime
-                implementation deps.knarch.threadsLivedata
                 implementation deps.sqldelight.runtime
                 implementation deps.multiplatformSettings.common
                 implementation deps.timber.common
@@ -73,7 +72,6 @@ kotlin {
                 implementation deps.kotlin.coroutines.native
                 implementation deps.sqldelight.driverIos
                 implementation deps.sqliter.ios
-                implementation deps.knarch.threadsLivedataNative
                 implementation deps.multiplatformSettings.ios
                 implementation deps.timber.ios
                 implementation deps.ktor.ios
@@ -88,7 +86,6 @@ kotlin {
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
                 implementation deps.sqldelight.driverAndroid
-                implementation deps.knarch.threadsLivedataAndroid
                 implementation deps.multiplatformSettings.android
                 implementation deps.timber.android
                 implementation deps.ktor.jvmCore

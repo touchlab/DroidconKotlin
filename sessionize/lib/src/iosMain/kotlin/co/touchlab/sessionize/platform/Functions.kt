@@ -1,15 +1,8 @@
 package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.QueryWrapper
-import co.touchlab.sqliter.*
-
-import kotlin.system.getTimeMillis
-import platform.darwin.*
-import platform.Foundation.*
-import kotlin.native.*
-import kotlin.native.concurrent.*
-import kotlinx.cinterop.*
-
+import co.touchlab.sqliter.DatabaseConfiguration
+import co.touchlab.sqliter.createDatabaseManager
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import com.russhwolf.settings.PlatformSettings
@@ -17,8 +10,15 @@ import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDatabase
 import com.squareup.sqldelight.drivers.ios.NativeSqlDatabase
 import com.squareup.sqldelight.drivers.ios.wrapConnection
-
-import timber.log.*
+import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.staticCFunction
+import platform.Foundation.*
+import platform.darwin.dispatch_async_f
+import platform.darwin.dispatch_get_main_queue
+import timber.log.NSLogTree
+import timber.log.Timber
+import kotlin.native.concurrent.*
+import kotlin.system.getTimeMillis
 
 actual fun currentTimeMillis(): Long = getTimeMillis()
 
