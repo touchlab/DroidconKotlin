@@ -49,9 +49,17 @@ class EventFragment : Fragment() {
         eventRoomTime = view.findViewById(R.id.eventRoomTime)
         recycler = view.findViewById(R.id.recycler)
 
-        eventViewModel.eventModel.evenLiveData.observe(viewLifecycleOwner, Observer { dataRefresh(it) })
+        eventViewModel.eventModel.register(object : EventModel.View{
+            override fun update(sessionInfo: SessionInfo, formattedRoomTime: String) {
+                dataRefresh(sessionInfo, formattedRoomTime)
+            }
+        })
 
         return view
+    }
+
+    override fun onDestroyView(){
+        eventViewModel.eventModel.shutDown()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,9 +68,9 @@ class EventFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(getActivity())
     }
 
-    private /*suspend */fun dataRefresh(eventInfo: SessionInfo) {
+    private fun dataRefresh(eventInfo: SessionInfo, formattedRoomTime: String) {
         updateFAB(eventInfo)
-        updateContent(eventInfo)
+        updateContent(eventInfo, formattedRoomTime)
     }
 
     private fun updateFAB(event: SessionInfo) {
@@ -90,11 +98,11 @@ class EventFragment : Fragment() {
         }
     }
 
-    private /*suspend */fun updateContent(event: SessionInfo) {
+    private fun updateContent(event: SessionInfo, formattedRoomTime:String) {
         val adapter = EventDetailAdapter(activity!!)
 
         eventTitle.text = event.session.title
-        eventRoomTime.text = event.formattedRoomTime
+        eventRoomTime.text = formattedRoomTime
         adapter.addHeader(event.session.title)
 
         when {

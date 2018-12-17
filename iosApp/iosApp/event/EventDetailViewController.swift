@@ -22,6 +22,7 @@ import MaterialComponents
     var sessionId: String!
     var viewModel:EventViewModel!
     var sessionInfo: SessionInfo!
+    var formattedRoomTime: String!
     
     // MARK: Lifecycle events
     override func viewDidLoad() {
@@ -46,8 +47,9 @@ import MaterialComponents
         headerImage.backgroundColor = ApplicationScheme.shared.colorScheme.secondaryColor
     }
     
-    func updateUi(sessionInfo:SessionInfo) -> KotlinUnit{
+    func updateUi(sessionInfo:SessionInfo, formattedRoomTime:String) -> KotlinUnit{
         self.sessionInfo = sessionInfo
+        self.formattedRoomTime = formattedRoomTime
         styleButton()
         updateAllUi()
         return KotlinUnit()
@@ -74,7 +76,7 @@ import MaterialComponents
     func updateAllUi() {
         updateButton()
         eventTitle.text = sessionInfo.session.title
-        eventRoomTime.text = sessionInfo.formattedRoomTime
+        eventRoomTime.text = formattedRoomTime
         tableView.reloadData()
     }
     
@@ -98,7 +100,7 @@ import MaterialComponents
             let cell:EventTableViewCell = tableView.dequeueReusableCell(withIdentifier: "eventCell") as! EventTableViewCell
             
             if (sessionInfo != nil) {
-                cell.loadInfo(sessionInfo, viewModel: viewModel)
+                cell.loadInfo(sessionInfo, formattedRoomTime: formattedRoomTime, viewModel: viewModel)
             }
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             return cell

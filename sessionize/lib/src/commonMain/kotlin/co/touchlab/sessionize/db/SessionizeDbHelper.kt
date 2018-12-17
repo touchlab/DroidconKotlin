@@ -3,6 +3,7 @@ package co.touchlab.sessionize.db
 import co.touchlab.droidcon.db.QueryWrapper
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.platform.initSqldelightDatabase
@@ -102,14 +103,7 @@ class SessionizeDbHelper {
     }
 
     private fun primeSessions(scheduleJson:String){
-        val days = JSON.nonstrict.parse(Days.serializer().list, scheduleJson)
-        val sessions = mutableListOf<co.touchlab.sessionize.jsondata.Session>()
-
-        days.forEach {day ->
-            day.rooms.forEach { room ->
-                sessions.addAll(room.sessions)
-            }
-        }
+        val sessions = parseSessionsFromDays(scheduleJson)
 
         queryWrapper.sessionSpeakerQueries.deleteAll()
         val allSessions = queryWrapper.sessionQueries.allSessions().executeAsList()

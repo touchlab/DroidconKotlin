@@ -1,28 +1,26 @@
 package co.touchlab.sessionize
 
-import co.touchlab.multiplatform.architecture.livedata.*
-import co.touchlab.sessionize.platform.*
-import co.touchlab.sessionize.*
-import kotlin.native.*
-import kotlin.native.concurrent.*
+import co.touchlab.droidcon.db.UserAccount
+import co.touchlab.multiplatform.architecture.livedata.Observer
+import kotlin.native.concurrent.freeze
 
 class SpeakerViewModel(sessionId: String){
     val speakerModel = SpeakerModel(sessionId).freeze()
-    var speakerObserver:Observer<SpeakerUiData>? = null
+    var speakerObserver:Observer<UserAccount>? = null
 
     fun registerForChanges(proc:(speakerUiData:SpeakerUiData)->Unit){
-        speakerObserver = object : Observer<SpeakerUiData>{
-            override fun onChanged(t: SpeakerUiData?){
+        speakerObserver = object : Observer<UserAccount>{
+            override fun onChanged(t: UserAccount?){
                 if(t != null)
-                    proc(t)
+                    speakerModel.processUser(t, proc)
             }
         }
 
-        speakerModel.uiLiveData().observeForever(speakerObserver!!)
+        speakerModel.speakerLiveData.observeForever(speakerObserver!!)
     }
 
     fun unregister(){
-        speakerModel.uiLiveData().removeObserver(speakerObserver!!)
+        speakerModel.speakerLiveData.removeObserver(speakerObserver!!)
         speakerObserver = null
         speakerModel.shutDown()
     }

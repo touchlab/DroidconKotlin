@@ -1,27 +1,16 @@
 package co.touchlab.sessionize
 
-import co.touchlab.multiplatform.architecture.livedata.*
-import kotlin.native.*
 import kotlin.native.concurrent.*
 
 class EventViewModel(sessionId: String){
     val eventModel = EventModel(sessionId)
 
-    var eventObserver:Observer<SessionInfo>? = null
-
-    init {
-        eventModel.ensureNeverFrozen()
-    }
-
-    fun registerForChanges(proc:(sessionInfo:SessionInfo)->Unit){
-        eventObserver = object : Observer<SessionInfo>{
-            override fun onChanged(t: SessionInfo?){
-                if(t != null)
-                    proc(t)
+    fun registerForChanges(proc:(sessionInfo:SessionInfo, formattedRoomTime:String)->Unit){
+        eventModel.register(object : EventModel.View{
+            override fun update(sessionInfo: SessionInfo, formattedRoomTime: String) {
+                proc(sessionInfo, formattedRoomTime)
             }
-        }
-
-        eventModel.evenLiveData.observeForever(eventObserver!!)
+        })
     }
 
     fun toggleRsvp(rsvp:Boolean){
@@ -29,8 +18,6 @@ class EventViewModel(sessionId: String){
     }
 
     fun unregister(){
-        eventModel.evenLiveData.removeObserver(eventObserver!!)
-        eventObserver = null
         eventModel.shutDown()
     }
 }

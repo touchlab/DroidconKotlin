@@ -19,7 +19,8 @@ class EventTableViewCell: UITableViewCell {
     var viewModel:EventViewModel!
     var sessionInfo: SessionInfo!
     
-    func loadInfo(_ sessionInfo: SessionInfo,
+func loadInfo(_ sessionInfo: SessionInfo,
+                  formattedRoomTime: String,
                   viewModel:EventViewModel) {
         
         self.viewModel = viewModel
@@ -27,7 +28,7 @@ class EventTableViewCell: UITableViewCell {
         
         titleLabel.text = sessionInfo.session.title/*.replacingOccurrences(of: "Android", with: "Lulu")*/
 
-        timeInfoLabel.text = sessionInfo.formattedRoomTime
+        timeInfoLabel.text = formattedRoomTime
         descriptionLabel.text = sessionInfo.session.description.replacingOccurrences(of: "/n/n", with: "/n")
 
         if sessionInfo.isNow() {

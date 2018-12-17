@@ -46,13 +46,11 @@ class ScheduleFragment():Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        viewModel.scheduleModel.dayFormatLiveData(allEvents).observe(viewLifecycleOwner,
-                Observer {
-                    conferenceDays = it
-                    updateTabs(it)
-                    updateDisplay()
-                }
-        )
+        viewModel.registerForChanges(allEvents) {days:List<DaySchedule> ->
+            conferenceDays = days
+            updateTabs(days)
+            updateDisplay()
+        }
 
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
         dayChooser = view.findViewById(R.id.dayChooser)
@@ -83,6 +81,10 @@ class ScheduleFragment():Fragment() {
         })
 
         return view
+    }
+
+    override fun onDestroyView(){
+        viewModel.unregister()
     }
 
     fun navigateToSession(sessionId: String) {
