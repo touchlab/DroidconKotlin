@@ -63,27 +63,6 @@ actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
 data class Result<B>(val result: B, val mainJobLocal: ThreadLocalRef<(B) -> Unit>)
 data class JobWrapper<B>(val backJob: () -> B, val mainJobLocal: ThreadLocalRef<(B) -> Unit>)
 
-actual fun backgroundTask(backJob: () -> Unit) {
-    backgroundTaskRun(backJob, "back")
-}
-
-actual fun networkBackgroundTask(backJob: () -> Unit) {
-    backgroundTaskRun(backJob, "network")
-}
-
-private fun backgroundTaskRun(backJob: () -> Unit, key: String) {
-    val worker = makeQueue(key)
-    worker.execute(TransferMode.SAFE,
-            { backJob.freeze() }) {
-        try {
-            it()
-        } catch (e: Exception) {
-            //TODO: This is clearly trash, but we don't really have a full blown threading strategy yet
-            e.printStackTrace()
-        }
-    }
-}
-
 actual fun logException(t: Throwable) {
     t.printStackTrace()
 }

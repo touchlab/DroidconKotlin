@@ -21,14 +21,6 @@ actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
     AndroidAppContext.backgroundTask(backJob, mainJob)
 }
 
-actual fun backgroundTask(backJob:()->Unit){
-    AndroidAppContext.backgroundTask(backJob)
-}
-
-actual fun networkBackgroundTask(backJob: () -> Unit) {
-    AndroidAppContext.networkBackgroundTask(backJob)
-}
-
 object AndroidAppContext{
     lateinit var app: Application
 

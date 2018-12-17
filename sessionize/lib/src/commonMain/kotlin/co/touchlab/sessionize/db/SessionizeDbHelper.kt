@@ -25,7 +25,6 @@ class SessionizeDbHelper {
         QueryWrapper(initSqldelightDatabase(), Session.Adapter(DateAdapter(), DateAdapter()))
     }
 
-    //This will be replaced when Stately 0.4.0 releases, along with sqldelight rc5(ish)
     class FrozenLazy<R, T>(private val producer:()->T) : ReadOnlyProperty<R, T>{
         override fun getValue(thisRef: R, property: KProperty<*>): T =
             lock.withLock {
@@ -44,7 +43,6 @@ class SessionizeDbHelper {
 
     fun primeAll(speakerJson:String, scheduleJson:String){
         queryWrapper.sessionQueries.transaction {
-
             try {
                 primeSpeakers(speakerJson)
                 primeSessions(scheduleJson)
@@ -52,7 +50,6 @@ class SessionizeDbHelper {
                 logException(e)
                 throw e
             }
-
         }
     }
 
@@ -110,7 +107,6 @@ class SessionizeDbHelper {
 
         val newIdSet = HashSet<String>()
 
-        println("primeSessions a")
         for (session in sessions) {
             queryWrapper.roomQueries.insertRoot(session.roomId!!.toLong(), session.room)
 
@@ -156,7 +152,6 @@ class SessionizeDbHelper {
                         displayOrder++)
             }
         }
-        println("primeSessions b")
 
         allSessions.forEach {
             if(!newIdSet.contains(it.id)){

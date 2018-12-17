@@ -6,41 +6,45 @@ import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-expect fun currentTimeMillis():Long
-
-expect fun <B> backgroundTask(backJob:()-> B, mainJob:(B) -> Unit)
-
-val callbackMap = HashMap<Int, (Any?)->Unit>()
-var callbackId = 0
-
-fun callCallback(id:Int, result:Any?){
-    callbackMap.remove(id)!!(result)
-}
-
+/**
+ * Suspends current execution while backJob runs in a background thread. When
+ * multithreaded coroutines arrive this will be pretty useless, but good for now.
+ */
 suspend fun <R> backgroundSuspend(backJob:()-> R):R{
-    var continuation:Continuation<Any?>? = null
 
-    val callbackIdLocal = callbackId++
-    callbackMap.put(callbackIdLocal) {
-        continuation!!.resume(it)
-    }
+    val continuationContainer = ContinuationContainer(null)
+
     backgroundTask(backJob){
-        callCallback(callbackIdLocal, it)
+        continuationContainer.continuation!!.resume(it)
     }
 
     return suspendCoroutine<Any?> {
-        continuation = it
+        continuationContainer.continuation = it
     } as R
 }
 
-expect fun backgroundTask(backJob:()->Unit)
+expect fun <B> backgroundTask(backJob:()-> B, mainJob:(B) -> Unit)
 
-expect fun networkBackgroundTask(backJob:()->Unit)
+private class ContinuationContainer(var continuation:Continuation<Any?>?)
 
+/**
+ * Current time in millis. Like Java's System.currentTimeMillis()
+ */
+expect fun currentTimeMillis():Long
+
+/**
+ * Create SqlDatabase for Sqldelight
+ */
 expect fun initSqldelightDatabase():SqlDatabase
 
 expect fun logException(t:Throwable)
 
+/**
+ * Create shared settings instance
+ */
 expect fun settingsFactory(): Settings.Factory
 
+/**
+ * Generates a unique string for use in tracking this user anonymously
+ */
 expect fun createUuid():String

@@ -15,7 +15,7 @@ fun SessionWithRoom.isRsvp():Boolean = this.rsvp != 0L
 /**
  * Provide for "ORM-like" associated query
  */
-suspend fun UserAccount.sessions(): List<Session> {
+internal suspend fun UserAccount.sessions(): List<Session> {
     val id = this.id
     return backgroundSuspend { sessionQueries.userSessions(id).executeAsList() }
 }
