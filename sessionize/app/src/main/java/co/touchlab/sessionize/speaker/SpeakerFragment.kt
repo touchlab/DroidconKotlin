@@ -19,7 +19,6 @@ import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SpeakerInfo
 import co.touchlab.sessionize.SpeakerModel
 import co.touchlab.sessionize.SpeakerUiData
-import co.touchlab.sessionize.db.sessions
 import com.squareup.picasso.Picasso
 
 

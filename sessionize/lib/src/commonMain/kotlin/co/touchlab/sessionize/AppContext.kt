@@ -99,24 +99,28 @@ object AppContext {
 
     //Split these up so they can individually succeed/fail
     private fun dataLoad() {
-        networkBackgroundTask {
-            try {
-                if (firstRun()) {
-                    val staticFileLoader = lambdas.value!!.staticFileLoader
-                    val sponsorJson = staticFileLoader("sponsors", "json")
-                    val speakerJson = staticFileLoader("speakers", "json")
-                    val scheduleJson = staticFileLoader("schedule", "json")
+        if(firstRun()){
+            backgroundTask({
+                try {
+                    if (firstRun()) {
+                        val staticFileLoader = lambdas.value!!.staticFileLoader
+                        val sponsorJson = staticFileLoader("sponsors", "json")
+                        val speakerJson = staticFileLoader("speakers", "json")
+                        val scheduleJson = staticFileLoader("schedule", "json")
 
-                    if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
-                        storeAll(sponsorJson, speakerJson, scheduleJson)
-                        updateFirstRun()
-                    } else {
-                        //This should only ever happen in dev
-                        throw NullPointerException("Couldn't load static files")
+                        if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
+                            storeAll(sponsorJson, speakerJson, scheduleJson)
+                            updateFirstRun()
+                        } else {
+                            //This should only ever happen in dev
+                            throw NullPointerException("Couldn't load static files")
+                        }
                     }
+                } catch (e: Exception) {
+                    logException(e)
                 }
-            } catch (e: Exception) {
-                logException(e)
+            }){
+                refreshData()
             }
         }
     }
@@ -138,13 +142,15 @@ object AppContext {
     }
 
     fun refreshData() {
-        val lastLoad = appSettings.getLong(KEY_LAST_LOAD)
-        if (lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
-            dataCalls()
+        if(!firstRun()) {
+            val lastLoad = appSettings.getLong(KEY_LAST_LOAD)
+            if (lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
+                dataCalls()
+            }
         }
     }
 
-    fun storeAll(networkSponsorJson: String, networkSpeakerJson: String, networkSessionJson: String) {
+    private fun storeAll(networkSponsorJson: String, networkSpeakerJson: String, networkSessionJson: String) {
         appSettings.putString(SPONSOR_JSON, networkSponsorJson)
         dbHelper.primeAll(networkSpeakerJson, networkSessionJson)
     }
