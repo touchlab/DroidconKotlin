@@ -1,6 +1,8 @@
 package co.touchlab.sessionize.platform
 
-import platform.Foundation.*
+import platform.Foundation.NSDate
+import platform.Foundation.NSDateFormatter
+import platform.Foundation.timeIntervalSince1970
 import kotlin.math.floor
 
 actual class Date(val iosDate:NSDate) {

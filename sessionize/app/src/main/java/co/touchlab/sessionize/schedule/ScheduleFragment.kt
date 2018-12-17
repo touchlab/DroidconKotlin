@@ -84,6 +84,7 @@ class ScheduleFragment():Fragment() {
     }
 
     override fun onDestroyView(){
+        super.onDestroyView()
         viewModel.unregister()
     }
 

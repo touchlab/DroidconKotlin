@@ -13,7 +13,7 @@ import com.squareup.sqldelight.Query
  * The extractData function needs to be frozen, which will freeze anything it captures, but
  * updateSource stays in the main thread.
  */
-class QueryUpdater<Q:Any, Z>(internal val q: Query<Q>, skipInit:Boolean = false,
+class QueryUpdater<Q:Any, Z>(internal val q: Query<Q>,
                                       internal val extractData:(Query<Q>)->Z,
                                       internal val updateSource:(Z)->Unit
 ){
@@ -32,6 +32,9 @@ class QueryUpdater<Q:Any, Z>(internal val q: Query<Q>, skipInit:Boolean = false,
         q.removeListener(internalListener)
     }
 
+    /**
+     * Force data reload. Generally call when attaching listener.
+     */
     fun refresh(){
         internalListener.queryResultsChanged()
     }

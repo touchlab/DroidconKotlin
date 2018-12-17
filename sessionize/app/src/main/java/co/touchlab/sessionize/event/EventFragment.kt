@@ -59,6 +59,7 @@ class EventFragment : Fragment() {
     }
 
     override fun onDestroyView(){
+        super.onDestroyView()
         eventViewModel.eventModel.shutDown()
     }
 

@@ -4,7 +4,6 @@ import co.touchlab.sessionize.AppContext
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.stately.annotation.ThreadLocal
-import co.touchlab.stately.isNativeFrozen
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
@@ -48,8 +47,6 @@ object SessionizeApi {
             takeFrom("https://sessionize.com")
             encodedPath = path
         }
-        if(isNativeFrozen())
-            throw IllegalStateException("asdf")
     }
 
     private fun HttpRequestBuilder.amazon(path: String){

@@ -1,7 +1,5 @@
 package co.touchlab.sessionize
 
-import kotlin.native.concurrent.*
-
 class EventViewModel(sessionId: String){
     val eventModel = EventModel(sessionId)
 

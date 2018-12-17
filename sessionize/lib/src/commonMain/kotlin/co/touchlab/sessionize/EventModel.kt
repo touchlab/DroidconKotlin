@@ -20,11 +20,11 @@ class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.l
     internal val eventQueryUpdater = QueryUpdater(
             q = sessionQueries.sessionById(sessionId),
             extractData = { q ->
-                val sessionStuff = q.executeAsOne()
-                val speakers = userAccountQueries.selectBySession(sessionStuff.id).executeAsList()
+                val session = q.executeAsOne()
+                val speakers = userAccountQueries.selectBySession(session.id).executeAsList()
                 val mySessions = sessionQueries.mySessions().executeAsList()
 
-                SessionInfo(sessionStuff, speakers, sessionStuff.conflict(mySessions))
+                SessionInfo(session, speakers, session.conflict(mySessions))
             },
             updateSource = {
                 updateFromDb(it)
