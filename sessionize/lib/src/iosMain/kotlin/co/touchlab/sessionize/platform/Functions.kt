@@ -84,23 +84,6 @@ private fun backgroundTaskRun(backJob: () -> Unit, key: String) {
     }
 }
 
-actual fun simpleGet(url: String): String {
-    val urlObj = NSURL(string = url)
-    var resultString: String? = null
-    val request = NSURLRequest.requestWithURL(urlObj)
-    val data = NSURLConnection.sendSynchronousRequest(request, null, null)
-    if (data != null) {
-        val decoded = NSString.create(data = data, encoding = NSUTF8StringEncoding)
-        if (decoded != null)
-            resultString = decoded as String
-    }
-
-    if (resultString == null)
-        throw NullPointerException("No network response")
-    else
-        return resultString!!
-}
-
 actual fun logException(t: Throwable) {
     t.printStackTrace()
 }
@@ -142,11 +125,3 @@ private fun getDirPath(folder: String): String {
 }
 
 private fun getDatabaseDirPath(): String = getDirPath("databases")
-
-fun getDir(folder: String, mode: Int): File {
-    return File(getDirPath(folder))
-}
-
-fun getDatabasePath(databaseName: String): File {
-    return File(getDatabaseDirPath(), databaseName)
-}

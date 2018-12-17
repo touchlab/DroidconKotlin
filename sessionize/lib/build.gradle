@@ -87,7 +87,6 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
-//                implementation deps.sqldelight.runtimeJdk
                 implementation deps.sqldelight.driverAndroid
                 implementation deps.knarch.threadsLivedataAndroid
                 implementation deps.multiplatformSettings.android

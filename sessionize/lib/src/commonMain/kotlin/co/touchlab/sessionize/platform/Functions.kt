@@ -39,8 +39,6 @@ expect fun networkBackgroundTask(backJob:()->Unit)
 
 expect fun initSqldelightDatabase():SqlDatabase
 
-expect fun simpleGet(url:String):String
-
 expect fun logException(t:Throwable)
 
 expect fun settingsFactory(): Settings.Factory

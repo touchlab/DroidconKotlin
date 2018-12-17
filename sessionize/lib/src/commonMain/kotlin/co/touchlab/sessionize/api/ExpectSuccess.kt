@@ -1,11 +1,13 @@
 package co.touchlab.sessionize.api
 
+import co.touchlab.stately.annotation.ThreadLocal
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.response.*
 import io.ktor.http.*
 import io.ktor.util.*
 
+@ThreadLocal
 object ExpectSuccess : HttpClientFeature<Unit, ExpectSuccess> {
     override val key: AttributeKey<ExpectSuccess> = AttributeKey("ExpectSuccess")
 

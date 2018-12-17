@@ -1,38 +1,47 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.SessionWithRoom
-import co.touchlab.multiplatform.architecture.livedata.MutableLiveData
-import co.touchlab.multiplatform.architecture.livedata.map
 import co.touchlab.sessionize.AppContext.dbHelper
-import co.touchlab.sessionize.db.QueryLiveData
+import co.touchlab.sessionize.db.QueryUpdater
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.display.*
-import co.touchlab.stately.collections.SharedHashMap
-import co.touchlab.stately.freeze
-import com.squareup.sqldelight.Query
+import co.touchlab.stately.isFrozen
 
 /**
  * Data model for schedule. Configure live data instances.
  */
-class ScheduleModel {
-    private val liveSessions:SessionListLiveData
+class ScheduleModel : BaseModel(AppContext.dispatcherLocal.lateValue) {
+    private var allEvents = true
+    private val sessionsUpdater = QueryUpdater(q = dbHelper.getSessionsQuery(),
+            extractData = { it.executeAsList() },
+            updateSource = {dbSessions ->
+                println("dbSessions frozen ${dbSessions.isFrozen()}")
+                scheduleView?.let {
+                    val sessions = if(allEvents){dbSessions}else{dbSessions.filter {it.rsvp != 0L}}
+                    val daySchedules = convertMapToDaySchedule(formatHourBlocks(sessions))
+                    it.update(daySchedules)
+                }
+            })
+
+    private var scheduleView:ScheduleView? = null
 
     init {
         clLog("init ScheduleModel()")
-        val sessionQuery = dbHelper.getSessionsQuery()
-        liveSessions = SessionListLiveData(sessionQuery)
+    }
+
+    fun register(allEvents: Boolean, view:ScheduleView){
+        this.allEvents = allEvents
+        scheduleView = view
+        sessionsUpdater.refresh()
     }
 
     fun shutDown(){
-        liveSessions.removeListener()
+        scheduleView = null
+        sessionsUpdater.destroy()
     }
 
-    fun dayFormatLiveData(allEvents:Boolean):MutableLiveData<List<DaySchedule>> {
-        return liveSessions.map {
-            val sessions = if(allEvents){it}else{it.filter {it.rsvp != 0L}}
-            convertMapToDaySchedule(formatHourBlocks(sessions))
-        }
+    interface ScheduleView{
+        fun update(daySchedules:List<DaySchedule>)
     }
 
     fun weaveSessionDetailsUi(hourBlock:HourBlock, allBlocks:List<HourBlock>, row:EventRow, allEvents: Boolean){
@@ -69,10 +78,6 @@ class ScheduleModel {
             }
             row.setRsvpState(state)
         }
-    }
-
-    private class SessionListLiveData(q: Query<SessionWithRoom>) : QueryLiveData<SessionWithRoom, List<SessionWithRoom>>(q), Query.Listener{
-        override /*suspend*/ fun extractData(q: Query<SessionWithRoom>): List<SessionWithRoom> = q.executeAsList()
     }
 }
 

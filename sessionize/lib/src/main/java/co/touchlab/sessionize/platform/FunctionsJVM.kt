@@ -7,7 +7,6 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDatabase
-import java.net.URL
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -71,8 +70,6 @@ object AndroidAppContext{
     }
 
 }
-
-actual fun simpleGet(url: String): String = URL(url).readText()
 
 actual fun logException(t: Throwable) {
     t.printStackTrace()

@@ -1,14 +1,24 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.RoomQueries
+import co.touchlab.droidcon.db.SessionQueries
+import co.touchlab.droidcon.db.UserAccountQueries
+import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.*
+import co.touchlab.stately.annotation.ThreadLocal
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
+import co.touchlab.stately.isNativeFrozen
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import timber.log.info
+import kotlin.coroutines.CoroutineContext
 
 object AppContext {
 
@@ -24,6 +34,9 @@ object AppContext {
 
     val lambdas = AtomicReference<PlatformLambdas?>(null)
     val dispatcherLocal = ThreadLocalRef<CoroutineDispatcher>()
+    val coroutineScope = ThreadLocalRef<CoroutineScope>()
+    val sessionizeApi = ThreadLocalRef<SessionizeApi>()
+
 
     fun initPlatformClient(
             staticFileLoader: (filePrefix: String, fileType: String) -> String?,
@@ -37,11 +50,22 @@ object AppContext {
                 clLogCallback).freeze()
 
         dispatcherLocal.value = dispatcher
+        coroutineScope.value = AppContextCoroutineScope(dispatcher)
+        sessionizeApi.value = SessionizeApi
 
         dataLoad()
 
         Timber.info { "Init complete" }
     }
+
+    internal val sessionQueries: SessionQueries
+        get() = AppContext.dbHelper.queryWrapper.sessionQueries
+
+    internal val userAccountQueries: UserAccountQueries
+        get() = AppContext.dbHelper.queryWrapper.userAccountQueries
+
+    internal val roomQueries: RoomQueries
+        get() = AppContext.dbHelper.queryWrapper.roomQueries
 
     data class PlatformLambdas(val staticFileLoader: (filePrefix: String, fileType: String) -> String?,
                                val analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
@@ -97,22 +121,17 @@ object AppContext {
         }
     }
 
-    private fun dataCalls() {
+    private fun dataCalls() = coroutineScope.lateValue.launch {
         try {
-            val networkSpeakerJson = simpleGet(
-                    "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/speakers"
-            )
 
-            val networkSessionJson = simpleGet(
-                    "https://sessionize.com/api/v2/$SESSIONIZE_INSTANCE_ID/view/gridtable"
-            )
+            val networkSpeakerJson = sessionizeApi.lateValue.getSpeakersJson()
+            val networkSessionJson = sessionizeApi.lateValue.getSessionsJson()
+            val networkSponsorJson = sessionizeApi.lateValue.getSponsorJson()
 
-            val networkSponsorJson = simpleGet(
-                    "https://s3.amazonaws.com/droidconsponsers/sponsors-$SESSIONIZE_INSTANCE_ID.json"
-            )
-
-            storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)
-            appSettings.putLong(KEY_LAST_LOAD, currentTimeMillis())
+            backgroundSuspend {
+                storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)
+                appSettings.putLong(KEY_LAST_LOAD, currentTimeMillis())
+            }
         } catch (e: Exception) {
             logException(e)
         }
@@ -121,9 +140,7 @@ object AppContext {
     fun refreshData() {
         val lastLoad = appSettings.getLong(KEY_LAST_LOAD)
         if (lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
-            networkBackgroundTask {
-                dataCalls()
-            }
+            dataCalls()
         }
     }
 
@@ -132,6 +149,11 @@ object AppContext {
         dbHelper.primeAll(networkSpeakerJson, networkSessionJson)
     }
 }
+
+val <T> ThreadLocalRef<T>.lateValue:T
+    get() = this.value!!
+
+internal class AppContextCoroutineScope(mainContext: CoroutineContext):BaseModel(mainContext)
 
 /**
  * Log statement to Crashlytics

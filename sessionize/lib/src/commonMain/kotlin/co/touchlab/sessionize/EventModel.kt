@@ -3,55 +3,86 @@ package co.touchlab.sessionize
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.db.QueryLiveData
-import co.touchlab.sessionize.db.roomAsync
-import co.touchlab.sessionize.platform.*
-import co.touchlab.stately.concurrency.value
-import co.touchlab.stately.freeze
-import com.squareup.sqldelight.Query
+import co.touchlab.sessionize.AppContext.sessionQueries
+import co.touchlab.sessionize.AppContext.userAccountQueries
+import co.touchlab.sessionize.db.QueryUpdater
+import co.touchlab.sessionize.db.room
+import co.touchlab.sessionize.platform.DateFormatHelper
+import co.touchlab.sessionize.platform.backgroundSuspend
+import co.touchlab.sessionize.platform.currentTimeMillis
+import co.touchlab.sessionize.platform.logException
 import kotlinx.coroutines.launch
 import kotlin.math.max
 
-class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.value!!){
+class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.lateValue) {
 
-    val evenLiveData: EventLiveData
+    internal var view :View? = null
+    internal val eventQueryUpdater = QueryUpdater(
+            q = sessionQueries.sessionById(sessionId),
+            extractData = { q ->
+                val sessionStuff = q.executeAsOne()
+                val speakers = userAccountQueries.selectBySession(sessionStuff.id).executeAsList()
+                val mySessions = sessionQueries.mySessions().executeAsList()
+
+                SessionInfo(sessionStuff, speakers, sessionStuff.conflict(mySessions))
+            },
+            updateSource = {
+                updateFromDb(it)
+            }
+    )
 
     init {
         clLog("init EventModel($sessionId)")
-        val query = AppContext.dbHelper.queryWrapper.sessionQueries.sessionById(sessionId).freeze()
-        evenLiveData = EventLiveData(query).freeze()
+    }
+
+    fun register(view:View)
+    {
+        this.view = view
+        eventQueryUpdater.refresh()
     }
 
     fun shutDown() {
-        evenLiveData.removeListener()
+        eventQueryUpdater.destroy()
+        view = null
+    }
+
+    interface View{
+        fun update(sessionInfo: SessionInfo, formattedRoomTime:String)
+    }
+
+    private fun updateFromDb(sessionInfo: SessionInfo)= launch{
+        view?.let {
+            it.update(sessionInfo, sessionInfo.session.formattedRoomTime())
+        }
     }
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
-    fun toggleRsvp(rsvp: Boolean) {
+    fun toggleRsvp(rsvp: Boolean) = launch {
 
         val localSessionId = sessionId
-        networkBackgroundTask {
-            val methodName = if (rsvp) {
-                "sessionizeRsvpEvent"
+
+        backgroundSuspend {
+            sessionQueries.updateRsvp(if (rsvp) {
+                1
             } else {
-                "sessionizeUnrsvpEvent"
-            }
-            val callingUrl = "https://droidcon-server.herokuapp.com/dataTest/$methodName/$localSessionId/${AppContext.userUuid()}"
-            println("CALLING: $callingUrl")
-            simpleGet(callingUrl)
+                0
+            }, localSessionId)
         }
+
+        val methodName = if (rsvp) {
+            "sessionizeRsvpEvent"
+        } else {
+            "sessionizeUnrsvpEvent"
+        }
+
+        AppContext.sessionizeApi.lateValue.recordRsvp(methodName, localSessionId, AppContext.userUuid())
 
         sendAnalytics(localSessionId, rsvp)
-
-        backgroundTask {
-            AppContext.dbHelper.queryWrapper.sessionQueries.updateRsvp(if(rsvp){1}else{0}, localSessionId)
-        }
     }
 
-    private fun sendAnalytics(sessionId:String, rsvp: Boolean) = launch{
-        try {
-            val sessionQueries = AppContext.dbHelper.queryWrapper.sessionQueries
+    private fun sendAnalytics(sessionId: String, rsvp: Boolean) = launch {
 
+        try {
             val session = backgroundSuspend {
                 sessionQueries.sessionById(sessionId).executeAsOne()
             }
@@ -70,40 +101,30 @@ class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.v
         }
     }
 
-    class EventLiveData(q: Query<Session>) : QueryLiveData<Session, SessionInfo>(q, false),
-            Query.Listener {
-        override /*suspend*/ fun extractData(q: Query<Session>): SessionInfo {
-            val sessionStuff = q.executeAsOne()
-            val speakers = AppContext.dbHelper.queryWrapper.userAccountQueries.selectBySession(sessionStuff.id).executeAsList()
-            val mySessions = AppContext.dbHelper.queryWrapper.sessionQueries.mySessions().executeAsList()
 
-            return SessionInfo(sessionStuff, sessionStuff.formattedRoomTime(), speakers, conflict(sessionStuff, mySessions))
-        }
+}
 
-        private fun conflict(session: Session, others: List<MySessions>): Boolean {
-            if (session.rsvp == 0L)
-                return false
+internal fun Session.conflict(others: List<MySessions>):Boolean{
+    if (this.rsvp == 0L)
+        return false
 
-            val now = currentTimeMillis()
-            if (now <= session.endsAt.toLongMillis()) {
-                for (other in others.filter {
-                    now <= it.endsAt.toLongMillis() &&
-                            session.id != it.id
-                }) {
-                    if (session.startsAt.toLongMillis() < other.endsAt.toLongMillis() &&
-                            session.endsAt.toLongMillis() > other.startsAt.toLongMillis())
-                        return true
-                }
-            }
-
-            return false
+    val now = currentTimeMillis()
+    if (now <= this.endsAt.toLongMillis()) {
+        for (other in others.filter {
+            now <= it.endsAt.toLongMillis() &&
+                    this.id != it.id
+        }) {
+            if (this.startsAt.toLongMillis() < other.endsAt.toLongMillis() &&
+                    this.endsAt.toLongMillis() > other.startsAt.toLongMillis())
+                return true
         }
     }
+
+    return false
 }
 
 data class SessionInfo(
         val session: Session,
-        val formattedRoomTime: String,
         val speakers: List<UserAccount>,
         val conflict: Boolean
 )
@@ -122,7 +143,7 @@ fun SessionInfo.isRsvped(): Boolean {
     return this.session.rsvp != 0L
 }
 
-/*suspend*/ fun Session.formattedRoomTime(): String {
+internal suspend fun Session.formattedRoomTime(): String {
     var formattedStart = SessionInfoStuff.roomNameTimeFormatter.format(this.startsAt)
     val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.format(this.endsAt)
 
@@ -132,7 +153,7 @@ fun SessionInfo.isRsvped(): Boolean {
         formattedStart = formattedStart.substring(0, max(formattedStart.length - 3, 0))
     }
 
-    return "${this.roomAsync()./*await().*/name}, $formattedStart - $formattedEnd"
+    return "${this.room().name}, $formattedStart - $formattedEnd"
 }
 
 object SessionInfoStuff {

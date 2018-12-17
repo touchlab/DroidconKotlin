@@ -1,34 +1,20 @@
 package co.touchlab.sessionize
 
-import co.touchlab.multiplatform.architecture.livedata.*
 import co.touchlab.sessionize.display.DaySchedule
-import kotlin.native.concurrent.*
 
 class ScheduleViewModel{
+    val scheduleModel = ScheduleModel()
 
-    val scheduleModel = ScheduleModel().freeze()
+    fun registerForChanges(allEvents:Boolean, proc:(notes:List<DaySchedule>)->Unit){
 
-    var scheduleObserver:Observer<List<DaySchedule>>? = null
-
-    var liveData:MutableLiveData<List<DaySchedule>>? = null
-
-    fun registerForChanges(proc:(notes:List<DaySchedule>)->Unit, allEvents:Boolean){
-
-        scheduleObserver = object : Observer<List<DaySchedule>>{
-            override fun onChanged(t: List<DaySchedule>?){
-                if(t != null)
-                    proc(t)
+        scheduleModel.register(allEvents, object : ScheduleModel.ScheduleView {
+            override fun update(daySchedules: List<DaySchedule>) {
+                proc(daySchedules)
             }
-        }
-
-        liveData = scheduleModel.dayFormatLiveData(allEvents)
-        liveData!!.observeForever(scheduleObserver!!)
+        })
     }
 
     fun unregister(){
-        liveData!!.removeObserver(scheduleObserver!!)
-        liveData = null
-        scheduleObserver = null
         scheduleModel.shutDown()
     }
 }
