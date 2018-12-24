@@ -49,9 +49,9 @@ class EventFragment : Fragment() {
         eventRoomTime = view.findViewById(R.id.eventRoomTime)
         recycler = view.findViewById(R.id.recycler)
 
-        eventViewModel.eventModel.register(object : EventModel.View{
-            override fun update(sessionInfo: SessionInfo, formattedRoomTime: String) {
-                dataRefresh(sessionInfo, formattedRoomTime)
+        eventViewModel.eventModel.register(object : EventModel.EventView {
+            override suspend fun update(data: SessionInfo) {
+                dataRefresh(data, data.session.formattedRoomTime())
             }
         })
 

@@ -5,7 +5,6 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.AppContext.sessionQueries
 import co.touchlab.sessionize.AppContext.userAccountQueries
-import co.touchlab.sessionize.db.QueryUpdater
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
@@ -14,47 +13,22 @@ import co.touchlab.sessionize.platform.logException
 import kotlinx.coroutines.launch
 import kotlin.math.max
 
-class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.lateValue) {
+class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInfo>(
+        sessionQueries.sessionById(sessionId),
+        { q ->
+            val session = q.executeAsOne()
+            val speakers = userAccountQueries.selectBySession(session.id).executeAsList()
+            val mySessions = sessionQueries.mySessions().executeAsList()
 
-    internal var view :View? = null
-    internal val eventQueryUpdater = QueryUpdater(
-            q = sessionQueries.sessionById(sessionId),
-            extractData = { q ->
-                val session = q.executeAsOne()
-                val speakers = userAccountQueries.selectBySession(session.id).executeAsList()
-                val mySessions = sessionQueries.mySessions().executeAsList()
-
-                SessionInfo(session, speakers, session.conflict(mySessions))
-            },
-            updateSource = {
-                updateFromDb(it)
-            }
-    )
+            SessionInfo(session, speakers, session.conflict(mySessions))
+        },
+        AppContext.dispatcherLocal.lateValue) {
 
     init {
         clLog("init EventModel($sessionId)")
     }
 
-    fun register(view:View)
-    {
-        this.view = view
-        eventQueryUpdater.refresh()
-    }
-
-    fun shutDown() {
-        eventQueryUpdater.destroy()
-        view = null
-    }
-
-    interface View{
-        fun update(sessionInfo: SessionInfo, formattedRoomTime:String)
-    }
-
-    private fun updateFromDb(sessionInfo: SessionInfo)= launch{
-        view?.let {
-            it.update(sessionInfo, sessionInfo.session.formattedRoomTime())
-        }
-    }
+    interface EventView:View<SessionInfo>
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(rsvp: Boolean) = launch {
@@ -100,8 +74,6 @@ class EventModel(val sessionId: String) : BaseModel(AppContext.dispatcherLocal.l
             logException(e)
         }
     }
-
-
 }
 
 internal fun Session.conflict(others: List<MySessions>):Boolean{
@@ -143,7 +115,7 @@ fun SessionInfo.isRsvped(): Boolean {
     return this.session.rsvp != 0L
 }
 
-internal suspend fun Session.formattedRoomTime(): String {
+suspend fun Session.formattedRoomTime(): String {
     var formattedStart = SessionInfoStuff.roomNameTimeFormatter.format(this.startsAt)
     val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.format(this.endsAt)
 

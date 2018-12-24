@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SpeakerInfo
 import co.touchlab.sessionize.SpeakerModel
@@ -49,9 +50,9 @@ class SpeakerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mainView = inflater.inflate(R.layout.fragment_speaker, container, false)
-        speakerViewModel.speakerModel.register(object : SpeakerModel.View{
-            override fun update(speakerUiData: SpeakerUiData) {
-                updateDisplay(speakerUiData)
+        speakerViewModel.speakerModel.register(object : SpeakerModel.SpeakerView {
+            override suspend fun update(data: UserAccount) {
+                updateDisplay(speakerViewModel.speakerModel.speakerUiData(data))
             }
         })
         val list = mainView.findViewById<RecyclerView>(R.id.speakerInfoList)

@@ -2,8 +2,15 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.db.QueryUpdater
 import com.squareup.sqldelight.Query
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Sort of a "controller" in MVC thinking. Pass in the SQLDelight Query,
+ * a method to actually extract data on updates. The View interface is
+ * generically defined to take data extracted from the Query, and manage
+ * registering and shutting down.
+ */
 abstract class BaseQueryModelView<Q:Any, VT>(
         query: Query<Q>,
         extractData:(Query<Q>)->VT,
@@ -11,7 +18,9 @@ abstract class BaseQueryModelView<Q:Any, VT>(
 
     private val updater: QueryUpdater<Q, VT> = QueryUpdater(query, {extractData(it)}){viewData ->
         view?.let {
-            it.update(viewData)
+            launch {
+                it.update(viewData)
+            }
         }
     }
 
@@ -28,6 +37,6 @@ abstract class BaseQueryModelView<Q:Any, VT>(
     }
 
     interface View<VT>{
-        fun update(data:VT)
+        suspend fun update(data:VT)
     }
 }
