@@ -3,44 +3,25 @@ package co.touchlab.sessionize
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.AppContext.userAccountQueries
-import co.touchlab.sessionize.db.QueryUpdater
 import co.touchlab.sessionize.db.sessions
-import kotlinx.coroutines.launch
 
-class SpeakerModel(speakerId:String) : BaseModel(AppContext.dispatcherLocal.lateValue){
-    internal var view : View? = null
-
-    internal val speakerQueryUpdater = QueryUpdater(
-            q = userAccountQueries.selectById(speakerId),
-            extractData = {
-                it.executeAsOne()
-            },
-            updateSource = {
-                updateUi(it)
-            }
-    )
+class SpeakerModel(speakerId:String) : BaseQueryModelView<UserAccount, UserAccount>(
+        userAccountQueries.selectById(speakerId),
+        {
+            it.executeAsOne()
+        },
+        AppContext.dispatcherLocal.lateValue
+){
     init {
         clLog("init SpeakerModel($speakerId)")
     }
 
-    fun register(view:View){
-        this.view = view
-        speakerQueryUpdater.refresh()
-    }
-
-    fun shutDown(){
-        speakerQueryUpdater.destroy()
-        view = null
-    }
-
-    interface View{
-        fun update(speakerUiData: SpeakerUiData)
-    }
+    interface SpeakerView:View<UserAccount>
 
     /**
      * A little hacky, but it'll work
      */
-    private fun updateUi(it: UserAccount) = launch{
+    suspend fun speakerUiData(it: UserAccount) :SpeakerUiData{
         val infoSections = ArrayList<SpeakerInfo>()
 
         if(!it.tagLine.isNullOrBlank())
@@ -54,9 +35,7 @@ class SpeakerModel(speakerId:String) : BaseModel(AppContext.dispatcherLocal.late
         if(!it.bio.isNullOrBlank())
             infoSections.add(SpeakerInfo(InfoType.Profile, it.bio!!))
 
-        view?.let {view ->
-            view.update(SpeakerUiData(it, it.fullName, it.tagLine, it.profilePicture, infoSections, it.sessions()))
-        }
+        return SpeakerUiData(it, it.fullName, it.tagLine, it.profilePicture, infoSections, it.sessions())
     }
 }
 

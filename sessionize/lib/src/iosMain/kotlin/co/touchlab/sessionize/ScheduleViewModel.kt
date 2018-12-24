@@ -8,7 +8,7 @@ class ScheduleViewModel(allEvents: Boolean){
     fun registerForChanges(proc:(notes:List<DaySchedule>)->Unit){
 
         scheduleModel.register(object : ScheduleModel.ScheduleView {
-            override fun update(daySchedules: List<DaySchedule>) {
+            override suspend fun update(daySchedules: List<DaySchedule>) {
                 proc(daySchedules)
             }
         })

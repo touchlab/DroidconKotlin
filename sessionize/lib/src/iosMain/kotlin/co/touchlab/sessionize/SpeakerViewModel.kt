@@ -1,14 +1,15 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.UserAccount
+
 class SpeakerViewModel(sessionId: String){
     val speakerModel = SpeakerModel(sessionId)
 
     fun registerForChanges(proc:(speakerUiData:SpeakerUiData)->Unit){
-        speakerModel.register(object : SpeakerModel.View{
-            override fun update(speakerUiData: SpeakerUiData) {
-                proc(speakerUiData)
+        speakerModel.register(object : SpeakerModel.SpeakerView{
+            override suspend fun update(data: UserAccount) {
+                proc(speakerModel.speakerUiData(data))
             }
-
         })
     }
 
