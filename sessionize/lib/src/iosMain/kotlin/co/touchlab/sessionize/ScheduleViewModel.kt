@@ -2,12 +2,12 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.display.DaySchedule
 
-class ScheduleViewModel{
-    val scheduleModel = ScheduleModel()
+class ScheduleViewModel(allEvents: Boolean){
+    val scheduleModel = ScheduleModel(allEvents)
 
-    fun registerForChanges(allEvents:Boolean, proc:(notes:List<DaySchedule>)->Unit){
+    fun registerForChanges(proc:(notes:List<DaySchedule>)->Unit){
 
-        scheduleModel.register(allEvents, object : ScheduleModel.ScheduleView {
+        scheduleModel.register(object : ScheduleModel.ScheduleView {
             override fun update(daySchedules: List<DaySchedule>) {
                 proc(daySchedules)
             }

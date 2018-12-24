@@ -33,7 +33,7 @@ class ScheduleFragment():Fragment() {
     }
 
     private val viewModel: ScheduleViewModel by lazy {
-        ViewModelProviders.of(this)[ScheduleViewModel::class.java]
+        ViewModelProviders.of(this, ScheduleViewModel.ScheduleViewModelFactory(allEvents))[ScheduleViewModel::class.java]
     }
 
     val allEvents: Boolean by lazy { arguments!!.getBoolean(ScheduleFragment.ALLEVENTS, true) }
@@ -46,7 +46,7 @@ class ScheduleFragment():Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        viewModel.registerForChanges(allEvents) {days:List<DaySchedule> ->
+        viewModel.registerForChanges {days:List<DaySchedule> ->
             conferenceDays = days
             updateTabs(days)
             updateDisplay()

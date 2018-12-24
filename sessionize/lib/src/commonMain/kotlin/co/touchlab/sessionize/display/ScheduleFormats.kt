@@ -5,6 +5,7 @@ import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.currentTimeMillis
+import co.touchlab.stately.annotation.ThreadLocal
 
 data class DaySchedule(
         val dayString: String,
@@ -74,7 +75,9 @@ fun sortTimeBlocks(o1: SessionWithRoom, o2: SessionWithRoom): Int {
     } else o1.roomName.compareTo(o2.roomName)
 }
 
+@ThreadLocal
 val TAB_DATE_FORMAT = DateFormatHelper("MMM dd")
+@ThreadLocal
 val TIME_FORMAT = DateFormatHelper("h:mma")
 
 fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<HourBlock>> {

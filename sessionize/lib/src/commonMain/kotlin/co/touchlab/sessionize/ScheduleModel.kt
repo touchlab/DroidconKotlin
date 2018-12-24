@@ -1,48 +1,37 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.AppContext.dbHelper
-import co.touchlab.sessionize.db.QueryUpdater
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.display.*
-import co.touchlab.stately.isFrozen
+import co.touchlab.stately.ensureNeverFrozen
+import co.touchlab.stately.freeze
 
 /**
  * Data model for schedule. Configure live data instances.
  */
-class ScheduleModel : BaseModel(AppContext.dispatcherLocal.lateValue) {
-    private var allEvents = true
-    private val sessionsUpdater = QueryUpdater(q = dbHelper.getSessionsQuery(),
-            extractData = { it.executeAsList() },
-            updateSource = {dbSessions ->
-                println("dbSessions frozen ${dbSessions.isFrozen()}")
-                scheduleView?.let {
-                    val sessions = if(allEvents){dbSessions}else{dbSessions.filter {it.rsvp != 0L}}
-                    val daySchedules = convertMapToDaySchedule(formatHourBlocks(sessions))
-                    it.update(daySchedules)
-                }
-            })
-
-    private var scheduleView:ScheduleView? = null
+class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<SessionWithRoom, List<DaySchedule>>(
+        dbHelper.getSessionsQuery(),
+        {
+            val dbSessions = it.executeAsList()
+            val sessions = if(allEvents){dbSessions}else{dbSessions.filter {it.rsvp != 0L}}
+            val hourBlocks = formatHourBlocks(sessions)
+            convertMapToDaySchedule(hourBlocks).freeze() //TODO: This shouldn't need to be frozen
+            //Spent several full days trying to debug why, but haven't sorted it out.
+        },
+        AppContext.dispatcherLocal.lateValue) {
 
     init {
         clLog("init ScheduleModel()")
+        ensureNeverFrozen()
     }
 
-    fun register(allEvents: Boolean, view:ScheduleView){
-        this.allEvents = allEvents
-        scheduleView = view
-        sessionsUpdater.refresh()
+    fun register(view:ScheduleView){
+        super.register(view)
     }
 
-    fun shutDown(){
-        scheduleView = null
-        sessionsUpdater.destroy()
-    }
-
-    interface ScheduleView{
-        fun update(daySchedules:List<DaySchedule>)
-    }
+    interface ScheduleView:View<List<DaySchedule>>
 
     fun weaveSessionDetailsUi(hourBlock:HourBlock, allBlocks:List<HourBlock>, row:EventRow, allEvents: Boolean){
         val isFirstInBlock = !hourBlock.hourStringDisplay.isEmpty()
