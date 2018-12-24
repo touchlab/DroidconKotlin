@@ -1,15 +1,16 @@
 package co.touchlab.sessionize.schedule
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import co.touchlab.sessionize.ScheduleModel
 import co.touchlab.sessionize.display.DaySchedule
 
-class ScheduleViewModel : ViewModel() {
-    val scheduleModel = ScheduleModel()
+class ScheduleViewModel(allEvents: Boolean) : ViewModel() {
+    val scheduleModel = ScheduleModel(allEvents)
 
-    fun registerForChanges(allEvents:Boolean, proc:(notes:List<DaySchedule>)->Unit){
+    fun registerForChanges(proc:(notes:List<DaySchedule>)->Unit){
 
-        scheduleModel.register(allEvents, object : ScheduleModel.ScheduleView {
+        scheduleModel.register(object : ScheduleModel.ScheduleView {
             override fun update(daySchedules: List<DaySchedule>) {
                 proc(daySchedules)
             }
@@ -18,5 +19,11 @@ class ScheduleViewModel : ViewModel() {
 
     fun unregister(){
         scheduleModel.shutDown()
+    }
+
+    class ScheduleViewModelFactory(private val allEvents: Boolean) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return ScheduleViewModel(allEvents) as T
+        }
     }
 }

@@ -17,9 +17,18 @@ import com.squareup.sqldelight.android.AndroidSqlDatabase
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
-actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
+internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
     AndroidAppContext.backgroundTask(backJob, mainJob)
 }
+
+private val btfHandler = Handler(Looper.getMainLooper())
+
+internal actual fun <B> backToFront(b:()->B, job: (B) -> Unit) {
+    btfHandler.post { job(b()) }
+}
+
+internal actual val mainThread: Boolean
+    get() = Looper.getMainLooper() === Looper.myLooper()
 
 object AndroidAppContext{
     lateinit var app: Application
@@ -83,4 +92,4 @@ fun initDatabase(application: Application){
     sqlDatabase = AndroidSqlDatabase(factory.create(configuration))
 }
 
-actual fun initSqldelightDatabase(): SqlDatabase = sqlDatabase
+internal actual fun initSqldelightDatabase(): SqlDatabase = sqlDatabase

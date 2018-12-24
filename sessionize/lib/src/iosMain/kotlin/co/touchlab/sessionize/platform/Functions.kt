@@ -1,6 +1,7 @@
 package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.QueryWrapper
+import co.touchlab.sessionize.lateValue
 import co.touchlab.sqliter.DatabaseConfiguration
 import co.touchlab.sqliter.createDatabaseManager
 import co.touchlab.stately.concurrency.ThreadLocalRef
@@ -41,27 +42,35 @@ private fun makeQueue(key: String): Worker {
  *
  * Expect everything you pass in to be frozen, and if that's not possible, it'll all fail. Just FYI.
  */
-actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
+internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
 
     val mainJobHolder = ThreadLocalRef<(B) -> Unit>()
     mainJobHolder.value = mainJob
 
     val worker = makeQueue("back")
-    worker.execute(TransferMode.SAFE,
-            { JobWrapper(backJob, mainJobHolder).freeze() }) {
-        dispatch_async_f(dispatch_get_main_queue(), DetachedObjectGraph {
-            Result(it.backJob(), it.mainJobLocal).freeze()
-        }.asCPointer(), staticCFunction { it: COpaquePointer? ->
-            initRuntimeIfNeeded()
-            val result = DetachedObjectGraph<Result<B>>(it).attach()
-            val mainProc = result.mainJobLocal.value!!
-            mainProc(result.result)
+    worker.execute(TransferMode.SAFE, { JobWrapper(backJob, mainJobHolder).freeze() }) {wrapper ->
+        backToFront(wrapper.backJob, {
+            wrapper.mainJobLocal.lateValue.invoke(it)
         })
     }
 }
 
-data class Result<B>(val result: B, val mainJobLocal: ThreadLocalRef<(B) -> Unit>)
 data class JobWrapper<B>(val backJob: () -> B, val mainJobLocal: ThreadLocalRef<(B) -> Unit>)
+
+internal actual fun <B> backToFront(b: ()->B, job: (B) -> Unit) {
+    dispatch_async_f(dispatch_get_main_queue(), DetachedObjectGraph {
+        JobAndThing(job.freeze(), b())
+    }.asCPointer(), staticCFunction { it: COpaquePointer? ->
+        initRuntimeIfNeeded()
+        val result = DetachedObjectGraph<Any>(it).attach() as JobAndThing<B>
+        result.job(result.thing)
+    })
+}
+
+internal data class JobAndThing<B>(val job: (B) -> Unit, val thing:B)
+
+internal actual val mainThread: Boolean
+    get() = NSThread.isMainThread
 
 actual fun logException(t: Throwable) {
     t.printStackTrace()
@@ -75,7 +84,7 @@ fun initTimber(priority: Int) {
     Timber.plant(NSLogTree(2))
 }
 
-actual fun initSqldelightDatabase(): SqlDatabase {
+internal actual fun initSqldelightDatabase(): SqlDatabase {
     return NativeSqlDatabase(
             createDatabaseManager(DatabaseConfiguration(
                     "droidconDb3",

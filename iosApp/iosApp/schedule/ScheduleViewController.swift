@@ -29,8 +29,8 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         
         allEvents = self.tabBarController?.selectedIndex == 0
         
-        viewModel = ScheduleViewModel()
-        viewModel.registerForChanges(allEvents: allEvents, proc: updateUi)
+        viewModel = ScheduleViewModel(allEvents: allEvents)
+        viewModel.registerForChanges(proc: updateUi)
         
         eventList.delegate = self
         eventList.dataSource = self

@@ -1,6 +1,8 @@
 package co.touchlab.sessionize.db
 
 import co.touchlab.sessionize.lateValue
+import co.touchlab.sessionize.platform.assertMainThread
+import co.touchlab.sessionize.platform.backToFront
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.ensureNeverFrozen
@@ -62,12 +64,4 @@ internal class InternalListener<Q:Any, Z>(q:QueryUpdater<Q, Z>):Query.Listener{
         //Push to main thread
         backToFront({extractDataJob(query)}, resultJob)
     }
-}
-
-internal expect fun <B> backToFront(b:()->B, job: (B) -> Unit)
-internal expect val mainThread:Boolean
-
-internal fun assertMainThread(){
-    if(!mainThread)
-        throw IllegalStateException("Must be on main thread")
 }
