@@ -1,6 +1,9 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.db.QueryUpdater
+import co.touchlab.sessionize.architecture.MainThreadPubSub
+import co.touchlab.sessionize.architecture.Sub
+import co.touchlab.sessionize.db.QueryPub
+import co.touchlab.stately.ensureNeverFrozen
 import com.squareup.sqldelight.Query
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
@@ -11,32 +14,45 @@ import kotlin.coroutines.CoroutineContext
  * generically defined to take data extracted from the Query, and manage
  * registering and shutting down.
  */
-abstract class BaseQueryModelView<Q:Any, VT>(
+abstract class BaseQueryModelView<Q : Any, VT>(
         query: Query<Q>,
-        extractData:(Query<Q>)->VT,
-        mainContext: CoroutineContext):BaseModel(mainContext){
+        extractData: (Query<Q>) -> VT,
+        mainContext: CoroutineContext) : BaseModel(mainContext) {
 
-    private val updater: QueryUpdater<Q, VT> = QueryUpdater(query, {extractData(it)}){viewData ->
-        view?.let {
-            launch {
-                it.update(viewData)
+    private val queryPub = QueryPub(query, extractData)
+
+    init {
+        ensureNeverFrozen()
+        val mainPub = MainThreadPubSub<VT>()
+        queryPub.addSub(mainPub)
+        mainPub.addSub(object : Sub<VT> {
+            override fun onNext(next: VT) {
+                view?.let {
+                    launch {
+                        it.update(next)
+                    }
+                }
             }
-        }
+
+            override fun onError(t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 
-    private var view:View<VT>? = null
+    private var view: View<VT>? = null
 
-    fun register(view: View<VT>){
+    fun register(view: View<VT>) {
         this.view = view
-        updater.refresh()
+        queryPub.refresh()
     }
 
-    fun shutDown(){
+    fun shutDown() {
         view = null
-        updater.destroy()
+        queryPub.destroy()
     }
 
-    interface View<VT>{
-        suspend fun update(data:VT)
+    interface View<VT> {
+        suspend fun update(data: VT)
     }
 }
