@@ -3,16 +3,12 @@ package co.touchlab.sessionize.platform
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
-import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
-import com.squareup.sqldelight.db.SqlDatabase
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
-import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
-import com.squareup.sqldelight.android.AndroidSqlDatabase
 
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
@@ -79,17 +75,3 @@ actual fun logException(t: Throwable) {
 actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory(AndroidAppContext.app)
 
 actual fun createUuid(): String  = UUID.randomUUID().toString()
-
-lateinit var sqlDatabase: SqlDatabase
-
-fun initDatabase(application: Application){
-    val factory = FrameworkSQLiteOpenHelperFactory()
-    val configuration = SupportSQLiteOpenHelper.Configuration.builder(application)
-            .name("droidcondb.db")
-            .callback(DroidconOpenHelper())
-            .build()
-
-    sqlDatabase = AndroidSqlDatabase(factory.create(configuration))
-}
-
-internal actual fun initSqldelightDatabase(): SqlDatabase = sqlDatabase

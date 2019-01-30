@@ -1,7 +1,6 @@
 package co.touchlab.sessionize.platform
 
 import com.russhwolf.settings.Settings
-import com.squareup.sqldelight.db.SqlDatabase
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -40,11 +39,6 @@ private class ContinuationContainer(var continuation:Continuation<Any?>?)
  * Current time in millis. Like Java's System.currentTimeMillis()
  */
 expect fun currentTimeMillis():Long
-
-/**
- * Create SqlDatabase for Sqldelight
- */
-internal expect fun initSqldelightDatabase():SqlDatabase
 
 expect fun logException(t:Throwable)
 

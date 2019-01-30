@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2B51DD52BB0A76EFCC3FD922 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04CC97704F132875703ACD3 /* Pods_iosApp.framework */; };
-		630B349B216BA13A00B591AD /* lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 630B349A216BA13A00B591AD /* lib.framework */; };
-		630B349C216BA13A00B591AD /* lib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 630B349A216BA13A00B591AD /* lib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6349D73A2201027500559B51 /* main.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6349D7392201027500559B51 /* main.framework */; };
+		6349D73B2201027500559B51 /* main.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6349D7392201027500559B51 /* main.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6356313B20DC58F600BCCDF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6356313A20DC58F600BCCDF9 /* AppDelegate.swift */; };
 		6356314220DC58F700BCCDF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6356314120DC58F700BCCDF9 /* Assets.xcassets */; };
 		6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */; };
@@ -53,13 +53,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6356316B20DC592000BCCDF9 /* Embed Frameworks */ = {
+		6349D73C2201027500559B51 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				630B349C216BA13A00B591AD /* lib.framework in Embed Frameworks */,
+				6349D73B2201027500559B51 /* main.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,7 +69,7 @@
 /* Begin PBXFileReference section */
 		125AF9578465CC0A904D623C /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
-		630B349A216BA13A00B591AD /* lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = lib.framework; path = "../sessionize/lib/build/xcode-frameworks/lib.framework"; sourceTree = "<group>"; };
+		6349D7392201027500559B51 /* main.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = main.framework; path = "../sessionize/lib/build/xcode-frameworks/main.framework"; sourceTree = "<group>"; };
 		6356313720DC58F600BCCDF9 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6356313A20DC58F600BCCDF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6356314120DC58F700BCCDF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,8 +112,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				630B349B216BA13A00B591AD /* lib.framework in Frameworks */,
 				2B51DD52BB0A76EFCC3FD922 /* Pods_iosApp.framework in Frameworks */,
+				6349D73A2201027500559B51 /* main.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +138,7 @@
 		6356312E20DC58F600BCCDF9 = {
 			isa = PBXGroup;
 			children = (
-				630B349A216BA13A00B591AD /* lib.framework */,
+				6349D7392201027500559B51 /* main.framework */,
 				6356313920DC58F600BCCDF9 /* iosApp */,
 				6356314E20DC58F800BCCDF9 /* iosAppTests */,
 				6356313820DC58F600BCCDF9 /* Products */,
@@ -279,10 +279,10 @@
 				6356313320DC58F600BCCDF9 /* Sources */,
 				6356313420DC58F600BCCDF9 /* Frameworks */,
 				6356313520DC58F600BCCDF9 /* Resources */,
-				6356316B20DC592000BCCDF9 /* Embed Frameworks */,
 				0DCB78009BA7F3A64B6F74B5 /* [CP] Embed Pods Frameworks */,
 				C8D497457C66F761A657AA5D /* [CP] Copy Pods Resources */,
 				6359EB922113CB2E00424B73 /* ShellScript */,
+				6349D73C2201027500559B51 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

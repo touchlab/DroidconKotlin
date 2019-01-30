@@ -1,6 +1,6 @@
 package co.touchlab.sessionize.platform
 
-import co.touchlab.droidcon.db.QueryWrapper
+import co.touchlab.droidcon.db.Database
 import co.touchlab.sessionize.lateValue
 import co.touchlab.sqliter.DatabaseConfiguration
 import co.touchlab.sqliter.createDatabaseManager
@@ -8,16 +8,14 @@ import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
-import com.squareup.sqldelight.db.SqlDatabase
-import com.squareup.sqldelight.drivers.ios.NativeSqlDatabase
+import com.squareup.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import com.squareup.sqldelight.drivers.ios.wrapConnection
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
 import platform.Foundation.*
 import platform.darwin.dispatch_async_f
 import platform.darwin.dispatch_get_main_queue
-import timber.log.NSLogTree
-import timber.log.Timber
 import kotlin.native.concurrent.*
 import kotlin.system.getTimeMillis
 
@@ -80,23 +78,8 @@ actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
 
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
-fun initTimber(priority: Int) {
-    Timber.plant(NSLogTree(2))
-}
-
-internal actual fun initSqldelightDatabase(): SqlDatabase {
-    return NativeSqlDatabase(
-            createDatabaseManager(DatabaseConfiguration(
-                    "droidconDb3",
-                    1,
-                    {
-                        wrapConnection(it) {
-                            QueryWrapper.Schema.create(it)
-                        }
-                    }
-            ))
-    )
-}
+@Suppress("unused")
+fun defaultDriver():SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")
 
 private fun getDirPath(folder: String): String {
     val paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, true);

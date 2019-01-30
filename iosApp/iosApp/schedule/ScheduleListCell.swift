@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import main
 
 @objc class ScheduleListCell: UITableViewCell, EventRow {
     
