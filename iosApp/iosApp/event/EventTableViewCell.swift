@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import main
 
 class EventTableViewCell: UITableViewCell {
 

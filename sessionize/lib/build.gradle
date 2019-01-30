@@ -37,9 +37,6 @@ kotlin {
 
         fromPreset(iOSTarget, 'ios') {
             compilations.main.outputKinds('FRAMEWORK')
-            compilations.each {
-                it.extraOpts("-linkerOpts", "-lsqlite3")
-            }
         }
     }
 
@@ -52,7 +49,6 @@ kotlin {
                 implementation deps.kotlin.coroutines.common
                 implementation deps.sqldelight.runtime
                 implementation deps.multiplatformSettings.common
-                implementation deps.timber.common
                 implementation deps.ktor.commonCore
                 implementation deps.ktor.commonJson
                 implementation deps.serialization.commonRuntime
@@ -71,8 +67,7 @@ kotlin {
                 implementation deps.kotlin.coroutines.native
                 implementation deps.sqldelight.driverIos
                 implementation deps.sqliter.ios
-                implementation deps.multiplatformSettings.ios
-                implementation deps.timber.ios
+              implementation deps.multiplatformSettings.ios
                 implementation deps.ktor.ios
                 implementation deps.ktor.iosCore
                 implementation deps.ktor.iosJson
@@ -85,8 +80,7 @@ kotlin {
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
                 implementation deps.sqldelight.driverAndroid
-                implementation deps.multiplatformSettings.android
-                implementation deps.timber.android
+              implementation deps.multiplatformSettings.android
                 implementation deps.ktor.jvmCore
                 implementation deps.ktor.jvmJson
                 implementation deps.serialization.jvmRuntime

@@ -1,48 +1,44 @@
 package co.touchlab.sessionize.db
 
-import co.touchlab.droidcon.db.QueryWrapper
+import co.touchlab.droidcon.db.Database
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.api.parseSessionsFromDays
-import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Speaker
-import co.touchlab.sessionize.platform.initSqldelightDatabase
 import co.touchlab.sessionize.platform.logException
-import co.touchlab.stately.freeze
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.value
-import co.touchlab.stately.concurrency.Lock
-import co.touchlab.stately.concurrency.withLock
+import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
+import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.list
-import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
 
 class SessionizeDbHelper {
 
-    val queryWrapper: QueryWrapper by FrozenLazy<SessionizeDbHelper, QueryWrapper> {
-        QueryWrapper(initSqldelightDatabase(), Session.Adapter(DateAdapter(), DateAdapter()))
+    private val driverRef = AtomicReference<SqlDriver?>(null)
+    private val dbRef = AtomicReference<Database?>(null)
+
+    fun initDatabase(sqlDriver: SqlDriver){
+        driverRef.value = sqlDriver.freeze()
+        dbRef.value = Database(sqlDriver, Session.Adapter(
+                startsAtAdapter = DateAdapter(), endsAtAdapter = DateAdapter()
+        )).freeze()
     }
 
-    class FrozenLazy<R, T>(private val producer:()->T) : ReadOnlyProperty<R, T>{
-        override fun getValue(thisRef: R, property: KProperty<*>): T =
-            lock.withLock {
-                var value = valAtomic.value
-                if(value == null) {
-                    value = producer()
-                    valAtomic.value = value.freeze()
-                }
-                value!!
-            }
-        private val valAtomic = AtomicReference<T?>(null)
-        private val lock = Lock()
+    internal fun dbClear() {
+        dbRef.value = null
+        driverRef.value?.close()
+        driverRef.value = null
     }
 
-    fun getSessionsQuery(): Query<SessionWithRoom> = queryWrapper.sessionQueries.sessionWithRoom()
+    internal val instance: Database
+        get() = dbRef.value!!
 
-    fun primeAll(speakerJson:String, scheduleJson:String){
-        queryWrapper.sessionQueries.transaction {
+    fun getSessionsQuery(): Query<SessionWithRoom> = instance.sessionQueries.sessionWithRoom()
+
+    fun primeAll(speakerJson: String, scheduleJson: String) {
+        instance.sessionQueries.transaction {
             try {
                 primeSpeakers(speakerJson)
                 primeSessions(scheduleJson)
@@ -53,34 +49,34 @@ class SessionizeDbHelper {
         }
     }
 
-    private fun primeSpeakers(speakerJson:String){
+    private fun primeSpeakers(speakerJson: String) {
         val speakers = JSON.nonstrict.parse(Speaker.serializer().list, speakerJson)//DefaultData.parseSpeakers(speakerJson)
 
         for (speaker in speakers) {
-            var twitter:String? = null
-            var linkedIn:String? = null
-            var blog:String? = null
-            var other:String? = null
-            var companyWebsite:String? = null
+            var twitter: String? = null
+            var linkedIn: String? = null
+            var blog: String? = null
+            var other: String? = null
+            var companyWebsite: String? = null
 
 
             for (link in speaker.links) {
 
-                if(link.linkType == "Twitter"){
+                if (link.linkType == "Twitter") {
                     twitter = link.url
-                }else if(link.linkType == "LinkedIn"){
+                } else if (link.linkType == "LinkedIn") {
                     linkedIn = link.url
-                }else if(link.linkType == "Blog"){
+                } else if (link.linkType == "Blog") {
                     blog = link.url
-                }else if(link.linkType == "Other"){
+                } else if (link.linkType == "Other") {
                     other = link.url
-                }else if(link.linkType == "Company_Website"){
+                } else if (link.linkType == "Company_Website") {
                     companyWebsite = link.url
                 }
 
             }
 
-            queryWrapper.userAccountQueries.insertUserAccount(
+            instance.userAccountQueries.insertUserAccount(
                     speaker.id,
                     speaker.fullName,
                     speaker.bio,
@@ -88,51 +84,51 @@ class SessionizeDbHelper {
                     speaker.profilePicture,
                     twitter,
                     linkedIn,
-                    if(!companyWebsite.isNullOrEmpty()){
+                    if (!companyWebsite.isNullOrEmpty()) {
                         companyWebsite
-                    }else if(!blog.isNullOrEmpty()){
+                    } else if (!blog.isNullOrEmpty()) {
                         blog
-                    }else{
+                    } else {
                         other
                     }
             )
         }
     }
 
-    private fun primeSessions(scheduleJson:String){
+    private fun primeSessions(scheduleJson: String) {
         val sessions = parseSessionsFromDays(scheduleJson)
 
-        queryWrapper.sessionSpeakerQueries.deleteAll()
-        val allSessions = queryWrapper.sessionQueries.allSessions().executeAsList()
+        instance.sessionSpeakerQueries.deleteAll()
+        val allSessions = instance.sessionQueries.allSessions().executeAsList()
 
         val newIdSet = HashSet<String>()
 
         for (session in sessions) {
-            queryWrapper.roomQueries.insertRoot(session.roomId!!.toLong(), session.room)
+            instance.roomQueries.insertRoot(session.roomId!!.toLong(), session.room)
 
             newIdSet.add(session.id)
 
-            val dbSession = queryWrapper.sessionQueries.sessionById(session.id).executeAsOneOrNull()
+            val dbSession = instance.sessionQueries.sessionById(session.id).executeAsOneOrNull()
 
-            if(dbSession == null) {
-                queryWrapper.sessionQueries.insert(
+            if (dbSession == null) {
+                instance.sessionQueries.insert(
                         session.id,
                         session.title,
-                        session.descriptionText?:"",
-                        queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
-                        queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        session.descriptionText ?: "",
+                        instance.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
+                        instance.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
                         if (session.isServiceSession) {
                             1
                         } else {
                             0
                         }, session.roomId!!.toLong()
                 )
-            }else{
-                queryWrapper.sessionQueries.update(
+            } else {
+                instance.sessionQueries.update(
                         title = session.title,
-                        description = session.descriptionText?:"",
-                        startsAt = queryWrapper.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
-                        endsAt = queryWrapper.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        description = session.descriptionText ?: "",
+                        startsAt = instance.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
+                        endsAt = instance.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
                         serviceSession = if (session.isServiceSession) {
                             1
                         } else {
@@ -146,7 +142,7 @@ class SessionizeDbHelper {
 
             var displayOrder = 0L
             for (sessionSpeaker in session.speakers) {
-                queryWrapper.sessionSpeakerQueries.insertUpdate(
+                instance.sessionSpeakerQueries.insertUpdate(
                         session.id,
                         sessionSpeaker.id,
                         displayOrder++)
@@ -154,8 +150,8 @@ class SessionizeDbHelper {
         }
 
         allSessions.forEach {
-            if(!newIdSet.contains(it.id)){
-                queryWrapper.sessionQueries.deleteById(it.id)
+            if (!newIdSet.contains(it.id)) {
+                instance.sessionQueries.deleteById(it.id)
             }
         }
     }

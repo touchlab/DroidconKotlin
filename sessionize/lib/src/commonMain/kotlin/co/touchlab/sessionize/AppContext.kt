@@ -12,12 +12,11 @@ import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
 import co.touchlab.stately.isNativeFrozen
+import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import timber.log.info
 import kotlin.coroutines.CoroutineContext
 
 object AppContext {
@@ -37,12 +36,14 @@ object AppContext {
     val coroutineScope = ThreadLocalRef<CoroutineScope>()
     val sessionizeApi = ThreadLocalRef<SessionizeApi>()
 
-
     fun initPlatformClient(
             staticFileLoader: (filePrefix: String, fileType: String) -> String?,
             analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
             clLogCallback: (s: String) -> Unit,
-            dispatcher: CoroutineDispatcher) {
+            dispatcher: CoroutineDispatcher,
+            sqlDriver: SqlDriver) {
+
+        dbHelper.initDatabase(sqlDriver)
 
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
@@ -54,18 +55,16 @@ object AppContext {
         sessionizeApi.value = SessionizeApi
 
         dataLoad()
-
-        Timber.info { "Init complete" }
     }
 
     internal val sessionQueries: SessionQueries
-        get() = AppContext.dbHelper.queryWrapper.sessionQueries
+        get() = AppContext.dbHelper.instance.sessionQueries
 
     internal val userAccountQueries: UserAccountQueries
-        get() = AppContext.dbHelper.queryWrapper.userAccountQueries
+        get() = AppContext.dbHelper.instance.userAccountQueries
 
     internal val roomQueries: RoomQueries
-        get() = AppContext.dbHelper.queryWrapper.roomQueries
+        get() = AppContext.dbHelper.instance.roomQueries
 
     data class PlatformLambdas(val staticFileLoader: (filePrefix: String, fileType: String) -> String?,
                                val analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,

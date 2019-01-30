@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import main
 import Kingfisher
 
 class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {

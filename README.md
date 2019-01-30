@@ -22,8 +22,6 @@ Kotlin multiplatform libraries used:
 
 * [Stately](https://github.com/touchlab/Stately/) - Multiplatform threading state library. 
 
-* [Timber](https://github.com/touchlab/timber/tree/native) - Popular logging library on Android/Java (fork for native support)
-
 ## Media
 
 [Medium - Droidcon NYC App!](https://medium.com/@kpgalligan/droidcon-nyc-app-da868bdef387)

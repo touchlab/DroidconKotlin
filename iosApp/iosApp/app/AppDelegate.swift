@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import main
 import Fabric
 import Crashlytics
 
@@ -17,14 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        FunctionsKt.doInitTimber(priority: 4)
         Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
         let appContext = AppContext()
         appContext.doInitPlatformClient(staticFileLoader: loadAsset,
                                                         analyticsCallback: analyticsCallback,
                                                         clLogCallback: csLog,
-                                                        dispatcher: UI()
+                                                        dispatcher: UI(),
+                                                        sqlDriver: FunctionsKt.defaultDriver()
         )
         
         appContext.refreshData()

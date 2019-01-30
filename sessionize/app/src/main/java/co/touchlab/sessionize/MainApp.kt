@@ -3,15 +3,13 @@ package co.touchlab.sessionize
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import co.touchlab.droidcon.db.Database
 import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.initDatabase
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import com.crashlytics.android.answers.CustomEvent
-import timber.log.LogcatTree
-import timber.log.Timber
-import timber.log.info
+import com.squareup.sqldelight.android.AndroidSqliteDriver
 import kotlinx.coroutines.*
 
 class MainApp :Application(){
@@ -20,9 +18,7 @@ class MainApp :Application(){
         AndroidAppContext.app = this
         Fabric.with(this, Answers())
         Fabric.with(this, Crashlytics())
-        Timber.plant(LogcatTree("Droidcon"))
-        Timber.info { "Timber!!!" }
-        initDatabase(this)
+
         AppContext.initPlatformClient ({filePrefix, fileType ->
             loadAsset("${filePrefix}.${fileType}")},
                 {name: String, params: Map<String, Any> ->
@@ -42,7 +38,8 @@ class MainApp :Application(){
                     Answers.getInstance().logCustom(event)
                 },
                 { Log.w("MainApp", it) },
-                Dispatchers.Main
+                Dispatchers.Main,
+                AndroidSqliteDriver(Database.Schema, this)
                 )
     }
 
