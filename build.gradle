@@ -19,10 +19,10 @@ buildscript {
       'multiplatformSettings': '0.1-k1.3.20-g4.10.2-a1',
       'sqldelight'           : '1.0.2',
       'stately'              : '0.5.2',
-      'sqliter'              : '0.5.13-SNAPSHOT',
+      'sqliter'              : '0.5.11',
       'ktor'                 : '1.1.2',
       'serialization'        : '0.10.0',
-      'xcode'    : '0.1.2'
+      'xcode'                : '0.1.2'
   ]
 
   ext.deps = [
