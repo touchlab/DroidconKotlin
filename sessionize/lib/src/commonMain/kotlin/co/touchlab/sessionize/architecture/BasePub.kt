@@ -2,26 +2,26 @@ package co.touchlab.sessionize.architecture
 
 import co.touchlab.stately.concurrency.AtomicBoolean
 
-abstract class BasePub<T> :Pub<T>{
+abstract class BasePub<T> : Pub<T> {
 
     private val hadError = AtomicBoolean(false)
 
-    internal abstract fun subs():MutableCollection<Sub<T>>
-    fun applyNextValue(next:T){
+    internal abstract fun subs(): MutableCollection<Sub<T>>
+    fun applyNextValue(next: T) {
         subs().forEach { it.onNext(next) }
     }
 
-    fun applyError(throwable: Throwable){
+    fun applyError(throwable: Throwable) {
         val subIter = subs().iterator()
         subs().clear()
         hadError.value = true
         subIter.forEach { it.onError(throwable) }
     }
 
-    fun applyNext(block:()->T){
+    fun applyNext(block: () -> T) {
         try {
             applyNextValue(block())
-        }catch (t:Throwable){
+        } catch (t: Throwable) {
             applyError(t)
         }
     }
@@ -39,8 +39,8 @@ abstract class BasePub<T> :Pub<T>{
         subs().clear()
     }
 
-    private fun checkError(){
-        if(hadError.value)
+    private fun checkError() {
+        if (hadError.value)
             throw IllegalStateException("Had error")
     }
 }

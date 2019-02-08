@@ -1,11 +1,21 @@
 package co.touchlab.sessionize.platform
 
-import platform.Foundation.*
-import platform.posix.*
+import platform.Foundation.NSFileAttributeType
+import platform.Foundation.NSFileManager
+import platform.Foundation.NSFileSize
+import platform.Foundation.NSFileType
+import platform.Foundation.NSFileTypeDirectory
+import platform.Foundation.NSFileTypeRegular
+import platform.posix.F_OK
+import platform.posix.R_OK
+import platform.posix.W_OK
+import platform.posix.X_OK
+import platform.posix.access
+import platform.posix.remove
 
-class File(dirPath:String?=null, name:String){
+class File(dirPath: String? = null, name: String) {
 
-    val path:String
+    val path: String
 
     init {
         if (dirPath == null || dirPath.isEmpty()) {
@@ -17,7 +27,7 @@ class File(dirPath:String?=null, name:String){
         }
     }
 
-    constructor(path:String):this(name = path)
+    constructor(path: String) : this(name = path)
 
     companion object {
         /**
@@ -78,7 +88,7 @@ class File(dirPath:String?=null, name:String){
     private fun fixSlashes(origPath: String): String {
         // Remove duplicate adjacent slashes.
         var lastWasSlash = false
-        val newPath:CharArray = origPath.toCharArray()
+        val newPath: CharArray = origPath.toCharArray()
         val length = newPath.size
         var newLength = 0
         for (i in 0 until length) {
@@ -102,8 +112,7 @@ class File(dirPath:String?=null, name:String){
             val sb = StringBuilder(newLength)
             sb.append(newPath)
             sb.toString()
-        }
-        else {
+        } else {
             origPath
         }
     }
@@ -234,7 +243,7 @@ class File(dirPath:String?=null, name:String){
      */
     fun getParentFile(): File? {
         val tempParent = getParent()
-        return if(tempParent == null)
+        return if (tempParent == null)
             null
         else
             File(name = tempParent)
@@ -255,9 +264,9 @@ class File(dirPath:String?=null, name:String){
      *
      * @return the number of bytes in this file.
      */
-    fun length(): Long{
+    fun length(): Long {
         val attrMap = defaultFileManager().attributesOfItemAtPath(path, null)
-        if(attrMap == null)
+        if (attrMap == null)
             return 0
         return attrMap[NSFileSize] as Long
     }
@@ -277,13 +286,11 @@ class File(dirPath:String?=null, name:String){
         return listImpl(path)
     }
 
-    private fun listImpl(path: String): Array<String>?{
+    private fun listImpl(path: String): Array<String>? {
         val pathList = defaultFileManager().contentsOfDirectoryAtPath(path, null) as List<*>
-        if(pathList == null)
-        {
+        if (pathList == null) {
             return null
-        }
-        else {
+        } else {
             val pathArray = Array<String>(pathList.size, { i -> pathList[i] as String })
             return pathArray
         }
@@ -390,7 +397,7 @@ class File(dirPath:String?=null, name:String){
         val count = filenames.size
         val result = arrayOfNulls<File>(count)
 
-        val files = Array<File>(count, {i -> File(this, filenames[i])})
+        val files = Array<File>(count, { i -> File(this, filenames[i]) })
         return files
     }
 
@@ -412,7 +419,7 @@ class File(dirPath:String?=null, name:String){
         return mkdirImpl(path)
     }
 
-    private fun mkdirImpl(filePath: String): Boolean{
+    private fun mkdirImpl(filePath: String): Boolean {
         return defaultFileManager().createDirectoryAtPath(filePath, false, null, null)
     }
 
@@ -454,14 +461,14 @@ class File(dirPath:String?=null, name:String){
         return defaultFileManager().createFileAtPath(path, null, null)
     }
 
-    private fun getFileType(path:String):NSFileAttributeType?{
+    private fun getFileType(path: String): NSFileAttributeType? {
         val attrMap = defaultFileManager().attributesOfItemAtPath(path, null)
-        if(attrMap == null)
+        if (attrMap == null)
             return null
         return attrMap[NSFileType] as NSFileAttributeType?
     }
 
-    fun isDirectory(): Boolean{
+    fun isDirectory(): Boolean {
         val fileType = getFileType(path)
         return fileType != null && fileType == NSFileTypeDirectory
     }
@@ -472,7 +479,7 @@ class File(dirPath:String?=null, name:String){
      *
      * @return `true` if this file is a file, `false` otherwise.
      */
-    fun isFile(): Boolean{
+    fun isFile(): Boolean {
         val fileType = getFileType(path)
         return fileType != null && fileType == NSFileTypeRegular
     }
@@ -529,7 +536,7 @@ interface FilenameFilter {
      * and can be included in the list, {@code false}
      * otherwise.
      */
-    fun accept(dir:File, filename:String):Boolean
+    fun accept(dir: File, filename: String): Boolean
 }
 
 interface FileFilter {
@@ -541,5 +548,5 @@ interface FileFilter {
      * @return {@code true} if the file should be included, {@code false}
      * otherwise.
      */
-    fun accept(pathname:File):Boolean
+    fun accept(pathname: File): Boolean
 }

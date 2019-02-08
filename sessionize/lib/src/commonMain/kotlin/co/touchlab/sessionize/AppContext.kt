@@ -5,17 +5,19 @@ import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.SessionizeDbHelper
-import co.touchlab.sessionize.platform.*
-import co.touchlab.stately.annotation.ThreadLocal
+import co.touchlab.sessionize.platform.backgroundSuspend
+import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.createUuid
+import co.touchlab.sessionize.platform.currentTimeMillis
+import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.settingsFactory
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
-import co.touchlab.stately.isNativeFrozen
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -98,7 +100,7 @@ object AppContext {
 
     //Split these up so they can individually succeed/fail
     private fun dataLoad() {
-        if(firstRun()){
+        if (firstRun()) {
             backgroundTask({
                 try {
                     if (firstRun()) {
@@ -118,7 +120,7 @@ object AppContext {
                 } catch (e: Exception) {
                     logException(e)
                 }
-            }){
+            }) {
                 refreshData()
             }
         }
@@ -141,7 +143,7 @@ object AppContext {
     }
 
     fun refreshData() {
-        if(!firstRun()) {
+        if (!firstRun()) {
             val lastLoad = appSettings.getLong(KEY_LAST_LOAD)
             if (lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
                 dataCalls()
@@ -155,10 +157,10 @@ object AppContext {
     }
 }
 
-val <T> ThreadLocalRef<T>.lateValue:T
+val <T> ThreadLocalRef<T>.lateValue: T
     get() = this.value!!
 
-internal class AppContextCoroutineScope(mainContext: CoroutineContext):BaseModel(mainContext)
+internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
 
 /**
  * Log statement to Crashlytics

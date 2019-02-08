@@ -19,7 +19,7 @@ class SessionizeDbHelper {
     private val driverRef = AtomicReference<SqlDriver?>(null)
     private val dbRef = AtomicReference<Database?>(null)
 
-    fun initDatabase(sqlDriver: SqlDriver){
+    fun initDatabase(sqlDriver: SqlDriver) {
         driverRef.value = sqlDriver.freeze()
         dbRef.value = Database(sqlDriver, Session.Adapter(
                 startsAtAdapter = DateAdapter(), endsAtAdapter = DateAdapter()

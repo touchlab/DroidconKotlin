@@ -1,22 +1,20 @@
 package co.touchlab.sessionize.db
 
 import co.touchlab.sessionize.architecture.BasePub
-import co.touchlab.sessionize.architecture.Pub
 import co.touchlab.sessionize.architecture.Sub
 import co.touchlab.stately.collections.frozenCopyOnWriteList
-import co.touchlab.stately.concurrency.AtomicBoolean
 import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
 
-class QueryPub<Q:Any, Z>(val q: Query<Q>, val extractData:(Query<Q>)->Z):Query.Listener, BasePub<Z>() {
+class QueryPub<Q : Any, Z>(val q: Query<Q>, val extractData: (Query<Q>) -> Z) : Query.Listener, BasePub<Z>() {
     private val subList = frozenCopyOnWriteList<Sub<Z>>()
 
-    init{
+    init {
         q.addListener(this)
         freeze()
     }
 
-    fun destroy(){
+    fun destroy() {
         q.removeListener(this)
     }
 
@@ -26,7 +24,7 @@ class QueryPub<Q:Any, Z>(val q: Query<Q>, val extractData:(Query<Q>)->Z):Query.L
         applyNext { extractData(q) }
     }
 
-    fun refresh(){
+    fun refresh() {
         queryResultsChanged()
     }
 }

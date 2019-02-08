@@ -5,140 +5,140 @@ apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'co.touchlab.kotlinxcodesync'
 
 android {
-  compileSdkVersion 28
+    compileSdkVersion 28
 
-  defaultConfig {
-    minSdkVersion 21
-    targetSdkVersion 28
-    versionCode 1
-    versionName "1.0"
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
     }
-  }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
-  implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
-  annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
-  implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 }
 
 kotlin {
-  targets {
-    fromPreset(presets.android, 'android')
+    targets {
+        fromPreset(presets.android, 'android')
 
-    def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")  \
-                               ? presets.iosArm64 : presets.iosX64
+        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")   \
+                                ? presets.iosArm64 : presets.iosX64
 
-    fromPreset(iOSTarget, 'ios') {
-      compilations.main.outputKinds('FRAMEWORK')
-    }
-  }
-
-  sourceSets {
-
-    commonMain {
-      dependencies {
-        implementation deps.stately.mpp
-        implementation deps.kotlin.stdlib.common
-        implementation deps.kotlin.coroutines.common
-        implementation deps.sqldelight.runtime
-        implementation deps.multiplatformSettings.common
-        implementation deps.ktor.commonCore
-        implementation deps.ktor.commonJson
-        implementation deps.serialization.commonRuntime
-      }
+        fromPreset(iOSTarget, 'ios') {
+            compilations.main.outputKinds('FRAMEWORK')
+        }
     }
 
-    commonTest {
-      dependencies {
-        implementation deps.kotlin.test.common
-        implementation deps.kotlin.test.annotations
-      }
-    }
+    sourceSets {
 
-    iosMain {
-      dependencies {
-        implementation deps.kotlin.coroutines.native
-        implementation deps.sqldelight.driverIos
-        implementation deps.sqliter.ios
-        implementation deps.multiplatformSettings.ios
-        implementation deps.ktor.ios
-        implementation deps.ktor.iosCore
-        implementation deps.ktor.iosJson
-        implementation deps.serialization.iosRuntime
-      }
-    }
+        commonMain {
+            dependencies {
+                implementation deps.stately.mpp
+                implementation deps.kotlin.stdlib.common
+                implementation deps.kotlin.coroutines.common
+                implementation deps.sqldelight.runtime
+                implementation deps.multiplatformSettings.common
+                implementation deps.ktor.commonCore
+                implementation deps.ktor.commonJson
+                implementation deps.serialization.commonRuntime
+            }
+        }
 
-    androidMain {
-      dependencies {
-        implementation deps.kotlin.coroutines.jdk
-        implementation deps.kotlin.coroutines.android
-        implementation deps.sqldelight.driverAndroid
-        implementation deps.multiplatformSettings.android
-        implementation deps.ktor.jvmCore
-        implementation deps.ktor.jvmJson
-        implementation deps.serialization.jvmRuntime
-      }
-    }
+        commonTest {
+            dependencies {
+                implementation deps.kotlin.test.common
+                implementation deps.kotlin.test.annotations
+            }
+        }
 
-    androidTest {
-      dependencies {
-        implementation deps.kotlin.test.jvm
-        implementation deps.kotlin.test.junit
-      }
+        iosMain {
+            dependencies {
+                implementation deps.kotlin.coroutines.native
+                implementation deps.sqldelight.driverIos
+                implementation deps.sqliter.ios
+                implementation deps.multiplatformSettings.ios
+                implementation deps.ktor.ios
+                implementation deps.ktor.iosCore
+                implementation deps.ktor.iosJson
+                implementation deps.serialization.iosRuntime
+            }
+        }
+
+        androidMain {
+            dependencies {
+                implementation deps.kotlin.coroutines.jdk
+                implementation deps.kotlin.coroutines.android
+                implementation deps.sqldelight.driverAndroid
+                implementation deps.multiplatformSettings.android
+                implementation deps.ktor.jvmCore
+                implementation deps.ktor.jvmJson
+                implementation deps.serialization.jvmRuntime
+            }
+        }
+
+        androidTest {
+            dependencies {
+                implementation deps.kotlin.test.jvm
+                implementation deps.kotlin.test.junit
+            }
+        }
     }
-  }
 }
 
 sqldelight {
-  packageName = "co.touchlab.droidcon.db"
+    packageName = "co.touchlab.droidcon.db"
 }
 
 xcode {
-  projectPath = "../../iosApp/iosApp.xcodeproj"
-  target = "iosApp"
+    projectPath = "../../iosApp/iosApp.xcodeproj"
+    target = "iosApp"
 }
 
 //tasks.preBuild.dependsOn("generateSqlDelightInterface")
 
 //noinspection GroovyAssignabilityCheck
 task packForXCode(type: Sync) {
-  final File frameworkDir = new File(buildDir, "xcode-frameworks")
-  final String mode = System.getenv('CONFIGURATION')?.toUpperCase() ?: 'DEBUG'
+    final File frameworkDir = new File(buildDir, "xcode-frameworks")
+    final String mode = System.getenv('CONFIGURATION')?.toUpperCase() ?: 'DEBUG'
 
-  inputs.property "mode", mode
-  dependsOn kotlin.targets.ios.compilations.main.linkTaskName("FRAMEWORK", mode)
+    inputs.property "mode", mode
+    dependsOn kotlin.targets.ios.compilations.main.linkTaskName("FRAMEWORK", mode)
 
-  from { kotlin.targets.ios.compilations.main.getBinary("FRAMEWORK", mode).parentFile }
-  into frameworkDir
+    from { kotlin.targets.ios.compilations.main.getBinary("FRAMEWORK", mode).parentFile }
+    into frameworkDir
 
-  doLast {
-    new File(frameworkDir, 'gradlew').with {
-      text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
-      setExecutable(true)
+    doLast {
+        new File(frameworkDir, 'gradlew').with {
+            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            setExecutable(true)
+        }
     }
-  }
 }
 
 task iosTest {
-  def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-  dependsOn 'linkTestDebugExecutableIos'
-  group = JavaBasePlugin.VERIFICATION_GROUP
-  description = "Runs tests for target 'ios' on an iOS simulator"
+    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+    dependsOn 'linkTestDebugExecutableIos'
+    group = JavaBasePlugin.VERIFICATION_GROUP
+    description = "Runs tests for target 'ios' on an iOS simulator"
 
-  doLast {
-    def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
-    exec {
-      commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
+    doLast {
+        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
+        exec {
+            commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
+        }
     }
-  }
 }
 
 tasks.preBuild.dependsOn "generateSqlDelightInterface"

@@ -2,10 +2,10 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.display.DaySchedule
 
-class ScheduleViewModel(allEvents: Boolean){
+class ScheduleViewModel(allEvents: Boolean) {
     val scheduleModel = ScheduleModel(allEvents)
 
-    fun registerForChanges(proc:(notes:List<DaySchedule>)->Unit){
+    fun registerForChanges(proc: (notes: List<DaySchedule>) -> Unit) {
 
         scheduleModel.register(object : ScheduleModel.ScheduleView {
             override suspend fun update(daySchedules: List<DaySchedule>) {
@@ -14,12 +14,12 @@ class ScheduleViewModel(allEvents: Boolean){
         })
     }
 
-    fun unregister(){
+    fun unregister() {
         scheduleModel.shutDown()
     }
 }
 
-fun classname(a:Any):String?{
+fun classname(a: Any): String? {
     return a::class.qualifiedName
 }
 

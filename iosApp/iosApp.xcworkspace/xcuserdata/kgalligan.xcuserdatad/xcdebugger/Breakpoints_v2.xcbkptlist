@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/ScheduleModel.kt"
-            timestampString = "571205504.733097"
+            timestampString = "571336560.572893"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>

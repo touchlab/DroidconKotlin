@@ -19,14 +19,14 @@ internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
 
 private val btfHandler = Handler(Looper.getMainLooper())
 
-internal actual fun <B> backToFront(b:()->B, job: (B) -> Unit) {
+internal actual fun <B> backToFront(b: () -> B, job: (B) -> Unit) {
     btfHandler.post { job(b()) }
 }
 
 internal actual val mainThread: Boolean
     get() = Looper.getMainLooper() === Looper.myLooper()
 
-object AndroidAppContext{
+object AndroidAppContext {
     lateinit var app: Application
 
     val executor = Executors.newSingleThreadExecutor()
@@ -41,7 +41,7 @@ object AndroidAppContext{
                 handler.post {
                     mainJob(aref.get())
                 }
-            }catch (t:Throwable){
+            } catch (t: Throwable) {
                 t.printStackTrace()
             }
 
@@ -56,11 +56,11 @@ object AndroidAppContext{
         backgroundTaskRun(backJob, networkExecutor)
     }
 
-    private fun backgroundTaskRun(backJob: () -> Unit, executor: ExecutorService){
+    private fun backgroundTaskRun(backJob: () -> Unit, executor: ExecutorService) {
         executor.execute {
             try {
                 backJob()
-            }catch (t:Throwable){
+            } catch (t: Throwable) {
                 t.printStackTrace()
             }
         }
@@ -72,6 +72,6 @@ actual fun logException(t: Throwable) {
     t.printStackTrace()
 }
 
-actual fun settingsFactory(): Settings.Factory  = PlatformSettings.Factory(AndroidAppContext.app)
+actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory(AndroidAppContext.app)
 
-actual fun createUuid(): String  = UUID.randomUUID().toString()
+actual fun createUuid(): String = UUID.randomUUID().toString()
