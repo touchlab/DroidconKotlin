@@ -1,9 +1,9 @@
 package co.touchlab.sessionize
 
-class EventViewModel(sessionId: String){
+class EventViewModel(sessionId: String) {
     val eventModel = EventModel(sessionId)
 
-    fun registerForChanges(proc:(sessionInfo:SessionInfo, formattedRoomTime:String)->Unit){
+    fun registerForChanges(proc: (sessionInfo: SessionInfo, formattedRoomTime: String) -> Unit) {
         eventModel.register(object : EventModel.EventView {
             override suspend fun update(data: SessionInfo) {
                 proc(data, data.session.formattedRoomTime())
@@ -11,11 +11,11 @@ class EventViewModel(sessionId: String){
         })
     }
 
-    fun toggleRsvp(rsvp:Boolean){
+    fun toggleRsvp(rsvp: Boolean) {
         eventModel.toggleRsvp(rsvp)
     }
 
-    fun unregister(){
+    fun unregister() {
         eventModel.shutDown()
     }
 }

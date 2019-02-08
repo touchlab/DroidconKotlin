@@ -28,7 +28,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         clLog("init EventModel($sessionId)")
     }
 
-    interface EventView:View<SessionInfo>
+    interface EventView : View<SessionInfo>
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(rsvp: Boolean) = launch {
@@ -76,7 +76,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
     }
 }
 
-internal fun Session.conflict(others: List<MySessions>):Boolean{
+internal fun Session.conflict(others: List<MySessions>): Boolean {
     if (this.rsvp == 0L)
         return false
 

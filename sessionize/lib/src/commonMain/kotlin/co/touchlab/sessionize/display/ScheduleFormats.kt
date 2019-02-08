@@ -5,7 +5,7 @@ import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.currentTimeMillis
-import co.touchlab.stately.annotation.ThreadLocal
+import kotlin.native.concurrent.ThreadLocal
 
 data class DaySchedule(
         val dayString: String,

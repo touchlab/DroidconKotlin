@@ -4,7 +4,12 @@ import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.AppContext.dbHelper
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
-import co.touchlab.sessionize.display.*
+import co.touchlab.sessionize.display.DaySchedule
+import co.touchlab.sessionize.display.HourBlock
+import co.touchlab.sessionize.display.convertMapToDaySchedule
+import co.touchlab.sessionize.display.formatHourBlocks
+import co.touchlab.sessionize.display.isConflict
+import co.touchlab.sessionize.display.isPast
 import co.touchlab.stately.ensureNeverFrozen
 import co.touchlab.stately.freeze
 
@@ -15,7 +20,11 @@ class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<Session
         dbHelper.getSessionsQuery(),
         {
             val dbSessions = it.executeAsList()
-            val sessions = if(allEvents){dbSessions}else{dbSessions.filter {it.rsvp != 0L}}
+            val sessions = if (allEvents) {
+                dbSessions
+            } else {
+                dbSessions.filter { it.rsvp != 0L }
+            }
 
             val hourBlocks = formatHourBlocks(sessions)
             convertMapToDaySchedule(hourBlocks).freeze() //TODO: This shouldn't need to be frozen
@@ -28,19 +37,23 @@ class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<Session
         ensureNeverFrozen()
     }
 
-    fun register(view:ScheduleView){
+    fun register(view: ScheduleView) {
         super.register(view)
     }
 
-    interface ScheduleView:View<List<DaySchedule>>
+    interface ScheduleView : View<List<DaySchedule>>
 
-    fun weaveSessionDetailsUi(hourBlock:HourBlock, allBlocks:List<HourBlock>, row:EventRow, allEvents: Boolean){
+    fun weaveSessionDetailsUi(hourBlock: HourBlock, allBlocks: List<HourBlock>, row: EventRow, allEvents: Boolean) {
         val isFirstInBlock = !hourBlock.hourStringDisplay.isEmpty()
         row.setTimeGap(isFirstInBlock)
 
         row.setTitleText(hourBlock.timeBlock.title)
         row.setTimeText(hourBlock.hourStringDisplay)
-        val speakerNames = if(hourBlock.timeBlock.allNames.isNullOrBlank()){""}else{hourBlock.timeBlock.allNames!!}
+        val speakerNames = if (hourBlock.timeBlock.allNames.isNullOrBlank()) {
+            ""
+        } else {
+            hourBlock.timeBlock.allNames!!
+        }
         row.setSpeakerText(speakerNames)
         row.setDescription(hourBlock.timeBlock.description)
 
@@ -52,18 +65,17 @@ class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<Session
             row.setLiveNowVisible(false)
 
             val rsvpShow = allEvents && hourBlock.timeBlock.isRsvp()
-            val state = if(rsvpShow){
-                if(hourBlock.isPast()) {
+            val state = if (rsvpShow) {
+                if (hourBlock.isPast()) {
                     RsvpState.RsvpPast
-                }else{
-                    if(hourBlock.isConflict(allBlocks)){
+                } else {
+                    if (hourBlock.isConflict(allBlocks)) {
                         RsvpState.Conflict
-                    }
-                    else{
+                    } else {
                         RsvpState.Rsvp
                     }
                 }
-            }else{
+            } else {
                 RsvpState.None
             }
             row.setRsvpState(state)
@@ -88,5 +100,5 @@ interface EventRow {
 
     fun setLiveNowVisible(b: Boolean)
 
-    fun setRsvpState(state:RsvpState)
+    fun setRsvpState(state: RsvpState)
 }

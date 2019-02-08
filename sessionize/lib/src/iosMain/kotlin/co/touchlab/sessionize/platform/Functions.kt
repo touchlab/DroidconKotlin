@@ -2,21 +2,27 @@ package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.Database
 import co.touchlab.sessionize.lateValue
-import co.touchlab.sqliter.DatabaseConfiguration
-import co.touchlab.sqliter.createDatabaseManager
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
-import com.squareup.sqldelight.drivers.ios.wrapConnection
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
-import platform.Foundation.*
+import platform.Foundation.NSApplicationSupportDirectory
+import platform.Foundation.NSFileManager
+import platform.Foundation.NSSearchPathForDirectoriesInDomains
+import platform.Foundation.NSThread
+import platform.Foundation.NSUUID
+import platform.Foundation.NSUserDomainMask
 import platform.darwin.dispatch_async_f
 import platform.darwin.dispatch_get_main_queue
-import kotlin.native.concurrent.*
+import kotlin.native.concurrent.DetachedObjectGraph
+import kotlin.native.concurrent.TransferMode
+import kotlin.native.concurrent.Worker
+import kotlin.native.concurrent.attach
+import kotlin.native.concurrent.freeze
 import kotlin.system.getTimeMillis
 
 actual fun currentTimeMillis(): Long = getTimeMillis()
@@ -46,7 +52,7 @@ internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
     mainJobHolder.value = mainJob
 
     val worker = makeQueue("back")
-    worker.execute(TransferMode.SAFE, { JobWrapper(backJob, mainJobHolder).freeze() }) {wrapper ->
+    worker.execute(TransferMode.SAFE, { JobWrapper(backJob, mainJobHolder).freeze() }) { wrapper ->
         backToFront(wrapper.backJob, {
             wrapper.mainJobLocal.lateValue.invoke(it)
         })
@@ -55,7 +61,7 @@ internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
 
 data class JobWrapper<B>(val backJob: () -> B, val mainJobLocal: ThreadLocalRef<(B) -> Unit>)
 
-internal actual fun <B> backToFront(b: ()->B, job: (B) -> Unit) {
+internal actual fun <B> backToFront(b: () -> B, job: (B) -> Unit) {
     dispatch_async_f(dispatch_get_main_queue(), DetachedObjectGraph {
         JobAndThing(job.freeze(), b())
     }.asCPointer(), staticCFunction { it: COpaquePointer? ->
@@ -65,7 +71,7 @@ internal actual fun <B> backToFront(b: ()->B, job: (B) -> Unit) {
     })
 }
 
-internal data class JobAndThing<B>(val job: (B) -> Unit, val thing:B)
+internal data class JobAndThing<B>(val job: (B) -> Unit, val thing: B)
 
 internal actual val mainThread: Boolean
     get() = NSThread.isMainThread
@@ -79,7 +85,7 @@ actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
 @Suppress("unused")
-fun defaultDriver():SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")
+fun defaultDriver(): SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")
 
 private fun getDirPath(folder: String): String {
     val paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, true);
