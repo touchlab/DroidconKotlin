@@ -19,6 +19,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        //This is for MultiplatformSettings
+        debug {
+            // MPP libraries don't currently get this resolution automatically
+            matchingFallbacks = ['release']
+        }
     }
 }
 
@@ -49,7 +55,7 @@ kotlin {
                 implementation deps.kotlin.stdlib.common
                 implementation deps.kotlin.coroutines.common
                 implementation deps.sqldelight.runtime
-                implementation deps.multiplatformSettings.common
+                implementation deps.multiplatformSettings
                 implementation deps.ktor.commonCore
                 implementation deps.ktor.commonJson
                 implementation deps.serialization.commonRuntime
@@ -68,7 +74,6 @@ kotlin {
                 implementation deps.kotlin.coroutines.native
                 implementation deps.sqldelight.driverIos
                 implementation deps.sqliter.ios
-                implementation deps.multiplatformSettings.ios
                 implementation deps.ktor.ios
                 implementation deps.ktor.iosCore
                 implementation deps.ktor.iosJson
@@ -81,7 +86,6 @@ kotlin {
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
                 implementation deps.sqldelight.driverAndroid
-                implementation deps.multiplatformSettings.android
                 implementation deps.ktor.jvmCore
                 implementation deps.ktor.jvmJson
                 implementation deps.serialization.jvmRuntime

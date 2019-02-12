@@ -39,7 +39,7 @@ class MainApp :Application(){
                 },
                 { Log.w("MainApp", it) },
                 Dispatchers.Main,
-                AndroidSqliteDriver(Database.Schema, this)
+                AndroidSqliteDriver(Database.Schema, this, "droidcondb")
                 )
     }
 
