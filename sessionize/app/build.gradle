@@ -18,6 +18,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        //This is for MultiplatformSettings
+        debug {
+            // MPP libraries don't currently get this resolution automatically
+            matchingFallbacks = ['release']
+        }
     }
     lintOptions {
         abortOnError false
@@ -65,7 +71,6 @@ dependencies {
 
     implementation deps.sqldelight.runtimeJdk
     implementation deps.sqldelight.driverAndroid
-    implementation deps.multiplatformSettings.android
     implementation deps.kotlin.coroutines.jdk
     implementation deps.kotlin.coroutines.android
     implementation deps.ktor.androidCore

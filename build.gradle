@@ -16,7 +16,7 @@ buildscript {
             'supportLibrary'       : '27.1.0',
             'kotlin'               : '1.3.20',
             'kotlinCoroutines'     : '1.1.1',
-            'multiplatformSettings': '0.1-k1.3.20-g4.10.2-a1',
+            'multiplatformSettings': '0.2',
             'sqldelight'           : '1.0.2',
             'stately'              : '0.5.2',
             'sqliter'              : '0.5.11',
@@ -45,11 +45,7 @@ buildscript {
                             'android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutines}",
                     ],
             ],
-            'multiplatformSettings': [
-                    'common' : "com.russhwolf:multiplatform-settings-common:${versions.multiplatformSettings}",
-                    'ios'    : "com.russhwolf:MultiplatformSettingsIos:${versions.multiplatformSettings}",
-                    'android': "com.russhwolf:multiplatform-settings-android:${versions.multiplatformSettings}",
-            ]
+            'multiplatformSettings': "com.russhwolf:multiplatform-settings:${versions.multiplatformSettings}"
             ,
             'sqldelight'           : [
                     'runtime'      : "com.squareup.sqldelight:runtime:${versions.sqldelight}",
@@ -85,14 +81,10 @@ buildscript {
     ]
 
     repositories {
-        maven { url 'file://Users/kgalligan/devel_kmp/kotlin-xcode-sync/build/localMaven' }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        mavenLocal()
         jcenter()
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://maven.fabric.io/public' }
     }
@@ -113,11 +105,9 @@ allprojects {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         jcenter()
         google()
-        mavenLocal()
         mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
-        maven { url 'https://dl.bintray.com/touchlabpublic/kotlin' }
         maven { url "https://kotlin.bintray.com/kotlinx" }
-        maven { url = 'https://dl.bintray.com/russhwolf/multiplatform-settings' }
+        maven { url "https://dl.bintray.com/russhwolf/multiplatform-settings" }
     }
 }
