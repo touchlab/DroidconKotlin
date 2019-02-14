@@ -4,6 +4,12 @@ This project has a pair of native mobile applications backed by the Sessionize d
 events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
 be forked and customized for anything run on Sessionize.
 
+## Kotlin 1.3.21 Updates!!
+
+With the release of Kotlin 1.3.20, the Jetbrains standard libraries support Gradle 4.10.2+. Now
+all libraries used in this app are their standard supported versions, and the app can be developed
+with Android Studio as well as Intellij.
+
 ## Libraries
 
 Kotlin multiplatform libraries used:
@@ -11,7 +17,8 @@ Kotlin multiplatform libraries used:
 * [SQLDelight](https://github.com/square/sqldelight) - SQL model generator from Square and 
 [AlecStrong](https://github.com/AlecStrong).
 
-* [SQLiter](https://github.com/touchlab/SQLiter) - Lightly opinionated sqlite access driver
+* [SQLiter](https://github.com/touchlab/SQLiter) - Lightly opinionated sqlite access driver. Powering
+the sqldelight native driver.
 
 * [multiplatform-settings](https://github.com/russhwolf/multiplatform-settings) - Shared settings for Android and iOS from
 [russhwolf](https://github.com/russhwolf).
@@ -26,15 +33,7 @@ Kotlin multiplatform libraries used:
 
 [Medium - Droidcon NYC App!](https://medium.com/@kpgalligan/droidcon-nyc-app-da868bdef387)
 
-[Medium - Kotlin Multiplatform in the App Store!](https://medium.com/@kpgalligan/kotlin-multiplatform-in-the-app-store-c3a50c24f93b)
-
-[Youtube - Droidcon SF](https://www.youtube.com/watch?v=c8IkWGmlcNE)
-
-[Youtube - Kotlinconf](https://www.youtube.com/watch?v=Dul17VSiejo)
-
-[Youtube - Kotlin Multiplatform @ Android Summit](https://www.youtube.com/watch?v=oeREzhXx7uw)
-
-[Youtube - Droidcon App Kotlin Multiplatform](https://www.youtube.com/watch?v=YAeDK3Ei0Lk&feature=youtu.be)
+[More Media ->](MEDIA.md)
 
 ## Building
 
@@ -44,13 +43,10 @@ Clone, and at the base, run:
 ./gradlew build
 ```
 
-## NOTE ON GRADLE!!!
+## Intellij or Android Studio
 
-Most Kotlin Multiplatform libraries are published on Gradle 4.7, but new Android Studio 3.3+ versions require Gradle 4.10. This application currently uses 4.7.
-
-## Intellij
-
-While the gradle issues are being sorted out, *you can't run this with Android Studio*. [Install Intellij 2018.3+](https://www.jetbrains.com/idea/download/)
+You can use any recent version of Intellij (2018.3+) or Android Studio 3.3+. You should be able to open the
+project folder directly, or import the project as a gradle project.
 
 ## Xcode
 
@@ -61,18 +57,31 @@ cd iosApp
 open iosApp.xcworkspace
 ```
 
-**NOTE** Originally you would've needed to run 'pod install'. We've included the full Pods folder in the repo because of some type of cocoapods issue. You shouldn't actually need to run 'pod install', but optionally you can to refresh.
+### Xcode Sync
+
+There is an experimental plugin called Xcode Sync. It imports Kotlin files into the Xcode project.
+You can safely ignore that for now, but if you'd like to have new Kotlin files available in Xcode,
+run the task added by the plugin.
+
+### CocoaPods
+
+CocoaPods is used by the project to import dependencies. We would normally not include the binaries in
+the repo, but a much earlier version of Kotlin native had some odd incompatibility, so we checked them in.
+It's also easier to run the project without needing to set up CocoaPods, so we're just leaving them in for
+now.
 
 ## Customizing
 
-If you're using Sessionize for your event, you can use the app pretty easily. Customized config is kind of spread throughout the app. 
-Primarily you'll need to point to your data urls, change the data seed files for speakers/sessions/sponsors, and
-change the color settings.
+General instructions for [customizing](CUSTOMIZING.md) the app. This app is backed by Sessionize and with some tweaks would
+be generally useful for any Sessionize event.
 
-The UI is in the process of being fully ported to Google's Material Components, with a centralized color and font theme. That's 
-a work in progress, but eventually you should be able to modify central files for Android and iOS to provide for a specific look.
+## Contributing
 
-It would be super great if you could keep us in the about section of your app, though. We're a consulting company that turns 
-project revenue into open source stuff, so we need eyeballs. Thanks XOXO. Speaking of...
+Check out the issues section to see what we're looking for. We will be adding a number of new features for
+Droidcon NYC 2019, as well as keeping up with the latest additions to the Kotlin Multiplatform ecosystem.
+
+## About
+
+Sessionize/Droidcon brought to you by...
 
 [![Touchlab Logo](tlsmall.png "Touchlab Logo")](https://touchlab.co)
