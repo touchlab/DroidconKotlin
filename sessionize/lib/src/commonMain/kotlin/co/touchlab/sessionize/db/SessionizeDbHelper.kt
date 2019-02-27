@@ -5,6 +5,8 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
+import co.touchlab.sessionize.jsondata.Sponsor
+import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.value
@@ -37,11 +39,12 @@ class SessionizeDbHelper {
 
     fun getSessionsQuery(): Query<SessionWithRoom> = instance.sessionQueries.sessionWithRoom()
 
-    fun primeAll(speakerJson: String, scheduleJson: String) {
+    fun primeAll(speakerJson: String, scheduleJson: String, sponsorJson: String) {
         instance.sessionQueries.transaction {
             try {
                 primeSpeakers(speakerJson)
                 primeSessions(scheduleJson)
+                primeSponsors(sponsorJson)
             } catch (e: Exception) {
                 logException(e)
                 throw e
@@ -152,6 +155,22 @@ class SessionizeDbHelper {
         allSessions.forEach {
             if (!newIdSet.contains(it.id)) {
                 instance.sessionQueries.deleteById(it.id)
+            }
+        }
+    }
+
+    private fun primeSponsors(sponsorJson: String) {
+        val sponsorGroups = JSON.nonstrict.parse(SponsorGroup.serializer().list, sponsorJson)
+        instance.sponsorQueries.deleteAll()
+
+        for(group in sponsorGroups) {
+            for(sponsor in group.sponsors) {
+                instance.sponsorQueries.insert(
+                        sponsor.name,
+                        sponsor.url,
+                        sponsor.icon,
+                        group.groupName
+                )
             }
         }
     }
