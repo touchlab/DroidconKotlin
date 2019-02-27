@@ -18,30 +18,49 @@ import com.squareup.picasso.Picasso
 import androidx.core.content.ContextCompat.startActivity
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import co.touchlab.sessionize.NewSponsorModel
+import co.touchlab.sessionize.jsondata.NewSponsorGroup
 
 
 class SponsorsFragment : Fragment() {
 
     lateinit var adapter: SponsorGroupAdapter
+    lateinit var sponsorViewModel:SponsorViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sponsorViewModel = ViewModelProviders.of(this, SponsorViewModelFactory())[SponsorViewModel::class.java]
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sponsor, container, false)
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
+
+        sponsorViewModel.sponsorModel.register(object : NewSponsorModel.SponsorView {
+            override suspend fun update(data: List<NewSponsorGroup>) {
+                adapter.sponsorGroups = data
+                adapter.notifyDataSetChanged()
+            }
+        })
 
         adapter = SponsorGroupAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        SponsorModel.loadSponsor {
-            adapter.sponsorGroups = it
-            adapter.notifyDataSetChanged()
-        }
-
         return view
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        sponsorViewModel.sponsorModel.shutDown()
+    }
+
     inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
-        var sponsorGroups:List<SponsorGroup> = emptyList()
+        var sponsorGroups:List<NewSponsorGroup> = emptyList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SponsorGroupViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -63,7 +82,7 @@ class SponsorsFragment : Fragment() {
                 Picasso.get().load(sponsor.icon).into(iv)
                 holder.flowGroup.addView(iv)
                 iv.setOnClickListener {
-                    if(!sponsor.url.isBlank()) {
+                    if(!sponsor.url.isNullOrBlank()) {
                         val i = Intent(Intent.ACTION_VIEW)
                         i.data = Uri.parse(sponsor.url)
                         startActivity(i)
@@ -76,5 +95,15 @@ class SponsorsFragment : Fragment() {
     class SponsorGroupViewHolder(view:View):RecyclerView.ViewHolder(view){
         val groupName = view.findViewById<TextView>(R.id.groupName)
         val flowGroup = view.findViewById<FlowLayout>(R.id.flowGroup)
+    }
+
+    class SponsorViewModel : ViewModel(){
+        val sponsorModel = NewSponsorModel()
+    }
+
+    class SponsorViewModelFactory : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return SponsorViewModel() as T
+        }
     }
 }

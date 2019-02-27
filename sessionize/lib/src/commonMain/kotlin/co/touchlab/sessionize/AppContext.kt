@@ -2,6 +2,7 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
+import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.SessionizeDbHelper
@@ -67,6 +68,9 @@ object AppContext {
 
     internal val roomQueries: RoomQueries
         get() = AppContext.dbHelper.instance.roomQueries
+
+    internal val sponsorQueries: SponsorQueries
+        get() = AppContext.dbHelper.instance.sponsorQueries
 
     data class PlatformLambdas(val staticFileLoader: (filePrefix: String, fileType: String) -> String?,
                                val analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
@@ -153,7 +157,7 @@ object AppContext {
 
     private fun storeAll(networkSponsorJson: String, networkSpeakerJson: String, networkSessionJson: String) {
         appSettings.putString(SPONSOR_JSON, networkSponsorJson)
-        dbHelper.primeAll(networkSpeakerJson, networkSessionJson)
+        dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
     }
 }
 
