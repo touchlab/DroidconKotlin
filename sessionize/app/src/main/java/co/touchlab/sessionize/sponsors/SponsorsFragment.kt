@@ -33,19 +33,17 @@ class SponsorsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sponsorViewModel = ViewModelProviders.of(this, SponsorViewModelFactory())[SponsorViewModel::class.java]
+        sponsorViewModel = ViewModelProviders.of(this, SponsorViewModel.SponsorViewModelFactory())[SponsorViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sponsor, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
 
-        sponsorViewModel.sponsorModel.register(object : NewSponsorModel.SponsorView {
-            override suspend fun update(data: List<NewSponsorGroup>) {
-                adapter.sponsorGroups = data
-                adapter.notifyDataSetChanged()
-            }
-        })
+        sponsorViewModel.registerForChanges {
+            adapter.sponsorGroups = it
+            adapter.notifyDataSetChanged()
+        }
 
         adapter = SponsorGroupAdapter()
         recyclerView.adapter = adapter
@@ -56,7 +54,7 @@ class SponsorsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        sponsorViewModel.sponsorModel.shutDown()
+        sponsorViewModel.unregister()
     }
 
     inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
@@ -95,15 +93,5 @@ class SponsorsFragment : Fragment() {
     class SponsorGroupViewHolder(view:View):RecyclerView.ViewHolder(view){
         val groupName = view.findViewById<TextView>(R.id.groupName)
         val flowGroup = view.findViewById<FlowLayout>(R.id.flowGroup)
-    }
-
-    class SponsorViewModel : ViewModel(){
-        val sponsorModel = NewSponsorModel()
-    }
-
-    class SponsorViewModelFactory : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return SponsorViewModel() as T
-        }
     }
 }
