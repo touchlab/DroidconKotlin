@@ -47,9 +47,6 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
             if let icon = sponsorInfo.icon {
                 sponsorView.sponsorImageView.kf.setImage(with: URL(string: icon)!)
             }
-            if(sponsorInfo.icon != nil) {
-                sponsorView.sponsorImageView.kf.setImage(with: URL(string: sponsorInfo.icon!)!)
-            }
         }
         
         return sponsorView
