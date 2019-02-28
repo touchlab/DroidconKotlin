@@ -7,20 +7,9 @@ import co.touchlab.sessionize.db.SponsorGroupDbItem
 class SponsorModel : BaseQueryModelView<Sponsor, List<SponsorGroupDbItem>>(
         sponsorQueries.selectAll(),
         {
-            val sponsors = it.executeAsList()
-            val groupList = mutableMapOf<String, ArrayList<Sponsor>>()
-
-            for(sponsor in sponsors) {
-                if(groupList.containsKey(sponsor.groupName)) {
-                    groupList[sponsor.groupName]!!.add(sponsor)
-                } else {
-                    groupList[sponsor.groupName] = arrayListOf(sponsor)
-                }
-            }
-
-            val finalList = arrayListOf<SponsorGroupDbItem>()
-            groupList.forEach { list -> finalList.add(SponsorGroupDbItem(list.key, list.value)) }
-            finalList
+            it.executeAsList().groupBy {
+                sponsor -> sponsor.groupName
+            }.map { item -> SponsorGroupDbItem(item.key, item.value) }
         },
         AppContext.dispatcherLocal.lateValue) {
 
