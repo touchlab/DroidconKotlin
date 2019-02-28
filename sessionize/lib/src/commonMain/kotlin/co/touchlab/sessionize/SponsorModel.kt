@@ -8,13 +8,13 @@ class SponsorModel : BaseQueryModelView<Sponsor, List<SponsorGroupDbItem>>(
         sponsorQueries.selectAll(),
         {
             val sponsors = it.executeAsList()
-            val groupList = mutableMapOf<String, MutableList<Sponsor>>()
+            val groupList = mutableMapOf<String, ArrayList<Sponsor>>()
 
             for(sponsor in sponsors) {
                 if(groupList.containsKey(sponsor.groupName)) {
                     groupList[sponsor.groupName]!!.add(sponsor)
                 } else {
-                    groupList[sponsor.groupName] = mutableListOf(sponsor)
+                    groupList[sponsor.groupName] = arrayListOf(sponsor)
                 }
             }
 
