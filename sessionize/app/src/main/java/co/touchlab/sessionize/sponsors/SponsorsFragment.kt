@@ -11,19 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.SponsorModel
-import co.touchlab.sessionize.jsondata.SponsorGroup
 import com.nex3z.flowlayout.FlowLayout
 import com.squareup.picasso.Picasso
-import androidx.core.content.ContextCompat.startActivity
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import co.touchlab.sessionize.NewSponsorModel
-import co.touchlab.sessionize.jsondata.NewSponsorGroup
+import co.touchlab.sessionize.db.SponsorGroupDbItem
 
 
 class SponsorsFragment : Fragment() {
@@ -41,7 +34,7 @@ class SponsorsFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
 
         sponsorViewModel.registerForChanges {
-            adapter.sponsorGroups = it
+            adapter.sponsorGroupDbItems = it
             adapter.notifyDataSetChanged()
         }
 
@@ -58,7 +51,7 @@ class SponsorsFragment : Fragment() {
     }
 
     inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
-        var sponsorGroups:List<NewSponsorGroup> = emptyList()
+        var sponsorGroupDbItems:List<SponsorGroupDbItem> = emptyList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SponsorGroupViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -67,10 +60,10 @@ class SponsorsFragment : Fragment() {
             return SponsorGroupViewHolder(view)
         }
 
-        override fun getItemCount(): Int = sponsorGroups.size
+        override fun getItemCount(): Int = sponsorGroupDbItems.size
 
         override fun onBindViewHolder(holder: SponsorGroupViewHolder, position: Int) {
-            val sponsorGroup = sponsorGroups.get(position)
+            val sponsorGroup = sponsorGroupDbItems.get(position)
             holder.groupName.text = sponsorGroup.groupName
             holder.flowGroup.removeAllViews()
             val layoutInflater = LayoutInflater.from(activity)
