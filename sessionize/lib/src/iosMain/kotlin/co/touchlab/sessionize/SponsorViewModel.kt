@@ -1,13 +1,13 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.jsondata.NewSponsorGroup
+import co.touchlab.sessionize.db.SponsorGroupDbItem
 
 class SponsorViewModel {
-    val sponsorModel = NewSponsorModel()
+    val sponsorModel = SponsorModel()
 
-    fun registerForChanges(proc:(data: List<NewSponsorGroup>)->Unit){
-        sponsorModel.register(object : NewSponsorModel.SponsorView {
-            override suspend fun update(data: List<NewSponsorGroup>) {
+    fun registerForChanges(proc:(data: List<SponsorGroupDbItem>)->Unit){
+        sponsorModel.register(object : SponsorModel.SponsorView {
+            override suspend fun update(data: List<SponsorGroupDbItem>) {
                 proc(data)
             }
         })

@@ -2,15 +2,15 @@ package co.touchlab.sessionize.sponsors
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import co.touchlab.sessionize.NewSponsorModel
-import co.touchlab.sessionize.jsondata.NewSponsorGroup
+import co.touchlab.sessionize.SponsorModel
+import co.touchlab.sessionize.db.SponsorGroupDbItem
 
 class SponsorViewModel : ViewModel(){
-    val sponsorModel = NewSponsorModel()
+    val sponsorModel = SponsorModel()
 
-    fun registerForChanges(proc:(data: List<NewSponsorGroup>)->Unit){
-        sponsorModel.register(object : NewSponsorModel.SponsorView {
-            override suspend fun update(data: List<NewSponsorGroup>) {
+    fun registerForChanges(proc:(data: List<SponsorGroupDbItem>)->Unit){
+        sponsorModel.register(object : SponsorModel.SponsorView {
+            override suspend fun update(data: List<SponsorGroupDbItem>) {
                 proc(data)
             }
         })

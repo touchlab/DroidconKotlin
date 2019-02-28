@@ -1,19 +1,32 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.jsondata.SponsorGroup
-import co.touchlab.sessionize.platform.backgroundSuspend
-import co.touchlab.stately.concurrency.value
-import kotlinx.coroutines.launch
-import kotlinx.serialization.json.JSON
-import kotlinx.serialization.list
-import kotlin.native.concurrent.ThreadLocal
+import co.touchlab.droidcon.db.Sponsor
+import co.touchlab.sessionize.AppContext.sponsorQueries
+import co.touchlab.sessionize.db.SponsorGroupDbItem
 
-@ThreadLocal
-object SponsorModel : BaseModel(AppContext.dispatcherLocal.value!!) {
-    fun loadSponsor(proc: (aboutInfo: List<SponsorGroup>) -> Unit) = launch {
-        clLog("loadSponsor SponsorModel()")
-        proc(backgroundSuspend {
-            JSON.nonstrict.parse(SponsorGroup.serializer().list, AppContext.sponsorJson)
-        })
+class SponsorModel : BaseQueryModelView<Sponsor, List<SponsorGroupDbItem>>(
+        sponsorQueries.selectAll(),
+        {
+            val sponsors = it.executeAsList()
+            val groupList = mutableMapOf<String, MutableList<Sponsor>>()
+
+            for(sponsor in sponsors) {
+                if(groupList.containsKey(sponsor.groupName)) {
+                    groupList[sponsor.groupName]!!.add(sponsor)
+                } else {
+                    groupList[sponsor.groupName] = mutableListOf(sponsor)
+                }
+            }
+
+            val finalList = arrayListOf<SponsorGroupDbItem>()
+            groupList.forEach { list -> finalList.add(SponsorGroupDbItem(list.key, list.value)) }
+            finalList
+        },
+        AppContext.dispatcherLocal.lateValue) {
+
+    interface SponsorView : View<List<SponsorGroupDbItem>>
+
+    init {
+        clLog("init SponsorModel()")
     }
 }

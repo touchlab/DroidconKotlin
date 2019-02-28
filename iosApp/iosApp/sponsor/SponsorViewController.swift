@@ -12,7 +12,7 @@ import main
 class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var viewModel:SponsorViewModel!
-    var sponsorGroups: [NewSponsorGroup]?
+    var sponsorGroups: [SponsorGroupDbItem]?
     @IBOutlet weak var sponsorsCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         // Do any additional setup after loading the view.
     }
     
-    func sponsorResult(sponsorGroups:[NewSponsorGroup]) -> KotlinUnit {
+    func sponsorResult(sponsorGroups:[SponsorGroupDbItem]) -> KotlinUnit {
         self.sponsorGroups = sponsorGroups
         sponsorsCollectionView.reloadData()
         return KotlinUnit()

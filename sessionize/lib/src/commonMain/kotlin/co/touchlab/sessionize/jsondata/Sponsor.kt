@@ -8,4 +8,3 @@ data class Sponsor(val name: String, val url: String, val icon: String)
 @Serializable
 data class SponsorGroup(val groupName: String, val sponsors: List<Sponsor>)
 
-data class NewSponsorGroup(val groupName: String, val sponsors: List<co.touchlab.droidcon.db.Sponsor>)
