@@ -11,37 +11,47 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.SponsorModel
-import co.touchlab.sessionize.jsondata.SponsorGroup
 import com.nex3z.flowlayout.FlowLayout
 import com.squareup.picasso.Picasso
-import androidx.core.content.ContextCompat.startActivity
 import android.content.Intent
 import android.net.Uri
+import androidx.lifecycle.ViewModelProviders
+import co.touchlab.sessionize.db.SponsorGroupDbItem
 
 
 class SponsorsFragment : Fragment() {
 
     lateinit var adapter: SponsorGroupAdapter
+    lateinit var sponsorViewModel:SponsorViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sponsorViewModel = ViewModelProviders.of(this, SponsorViewModel.SponsorViewModelFactory())[SponsorViewModel::class.java]
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sponsor, container, false)
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
+
+        sponsorViewModel.registerForChanges {
+            adapter.sponsorGroupDbItems = it
+            adapter.notifyDataSetChanged()
+        }
 
         adapter = SponsorGroupAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        SponsorModel.loadSponsor {
-            adapter.sponsorGroups = it
-            adapter.notifyDataSetChanged()
-        }
-
         return view
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        sponsorViewModel.unregister()
+    }
+
     inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
-        var sponsorGroups:List<SponsorGroup> = emptyList()
+        var sponsorGroupDbItems:List<SponsorGroupDbItem> = emptyList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SponsorGroupViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -50,10 +60,10 @@ class SponsorsFragment : Fragment() {
             return SponsorGroupViewHolder(view)
         }
 
-        override fun getItemCount(): Int = sponsorGroups.size
+        override fun getItemCount(): Int = sponsorGroupDbItems.size
 
         override fun onBindViewHolder(holder: SponsorGroupViewHolder, position: Int) {
-            val sponsorGroup = sponsorGroups.get(position)
+            val sponsorGroup = sponsorGroupDbItems.get(position)
             holder.groupName.text = sponsorGroup.groupName
             holder.flowGroup.removeAllViews()
             val layoutInflater = LayoutInflater.from(activity)
@@ -63,7 +73,7 @@ class SponsorsFragment : Fragment() {
                 Picasso.get().load(sponsor.icon).into(iv)
                 holder.flowGroup.addView(iv)
                 iv.setOnClickListener {
-                    if(!sponsor.url.isBlank()) {
+                    if(!sponsor.url.isNullOrBlank()) {
                         val i = Intent(Intent.ACTION_VIEW)
                         i.data = Uri.parse(sponsor.url)
                         startActivity(i)
