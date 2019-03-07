@@ -11,7 +11,8 @@ import main
 
 class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var sponsorGroups: [SponsorGroup]?
+    var viewModel:SponsorViewModel!
+    var sponsorGroups: [SponsorGroupDbItem]?
     @IBOutlet weak var sponsorsCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -20,11 +21,12 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         sponsorsCollectionView.delegate = self
         sponsorsCollectionView.dataSource = self
         
-        SponsorModel().loadSponsor(proc: sponsorResult)
+        viewModel = SponsorViewModel()
+        viewModel.registerForChanges(proc: sponsorResult)
         // Do any additional setup after loading the view.
     }
     
-    func sponsorResult(sponsorGroups:[SponsorGroup]) -> KotlinUnit {
+    func sponsorResult(sponsorGroups:[SponsorGroupDbItem]) -> KotlinUnit {
         self.sponsorGroups = sponsorGroups
         sponsorsCollectionView.reloadData()
         return KotlinUnit()
@@ -42,7 +44,9 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         if(sponsorGroups != nil)
         {
             let sponsorInfo = sponsorGroups![(indexPath as NSIndexPath).section].sponsors[indexPath.item]
-            sponsorView.sponsorImageView.kf.setImage(with: URL(string: sponsorInfo.icon)!)
+            if let icon = sponsorInfo.icon {
+                sponsorView.sponsorImageView.kf.setImage(with: URL(string: icon)!)
+            }
         }
         
         return sponsorView
@@ -68,10 +72,12 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let sponsorInfo = sponsorGroups![(indexPath as NSIndexPath).section].sponsors[indexPath.item]
-        guard let url = URL(string: sponsorInfo.url) else {
-            return //be safe
+        if let sponsorUrl = sponsorInfo.url {
+            guard let url = URL(string: sponsorUrl) else {
+                return //be safe
+            }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -81,6 +87,10 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         }else{
             return sponsorGroups![section].sponsors.count
         }
+    }
+    
+    deinit {
+        viewModel.unregister()
     }
 
     /*

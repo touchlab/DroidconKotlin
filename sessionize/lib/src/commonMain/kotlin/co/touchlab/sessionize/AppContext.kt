@@ -2,6 +2,7 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
+import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.SessionizeDbHelper
@@ -68,6 +69,9 @@ object AppContext {
     internal val roomQueries: RoomQueries
         get() = AppContext.dbHelper.instance.roomQueries
 
+    internal val sponsorQueries: SponsorQueries
+        get() = AppContext.dbHelper.instance.sponsorQueries
+
     data class PlatformLambdas(val staticFileLoader: (filePrefix: String, fileType: String) -> String?,
                                val analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
                                val clLogCallback: (s: String) -> Unit)
@@ -95,9 +99,6 @@ object AppContext {
         return appSettings.getString(USER_UUID)
     }
 
-    val sponsorJson: String
-        get() = appSettings.getString(SPONSOR_JSON)
-
     //Split these up so they can individually succeed/fail
     private fun dataLoad() {
         if (firstRun()) {
@@ -110,7 +111,7 @@ object AppContext {
                         val scheduleJson = staticFileLoader("schedule", "json")
 
                         if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
-                            storeAll(sponsorJson, speakerJson, scheduleJson)
+                            dbHelper.primeAll(speakerJson, scheduleJson, sponsorJson)
                             updateFirstRun()
                         } else {
                             //This should only ever happen in dev
@@ -134,7 +135,7 @@ object AppContext {
             val networkSponsorJson = sessionizeApi.lateValue.getSponsorJson()
 
             backgroundSuspend {
-                storeAll(networkSponsorJson, networkSpeakerJson, networkSessionJson)
+                dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
                 appSettings.putLong(KEY_LAST_LOAD, currentTimeMillis())
             }
         } catch (e: Exception) {
@@ -152,8 +153,7 @@ object AppContext {
     }
 
     private fun storeAll(networkSponsorJson: String, networkSpeakerJson: String, networkSessionJson: String) {
-        appSettings.putString(SPONSOR_JSON, networkSponsorJson)
-        dbHelper.primeAll(networkSpeakerJson, networkSessionJson)
+        dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
     }
 }
 

@@ -1,0 +1,18 @@
+CREATE TABLE sponsor(
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+name TEXT NOT NULL,
+url TEXT,
+icon TEXT,
+groupName TEXT NOT NULL
+);
+
+insert:
+INSERT INTO sponsor(name, url, icon, groupName)
+VALUES (?,?,?,?)
+;
+
+selectAll:
+SELECT * FROM sponsor;
+
+deleteAll:
+DELETE FROM sponsor;
