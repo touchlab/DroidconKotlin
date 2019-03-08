@@ -4,7 +4,9 @@ import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
+import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
+import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
@@ -32,12 +34,9 @@ object AppContext {
     val USER_UUID = "USER_UUID"
     val TWO_HOURS_MILLIS = 2 * 60 * 60 * 1000
 
-    private val SPONSOR_JSON = "SPONSOR_JSON"
-
     val lambdas = AtomicReference<PlatformLambdas?>(null)
     val dispatcherLocal = ThreadLocalRef<CoroutineDispatcher>()
     val coroutineScope = ThreadLocalRef<CoroutineScope>()
-    val sessionizeApi = ThreadLocalRef<SessionizeApi>()
 
     fun initPlatformClient(
             staticFileLoader: (filePrefix: String, fileType: String) -> String?,
@@ -50,12 +49,17 @@ object AppContext {
 
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
-                analyticsCallback,
                 clLogCallback).freeze()
 
         dispatcherLocal.value = dispatcher
         coroutineScope.value = AppContextCoroutineScope(dispatcher)
-        sessionizeApi.value = SessionizeApi
+        ServiceRegistry.sessionizeApi = SessionizeApiImpl
+        ServiceRegistry.analyticsApi = object: AnalyticsApi{
+            override fun logEvent(name: String, params: Map<String, Any>) {
+                analyticsCallback(name, params)
+            }
+
+        }
 
         dataLoad()
     }
@@ -73,7 +77,6 @@ object AppContext {
         get() = AppContext.dbHelper.instance.sponsorQueries
 
     data class PlatformLambdas(val staticFileLoader: (filePrefix: String, fileType: String) -> String?,
-                               val analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
                                val clLogCallback: (s: String) -> Unit)
 
     val staticFileLoader: (filePrefix: String, fileType: String) -> String?
@@ -81,10 +84,6 @@ object AppContext {
 
     val clLogCallback: (s: String) -> Unit
         get() = lambdas.value!!.clLogCallback
-
-    fun logEvent(name: String, params: Map<String, Any>) {
-        lambdas.value!!.analyticsCallback(name, params)
-    }
 
     private fun firstRun(): Boolean = appSettings.getBoolean(KEY_FIRST_RUN, true)
 
@@ -129,10 +128,10 @@ object AppContext {
 
     private fun dataCalls() = coroutineScope.lateValue.launch {
         try {
-
-            val networkSpeakerJson = sessionizeApi.lateValue.getSpeakersJson()
-            val networkSessionJson = sessionizeApi.lateValue.getSessionsJson()
-            val networkSponsorJson = sessionizeApi.lateValue.getSponsorJson()
+            val api = ServiceRegistry.sessionizeApi
+            val networkSpeakerJson = api.getSpeakersJson()
+            val networkSessionJson = api.getSessionsJson()
+            val networkSponsorJson = api.getSponsorJson()
 
             backgroundSuspend {
                 dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
@@ -150,10 +149,6 @@ object AppContext {
                 dataCalls()
             }
         }
-    }
-
-    private fun storeAll(networkSponsorJson: String, networkSpeakerJson: String, networkSessionJson: String) {
-        dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
     }
 }
 

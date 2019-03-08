@@ -3,9 +3,10 @@ package co.touchlab.sessionize.event
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.touchlab.sessionize.EventModel
+import co.touchlab.sessionize.ServiceRegistry
 
 class EventViewModel(sessionId:String): ViewModel(){
-    val eventModel = EventModel(sessionId)
+    val eventModel = EventModel(sessionId, ServiceRegistry.analyticsApi, ServiceRegistry.sessionizeApi)
 }
 
 class EventViewModelFactory(private val sessionId: String) : ViewModelProvider.NewInstanceFactory() {
