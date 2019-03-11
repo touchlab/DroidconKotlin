@@ -51,3 +51,8 @@ expect fun settingsFactory(): Settings.Factory
  * Generates a unique string for use in tracking this user anonymously
  */
 expect fun createUuid(): String
+
+/**
+ * Load a static asset from respective assets folder
+ */
+expect fun loadAssetFromDefault(asset: String): String

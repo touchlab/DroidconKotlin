@@ -10,14 +10,6 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
-import platform.Foundation.NSApplicationSupportDirectory
-import platform.Foundation.NSFileManager
-import platform.Foundation.NSSearchPathForDirectoriesInDomains
-import platform.Foundation.NSThread
-import platform.Foundation.NSUUID
-import platform.Foundation.NSUserDomainMask
-import platform.darwin.dispatch_async_f
-import platform.darwin.dispatch_get_main_queue
 import kotlin.native.concurrent.DetachedObjectGraph
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
@@ -83,6 +75,13 @@ actual fun logException(t: Throwable) {
 actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
 
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
+
+/**
+ * Load a static asset from respective assets folder
+ */
+actual fun loadAssetFromDefault(asset: String): String {
+    return ""
+}
 
 @Suppress("unused")
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")

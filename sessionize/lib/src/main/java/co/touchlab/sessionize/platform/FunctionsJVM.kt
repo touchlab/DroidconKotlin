@@ -1,6 +1,7 @@
 package co.touchlab.sessionize.platform
 
 import android.app.Application
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import com.russhwolf.settings.PlatformSettings
@@ -75,3 +76,15 @@ actual fun logException(t: Throwable) {
 actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory(AndroidAppContext.app)
 
 actual fun createUuid(): String = UUID.randomUUID().toString()
+
+/**
+ * Load a static asset from respective assets folder
+ */
+actual fun loadAssetFromDefault(asset: String): String {
+    return loadAsset(asset)
+}
+
+private fun loadAsset(name:String) = AndroidAppContext.app.assets
+        .open(name, Context.MODE_PRIVATE)
+        .bufferedReader()
+        .use { it.readText() }
