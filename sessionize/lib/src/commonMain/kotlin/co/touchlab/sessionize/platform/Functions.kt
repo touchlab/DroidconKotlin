@@ -1,6 +1,5 @@
 package co.touchlab.sessionize.platform
 
-import com.russhwolf.settings.Settings
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -41,11 +40,6 @@ private class ContinuationContainer(var continuation: Continuation<Any?>?)
 expect fun currentTimeMillis(): Long
 
 expect fun logException(t: Throwable)
-
-/**
- * Create shared settings instance
- */
-expect fun settingsFactory(): Settings.Factory
 
 /**
  * Generates a unique string for use in tracking this user anonymously

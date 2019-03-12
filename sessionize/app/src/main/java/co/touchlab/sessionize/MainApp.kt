@@ -9,6 +9,7 @@ import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import com.crashlytics.android.answers.CustomEvent
+import com.russhwolf.settings.PlatformSettings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import kotlinx.coroutines.*
 
@@ -18,6 +19,10 @@ class MainApp :Application(){
         AndroidAppContext.app = this
         Fabric.with(this, Answers())
         Fabric.with(this, Crashlytics())
+
+        ServiceRegistry.dbDriver = AndroidSqliteDriver(Database.Schema, this, "droidcondb")
+        ServiceRegistry.coroutinesDispatcher = Dispatchers.Main
+        ServiceRegistry.appSettings = PlatformSettings.Factory(this).create("DROIDCON_SETTINGS")
 
         AppContext.initPlatformClient ({filePrefix, fileType ->
             loadAsset("${filePrefix}.${fileType}")},
@@ -37,9 +42,7 @@ class MainApp :Application(){
 
                     Answers.getInstance().logCustom(event)
                 },
-                { Log.w("MainApp", it) },
-                Dispatchers.Main,
-                AndroidSqliteDriver(Database.Schema, this, "droidcondb")
+                { Log.w("MainApp", it) }
                 )
     }
 

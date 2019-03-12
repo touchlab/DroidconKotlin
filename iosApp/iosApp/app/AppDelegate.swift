@@ -19,12 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
+        
+        let registry = ServiceRegistry()
+        registry.coroutinesDispatcher = UI()
+        registry.dbDriver = FunctionsKt.defaultDriver()
+        registry.appSettings = FunctionsKt.defaultSettings()
+        
         let appContext = AppContext()
         appContext.doInitPlatformClient(staticFileLoader: loadAsset,
                                                         analyticsCallback: analyticsCallback,
-                                                        clLogCallback: csLog,
-                                                        dispatcher: UI(),
-                                                        sqlDriver: FunctionsKt.defaultDriver()
+                                                        clLogCallback: csLog
         )
         
         appContext.refreshData()
