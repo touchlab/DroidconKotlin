@@ -10,6 +10,8 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
+import platform.darwin.*
+import platform.Foundation.*
 import kotlin.native.concurrent.DetachedObjectGraph
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
@@ -79,8 +81,13 @@ actual fun createUuid(): String = NSUUID.UUID().UUIDString
 /**
  * Load a static asset from respective assets folder
  */
-actual fun loadAssetFromDefault(asset: String): String {
-    return ""
+actual fun loadAssetFromDefault(asset: String, type: String): String? {
+    NSBundle.mainBundle.pathForResource(asset, type)?.let {
+        return NSString.stringWithContentsOfFile(it).toString()
+    } ?: run {
+        print("$asset.$type not found")
+        return null
+    }
 }
 
 @Suppress("unused")

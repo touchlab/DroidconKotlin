@@ -45,12 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func loadAsset(filePrefix:String, fileType:String) -> String?{
-        do{
-            let bundleFile = Bundle.main.path(forResource: filePrefix, ofType: fileType)
-            return try String(contentsOfFile: bundleFile!)
-        } catch {
-            return nil
-        }
+        return FunctionsKt.loadAssetFromDefault(asset: filePrefix, type: fileType)
     }
     
     func analyticsCallback(name:String, params:[String:Any]) -> KotlinUnit{

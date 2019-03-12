@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
+import java.io.IOException
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -80,8 +81,12 @@ actual fun createUuid(): String = UUID.randomUUID().toString()
 /**
  * Load a static asset from respective assets folder
  */
-actual fun loadAssetFromDefault(asset: String): String {
-    return loadAsset(asset)
+actual fun loadAssetFromDefault(asset: String, type: String): String? {
+    return try {
+        loadAsset("$asset.$type")
+    } catch (e: IOException) {
+        null
+    }
 }
 
 private fun loadAsset(name:String) = AndroidAppContext.app.assets

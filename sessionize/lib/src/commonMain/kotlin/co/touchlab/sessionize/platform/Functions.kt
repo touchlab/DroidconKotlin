@@ -55,4 +55,4 @@ expect fun createUuid(): String
 /**
  * Load a static asset from respective assets folder
  */
-expect fun loadAssetFromDefault(asset: String): String
+expect fun loadAssetFromDefault(asset: String, type: String): String?

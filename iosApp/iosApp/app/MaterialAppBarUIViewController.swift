@@ -42,7 +42,7 @@ class MaterialAppBarUIViewController: UIViewController {
         self.view.backgroundColor = ApplicationScheme.shared.colorScheme.surfaceColor
         appBar.addSubviewsToParent()
         appBar.navigationBar.observe(self.navigationItem)
-        
+
     }
     
     // Optional step: The Header View Controller does basic inspection of the header view's background

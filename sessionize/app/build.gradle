@@ -40,6 +40,11 @@ kotlin {
                 implementation project(':sessionize:lib')
             }
         }
+        androidTest {
+            dependencies {
+                implementation project(':sessionize:lib')
+            }
+        }
     }
 
     targets {
