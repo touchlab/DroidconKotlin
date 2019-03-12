@@ -80,6 +80,4 @@ actual fun logException(t: Throwable) {
     t.printStackTrace()
 }
 
-actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory(AndroidAppContext.app)
-
 actual fun createUuid(): String = UUID.randomUUID().toString()

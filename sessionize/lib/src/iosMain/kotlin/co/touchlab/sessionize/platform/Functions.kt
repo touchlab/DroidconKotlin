@@ -80,12 +80,13 @@ actual fun logException(t: Throwable) {
     t.printStackTrace()
 }
 
-actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
-
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
 @Suppress("unused")
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")
+
+@Suppress("unused")
+fun defaultSettings(): Settings = PlatformSettings.Factory().create("DROIDCON_SETTINGS")
 
 private fun getDirPath(folder: String): String {
     val paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, true);

@@ -5,7 +5,6 @@ import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.api.AnalyticsApi
-import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
@@ -13,12 +12,11 @@ import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
-import co.touchlab.sessionize.platform.settingsFactory
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
-import com.squareup.sqldelight.db.SqlDriver
+import com.russhwolf.settings.Settings
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,7 +26,7 @@ object AppContext {
 
     val dbHelper = SessionizeDbHelper()
 
-    val appSettings = settingsFactory().create("DROIDCON_SETTINGS")
+    val appSettings:AtomicReference<Settings?> = AtomicReference(null)
     val KEY_FIRST_RUN = "FIRST_RUN1"
     val KEY_LAST_LOAD = "LAST_LOAD"
     val USER_UUID = "USER_UUID"
@@ -41,18 +39,17 @@ object AppContext {
     fun initPlatformClient(
             staticFileLoader: (filePrefix: String, fileType: String) -> String?,
             analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
-            clLogCallback: (s: String) -> Unit,
-            dispatcher: CoroutineDispatcher,
-            sqlDriver: SqlDriver) {
+            clLogCallback: (s: String) -> Unit) {
 
-        dbHelper.initDatabase(sqlDriver)
+        appSettings.value = ServiceRegistry.appSettings.freeze()
+        dbHelper.initDatabase(ServiceRegistry.dbDriver)
 
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
                 clLogCallback).freeze()
 
-        dispatcherLocal.value = dispatcher
-        coroutineScope.value = AppContextCoroutineScope(dispatcher)
+        dispatcherLocal.value = ServiceRegistry.coroutinesDispatcher
+        coroutineScope.value = AppContextCoroutineScope(ServiceRegistry.coroutinesDispatcher)
         ServiceRegistry.sessionizeApi = SessionizeApiImpl
         ServiceRegistry.analyticsApi = object: AnalyticsApi{
             override fun logEvent(name: String, params: Map<String, Any>) {
@@ -85,17 +82,17 @@ object AppContext {
     val clLogCallback: (s: String) -> Unit
         get() = lambdas.value!!.clLogCallback
 
-    private fun firstRun(): Boolean = appSettings.getBoolean(KEY_FIRST_RUN, true)
+    private fun firstRun(): Boolean = appSettings.value!!.getBoolean(KEY_FIRST_RUN, true)
 
     private fun updateFirstRun() {
-        appSettings.putBoolean(KEY_FIRST_RUN, false)
+        appSettings.value?.putBoolean(KEY_FIRST_RUN, false)
     }
 
     fun userUuid(): String {
-        if (appSettings.getString(USER_UUID).isBlank()) {
-            appSettings.putString(USER_UUID, createUuid())
+        if (appSettings.value!!.getString(USER_UUID).isBlank()) {
+            appSettings.value!!.putString(USER_UUID, createUuid())
         }
-        return appSettings.getString(USER_UUID)
+        return appSettings.value!!.getString(USER_UUID)
     }
 
     //Split these up so they can individually succeed/fail
@@ -135,7 +132,7 @@ object AppContext {
 
             backgroundSuspend {
                 dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
-                appSettings.putLong(KEY_LAST_LOAD, currentTimeMillis())
+                appSettings.value!!.putLong(KEY_LAST_LOAD, currentTimeMillis())
             }
         } catch (e: Exception) {
             logException(e)
@@ -144,7 +141,7 @@ object AppContext {
 
     fun refreshData() {
         if (!firstRun()) {
-            val lastLoad = appSettings.getLong(KEY_LAST_LOAD)
+            val lastLoad = appSettings.value!!.getLong(KEY_LAST_LOAD)
             if (lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
                 dataCalls()
             }
