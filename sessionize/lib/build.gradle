@@ -59,6 +59,9 @@ kotlin {
                 implementation deps.ktor.commonCore
                 implementation deps.ktor.commonJson
                 implementation deps.serialization.commonRuntime
+                implementation deps.kotlin.test.jvm
+                implementation deps.kotlin.test.common
+                implementation deps.kotlin.test.annotations
             }
         }
 
@@ -147,3 +150,4 @@ task iosTest {
 
 tasks.preBuild.dependsOn "generateSqlDelightInterface"
 tasks.build.dependsOn packForXCode
+tasks.build.dependsOn linkTestDebugExecutableIos

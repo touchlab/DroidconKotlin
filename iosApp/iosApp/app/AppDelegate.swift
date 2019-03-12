@@ -39,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return KotlinUnit()
     }*/
     
+    static func testSponsorSeedFile() throws {
+        try TestsKt.testSponsorSeedFile()
+    }
+    
     func csLog(s:String) -> KotlinUnit{
         CLSLogv(s, getVaList([]))
         return KotlinUnit()

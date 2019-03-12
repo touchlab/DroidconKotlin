@@ -2,11 +2,8 @@ package co.touchlab.sessionize
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import co.touchlab.sessionize.platform.loadAssetFromDefault
-import org.json.JSONArray
+import co.touchlab.sessionize.platform.testSponsorSeedFile
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -26,9 +23,10 @@ class ExampleInstrumentedTest {
 
     @Test
     fun sponsorSeedFile() {
-        val sponsorsJSONArray = JSONArray(loadAssetFromDefault("sponsors", "json"))
+        testSponsorSeedFile()
+        /*val sponsorsJSONArray = JSONArray(loadAssetFromDefault("sponsors", "json"))
         assertFalse(sponsorsJSONArray.length() == 0)
         assertTrue(sponsorsJSONArray.getJSONObject(0).has("groupName"))
-        assertTrue(sponsorsJSONArray.getJSONObject(0).has("sponsors"))
+        assertTrue(sponsorsJSONArray.getJSONObject(0).has("sponsors"))*/
     }
 }
