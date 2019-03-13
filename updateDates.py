@@ -8,7 +8,7 @@ import sys
 
 
 
-filePath = "sessionize/app/src/main/assets/"
+filePath = "sessionize/app/src/main/assets/schedule.json"
 startDate = datetime.date.today()
 
 # Gathering Arguments
@@ -34,7 +34,6 @@ else:
         # read existing file
         with open(filePath, "r") as f:
             data = json.load(f)
-
 
         # Update date
         todayDateTime = startDate
@@ -86,5 +85,5 @@ else:
 
             data[i] = day
 
-
-        print data
+        dataStr = str(data)
+        print json.dumps(data)
