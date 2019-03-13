@@ -4,79 +4,112 @@ import json
 import datetime
 from shutil import copyfile
 import os
+import sys
+
+
+
+filePath = "sessionize/app/src/main/assets/"
+fileName = "schedule.json"
+startDate = datetime.date.today()
+
+# Gathering Arguments
+argumentList = [sys.argv[i:i + 2] for i in xrange(1, len(sys.argv), 2)]
+for argPair in argumentList:
+    argType = argPair[0]
+    argValue = argPair[1]
+    if argType ==   "-fp":
+        filePath = argValue
+    elif argType == "-fn":
+        fileName = argValue
+    elif argType == "-d":
+        startDate = datetime.datetime.strptime(argValue, "%m-%d-%Y")
+
+
+print "Updating Dates in file:",filePath + fileName
 
 # cd into directory
-os.chdir("sessionize/app/src/main/assets/")
-
-
-# Copy original file
-exists = os.path.isfile("originalSchedule.json")
-if exists:
-    print("Already Exists")
+if os.path.exists(filePath) == 0:
+    print "Error: Path not found at location:",filePath
 else:
-    copyfile("schedule.json", "originalSchedule.json")
+    os.chdir(filePath)
 
 
-# read existing file
-with open("schedule.json", "r") as f:
-    data = json.load(f)
+    # Copy original file
+    if os.path.isfile(fileName) == 0:
+        print "Error: File not found at location:",filePath + fileName
+    else:
+        originalFileName = "original" + fileName
+        print "Creating backup copy in location:",filePath + originalFileName
+        exists = os.path.isfile(originalFileName)
+        if exists:
+            print "Backup copy already Exists"
+        else:
+            copyfile(fileName, "original" + fileName)
+            print "Backup copy created"
 
-# Update date
-todayDateTime = datetime.date.today()
-tomorrowDateTime = datetime.date.today() + datetime.timedelta(days=1)
-date1Str = todayDateTime.strftime("%Y-%m-%d")
-date2Str =  tomorrowDateTime.strftime("%Y-%m-%d")
+
+        # read existing file
+        with open("schedule.json", "r") as f:
+            data = json.load(f)
 
 
-
-# Updating day 1 Session Dates
-for i in range(len(data)):
-    day = data[i]
-
-    dateStr = date1Str
-    if i > 0:
-        dateStr = date2Str
-
-    data[i]["date"] = dateStr + "T" + "00:00:00"
-
-    # Updating Session Dates
-    for room in day["rooms"]:
-        for session in room["sessions"]:
-
-            startingTime = session["startsAt"]
-            oldStartingTime = startingTime.split('T')
-            newStartTime = dateStr + 'T' + oldStartingTime[1]
-            session["startsAt"] = newStartTime
-
-            endingTime = session["endsAt"]
-            oldEndingTime = endingTime.split('T')
-            newEndTime = dateStr + 'T' + oldEndingTime[1]
-            session["endsAt"] = newEndTime
+        # Update date
+        print "Updating Dates to",startDate
+        todayDateTime = startDate
+        tomorrowDateTime = startDate + datetime.timedelta(days=1)
+        date1Str = todayDateTime.strftime("%Y-%m-%d")
+        date2Str =  tomorrowDateTime.strftime("%Y-%m-%d")
 
 
 
-    #Updating timeslot dates
-    for timeSlots in day["timeSlots"]:
-        for room in timeSlots["rooms"]:
-            session = room['session']
-            if 'startsAt' in session:
+        # Updating day 1 Session Dates
+        for i in range(len(data)):
+            day = data[i]
 
-                startingTime = session["startsAt"]
-                oldStartingTime = startingTime.split('T')
-                newStartTime = dateStr + 'T' + oldStartingTime[1]
-                session["startsAt"] = newStartTime
+            dateStr = date1Str
+            if i > 0:
+                dateStr = date2Str
 
-                endingTime = session["endsAt"]
-                oldEndingTime = endingTime.split('T')
-                newEndTime = dateStr + 'T' + oldEndingTime[1]
-                session["endsAt"] = newEndTime
+            data[i]["date"] = dateStr + "T" + "00:00:00"
 
-            room['session'] = session
+            # Updating Session Dates
+            for room in day["rooms"]:
+                for session in room["sessions"]:
 
-    data[i] = day
+                    startingTime = session["startsAt"]
+                    oldStartingTime = startingTime.split('T')
+                    newStartTime = dateStr + 'T' + oldStartingTime[1]
+                    session["startsAt"] = newStartTime
+
+                    endingTime = session["endsAt"]
+                    oldEndingTime = endingTime.split('T')
+                    newEndTime = dateStr + 'T' + oldEndingTime[1]
+                    session["endsAt"] = newEndTime
 
 
 
-# update existing file
-with open("schedule.json", "w") as jsonFile:
-    json.dump(data, jsonFile)
+            #Updating timeslot dates
+            for timeSlots in day["timeSlots"]:
+                for room in timeSlots["rooms"]:
+                    session = room['session']
+                    if 'startsAt' in session:
+
+                        startingTime = session["startsAt"]
+                        oldStartingTime = startingTime.split('T')
+                        newStartTime = dateStr + 'T' + oldStartingTime[1]
+                        session["startsAt"] = newStartTime
+
+                        endingTime = session["endsAt"]
+                        oldEndingTime = endingTime.split('T')
+                        newEndTime = dateStr + 'T' + oldEndingTime[1]
+                        session["endsAt"] = newEndTime
+
+                    room['session'] = session
+
+            data[i] = day
+
+
+
+        # update existing file
+        with open("schedule.json", "w") as jsonFile:
+            json.dump(data, jsonFile)
