@@ -24,45 +24,27 @@ for argPair in argumentList:
     elif argType == "-d":
         startDate = datetime.datetime.strptime(argValue, "%m-%d-%Y")
 
-
-print "Updating Dates in file:",filePath + fileName
-
 # cd into directory
 if os.path.exists(filePath) == 0:
     print "Error: Path not found at location:",filePath
 else:
     os.chdir(filePath)
-
-
-    # Copy original file
     if os.path.isfile(fileName) == 0:
         print "Error: File not found at location:",filePath + fileName
     else:
-        originalFileName = "original" + fileName
-        print "Creating backup copy in location:",filePath + originalFileName
-        exists = os.path.isfile(originalFileName)
-        if exists:
-            print "Backup copy already Exists"
-        else:
-            copyfile(fileName, "original" + fileName)
-            print "Backup copy created"
-
 
         # read existing file
-        with open("schedule.json", "r") as f:
+        with open(fileName, "r") as f:
             data = json.load(f)
 
 
         # Update date
-        print "Updating Dates to",startDate
         todayDateTime = startDate
         tomorrowDateTime = startDate + datetime.timedelta(days=1)
         date1Str = todayDateTime.strftime("%Y-%m-%d")
         date2Str =  tomorrowDateTime.strftime("%Y-%m-%d")
 
-
-
-        # Updating day 1 Session Dates
+        # Updating day 1 Dates
         for i in range(len(data)):
             day = data[i]
 
@@ -86,8 +68,6 @@ else:
                     newEndTime = dateStr + 'T' + oldEndingTime[1]
                     session["endsAt"] = newEndTime
 
-
-
             #Updating timeslot dates
             for timeSlots in day["timeSlots"]:
                 for room in timeSlots["rooms"]:
@@ -109,7 +89,4 @@ else:
             data[i] = day
 
 
-
-        # update existing file
-        with open("schedule.json", "w") as jsonFile:
-            json.dump(data, jsonFile)
+        print data
