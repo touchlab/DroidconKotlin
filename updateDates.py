@@ -16,7 +16,7 @@ startDate = datetime.date.today()
 if '-h' in sys.argv:
     print "usage: updateDates.py [option] ... [-fp | -fn | -d] [arg] ..."
     print "-fp   : FilePath, defaults to \"sessionize/app/src/main/assets/\""
-    print "-fn   : FilePath, defaults to schedule.json"
+    print "-fn   : FilePath, defaults to \"schedule.json\""
     print "-d    : Date, defaults to todays date"
 else:
     argumentList = [sys.argv[i:i + 2] for i in xrange(1, len(sys.argv), 2)]
