@@ -8,6 +8,7 @@ import co.touchlab.sessionize.AppContext.userAccountQueries
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
+import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
 import kotlinx.coroutines.launch
@@ -43,6 +44,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             }, localSessionId)
         }
 
+        createLocalNotification("test","test")
         val methodName = if (rsvp) {
             "sessionizeRsvpEvent"
         } else {
