@@ -51,3 +51,5 @@ expect fun settingsFactory(): Settings.Factory
  * Generates a unique string for use in tracking this user anonymously
  */
 expect fun createUuid(): String
+
+expect fun createLocalNotification(title:String, message:String)

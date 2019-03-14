@@ -84,6 +84,10 @@ actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
 
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
+actual fun createLocalNotification(title:String, message:String) {
+
+}
+
 @Suppress("unused")
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")
 

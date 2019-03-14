@@ -1,14 +1,22 @@
 package co.touchlab.sessionize.platform
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
+import app.sessionize.touchlab.lib.R
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.atomic.AtomicInteger
 
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
@@ -75,3 +83,46 @@ actual fun logException(t: Throwable) {
 actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory(AndroidAppContext.app)
 
 actual fun createUuid(): String = UUID.randomUUID().toString()
+
+actual fun createLocalNotification(title:String, message:String) {
+    createNotificationChannel()
+
+    val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
+    var builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+    with(NotificationManagerCompat.from(AndroidAppContext.app)) {
+        // notificationId is a unique int for each notification that you must define
+        notify(NotificationID.id, builder.build())
+    }
+}
+
+private fun createNotificationChannel() {
+    // Create the NotificationChannel, but only on API 26+ because
+    // the NotificationChannel class is new and not in the support library
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val name = AndroidAppContext.app.getString(R.string.notification_channel_name)
+        val descriptionText = AndroidAppContext.app.getString(R.string.notification_channel_description)
+        val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(channelId, name, importance).apply {
+            description = descriptionText
+        }
+
+        // Register the channel with the system
+        val notificationManager: NotificationManager = AndroidAppContext.app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+        if(!notificationManager.notificationChannels.contains(channel)) {
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+}
+
+object NotificationID {
+    private val c = AtomicInteger(0)
+    val id: Int
+        get() = c.incrementAndGet()
+}
