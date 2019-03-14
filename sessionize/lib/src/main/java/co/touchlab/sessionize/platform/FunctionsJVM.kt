@@ -7,8 +7,8 @@ import android.content.Context
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
@@ -89,13 +89,14 @@ actual fun createLocalNotification(title:String, message:String) {
 
     val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
     var builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
+            .setSmallIcon(R.drawable.notification_tile_bg)
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
     with(NotificationManagerCompat.from(AndroidAppContext.app)) {
         // notificationId is a unique int for each notification that you must define
-        notify(NotificationID.id, builder.build())
+        this.notify(NotificationID.id, builder.build())
     }
 }
 
