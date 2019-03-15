@@ -11,11 +11,21 @@ import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
 import platform.Foundation.NSApplicationSupportDirectory
+import platform.Foundation.NSCalendar
+import platform.Foundation.NSDate
+import platform.Foundation.NSDateComponents
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSThread
 import platform.Foundation.NSUUID
 import platform.Foundation.NSUserDomainMask
+import platform.Foundation.date
+import platform.UserNotifications.UNCalendarNotificationTrigger
+import platform.UserNotifications.UNMutableNotificationContent
+import platform.UserNotifications.UNNotificationRequest
+import platform.UserNotifications.UNNotificationRequestMeta
+import platform.UserNotifications.UNNotificationSound
+import platform.UserNotifications.UNUserNotificationCenter
 import platform.darwin.dispatch_async_f
 import platform.darwin.dispatch_get_main_queue
 import kotlin.native.concurrent.DetachedObjectGraph
@@ -85,6 +95,46 @@ actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
 actual fun createLocalNotification(title:String, message:String) {
+
+
+    val center = UNUserNotificationCenter.currentNotificationCenter()
+
+    center.getNotificationSettingsWithCompletionHandler {
+        if (it.authorizationStatus != 2L /*UNAuthorizationStatus.authorized*/) {
+            // Notifications not allowed
+        }else{
+
+
+            val content = UNMutableNotificationContent()
+            content.setTitle("Don't forget")
+            content.setBody("Buy some milk")
+            content.setSound(UNNotificationSound.defaultSound)
+
+            // Configure the trigger for a 7am wakeup.
+            val date = NSDate.date()
+            date.
+
+            var dateInfo = NSDateComponents()
+            dateInfo.hour = 7
+            dateInfo.minute = 0
+            val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateInfo,false)
+
+            // Create the request object.
+            val request = UNNotificationRequest.requestWithIdentifier("MorningAlarm",content,trigger)
+
+
+
+
+            // Schedule the request.
+            val center = UNUserNotificationCenter.currentNotificationCenter()
+            center.addNotificationRequest(request) {
+                it?.let {test ->
+                    print(test.localizedDescription)
+                }
+            }
+        }
+    }
+
 
 }
 

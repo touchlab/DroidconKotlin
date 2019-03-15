@@ -10,6 +10,7 @@ import UIKit
 import main
 import Fabric
 import Crashlytics
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,9 +28,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                         sqlDriver: FunctionsKt.defaultDriver()
         )
         
+        
         appContext.refreshData()
         
+        requestNotificationPermissions()
+        
         return true
+    }
+    
+    func requestNotificationPermissions(){
+        
+        let center = UNUserNotificationCenter.current()
+        let options: UNAuthorizationOptions = [.alert, .sound];
+        center.requestAuthorization(options: options) {
+            (granted, error) in
+            if !granted {
+                print("Something went wrong")
+            }
+        }
     }
     
     /*func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
