@@ -11,21 +11,19 @@ import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
 import platform.Foundation.NSApplicationSupportDirectory
-import platform.Foundation.NSCalendar
-import platform.Foundation.NSDate
-import platform.Foundation.NSDateComponents
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSThread
 import platform.Foundation.NSUUID
 import platform.Foundation.NSUserDomainMask
-import platform.Foundation.date
-import platform.UserNotifications.UNCalendarNotificationTrigger
 import platform.UserNotifications.UNMutableNotificationContent
+import platform.UserNotifications.UNNotificationPresentationOptionAlert
 import platform.UserNotifications.UNNotificationRequest
-import platform.UserNotifications.UNNotificationRequestMeta
 import platform.UserNotifications.UNNotificationSound
+import platform.UserNotifications.UNTimeIntervalNotificationTrigger
 import platform.UserNotifications.UNUserNotificationCenter
+import platform.UserNotifications.UNUserNotificationCenterDelegateProtocol
+import platform.darwin.NSObject
 import platform.darwin.dispatch_async_f
 import platform.darwin.dispatch_get_main_queue
 import kotlin.native.concurrent.DetachedObjectGraph
@@ -38,6 +36,8 @@ import kotlin.system.getTimeMillis
 actual fun currentTimeMillis(): Long = getTimeMillis()
 
 private val workerMap = HashMap<String, Worker?>()
+
+private val localNotificationDelegate = LocalNotificationDelegate()
 
 //Multiple worker contexts get a copy of global state. Not sure about threads created outside of K/N (probably not)
 //Lazy create ensures we don't try to create multiple queues
@@ -94,49 +94,49 @@ actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
 
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
+
+
+
+
+
+
+
 actual fun createLocalNotification(title:String, message:String) {
 
-
     val center = UNUserNotificationCenter.currentNotificationCenter()
+    center.delegate = localNotificationDelegate
 
-    center.getNotificationSettingsWithCompletionHandler {
-        if (it.authorizationStatus != 2L /*UNAuthorizationStatus.authorized*/) {
-            // Notifications not allowed
-        }else{
+    val content = UNMutableNotificationContent()
+    content.setTitle(title)
+    content.setBody(message)
+    content.setSound(UNNotificationSound.defaultSound)
+/*
+    val dateInfo = NSDateComponents()
+    dateInfo.second += 5
+    print(dateInfo.month.toString() + "/" + dateInfo.day.toString() + "/" + dateInfo.year.toString() + "   " + dateInfo.hour.toString() + ":" + dateInfo.minute.toString() + ":" + dateInfo.second.toString())
+    val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateInfo, false)
+*/
+    val trigger = UNTimeIntervalNotificationTrigger.triggerWithTimeInterval(5.0,false)
 
-
-            val content = UNMutableNotificationContent()
-            content.setTitle("Don't forget")
-            content.setBody("Buy some milk")
-            content.setSound(UNNotificationSound.defaultSound)
-
-            // Configure the trigger for a 7am wakeup.
-            val date = NSDate.date()
-            date.
-
-            var dateInfo = NSDateComponents()
-            dateInfo.hour = 7
-            dateInfo.minute = 0
-            val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateInfo,false)
-
-            // Create the request object.
-            val request = UNNotificationRequest.requestWithIdentifier("MorningAlarm",content,trigger)
-
-
-
-
-            // Schedule the request.
-            val center = UNUserNotificationCenter.currentNotificationCenter()
-            center.addNotificationRequest(request) {
-                it?.let {test ->
-                    print(test.localizedDescription)
-                }
-            }
-        }
-    }
-
-
+    val request = UNNotificationRequest.requestWithIdentifier("RSVPAlert", content, trigger)
+    center.addNotificationRequest(request,null)
 }
+
+class LocalNotificationDelegate : NSObject(),UNUserNotificationCenterDelegateProtocol{
+
+    override fun userNotificationCenter(center: platform.UserNotifications.UNUserNotificationCenter,
+                                        willPresentNotification: platform.UserNotifications.UNNotification,
+                                        withCompletionHandler: (platform.UserNotifications.UNNotificationPresentationOptions) -> kotlin.Unit) {
+        withCompletionHandler(UNNotificationPresentationOptionAlert)
+    }
+}
+
+object NotificationID {
+    private var c = 0
+    val id: Int
+        get() = c++
+}
+
 
 @Suppress("unused")
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")
