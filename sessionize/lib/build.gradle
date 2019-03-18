@@ -66,6 +66,10 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.common
                 implementation deps.kotlin.test.annotations
+                implementation deps.stately.mpp
+                implementation deps.kotlin.coroutines.common
+                implementation deps.multiplatformSettings
+                implementation deps.kotlin.coroutines.jdk
             }
         }
 
@@ -96,6 +100,9 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.jvm
                 implementation deps.kotlin.test.junit
+                implementation deps.sqldelight.driverSqlite
+                implementation deps.kotlin.coroutines.jdk
+                implementation deps.kotlin.coroutines.android
             }
         }
     }
