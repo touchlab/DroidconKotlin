@@ -52,4 +52,6 @@ expect fun settingsFactory(): Settings.Factory
  */
 expect fun createUuid(): String
 
-expect fun createLocalNotification(title:String, message:String)
+expect fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int)
+
+expect fun cancelLocalNotification(notificationId: Int)

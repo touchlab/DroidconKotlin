@@ -11,16 +11,26 @@ import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
 import platform.Foundation.NSApplicationSupportDirectory
+import platform.Foundation.NSCalendar
+import platform.Foundation.NSCalendarUnit
+import platform.Foundation.NSCalendarUnitDay
+import platform.Foundation.NSCalendarUnitHour
+import platform.Foundation.NSCalendarUnitMinute
+import platform.Foundation.NSCalendarUnitMonth
+import platform.Foundation.NSCalendarUnitSecond
+import platform.Foundation.NSCalendarUnitYear
+import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSThread
 import platform.Foundation.NSUUID
 import platform.Foundation.NSUserDomainMask
+import platform.Foundation.dateWithTimeIntervalSince1970
+import platform.UserNotifications.UNCalendarNotificationTrigger
 import platform.UserNotifications.UNMutableNotificationContent
 import platform.UserNotifications.UNNotificationPresentationOptionAlert
 import platform.UserNotifications.UNNotificationRequest
 import platform.UserNotifications.UNNotificationSound
-import platform.UserNotifications.UNTimeIntervalNotificationTrigger
 import platform.UserNotifications.UNUserNotificationCenter
 import platform.UserNotifications.UNUserNotificationCenterDelegateProtocol
 import platform.darwin.NSObject
@@ -96,12 +106,8 @@ actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
 
 
-
-
-
-
-
-actual fun createLocalNotification(title:String, message:String) {
+@ExperimentalUnsignedTypes
+actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
 
     val center = UNUserNotificationCenter.currentNotificationCenter()
     center.delegate = localNotificationDelegate
@@ -110,16 +116,26 @@ actual fun createLocalNotification(title:String, message:String) {
     content.setTitle(title)
     content.setBody(message)
     content.setSound(UNNotificationSound.defaultSound)
-/*
-    val dateInfo = NSDateComponents()
-    dateInfo.second += 5
+
+
+    val date = NSDate.dateWithTimeIntervalSince1970(timeInMS / 1000.0)
+    var dateFlags: NSCalendarUnit = NSCalendarUnitMonth.or(NSCalendarUnitDay).or(NSCalendarUnitYear)
+    var timeFlags: NSCalendarUnit = NSCalendarUnitHour.or(NSCalendarUnitMinute).or(NSCalendarUnitSecond)
+
+    val dateInfo = NSCalendar.currentCalendar.components(dateFlags.or(timeFlags),date)
     print(dateInfo.month.toString() + "/" + dateInfo.day.toString() + "/" + dateInfo.year.toString() + "   " + dateInfo.hour.toString() + ":" + dateInfo.minute.toString() + ":" + dateInfo.second.toString())
     val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateInfo, false)
-*/
-    val trigger = UNTimeIntervalNotificationTrigger.triggerWithTimeInterval(5.0,false)
 
-    val request = UNNotificationRequest.requestWithIdentifier("RSVPAlert", content, trigger)
+    val request = UNNotificationRequest.requestWithIdentifier(notificationId.toString(), content, trigger)
     center.addNotificationRequest(request,null)
+}
+
+actual fun cancelLocalNotification(notificationId: Int){
+    val center = UNUserNotificationCenter.currentNotificationCenter()
+    val identifiers:Array<String> = arrayOf(notificationId.toString())
+    center.removePendingNotificationRequestsWithIdentifiers(identifiers.asList())
+    center.removeDeliveredNotificationsWithIdentifiers(identifiers.asList())
+
 }
 
 class LocalNotificationDelegate : NSObject(),UNUserNotificationCenterDelegateProtocol{
@@ -129,12 +145,6 @@ class LocalNotificationDelegate : NSObject(),UNUserNotificationCenterDelegatePro
                                         withCompletionHandler: (platform.UserNotifications.UNNotificationPresentationOptions) -> kotlin.Unit) {
         withCompletionHandler(UNNotificationPresentationOptionAlert)
     }
-}
-
-object NotificationID {
-    private var c = 0
-    val id: Int
-        get() = c++
 }
 
 
