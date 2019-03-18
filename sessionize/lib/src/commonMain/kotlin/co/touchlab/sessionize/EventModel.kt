@@ -82,7 +82,10 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         RSVPd = !RSVPd
 
         if(RSVPd){
-            createLocalNotification("test","test",session.startsAt.toLongMillis(), sessionId.toInt())
+            createLocalNotification("Upcoming Event",
+                    session.title + " is starting soon in " + session.room().name,
+                    session.startsAt.toLongMillis(),
+                    sessionId.toInt())
         }else{
             cancelLocalNotification(sessionId.toInt())
         }
