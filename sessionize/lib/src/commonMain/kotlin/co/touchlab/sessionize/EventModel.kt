@@ -8,6 +8,7 @@ import co.touchlab.sessionize.AppContext.userAccountQueries
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
+import co.touchlab.sessionize.platform.cancelLocalNotification
 import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
@@ -44,7 +45,6 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             }, localSessionId)
         }
 
-        createLocalNotification("test","test")
         val methodName = if (rsvp) {
             "sessionizeRsvpEvent"
         } else {
@@ -74,6 +74,17 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             AppContext.logEvent("RSVP_EVENT", params)
         } catch (e: Exception) {
             logException(e)
+        }
+    }
+
+    fun handleLocalNotification(session: Session) = launch{
+        var RSVPd:Boolean = session.rsvp == 1L
+        RSVPd = !RSVPd
+
+        if(RSVPd){
+            createLocalNotification("test","test",session.startsAt.toLongMillis(), sessionId.toInt())
+        }else{
+            cancelLocalNotification(sessionId.toInt())
         }
     }
 }
