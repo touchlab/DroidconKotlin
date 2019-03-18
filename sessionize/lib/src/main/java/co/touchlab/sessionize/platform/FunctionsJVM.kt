@@ -16,7 +16,6 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
-import java.util.concurrent.atomic.AtomicInteger
 
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
@@ -84,7 +83,7 @@ actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory(Androi
 
 actual fun createUuid(): String = UUID.randomUUID().toString()
 
-actual fun createLocalNotification(title:String, message:String) {
+actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
     createNotificationChannel()
 
     val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
@@ -92,11 +91,18 @@ actual fun createLocalNotification(title:String, message:String) {
             .setSmallIcon(R.drawable.notification_tile_bg)
             .setContentTitle(title)
             .setContentText(message)
+            .setWhen(timeInMS)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
     with(NotificationManagerCompat.from(AndroidAppContext.app)) {
         // notificationId is a unique int for each notification that you must define
-        this.notify(NotificationID.id, builder.build())
+        this.notify(notificationId, builder.build())
+    }
+}
+
+actual fun cancelLocalNotification(notificationId: Int){
+    with(NotificationManagerCompat.from(AndroidAppContext.app)) {
+        this.cancel(notificationId)
     }
 }
 
@@ -120,10 +126,4 @@ private fun createNotificationChannel() {
             notificationManager.createNotificationChannel(channel)
         }
     }
-}
-
-object NotificationID {
-    private val c = AtomicInteger(0)
-    val id: Int
-        get() = c.incrementAndGet()
 }
