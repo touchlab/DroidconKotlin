@@ -5,9 +5,10 @@ import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+
 import kotlin.test.Test
 import kotlin.test.assertTrue
-import kotlinx.coroutines.launch
 
 class EventModelTest {
     @Test
@@ -75,6 +76,7 @@ class SessionizeApiMock : SessionizeApi {
     }
 }
 
-suspend fun testFunction() = launch {
+suspend fun testFunction() {
+    delay(500)
     println("Testing stuff")
 }
