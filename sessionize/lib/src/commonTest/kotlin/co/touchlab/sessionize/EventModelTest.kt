@@ -21,6 +21,7 @@ class EventModelTest {
         ServiceRegistry.dbDriver = testDbConnection()
         ServiceRegistry.appSettings = TestSettings()
         ServiceRegistry.coroutinesDispatcher = Dispatchers.Main
+        ServiceRegistry.concurrent = co.touchlab.sessionize.platform.TestConcurrent
         initPlatformClientTest({filePrefix, fileType -> ""}, {s: String -> Unit})
 
         val analyticsApiMock = AnalyticsApiMock()
