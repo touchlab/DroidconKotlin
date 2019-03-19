@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicReference
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
-internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
+internal actual fun <B> backgroundTaskPlatform(backJob: () -> B, mainJob: (B) -> Unit) {
     AndroidAppContext.backgroundTask(backJob, mainJob)
 }
 

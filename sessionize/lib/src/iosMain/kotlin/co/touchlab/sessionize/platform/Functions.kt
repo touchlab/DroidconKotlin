@@ -46,7 +46,7 @@ private fun makeQueue(key: String): Worker {
  *
  * Expect everything you pass in to be frozen, and if that's not possible, it'll all fail. Just FYI.
  */
-internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
+internal actual fun <B> backgroundTaskPlatform(backJob: () -> B, mainJob: (B) -> Unit) {
 
     val mainJobHolder = ThreadLocalRef<(B) -> Unit>()
     mainJobHolder.value = mainJob

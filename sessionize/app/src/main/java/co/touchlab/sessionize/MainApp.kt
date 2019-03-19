@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import co.touchlab.droidcon.db.Database
 import co.touchlab.sessionize.platform.AndroidAppContext
+import co.touchlab.sessionize.platform.MainConcurrent
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
@@ -23,6 +24,7 @@ class MainApp :Application(){
         ServiceRegistry.dbDriver = AndroidSqliteDriver(Database.Schema, this, "droidcondb")
         ServiceRegistry.coroutinesDispatcher = Dispatchers.Main
         ServiceRegistry.appSettings = PlatformSettings.Factory(this).create("DROIDCON_SETTINGS")
+        ServiceRegistry.concurrent = MainConcurrent
 
         AppContext.initPlatformClient ({filePrefix, fileType ->
             loadAsset("${filePrefix}.${fileType}")},

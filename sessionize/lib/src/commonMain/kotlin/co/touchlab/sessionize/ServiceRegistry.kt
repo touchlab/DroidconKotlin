@@ -2,6 +2,7 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
+import co.touchlab.sessionize.platform.Concurrent
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,4 +15,5 @@ object ServiceRegistry {
     lateinit var dbDriver: SqlDriver
     lateinit var coroutinesDispatcher: CoroutineDispatcher
     lateinit var appSettings: Settings
+    lateinit var concurrent: Concurrent
 }

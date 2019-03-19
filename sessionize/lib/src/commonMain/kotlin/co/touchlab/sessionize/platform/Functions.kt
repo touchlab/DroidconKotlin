@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.platform
 
+import co.touchlab.sessionize.ServiceRegistry
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -21,7 +22,11 @@ internal suspend fun <R> backgroundSuspend(backJob: () -> R): R {
     } as R
 }
 
-internal expect fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit)
+internal fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit){
+    ServiceRegistry.concurrent.backgroundTask(backJob, mainJob)
+}
+
+internal expect fun <B> backgroundTaskPlatform(backJob: () -> B, mainJob: (B) -> Unit)
 
 internal expect fun <B> backToFront(b: () -> B, job: (B) -> Unit)
 
