@@ -66,6 +66,7 @@
 		C764772084EDD3F58CAFB7E9 /* BaseModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = A80ECBEF2816C5E51A10BCD6 /* BaseModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		CF4D7CA64E63E82BA1681E20 /* SpeakerModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = B7B9AFAC0164856080EFB18F /* SpeakerModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		D484D0B44D8A56CA4753D9B5 /* BaseQueryModelView.kt in Sources */ = {isa = PBXBuildFile; fileRef = 981CF5B1DAE1FF4F11EC6A85 /* BaseQueryModelView.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
+		D496704C2242808600F276DF /* test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B1BDD7224244C700F778E6 /* test.framework */; };
 		DEEF4AC18B0C6C9B322C3E34 /* Functions.kt in Sources */ = {isa = PBXBuildFile; fileRef = E9D0970290E8B09CD71F3AD6 /* Functions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E186F527F790D23F182BCEFB /* Extensions.kt in Sources */ = {isa = PBXBuildFile; fileRef = 6606AA52E5A814F0F286D046 /* Extensions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E3B6400B2B1104410AC16605 /* EventModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 54A477CAF63691B9D7FF26DE /* EventModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -164,6 +165,8 @@
 		B7FBB68DD89A5CA80DD37542 /* DateAdapter.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateAdapter.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/DateAdapter.kt; sourceTree = "<group>"; };
 		C351C93850E84268E8BCF7D3 /* File.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = File.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/File.kt; sourceTree = "<group>"; };
 		CF10C231D1475A2DC849C81B /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
+		D4B1BDD5224244A100F778E6 /* xcode-frameworks-test */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "xcode-frameworks-test"; path = "../sessionize/lib/build/xcode-frameworks-test"; sourceTree = "<group>"; };
+		D4B1BDD7224244C700F778E6 /* test.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = test.framework; path = "../sessionize/lib/build/xcode-frameworks-test/test.framework"; sourceTree = "<group>"; };
 		D89833A54AB00BC23091E619 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
 		E04CC97704F132875703ACD3 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D0970290E8B09CD71F3AD6 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
@@ -185,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D496704C2242808600F276DF /* test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +312,8 @@
 		54B4B9682B691272D8F8ED02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4B1BDD7224244C700F778E6 /* test.framework */,
+				D4B1BDD5224244A100F778E6 /* xcode-frameworks-test */,
 				E04CC97704F132875703ACD3 /* Pods_iosApp.framework */,
 			);
 			name = Frameworks;
@@ -1226,6 +1232,19 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionAnimator\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionInterchange\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
+					"\"${PODS_ROOT}/Crashlytics/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test",
+				);
 				INFOPLIST_FILE = iosAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1246,6 +1265,19 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionAnimator\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionInterchange\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
+					"\"${PODS_ROOT}/Crashlytics/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test",
+				);
 				INFOPLIST_FILE = iosAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
