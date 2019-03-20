@@ -138,6 +138,14 @@ actual fun cancelLocalNotification(notificationId: Int){
 
 }
 
+actual fun initializeNotifications(){
+
+}
+
+actual fun deinitializeNotifications() {
+
+}
+
 class LocalNotificationDelegate : NSObject(),UNUserNotificationCenterDelegateProtocol{
 
     override fun userNotificationCenter(center: platform.UserNotifications.UNUserNotificationCenter,

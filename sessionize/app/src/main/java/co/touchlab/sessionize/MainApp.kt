@@ -43,6 +43,11 @@ class MainApp :Application(){
                 )
     }
 
+    override fun onTerminate() {
+        super.onTerminate()
+        AppContext.deinitPlatformClient()
+    }
+
     private fun loadAsset(name:String) = assets
             .open(name, Context.MODE_PRIVATE)
             .bufferedReader()

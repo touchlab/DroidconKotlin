@@ -1,15 +1,22 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.RoomQueries
+import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.db.room
+import co.touchlab.sessionize.platform.Date
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
+import co.touchlab.sessionize.platform.deinitializeNotifications
+import co.touchlab.sessionize.platform.initializeNotifications
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.sessionize.platform.settingsFactory
 import co.touchlab.stately.concurrency.AtomicReference
@@ -58,6 +65,14 @@ object AppContext {
         sessionizeApi.value = SessionizeApi
 
         dataLoad()
+
+        initializeNotifications()
+        createNotificationsForSessions()
+
+    }
+
+    fun deinitPlatformClient(){
+        deinitializeNotifications()
     }
 
     internal val sessionQueries: SessionQueries
@@ -154,6 +169,23 @@ object AppContext {
 
     private fun storeAll(networkSponsorJson: String, networkSpeakerJson: String, networkSessionJson: String) {
         dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
+    }
+
+    private fun createNotificationsForSessions() = coroutineScope.lateValue.launch {
+        val mySessions = sessionQueries.mySessions().executeAsList()
+
+        for (sess:MySessions in mySessions) {
+            if(sess.startsAt.toLongMillis() > currentTimeMillis()) {
+                val session = backgroundSuspend {
+                    sessionQueries.sessionById(sess.id).executeAsOne()
+                }
+
+                createLocalNotification("Upcoming Event",
+                        session.title + " is starting soon in " + session.room().name,
+                        session.startsAt.toLongMillis(),
+                        session.id.toInt())
+            }
+        }
     }
 }
 

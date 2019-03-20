@@ -9,13 +9,19 @@ import android.os.Handler
 import android.os.Looper
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import app.sessionize.touchlab.lib.R
 import com.russhwolf.settings.PlatformSettings
 import com.russhwolf.settings.Settings
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.BroadcastReceiver
+import android.app.Notification
+import android.content.IntentFilter
+import app.sessionize.touchlab.lib.R
 
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
@@ -83,9 +89,11 @@ actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory(Androi
 
 actual fun createUuid(): String = UUID.randomUUID().toString()
 
-actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
-    createNotificationChannel()
+val notificationPublisher: BroadcastReceiver = NotificationPublisher()
 
+actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
+
+    // Building Notification
     val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
     var builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
             .setSmallIcon(R.drawable.notification_tile_bg)
@@ -94,9 +102,36 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
             .setWhen(timeInMS)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-    with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-        // notificationId is a unique int for each notification that you must define
-        this.notify(notificationId, builder.build())
+
+    // Building Intent wrapper
+    val intent = Intent().also { intent ->
+        intent.action = AndroidAppContext.app.getString(R.string.notification_action)
+        intent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId)
+        intent.putExtra(NotificationPublisher.NOTIFICATION, builder.build())
+    }
+    val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app,notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+
+    // Scheduling Intent
+    val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
+
+}
+
+class NotificationPublisher : BroadcastReceiver() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        val notification = intent.getParcelableExtra<Notification>(NOTIFICATION)
+        val notificationId = intent.getIntExtra(NOTIFICATION_ID, 0)
+
+        with(NotificationManagerCompat.from(AndroidAppContext.app)) {
+            // notificationId is a unique int for each notification that you must define
+            this.notify(notificationId, notification)
+        }
+    }
+
+    companion object {
+        var NOTIFICATION_ID = "notification_id"
+        var NOTIFICATION = "notification"
     }
 }
 
@@ -104,6 +139,17 @@ actual fun cancelLocalNotification(notificationId: Int){
     with(NotificationManagerCompat.from(AndroidAppContext.app)) {
         this.cancel(notificationId)
     }
+}
+
+actual fun initializeNotifications(){
+    val filter = IntentFilter(AndroidAppContext.app.getString(R.string.notification_action))
+    AndroidAppContext.app.registerReceiver(notificationPublisher, filter)
+
+    createNotificationChannel()
+}
+
+actual fun deinitializeNotifications(){
+    AndroidAppContext.app.unregisterReceiver(notificationPublisher)
 }
 
 private fun createNotificationChannel() {
