@@ -10,16 +10,19 @@ import kotlin.coroutines.suspendCoroutine
  * multithreaded coroutines arrive this will be pretty useless, but good for now.
  */
 internal suspend fun <R> backgroundSuspend(backJob: () -> R): R {
+    return if(ServiceRegistry.concurrent.allMainThread)
+        backJob()
+    else {
+        val continuationContainer = ContinuationContainer(null)
 
-    val continuationContainer = ContinuationContainer(null)
+        backgroundTask(backJob) {
+            continuationContainer.continuation!!.resume(it)
+        }
 
-    backgroundTask(backJob) {
-        continuationContainer.continuation!!.resume(it)
+        suspendCoroutine<Any?> {
+            continuationContainer.continuation = it
+        } as R
     }
-
-    return suspendCoroutine<Any?> {
-        continuationContainer.continuation = it
-    } as R
 }
 
 internal fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit){

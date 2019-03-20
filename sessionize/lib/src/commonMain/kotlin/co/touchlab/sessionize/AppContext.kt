@@ -100,25 +100,29 @@ object AppContext {
         if (firstRun()) {
             backgroundTask({
                 try {
-                    if (firstRun()) {
-                        val staticFileLoader = lambdas.value!!.staticFileLoader
-                        val sponsorJson = staticFileLoader("sponsors", "json")
-                        val speakerJson = staticFileLoader("speakers", "json")
-                        val scheduleJson = staticFileLoader("schedule", "json")
-
-                        if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
-                            dbHelper.primeAll(speakerJson, scheduleJson, sponsorJson)
-                            updateFirstRun()
-                        } else {
-                            //This should only ever happen in dev
-                            throw NullPointerException("Couldn't load static files")
-                        }
-                    }
+                    seedFileLoad()
                 } catch (e: Exception) {
                     logException(e)
                 }
             }) {
                 refreshData()
+            }
+        }
+    }
+
+    internal fun seedFileLoad() {
+        if (firstRun()) {
+            val staticFileLoader = lambdas.value!!.staticFileLoader
+            val sponsorJson = staticFileLoader("sponsors", "json")
+            val speakerJson = staticFileLoader("speakers", "json")
+            val scheduleJson = staticFileLoader("schedule", "json")
+
+            if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
+                dbHelper.primeAll(speakerJson, scheduleJson, sponsorJson)
+                updateFirstRun()
+            } else {
+                //This should only ever happen in dev
+                throw NullPointerException("Couldn't load static files")
             }
         }
     }
