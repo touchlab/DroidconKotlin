@@ -110,6 +110,11 @@ actual fun createUuid(): String = NSUUID.UUID().UUIDString
 @ExperimentalUnsignedTypes
 actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
 
+    var notificationTime = timeInMS - tenMinutesInMS
+    if(notificationTime < Date(NSDate()).toLongMillis()){
+        notificationTime = Date(NSDate()).toLongMillis()
+    }
+
     val center = UNUserNotificationCenter.currentNotificationCenter()
     center.delegate = localNotificationDelegate
 
@@ -119,7 +124,7 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
     content.setSound(UNNotificationSound.defaultSound)
 
 
-    val date = NSDate.dateWithTimeIntervalSince1970(timeInMS / 1000.0)
+    val date = NSDate.dateWithTimeIntervalSince1970(notificationTime / 1000.0)
     var dateFlags: NSCalendarUnit = NSCalendarUnitMonth.or(NSCalendarUnitDay).or(NSCalendarUnitYear)
     var timeFlags: NSCalendarUnit = NSCalendarUnitHour.or(NSCalendarUnitMinute).or(NSCalendarUnitSecond).or(NSCalendarUnitTimeZone)
 
