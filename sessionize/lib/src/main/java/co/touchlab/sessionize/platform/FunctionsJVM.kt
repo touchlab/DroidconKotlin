@@ -22,6 +22,7 @@ import android.content.BroadcastReceiver
 import android.app.Notification
 import android.content.IntentFilter
 import app.sessionize.touchlab.lib.R
+import java.util.Date
 
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
@@ -93,13 +94,18 @@ val notificationPublisher: BroadcastReceiver = NotificationPublisher()
 
 actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
 
+    var notificationTime = timeInMS - tenMinutesInMS
+    if(notificationTime < co.touchlab.sessionize.platform.Date(Date()).toLongMillis()){
+        notificationTime = co.touchlab.sessionize.platform.Date(Date()).toLongMillis()
+    }
+
     // Building Notification
     val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
     var builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
             .setSmallIcon(R.drawable.notification_tile_bg)
             .setContentTitle(title)
             .setContentText(message)
-            .setWhen(timeInMS)
+            .setWhen(notificationTime)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
 
@@ -113,7 +119,7 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
 
     // Scheduling Intent
     val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
+    alarmManager.set(AlarmManager.RTC_WAKEUP, notificationTime, pendingIntent)
 
 }
 
