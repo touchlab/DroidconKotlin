@@ -44,6 +44,7 @@ kotlin {
 
         fromPreset(iOSTarget, 'ios') {
             compilations.main.outputKinds('FRAMEWORK')
+            compilations.test.outputKinds("FRAMEWORK")
         }
     }
 
@@ -134,16 +135,45 @@ task packForXCode(type: Sync) {
     }
 }
 
+task packForXCodeTest(type: Sync) {
+    final File frameworkDir = new File(buildDir, "xcode-frameworks-test")
+    final String mode = System.getenv('CONFIGURATION')?.toUpperCase() ?: 'DEBUG'
+
+    inputs.property "mode", mode
+    dependsOn "linkTestDebugFrameworkIos"
+    dependsOn kotlin.targets.ios.compilations.test.linkTaskName("FRAMEWORK", mode)
+
+    from { kotlin.targets.ios.compilations.test.getBinary("FRAMEWORK", mode).parentFile }
+    into frameworkDir
+
+    doLast {
+        new File(frameworkDir, 'gradlew').with {
+            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            setExecutable(true)
+        }
+    }
+}
+
 task iosTest {
-    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-    dependsOn 'linkTestDebugExecutableIos'
+    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone XS Max"
+    dependsOn "linkTestDebugFrameworkIos"
     group = JavaBasePlugin.VERIFICATION_GROUP
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
+        def binary = project.kotlin.targets.ios.compilations.test.getBinary("FRAMEWORK", "DEBUG")
+        copyIosResources(binary)
+        copyIosTestResources(binary)
+        println("Running on Device: $device :: $binary")
         exec {
-            commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
+            commandLine "xcrun", "simctl", "boot", device
+        }
+        exec {
+            workingDir = file("$rootProject.projectDir/iosApp/iosApp")
+            commandLine "xcodebuild", "test", "-scheme", "RED Test App", "-destination", "platform=iOS Simulator,name=$device"
+        }
+        exec {
+            commandLine "xcrun", "simctl", "shutdown", device
         }
     }
 }
@@ -163,3 +193,4 @@ artifacts {
 
 tasks.preBuild.dependsOn "generateSqlDelightInterface"
 tasks.build.dependsOn packForXCode
+tasks.build.dependsOn packForXCodeTest
