@@ -18,6 +18,7 @@ import platform.Foundation.NSCalendarUnitHour
 import platform.Foundation.NSCalendarUnitMinute
 import platform.Foundation.NSCalendarUnitMonth
 import platform.Foundation.NSCalendarUnitSecond
+import platform.Foundation.NSCalendarUnitTimeZone
 import platform.Foundation.NSCalendarUnitYear
 import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
@@ -120,12 +121,10 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
 
     val date = NSDate.dateWithTimeIntervalSince1970(timeInMS / 1000.0)
     var dateFlags: NSCalendarUnit = NSCalendarUnitMonth.or(NSCalendarUnitDay).or(NSCalendarUnitYear)
-    var timeFlags: NSCalendarUnit = NSCalendarUnitHour.or(NSCalendarUnitMinute).or(NSCalendarUnitSecond)
+    var timeFlags: NSCalendarUnit = NSCalendarUnitHour.or(NSCalendarUnitMinute).or(NSCalendarUnitSecond).or(NSCalendarUnitTimeZone)
 
     val dateInfo = NSCalendar.currentCalendar.components(dateFlags.or(timeFlags),date)
-    print(dateInfo.month.toString() + "/" + dateInfo.day.toString() + "/" + dateInfo.year.toString() + "   " + dateInfo.hour.toString() + ":" + dateInfo.minute.toString() + ":" + dateInfo.second.toString())
     val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateInfo, false)
-
     val request = UNNotificationRequest.requestWithIdentifier(notificationId.toString(), content, trigger)
     center.addNotificationRequest(request,null)
 }
@@ -139,13 +138,12 @@ actual fun cancelLocalNotification(notificationId: Int){
 }
 
 actual fun initializeNotifications(){
-
 }
 
 actual fun deinitializeNotifications() {
-
 }
 
+// Needed to approve local notifications
 class LocalNotificationDelegate : NSObject(),UNUserNotificationCenterDelegateProtocol{
 
     override fun userNotificationCenter(center: platform.UserNotifications.UNUserNotificationCenter,
