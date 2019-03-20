@@ -22,13 +22,21 @@ class EventModelTest {
         ServiceRegistry.appSettings = TestSettings()
         ServiceRegistry.coroutinesDispatcher = Dispatchers.Main
         ServiceRegistry.concurrent = co.touchlab.sessionize.platform.TestConcurrent
-        initPlatformClientTest({filePrefix, fileType -> ""}, {s: String -> Unit})
+        initPlatformClientTest({filePrefix, fileType ->
+            when(filePrefix){
+                "sponsors" -> SPONSORS
+                "speakers" -> SPEAKERS
+                "schedule" -> SCHEDULE
+                else -> SCHEDULE
+            }
+        }, {s: String -> Unit})
 
         val analyticsApiMock = AnalyticsApiMock()
         val sessionizeApiMock = SessionizeApiMock()
 
-        val eventModel = EventModel("1", analyticsApiMock, sessionizeApiMock)
-        eventModel.toggleRsvp(true)
+        val eventModel = EventModel("67316", analyticsApiMock, sessionizeApiMock)
+        eventModel.toggleRsvpSuspend(true)
+        assertTrue { sessionizeApiMock.rsvpCalled }
         assertTrue { analyticsApiMock.logCalled }
     }
 
@@ -42,6 +50,8 @@ class EventModelTest {
         AppContext.lambdas.value = AppContext.PlatformLambdas(
                 staticFileLoader,
                 clLogCallback).freeze()
+
+        AppContext.seedFileLoad()
 
         AppContext.dispatcherLocal.value = ServiceRegistry.coroutinesDispatcher
         AppContext.coroutineScope.value = AppContextCoroutineScope(ServiceRegistry.coroutinesDispatcher)
@@ -60,6 +70,7 @@ class AnalyticsApiMock : AnalyticsApi {
 }
 
 class SessionizeApiMock : SessionizeApi {
+    var rsvpCalled = false
     override suspend fun getSpeakersJson(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -73,7 +84,8 @@ class SessionizeApiMock : SessionizeApi {
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String, userUuid: String): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        rsvpCalled = true
+        return true
     }
 }
 

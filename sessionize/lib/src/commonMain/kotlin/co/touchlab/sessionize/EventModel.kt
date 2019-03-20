@@ -34,7 +34,10 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(rsvp: Boolean) = launch {
+        toggleRsvpSuspend(rsvp)
+    }
 
+    internal suspend fun toggleRsvpSuspend(rsvp: Boolean) {
         val localSessionId = sessionId
 
         backgroundSuspend {
@@ -56,7 +59,7 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
         sendAnalytics(localSessionId, rsvp)
     }
 
-    private fun sendAnalytics(sessionId: String, rsvp: Boolean) = launch {
+    private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) {
 
         try {
             val session = backgroundSuspend {
