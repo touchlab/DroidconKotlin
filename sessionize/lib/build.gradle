@@ -96,6 +96,9 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.jvm
                 implementation deps.kotlin.test.junit
+                implementation deps.kotlin.test.annotations
+                implementation deps.serialization.jvmRuntime
+                implementation deps.stately.mpp
             }
         }
     }
@@ -143,6 +146,19 @@ task iosTest {
             commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
         }
     }
+}
+
+task jarTests(type: Jar, dependsOn: "assembleAndroidTest") {
+    classifier = 'tests'
+    from "$buildDir/tmp/kotlin-classes/debugAndroidTest"
+}
+
+configurations {
+    unitTestArtifact
+}
+
+artifacts {
+    unitTestArtifact jarTests
 }
 
 tasks.preBuild.dependsOn "generateSqlDelightInterface"

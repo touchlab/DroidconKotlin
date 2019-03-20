@@ -40,6 +40,15 @@ kotlin {
                 implementation project(':sessionize:lib')
             }
         }
+        androidTest {
+            dependencies {
+                implementation project(':sessionize:lib')
+                implementation project(path: ':sessionize:lib', configuration: 'unitTestArtifact')
+                implementation deps.kotlin.test.jvm
+                implementation deps.kotlin.test.junit
+                implementation deps.kotlin.test.annotations
+            }
+        }
     }
 
     targets {
