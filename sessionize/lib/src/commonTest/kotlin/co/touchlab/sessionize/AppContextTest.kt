@@ -8,6 +8,7 @@ import kotlin.test.Test
 import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+import kotlin.native.internal.test.main
 
 @ThreadLocal
 var staticFileLoader: (filePrefix: String, fileType: String) -> String? = { _, _ ->   """
