@@ -1,32 +1,29 @@
 //
-//  iosAppTests.swift
-//  iosAppTests
+//  iosAppTests2.swift
+//  iosAppTests2
 //
-//  Created by Kevin Galligan on 6/21/18.
-//  Copyright © 2018 Kevin Galligan. All rights reserved.
+//  Created by Philip K. Han on 3/22/19.
+//  Copyright © 2019 Kevin Galligan. All rights reserved.
 //
 
 import XCTest
 import test
 
-class iosAppTests: XCTestCase {
-    
+class iosAppTests2: XCTestCase {
+
     override func setUp() {
-        super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
     }
-    
+
     func testExample() {
-        // This is an example of a functional test case.
-        // Usec XCTAssert and related functions to verify your tests produce the correct results.
-        //XCTAssertNoThrow(try AppDelegate.testSponsorSeedFile())
         AppContextTestKt.staticFileLoader = loadAsset
         AppContextTestKt.kickOffTest()
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
     func loadAsset(filePrefix:String, fileType:String) -> String?{
@@ -37,7 +34,6 @@ class iosAppTests: XCTestCase {
             return nil
         }
     }
-    
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -45,5 +41,5 @@ class iosAppTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
+
 }
