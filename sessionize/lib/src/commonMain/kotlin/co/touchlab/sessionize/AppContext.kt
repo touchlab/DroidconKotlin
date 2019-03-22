@@ -172,7 +172,10 @@ object AppContext {
     }
 
     private fun createNotificationsForSessions() = coroutineScope.lateValue.launch {
-        val mySessions = sessionQueries.mySessions().executeAsList()
+
+        val mySessions = backgroundSuspend {
+            sessionQueries.mySessions().executeAsList()
+        }
 
         for (sess:MySessions in mySessions) {
             if(sess.startsAt.toLongMillis() > currentTimeMillis()) {
