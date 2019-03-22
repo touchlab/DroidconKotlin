@@ -67,6 +67,9 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.common
                 implementation deps.kotlin.test.annotations
+                implementation deps.serialization.commonRuntime
+                implementation deps.kotlin.stdlib.common
+                implementation deps.kotlin.coroutines.common
             }
         }
 
@@ -97,9 +100,7 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.jvm
                 implementation deps.kotlin.test.junit
-                implementation deps.kotlin.test.annotations
                 implementation deps.serialization.jvmRuntime
-                implementation deps.stately.mpp
             }
         }
     }
