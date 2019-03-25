@@ -177,14 +177,11 @@ object AppContext {
             sessionQueries.mySessions().executeAsList()
         }
 
-        for (sess:MySessions in mySessions) {
-            if(sess.startsAt.toLongMillis() > currentTimeMillis()) {
-                val session = backgroundSuspend {
-                    sessionQueries.sessionById(sess.id).executeAsOne()
-                }
+        for (session:MySessions in mySessions) {
+            if(session.startsAt.toLongMillis() > currentTimeMillis()) {
 
                 createLocalNotification("Upcoming Event",
-                        session.title + " is starting soon in " + session.room().name,
+                        session.title + " is starting soon in " + session.roomName,
                         session.startsAt.toLongMillis(),
                         session.id.toInt())
             }
