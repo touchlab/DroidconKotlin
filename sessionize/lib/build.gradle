@@ -194,4 +194,3 @@ artifacts {
 
 tasks.preBuild.dependsOn "generateSqlDelightInterface"
 tasks.build.dependsOn packForXCode
-tasks.build.dependsOn packForXCodeTest

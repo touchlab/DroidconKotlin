@@ -8,7 +8,6 @@
 
 import XCTest
 import test
-@testable import iosApp
 
 class iosAppTests: XCTestCase {
     
@@ -25,8 +24,6 @@ class iosAppTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Usec XCTAssert and related functions to verify your tests produce the correct results.
-        //XCTAssertNoThrow(try AppDelegate.testSponsorSeedFile())
-        XCTAssertNoThrow(try TestsKt.testSponsorSeedFile())
     }
     
     func testPerformanceExample() {
