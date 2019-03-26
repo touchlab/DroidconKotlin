@@ -180,8 +180,8 @@ object AppContext {
         for (session:MySessions in mySessions) {
             if(session.startsAt.toLongMillis() > currentTimeMillis()) {
 
-                createLocalNotification("Upcoming Event",
-                        session.title + " is starting soon in " + session.roomName,
+                createLocalNotification("Upcoming Event in " + session.roomName,
+                        session.title + " is starting soon.",
                         session.startsAt.toLongMillis(),
                         session.id.toInt())
             }
