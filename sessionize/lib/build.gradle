@@ -156,25 +156,15 @@ task packForXCodeTest(type: Sync) {
 }
 
 task iosTest {
-    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone XS Max"
-    dependsOn "linkTestDebugFrameworkIos"
+       def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+    dependsOn 'linkTestDebugExecutableIos'
     group = JavaBasePlugin.VERIFICATION_GROUP
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        def binary = project.kotlin.targets.ios.compilations.test.getBinary("FRAMEWORK", "DEBUG")
-        copyIosResources(binary)
-        copyIosTestResources(binary)
-        println("Running on Device: $device :: $binary")
+        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
         exec {
-            commandLine "xcrun", "simctl", "boot", device
-        }
-        exec {
-            workingDir = file("$rootProject.projectDir/iosApp/iosApp")
-            commandLine "xcodebuild", "test", "-scheme", "RED Test App", "-destination", "platform=iOS Simulator,name=$device"
-        }
-        exec {
-            commandLine "xcrun", "simctl", "shutdown", device
+            commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
         }
     }
 }
