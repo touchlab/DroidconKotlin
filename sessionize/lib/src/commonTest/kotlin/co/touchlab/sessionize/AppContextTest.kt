@@ -36,8 +36,7 @@ class AppContextTests {
         val sponsors = staticFileLoader.invoke("sponsors", "json")
         sponsors?.let {
             val sponsorsJson = Json.nonstrict.parseJson(it).jsonArray
-            assertNotEquals(sponsorsJson.size, 0, "empty sponsors or none found")
-            //assertEquals(sponsorsJson.size, 0, "empty sponsors or none found")
+            assertNotEquals(sponsorsJson.size, 0, "empty sponsors.json or none found")
             assertTrue(sponsorsJson[0].jsonObject.containsKey("groupName"))
             assertTrue(sponsorsJson[0].jsonObject.containsKey("sponsors"))
         }
@@ -48,8 +47,7 @@ class AppContextTests {
         val about = staticFileLoader.invoke("about", "json")
         about?.let {
             val aboutJson = Json.nonstrict.parseJson(it).jsonArray
-            assertNotEquals(aboutJson.size, 0, "empty about or none found")
-            //assertEquals(sponsorsJson.size, 0, "empty sponsors or none found")
+            assertNotEquals(aboutJson.size, 0, "empty about.json or none found")
             assertTrue(aboutJson[0].jsonObject.containsKey("icon"))
             assertTrue(aboutJson[0].jsonObject.containsKey("title"))
             assertTrue(aboutJson[0].jsonObject.containsKey("detail"))
@@ -61,8 +59,7 @@ class AppContextTests {
         val schedule = staticFileLoader.invoke("schedule", "json")
         schedule?.let {
             val scheduleJson = Json.nonstrict.parseJson(it).jsonArray
-            assertNotEquals(scheduleJson.size, 0, "empty schedule or none found")
-            //assertEquals(sponsorsJson.size, 0, "empty sponsors or none found")
+            assertNotEquals(scheduleJson.size, 0, "empty schedule.json or none found")
             assertTrue(scheduleJson[0].jsonObject.containsKey("date"))
             assertTrue(scheduleJson[0].jsonObject.containsKey("rooms"))
         }
@@ -74,8 +71,7 @@ class AppContextTests {
         val speakers = staticFileLoader.invoke("speakers", "json")
         speakers?.let {
             val speakersJson = Json.nonstrict.parseJson(it).jsonArray
-            assertNotEquals(speakersJson.size, 0, "empty speakers or none found")
-            //assertEquals(sponsorsJson.size, 0, "empty sponsors or none found")
+            assertNotEquals(speakersJson.size, 0, "empty speakers.json or none found")
             assertTrue(speakersJson[0].jsonObject.containsKey("id"))
             assertTrue(speakersJson[0].jsonObject.containsKey("firstName"))
             assertTrue(speakersJson[0].jsonObject.containsKey("lastName"))
