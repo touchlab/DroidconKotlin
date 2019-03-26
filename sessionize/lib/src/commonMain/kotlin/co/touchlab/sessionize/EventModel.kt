@@ -33,7 +33,9 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
     interface EventView : View<SessionInfo>
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
-    fun toggleRsvp(rsvp: Boolean) = launch {
+    fun toggleRsvp(event: SessionInfo) = launch {
+
+        val rsvp = !event.isRsvped()
 
         val localSessionId = sessionId
 
@@ -49,6 +51,15 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             "sessionizeRsvpEvent"
         } else {
             "sessionizeUnrsvpEvent"
+        }
+
+        if(rsvp){
+            createLocalNotification("Upcoming Event in " + event.session.room().name,
+                    event.session.title + " is starting soon.",
+                    event.session.startsAt.toLongMillis(),
+                    sessionId.toInt())
+        }else{
+            cancelLocalNotification(sessionId.toInt())
         }
 
         AppContext.sessionizeApi.lateValue.recordRsvp(methodName, localSessionId, AppContext.userUuid())
@@ -74,20 +85,6 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             AppContext.logEvent("RSVP_EVENT", params)
         } catch (e: Exception) {
             logException(e)
-        }
-    }
-
-    fun handleLocalNotification(session: Session) = launch{
-        var RSVPd:Boolean = session.rsvp == 1L
-        RSVPd = !RSVPd
-
-        if(RSVPd){
-            createLocalNotification("Upcoming Event",
-                    session.title + " is starting soon in " + session.room().name,
-                    session.startsAt.toLongMillis(),
-                    sessionId.toInt())
-        }else{
-            cancelLocalNotification(sessionId.toInt())
         }
     }
 }
