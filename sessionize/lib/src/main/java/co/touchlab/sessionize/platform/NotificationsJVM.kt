@@ -14,6 +14,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
 import java.util.Date
+import android.content.ComponentName
+
+
 
 
 val notificationPublisher: BroadcastReceiver = NotificationPublisher()
@@ -33,6 +36,8 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
             .setContentText(message)
             .setWhen(notificationTime)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+
 
 
     // Building Intent wrapper
@@ -40,13 +45,14 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
         intent.action = AndroidAppContext.app.getString(R.string.notification_action)
         intent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId)
         intent.putExtra(NotificationPublisher.NOTIFICATION, builder.build())
+        val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
+        intent.component = componentName
     }
     val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app,notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
     // Scheduling Intent
     val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     alarmManager.set(AlarmManager.RTC_WAKEUP, notificationTime, pendingIntent)
-
 }
 
 class NotificationPublisher : BroadcastReceiver() {
@@ -81,7 +87,7 @@ actual fun initializeNotifications(){
 }
 
 actual fun deinitializeNotifications(){
-    AndroidAppContext.app.unregisterReceiver(notificationPublisher)
+    //AndroidAppContext.app.unregisterReceiver(notificationPublisher)
 }
 
 private fun createNotificationChannel() {
