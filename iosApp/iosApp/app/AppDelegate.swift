@@ -20,18 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
         
-        let registry = ServiceRegistry()
-        registry.coroutinesDispatcher = UI()
-        registry.dbDriver = FunctionsKt.defaultDriver()
-        registry.appSettings = FunctionsKt.defaultSettings()
+        ServiceRegistry().doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(), coroutineDispatcher: UI(), settings: FunctionsKt.defaultSettings(),
+                                                concurrent: MainConcurrent(), sessionizeApi: SessionizeApiImpl(),
+                                                analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback))
         
         let appContext = AppContext()
-        appContext.doInitPlatformClient(staticFileLoader: loadAsset,
-                                                        analyticsCallback: analyticsCallback,
-                                                        clLogCallback: csLog
-        )
-        
-        appContext.refreshData()
+        appContext.doInitAppContext(staticFileLoader: loadAsset, clLogCallback: csLog)
+        appContext.dataLoad()
         
         return true
     }
