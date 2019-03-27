@@ -9,7 +9,7 @@ import kotlinx.serialization.json.JsonTreeParser
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
-object AboutModel : BaseModel(AppContext.dispatcherLocal.value!!) {
+object AboutModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     fun loadAboutInfo(proc: (aboutInfo: List<AboutInfo>) -> Unit) = launch {
         clLog("loadAboutInfo AboutModel()")
         proc(backgroundSuspend { AboutProc.parseAbout() })

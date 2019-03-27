@@ -30,7 +30,7 @@ class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<Session
             convertMapToDaySchedule(hourBlocks).freeze() //TODO: This shouldn't need to be frozen
             //Spent several full days trying to debug why, but haven't sorted it out.
         },
-        AppContext.dispatcherLocal.lateValue) {
+        ServiceRegistry.coroutinesDispatcher) {
 
     init {
         clLog("init ScheduleModel()")
