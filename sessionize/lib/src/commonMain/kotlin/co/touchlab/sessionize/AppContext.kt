@@ -46,6 +46,8 @@ object AppContext {
     val coroutineScope = ThreadLocalRef<CoroutineScope>()
     val sessionizeApi = ThreadLocalRef<SessionizeApi>()
 
+    val tenMinutesInMS:Int = 1000 * 10 * 60
+
     fun initPlatformClient(
             staticFileLoader: (filePrefix: String, fileType: String) -> String?,
             analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
@@ -178,11 +180,12 @@ object AppContext {
         }
 
         for (session:MySessions in mySessions) {
-            if(session.startsAt.toLongMillis() > currentTimeMillis()) {
+            var notificationTime = session.startsAt.toLongMillis() - tenMinutesInMS
+            if(notificationTime > currentTimeMillis()) {
 
                 createLocalNotification("Upcoming Event in " + session.roomName,
                         session.title + " is starting soon.",
-                        session.startsAt.toLongMillis(),
+                        notificationTime,
                         session.id.toInt())
             }
         }

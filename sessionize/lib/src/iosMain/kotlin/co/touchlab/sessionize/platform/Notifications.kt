@@ -27,16 +27,12 @@ private val localNotificationDelegate = LocalNotificationDelegate()
 @ExperimentalUnsignedTypes
 actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
 
-    var notificationTime = timeInMS - tenMinutesInMS
-    var trigger: UNCalendarNotificationTrigger? = null
-    if(notificationTime > Date(NSDate()).toLongMillis()){
-        val date = NSDate.dateWithTimeIntervalSince1970(notificationTime / 1000.0)
-        var dateFlags: NSCalendarUnit = NSCalendarUnitMonth.or(NSCalendarUnitDay).or(NSCalendarUnitYear)
-        var timeFlags: NSCalendarUnit = NSCalendarUnitHour.or(NSCalendarUnitMinute).or(NSCalendarUnitSecond).or(NSCalendarUnitTimeZone)
-        val dateInfo = NSCalendar.currentCalendar.components(dateFlags.or(timeFlags),date)
+    val date = NSDate.dateWithTimeIntervalSince1970(timeInMS / 1000.0)
+    var dateFlags: NSCalendarUnit = NSCalendarUnitMonth.or(NSCalendarUnitDay).or(NSCalendarUnitYear)
+    var timeFlags: NSCalendarUnit = NSCalendarUnitHour.or(NSCalendarUnitMinute).or(NSCalendarUnitSecond).or(NSCalendarUnitTimeZone)
+    val dateInfo = NSCalendar.currentCalendar.components(dateFlags.or(timeFlags),date)
 
-        trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateInfo, false)
-    }
+    val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateInfo, false)
 
     val center = UNUserNotificationCenter.currentNotificationCenter()
     center.delegate = localNotificationDelegate
