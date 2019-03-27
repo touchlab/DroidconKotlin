@@ -28,7 +28,7 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
     // Building Notification
     val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
     var builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
-            .setSmallIcon(R.drawable.notification_tile_bg)
+            .setSmallIcon(R.drawable.baseline_insert_invitation_24)
             .setContentTitle(title)
             .setContentText(message)
             .setWhen(notificationTime)
