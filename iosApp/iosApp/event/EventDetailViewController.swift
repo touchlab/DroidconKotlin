@@ -162,7 +162,7 @@ import MaterialComponents
     }
     
     @IBAction func toggleRsvp(_ sender: UIButton) {
-        viewModel.toggleRsvp(rsvp: !sessionInfo.isRsvped())
+        viewModel.toggleRsvp(event: sessionInfo)
     }
     
     func showSpeakerDetailView(speaker: UserAccount) {
