@@ -1,5 +1,7 @@
 package co.touchlab.sessionize.platform
 
+import co.touchlab.stately.freeze
+import co.touchlab.stately.isFrozen
 import platform.Foundation.NSCalendar
 import platform.Foundation.NSCalendarUnit
 import platform.Foundation.NSCalendarUnitDay
@@ -51,9 +53,12 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
 actual fun cancelLocalNotification(notificationId: Int){
     val center = UNUserNotificationCenter.currentNotificationCenter()
     val identifiers:Array<String> = arrayOf(notificationId.toString())
-    center.removePendingNotificationRequestsWithIdentifiers(identifiers.asList())
-    center.removeDeliveredNotificationsWithIdentifiers(identifiers.asList())
-
+    val listIds = identifiers.asList()
+    listIds.freeze()
+    if (listIds.isFrozen()) {
+        center.removePendingNotificationRequestsWithIdentifiers(listIds)
+        center.removeDeliveredNotificationsWithIdentifiers(listIds)
+    }
 }
 
 actual fun initializeNotifications(){
