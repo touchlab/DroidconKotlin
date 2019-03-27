@@ -11,8 +11,8 @@ class EventViewModel(sessionId: String) {
         })
     }
 
-    fun toggleRsvp(rsvp: Boolean) {
-        eventModel.toggleRsvp(rsvp)
+    fun toggleRsvp(event: SessionInfo) {
+        eventModel.toggleRsvp(event)
     }
 
     fun unregister() {
