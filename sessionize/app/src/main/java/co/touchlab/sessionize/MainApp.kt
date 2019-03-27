@@ -6,6 +6,8 @@ import android.util.Log
 import co.touchlab.droidcon.db.Database
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.MainConcurrent
+import co.touchlab.sessionize.api.SessionizeApiImpl
+import co.touchlab.sessionize.api.AnalyticsApi
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
@@ -21,31 +23,31 @@ class MainApp :Application(){
         Fabric.with(this, Answers())
         Fabric.with(this, Crashlytics())
 
-        ServiceRegistry.dbDriver = AndroidSqliteDriver(Database.Schema, this, "droidcondb")
-        ServiceRegistry.coroutinesDispatcher = Dispatchers.Main
-        ServiceRegistry.appSettings = PlatformSettings.Factory(this).create("DROIDCON_SETTINGS")
-        ServiceRegistry.concurrent = MainConcurrent
-
-        AppContext.initPlatformClient ({filePrefix, fileType ->
-            loadAsset("${filePrefix}.${fileType}")},
-                {name: String, params: Map<String, Any> ->
-
-                    val event = CustomEvent(name)
-                    for (key in params.keys) {
-                        val obj = params.get(key)
-                        when(obj){
-                            is String -> event.putCustomAttribute(key, obj)
-                            is Number -> event.putCustomAttribute(key, obj)
-                            else -> {
-                                throw IllegalArgumentException("Don't know what this is $key/$obj")
+        ServiceRegistry.initServiceRegistry(AndroidSqliteDriver(Database.Schema, this, "droidcondb"), Dispatchers.Main,
+                PlatformSettings.Factory(this).create("DROIDCON_SETTINGS"), MainConcurrent, SessionizeApiImpl,
+                object: AnalyticsApi{
+                    override fun logEvent(name: String, params: Map<String, Any>) {
+                        val event = CustomEvent(name)
+                        for (key in params.keys) {
+                            val obj = params.get(key)
+                            when(obj){
+                                is String -> event.putCustomAttribute(key, obj)
+                                is Number -> event.putCustomAttribute(key, obj)
+                                else -> {
+                                    throw IllegalArgumentException("Don't know what this is $key/$obj")
+                                }
                             }
                         }
+                        Answers.getInstance().logCustom(event)
                     }
 
-                    Answers.getInstance().logCustom(event)
-                },
-                { Log.w("MainApp", it) }
-                )
+                }
+        )
+
+        AppContext.initAppContext ({filePrefix, fileType -> loadAsset("${filePrefix}.${fileType}")},
+                { Log.w("MainApp", it) })
+
+        AppContext.dataLoad()
     }
 
     private fun loadAsset(name:String) = assets

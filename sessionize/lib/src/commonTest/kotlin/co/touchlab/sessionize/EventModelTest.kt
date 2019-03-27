@@ -2,27 +2,20 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
-import co.touchlab.stately.concurrency.value
-import co.touchlab.stately.freeze
+import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlin.test.BeforeTest
 
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class EventModelTest {
-    @Test
-    fun testsRunTest() = runTest{
-        testFunction()
-    }
+    @BeforeTest
+    fun setup() {
+        ServiceRegistry.initServiceRegistry(testDbConnection(),
+                Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock())
 
-    @Test
-    fun testRsvpAndAnalytics() = runTest {
-        ServiceRegistry.dbDriver = testDbConnection()
-        ServiceRegistry.appSettings = TestSettings()
-        ServiceRegistry.coroutinesDispatcher = Dispatchers.Main
-        ServiceRegistry.concurrent = co.touchlab.sessionize.platform.TestConcurrent
-        initPlatformClientTest({filePrefix, fileType ->
+        AppContext.initAppContext({filePrefix, fileType ->
             when(filePrefix){
                 "sponsors" -> SPONSORS
                 "speakers" -> SPEAKERS
@@ -31,32 +24,17 @@ class EventModelTest {
             }
         }, {s: String -> Unit})
 
+        AppContext.seedFileLoad()
+    }
+
+    @Test
+    fun testRsvpAndAnalytics() = runTest {
         val analyticsApiMock = AnalyticsApiMock()
         val sessionizeApiMock = SessionizeApiMock()
-
         val eventModel = EventModel("67316", analyticsApiMock, sessionizeApiMock)
         eventModel.toggleRsvpSuspend(true)
         assertTrue { sessionizeApiMock.rsvpCalled }
         assertTrue { analyticsApiMock.logCalled }
-    }
-
-    fun initPlatformClientTest(
-            staticFileLoader: (filePrefix: String, fileType: String) -> String?,
-            clLogCallback: (s: String) -> Unit) {
-
-        AppContext.appSettings.value = ServiceRegistry.appSettings.freeze()
-        AppContext.dbHelper.initDatabase(ServiceRegistry.dbDriver)
-
-        AppContext.lambdas.value = AppContext.PlatformLambdas(
-                staticFileLoader,
-                clLogCallback).freeze()
-
-        AppContext.seedFileLoad()
-
-        AppContext.dispatcherLocal.value = ServiceRegistry.coroutinesDispatcher
-        AppContext.coroutineScope.value = AppContextCoroutineScope(ServiceRegistry.coroutinesDispatcher)
-        ServiceRegistry.sessionizeApi = SessionizeApiMock()
-        ServiceRegistry.analyticsApi = AnalyticsApiMock()
     }
 }
 
@@ -87,9 +65,4 @@ class SessionizeApiMock : SessionizeApi {
         rsvpCalled = true
         return true
     }
-}
-
-suspend fun testFunction() {
-    delay(500)
-    println("Testing stuff")
 }

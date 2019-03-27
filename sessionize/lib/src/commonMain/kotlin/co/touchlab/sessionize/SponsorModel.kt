@@ -11,7 +11,7 @@ class SponsorModel : BaseQueryModelView<Sponsor, List<SponsorGroupDbItem>>(
                 sponsor -> sponsor.groupName
             }.map { item -> SponsorGroupDbItem(item.key, item.value) }
         },
-        AppContext.dispatcherLocal.lateValue) {
+        ServiceRegistry.coroutinesDispatcher) {
 
     interface SponsorView : View<List<SponsorGroupDbItem>>
 

@@ -24,7 +24,7 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
 
             SessionInfo(session, speakers, session.conflict(mySessions))
         },
-        AppContext.dispatcherLocal.lateValue) {
+        ServiceRegistry.coroutinesDispatcher) {
 
     init {
         clLog("init EventModel($sessionId)")
