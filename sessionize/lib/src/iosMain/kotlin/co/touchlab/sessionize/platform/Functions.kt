@@ -105,8 +105,11 @@ private fun getDirPath(folder: String): String {
 
 private fun getDatabaseDirPath(): String = getDirPath("databases")
 
-fun analyticsFactory(block:(name:String, params:Map<String, Any>) -> Unit): AnalyticsApi = object :AnalyticsApi{
-    override fun logEvent(name: String, params: Map<String, Any>) {
-        block(name, params)
+@Suppress("unused")
+fun createAnalyticsApiImpl(analyticsCallback: (name: String, params: Map<String, Any>) -> Unit): AnalyticsApi {
+    return object: AnalyticsApi {
+        override fun logEvent(name: String, params: Map<String, Any>) {
+            analyticsCallback(name, params)
+        }
     }
 }
