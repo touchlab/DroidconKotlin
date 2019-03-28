@@ -21,7 +21,8 @@ buildscript {
             'sqliter'              : '0.5.11',
             'ktor'                 : '1.1.2',
             'serialization'        : '0.10.0',
-            'xcode'                : '0.1.2'
+            'xcode'                : '0.1.2',
+            'testhelp':'0.1.2'
     ]
 
     ext.deps = [
@@ -78,6 +79,8 @@ buildscript {
                     'jvmRuntime'   : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${versions.serialization}",
                     'iosRuntime'   : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${versions.serialization}",
             ]
+            ,
+            'testhelp' : "co.touchlab:testhelp:${versions.testhelp}"
     ]
 
     repositories {

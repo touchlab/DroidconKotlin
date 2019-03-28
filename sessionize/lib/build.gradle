@@ -70,6 +70,7 @@ kotlin {
                 implementation deps.kotlin.coroutines.common
                 implementation deps.multiplatformSettings
                 implementation deps.kotlin.coroutines.jdk
+                implementation deps.testhelp
             }
         }
 
@@ -103,6 +104,7 @@ kotlin {
                 implementation deps.sqldelight.driverSqlite
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
+                implementation deps.serialization.jvmRuntime
             }
         }
     }

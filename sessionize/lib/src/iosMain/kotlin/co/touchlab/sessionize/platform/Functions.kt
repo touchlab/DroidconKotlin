@@ -1,6 +1,7 @@
 package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.Database
+import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.lateValue
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
@@ -103,3 +104,9 @@ private fun getDirPath(folder: String): String {
 }
 
 private fun getDatabaseDirPath(): String = getDirPath("databases")
+
+fun analyticsFactory(block:(name:String, params:Map<String, Any>) -> Unit): AnalyticsApi = object :AnalyticsApi{
+    override fun logEvent(name: String, params: Map<String, Any>) {
+        block(name, params)
+    }
+}
