@@ -21,17 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.statusBarStyle = .lightContent
         
         let registry = ServiceRegistry()
-        registry.coroutinesDispatcher = UI()
-        registry.dbDriver = FunctionsKt.defaultDriver()
-        registry.appSettings = FunctionsKt.defaultSettings()
-        
+        registry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
+                                       coroutineDispatcher: UI(),
+                                       settings: FunctionsKt.defaultSettings(),
+                                       concurrent: MainConcurrent(),
+                                       sessionizeApi: SessionizeApiImpl(),
+                                       analyticsApi: FunctionsKt.analyticsFactory(block: analyticsCallback))
+  
         let appContext = AppContext()
-        appContext.doInitPlatformClient(staticFileLoader: loadAsset,
-                                                        analyticsCallback: analyticsCallback,
-                                                        clLogCallback: csLog
-        )
+        appContext.doInitAppContext(staticFileLoader: loadAsset, clLogCallback: csLog)
         
-        appContext.refreshData()
+        appContext.dataLoad()
         
         return true
     }
