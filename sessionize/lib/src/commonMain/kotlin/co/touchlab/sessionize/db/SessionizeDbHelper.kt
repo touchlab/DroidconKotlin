@@ -3,6 +3,7 @@ package co.touchlab.sessionize.db
 import co.touchlab.droidcon.db.Database
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.sessionize.api.getTimeZoneFromSchedule
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.jsondata.Sponsor
@@ -20,6 +21,7 @@ class SessionizeDbHelper {
 
     private val driverRef = AtomicReference<SqlDriver?>(null)
     private val dbRef = AtomicReference<Database?>(null)
+    var timeZone:String = ""
 
     fun initDatabase(sqlDriver: SqlDriver) {
         driverRef.value = sqlDriver.freeze()
@@ -100,6 +102,11 @@ class SessionizeDbHelper {
 
     private fun primeSessions(scheduleJson: String) {
         val sessions = parseSessionsFromDays(scheduleJson)
+        val timeZoneTemp = getTimeZoneFromSchedule(scheduleJson)
+        if(timeZoneTemp.isNotEmpty()) {
+            timeZone = timeZoneTemp
+        }
+
 
         instance.sessionSpeakerQueries.deleteAll()
         val allSessions = instance.sessionQueries.allSessions().executeAsList()
@@ -113,13 +120,17 @@ class SessionizeDbHelper {
 
             val dbSession = instance.sessionQueries.sessionById(session.id).executeAsOneOrNull()
 
+
+            val startsAt = session.startsAt!! + timeZone
+            val endsAt = session.endsAt!! + timeZone
+
             if (dbSession == null) {
                 instance.sessionQueries.insert(
                         session.id,
                         session.title,
                         session.descriptionText ?: "",
-                        instance.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
-                        instance.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        instance.sessionAdapter.startsAtAdapter.decode(startsAt),
+                        instance.sessionAdapter.endsAtAdapter.decode(endsAt),
                         if (session.isServiceSession) {
                             1
                         } else {
@@ -130,8 +141,8 @@ class SessionizeDbHelper {
                 instance.sessionQueries.update(
                         title = session.title,
                         description = session.descriptionText ?: "",
-                        startsAt = instance.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
-                        endsAt = instance.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        startsAt = instance.sessionAdapter.startsAtAdapter.decode(startsAt),
+                        endsAt = instance.sessionAdapter.endsAtAdapter.decode(endsAt),
                         serviceSession = if (session.isServiceSession) {
                             1
                         } else {
