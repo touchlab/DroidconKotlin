@@ -13,12 +13,7 @@ actual class Date(val iosDate: NSDate) {
 
 actual class DateFormatHelper actual constructor(format: String) {
 
-    val formatter: NSDateFormatter
-
-    init {
-        formatter = NSDateFormatter()
-        formatter.dateFormat = format
-    }
+    private val formatter: NSDateFormatter = NSDateFormatter().apply { dateFormat = format }
 
     actual fun toDate(s: String): Date = Date(formatter.dateFromString(s)!!)
     actual fun format(d: Date): String = formatter.stringFromDate(d.iosDate)
