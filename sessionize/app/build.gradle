@@ -7,11 +7,14 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "co.touchlab.droidconsf2018"
+        buildConfigField "String", "TIME_ZONE", "\"-0400\""
+
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 10203
         versionName "1.2.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
