@@ -3,9 +3,9 @@ package co.touchlab.sessionize
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.stately.concurrency.value
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.list
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonTreeParser
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
@@ -19,9 +19,23 @@ object AboutModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 internal object AboutProc {
     fun parseAbout(): List<AboutInfo> {
         val aboutJsonString = AppContext.staticFileLoader("about", "json")!!
-        return Json.parse(AboutInfo.serializer().list, aboutJsonString)
+        val aboutList = ArrayList<AboutInfo>()
+
+        val json = JsonTreeParser(aboutJsonString).readFully()
+
+        (json as JsonArray).forEach {
+            val aboutJson = it as JsonObject
+            aboutList.add(
+                    AboutInfo(
+                            aboutJson.getPrimitive("icon").content,
+                            aboutJson.getPrimitive("title").content,
+                            aboutJson.getPrimitive("detail").content
+                    )
+            )
+        }
+
+        return aboutList
     }
 }
 
-@Serializable
 data class AboutInfo(val icon: String, val title: String, val detail: String)
