@@ -61,7 +61,7 @@ class SessionizeApiMock : SessionizeApi {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean {
+    override suspend fun recordRsvp(methodName: String, sessionId: String, userUuid: String): Boolean {
         rsvpCalled = true
         return true
     }
