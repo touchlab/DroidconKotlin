@@ -54,7 +54,7 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
             "sessionizeUnrsvpEvent"
         }
 
-        sessionizeApi.recordRsvp(methodName, localSessionId, AppContext.userUuid())
+        sessionizeApi.recordRsvp(methodName, localSessionId)
 
         sendAnalytics(localSessionId, rsvp)
     }
@@ -67,13 +67,13 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
             }
 
             val params = HashMap<String, Any>()
-            params.put("slot", analyticsDateFormat.format(session.startsAt))
-            params.put("sessionId", sessionId)
-            params.put("count", if (rsvp) {
+            params["slot"] = analyticsDateFormat.format(session.startsAt)
+            params["sessionId"] = sessionId
+            params["count"] = if (rsvp) {
                 1
             } else {
                 -1
-            })
+            }
             analyticsApi.logEvent("RSVP_EVENT", params)
         } catch (e: Exception) {
             logException(e)
