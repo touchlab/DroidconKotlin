@@ -1,7 +1,7 @@
 package co.touchlab.sessionize
 
 class EventViewModel(sessionId: String) {
-    val eventModel = EventModel(sessionId, ServiceRegistry.analyticsApi, ServiceRegistry.sessionizeApi)
+    val eventModel = EventModel(sessionId)
 
     fun registerForChanges(proc: (sessionInfo: SessionInfo, formattedRoomTime: String) -> Unit) {
         eventModel.register(object : EventModel.EventView {
