@@ -2,14 +2,11 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.RoomQueries
-import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.SessionizeDbHelper
-import co.touchlab.sessionize.db.room
-import co.touchlab.sessionize.platform.Date
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.createLocalNotification
@@ -53,9 +50,11 @@ object AppContext {
             analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
             clLogCallback: (s: String) -> Unit,
             dispatcher: CoroutineDispatcher,
-            sqlDriver: SqlDriver) {
+            sqlDriver: SqlDriver,
+            timeZone:String) {
 
         dbHelper.initDatabase(sqlDriver)
+        dbHelper.setTimeZone(timeZone)
 
         lambdas.value = PlatformLambdas(
                 staticFileLoader,

@@ -77,13 +77,3 @@ fun parseSessionsFromDays(scheduleJson: String): List<Session> {
 
     return sessions
 }
-
-fun getTimeZoneFromSchedule(scheduleJson: String): String {
-    val days = Json.nonstrict.parse(Days.serializer().list, scheduleJson)
-    val date = days.first().date
-    val items = date.split("-")
-    if(items.last().length == 4){
-        return "-" + items.last()
-    }
-    return ""
-}
