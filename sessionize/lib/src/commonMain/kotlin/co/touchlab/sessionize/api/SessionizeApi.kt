@@ -12,7 +12,7 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.isSuccess
 import io.ktor.http.takeFrom
 import kotlinx.io.core.use
-import kotlinx.serialization.json.JSON
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.native.concurrent.ThreadLocal
 
@@ -35,7 +35,7 @@ object SessionizeApi {
         amazon("/droidconsponsers/sponsors-$INSTANCE_ID.json")
     }
 
-    suspend fun recordRsvp(methodName: String, sessionId: String, userUuid: String): Boolean = client.request<HttpResponse> {
+    suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = client.request<HttpResponse> {
         droidcon("/dataTest/$methodName/$sessionId/${AppContext.userUuid()}")
         method = HttpMethod.Post
     }.use {
@@ -66,7 +66,7 @@ object SessionizeApi {
 }
 
 fun parseSessionsFromDays(scheduleJson: String): List<Session> {
-    val days = JSON.nonstrict.parse(Days.serializer().list, scheduleJson)
+    val days = Json.nonstrict.parse(Days.serializer().list, scheduleJson)
     val sessions = mutableListOf<Session>()
 
     days.forEach { day ->
@@ -79,7 +79,7 @@ fun parseSessionsFromDays(scheduleJson: String): List<Session> {
 }
 
 fun getTimeZoneFromSchedule(scheduleJson: String): String {
-    val days = JSON.nonstrict.parse(Days.serializer().list, scheduleJson)
+    val days = Json.nonstrict.parse(Days.serializer().list, scheduleJson)
     val date = days.first().date
     val items = date.split("-")
     if(items.last().length == 4){
