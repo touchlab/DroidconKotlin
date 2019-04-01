@@ -181,18 +181,5 @@ task iosTest {
     }
 }
 
-task jarTests(type: Jar, dependsOn: "assembleAndroidTest") {
-    classifier = 'tests'
-    from "$buildDir/tmp/kotlin-classes/debugAndroidTest"
-}
-
-configurations {
-    unitTestArtifact
-}
-
-artifacts {
-    unitTestArtifact jarTests
-}
-
 tasks.preBuild.dependsOn "generateSqlDelightInterface"
 tasks.build.dependsOn packForXCode
