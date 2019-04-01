@@ -99,16 +99,27 @@ object AppContext {
         return appSettings.getString(USER_UUID)
     }
 
+    fun loadSponsors(): String? {
+        return staticFileLoader("sponsors", "json")
+    }
+
+    fun loadSpeakers(): String? {
+        return staticFileLoader("speakers", "json")
+    }
+
+    fun loadSchedule(): String? {
+        return staticFileLoader("schedule", "json")
+    }
+
     //Split these up so they can individually succeed/fail
     private fun dataLoad() {
         if (firstRun()) {
             backgroundTask({
                 try {
                     if (firstRun()) {
-                        val staticFileLoader = lambdas.value!!.staticFileLoader
-                        val sponsorJson = staticFileLoader("sponsors", "json")
-                        val speakerJson = staticFileLoader("speakers", "json")
-                        val scheduleJson = staticFileLoader("schedule", "json")
+                        val sponsorJson = loadSponsors()
+                        val speakerJson = loadSpeakers()
+                        val scheduleJson = loadSchedule()
 
                         if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
                             dbHelper.primeAll(speakerJson, scheduleJson, sponsorJson)
