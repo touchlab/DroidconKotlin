@@ -6,6 +6,7 @@ apply plugin: 'co.touchlab.kotlinxcodesync'
 
 android {
     compileSdkVersion 28
+    testOptions.unitTests.includeAndroidResources = true
 
     defaultConfig {
         minSdkVersion 21
@@ -70,6 +71,12 @@ kotlin {
                 implementation deps.serialization.commonRuntime
                 implementation deps.kotlin.stdlib.common
                 implementation deps.kotlin.coroutines.common
+                implementation deps.sqldelight.runtime
+                implementation deps.kotlin.coroutines.jdk
+                implementation deps.kotlin.coroutines.android
+                implementation deps.kotlin.test.jvm
+                implementation deps.kotlin.test.junit
+                implementation deps.serialization.jvmRuntime
             }
         }
 
@@ -101,6 +108,11 @@ kotlin {
                 implementation deps.kotlin.test.jvm
                 implementation deps.kotlin.test.junit
                 implementation deps.serialization.jvmRuntime
+                implementation deps.ktor.androidCore
+                implementation 'junit:junit:4.12'
+                implementation "androidx.test:core:1.1.0"
+                implementation "androidx.test.ext:junit:1.1.0"
+                implementation "org.robolectric:robolectric:4.0"
             }
         }
     }
@@ -156,7 +168,7 @@ task packForXCodeTest(type: Sync) {
 }
 
 task iosTest {
-       def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone XR"
     dependsOn 'linkTestDebugExecutableIos'
     group = JavaBasePlugin.VERIFICATION_GROUP
     description = "Runs tests for target 'ios' on an iOS simulator"

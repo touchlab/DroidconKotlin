@@ -21,7 +21,7 @@ class iosAppKtTests: XCTestCase {
 
     func testKotlinRunner() {
         AppContextTestKt.staticFileLoader = loadAsset
-        XCTAssertEqual(0, AppContextTestKt.kickOffTest())
+        XCTAssertEqual(0, KotlinTestStarterKt.kickOffTest())
     }
     
     func loadAsset(filePrefix:String, fileType:String) -> String?{
