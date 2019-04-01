@@ -1,6 +1,7 @@
 package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.Database
+import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.lateValue
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
@@ -47,7 +48,7 @@ private fun makeQueue(key: String): Worker {
  *
  * Expect everything you pass in to be frozen, and if that's not possible, it'll all fail. Just FYI.
  */
-internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
+internal actual fun <B> backgroundTaskPlatform(backJob: () -> B, mainJob: (B) -> Unit) {
 
     val mainJobHolder = ThreadLocalRef<(B) -> Unit>()
     mainJobHolder.value = mainJob
@@ -81,13 +82,14 @@ actual fun logException(t: Throwable) {
     t.printStackTrace()
 }
 
-actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
-
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
 
 @Suppress("unused")
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")
+
+@Suppress("unused")
+fun defaultSettings(): Settings = PlatformSettings.Factory().create("DROIDCON_SETTINGS")
 
 private fun getDirPath(folder: String): String {
     val paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, true);
@@ -104,3 +106,12 @@ private fun getDirPath(folder: String): String {
 }
 
 private fun getDatabaseDirPath(): String = getDirPath("databases")
+
+@Suppress("unused")
+fun createAnalyticsApiImpl(analyticsCallback: (name: String, params: Map<String, Any>) -> Unit): AnalyticsApi {
+    return object: AnalyticsApi {
+        override fun logEvent(name: String, params: Map<String, Any>) {
+            analyticsCallback(name, params)
+        }
+    }
+}

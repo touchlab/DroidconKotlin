@@ -13,11 +13,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
-import java.util.Date
 import android.content.ComponentName
-
-
-
 
 val notificationPublisher: BroadcastReceiver = NotificationPublisher()
 
@@ -25,7 +21,7 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
 
     // Building Notification
     val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
-    var builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
+    val builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
             .setSmallIcon(R.drawable.baseline_insert_invitation_24)
             .setContentTitle(title)
             .setContentText(message)
@@ -42,6 +38,7 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
         val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
         intent.component = componentName
     }
+
     val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
     // Scheduling Intent

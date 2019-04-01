@@ -19,12 +19,9 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         sessionQueries.sessionById(sessionId),
         { q ->
             val session = q.executeAsOne()
-            val speakers = userAccountQueries.selectBySession(session.id).executeAsList()
-            val mySessions = sessionQueries.mySessions().executeAsList()
-
-            SessionInfo(session, speakers, session.conflict(mySessions))
+            collectSessionInfo(session)
         },
-        AppContext.dispatcherLocal.lateValue) {
+        ServiceRegistry.coroutinesDispatcher) {
 
     init {
         clLog("init EventModel($sessionId)")
@@ -34,9 +31,11 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(event: SessionInfo) = launch {
+        toggleRsvpSuspend(event)
+    }
 
+    internal suspend fun toggleRsvpSuspend(event: SessionInfo) {
         val rsvp = !event.isRsvped()
-
         val localSessionId = sessionId
 
         backgroundSuspend {
@@ -62,12 +61,12 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             cancelLocalNotification(sessionId.toInt())
         }
 
-        AppContext.sessionizeApi.lateValue.recordRsvp(methodName, localSessionId)
+        ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
 
         sendAnalytics(localSessionId, rsvp)
     }
 
-    private fun sendAnalytics(sessionId: String, rsvp: Boolean) = launch {
+    private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) {
 
         try {
             val session = backgroundSuspend {
@@ -82,11 +81,18 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             } else {
                 -1
             }
-            AppContext.logEvent("RSVP_EVENT", params)
+            ServiceRegistry.analyticsApi.logEvent("RSVP_EVENT", params)
         } catch (e: Exception) {
             logException(e)
         }
     }
+}
+
+internal fun collectSessionInfo(session: Session): SessionInfo {
+    val speakers = userAccountQueries.selectBySession(session.id).executeAsList()
+    val mySessions = sessionQueries.mySessions().executeAsList()
+
+    return SessionInfo(session, speakers, session.conflict(mySessions))
 }
 
 internal fun Session.conflict(others: List<MySessions>): Boolean {

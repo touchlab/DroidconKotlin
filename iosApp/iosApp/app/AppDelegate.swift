@@ -20,24 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
+
+        ServiceRegistry().doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(), coroutineDispatcher: UI(), settings: FunctionsKt.defaultSettings(),
+                                                concurrent: MainConcurrent(), sessionizeApi: SessionizeApiImpl(),
+                                                analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback), timeZone: "-0400")
+
         let appContext = AppContext()
-        appContext.doInitPlatformClient(staticFileLoader: loadAsset,
-                                                        analyticsCallback: analyticsCallback,
-                                                        clLogCallback: csLog,
-                                                        dispatcher: UI(),
-                                                        sqlDriver: FunctionsKt.defaultDriver()
-        )
-        
-        
-        appContext.refreshData()
+        appContext.doInitAppContext(staticFileLoader: loadAsset, clLogCallback: csLog)
+        appContext.dataLoad()
         
         requestNotificationPermissions()
-        
+
         return true
     }
     
     func requestNotificationPermissions(){
-        
+
         let center = UNUserNotificationCenter.current()
         let options: UNAuthorizationOptions = [.alert, .sound];
         center.requestAuthorization(options: options) {
@@ -47,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+
     /*func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
         DispatchQueue.main.async {
             block.run()

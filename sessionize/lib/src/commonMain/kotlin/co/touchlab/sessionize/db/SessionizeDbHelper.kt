@@ -3,6 +3,7 @@ package co.touchlab.sessionize.db
 import co.touchlab.droidcon.db.Database
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.jsondata.SponsorGroup
@@ -19,7 +20,6 @@ class SessionizeDbHelper {
 
     private val driverRef = AtomicReference<SqlDriver?>(null)
     private val dbRef = AtomicReference<Database?>(null)
-    private var timeZone:String = ""
 
     fun initDatabase(sqlDriver: SqlDriver) {
         driverRef.value = sqlDriver.freeze()
@@ -36,10 +36,6 @@ class SessionizeDbHelper {
 
     internal val instance: Database
         get() = dbRef.value!!
-
-    fun setTimeZone(timeZone: String){
-        this.timeZone = timeZone
-    }
 
     fun getSessionsQuery(): Query<SessionWithRoom> = instance.sessionQueries.sessionWithRoom()
 
@@ -118,8 +114,8 @@ class SessionizeDbHelper {
             val dbSession = instance.sessionQueries.sessionById(session.id).executeAsOneOrNull()
 
 
-            val startsAt = session.startsAt!! + timeZone
-            val endsAt = session.endsAt!! + timeZone
+            val startsAt = session.startsAt!! + ServiceRegistry.timeZone
+            val endsAt = session.endsAt!! + ServiceRegistry.timeZone
 
             if (dbSession == null) {
                 instance.sessionQueries.insert(
