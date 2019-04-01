@@ -2,9 +2,7 @@ package co.touchlab.sessionize.architecture
 
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.lateValue
-import co.touchlab.sessionize.platform.Concurrent
 import co.touchlab.sessionize.platform.backToFront
-import co.touchlab.sessionize.platform.mainThread
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.freeze
 

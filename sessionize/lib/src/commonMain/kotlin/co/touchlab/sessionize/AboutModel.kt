@@ -1,7 +1,6 @@
 package co.touchlab.sessionize
 
 import co.touchlab.sessionize.platform.backgroundSuspend
-import co.touchlab.stately.concurrency.value
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json

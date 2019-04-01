@@ -3,9 +3,9 @@ package co.touchlab.sessionize.db
 import co.touchlab.droidcon.db.Database
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
-import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
@@ -113,13 +113,17 @@ class SessionizeDbHelper {
 
             val dbSession = instance.sessionQueries.sessionById(session.id).executeAsOneOrNull()
 
+
+            val startsAt = session.startsAt!! + ServiceRegistry.timeZone
+            val endsAt = session.endsAt!! + ServiceRegistry.timeZone
+
             if (dbSession == null) {
                 instance.sessionQueries.insert(
                         session.id,
                         session.title,
                         session.descriptionText ?: "",
-                        instance.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
-                        instance.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        instance.sessionAdapter.startsAtAdapter.decode(startsAt),
+                        instance.sessionAdapter.endsAtAdapter.decode(endsAt),
                         if (session.isServiceSession) {
                             1
                         } else {
@@ -130,8 +134,8 @@ class SessionizeDbHelper {
                 instance.sessionQueries.update(
                         title = session.title,
                         description = session.descriptionText ?: "",
-                        startsAt = instance.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
-                        endsAt = instance.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        startsAt = instance.sessionAdapter.startsAtAdapter.decode(startsAt),
+                        endsAt = instance.sessionAdapter.endsAtAdapter.decode(endsAt),
                         serviceSession = if (session.isServiceSession) {
                             1
                         } else {

@@ -4,18 +4,18 @@ import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
-import co.touchlab.sessionize.api.AnalyticsApi
-import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.db.SessionizeDbHelper
-import co.touchlab.sessionize.platform.*
+import co.touchlab.sessionize.platform.backgroundSuspend
+import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.createLocalNotification
+import co.touchlab.sessionize.platform.createUuid
+import co.touchlab.sessionize.platform.currentTimeMillis
+import co.touchlab.sessionize.platform.deinitializeNotifications
+import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
-import com.russhwolf.settings.Settings
-import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -38,6 +38,10 @@ object AppContext {
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
                 clLogCallback).freeze()
+    }
+
+    fun deinitPlatformClient(){
+        deinitializeNotifications()
     }
 
     internal val sessionQueries: SessionQueries
@@ -85,8 +89,13 @@ object AppContext {
                 }
             }) {
                 refreshData()
+
             }
         }
+
+        //If we do some kind of data re-load after a user logs in, we'll need to update this.
+        //We assume for now that when the app first starts, you have nothing rsvp'd
+        createNotificationsForSessions()
     }
 
     internal fun seedFileLoad() {
@@ -127,6 +136,22 @@ object AppContext {
             val lastLoad = ServiceRegistry.appSettings.getLong(KEY_LAST_LOAD)
             if (lastLoad < (currentTimeMillis() - (TWO_HOURS_MILLIS.toLong()))) {
                 dataCalls()
+            }
+        }
+    }
+
+    private fun createNotificationsForSessions() {
+
+        backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+            val tenMinutesInMS: Int = 1000 * 10 * 60
+            mySessions.forEach { session ->
+                val notificationTime = session.startsAt.toLongMillis() - tenMinutesInMS
+                if (notificationTime > currentTimeMillis()) {
+                    createLocalNotification("Upcoming Event in " + session.roomName,
+                            session.title + " is starting soon.",
+                            notificationTime,
+                            session.id.toInt())
+                }
             }
         }
     }

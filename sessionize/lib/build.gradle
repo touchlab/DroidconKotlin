@@ -33,6 +33,7 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.core:core:1.0.0"
 }
 
 kotlin {
@@ -94,6 +95,7 @@ kotlin {
                 implementation deps.ktor.jvmCore
                 implementation deps.ktor.jvmJson
                 implementation deps.serialization.jvmRuntime
+
             }
         }
 

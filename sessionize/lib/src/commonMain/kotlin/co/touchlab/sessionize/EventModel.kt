@@ -10,6 +10,8 @@ import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
+import co.touchlab.sessionize.platform.cancelLocalNotification
+import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
 import kotlinx.coroutines.launch
@@ -19,10 +21,7 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
         sessionQueries.sessionById(sessionId),
         { q ->
             val session = q.executeAsOne()
-            val speakers = userAccountQueries.selectBySession(session.id).executeAsList()
-            val mySessions = sessionQueries.mySessions().executeAsList()
-
-            SessionInfo(session, speakers, session.conflict(mySessions))
+            collectSessionInfo(session)
         },
         ServiceRegistry.coroutinesDispatcher) {
 
@@ -33,11 +32,12 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
     interface EventView : View<SessionInfo>
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
-    fun toggleRsvp(rsvp: Boolean) = launch {
-        toggleRsvpSuspend(rsvp)
+    fun toggleRsvp(event: SessionInfo) = launch {
+        toggleRsvpSuspend(event)
     }
 
-    internal suspend fun toggleRsvpSuspend(rsvp: Boolean) {
+    internal suspend fun toggleRsvpSuspend(event: SessionInfo) {
+        val rsvp = !event.isRsvped()
         val localSessionId = sessionId
 
         backgroundSuspend {
@@ -52,6 +52,15 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
             "sessionizeRsvpEvent"
         } else {
             "sessionizeUnrsvpEvent"
+        }
+
+        if(rsvp){
+            createLocalNotification("Upcoming Event in " + event.session.room().name,
+                    event.session.title + " is starting soon.",
+                    event.session.startsAt.toLongMillis(),
+                    sessionId.toInt())
+        }else{
+            cancelLocalNotification(sessionId.toInt())
         }
 
         sessionizeApi.recordRsvp(methodName, localSessionId)
@@ -79,6 +88,13 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
             logException(e)
         }
     }
+}
+
+internal fun collectSessionInfo(session: Session): SessionInfo {
+    val speakers = userAccountQueries.selectBySession(session.id).executeAsList()
+    val mySessions = sessionQueries.mySessions().executeAsList()
+
+    return SessionInfo(session, speakers, session.conflict(mySessions))
 }
 
 internal fun Session.conflict(others: List<MySessions>): Boolean {

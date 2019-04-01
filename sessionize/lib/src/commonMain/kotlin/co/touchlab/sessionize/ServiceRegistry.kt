@@ -17,15 +17,18 @@ object ServiceRegistry {
     var coroutinesDispatcher: CoroutineDispatcher by FrozenDelegate()
     var appSettings: Settings by FrozenDelegate()
     var concurrent: Concurrent by FrozenDelegate()
+    var timeZone: String by FrozenDelegate()
 
     fun initServiceRegistry(sqlDriver: SqlDriver, coroutineDispatcher: CoroutineDispatcher, settings: Settings,
-                            concurrent: Concurrent, sessionizeApi: SessionizeApi, analyticsApi: AnalyticsApi) {
+                            concurrent: Concurrent, sessionizeApi: SessionizeApi, analyticsApi: AnalyticsApi,
+                            timeZone: String) {
         ServiceRegistry.dbDriver = sqlDriver
         ServiceRegistry.coroutinesDispatcher = coroutineDispatcher
         ServiceRegistry.appSettings = settings
         ServiceRegistry.concurrent = concurrent
         ServiceRegistry.sessionizeApi = sessionizeApi
         ServiceRegistry.analyticsApi = analyticsApi
+        ServiceRegistry.timeZone = timeZone
     }
 }
 
