@@ -32,8 +32,10 @@ sessionById:
 SELECT * FROM session WHERE id = ?;
 
 mySessions:
-SELECT id, startsAt, endsAt FROM session WHERE
-rsvp != 0;
+SELECT session.id, session.title, session.startsAt, session.endsAt, room.name AS roomName
+FROM session
+JOIN room ON session.roomId = room.id
+WHERE rsvp != 0;
 
 userSessions:
 SELECT session.* FROM session
