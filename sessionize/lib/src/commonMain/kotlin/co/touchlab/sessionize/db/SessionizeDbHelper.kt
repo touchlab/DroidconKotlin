@@ -3,10 +3,8 @@ package co.touchlab.sessionize.db
 import co.touchlab.droidcon.db.Database
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
-import co.touchlab.sessionize.api.getTimeZoneFromSchedule
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
-import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
@@ -21,7 +19,7 @@ class SessionizeDbHelper {
 
     private val driverRef = AtomicReference<SqlDriver?>(null)
     private val dbRef = AtomicReference<Database?>(null)
-    var timeZone:String = ""
+    private var timeZone:String = ""
 
     fun initDatabase(sqlDriver: SqlDriver) {
         driverRef.value = sqlDriver.freeze()
@@ -38,6 +36,10 @@ class SessionizeDbHelper {
 
     internal val instance: Database
         get() = dbRef.value!!
+
+    fun setTimeZone(timeZone: String){
+        this.timeZone = timeZone
+    }
 
     fun getSessionsQuery(): Query<SessionWithRoom> = instance.sessionQueries.sessionWithRoom()
 
@@ -102,11 +104,6 @@ class SessionizeDbHelper {
 
     private fun primeSessions(scheduleJson: String) {
         val sessions = parseSessionsFromDays(scheduleJson)
-        val timeZoneTemp = getTimeZoneFromSchedule(scheduleJson)
-        if(timeZoneTemp.isNotEmpty()) {
-            timeZone = timeZoneTemp
-        }
-
 
         instance.sessionSpeakerQueries.deleteAll()
         val allSessions = instance.sessionQueries.allSessions().executeAsList()
