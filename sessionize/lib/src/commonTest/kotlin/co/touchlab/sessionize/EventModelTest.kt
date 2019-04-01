@@ -10,6 +10,9 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class EventModelTest {
+    private val sessionizeApiMock = SessionizeApiMock()
+    private val analyticsApiMock = AnalyticsApiMock()
+
     @BeforeTest
     fun setup() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
@@ -29,9 +32,7 @@ class EventModelTest {
 
     @Test
     fun testRsvpAndAnalytics() = runTest {
-        val analyticsApiMock = AnalyticsApiMock()
-        val sessionizeApiMock = SessionizeApiMock()
-        val eventModel = EventModel("67316", analyticsApiMock, sessionizeApiMock)
+        val eventModel = EventModel("67316")
         val session = AppContext.sessionQueries.sessionById("67316").executeAsOne()
         val si = collectSessionInfo(session)
         /*eventModel.toggleRsvpSuspend(si)

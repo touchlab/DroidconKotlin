@@ -6,7 +6,7 @@ import co.touchlab.sessionize.EventModel
 import co.touchlab.sessionize.ServiceRegistry
 
 class EventViewModel(sessionId:String): ViewModel(){
-    val eventModel = EventModel(sessionId, ServiceRegistry.analyticsApi, ServiceRegistry.sessionizeApi)
+    val eventModel = EventModel(sessionId)
 }
 
 class EventViewModelFactory(private val sessionId: String) : ViewModelProvider.NewInstanceFactory() {

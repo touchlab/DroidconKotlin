@@ -5,8 +5,6 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.AppContext.sessionQueries
 import co.touchlab.sessionize.AppContext.userAccountQueries
-import co.touchlab.sessionize.api.AnalyticsApi
-import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
@@ -17,7 +15,7 @@ import co.touchlab.sessionize.platform.logException
 import kotlinx.coroutines.launch
 import kotlin.math.max
 
-class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sessionizeApi: SessionizeApi) : BaseQueryModelView<Session, SessionInfo>(
+class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInfo>(
         sessionQueries.sessionById(sessionId),
         { q ->
             val session = q.executeAsOne()
@@ -63,7 +61,7 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
             cancelLocalNotification(sessionId.toInt())
         }
 
-        sessionizeApi.recordRsvp(methodName, localSessionId)
+        ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
 
         sendAnalytics(localSessionId, rsvp)
     }
@@ -83,7 +81,7 @@ class EventModel(val sessionId: String, val analyticsApi: AnalyticsApi, val sess
             } else {
                 -1
             }
-            analyticsApi.logEvent("RSVP_EVENT", params)
+            ServiceRegistry.analyticsApi.logEvent("RSVP_EVENT", params)
         } catch (e: Exception) {
             logException(e)
         }
