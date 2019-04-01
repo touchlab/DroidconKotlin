@@ -10,10 +10,13 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class EventModelTest {
+    private val sessionizeApiMock = SessionizeApiMock()
+    private val analyticsApiMock = AnalyticsApiMock()
+
     @BeforeTest
     fun setup() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock())
+                Dispatchers.Main, TestSettings(), TestConcurrent, sessionizeApiMock, analyticsApiMock)
 
         AppContext.initAppContext({filePrefix, fileType ->
             when(filePrefix){
@@ -29,9 +32,7 @@ class EventModelTest {
 
     @Test
     fun testRsvpAndAnalytics() = runTest {
-        val analyticsApiMock = AnalyticsApiMock()
-        val sessionizeApiMock = SessionizeApiMock()
-        val eventModel = EventModel("67316", analyticsApiMock, sessionizeApiMock)
+        val eventModel = EventModel("67316")
         eventModel.toggleRsvpSuspend(true)
         assertTrue { sessionizeApiMock.rsvpCalled }
         assertTrue { analyticsApiMock.logCalled }
