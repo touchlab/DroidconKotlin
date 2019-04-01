@@ -41,13 +41,19 @@ class MainApp :Application(){
                         Answers.getInstance().logCustom(event)
                     }
 
-                }
+                },
+                BuildConfig.TIME_ZONE
         )
 
         AppContext.initAppContext ({filePrefix, fileType -> loadAsset("${filePrefix}.${fileType}")},
                 { Log.w("MainApp", it) })
 
         AppContext.dataLoad()
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        AppContext.deinitPlatformClient()
     }
 
     private fun loadAsset(name:String) = assets
