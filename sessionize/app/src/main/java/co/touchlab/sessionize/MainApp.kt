@@ -39,8 +39,14 @@ class MainApp :Application(){
                 },
                 { Log.w("MainApp", it) },
                 Dispatchers.Main,
-                AndroidSqliteDriver(Database.Schema, this, "droidcondb")
+                AndroidSqliteDriver(Database.Schema, this, "droidcondb"),
+                BuildConfig.TIME_ZONE
                 )
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        AppContext.deinitPlatformClient()
     }
 
     private fun loadAsset(name:String) = assets

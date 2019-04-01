@@ -8,6 +8,8 @@ import co.touchlab.sessionize.AppContext.userAccountQueries
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
+import co.touchlab.sessionize.platform.cancelLocalNotification
+import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
 import kotlinx.coroutines.launch
@@ -31,7 +33,9 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
     interface EventView : View<SessionInfo>
 
     private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
-    fun toggleRsvp(rsvp: Boolean) = launch {
+    fun toggleRsvp(event: SessionInfo) = launch {
+
+        val rsvp = !event.isRsvped()
 
         val localSessionId = sessionId
 
@@ -47,6 +51,15 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             "sessionizeRsvpEvent"
         } else {
             "sessionizeUnrsvpEvent"
+        }
+
+        if(rsvp){
+            createLocalNotification("Upcoming Event in " + event.session.room().name,
+                    event.session.title + " is starting soon.",
+                    event.session.startsAt.toLongMillis(),
+                    sessionId.toInt())
+        }else{
+            cancelLocalNotification(sessionId.toInt())
         }
 
         AppContext.sessionizeApi.lateValue.recordRsvp(methodName, localSessionId)

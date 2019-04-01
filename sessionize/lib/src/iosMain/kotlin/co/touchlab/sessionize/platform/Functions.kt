@@ -29,6 +29,7 @@ actual fun currentTimeMillis(): Long = getTimeMillis()
 
 private val workerMap = HashMap<String, Worker?>()
 
+
 //Multiple worker contexts get a copy of global state. Not sure about threads created outside of K/N (probably not)
 //Lazy create ensures we don't try to create multiple queues
 private fun makeQueue(key: String): Worker {
@@ -83,6 +84,7 @@ actual fun logException(t: Throwable) {
 actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory()
 
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
+
 
 @Suppress("unused")
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")

@@ -1,5 +1,6 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
@@ -8,8 +9,11 @@ import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
+import co.touchlab.sessionize.platform.deinitializeNotifications
+import co.touchlab.sessionize.platform.initializeNotifications
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.sessionize.platform.settingsFactory
 import co.touchlab.stately.concurrency.AtomicReference
@@ -39,14 +43,18 @@ object AppContext {
     val coroutineScope = ThreadLocalRef<CoroutineScope>()
     val sessionizeApi = ThreadLocalRef<SessionizeApi>()
 
+    val tenMinutesInMS:Int = 1000 * 10 * 60
+
     fun initPlatformClient(
             staticFileLoader: (filePrefix: String, fileType: String) -> String?,
             analyticsCallback: (name: String, params: Map<String, Any>) -> Unit,
             clLogCallback: (s: String) -> Unit,
             dispatcher: CoroutineDispatcher,
-            sqlDriver: SqlDriver) {
+            sqlDriver: SqlDriver,
+            timeZone:String) {
 
         dbHelper.initDatabase(sqlDriver)
+        dbHelper.setTimeZone(timeZone)
 
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
@@ -58,6 +66,14 @@ object AppContext {
         sessionizeApi.value = SessionizeApi
 
         dataLoad()
+
+        initializeNotifications()
+        createNotificationsForSessions()
+
+    }
+
+    fun deinitPlatformClient(){
+        deinitializeNotifications()
     }
 
     internal val sessionQueries: SessionQueries
@@ -154,6 +170,24 @@ object AppContext {
 
     private fun storeAll(networkSponsorJson: String, networkSpeakerJson: String, networkSessionJson: String) {
         dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
+    }
+
+    private fun createNotificationsForSessions() = coroutineScope.lateValue.launch {
+
+        val mySessions = backgroundSuspend {
+            sessionQueries.mySessions().executeAsList()
+        }
+
+        for (session:MySessions in mySessions) {
+            var notificationTime = session.startsAt.toLongMillis() - tenMinutesInMS
+            if(notificationTime > currentTimeMillis()) {
+
+                createLocalNotification("Upcoming Event in " + session.roomName,
+                        session.title + " is starting soon.",
+                        notificationTime,
+                        session.id.toInt())
+            }
+        }
     }
 }
 

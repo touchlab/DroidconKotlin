@@ -5,7 +5,6 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
-import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
@@ -20,6 +19,7 @@ class SessionizeDbHelper {
 
     private val driverRef = AtomicReference<SqlDriver?>(null)
     private val dbRef = AtomicReference<Database?>(null)
+    private var timeZone:String = ""
 
     fun initDatabase(sqlDriver: SqlDriver) {
         driverRef.value = sqlDriver.freeze()
@@ -36,6 +36,10 @@ class SessionizeDbHelper {
 
     internal val instance: Database
         get() = dbRef.value!!
+
+    fun setTimeZone(timeZone: String){
+        this.timeZone = timeZone
+    }
 
     fun getSessionsQuery(): Query<SessionWithRoom> = instance.sessionQueries.sessionWithRoom()
 
@@ -113,13 +117,17 @@ class SessionizeDbHelper {
 
             val dbSession = instance.sessionQueries.sessionById(session.id).executeAsOneOrNull()
 
+
+            val startsAt = session.startsAt!! + timeZone
+            val endsAt = session.endsAt!! + timeZone
+
             if (dbSession == null) {
                 instance.sessionQueries.insert(
                         session.id,
                         session.title,
                         session.descriptionText ?: "",
-                        instance.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
-                        instance.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        instance.sessionAdapter.startsAtAdapter.decode(startsAt),
+                        instance.sessionAdapter.endsAtAdapter.decode(endsAt),
                         if (session.isServiceSession) {
                             1
                         } else {
@@ -130,8 +138,8 @@ class SessionizeDbHelper {
                 instance.sessionQueries.update(
                         title = session.title,
                         description = session.descriptionText ?: "",
-                        startsAt = instance.sessionAdapter.startsAtAdapter.decode(session.startsAt!!),
-                        endsAt = instance.sessionAdapter.endsAtAdapter.decode(session.endsAt!!),
+                        startsAt = instance.sessionAdapter.startsAtAdapter.decode(startsAt),
+                        endsAt = instance.sessionAdapter.endsAtAdapter.decode(endsAt),
                         serviceSession = if (session.isServiceSession) {
                             1
                         } else {
