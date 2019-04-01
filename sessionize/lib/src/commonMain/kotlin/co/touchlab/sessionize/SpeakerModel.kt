@@ -10,7 +10,7 @@ class SpeakerModel(speakerId: String) : BaseQueryModelView<UserAccount, UserAcco
         {
             it.executeAsOne()
         },
-        AppContext.dispatcherLocal.lateValue
+        ServiceRegistry.coroutinesDispatcher
 ) {
     init {
         clLog("init SpeakerModel($speakerId)")

@@ -27,14 +27,19 @@ import java.util.Date
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
-internal actual fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
+internal actual fun <B> backgroundTaskPlatform(backJob: () -> B, mainJob: (B) -> Unit) {
     AndroidAppContext.backgroundTask(backJob, mainJob)
 }
 
-private val btfHandler = Handler(Looper.getMainLooper())
+private val btfHandler:Handler? = try{Handler(Looper.getMainLooper())}catch (e:Throwable){null}
 
 internal actual fun <B> backToFront(b: () -> B, job: (B) -> Unit) {
-    btfHandler.post { job(b()) }
+    val h = btfHandler
+    if(h == null){
+        job(b())
+    }else{
+        h.post { job(b()) }
+    }
 }
 
 internal actual val mainThread: Boolean
@@ -45,20 +50,23 @@ object AndroidAppContext {
 
     val executor = Executors.newSingleThreadExecutor()
     val networkExecutor = Executors.newSingleThreadExecutor()
-    val handler = Handler(Looper.getMainLooper())
 
     fun <B> backgroundTask(backJob: () -> B, mainJob: (B) -> Unit) {
         executor.execute {
             val aref = AtomicReference<B>()
             try {
                 aref.set(backJob())
-                handler.post {
+                val h = btfHandler
+                if(h == null){
                     mainJob(aref.get())
+                }else{
+                    h.post {
+                        mainJob(aref.get())
+                    }
                 }
             } catch (t: Throwable) {
                 t.printStackTrace()
             }
-
         }
     }
 
@@ -85,7 +93,5 @@ object AndroidAppContext {
 actual fun logException(t: Throwable) {
     t.printStackTrace()
 }
-
-actual fun settingsFactory(): Settings.Factory = PlatformSettings.Factory(AndroidAppContext.app)
 
 actual fun createUuid(): String = UUID.randomUUID().toString()
