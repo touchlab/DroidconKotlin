@@ -17,7 +17,7 @@ import android.content.ComponentName
 
 val notificationPublisher: BroadcastReceiver = NotificationPublisher()
 
-actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
+actual fun createLocalNotificationOnPlatform(title:String, message:String, timeInMS:Long, notificationId: Int) {
 
     // Building Notification
     val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
@@ -64,20 +64,20 @@ class NotificationPublisher : BroadcastReceiver() {
     }
 }
 
-actual fun cancelLocalNotification(notificationId: Int){
+actual fun cancelLocalNotificationOnPlatform(notificationId: Int){
     with(NotificationManagerCompat.from(AndroidAppContext.app)) {
         this.cancel(notificationId)
     }
 }
 
-actual fun initializeNotifications(){
+actual fun initializeNotificationsOnPlatform(){
     val filter = IntentFilter(AndroidAppContext.app.getString(R.string.notification_action))
     AndroidAppContext.app.registerReceiver(notificationPublisher, filter)
 
     createNotificationChannel()
 }
 
-actual fun deinitializeNotifications(){
+actual fun deinitializeNotificationsOnPlatform(){
     //AndroidAppContext.app.unregisterReceiver(notificationPublisher)
 }
 
