@@ -18,7 +18,7 @@ class EventModelTest {
     @BeforeTest
     fun setup() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock(), NotificationsApiMock(), "-0400")
+                Dispatchers.Main, TestSettings(), TestConcurrent, sessionizeApiMock, analyticsApiMock, notificationsApiMock, "-0400")
 
         AppContext.initAppContext({filePrefix, fileType ->
             when(filePrefix){
@@ -55,15 +55,15 @@ class AnalyticsApiMock : AnalyticsApi {
 class SessionizeApiMock : SessionizeApi {
     var rsvpCalled = false
     override suspend fun getSpeakersJson(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ""
     }
 
     override suspend fun getSessionsJson(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ""
     }
 
     override suspend fun getSponsorJson(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ""
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean {
@@ -75,19 +75,19 @@ class SessionizeApiMock : SessionizeApi {
 class NotificationsApiMock : NotificationsApi {
 
     override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int){
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun cancelLocalNotification(notificationId: Int){
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun initializeNotifications(){
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun deinitializeNotifications(){
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }
