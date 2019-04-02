@@ -8,6 +8,7 @@ import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.MainConcurrent
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.api.AnalyticsApi
+import co.touchlab.sessionize.api.NotificationsApiImpl
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
@@ -40,8 +41,8 @@ class MainApp :Application(){
                         }
                         Answers.getInstance().logCustom(event)
                     }
-
                 },
+                NotificationsApiImpl,
                 BuildConfig.TIME_ZONE
         )
 
