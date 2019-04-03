@@ -50,11 +50,12 @@ class MainApp :Application(){
                 { Log.w("MainApp", it) })
 
         AppContext.dataLoad()
+        ServiceRegistry.notificationsApi.initializeNotifications()
     }
 
     override fun onTerminate() {
         super.onTerminate()
-        AppContext.deinitPlatformClient()
+        ServiceRegistry.notificationsApi.deinitializeNotifications()
     }
 
     private fun loadAsset(name:String) = assets
