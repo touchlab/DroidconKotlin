@@ -38,10 +38,6 @@ object AppContext {
                 clLogCallback).freeze()
     }
 
-    fun deinitPlatformClient(){
-        ServiceRegistry.notificationsApi.deinitializeNotifications()
-    }
-
     internal val sessionQueries: SessionQueries
         get() = AppContext.dbHelper.instance.sessionQueries
 
