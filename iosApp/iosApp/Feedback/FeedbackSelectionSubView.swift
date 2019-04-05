@@ -24,5 +24,7 @@ class FeedbackSelectionSubView: FeedbackSubview {
     
     private func buttonPressed(rating:FeedbackRating){
         feedbackHandler?.feedbackSelected(rating: rating)
+        feedbackHandler?.finishedViewsFeedback()
+
     }
 }

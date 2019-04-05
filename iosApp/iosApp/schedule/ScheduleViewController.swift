@@ -176,41 +176,10 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
     
     
     func showAlert(){
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let alert = FeedbackAlertViewController(preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
         }))
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        let customView = FeedbackView.createFromNib()
-        if let feedbackView = customView {
-            feedbackView.setAlertView(alertView: alert)
-            alert.view.addSubview(feedbackView)
-            feedbackView.translatesAutoresizingMaskIntoConstraints = false
-            feedbackView.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 0).isActive = true
-            feedbackView.rightAnchor.constraint(equalTo: alert.view.rightAnchor, constant: 0).isActive = true
-            feedbackView.leftAnchor.constraint(equalTo: alert.view.leftAnchor, constant: 0).isActive = true
-            feedbackView.heightAnchor.constraint(equalToConstant: 250).isActive = true
-            
-            alert.view.translatesAutoresizingMaskIntoConstraints = false
-            alert.view.bottomAnchor.constraint(equalTo: feedbackView.bottomAnchor, constant: 20).isActive = true
-            //alert.view.heightAnchor.constraint(equalToConstant: 430).isActive = true
-        }
-        
-        
-        
-        
-        
-        
-        
-        
         self.present(alert, animated: true, completion: nil)
     }
 }

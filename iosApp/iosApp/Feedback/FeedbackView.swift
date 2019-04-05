@@ -20,6 +20,13 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     var commentView: FeedbackCommentSubView?
     var selectionView: FeedbackSelectionSubView?
     
+    enum SubviewType : Int {
+        case rating = 0
+        case comment = 1
+        
+    }
+    var subviewIdx:SubviewType = .rating
+    
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var BackButton: UIButton!
     
@@ -67,22 +74,36 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     // MARK: - Interaction
 
     @IBAction func BackButtonPressed(_ sender: Any) {
-        alertViewController?.dismiss(animated: true, completion: nil)
+        closeParentAlertViewController()
     }
     
     func feedbackSelected(rating:FeedbackRating){
         self.rating = rating
-        showCommentView()
     }
     
     func commentEntered(comment: String) {
         self.comments = comment
     }
     
-    func finishedFeedback() {
-        alertViewController?.dismiss(animated: true, completion: nil)
+    func finishedViewsFeedback() {
+        
+        switch subviewIdx {
+        case .rating:
+            subviewIdx = SubviewType.comment
+            showCommentView()
+            break
+        case .comment:
+            closeParentAlertViewController()
+            break
+        default:
+            break
+        }
     }
 
+    func closeParentAlertViewController(){
+        alertViewController?.dismiss(animated: true, completion: nil)
+
+    }
     
     // MARK: - Showing SubViews
     
@@ -133,6 +154,6 @@ extension FeedbackView {
 protocol FeedbackInteractionDelegate {
     func feedbackSelected(rating:FeedbackRating)
     func commentEntered(comment:String)
-    func finishedFeedback()
+    func finishedViewsFeedback()
 
 }
