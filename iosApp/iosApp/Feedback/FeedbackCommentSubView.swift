@@ -20,7 +20,7 @@ class FeedbackCommentSubView: FeedbackSubview {
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         feedbackHandler?.commentEntered(comment: commentsTextView.text)
-        feedbackHandler?.finishedFeedback()
+        feedbackHandler?.finishedViewsFeedback()
     }
     
     

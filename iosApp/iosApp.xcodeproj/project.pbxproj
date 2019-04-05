@@ -75,6 +75,7 @@
 		F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */; };
 		F111E61422579D65000B3F3D /* FeedbackSelectionSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E61322579D65000B3F3D /* FeedbackSelectionSubView.swift */; };
 		F111E6162257C8D6000B3F3D /* FeedbackSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E6152257C8D6000B3F3D /* FeedbackSubview.swift */; };
+		F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */; };
 		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		FE7B22AB48874F7140F42B10 /* Coroutines.kt in Sources */ = {isa = PBXBuildFile; fileRef = CF10C231D1475A2DC849C81B /* Coroutines.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
@@ -177,6 +178,7 @@
 		F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCommentSubView.swift; sourceTree = "<group>"; };
 		F111E61322579D65000B3F3D /* FeedbackSelectionSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSelectionSubView.swift; sourceTree = "<group>"; };
 		F111E6152257C8D6000B3F3D /* FeedbackSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSubview.swift; sourceTree = "<group>"; };
+		F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAlertViewController.swift; sourceTree = "<group>"; };
 		F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		F3268F03C19C8685393B8DDA /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -725,6 +727,7 @@
 				F111E6152257C8D6000B3F3D /* FeedbackSubview.swift */,
 				F111E61322579D65000B3F3D /* FeedbackSelectionSubView.swift */,
 				F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */,
+				F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -978,6 +981,7 @@
 				6359EB8F2112650200424B73 /* UITextViewFixed.swift in Sources */,
 				6372424020F975A70049263B /* ScheduleViewController.swift in Sources */,
 				091B46F35A3E9A9FE7CBA94A /* EventViewModel.kt in Sources */,
+				F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */,
 				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
 				304E5637389A73B7652919A2 /* File.kt in Sources */,
 				FE7B22AB48874F7140F42B10 /* Coroutines.kt in Sources */,
