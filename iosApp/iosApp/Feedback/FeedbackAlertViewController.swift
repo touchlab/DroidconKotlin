@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import main
+
 
 class FeedbackAlertViewController: UIAlertController {
 
-    convenience init(preferredStyle: UIAlertControllerStyle){
+    convenience init(preferredStyle: UIAlertControllerStyle,session:SessionWithRoom){
         self.init(title: nil, message: nil, preferredStyle: preferredStyle)
         
         let customView = FeedbackView.createFromNib()
         if let feedbackView = customView {
             feedbackView.setAlertView(alertView: self)
+            feedbackView.setSession(session: session)
             self.view.addSubview(feedbackView)
             
             // Constraints
@@ -28,7 +31,7 @@ class FeedbackAlertViewController: UIAlertController {
             self.view.bottomAnchor.constraint(equalTo: feedbackView.bottomAnchor, constant: 20).isActive = true
         }
         
-        self.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+        self.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
         }))
     }
