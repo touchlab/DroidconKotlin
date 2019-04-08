@@ -9,7 +9,12 @@
 import UIKit
 
 class FeedbackSelectionSubView: FeedbackSubview {
-
+    @IBOutlet weak var selectionTitle: UILabel!
+    
+    func setSessionTitle(title:String){
+        selectionTitle.text = "What did you think of \(title)?"
+    }
+    
     @IBAction func goodButtonPressed(_ sender: Any) {
         buttonPressed(rating: FeedbackRating.good)
     }
@@ -25,6 +30,5 @@ class FeedbackSelectionSubView: FeedbackSubview {
     private func buttonPressed(rating:FeedbackRating){
         feedbackHandler?.feedbackSelected(rating: rating)
         feedbackHandler?.finishedViewsFeedback()
-
     }
 }

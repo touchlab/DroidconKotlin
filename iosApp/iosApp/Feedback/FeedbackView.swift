@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import main
 
 public enum FeedbackRating {
     case good
@@ -32,6 +33,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     
     let animationTime = 0.4
     
+    var session:SessionWithRoom?
     var rating:FeedbackRating?
     var comments:String?
     
@@ -60,6 +62,10 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     
     func setAlertView(alertView: UIAlertController) {
         alertViewController = alertView
+    }
+    
+    func setSession(session:SessionWithRoom){
+        selectionView?.setSessionTitle(title: session.title)
     }
     
     func addFeedbackSubviews() {
