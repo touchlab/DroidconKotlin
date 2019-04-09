@@ -115,8 +115,13 @@ class FeedbackDialog : DialogFragment(){
                 subviewIdx = SubviewType.Comment
                 showCommentView()
             }
-            SubviewType.Comment -> dismiss()
+            SubviewType.Comment -> finishAndClose()
         }
+    }
+
+    private fun finishAndClose(){
+        
+        dismiss()
     }
 
     private fun showCommentView(){
