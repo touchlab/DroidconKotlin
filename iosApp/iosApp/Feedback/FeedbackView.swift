@@ -96,14 +96,14 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
             showCommentView()
             break
         case .comment:
-            closeParentAlertViewController()
+            finishAndClose()
             break
         default:
             break
         }
     }
 
-    func closeParentAlertViewController(){
+    func finishAndClose(){
         alertViewController?.dismiss(animated: true, completion: nil)
 
     }
