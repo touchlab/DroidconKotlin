@@ -24,7 +24,6 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     enum SubviewType : Int {
         case rating = 0
         case comment = 1
-        
     }
     var subviewIdx:SubviewType = .rating
     
@@ -33,7 +32,6 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     
     let animationTime = 0.4
     
-    var session:SessionWithRoom?
     var rating:FeedbackRating?
     var comments:String?
     
@@ -92,7 +90,6 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     }
     
     func finishedViewsFeedback() {
-        
         switch subviewIdx {
         case .rating:
             subviewIdx = SubviewType.comment
