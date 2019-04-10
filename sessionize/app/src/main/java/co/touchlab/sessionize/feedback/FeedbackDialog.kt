@@ -4,86 +4,54 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.droidcon.db.Session
 import co.touchlab.sessionize.R
+import kotlinx.android.synthetic.main.feedback_view.*
 
 
-enum class FeedbackRating(val value: Int) {
-    Good(0),
-    Ok(1),
-    Bad(2)
+interface FeedbackDialogInterface{
+    fun finishedFeedback(sessionId:String, rating:Int, comment: String)
 }
 
-class FeedbackDialog : DialogFragment(){
+enum class FeedbackRating(val value: Int) {
+    None(0),
+    Good(1),
+    Ok(2),
+    Bad(3)
+}
 
-    private var feedbackView:View? = null
-    private var selectionView:View? = null
-    private var commentView:View? = null
-    private var titleTextView:TextView? = null
-    private var commentEditText:EditText? = null
+class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
 
-    enum class SubviewType(val value:Int) {
-        Rating(0),
-        Comment(1)
-    }
-    var subviewIdx:SubviewType = SubviewType.Rating
+    private var doneButton:Button? = null
+
+    private var ratingView:FeedbackRatingView? = null
+    private var commentView:FeedbackCommentView? = null
+
+
+    private var session:Session? = null
+    private var feedbackInterface:FeedbackDialogInterface? = null
 
     private val animationTime = 400L
 
-    var rating:FeedbackRating? = null
-    var comments:String? = null
+    private var rating:FeedbackRating = FeedbackRating.None
+    private var comments:String = ""
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
 
+            val feedbackView = createFeedbackView(requireActivity().layoutInflater)
+
             val builder = AlertDialog.Builder(it)
-            val inflater = requireActivity().layoutInflater
-            feedbackView = inflater.inflate(R.layout.feedback_view, null)
-
-
-            feedbackView?.let { fbView ->
-                titleTextView = fbView.findViewById(R.id.titleTextView)
-
-                selectionView = fbView.findViewById(R.id.selectionView)
-                selectionView?.let { selView ->
-                    selView.findViewById<ImageButton>(R.id.goodButton)?.let { goodButton ->
-                        goodButton.setOnClickListener {
-                            feedbackSelected(FeedbackRating.Good)
-                        }
-                    }
-                    selView.findViewById<ImageButton>(R.id.okButton)?.let { okButton ->
-                        okButton.setOnClickListener {
-                            feedbackSelected(FeedbackRating.Ok)
-                        }
-                    }
-                    selView.findViewById<ImageButton>(R.id.badButton)?.let { badButton ->
-                        badButton.setOnClickListener {
-                            feedbackSelected(FeedbackRating.Bad)
-                        }
-                    }
-                }
-
-                commentView = fbView.findViewById(R.id.commentView)
-                commentView?.let { commView ->
-                    commView.findViewById<Button>(R.id.doneButton)?.setOnClickListener {
-                        commentEntered(commentEditText!!.text.toString())
-                    }
-                    commentEditText = commView.findViewById(R.id.commentEditText)
-                }
-            }
-
-            commentView?.visibility = View.INVISIBLE
-
             builder.setView(feedbackView)
-                    .setNegativeButton("cancel", DialogInterface.OnClickListener { dialog, _ ->
+                    .setNegativeButton("Close and Disable Feedback", DialogInterface.OnClickListener { dialog, _ ->
                         dialog.dismiss()
                     })
 
@@ -95,40 +63,59 @@ class FeedbackDialog : DialogFragment(){
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    fun setSession(session: SessionWithRoom){
-        titleTextView?.text = "What did you think of ${session.title} ?"
-    }
-
-    private fun feedbackSelected(rating:FeedbackRating){
-        this.rating = rating
-        finishedViewsFeedback()
-    }
-
-    private fun commentEntered(comment: String) {
-        this.comments = comment
-        finishedViewsFeedback()
-    }
-
-    private fun finishedViewsFeedback() {
-        when (subviewIdx) {
-            SubviewType.Rating -> {
-                subviewIdx = SubviewType.Comment
-                showCommentView()
+    private fun createFeedbackView(inflater: LayoutInflater):View{
+        val view = inflater.inflate(R.layout.feedback_view, null)
+        view?.let { fbView ->
+            doneButton = fbView.findViewById(R.id.doneButton)
+            doneButton?.setOnClickListener {
+                finishAndClose()
             }
-            SubviewType.Comment -> finishAndClose()
+            doneButton?.isEnabled = false
+
+            initSelectionView(fbView)
+            initCommentView(fbView)
         }
+        return view
     }
+
+    private fun initSelectionView(feedbackView:View){
+        ratingView = feedbackView.findViewById(R.id.selectionView)
+        ratingView?.createButtonListeners()
+        ratingView?.setFeedbackInteractionListener(this)
+        ratingView?.createCommentButtonListener(View.OnClickListener {
+            showCommentView()
+        })
+    }
+
+    private fun initCommentView(feedbackView:View){
+        commentView = feedbackView.findViewById(R.id.commentView)
+        commentView?.visibility = View.INVISIBLE
+    }
+
+
+    fun setFeedbackDialogInterface(feedbackDialogInterface: FeedbackDialogInterface){
+        this.feedbackInterface = feedbackDialogInterface
+    }
+
+    fun setSession(session: Session){
+        this.session = session
+        ratingView?.setSessionTitle(session.title)
+    }
+
 
     private fun finishAndClose(){
-        
+        commentView?.getComment()?.let {
+            comments = it
+        }
+        feedbackInterface?.finishedFeedback(session?.id!!,rating.value,comments)
         dismiss()
     }
 
     private fun showCommentView(){
+        selectionView?.isEnabled = false
         commentView?.visibility = View.VISIBLE
-        animateOut(selectionView!!)
+        animateOut(ratingView!!)
         animateIn(commentView!!)
-
     }
 
     private fun animateIn(v:View) {
@@ -147,6 +134,29 @@ class FeedbackDialog : DialogFragment(){
         animate.duration = animationTime
         animate.fillAfter = true
         v.startAnimation(animate)
+        animate.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                v.x = -v.width.toFloat()-100
+            }
+
+        })
     }
 
+    override fun feedbackSelected(rating:FeedbackRating){
+        doneButton?.isEnabled = true
+        additionalButton?.isEnabled = true
+        this.rating = rating
+
+    }
+
+}
+
+interface FeedbackInteractionInterface {
+    fun feedbackSelected(rating:FeedbackRating)
 }
