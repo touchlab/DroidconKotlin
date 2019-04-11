@@ -11,8 +11,6 @@ import android.view.animation.TranslateAnimation
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import co.touchlab.droidcon.db.MySessions
-import co.touchlab.droidcon.db.Session
 import co.touchlab.sessionize.AppContext
 import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.*
@@ -31,17 +29,17 @@ enum class FeedbackRating(val value: Int) {
 
 class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
 
-    private var doneButton:Button? = null
 
     private var ratingView:FeedbackRatingView? = null
     private var commentView:FeedbackCommentView? = null
 
+    private var doneButton:Button? = null
 
-    private var sessionId:Int? = null
     private var feedbackInterface:FeedbackDialogInterface? = null
 
     private val animationTime = 400L
 
+    private var sessionId:Int? = null
     private var rating:FeedbackRating = FeedbackRating.None
     private var comments:String = ""
 
@@ -75,14 +73,14 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
             }
             doneButton?.isEnabled = false
 
-            initSelectionView(fbView)
+            initRatingView(fbView)
             initCommentView(fbView)
         }
         return view
     }
 
-    private fun initSelectionView(feedbackView:View){
-        ratingView = feedbackView.findViewById(R.id.selectionView)
+    private fun initRatingView(feedbackView:View){
+        ratingView = feedbackView.findViewById(R.id.ratingView)
         ratingView?.createButtonListeners()
         ratingView?.setFeedbackInteractionListener(this)
         ratingView?.createCommentButtonListener(View.OnClickListener {
@@ -115,7 +113,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
     }
 
     private fun showCommentView(){
-        selectionView?.isEnabled = false
+        ratingView?.isEnabled = false
         commentView?.visibility = View.VISIBLE
         animateOut(ratingView!!)
         animateIn(commentView!!)
@@ -157,7 +155,6 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         doneButton?.isEnabled = true
         additionalButton?.isEnabled = true
         this.rating = rating
-
     }
 
 }

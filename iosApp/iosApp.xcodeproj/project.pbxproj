@@ -73,9 +73,11 @@
 		F111E60D22569ED1000B3F3D /* FeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F111E60C22569ED1000B3F3D /* FeedbackView.xib */; };
 		F111E60F2256A276000B3F3D /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E60E2256A276000B3F3D /* FeedbackView.swift */; };
 		F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */; };
-		F111E61422579D65000B3F3D /* FeedbackSelectionSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E61322579D65000B3F3D /* FeedbackSelectionSubView.swift */; };
-		F111E6162257C8D6000B3F3D /* FeedbackSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E6152257C8D6000B3F3D /* FeedbackSubview.swift */; };
+		F111E61422579D65000B3F3D /* FeedbackRatingSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */; };
 		F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */; };
+		F111E61C2257E4B6000B3F3D /* unnamed (1).png in Resources */ = {isa = PBXBuildFile; fileRef = F111E6192257E4B5000B3F3D /* unnamed (1).png */; };
+		F111E61D2257E4B6000B3F3D /* unnamed.png in Resources */ = {isa = PBXBuildFile; fileRef = F111E61A2257E4B5000B3F3D /* unnamed.png */; };
+		F111E61E2257E4B6000B3F3D /* unnamed (2).png in Resources */ = {isa = PBXBuildFile; fileRef = F111E61B2257E4B5000B3F3D /* unnamed (2).png */; };
 		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		FE7B22AB48874F7140F42B10 /* Coroutines.kt in Sources */ = {isa = PBXBuildFile; fileRef = CF10C231D1475A2DC849C81B /* Coroutines.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
@@ -176,9 +178,11 @@
 		F111E60C22569ED1000B3F3D /* FeedbackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackView.xib; sourceTree = "<group>"; };
 		F111E60E2256A276000B3F3D /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCommentSubView.swift; sourceTree = "<group>"; };
-		F111E61322579D65000B3F3D /* FeedbackSelectionSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSelectionSubView.swift; sourceTree = "<group>"; };
-		F111E6152257C8D6000B3F3D /* FeedbackSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSubview.swift; sourceTree = "<group>"; };
+		F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackRatingSubView.swift; sourceTree = "<group>"; };
 		F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAlertViewController.swift; sourceTree = "<group>"; };
+		F111E6192257E4B5000B3F3D /* unnamed (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unnamed (1).png"; sourceTree = "<group>"; };
+		F111E61A2257E4B5000B3F3D /* unnamed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unnamed.png; sourceTree = "<group>"; };
+		F111E61B2257E4B5000B3F3D /* unnamed (2).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unnamed (2).png"; sourceTree = "<group>"; };
 		F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		F3268F03C19C8685393B8DDA /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -355,6 +359,9 @@
 		6356312E20DC58F600BCCDF9 = {
 			isa = PBXGroup;
 			children = (
+				F111E6192257E4B5000B3F3D /* unnamed (1).png */,
+				F111E61B2257E4B5000B3F3D /* unnamed (2).png */,
+				F111E61A2257E4B5000B3F3D /* unnamed.png */,
 				6349D7392201027500559B51 /* main.framework */,
 				6356313920DC58F600BCCDF9 /* iosApp */,
 				6356314E20DC58F800BCCDF9 /* iosAppTests */,
@@ -724,8 +731,7 @@
 			children = (
 				F111E60C22569ED1000B3F3D /* FeedbackView.xib */,
 				F111E60E2256A276000B3F3D /* FeedbackView.swift */,
-				F111E6152257C8D6000B3F3D /* FeedbackSubview.swift */,
-				F111E61322579D65000B3F3D /* FeedbackSelectionSubView.swift */,
+				F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */,
 				F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */,
 				F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */,
 			);
@@ -838,6 +844,9 @@
 			files = (
 				6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */,
 				6372423920F915EA0049263B /* schedule.json in Resources */,
+				F111E61D2257E4B6000B3F3D /* unnamed.png in Resources */,
+				F111E61C2257E4B6000B3F3D /* unnamed (1).png in Resources */,
+				F111E61E2257E4B6000B3F3D /* unnamed (2).png in Resources */,
 				6372424C20FAD9B40049263B /* SpeakerTableViewCell.xib in Resources */,
 				6356314220DC58F700BCCDF9 /* Assets.xcassets in Resources */,
 				63A76AD32129F1FB0000515D /* sponsors.json in Resources */,
@@ -968,7 +977,7 @@
 				637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */,
 				637100DC211086360099FF25 /* SpeakerInfoCellTableViewCell.swift in Sources */,
 				6372424720FAD04F0049263B /* EventDetailViewController.swift in Sources */,
-				F111E61422579D65000B3F3D /* FeedbackSelectionSubView.swift in Sources */,
+				F111E61422579D65000B3F3D /* FeedbackRatingSubView.swift in Sources */,
 				6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */,
 				6372424520F9B7800049263B /* AboutViewController.swift in Sources */,
 				63711D3F2111470A0099FF25 /* AboutInfoTableViewCell.swift in Sources */,
@@ -994,7 +1003,6 @@
 				730C9521F5CDB441D6FD4D02 /* SponsorModel.kt in Sources */,
 				DEEF4AC18B0C6C9B322C3E34 /* Functions.kt in Sources */,
 				09E8D3D6AF2E031FB00C541F /* DateHelpers.kt in Sources */,
-				F111E6162257C8D6000B3F3D /* FeedbackSubview.swift in Sources */,
 				B3320598655AFC63A7CC608D /* AboutModel.kt in Sources */,
 				73E01016CA8E1E7238F8241B /* PubSub.kt in Sources */,
 				AAF80D1F28A81A39404519A8 /* BasePub.kt in Sources */,

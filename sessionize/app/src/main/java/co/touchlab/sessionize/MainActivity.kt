@@ -68,7 +68,9 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost, FeedbackInt
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
         }
-        AndroidAppContext.feedbackInterface = this
+        for (session in AppContext.requestMySessionsForFeedback()){
+            showFeedbackDialog(session)
+        }
     }
 
     override fun onResume() {
