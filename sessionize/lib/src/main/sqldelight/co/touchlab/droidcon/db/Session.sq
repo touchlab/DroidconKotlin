@@ -21,7 +21,7 @@ VALUES (?,?,?,?,?,?,?)
 
 update:
 UPDATE session SET title = ?, description = ?, startsAt = ?,
-endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?
+endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?, feedbackRating = ?, feedbackComment = ?
 WHERE id = ?;
 
 deleteById:
