@@ -146,6 +146,8 @@ class SessionizeDbHelper {
                         },
                         roomId = session.roomId!!.toLong(),
                         rsvp = dbSession.rsvp,
+                        feedbackRating =  dbSession.feedbackRating,
+                        feedbackComment = dbSession.feedbackComment,
                         id = session.id
                 )
             }
