@@ -179,6 +179,11 @@ object AppContext {
             }
         }
     }
+
+    fun disableFeedback(){
+        feedbackEnabled = false
+    }
+
     fun getFeedbackEnabled(): Boolean{
         return feedbackEnabled
     }
