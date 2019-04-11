@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.Session
+import co.touchlab.sessionize.AppContext
 import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.*
 
@@ -53,6 +54,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
             val builder = AlertDialog.Builder(it)
             builder.setView(feedbackView)
                     .setNegativeButton("Close and Disable Feedback", DialogInterface.OnClickListener { dialog, _ ->
+                        AppContext.disableFeedback()
                         dialog.dismiss()
                     })
 
