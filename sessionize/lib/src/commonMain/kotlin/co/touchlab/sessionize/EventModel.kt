@@ -7,11 +7,14 @@ import co.touchlab.sessionize.AppContext.sessionQueries
 import co.touchlab.sessionize.AppContext.userAccountQueries
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
+import co.touchlab.sessionize.platform.NotificationFeedbackTag
+import co.touchlab.sessionize.platform.NotificationReminderTag
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.cancelLocalNotification
 import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.showFeedbackAlert
 import kotlinx.coroutines.launch
 import kotlin.math.max
 
@@ -55,10 +58,24 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         if(rsvp){
             createLocalNotification("Upcoming Event in " + event.session.room().name,
                     event.session.title + " is starting soon.",
-                    event.session.startsAt.toLongMillis(),
-                    sessionId.toInt())
+                    event.session.startsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS,
+                    sessionId.toInt(),
+                    NotificationReminderTag)
+
+            // Feedback Notifications
+            if(AppContext.getFeedbackEnabled() && event.session.feedbackRating == null) {
+                val feedbackNotificationTime = event.session.endsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS
+                createLocalNotification("How was the session?",
+                        " Leave feedback for " + event.session.title,
+                        feedbackNotificationTime,
+                        sessionId.toInt(),
+                        NotificationFeedbackTag)
+            }
+
         }else{
-            cancelLocalNotification(sessionId.toInt())
+            cancelLocalNotification(sessionId.toInt(),NotificationReminderTag)
+            cancelLocalNotification(sessionId.toInt(),NotificationFeedbackTag)
+
         }
 
         ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)

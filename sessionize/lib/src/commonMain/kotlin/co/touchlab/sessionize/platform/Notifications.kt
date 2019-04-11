@@ -2,9 +2,12 @@ package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.MySessions
 
-expect fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int)
+val NotificationReminderTag = "REMINDER"
+val NotificationFeedbackTag = "FEEDBACK"
 
-expect fun cancelLocalNotification(notificationId: Int)
+expect fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag:String?)
+
+expect fun cancelLocalNotification(notificationId: Int,notificationTag: String?)
 
 expect fun initializeNotifications()
 

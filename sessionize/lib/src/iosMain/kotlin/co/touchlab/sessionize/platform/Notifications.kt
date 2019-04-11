@@ -27,7 +27,7 @@ import platform.darwin.NSObject
 private val localNotificationDelegate = LocalNotificationDelegate()
 
 @ExperimentalUnsignedTypes
-actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
+actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag:String?) {
 
     val date = NSDate.dateWithTimeIntervalSince1970(timeInMS / 1000.0)
     var dateFlags: NSCalendarUnit = NSCalendarUnitMonth.or(NSCalendarUnitDay).or(NSCalendarUnitYear)
@@ -48,7 +48,7 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
     center.addNotificationRequest(request,null)
 }
 
-actual fun cancelLocalNotification(notificationId: Int){
+actual fun cancelLocalNotification(notificationId: Int,notificationTag: String?){
     val center = UNUserNotificationCenter.currentNotificationCenter()
     val identifiers:Array<String> = arrayOf(notificationId.toString())
     val listIds = identifiers.asList()
