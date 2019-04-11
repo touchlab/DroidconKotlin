@@ -12,13 +12,16 @@ import main
 
 class FeedbackAlertViewController: UIAlertController {
 
-    convenience init(preferredStyle: UIAlertControllerStyle,session:SessionWithRoom){
+    private var feedbackDialogDelegate:FeedbackDialogDelegate?
+
+    
+    convenience init(preferredStyle: UIAlertControllerStyle,sessionid:Int,sessionTitle:String){
         self.init(title: nil, message: nil, preferredStyle: preferredStyle)
         
-        let customView = FeedbackView.createFromNib()
+        let customView = FeedbackView.createFeedbackView()
         if let feedbackView = customView {
             feedbackView.setAlertView(alertView: self)
-            feedbackView.setSession(session: session)
+            feedbackView.setSessionInfo(sessionId: sessionid, sessionTitle: sessionTitle)
             self.view.addSubview(feedbackView)
             
             // Constraints
@@ -26,7 +29,7 @@ class FeedbackAlertViewController: UIAlertController {
             feedbackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
             feedbackView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
             feedbackView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
-            feedbackView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+            feedbackView.heightAnchor.constraint(equalToConstant: 350).isActive = true
             self.view.translatesAutoresizingMaskIntoConstraints = false
             self.view.bottomAnchor.constraint(equalTo: feedbackView.bottomAnchor, constant: 20).isActive = true
         }
@@ -34,6 +37,19 @@ class FeedbackAlertViewController: UIAlertController {
         self.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
         }))
+    }
+    
+    func closeWithFeedback(sessionId:String,rating:FeedbackRating, comments: String){
+        feedbackDialogDelegate?.finishedFeedback(sessionId: String(sessionId),rating: rating.hashValue,comment: comments)
+        close()
+    }
+    
+    func close(){
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func setFeedbackDialogDelegate(feedbackDialogDelegate: FeedbackDialogDelegate){
+        self.feedbackDialogDelegate = feedbackDialogDelegate
     }
     
     override func viewDidLoad() {

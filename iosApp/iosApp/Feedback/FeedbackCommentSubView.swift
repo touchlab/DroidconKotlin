@@ -8,9 +8,13 @@
 
 import UIKit
 
-class FeedbackCommentSubView: FeedbackSubview {
+class FeedbackCommentSubView: UIView {
 
     @IBOutlet weak var commentsTextView: UITextView!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -18,10 +22,12 @@ class FeedbackCommentSubView: FeedbackSubview {
         commentsTextView.layer.borderWidth = 1.0 //make border 1px thick
     }
     
-    @IBAction func doneButtonPressed(_ sender: Any) {
-        feedbackHandler?.commentEntered(comment: commentsTextView.text)
-        feedbackHandler?.finishedViewsFeedback()
+    func setFocus(){
+        commentsTextView.becomeFirstResponder()
+
     }
     
-    
+    func getComment() -> String {
+        return commentsTextView.text
+    }
 }

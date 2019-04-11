@@ -9,6 +9,10 @@
 import UIKit
 import main
 
+protocol FeedbackDialogDelegate{
+    func finishedFeedback(sessionId:String, rating:Int, comment: String)
+}
+
 public enum FeedbackRating {
     case good
     case ok
@@ -17,23 +21,19 @@ public enum FeedbackRating {
 
 class FeedbackView: UIView, FeedbackInteractionDelegate {
     
-    private var alertViewController: UIAlertController?
-    var commentView: FeedbackCommentSubView?
-    var selectionView: FeedbackSelectionSubView?
+    private var alertViewController: FeedbackAlertViewController?
+    private var commentView: FeedbackCommentSubView?
+    private var ratingView: FeedbackRatingSubView?
     
-    enum SubviewType : Int {
-        case rating = 0
-        case comment = 1
-    }
-    var subviewIdx:SubviewType = .rating
-    
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var baseView: UIView!
-    @IBOutlet weak var BackButton: UIButton!
     
-    let animationTime = 0.4
+    private let animationTime = 0.4
     
-    var rating:FeedbackRating?
-    var comments:String?
+    private var sessionId:Int?
+    private var rating:FeedbackRating?
+    private var comments:String?
     
     // MARK: - Initialization
     
@@ -43,11 +43,47 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        print(baseView.frame.width)
-        addFeedbackSubviews()
+        initRatingView()
+        initCommentView()
+        doneButton.isEnabled = false
+        doneButton.backgroundColor = UIColor.lightGray
+    }
+    
+    public static func createFeedbackView() -> FeedbackView? {
+        var feedbackView: FeedbackView?
+        var commentView: FeedbackCommentSubView?
+        var ratingView: FeedbackRatingSubView?
+        
+        let nibName = "FeedbackView"
+        let views = Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)!
+        for v in views{
+            if let fView = v as? FeedbackView {
+                feedbackView = fView
+            }else if let cView = v as? FeedbackCommentSubView {
+                commentView = cView
+            }else if let sView = v as? FeedbackRatingSubView {
+                ratingView = sView
+            }
+        }
+        feedbackView?.commentView = commentView
+        feedbackView?.ratingView = ratingView
+        return feedbackView
     }
 
-    func AddFeedbackSubview(_ v:UIView?,hidden:Bool){
+    public func setAlertView(alertView: FeedbackAlertViewController) {
+        alertViewController = alertView
+    }
+    
+    private func initRatingView() {
+        ratingView?.setFeedbackHandler(handler: self)
+        addFeedbackSubview(ratingView,hidden: false)
+    }
+    
+    private func initCommentView() {
+        addFeedbackSubview(commentView,hidden: true)
+    }
+    
+    private func addFeedbackSubview(_ v:UIView?,hidden:Bool){
         if let realSelectionView = v {
             if !realSelectionView.isDescendant(of: baseView) {
                 baseView.addSubview(realSelectionView)
@@ -58,60 +94,45 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
         }
     }
     
-    func setAlertView(alertView: UIAlertController) {
-        alertViewController = alertView
-    }
     
-    func setSession(session:SessionWithRoom){
-        selectionView?.setSessionTitle(title: session.title)
-    }
     
-    func addFeedbackSubviews() {
-        selectionView?.setFeedbackHandler(handler: self)
-        AddFeedbackSubview(selectionView,hidden: false)
-        
-        commentView?.setFeedbackHandler(handler: self)
-        AddFeedbackSubview(commentView,hidden: true)
+    public func setSessionInfo(sessionId: Int,sessionTitle:String){
+        self.sessionId = sessionId
+        ratingView?.setSessionTitle(title: sessionTitle)
     }
-    
     
     // MARK: - Interaction
 
+    private func finishAndClose(){
+        comments = commentView?.getComment()
+        alertViewController?.closeWithFeedback(sessionId: String(sessionId!),rating: rating!,comments: comments!)
+    }
+    
     @IBAction func BackButtonPressed(_ sender: Any) {
-        closeParentAlertViewController()
+        alertViewController?.close()
     }
     
-    func feedbackSelected(rating:FeedbackRating){
+    @IBAction func doneButtonPressed(_ sender: Any) {
+        finishAndClose()
+    }
+    
+    internal func feedbackSelected(rating:FeedbackRating){
         self.rating = rating
-    }
-    
-    func commentEntered(comment: String) {
-        self.comments = comment
-    }
-    
-    func finishedViewsFeedback() {
-        switch subviewIdx {
-        case .rating:
-            subviewIdx = SubviewType.comment
-            showCommentView()
-            break
-        case .comment:
-            finishAndClose()
-            break
-        default:
-            break
-        }
-    }
-
-    func finishAndClose(){
-        alertViewController?.dismiss(animated: true, completion: nil)
+        doneButton.isEnabled = true
+        doneButton.backgroundColor = UIColor.blue
 
     }
+    
+    internal func requestCommentView(){
+        showCommentView()
+    }
+    
+    
     
     // MARK: - Showing SubViews
     
-    func showCommentView(){
-        animateOut(selectionView!)
+    private func showCommentView(){
+        animateOut(ratingView!)
         animateIn(commentView!)
     }
     
@@ -120,6 +141,10 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
         
         UIView.animate(withDuration: animationTime, delay: 0, options: .curveEaseInOut, animations: {
             v.frame.origin.x = 0
+        },completion: { finished in
+            if finished {
+                self.commentView?.setFocus()
+            }
         })
     }
     
@@ -131,32 +156,9 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     }
 }
 
-extension FeedbackView {
-    public static func createFromNib() -> FeedbackView? {
-        var feedbackView: FeedbackView?
-        var commentView: FeedbackCommentSubView?
-        var selectionView: FeedbackSelectionSubView?
-        
-        let nibName = "FeedbackView"
-        let views = Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)!
-        for v in views{
-            if let fView = v as? FeedbackView {
-                feedbackView = fView
-            }else if let cView = v as? FeedbackCommentSubView {
-                commentView = cView
-            }else if let sView = v as? FeedbackSelectionSubView {
-                selectionView = sView
-            }
-        }
-        feedbackView?.commentView = commentView
-        feedbackView?.selectionView = selectionView
-        return feedbackView
-    }
-}
-
 protocol FeedbackInteractionDelegate {
     func feedbackSelected(rating:FeedbackRating)
-    func commentEntered(comment:String)
-    func finishedViewsFeedback()
-
+    func requestCommentView()
 }
+
+

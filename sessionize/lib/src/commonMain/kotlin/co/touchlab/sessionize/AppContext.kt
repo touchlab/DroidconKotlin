@@ -1,5 +1,6 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
@@ -25,7 +26,7 @@ import kotlin.coroutines.CoroutineContext
 
 object AppContext {
 
-    private var feedbackEnabled: Boolean = true
+    //private var feedbackEnabled: Boolean = true
 
     val dbHelper = SessionizeDbHelper()
 
@@ -47,7 +48,7 @@ object AppContext {
                 staticFileLoader,
                 clLogCallback).freeze()
         initializeNotifications()
-        feedbackEnabled = true
+        //feedbackEnabled = true
     }
 
     fun deinitPlatformClient(){
@@ -163,30 +164,29 @@ object AppContext {
                 }
 
                 // Feedback Notifications
-                if(feedbackEnabled && session.feedbackRating == null) {
+                if(session.feedbackRating == null) {
                     val feedbackNotificationTime = session.endsAt.toLongMillis() + TEN_MINS_MILLIS
                     createLocalNotification("How was the session?",
                             " Leave feedback for " + session.title,
                             feedbackNotificationTime,
                             session.id.toInt(),
                             NotificationFeedbackTag)
-
-                    val feedbackTime = session.endsAt.toLongMillis()
-                    if (feedbackTime < currentTimeMillis()) {
-                        showFeedbackAlert(session)
-                    }
                 }
             }
         }
     }
 
-    fun disableFeedback(){
-        feedbackEnabled = false
+    fun requestMySessionsForFeedback(): List<MySessions>{
+        return sessionQueries.mySessions().executeAsList().filter {
+            it.feedbackRating == null && it.endsAt.toLongMillis() < currentTimeMillis()
+        }
+
     }
 
-    fun getFeedbackEnabled(): Boolean{
-        return feedbackEnabled
+    fun disableFeedback(){
+        //feedbackEnabled = false
     }
+
 }
 
 val <T> ThreadLocalRef<T>.lateValue: T

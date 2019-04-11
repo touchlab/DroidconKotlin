@@ -44,13 +44,13 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
     content.setBody(message)
     content.setSound(UNNotificationSound.defaultSound)
 
-    val request = UNNotificationRequest.requestWithIdentifier(notificationId.toString(), content, trigger)
+    val request = UNNotificationRequest.requestWithIdentifier(notificationId.toString() + notificationTag!!, content, trigger)
     center.addNotificationRequest(request,null)
 }
 
 actual fun cancelLocalNotification(notificationId: Int,notificationTag: String?){
     val center = UNUserNotificationCenter.currentNotificationCenter()
-    val identifiers:Array<String> = arrayOf(notificationId.toString())
+    val identifiers:Array<String> = arrayOf(notificationId.toString() + notificationTag!!)
     val listIds = identifiers.asList()
     listIds.freeze()
     if (listIds.isFrozen()) {
