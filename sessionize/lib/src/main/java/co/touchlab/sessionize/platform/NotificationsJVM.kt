@@ -14,8 +14,12 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
 import android.content.ComponentName
+import co.touchlab.droidcon.db.MySessions
+
+
 
 val notificationPublisher: BroadcastReceiver = NotificationPublisher()
+
 
 actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
 
@@ -64,6 +68,8 @@ class NotificationPublisher : BroadcastReceiver() {
     }
 }
 
+
+
 actual fun cancelLocalNotification(notificationId: Int){
     with(NotificationManagerCompat.from(AndroidAppContext.app)) {
         this.cancel(notificationId)
@@ -79,6 +85,11 @@ actual fun initializeNotifications(){
 
 actual fun deinitializeNotifications(){
     //AndroidAppContext.app.unregisterReceiver(notificationPublisher)
+}
+
+actual fun showFeedbackAlert(session: MySessions){
+    AndroidAppContext.feedbackInterface!!.showFeedbackDialog(session)
+
 }
 
 private fun createNotificationChannel() {
@@ -101,4 +112,8 @@ private fun createNotificationChannel() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+}
+
+interface FeedbackInterface{
+    fun showFeedbackDialog(session:MySessions)
 }

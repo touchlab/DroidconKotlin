@@ -12,6 +12,7 @@ import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.deinitializeNotifications
 import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.showFeedbackAlert
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
@@ -20,6 +21,8 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 object AppContext {
+
+    private var feedbackEnabled: Boolean = true
 
     val dbHelper = SessionizeDbHelper()
 
@@ -38,6 +41,7 @@ object AppContext {
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
                 clLogCallback).freeze()
+        feedbackEnabled = true
     }
 
     fun deinitPlatformClient(){
@@ -141,7 +145,6 @@ object AppContext {
     }
 
     private fun createNotificationsForSessions() {
-
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             val tenMinutesInMS: Int = 1000 * 10 * 60
             mySessions.forEach { session ->
@@ -151,6 +154,20 @@ object AppContext {
                             session.title + " is starting soon.",
                             notificationTime,
                             session.id.toInt())
+                }
+
+                // Feedback Notifications
+                if(feedbackEnabled && session.feedbackRating == null) {
+                    val feedbackNotificationTime = session.endsAt.toLongMillis() + tenMinutesInMS
+                    createLocalNotification("How was the session?",
+                            " Leave feedback for " + session.title,
+                            feedbackNotificationTime,
+                            session.id.toInt())
+
+                    val feedbackTime = session.endsAt.toLongMillis()
+                    if (feedbackTime < currentTimeMillis()) {
+                        showFeedbackAlert(session)
+                    }
                 }
             }
         }

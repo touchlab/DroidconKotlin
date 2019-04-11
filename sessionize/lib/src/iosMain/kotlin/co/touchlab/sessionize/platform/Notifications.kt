@@ -1,5 +1,7 @@
 package co.touchlab.sessionize.platform
 
+import co.touchlab.droidcon.db.MySessions
+import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.stately.freeze
 import co.touchlab.stately.isFrozen
 import platform.Foundation.NSCalendar
@@ -61,6 +63,10 @@ actual fun initializeNotifications(){
 }
 
 actual fun deinitializeNotifications() {
+}
+
+actual fun showFeedbackAlert(session: MySessions){
+
 }
 
 // Needed to approve local notifications
