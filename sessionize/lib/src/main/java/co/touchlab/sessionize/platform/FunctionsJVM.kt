@@ -48,6 +48,8 @@ internal actual val mainThread: Boolean
 object AndroidAppContext {
     lateinit var app: Application
 
+    var feedbackInterface:FeedbackInterface? = null
+
     val executor = Executors.newSingleThreadExecutor()
     val networkExecutor = Executors.newSingleThreadExecutor()
 

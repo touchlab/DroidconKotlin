@@ -15,9 +15,15 @@ import co.touchlab.sessionize.sponsors.SponsorsFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
+import co.touchlab.droidcon.db.MySessions
+import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.sessionize.feedback.FeedbackDialog
+import co.touchlab.sessionize.feedback.FeedbackDialogInterface
+import co.touchlab.sessionize.platform.AndroidAppContext
+import co.touchlab.sessionize.platform.FeedbackInterface
 
 
-class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
+class MainActivity : AppCompatActivity(), NavigationHost, SnackHost, FeedbackInterface {
     override fun showSnack(message: String, length: Int) {
         Snackbar.make(findViewById<View>(R.id.navigation), message, Snackbar.LENGTH_SHORT).show()
     }
@@ -62,6 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
         }
+        AndroidAppContext.feedbackInterface = this
     }
 
     override fun onResume() {
@@ -124,5 +131,16 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         }
 
         transaction.commit()
+    }
+
+    override fun showFeedbackDialog(session: MySessions){
+        val feedbackDialog = FeedbackDialog()
+        feedbackDialog.showNow(supportFragmentManager, "test")
+        feedbackDialog.setSessionInfo(session.id.toInt(),session.title)
+        feedbackDialog.setFeedbackDialogInterface(feedbackDialogInterface = object : FeedbackDialogInterface {
+            override fun finishedFeedback(sessionId: String, rating: Int, comment: String) {
+                AppContext.dbHelper.updateFeedback(rating.toLong(),comment,sessionId)
+            }
+        })
     }
 }
