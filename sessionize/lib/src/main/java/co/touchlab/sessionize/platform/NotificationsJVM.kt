@@ -21,7 +21,7 @@ import co.touchlab.droidcon.db.MySessions
 val notificationPublisher: BroadcastReceiver = NotificationPublisher()
 
 
-actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
+actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag:String?) {
 
     // Building Notification
     val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
@@ -38,6 +38,7 @@ actual fun createLocalNotification(title:String, message:String, timeInMS:Long, 
     val intent = Intent().also { intent ->
         intent.action = AndroidAppContext.app.getString(R.string.notification_action)
         intent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId)
+        intent.putExtra(NotificationPublisher.NOTIFICATION_TAG, notificationTag)
         intent.putExtra(NotificationPublisher.NOTIFICATION, builder.build())
         val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
         intent.component = componentName
@@ -55,24 +56,26 @@ class NotificationPublisher : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val notification = intent.getParcelableExtra<Notification>(NOTIFICATION)
         val notificationId = intent.getIntExtra(NOTIFICATION_ID, 0)
+        val notificationTag = intent.getStringExtra(NOTIFICATION_TAG)
 
         with(NotificationManagerCompat.from(AndroidAppContext.app)) {
             // notificationId is a unique int for each notification that you must define
-            this.notify(notificationId, notification)
+            this.notify(notificationTag,notificationId, notification)
         }
     }
 
     companion object {
         var NOTIFICATION_ID = "notification_id"
+        var NOTIFICATION_TAG = "notification_tag"
         var NOTIFICATION = "notification"
     }
 }
 
 
 
-actual fun cancelLocalNotification(notificationId: Int){
+actual fun cancelLocalNotification(notificationId: Int,notificationTag: String?){
     with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-        this.cancel(notificationId)
+        this.cancel(notificationTag,notificationId)
     }
 }
 

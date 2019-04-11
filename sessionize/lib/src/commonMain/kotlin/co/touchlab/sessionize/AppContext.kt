@@ -5,12 +5,15 @@ import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.platform.NotificationFeedbackTag
+import co.touchlab.sessionize.platform.NotificationReminderTag
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.deinitializeNotifications
+import co.touchlab.sessionize.platform.initializeNotifications
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.sessionize.platform.showFeedbackAlert
 import co.touchlab.stately.concurrency.AtomicReference
@@ -30,6 +33,8 @@ object AppContext {
     val KEY_LAST_LOAD = "LAST_LOAD"
     val USER_UUID = "USER_UUID"
     val TWO_HOURS_MILLIS = 2 * 60 * 60 * 1000
+    val TEN_MINS_MILLIS = 1000 * 10 * 60
+
 
     val lambdas = AtomicReference<PlatformLambdas?>(null)
 
@@ -41,6 +46,7 @@ object AppContext {
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
                 clLogCallback).freeze()
+        initializeNotifications()
         feedbackEnabled = true
     }
 
@@ -146,23 +152,24 @@ object AppContext {
 
     private fun createNotificationsForSessions() {
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-            val tenMinutesInMS: Int = 1000 * 10 * 60
             mySessions.forEach { session ->
-                val notificationTime = session.startsAt.toLongMillis() - tenMinutesInMS
+                val notificationTime = session.startsAt.toLongMillis() - TEN_MINS_MILLIS
                 if (notificationTime > currentTimeMillis()) {
                     createLocalNotification("Upcoming Event in " + session.roomName,
                             session.title + " is starting soon.",
                             notificationTime,
-                            session.id.toInt())
+                            session.id.toInt(),
+                            NotificationReminderTag)
                 }
 
                 // Feedback Notifications
                 if(feedbackEnabled && session.feedbackRating == null) {
-                    val feedbackNotificationTime = session.endsAt.toLongMillis() + tenMinutesInMS
+                    val feedbackNotificationTime = session.endsAt.toLongMillis() + TEN_MINS_MILLIS
                     createLocalNotification("How was the session?",
                             " Leave feedback for " + session.title,
                             feedbackNotificationTime,
-                            session.id.toInt())
+                            session.id.toInt(),
+                            NotificationFeedbackTag)
 
                     val feedbackTime = session.endsAt.toLongMillis()
                     if (feedbackTime < currentTimeMillis()) {
@@ -171,6 +178,9 @@ object AppContext {
                 }
             }
         }
+    }
+    fun getFeedbackEnabled(): Boolean{
+        return feedbackEnabled
     }
 }
 
