@@ -11,6 +11,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.Session
 import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.*
@@ -35,7 +36,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
     private var commentView:FeedbackCommentView? = null
 
 
-    private var session:Session? = null
+    private var sessionId:Int? = null
     private var feedbackInterface:FeedbackDialogInterface? = null
 
     private val animationTime = 400L
@@ -97,9 +98,9 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         this.feedbackInterface = feedbackDialogInterface
     }
 
-    fun setSession(session: Session){
-        this.session = session
-        ratingView?.setSessionTitle(session.title)
+    fun setSessionInfo(sessionId: Int,sessionTitle:String){
+        this.sessionId = sessionId
+        ratingView?.setSessionTitle(sessionTitle)
     }
 
 
@@ -107,7 +108,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         commentView?.getComment()?.let {
             comments = it
         }
-        feedbackInterface?.finishedFeedback(session?.id!!,rating.value,comments)
+        feedbackInterface?.finishedFeedback(sessionId?.toString()!!,rating.value,comments)
         dismiss()
     }
 
