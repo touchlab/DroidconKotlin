@@ -143,6 +143,8 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
 
             override fun onAnimationEnd(animation: Animation?) {
                 v.x = -v.width.toFloat()-100
+                commentView?.setFocus()
+
             }
 
         })
