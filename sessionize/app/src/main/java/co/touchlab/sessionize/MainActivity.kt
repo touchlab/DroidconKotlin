@@ -21,6 +21,8 @@ import co.touchlab.sessionize.feedback.FeedbackDialog
 import co.touchlab.sessionize.feedback.FeedbackDialogInterface
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.FeedbackInterface
+import co.touchlab.sessionize.platform.NotificationFeedbackTag
+import co.touchlab.sessionize.platform.cancelLocalNotification
 
 
 class MainActivity : AppCompatActivity(), NavigationHost, SnackHost, FeedbackInterface {
@@ -142,6 +144,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost, FeedbackInt
         feedbackDialog.setFeedbackDialogInterface(feedbackDialogInterface = object : FeedbackDialogInterface {
             override fun finishedFeedback(sessionId: String, rating: Int, comment: String) {
                 AppContext.dbHelper.updateFeedback(rating.toLong(),comment,sessionId)
+                cancelLocalNotification(sessionId.toInt(), NotificationFeedbackTag)
             }
         })
     }
