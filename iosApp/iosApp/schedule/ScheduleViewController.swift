@@ -56,8 +56,6 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         noData.isHidden = true
         
         dayChooserTab.topAnchor.constraint(equalTo: appBar.navigationBar.bottomAnchor).isActive = true
-        
-        showAlert()
     }
     
     func updateUi(conferenceDays:[DaySchedule]) -> KotlinUnit{
@@ -127,12 +125,14 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
+        
         let cday = conferenceDays![selectedDayIndex()]
         let hourHolder = cday.hourBlock[indexPath.row]
         
         if(!(hourHolder.rowType() == RowType.block)){
             showEventDetailView(with: hourHolder, andIndex: indexPath.row)
         }
+        
     }
     
     func selectedDayIndex() -> Int {
@@ -174,13 +174,5 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         return cell
     }
     
-    
-    func showAlert(){
-        let alert = FeedbackAlertViewController(preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
 }
 
