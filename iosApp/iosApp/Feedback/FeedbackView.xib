@@ -120,7 +120,8 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="vEY-Ls-iri" secondAttribute="height" multiplier="1:1" id="7Sn-32-Pqu"/>
                     </constraints>
-                    <state key="normal" title="Button" image="unnamed (2).png"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" backgroundImage="baseline_sentiment_satisfied_black_48dp.png"/>
                     <connections>
                         <action selector="okButtonPressed:" destination="Lpe-Tb-5l3" eventType="touchUpInside" id="ZFs-Iq-4bQ"/>
                     </connections>
@@ -131,7 +132,8 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="kTy-CK-FQe" secondAttribute="height" multiplier="1:1" id="EVF-hU-AXD"/>
                     </constraints>
-                    <state key="normal" title="Button" image="unnamed (1).png"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" backgroundImage="baseline_sentiment_very_dissatisfied_black_48dp.png"/>
                     <connections>
                         <action selector="badButtonPressed:" destination="Lpe-Tb-5l3" eventType="touchUpInside" id="7y3-FK-Qlx"/>
                     </connections>
@@ -148,7 +150,8 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="5Ho-1Y-aTA" secondAttribute="height" multiplier="1:1" id="nSZ-Jp-EpB"/>
                     </constraints>
-                    <state key="normal" title="Button" image="unnamed.png"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" backgroundImage="baseline_sentiment_satisfied_alt_black_48dp.png"/>
                     <connections>
                         <action selector="goodButtonPressed:" destination="Lpe-Tb-5l3" eventType="touchUpInside" id="czC-qv-flR"/>
                     </connections>
@@ -193,14 +196,17 @@
             <viewLayoutGuide key="safeArea" id="4bG-Re-oAt"/>
             <connections>
                 <outlet property="addCommentButton" destination="SmA-m4-U0I" id="nbc-dh-Lh6"/>
+                <outlet property="badButton" destination="kTy-CK-FQe" id="kMo-z6-uaF"/>
+                <outlet property="goodButton" destination="5Ho-1Y-aTA" id="Oc5-4X-Dez"/>
+                <outlet property="okButton" destination="vEY-Ls-iri" id="pWL-bI-jaQ"/>
                 <outlet property="selectionTitle" destination="3FQ-96-t7V" id="kaj-tr-TGi"/>
             </connections>
             <point key="canvasLocation" x="-920.28985507246387" y="-1276.3392857142856"/>
         </view>
     </objects>
     <resources>
-        <image name="unnamed (1).png" width="193" height="193"/>
-        <image name="unnamed (2).png" width="193" height="193"/>
-        <image name="unnamed.png" width="193" height="193"/>
+        <image name="baseline_sentiment_satisfied_alt_black_48dp.png" width="48" height="48"/>
+        <image name="baseline_sentiment_satisfied_black_48dp.png" width="48" height="48"/>
+        <image name="baseline_sentiment_very_dissatisfied_black_48dp.png" width="48" height="48"/>
     </resources>
 </document>
