@@ -97,6 +97,7 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
     }
     
     func finishedFeedback(sessionId: String, rating: Int, comment: String) {
-        
+        AppContext().dbHelper.updateFeedback(feedbackRating: NSNumber(value: rating) as! KotlinLong, feedbackComment: comment, id: sessionId)
+
     }
 }
