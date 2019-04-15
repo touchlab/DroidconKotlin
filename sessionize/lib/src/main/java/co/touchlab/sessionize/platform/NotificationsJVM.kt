@@ -90,11 +90,6 @@ actual fun deinitializeNotifications(){
     //AndroidAppContext.app.unregisterReceiver(notificationPublisher)
 }
 
-actual fun showFeedbackAlert(session: MySessions){
-    AndroidAppContext.feedbackInterface!!.showFeedbackDialog(session)
-
-}
-
 private fun createNotificationChannel() {
     // Create the NotificationChannel, but only on API 26+ because
     // the NotificationChannel class is new and not in the support library
@@ -115,8 +110,4 @@ private fun createNotificationChannel() {
             notificationManager.createNotificationChannel(channel)
         }
     }
-}
-
-interface FeedbackInterface{
-    fun showFeedbackDialog(session:MySessions)
 }

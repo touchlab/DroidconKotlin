@@ -16,7 +16,6 @@ import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.deinitializeNotifications
 import co.touchlab.sessionize.platform.initializeNotifications
 import co.touchlab.sessionize.platform.logException
-import co.touchlab.sessionize.platform.showFeedbackAlert
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
