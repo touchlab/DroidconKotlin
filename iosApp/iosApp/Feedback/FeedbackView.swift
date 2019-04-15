@@ -13,10 +13,11 @@ protocol FeedbackDialogDelegate{
     func finishedFeedback(sessionId:String, rating:Int, comment: String)
 }
 
-public enum FeedbackRating {
-    case good
-    case ok
-    case bad
+public enum FeedbackRating: Int {
+    case none = 0
+    case good = 1
+    case ok = 2
+    case bad = 3
 }
 
 class FeedbackView: UIView, FeedbackInteractionDelegate {
@@ -32,7 +33,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     private let animationTime = 0.4
     
     private var sessionId:Int?
-    private var rating:FeedbackRating?
+    private var rating:FeedbackRating = FeedbackRating.none
     private var comments:String?
     
     // MARK: - Initialization
@@ -104,7 +105,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
 
     private func finishAndClose(){
         comments = commentView?.getComment()
-        alertViewController?.closeWithFeedback(sessionId: String(sessionId!),rating: rating!,comments: comments!)
+        alertViewController?.closeWithFeedback(sessionId: String(sessionId!),rating: rating,comments: comments!)
     }
     
     @IBAction func BackButtonPressed(_ sender: Any) {
