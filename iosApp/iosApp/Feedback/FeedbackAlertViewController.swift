@@ -34,8 +34,8 @@ class FeedbackAlertViewController: UIAlertController {
             self.view.bottomAnchor.constraint(equalTo: feedbackView.bottomAnchor, constant: 20).isActive = true
         }
         
+        // This is being hidden by a custom close button
         self.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
         }))
     }
     
