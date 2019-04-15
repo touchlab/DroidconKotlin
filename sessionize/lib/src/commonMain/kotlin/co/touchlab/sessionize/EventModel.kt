@@ -14,7 +14,6 @@ import co.touchlab.sessionize.platform.cancelLocalNotification
 import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
-import co.touchlab.sessionize.platform.showFeedbackAlert
 import kotlinx.coroutines.launch
 import kotlin.math.max
 

@@ -16,16 +16,13 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
 import co.touchlab.droidcon.db.MySessions
-import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.feedback.FeedbackDialog
 import co.touchlab.sessionize.feedback.FeedbackDialogInterface
-import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.FeedbackInterface
 import co.touchlab.sessionize.platform.NotificationFeedbackTag
 import co.touchlab.sessionize.platform.cancelLocalNotification
 
 
-class MainActivity : AppCompatActivity(), NavigationHost, SnackHost, FeedbackInterface {
+class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
     override fun showSnack(message: String, length: Int) {
         Snackbar.make(findViewById<View>(R.id.navigation), message, Snackbar.LENGTH_SHORT).show()
     }
@@ -137,7 +134,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost, FeedbackInt
         transaction.commit()
     }
 
-    override fun showFeedbackDialog(session: MySessions){
+    private fun showFeedbackDialog(session: MySessions){
         val feedbackDialog = FeedbackDialog()
         feedbackDialog.showNow(supportFragmentManager, "FeedbackDialog")
         feedbackDialog.setSessionInfo(session.id.toInt(),session.title)

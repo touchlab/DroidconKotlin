@@ -90,7 +90,7 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
     }
     */
 
-    func showFeedbackAlert(session:MySessions){
+    private func showFeedbackAlert(session:MySessions){
         let alert = FeedbackAlertViewController(preferredStyle: .alert,sessionid: Int(session.id)!,sessionTitle: session.title)
         alert.setFeedbackDialogDelegate(feedbackDialogDelegate: self)
         self.present(alert, animated: true, completion: nil)

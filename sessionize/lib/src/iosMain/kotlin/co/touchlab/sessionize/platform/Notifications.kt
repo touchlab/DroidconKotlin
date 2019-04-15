@@ -65,10 +65,6 @@ actual fun initializeNotifications(){
 actual fun deinitializeNotifications() {
 }
 
-actual fun showFeedbackAlert(session: MySessions){
-
-}
-
 // Needed to approve local notifications
 class LocalNotificationDelegate : NSObject(), UNUserNotificationCenterDelegateProtocol {
 
