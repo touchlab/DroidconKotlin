@@ -45,8 +45,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
         super.layoutSubviews()
         initRatingView()
         initCommentView()
-        doneButton.isEnabled = false
-        doneButton.backgroundColor = UIColor.lightGray
+        setDoneButtonEnabled(enabled: false)
     }
     
     public static func createFeedbackView() -> FeedbackView? {
@@ -118,8 +117,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     
     internal func feedbackSelected(rating:FeedbackRating){
         self.rating = rating
-        doneButton.isEnabled = true
-        doneButton.backgroundColor = UIColor.blue
+        setDoneButtonEnabled(enabled: true)
 
     }
     
@@ -128,6 +126,15 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     }
     
     
+    private func setDoneButtonEnabled(enabled:Bool){
+        doneButton.isEnabled = enabled
+        if(enabled){
+            doneButton.backgroundColor = UIColor.blue
+        }else{
+            doneButton.backgroundColor = UIColor.lightGray
+        }
+        
+    }
     
     // MARK: - Showing SubViews
     

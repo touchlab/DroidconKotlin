@@ -19,7 +19,7 @@ class FeedbackCommentSubView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         commentsTextView.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).cgColor
-        commentsTextView.layer.borderWidth = 1.0 //make border 1px thick
+        commentsTextView.layer.borderWidth = 1.0
     }
     
     func setFocus(){
