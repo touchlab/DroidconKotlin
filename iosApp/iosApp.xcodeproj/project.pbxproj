@@ -75,9 +75,6 @@
 		F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */; };
 		F111E61422579D65000B3F3D /* FeedbackRatingSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */; };
 		F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */; };
-		F111E61C2257E4B6000B3F3D /* unnamed (1).png in Resources */ = {isa = PBXBuildFile; fileRef = F111E6192257E4B5000B3F3D /* unnamed (1).png */; };
-		F111E61D2257E4B6000B3F3D /* unnamed.png in Resources */ = {isa = PBXBuildFile; fileRef = F111E61A2257E4B5000B3F3D /* unnamed.png */; };
-		F111E61E2257E4B6000B3F3D /* unnamed (2).png in Resources */ = {isa = PBXBuildFile; fileRef = F111E61B2257E4B5000B3F3D /* unnamed (2).png */; };
 		F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */; };
 		F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */; };
 		F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */; };
@@ -183,9 +180,6 @@
 		F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCommentSubView.swift; sourceTree = "<group>"; };
 		F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackRatingSubView.swift; sourceTree = "<group>"; };
 		F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAlertViewController.swift; sourceTree = "<group>"; };
-		F111E6192257E4B5000B3F3D /* unnamed (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unnamed (1).png"; sourceTree = "<group>"; };
-		F111E61A2257E4B5000B3F3D /* unnamed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unnamed.png; sourceTree = "<group>"; };
-		F111E61B2257E4B5000B3F3D /* unnamed (2).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unnamed (2).png"; sourceTree = "<group>"; };
 		F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_black_48dp.png; path = images/baseline_sentiment_satisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_very_dissatisfied_black_48dp.png; path = images/baseline_sentiment_very_dissatisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_alt_black_48dp.png; path = images/baseline_sentiment_satisfied_alt_black_48dp.png; sourceTree = "<group>"; };
@@ -365,9 +359,6 @@
 		6356312E20DC58F600BCCDF9 = {
 			isa = PBXGroup;
 			children = (
-				F111E6192257E4B5000B3F3D /* unnamed (1).png */,
-				F111E61B2257E4B5000B3F3D /* unnamed (2).png */,
-				F111E61A2257E4B5000B3F3D /* unnamed.png */,
 				6349D7392201027500559B51 /* main.framework */,
 				6356313920DC58F600BCCDF9 /* iosApp */,
 				6356314E20DC58F800BCCDF9 /* iosAppTests */,
@@ -854,9 +845,6 @@
 				6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */,
 				F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */,
 				6372423920F915EA0049263B /* schedule.json in Resources */,
-				F111E61D2257E4B6000B3F3D /* unnamed.png in Resources */,
-				F111E61C2257E4B6000B3F3D /* unnamed (1).png in Resources */,
-				F111E61E2257E4B6000B3F3D /* unnamed (2).png in Resources */,
 				6372424C20FAD9B40049263B /* SpeakerTableViewCell.xib in Resources */,
 				6356314220DC58F700BCCDF9 /* Assets.xcassets in Resources */,
 				63A76AD32129F1FB0000515D /* sponsors.json in Resources */,
