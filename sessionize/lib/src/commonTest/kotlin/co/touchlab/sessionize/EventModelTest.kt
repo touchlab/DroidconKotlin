@@ -40,6 +40,7 @@ class EventModelTest {
         eventModel.toggleRsvpSuspend(si)
         assertTrue { sessionizeApiMock.rsvpCalled }
         assertTrue { analyticsApiMock.logCalled }
+        assertTrue { notificationsApiMock.notificationCalled }
     }
 }
 
@@ -74,8 +75,9 @@ class SessionizeApiMock : SessionizeApi {
 
 class NotificationsApiMock : NotificationsApi {
 
+    var notificationCalled = false
     override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int){
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        notificationCalled = true;
     }
 
     override fun cancelLocalNotification(notificationId: Int){
