@@ -168,7 +168,8 @@ object AppContext {
                     createLocalNotification("How was the session?",
                             " Leave feedback for " + session.title,
                             feedbackNotificationTime,
-                            session.id.toInt(),
+                            //Not great. Possible to clash, although super unlikely
+                            session.id.hashCode(),
                             NotificationFeedbackTag)
                 }
             }

@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
     private fun showFeedbackDialog(session: MySessions){
         val feedbackDialog = FeedbackDialog()
         feedbackDialog.showNow(supportFragmentManager, "FeedbackDialog")
-        feedbackDialog.setSessionInfo(session.id.toInt(),session.title)
+        feedbackDialog.setSessionInfo(session.id, session.title)
         feedbackDialog.setFeedbackDialogInterface(feedbackDialogInterface = object : FeedbackDialogInterface {
             override fun finishedFeedback(sessionId: String, rating: Int, comment: String) {
                 AppContext.dbHelper.updateFeedback(rating.toLong(),comment,sessionId)
