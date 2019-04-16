@@ -39,7 +39,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
 
     private val animationTime = 400L
 
-    private var sessionId:Int? = null
+    private var sessionId:String? = null
     private var sessionTitle:String? = null
     private var rating:FeedbackRating = FeedbackRating.None
     private var comments:String = ""
@@ -104,7 +104,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         this.feedbackInterface = feedbackDialogInterface
     }
 
-    fun setSessionInfo(sessionId: Int,sessionTitle:String){
+    fun setSessionInfo(sessionId: String,sessionTitle:String){
         this.sessionId = sessionId
         this.sessionTitle = sessionTitle
         ratingView?.setSessionTitle(sessionTitle)
