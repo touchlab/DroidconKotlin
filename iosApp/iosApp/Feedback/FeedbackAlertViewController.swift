@@ -15,7 +15,7 @@ class FeedbackAlertViewController: UIAlertController {
     private var feedbackDialogDelegate:FeedbackDialogDelegate?
 
     
-    convenience init(preferredStyle: UIAlertControllerStyle,sessionid:Int,sessionTitle:String){
+    convenience init(preferredStyle: UIAlertControllerStyle,sessionid:String?,sessionTitle:String){
         self.init(title: nil, message: nil, preferredStyle: preferredStyle)
         
         let customView = FeedbackView.createFeedbackView()

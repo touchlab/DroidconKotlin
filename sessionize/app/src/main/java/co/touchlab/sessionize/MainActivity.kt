@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         feedbackDialog.setFeedbackDialogInterface(feedbackDialogInterface = object : FeedbackDialogInterface {
             override fun finishedFeedback(sessionId: String, rating: Int, comment: String) {
                 AppContext.dbHelper.updateFeedback(rating.toLong(),comment,sessionId)
-                cancelLocalNotification(sessionId.toInt(), NotificationFeedbackTag)
+                cancelLocalNotification(sessionId.hashCode(), NotificationFeedbackTag)
             }
         })
     }
