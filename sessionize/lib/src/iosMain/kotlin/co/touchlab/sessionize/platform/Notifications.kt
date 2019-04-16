@@ -30,8 +30,8 @@ private val localNotificationDelegate = LocalNotificationDelegate()
 actual fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag:String?) {
 
     val date = NSDate.dateWithTimeIntervalSince1970(timeInMS / 1000.0)
-    var dateFlags: NSCalendarUnit = NSCalendarUnitMonth.or(NSCalendarUnitDay).or(NSCalendarUnitYear)
-    var timeFlags: NSCalendarUnit = NSCalendarUnitHour.or(NSCalendarUnitMinute).or(NSCalendarUnitSecond).or(NSCalendarUnitTimeZone)
+    val dateFlags: NSCalendarUnit = NSCalendarUnitMonth.or(NSCalendarUnitDay).or(NSCalendarUnitYear)
+    val timeFlags: NSCalendarUnit = NSCalendarUnitHour.or(NSCalendarUnitMinute).or(NSCalendarUnitSecond).or(NSCalendarUnitTimeZone)
     val dateInfo = NSCalendar.currentCalendar.components(dateFlags.or(timeFlags),date)
 
     val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateInfo, false)

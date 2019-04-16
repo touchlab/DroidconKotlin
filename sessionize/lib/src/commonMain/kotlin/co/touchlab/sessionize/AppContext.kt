@@ -158,7 +158,7 @@ object AppContext {
                     createLocalNotification("Upcoming Event in " + session.roomName,
                             session.title + " is starting soon.",
                             notificationTime,
-                            session.id.toInt(),
+                            session.id.hashCode(),
                             NotificationReminderTag)
                 }
 

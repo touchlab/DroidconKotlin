@@ -32,7 +32,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     
     private let animationTime = 0.4
     
-    private var sessionId:Int?
+    private var sessionId:String?
     private var rating:FeedbackRating = FeedbackRating.none
     private var comments:String?
     
@@ -96,7 +96,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     
     
     
-    public func setSessionInfo(sessionId: Int,sessionTitle:String){
+    public func setSessionInfo(sessionId: String?,sessionTitle:String){
         self.sessionId = sessionId
         ratingView?.setSessionTitle(title: sessionTitle)
     }
@@ -105,7 +105,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
 
     private func finishAndClose(){
         comments = commentView?.getComment()
-        alertViewController?.closeWithFeedback(sessionId: String(sessionId!),rating: rating,comments: comments!)
+        alertViewController?.closeWithFeedback(sessionId: sessionId!,rating: rating,comments: comments!)
     }
     
     @IBAction func BackButtonPressed(_ sender: Any) {
