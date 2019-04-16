@@ -13,13 +13,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-                android:id="@+id/app_bar"
-                style="@style/Widget.Shrine.Toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                />
+                android:layout_height="match_parent">
 
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    style="@style/Widget.Shrine.Toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="?android:attr/actionBarSize"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+            >
+            </androidx.appcompat.widget.Toolbar>
+
+            <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/app_bar"
+                    app:layout_constraintBottom_toBottomOf="@id/app_bar"
+                    app:layout_constraintDimensionRatio="1:1"
+                    android:id="@+id/settingsButton"
+                    android:background="@drawable/baseline_settings_white_48"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout

@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import co.touchlab.sessionize.about.AboutFragment
 import co.touchlab.sessionize.schedule.ScheduleFragment
 import co.touchlab.sessionize.sponsors.SponsorsFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
+import co.touchlab.sessionize.settings.SettingsFragment
 
 
 class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
@@ -59,6 +59,9 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
         setSupportActionBar(findViewById(R.id.app_bar) as Toolbar)
 
+        settingsButton.setOnClickListener {
+            settingsButtonPressed()
+        }
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
         }
@@ -124,5 +127,16 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         }
 
         transaction.commit()
+    }
+
+    private fun settingsButtonPressed(){
+            (this as NavigationHost).navigateTo(
+                    SettingsFragment.newInstance(),
+                    true,
+                    FragmentAnimation(R.anim.slide_from_right,
+                            R.anim.slide_to_left,
+                            R.anim.slide_from_left,
+                            R.anim.slide_to_right)
+            )
     }
 }
