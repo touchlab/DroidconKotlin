@@ -15,11 +15,6 @@ import co.touchlab.sessionize.AppContext
 import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.*
 
-
-interface FeedbackDialogInterface{
-    fun finishedFeedback(sessionId:String, rating:Int, comment: String)
-}
-
 enum class FeedbackRating(val value: Int) {
     None(0),
     Good(1),
@@ -35,14 +30,14 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
 
     private var doneButton:Button? = null
 
-    private var feedbackInterface:FeedbackDialogInterface? = null
-
     private val animationTime = 400L
 
     private var sessionId:String? = null
     private var sessionTitle:String? = null
     private var rating:FeedbackRating = FeedbackRating.None
     private var comments:String = ""
+
+    private var feedbackManager:FeedbackManager? = null
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -89,7 +84,6 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         })
         sessionTitle?.let {
             ratingView?.setSessionTitle(it)
-
         }
 
     }
@@ -101,15 +95,14 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         commentView?.visibility = View.INVISIBLE
     }
 
-
-    fun setFeedbackDialogInterface(feedbackDialogInterface: FeedbackDialogInterface){
-        this.feedbackInterface = feedbackDialogInterface
-    }
-
     fun setSessionInfo(sessionId: String,sessionTitle:String){
         this.sessionId = sessionId
         this.sessionTitle = sessionTitle
         ratingView?.setSessionTitle(sessionTitle)
+    }
+
+    fun setFeedbackManager(manager:FeedbackManager){
+        this.feedbackManager = manager
     }
 
 
@@ -117,7 +110,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         commentView?.getComment()?.let {
             comments = it
         }
-        feedbackInterface?.finishedFeedback(sessionId?.toString()!!,rating.value,comments)
+        feedbackManager?.finishedFeedback(sessionId!!,rating.value,comments)
         dismiss()
     }
 
