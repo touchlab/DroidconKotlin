@@ -91,7 +91,8 @@ class EventFragment : Fragment() {
             fab.visibility = View.GONE
         } else {
             fab.setOnClickListener {
-                eventViewModel.eventModel.toggleRsvp(!event.isRsvped())
+
+                eventViewModel.eventModel.toggleRsvp(event)
             }
 
             fab.layoutParams = layoutParams
