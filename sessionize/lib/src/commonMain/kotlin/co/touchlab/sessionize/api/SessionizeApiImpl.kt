@@ -63,7 +63,6 @@ object SessionizeApiImpl : SessionizeApi {
             encodedPath = path
         }
     }
-
 }
 
 internal fun parseSessionsFromDays(scheduleJson: String): List<Session> {
