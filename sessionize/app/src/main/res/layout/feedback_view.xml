@@ -99,9 +99,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
+
         <TextView
                 android:id="@+id/commentTitleTextView"
-                android:layout_width="match_parent"
+                android:layout_width="388dp"
                 android:layout_height="0dp"
                 android:textSize="32sp"
                 android:gravity="center"
@@ -113,6 +114,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintVertical_weight="2"
         />
+
+        <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@android:color/transparent"
+                android:textColor="@color/textColorLight"
+                android:text="Back"
+                app:layout_constraintTop_toTopOf="@id/commentTitleTextView"
+                app:layout_constraintBottom_toBottomOf="@id/commentTitleTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintDimensionRatio="H,1:1"/>
 
         <EditText
                 android:id="@+id/commentEditText"

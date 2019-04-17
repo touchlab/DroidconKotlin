@@ -96,6 +96,8 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
 
     private fun initCommentView(feedbackView:View){
         commentView = feedbackView.findViewById(R.id.commentView)
+        commentView?.createButtonListeners()
+        commentView?.setFeedbackInteractionListener(this)
         commentView?.visibility = View.INVISIBLE
     }
 
@@ -120,24 +122,39 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
     }
 
     private fun showCommentView(){
-        ratingView?.isEnabled = false
         commentView?.visibility = View.VISIBLE
-        animateOut(ratingView!!)
-        animateIn(commentView!!)
+        ratingView?.isEnabled = false
+        commentView?.isEnabled = true
+        animateOut(ratingView!!,false)
+        animateIn(commentView!!,true)
     }
 
-    private fun animateIn(v:View) {
+    private fun animateIn(v:View,fromRight: Boolean) {
 
-        var animate = TranslateAnimation( v.width.toFloat(),0.0f,
+        val xDelta = if(fromRight) v.width.toFloat() else -v.width.toFloat()-100
+        val animate = TranslateAnimation( xDelta,0.0f,
                 0.0f,0.0f)
         animate.duration = animationTime
         animate.fillAfter = true
         v.startAnimation(animate)
+        animate.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                v.x = 0F
+            }
+
+        })
     }
 
-    private fun animateOut(v:View) {
+    private fun animateOut(v:View, toRight: Boolean) {
 
-        var animate = TranslateAnimation( 0.0f,-v.width.toFloat()-100,
+        val xDelta = if(toRight) v.width.toFloat() else -v.width.toFloat()-100
+        val animate = TranslateAnimation( 0.0f,xDelta,
             0.0f,0.0f)
         animate.duration = animationTime
         animate.fillAfter = true
@@ -150,8 +167,13 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-                v.x = -v.width.toFloat()-100
-                commentView?.setFocus()
+                v.x = if(toRight) v.width.toFloat() else -v.width.toFloat()-100
+                v.visibility = View.INVISIBLE
+                if(v != commentView) {
+                    commentView?.setFocus()
+                }else{
+                    commentView?.hideFocus()
+                }
 
             }
 
@@ -164,8 +186,18 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         this.rating = rating
     }
 
+    override fun showFeedbackView(){
+        ratingView?.visibility = View.VISIBLE
+        ratingView?.isEnabled = true
+        commentView?.isEnabled = false
+        animateOut(commentView!!,true)
+        animateIn(ratingView!!,false)
+    }
+
 }
 
 interface FeedbackInteractionInterface {
     fun feedbackSelected(rating:FeedbackRating)
+    fun showFeedbackView()
+
 }
