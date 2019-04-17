@@ -15,6 +15,7 @@ class FeedbackCommentView @JvmOverloads constructor(
     override fun createButtonListeners(){
         super.createButtonListeners()
         backButton.setOnClickListener {
+            commentEditText.setText("")
             feedbackInteractionInterface?.showFeedbackView()
         }
     }
