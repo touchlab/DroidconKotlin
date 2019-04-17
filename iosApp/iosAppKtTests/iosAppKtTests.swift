@@ -20,7 +20,10 @@ class iosAppKtTests: XCTestCase {
     }
 
     func testKotlinRunner() {
-        AppContextTestKt.staticFileLoader = loadAsset
+        let serviceRegistry = TestFunctionsKt.accessServiceRegistry()
+        
+        serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
+        
         XCTAssertEqual(0, KotlinTestStarterKt.kickOffTest())
     }
     
@@ -31,6 +34,10 @@ class iosAppKtTests: XCTestCase {
         } catch {
             return nil
         }
+    }
+    
+    func csLog(s:String) -> KotlinUnit{
+        return KotlinUnit()
     }
     
 }

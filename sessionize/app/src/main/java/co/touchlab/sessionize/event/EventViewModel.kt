@@ -3,6 +3,7 @@ package co.touchlab.sessionize.event
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.touchlab.sessionize.EventModel
+import co.touchlab.sessionize.ServiceRegistry
 
 class EventViewModel(sessionId:String): ViewModel(){
     val eventModel = EventModel(sessionId)

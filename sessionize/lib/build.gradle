@@ -13,6 +13,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -33,7 +34,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.core:core:1.0.0"
 }
 
 kotlin {
@@ -68,15 +70,11 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.common
                 implementation deps.kotlin.test.annotations
-                implementation deps.serialization.commonRuntime
-                implementation deps.kotlin.stdlib.common
+                implementation deps.stately.mpp
                 implementation deps.kotlin.coroutines.common
-                implementation deps.sqldelight.runtime
+                implementation deps.multiplatformSettings
                 implementation deps.kotlin.coroutines.jdk
-                implementation deps.kotlin.coroutines.android
-                implementation deps.kotlin.test.jvm
-                implementation deps.kotlin.test.junit
-                implementation deps.serialization.jvmRuntime
+                implementation deps.testhelp
             }
         }
 
@@ -107,8 +105,10 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.jvm
                 implementation deps.kotlin.test.junit
+                implementation deps.sqldelight.driverAndroid
+                implementation deps.kotlin.coroutines.jdk
+                implementation deps.kotlin.coroutines.android
                 implementation deps.serialization.jvmRuntime
-                implementation deps.ktor.androidCore
                 implementation 'junit:junit:4.12'
                 implementation "androidx.test:core:1.1.0"
                 implementation "androidx.test.ext:junit:1.1.0"
