@@ -28,6 +28,9 @@ class MainApp :Application(){
         Fabric.with(this, Answers())
         Fabric.with(this, Crashlytics())
 
+        ServiceRegistry.initLambdas({filePrefix, fileType -> loadAsset("${filePrefix}.${fileType}")},
+                { Log.w("MainApp", it) })
+
         ServiceRegistry.initServiceRegistry(AndroidSqliteDriver(Database.Schema, this, "droidcondb"), Dispatchers.Main,
                 PlatformSettings.Factory(this).create("DROIDCON_SETTINGS"), MainConcurrent, SessionizeApiImpl,
                 object: AnalyticsApi{
@@ -50,8 +53,7 @@ class MainApp :Application(){
                 BuildConfig.TIME_ZONE
         )
 
-        AppContext.initAppContext ({filePrefix, fileType -> loadAsset("${filePrefix}.${fileType}")},
-                { Log.w("MainApp", it) })
+        AppContext.initAppContext ()
 
         AppContext.dataLoad()
         ServiceRegistry.notificationsApi.initializeNotifications()

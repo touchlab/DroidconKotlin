@@ -21,6 +21,8 @@ object ServiceRegistry {
     var concurrent: Concurrent by FrozenDelegate()
     var timeZone: String by FrozenDelegate()
 
+    var staticFileLoader: ((filePrefix: String, fileType: String) -> String?) by FrozenDelegate()
+    var clLogCallback: ((s: String) -> Unit) by FrozenDelegate()
 
     fun initServiceRegistry(sqlDriver: SqlDriver, coroutineDispatcher: CoroutineDispatcher, settings: Settings,
                             concurrent: Concurrent, sessionizeApi: SessionizeApi, analyticsApi: AnalyticsApi,
@@ -34,6 +36,12 @@ object ServiceRegistry {
         ServiceRegistry.notificationsApi = notificationsApi
         ServiceRegistry.appSettings = settings
         ServiceRegistry.timeZone = timeZone
+    }
+
+    fun initLambdas(staticFileLoader: (filePrefix: String, fileType: String) -> String?,
+                       clLogCallback: (s: String) -> Unit){
+        ServiceRegistry.staticFileLoader = staticFileLoader
+        ServiceRegistry.clLogCallback = clLogCallback
     }
 }
 
