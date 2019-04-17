@@ -176,15 +176,33 @@ object AppContext {
         }
     }
 
-    fun requestMySessionsForFeedback(): List<MySessions>{
+    fun requestMySessionsForFeedback(listener: SessionListener){
+        backgroundTask({getMySessionsForFeedback()},{
+            listener.onMySessionsRetrieved(it)
+        })
+    }
+
+    private fun getMySessionsForFeedback(): List<MySessions>{
         return sessionQueries.mySessions().executeAsList().filter {
             it.feedbackRating == null && it.endsAt.toLongMillis() < currentTimeMillis()
         }
+    }
 
+    fun setSessionFeedback(sessionId:String, rating:Int, comment: String,listener: SessionListener){
+        backgroundTask({
+            AppContext.dbHelper.updateFeedback(rating.toLong(),comment,sessionId)
+        },{
+            listener.onFeedbackSaved(sessionId)
+        })
     }
 
     fun disableFeedback(){
         //feedbackEnabled = false
+    }
+
+    interface SessionListener{
+        fun onMySessionsRetrieved(sessions:List<MySessions>)
+        fun onFeedbackSaved(sessionId: String)
     }
 
 }
