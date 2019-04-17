@@ -14,7 +14,7 @@
 			<key>orderHint</key>
 			<integer>20</integer>
 		</dict>
-		<key>iosApp.xcscheme</key>
+		<key>iosApp.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -33,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>6356314A20DC58F800BCCDF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D46A484B224A80D200B1D60C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
