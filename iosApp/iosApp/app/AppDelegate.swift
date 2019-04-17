@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    class NotificationsApiImpl : NotificationsApi {
+    class NotificationsApiImpl : NSObject, NotificationsApi {
         func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32) {
             NotificationsKt.createLocalNotificationOnPlatform(title: title,message: message,timeInMS: timeInMS,notificationId: notificationId)
         }
