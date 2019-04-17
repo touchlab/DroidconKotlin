@@ -10,10 +10,8 @@ import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
-import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
-import co.touchlab.stately.freeze
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -26,16 +24,8 @@ object AppContext {
     val USER_UUID = "USER_UUID"
     val TWO_HOURS_MILLIS = 2 * 60 * 60 * 1000
 
-    val lambdas = AtomicReference<PlatformLambdas?>(null)
-
-    fun initAppContext(staticFileLoader: (filePrefix: String, fileType: String) -> String?,
-            clLogCallback: (s: String) -> Unit) {
-
+    fun initAppContext() {
         dbHelper.initDatabase(ServiceRegistry.dbDriver)
-
-        lambdas.value = PlatformLambdas(
-                staticFileLoader,
-                clLogCallback).freeze()
     }
 
     internal val sessionQueries: SessionQueries
@@ -50,14 +40,11 @@ object AppContext {
     internal val sponsorQueries: SponsorQueries
         get() = AppContext.dbHelper.instance.sponsorQueries
 
-    data class PlatformLambdas(val staticFileLoader: (filePrefix: String, fileType: String) -> String?,
-                               val clLogCallback: (s: String) -> Unit)
-
     val staticFileLoader: (filePrefix: String, fileType: String) -> String?
-        get() = lambdas.value!!.staticFileLoader
+        get() = ServiceRegistry.staticFileLoader
 
     val clLogCallback: (s: String) -> Unit
-        get() = lambdas.value!!.clLogCallback
+        get() = ServiceRegistry.clLogCallback
 
     private fun firstRun(): Boolean = ServiceRegistry.appSettings.getBoolean(KEY_FIRST_RUN, true)
 
@@ -70,6 +57,22 @@ object AppContext {
             ServiceRegistry.appSettings.putString(USER_UUID, createUuid())
         }
         return ServiceRegistry.appSettings.getString(USER_UUID)
+    }
+
+    fun loadSponsors(): String? {
+        return staticFileLoader("sponsors", "json")
+    }
+
+    fun loadSpeakers(): String? {
+        return staticFileLoader("speakers", "json")
+    }
+
+    fun loadSchedule(): String? {
+        return staticFileLoader("schedule", "json")
+    }
+
+    fun loadAbout(): String? {
+        return staticFileLoader.invoke("about", "json")
     }
 
     //Split these up so they can individually succeed/fail
@@ -94,10 +97,9 @@ object AppContext {
 
     internal fun seedFileLoad() {
         if (firstRun()) {
-            val staticFileLoader = lambdas.value!!.staticFileLoader
-            val sponsorJson = staticFileLoader("sponsors", "json")
-            val speakerJson = staticFileLoader("speakers", "json")
-            val scheduleJson = staticFileLoader("schedule", "json")
+            val sponsorJson = loadSponsors()
+            val speakerJson = loadSpeakers()
+            val scheduleJson = loadSchedule()
 
             if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
                 dbHelper.primeAll(speakerJson, scheduleJson, sponsorJson)

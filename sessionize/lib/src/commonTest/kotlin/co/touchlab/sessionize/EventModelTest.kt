@@ -10,7 +10,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class EventModelTest {
+abstract class EventModelTest {
     private val sessionizeApiMock = SessionizeApiMock()
     private val analyticsApiMock = AnalyticsApiMock()
     private val notificationsApiMock = NotificationsApiMock()
@@ -20,7 +20,7 @@ class EventModelTest {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
                 Dispatchers.Main, TestSettings(), TestConcurrent, sessionizeApiMock, analyticsApiMock, notificationsApiMock, "-0400")
 
-        AppContext.initAppContext({filePrefix, fileType ->
+        ServiceRegistry.initLambdas({filePrefix, fileType ->
             when(filePrefix){
                 "sponsors" -> SPONSORS
                 "speakers" -> SPEAKERS
@@ -28,6 +28,8 @@ class EventModelTest {
                 else -> SCHEDULE
             }
         }, {s: String -> Unit})
+
+        AppContext.initAppContext()
 
         AppContext.seedFileLoad()
     }
