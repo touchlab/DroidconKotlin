@@ -12,11 +12,10 @@ class FeedbackRatingView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : FeedbackSubview(context,attrs,defStyleAttr) {
 
-    var feedbackInteractionInterface:FeedbackInteractionInterface? = null
-
-    fun createButtonListeners(){
+    override fun createButtonListeners(){
+        super.createButtonListeners()
 
         additionalButton.isEnabled = false
         additionalButton.setTextColor(Color.LTGRAY)
@@ -44,10 +43,6 @@ class FeedbackRatingView @JvmOverloads constructor(
 
     fun createCommentButtonListener(listener:View.OnClickListener){
         additionalButton.setOnClickListener(listener)
-    }
-
-    fun setFeedbackInteractionListener(listener:FeedbackInteractionInterface){
-        feedbackInteractionInterface = listener
     }
 
     fun setSessionTitle(sessionTitle: String){

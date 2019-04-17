@@ -10,12 +10,24 @@ class FeedbackCommentView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : FeedbackSubview(context,attrs,defStyleAttr)  {
+
+    override fun createButtonListeners(){
+        super.createButtonListeners()
+        backButton.setOnClickListener {
+            feedbackInteractionInterface?.showFeedbackView()
+        }
+    }
 
     fun setFocus(){
         commentEditText.requestFocus()
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(commentEditText, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    fun hideFocus(){
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(commentEditText.windowToken, 0)
 
     }
     fun getComment():String {
