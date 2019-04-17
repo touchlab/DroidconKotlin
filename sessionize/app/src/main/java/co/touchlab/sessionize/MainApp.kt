@@ -8,7 +8,11 @@ import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.MainConcurrent
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.api.AnalyticsApi
-import co.touchlab.sessionize.api.NotificationsApiImpl
+import co.touchlab.sessionize.api.NotificationsApi
+import co.touchlab.sessionize.platform.cancelLocalNotificationOnPlatform
+import co.touchlab.sessionize.platform.createLocalNotificationOnPlatform
+import co.touchlab.sessionize.platform.deinitializeNotificationsOnPlatform
+import co.touchlab.sessionize.platform.initializeNotificationsOnPlatform
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
@@ -42,7 +46,7 @@ class MainApp :Application(){
                         Answers.getInstance().logCustom(event)
                     }
                 },
-                NotificationsApiImpl,
+                NotificationsApiImpl(),
                 BuildConfig.TIME_ZONE
         )
 
@@ -62,4 +66,26 @@ class MainApp :Application(){
             .open(name, Context.MODE_PRIVATE)
             .bufferedReader()
             .use { it.readText() }
+
+
+
+    class NotificationsApiImpl : NotificationsApi {
+
+        override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
+            createLocalNotificationOnPlatform(title,message,timeInMS,notificationId)
+        }
+
+        override fun cancelLocalNotification(notificationId: Int) {
+            cancelLocalNotificationOnPlatform(notificationId)
+        }
+
+        override fun initializeNotifications() {
+            initializeNotificationsOnPlatform()
+        }
+
+        override fun deinitializeNotifications() {
+            deinitializeNotificationsOnPlatform()
+        }
+
+    }
 }
