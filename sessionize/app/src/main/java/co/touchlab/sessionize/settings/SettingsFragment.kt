@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.touchlab.sessionize.AppContext.FEEDBACK_ENABLED
+import co.touchlab.sessionize.AppContext.REMINDERS_ENABLED
 import co.touchlab.sessionize.R
+import co.touchlab.sessionize.ServiceRegistry
 
 class SettingsFragment : Fragment() {
 
@@ -40,8 +43,15 @@ class SettingsFragment : Fragment() {
     private fun updateContent() {
         val adapter = SettingsAdapter(activity!!)
 
-        adapter.addSwitchRow("Enable Feedback",R.drawable.icon_twitter,true)
-        adapter.addTextRow("About Us",R.drawable.icon_company)
+
+        adapter.addSwitchRow("Enable Feedback",
+                R.drawable.baseline_feedback_24,
+                ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED)
+        )
+        adapter.addSwitchRow("Enable Reminders",
+                R.drawable.baseline_insert_invitation_24,
+                ServiceRegistry.appSettings.getBoolean(REMINDERS_ENABLED)
+        )
 
         recycler.adapter = adapter
     }

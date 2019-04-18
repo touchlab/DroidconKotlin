@@ -9,6 +9,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
+import co.touchlab.sessionize.speaker.finDrawableId
 
 
 class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -50,14 +51,13 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
                 val view = (holder as SwitchVH).itemView
                 view.findViewById<Switch>(R.id.settingSwitch).text = (data[position] as SwitchDetail).text.trim()
                 view.findViewById<Switch>(R.id.settingSwitch).isChecked = (data[position] as SwitchDetail).isChecked
-                view.findViewById<ImageView>(R.id.image).setImageDrawable(activity.resources.getDrawable( (data[position] as SwitchDetail).icon,null))
-
+                view.findViewById<ImageView>(R.id.image).setImageResource((data[position] as SwitchDetail).icon)
             }
 
             EntryType.TYPE_BODY -> {
                 val view = (holder as TextVH).itemView
                 view.findViewById<TextView>(R.id.body).text = (data[position] as TextDetail).text.trim()
-                view.findViewById<ImageView>(R.id.image).setImageDrawable(activity.resources.getDrawable( (data[position] as TextDetail).icon,null))
+                view.findViewById<ImageView>(R.id.image).setImageResource((data[position] as TextDetail).icon)
 
                 view.setOnClickListener {
                     print("test")
