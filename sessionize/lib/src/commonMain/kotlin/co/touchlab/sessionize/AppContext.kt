@@ -26,6 +26,8 @@ object AppContext {
     val KEY_FIRST_RUN = "FIRST_RUN1"
     val KEY_LAST_LOAD = "LAST_LOAD"
     val USER_UUID = "USER_UUID"
+    val FEEDBACK_ENABLED = "FEEDBACK_ENABLED"
+    val REMINDERS_ENABLED = "REMINDERS_ENABLED"
     val TWO_HOURS_MILLIS = 2 * 60 * 60 * 1000
 
     val lambdas = AtomicReference<PlatformLambdas?>(null)
