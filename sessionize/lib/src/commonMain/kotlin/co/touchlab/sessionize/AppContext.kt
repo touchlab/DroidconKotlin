@@ -11,11 +11,15 @@ import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.deinitializeNotifications
+import co.touchlab.sessionize.platform.initializeNotifications
 import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.reminderNotificationsEnabled
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
+import com.russhwolf.settings.get
+import com.russhwolf.settings.set
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -28,6 +32,7 @@ object AppContext {
     val USER_UUID = "USER_UUID"
     val FEEDBACK_ENABLED = "FEEDBACK_ENABLED"
     val REMINDERS_ENABLED = "REMINDERS_ENABLED"
+    val LOCAL_NOTIFICATIONS_ENABLED = "LOCAL_NOTIFICATIONS_ENABLED"
     val TWO_HOURS_MILLIS = 2 * 60 * 60 * 1000
 
     val lambdas = AtomicReference<PlatformLambdas?>(null)
@@ -40,6 +45,8 @@ object AppContext {
         lambdas.value = PlatformLambdas(
                 staticFileLoader,
                 clLogCallback).freeze()
+
+        initializeNotifications()
     }
 
     fun deinitPlatformClient(){
@@ -143,16 +150,17 @@ object AppContext {
     }
 
     private fun createNotificationsForSessions() {
-
-        backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-            val tenMinutesInMS: Int = 1000 * 10 * 60
-            mySessions.forEach { session ->
-                val notificationTime = session.startsAt.toLongMillis() - tenMinutesInMS
-                if (notificationTime > currentTimeMillis()) {
-                    createLocalNotification("Upcoming Event in " + session.roomName,
-                            session.title + " is starting soon.",
-                            notificationTime,
-                            session.id.toInt())
+        if(reminderNotificationsEnabled()){
+            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+                val tenMinutesInMS: Int = 1000 * 10 * 60
+                mySessions.forEach { session ->
+                    val notificationTime = session.startsAt.toLongMillis() - tenMinutesInMS
+                    if (notificationTime > currentTimeMillis()) {
+                        createLocalNotification("Upcoming Event in " + session.roomName,
+                                session.title + " is starting soon.",
+                                notificationTime,
+                                session.id.toInt())
+                    }
                 }
             }
         }
