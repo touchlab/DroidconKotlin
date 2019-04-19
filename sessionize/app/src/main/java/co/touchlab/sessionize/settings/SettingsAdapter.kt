@@ -4,24 +4,25 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.speaker.finDrawableId
 
 
 class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var data = ArrayList<Detail>()
 
+
     fun addTextRow(description: String, icon:Int) {
         data.add(TextDetail(EntryType.TYPE_BODY, description, icon))
     }
 
-    fun addSwitchRow(description: String, icon:Int, isChecked: Boolean) {
-        data.add(SwitchDetail(EntryType.TYPE_SWITCH, description, icon, isChecked))
+    fun addSwitchRow(description: String, icon:Int, isChecked: Boolean, listener: CompoundButton.OnCheckedChangeListener) {
+        data.add(SwitchDetail(EntryType.TYPE_SWITCH, description, icon, isChecked, listener))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -52,6 +53,7 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
                 view.findViewById<Switch>(R.id.settingSwitch).text = (data[position] as SwitchDetail).text.trim()
                 view.findViewById<Switch>(R.id.settingSwitch).isChecked = (data[position] as SwitchDetail).isChecked
                 view.findViewById<ImageView>(R.id.image).setImageResource((data[position] as SwitchDetail).icon)
+                view.findViewById<Switch>(R.id.settingSwitch).setOnCheckedChangeListener((data[position] as SwitchDetail).listener)
             }
 
             EntryType.TYPE_BODY -> {
@@ -78,7 +80,7 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
     }
 
     inner class TextDetail(type: EntryType, val text: String, val icon: Int) : Detail(type)
-    inner class SwitchDetail(type: EntryType, val text: String, val icon: Int, var isChecked: Boolean) : Detail(type)
+    inner class SwitchDetail(type: EntryType, val text: String, val icon: Int, var isChecked: Boolean, var listener:CompoundButton.OnCheckedChangeListener) : Detail(type)
 
     inner class SwitchVH(val item: View) : RecyclerView.ViewHolder(item)
 
