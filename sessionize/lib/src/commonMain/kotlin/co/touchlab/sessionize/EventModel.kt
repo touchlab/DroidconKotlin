@@ -12,6 +12,7 @@ import co.touchlab.sessionize.platform.cancelLocalNotification
 import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.reminderNotificationsEnabled
 import kotlinx.coroutines.launch
 import kotlin.math.max
 
@@ -53,10 +54,12 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         }
 
         if(rsvp){
-            createLocalNotification("Upcoming Event in " + event.session.room().name,
-                    event.session.title + " is starting soon.",
-                    event.session.startsAt.toLongMillis(),
-                    sessionId.toInt())
+            if(reminderNotificationsEnabled()){
+                createLocalNotification("Upcoming Event in " + event.session.room().name,
+                        event.session.title + " is starting soon.",
+                        event.session.startsAt.toLongMillis(),
+                        sessionId.toInt())
+            }
         }else{
             cancelLocalNotification(sessionId.toInt())
         }
