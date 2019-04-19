@@ -29,21 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appContext.doInitAppContext(staticFileLoader: loadAsset, clLogCallback: csLog)
         appContext.dataLoad()
         
-        requestNotificationPermissions()
-
         return true
-    }
-    
-    func requestNotificationPermissions(){
-
-        let center = UNUserNotificationCenter.current()
-        let options: UNAuthorizationOptions = [.alert, .sound];
-        center.requestAuthorization(options: options) {
-            (granted, error) in
-            if !granted {
-                print("Something went wrong")
-            }
-        }
     }
 
     /*func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
