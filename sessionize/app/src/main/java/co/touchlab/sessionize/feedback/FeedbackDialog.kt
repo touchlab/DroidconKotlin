@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import co.touchlab.sessionize.AppContext
 import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.*
+import kotlinx.android.synthetic.main.feedback_view.view.*
 
 enum class FeedbackRating(val value: Int) {
     None(0),
@@ -63,7 +64,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
     private fun createFeedbackView(inflater: LayoutInflater):View{
         val view = inflater.inflate(R.layout.feedback_view, null)
         view?.let { fbView ->
-            doneButton = fbView.findViewById(R.id.doneButton)
+            doneButton = fbView.doneButton
             doneButton?.setOnClickListener {
                 finishAndClose()
             }
@@ -76,7 +77,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
     }
 
     private fun initRatingView(feedbackView:View){
-        ratingView = feedbackView.findViewById(R.id.ratingView)
+        ratingView = feedbackView.ratingView
         ratingView?.createButtonListeners()
         ratingView?.setFeedbackInteractionListener(this)
         ratingView?.createCommentButtonListener(View.OnClickListener {
@@ -89,7 +90,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
     }
 
     private fun initCommentView(feedbackView:View){
-        commentView = feedbackView.findViewById(R.id.commentView)
+        commentView = feedbackView.commentView
         commentView?.createButtonListeners()
         commentView?.setFeedbackInteractionListener(this)
         commentView?.visibility = View.INVISIBLE
