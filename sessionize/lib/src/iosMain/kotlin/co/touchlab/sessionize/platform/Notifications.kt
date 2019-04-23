@@ -1,6 +1,5 @@
 package co.touchlab.sessionize.platform
 
-import co.touchlab.sessionize.AppContext
 import co.touchlab.stately.freeze
 import co.touchlab.stately.isFrozen
 import platform.Foundation.NSCalendar
@@ -14,9 +13,6 @@ import platform.Foundation.NSCalendarUnitTimeZone
 import platform.Foundation.NSCalendarUnitYear
 import platform.Foundation.NSDate
 import platform.Foundation.dateWithTimeIntervalSince1970
-import platform.UserNotifications.UNAuthorizationOptionAlert
-import platform.UserNotifications.UNAuthorizationOptionSound
-import platform.UserNotifications.UNAuthorizationOptions
 import platform.UserNotifications.UNCalendarNotificationTrigger
 import platform.UserNotifications.UNMutableNotificationContent
 import platform.UserNotifications.UNNotificationPresentationOptionAlert
@@ -61,12 +57,8 @@ actual fun cancelLocalNotification(notificationId: Int){
     }
 }
 
+@ExperimentalUnsignedTypes
 actual fun initializeNotifications(){
-    val center = UNUserNotificationCenter.currentNotificationCenter()
-    val options: UNAuthorizationOptions = [UNAuthorizationOptionAlert, UNAuthorizationOptionSound]
-    center.requestAuthorizationWithOptions(options) { enabled, error ->
-        setNotificationsEnabled(enabled)
-    }
 }
 
 actual fun deinitializeNotifications() {

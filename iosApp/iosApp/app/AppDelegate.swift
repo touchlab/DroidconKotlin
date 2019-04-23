@@ -29,7 +29,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appContext.doInitAppContext(staticFileLoader: loadAsset, clLogCallback: csLog)
         appContext.dataLoad()
         
+        requestNotificationPermissions()
+        
         return true
+    }
+    
+    func requestNotificationPermissions(){
+        
+        
+        
+        let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
+        if(isRegisteredForRemoteNotifications){
+            print("TEst")
+        }
+        let center = UNUserNotificationCenter.current()
+        
+        
+        center.getNotificationSettings(completionHandler: { (settings) in
+            if settings.authorizationStatus == .notDetermined {
+                let options: UNAuthorizationOptions = [.alert, .sound];
+                center.requestAuthorization(options: options) {
+                    (granted, error) in
+                    NotificationsKt.setNotificationsEnabled(enabled: granted)
+                }
+            } else if settings.authorizationStatus == .denied {
+                NotificationsKt.setNotificationsEnabled(enabled: false)
+            } else if settings.authorizationStatus == .authorized {
+                NotificationsKt.setNotificationsEnabled(enabled: true)
+            }
+        })
+        
+        
+        
+        
+        
     }
 
     /*func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
