@@ -27,6 +27,10 @@ class FeedbackManager : FeedbackApi {
         feedbackDialog = null
     }
 
+    fun disableFeedback(){
+        //feedbackEnabled = false
+    }
+
     override fun generateFeedbackDialog(session: MyPastSessions){
         feedbackDialog = FeedbackDialog()
         feedbackDialog?.showNow(fragmentManager, "FeedbackDialog")
