@@ -21,7 +21,7 @@ class ScheduleViewModel(allEvents: Boolean) : ViewModel() {
         scheduleModel.shutDown()
     }
 
-    class ScheduleViewModelFactory(private val allEvents: Boolean) : ViewModelProvider.NewInstanceFactory() {
+    class ScheduleViewModelFactory(private val allEvents: Boolean) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return ScheduleViewModel(allEvents) as T
         }
