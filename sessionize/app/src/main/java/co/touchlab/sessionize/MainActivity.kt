@@ -75,6 +75,10 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         AppContext.refreshData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        feedbackManager.close()
+    }
     private fun findApplicationName(context: Context): String {
         val applicationInfo = context.applicationInfo
         val stringId = applicationInfo.labelRes

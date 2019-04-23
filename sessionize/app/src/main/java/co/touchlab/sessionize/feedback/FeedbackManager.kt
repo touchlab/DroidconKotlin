@@ -1,6 +1,7 @@
 package co.touchlab.sessionize.feedback
 
 import androidx.fragment.app.FragmentManager
+import co.touchlab.droidcon.db.MyPastSessions
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.sessionize.FeedbackModel
 import co.touchlab.sessionize.api.FeedbackApi
@@ -10,7 +11,7 @@ class FeedbackManager : FeedbackApi {
 
     private var fragmentManager:FragmentManager? = null
     private var feedbackModel:FeedbackModel = FeedbackModel()
-
+    private var feedbackDialog:FeedbackDialog? = null
 
     fun setFragmentManager(fragmentManager: FragmentManager){
         this.fragmentManager = fragmentManager
@@ -20,11 +21,17 @@ class FeedbackManager : FeedbackApi {
         feedbackModel.showFeedbackForPastSessions(this)
     }
 
-    override fun generateFeedbackDialog(session: MySessions){
-        val feedbackDialog = FeedbackDialog()
-        feedbackDialog.showNow(fragmentManager, "FeedbackDialog")
-        feedbackDialog.setSessionInfo(session.id, session.title)
-        feedbackDialog.setFeedbackManager(this)
+    fun close(){
+        this.fragmentManager = null
+        feedbackDialog?.dismiss()
+        feedbackDialog = null
+    }
+
+    override fun generateFeedbackDialog(session: MyPastSessions){
+        feedbackDialog = FeedbackDialog()
+        feedbackDialog?.showNow(fragmentManager, "FeedbackDialog")
+        feedbackDialog?.setSessionInfo(session.id, session.title)
+        feedbackDialog?.setFeedbackManager(this)
     }
 
     fun finishedFeedback(sessionId:String, rating:Int, comment: String) {
