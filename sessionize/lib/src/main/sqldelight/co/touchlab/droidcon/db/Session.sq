@@ -39,6 +39,12 @@ FROM session
 JOIN room ON session.roomId = room.id
 WHERE rsvp != 0;
 
+myPastSessions:
+SELECT session.id, session.title, session.startsAt, session.endsAt, session.feedbackRating, room.name AS roomName
+FROM session
+JOIN room ON session.roomId = room.id
+WHERE rsvp != 0 AND session.endsAt < NOW() AND session.feedbackRating IS NOT NULL;
+
 userSessions:
 SELECT session.* FROM session
 JOIN sessionSpeaker ON session.id = sessionSpeaker.sessionId
