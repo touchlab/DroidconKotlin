@@ -1,5 +1,6 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.MyPastSessions
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.platform.NotificationFeedbackTag
@@ -10,21 +11,18 @@ import co.touchlab.sessionize.platform.currentTimeMillis
 class FeedbackModel {
 
     private var sessionIdx:Int = 0
-    private var sessions: List<MySessions>? = null
+    private var sessions: List<MyPastSessions>? = null
 
     private var feedbackListener: FeedbackApi? = null
-
 
     fun showFeedbackForPastSessions(listener: FeedbackApi){
         feedbackListener = listener
         backgroundTask({
-            AppContext.sessionQueries.mySessions().executeAsList().filter {
-                it.feedbackRating == null && it.endsAt.toLongMillis() < currentTimeMillis()
-            }
+            AppContext.sessionQueries.myPastSessions().executeAsList()
         },{
             if(it.isNotEmpty()) {
                 sessionIdx = 0
-                this.sessions = sessions
+                this.sessions = it
                 this.sessions?.let { session ->
                     feedbackListener?.generateFeedbackDialog(session[sessionIdx])
                 }
@@ -47,7 +45,7 @@ class FeedbackModel {
         })
     }
 
-    private fun getNextSessionFromList(): MySessions?{
+    private fun getNextSessionFromList(): MyPastSessions?{
         sessionIdx++
         sessions?.let {
             if(sessionIdx < it.count()) {
