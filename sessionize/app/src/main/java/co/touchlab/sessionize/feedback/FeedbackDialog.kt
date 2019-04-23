@@ -48,7 +48,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
             val builder = AlertDialog.Builder(it)
             builder.setView(feedbackView)
                     .setNegativeButton("Close and Disable Feedback", DialogInterface.OnClickListener { dialog, _ ->
-                        AppContext.disableFeedback()
+                        feedbackManager?.disableFeedback()
                         dialog.dismiss()
                     })
 

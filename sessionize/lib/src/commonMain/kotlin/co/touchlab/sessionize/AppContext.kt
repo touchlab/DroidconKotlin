@@ -24,9 +24,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 object AppContext {
-
-    //private var feedbackEnabled: Boolean = true
-
+    
     val dbHelper = SessionizeDbHelper()
 
     val KEY_FIRST_RUN = "FIRST_RUN1"
@@ -174,10 +172,6 @@ object AppContext {
                 }
             }
         }
-    }
-
-    fun disableFeedback(){
-        //feedbackEnabled = false
     }
 }
 
