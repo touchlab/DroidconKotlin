@@ -56,6 +56,7 @@ class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<Session
         }
         row.setSpeakerText(speakerNames)
         row.setDescription(hourBlock.timeBlock.description)
+        row.setPast(hourBlock.isPast())
 
         if (hourBlock.timeBlock.isBlock()) {
             row.setLiveNowVisible(false)
@@ -101,4 +102,6 @@ interface EventRow {
     fun setLiveNowVisible(b: Boolean)
 
     fun setRsvpState(state: RsvpState)
+
+    fun setPast(b: Boolean)
 }

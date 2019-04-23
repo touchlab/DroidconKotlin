@@ -16,7 +16,13 @@ import main
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet weak var rsvpDot: DotView!
     @IBOutlet var cardBackgroundToTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var eventView: UIView!
     @IBInspectable var highlightedColor : UIColor?
+    private var isPast: Bool = false
+    private var notHighlightedColor: UIColor {
+        return isPast ? colorWithHexString(hexString: "DEDEDE") : .white
+    }
+    
     
     func setTimeGap(b: Bool) {
         cardBackgroundToTopConstraint.constant = b ? 4 : 0
@@ -42,6 +48,11 @@ import main
         
     }
     
+    func setPast(b: Bool) {
+        isPast = b
+        updateBackgroundColor()
+    }
+    
     func setRsvpState(state: RsvpState) {
         if(state == RsvpState.none){
             rsvpDot.isHidden = true
@@ -65,6 +76,6 @@ import main
     }
     
     func updateBackgroundColor() {
-        titleLabel.superview!.backgroundColor = isHighlighted ? highlightedColor : UIColor.white
+        eventView.backgroundColor = isHighlighted ? highlightedColor : notHighlightedColor
     }
 }
