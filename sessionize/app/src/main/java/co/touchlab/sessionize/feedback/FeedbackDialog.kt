@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.feedback
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Color
@@ -23,7 +24,11 @@ enum class FeedbackRating(val value: Int) {
     Bad(3)
 }
 
-class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
+class FeedbackDialog    @SuppressLint("ValidFragment") constructor(
+        val sessionId: String,
+        val sessionTitle: String,
+        val feedbackManager: FeedbackManager
+) : DialogFragment(),FeedbackInteractionInterface{
 
 
     private var ratingView:FeedbackRatingView? = null
@@ -33,13 +38,8 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
 
     private val animationTime = 400L
 
-    private var sessionId:String? = null
-    private var sessionTitle:String? = null
     private var rating:FeedbackRating = FeedbackRating.None
     private var comments:String = ""
-
-    private var feedbackManager:FeedbackManager? = null
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -49,7 +49,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
             val builder = AlertDialog.Builder(it)
             builder.setView(feedbackView)
                     .setNegativeButton("Close and Disable Feedback", DialogInterface.OnClickListener { dialog, _ ->
-                        feedbackManager?.disableFeedback()
+                        feedbackManager.disableFeedback()
                         dialog.dismiss()
                     })
 
@@ -83,7 +83,7 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         ratingView?.createCommentButtonListener(View.OnClickListener {
             showCommentView()
         })
-        sessionTitle?.let {
+        sessionTitle.let {
             ratingView?.setSessionTitle(it)
         }
 
@@ -96,22 +96,12 @@ class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
         commentView?.visibility = View.INVISIBLE
     }
 
-    fun setSessionInfo(sessionId: String,sessionTitle:String){
-        this.sessionId = sessionId
-        this.sessionTitle = sessionTitle
-        ratingView?.setSessionTitle(sessionTitle)
-    }
-
-    fun setFeedbackManager(manager:FeedbackManager){
-        this.feedbackManager = manager
-    }
-
 
     private fun finishAndClose(){
         commentView?.getComment()?.let {
             comments = it
         }
-        feedbackManager?.finishedFeedback(sessionId!!,rating.value,comments)
+        feedbackManager.finishedFeedback(sessionId,rating.value,comments)
         dismiss()
     }
 

@@ -32,10 +32,8 @@ class FeedbackManager : FeedbackApi {
     }
 
     override fun generateFeedbackDialog(session: MyPastSessions){
-        feedbackDialog = FeedbackDialog()
+        feedbackDialog = FeedbackDialog(sessionId = session.id, sessionTitle = session.title, feedbackManager = this)
         feedbackDialog?.showNow(fragmentManager, "FeedbackDialog")
-        feedbackDialog?.setSessionInfo(session.id, session.title)
-        feedbackDialog?.setFeedbackManager(this)
     }
 
     fun finishedFeedback(sessionId:String, rating:Int, comment: String) {
