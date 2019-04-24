@@ -72,7 +72,6 @@
 		E54EE7DAFB9F33D15E11C2A1 /* ScheduleViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 39777FAE65B310A22CAD1D10 /* ScheduleViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F16A0D87226A4DD000199DF3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */; };
 		F16A0D89226A513100199DF3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */; };
-		F16A0D8B226A542A00199DF3 /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F16A0D8A226A542A00199DF3 /* SettingsTableViewCell.xib */; };
 		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		FE7B22AB48874F7140F42B10 /* Coroutines.kt in Sources */ = {isa = PBXBuildFile; fileRef = CF10C231D1475A2DC849C81B /* Coroutines.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
@@ -172,7 +171,6 @@
 		E9D0970290E8B09CD71F3AD6 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
 		F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
-		F16A0D8A226A542A00199DF3 /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		F3268F03C19C8685393B8DDA /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -718,7 +716,6 @@
 			children = (
 				F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */,
 				F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */,
-				F16A0D8A226A542A00199DF3 /* SettingsTableViewCell.xib */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -835,7 +832,6 @@
 				6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */,
 				63711D3C211143390099FF25 /* about.json in Resources */,
 				6372423C20F973370049263B /* Main.storyboard in Resources */,
-				F16A0D8B226A542A00199DF3 /* SettingsTableViewCell.xib in Resources */,
 				6372423720F914D60049263B /* speakers.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

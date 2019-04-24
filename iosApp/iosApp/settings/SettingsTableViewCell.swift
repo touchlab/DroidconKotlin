@@ -17,9 +17,12 @@ class SettingsTableViewCell: UITableViewCell {
     
     var viewModel:SettingsViewModel!
     
-    func loadInfo(_ settingDetail:SettingsViewController.SettingDetail) {
+    func loadInfo(_ settingDetail:SettingsViewController.Detail) {
         titleLabel.text = settingDetail.title
         settingIcon.image = settingDetail.image
-        settingSwitch.isOn = settingDetail.enabled!
+        
+        if let detail = settingDetail as? SettingsViewController.SwitchDetail {
+            settingSwitch.isOn = detail.enabled
+        }
     }
 }

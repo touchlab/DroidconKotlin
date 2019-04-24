@@ -11,22 +11,9 @@ import main
 
 class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    public class SettingDetail: NSObject {
-        var title:String?
-        var image:UIImage?
-        var enabled:Bool?
-    
-        init(title:String, image:UIImage, enabled: Bool){
-            self.title = title
-            self.image = image
-            self.enabled = enabled
-        }
-    }
-    
-    var settingRows:Array<SettingDetail>?
+    private var data:Array<Detail>?
     
     @IBOutlet weak var tableView : UITableView!
-    @IBOutlet weak var headerImage: UIImageView!
     
     // MARK: Properties
     var viewModel:SettingsViewModel!
@@ -37,10 +24,30 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
         
         viewModel = SettingsViewModel()
         
-        settingRows = [
-            SettingDetail(title: "Enable Feedback",image: UIImage.init(named: "")!,enabled: false),
-            SettingDetail(title: "Enable Reminders",image: UIImage.init(named: "")!,enabled: false),
-            SettingDetail(title: "Enable Notifications",image: UIImage.init(named: "")!,enabled: false)
+        data = [
+            SwitchDetail(title: "Enable Feedback",
+                         image: UIImage.init(named: "icon_feedback")!,
+                         enabled:  ServiceRegistry().appSettings.getBoolean(key: AppContext().feedback_ENABLED, defaultValue: false),
+                         listener: { isOn in
+                self.viewModel.settingsModel.setFeedbackEnabled(enabled: isOn)
+            }),
+            SwitchDetail(title: "Enable Reminders",
+                         image: UIImage.init(named: "ic_event")!,
+                         enabled: ServiceRegistry().appSettings.getBoolean(key: AppContext().reminders_ENABLED, defaultValue: false),
+                         listener: { isOn in
+                self.viewModel.settingsModel.setRemindersEnabled(enabled: isOn)
+            }),
+            SwitchDetail(title: "Enable Notifications",
+                         image: UIImage.init(named: "ic_event")!,
+                         enabled: ServiceRegistry().appSettings.getBoolean(key: AppContext().local_NOTIFICATIONS_ENABLED, defaultValue: false),
+                         listener: { isOn in
+                self.viewModel.settingsModel.setLocalNotificationsEnabled(enabled: isOn)
+            }),
+            ButtonDetail(title: "About",
+                         image: UIImage.init(named: "ic_info_outline_white")!,
+                         listener: {
+                self.performSegue(withIdentifier: "AboutSegue", sender: nil)
+                })
         ]
         
         tableView.estimatedRowHeight = tableView.rowHeight
@@ -52,8 +59,6 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
         self.tableView.contentInset = UIEdgeInsets.zero
         self.tableView.separatorStyle = .none
         self.tableView.reloadData()
-        
-        headerImage.backgroundColor = ApplicationScheme.shared.colorScheme.secondaryColor
     }
 
     
@@ -63,14 +68,21 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return data?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:SettingsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "settingCell") as! SettingsTableViewCell
         let row = (indexPath as NSIndexPath).row
-        cell.loadInfo(settingRows![row])
+        cell.loadInfo(data![row])
         cell.selectionStyle = UITableViewCellSelectionStyle.none
+        
+        if let _ = data![row] as? ButtonDetail {
+            cell.settingSwitch.isHidden = true
+        }else{
+            cell.settingSwitch.addTarget(data![row], action: #selector(SwitchDetail.onSwitchChanged(sender:)), for:UIControlEvents.valueChanged)
+        }
+        
         return cell
     }
     
@@ -85,5 +97,60 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
+        NotificationsKt.setNotificationsEnabled(enabled: true)
+        
+        let row = (indexPath as NSIndexPath).row
+
+        if let buttonRow = data![row] as? ButtonDetail {
+            buttonRow.settingListener()
+        }
     }
+    
+    
+    
+    enum EntryType{
+        case TYPE_BODY
+        case TYPE_SWITCH
+        case TYPE_BUTTON
+    }
+    
+    public class Detail: NSObject {
+        var type:EntryType?
+        var title:String?
+        var image:UIImage?
+        
+        init(type:EntryType, title:String, image:UIImage){
+            self.type = type
+            self.title = title
+            self.image = image
+        }
+    }
+    
+    private class ButtonDetail: Detail {
+        var settingListener: () -> Void
+        
+        init(title: String, image: UIImage, listener:@escaping () -> Void) {
+            self.settingListener = listener
+            super.init(type: .TYPE_BUTTON, title: title, image: image)
+        }
+    }
+    
+    public class SwitchDetail: Detail {
+        var enabled:Bool
+        var settingListener: (Bool) -> Void
+        
+        init(title: String, image: UIImage, enabled: Bool, listener:@escaping (Bool) -> Void) {
+            self.settingListener = listener
+            self.enabled = enabled
+            super.init(type: .TYPE_SWITCH, title: title, image: image)
+        }
+        
+        @objc func onSwitchChanged(sender: UISwitch) {
+            enabled = sender.isOn
+            settingListener(enabled)
+        }
+        
+    }
+    
+    
 }
