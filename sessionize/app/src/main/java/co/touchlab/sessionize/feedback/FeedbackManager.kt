@@ -32,7 +32,7 @@ class FeedbackManager : FeedbackApi {
     }
 
     override fun generateFeedbackDialog(session: MyPastSessions){
-        feedbackDialog = FeedbackDialog(sessionId = session.id, sessionTitle = session.title, feedbackManager = this)
+        feedbackDialog = FeedbackDialog.newInstance(sessionId = session.id, sessionTitle = session.title, feedbackManager = this)
         feedbackDialog?.showNow(fragmentManager, "FeedbackDialog")
     }
 
