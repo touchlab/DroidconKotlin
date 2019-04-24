@@ -59,7 +59,7 @@ class ScheduleFragment():Fragment() {
 
         eventList.layoutManager = LinearLayoutManager(activity)
 
-        eventAdapter = EventAdapter(context!!, viewModel.scheduleModel, allEvents) {
+        eventAdapter = EventAdapter(context!!, allEvents) {
             navigateToSession(it.timeBlock.id)
         }
 
