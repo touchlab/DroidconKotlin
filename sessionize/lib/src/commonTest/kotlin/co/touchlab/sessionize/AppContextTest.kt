@@ -16,7 +16,7 @@ abstract class AppContextTests {
 
     fun setUp() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock(), "-0400")
+                Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock(),NotificationsApiMock(), "-0400")
     }
 
     @AfterTest

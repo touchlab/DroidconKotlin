@@ -1,18 +1,26 @@
 package co.touchlab.sessionize
 
+import android.app.AlarmManager
 import android.app.Application
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import app.sessionize.touchlab.lib.R
 import co.touchlab.droidcon.db.Database
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.MainConcurrent
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.NotificationsApi
-import co.touchlab.sessionize.platform.cancelLocalNotificationOnPlatform
-import co.touchlab.sessionize.platform.createLocalNotificationOnPlatform
-import co.touchlab.sessionize.platform.deinitializeNotificationsOnPlatform
-import co.touchlab.sessionize.platform.initializeNotificationsOnPlatform
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
@@ -68,26 +76,4 @@ class MainApp :Application(){
             .open(name, Context.MODE_PRIVATE)
             .bufferedReader()
             .use { it.readText() }
-
-
-
-    class NotificationsApiImpl : NotificationsApi {
-
-        override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
-            createLocalNotificationOnPlatform(title,message,timeInMS,notificationId)
-        }
-
-        override fun cancelLocalNotification(notificationId: Int) {
-            cancelLocalNotificationOnPlatform(notificationId)
-        }
-
-        override fun initializeNotifications() {
-            initializeNotificationsOnPlatform()
-        }
-
-        override fun deinitializeNotifications() {
-            deinitializeNotificationsOnPlatform()
-        }
-
-    }
 }
