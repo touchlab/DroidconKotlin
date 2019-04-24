@@ -1,6 +1,5 @@
 package co.touchlab.sessionize.feedback
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Color
@@ -12,7 +11,6 @@ import android.view.animation.TranslateAnimation
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import co.touchlab.sessionize.AppContext
 import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.*
 import kotlinx.android.synthetic.main.feedback_view.view.*
@@ -24,12 +22,12 @@ enum class FeedbackRating(val value: Int) {
     Bad(3)
 }
 
-class FeedbackDialog    @SuppressLint("ValidFragment") constructor(
-        val sessionId: String,
-        val sessionTitle: String,
-        val feedbackManager: FeedbackManager
-) : DialogFragment(),FeedbackInteractionInterface{
+class FeedbackDialog : DialogFragment(),FeedbackInteractionInterface{
 
+
+    lateinit var sessionId: String
+    lateinit var sessionTitle: String
+    private var feedbackManager: FeedbackManager? = null
 
     private var ratingView:FeedbackRatingView? = null
     private var commentView:FeedbackCommentView? = null
@@ -41,15 +39,38 @@ class FeedbackDialog    @SuppressLint("ValidFragment") constructor(
     private var rating:FeedbackRating = FeedbackRating.None
     private var comments:String = ""
 
+
+    companion object {
+        private const val sessionIdName = "sessionId"
+        private const val sessionTitleName = "sessionTitle"
+
+        fun newInstance(sessionId: String, sessionTitle: String, feedbackManager: FeedbackManager) : FeedbackDialog{
+            val bundle = Bundle()
+            bundle.putString(sessionIdName, sessionId)
+            bundle.putString(sessionTitleName, sessionTitle)
+            val feedbackDialog = FeedbackDialog()
+            feedbackDialog.arguments = bundle
+            feedbackDialog.setFeedbackManager(feedbackManager)
+            return feedbackDialog
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
+
+            arguments?.let { bundle ->
+                sessionId = bundle[sessionIdName] as String
+                sessionTitle = bundle[sessionTitleName] as String
+            }
+
+
 
             val feedbackView = createFeedbackView(requireActivity().layoutInflater)
 
             val builder = AlertDialog.Builder(it)
             builder.setView(feedbackView)
                     .setNegativeButton("Close and Disable Feedback", DialogInterface.OnClickListener { dialog, _ ->
-                        feedbackManager.disableFeedback()
+                        feedbackManager?.disableFeedback()
                         dialog.dismiss()
                     })
 
@@ -60,6 +81,8 @@ class FeedbackDialog    @SuppressLint("ValidFragment") constructor(
             return dialog
         } ?: throw IllegalStateException("Activity cannot be null")
     }
+
+
 
     private fun createFeedbackView(inflater: LayoutInflater):View{
         val view = inflater.inflate(R.layout.feedback_view, null)
@@ -96,12 +119,15 @@ class FeedbackDialog    @SuppressLint("ValidFragment") constructor(
         commentView?.visibility = View.INVISIBLE
     }
 
+    fun setFeedbackManager(fbManager: FeedbackManager){
+        this.feedbackManager = fbManager
+    }
 
     private fun finishAndClose(){
         commentView?.getComment()?.let {
             comments = it
         }
-        feedbackManager.finishedFeedback(sessionId,rating.value,comments)
+        feedbackManager?.finishedFeedback(sessionId,rating.value,comments)
         dismiss()
     }
 
