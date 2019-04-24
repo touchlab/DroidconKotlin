@@ -103,24 +103,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    class NotificationsApiImpl : NSObject, NotificationsApi {
-        func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32) {
-            NotificationsKt.createLocalNotificationOnPlatform(title: title,message: message,timeInMS: timeInMS,notificationId: notificationId)
-        }
-        
-        func cancelLocalNotification(notificationId: Int32) {
-            NotificationsKt.cancelLocalNotificationOnPlatform(notificationId: notificationId)
-        }
-        
-        func initializeNotifications() {
-            NotificationsKt.initializeNotificationsOnPlatform()
-        }
-        
-        func deinitializeNotifications() {
-            NotificationsKt.deinitializeNotificationsOnPlatform()
-        }
-        
-    }
 }
 
