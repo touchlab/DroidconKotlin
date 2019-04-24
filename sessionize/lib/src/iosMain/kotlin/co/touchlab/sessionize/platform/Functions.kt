@@ -12,11 +12,13 @@ import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
 import platform.Foundation.NSApplicationSupportDirectory
+import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSThread
 import platform.Foundation.NSUUID
 import platform.Foundation.NSUserDomainMask
+import platform.Foundation.timeIntervalSince1970
 import platform.darwin.dispatch_async_f
 import platform.darwin.dispatch_get_main_queue
 import kotlin.native.concurrent.DetachedObjectGraph
@@ -26,7 +28,7 @@ import kotlin.native.concurrent.attach
 import kotlin.native.concurrent.freeze
 import kotlin.system.getTimeMillis
 
-actual fun currentTimeMillis(): Long = getTimeMillis()
+actual fun currentTimeMillis(): Long = (NSDate().timeIntervalSince1970 * 1000).toLong()
 
 private val workerMap = HashMap<String, Worker?>()
 
