@@ -9,7 +9,7 @@
 import UIKit
 import main
 
-@objc class ScheduleListCell: UITableViewCell, EventRow {
+@objc class ScheduleListCell: UITableViewCell {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var speakerNamesLabel: UILabel!
@@ -56,6 +56,15 @@ import main
                 rsvpDot.backgroundColor = ApplicationScheme.shared.rsvpColorPast
             }
         }
+    }
+    
+    func bind(hourBlock:HourBlock, allEvents:Bool, allBlocks:[HourBlock]){
+        setTimeText(s: hourBlock.hourStringDisplay)
+        setTitleText(s: hourBlock.timeBlock.title)
+        setSpeakerText(s: hourBlock.speakerText)
+        setDescription(s: hourBlock.timeBlock.description)
+        setRsvpState(state: hourBlock.getRsvpState(allEvents: allEvents, allBlocks: allBlocks))
+        setTimeGap(b: hourBlock.timeGap)
     }
     
     override var isHighlighted: Bool {
