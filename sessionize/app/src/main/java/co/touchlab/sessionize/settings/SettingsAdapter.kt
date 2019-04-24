@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.Switch
@@ -25,6 +26,10 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
         data.add(SwitchDetail(EntryType.TYPE_SWITCH, description, icon, isChecked, listener))
     }
 
+    fun addButtonRow(description: String, icon:Int, listener: View.OnClickListener) {
+        data.add(ButtonDetail(EntryType.TYPE_BUTTON, description, icon, listener))
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (EntryType.values()[viewType]) {
             EntryType.TYPE_BODY -> {
@@ -34,6 +39,10 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
             EntryType.TYPE_SWITCH -> {
                 val view = LayoutInflater.from(activity).inflate(R.layout.item_setting_switch, parent, false)
                 SwitchVH(view)
+            }
+            EntryType.TYPE_BUTTON -> {
+                val view = LayoutInflater.from(activity).inflate(R.layout.item_setting_text, parent, false)
+                ButtonVH(view)
             }
         }
     }
@@ -50,27 +59,33 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
         when (EntryType.values()[holder.itemViewType]) {
             EntryType.TYPE_SWITCH -> {
                 val view = (holder as SwitchVH).itemView
-                view.findViewById<Switch>(R.id.settingSwitch).text = (data[position] as SwitchDetail).text.trim()
-                view.findViewById<Switch>(R.id.settingSwitch).isChecked = (data[position] as SwitchDetail).isChecked
-                view.findViewById<ImageView>(R.id.image).setImageResource((data[position] as SwitchDetail).icon)
-                view.findViewById<Switch>(R.id.settingSwitch).setOnCheckedChangeListener((data[position] as SwitchDetail).listener)
+                val detail = (data[position] as SwitchDetail)
+                view.findViewById<Switch>(R.id.settingSwitch).text = detail.text.trim()
+                view.findViewById<Switch>(R.id.settingSwitch).isChecked = detail.isChecked
+                view.findViewById<ImageView>(R.id.image).setImageResource(detail.icon)
+                view.findViewById<Switch>(R.id.settingSwitch).setOnCheckedChangeListener(detail.listener)
             }
 
             EntryType.TYPE_BODY -> {
                 val view = (holder as TextVH).itemView
-                view.findViewById<TextView>(R.id.body).text = (data[position] as TextDetail).text.trim()
-                view.findViewById<ImageView>(R.id.image).setImageResource((data[position] as TextDetail).icon)
-
-                view.setOnClickListener {
-                    print("test")
-                }
+                val detail = (data[position] as TextDetail)
+                view.findViewById<TextView>(R.id.body).text = detail.text.trim()
+                view.findViewById<ImageView>(R.id.image).setImageResource(detail.icon)
+            }
+            EntryType.TYPE_BUTTON -> {
+                val view = (holder as ButtonVH).itemView
+                val detail = (data[position] as ButtonDetail)
+                view.findViewById<TextView>(R.id.body).text = detail.text.trim()
+                view.findViewById<ImageView>(R.id.image).setImageResource(detail.icon)
+                view.setOnClickListener(detail.listener)
             }
         }
     }
 
     enum class EntryType{
         TYPE_BODY,
-        TYPE_SWITCH
+        TYPE_SWITCH,
+        TYPE_BUTTON
     }
 
     open inner class Detail(val type: EntryType) {
@@ -80,10 +95,12 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
     }
 
     inner class TextDetail(type: EntryType, val text: String, val icon: Int) : Detail(type)
+    inner class ButtonDetail(type: EntryType, val text: String, val icon: Int, val listener: View.OnClickListener) : Detail(type)
+
     inner class SwitchDetail(type: EntryType, val text: String, val icon: Int, var isChecked: Boolean, var listener:CompoundButton.OnCheckedChangeListener) : Detail(type)
 
     inner class SwitchVH(val item: View) : RecyclerView.ViewHolder(item)
-
+    inner class ButtonVH(val item: View) : RecyclerView.ViewHolder(item)
     inner class TextVH(val item: View) : RecyclerView.ViewHolder(item)
 
 }

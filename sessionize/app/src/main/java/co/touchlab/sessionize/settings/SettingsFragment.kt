@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.AppContext.FEEDBACK_ENABLED
 import co.touchlab.sessionize.AppContext.LOCAL_NOTIFICATIONS_ENABLED
 import co.touchlab.sessionize.AppContext.REMINDERS_ENABLED
+import co.touchlab.sessionize.FragmentAnimation
+import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.ServiceRegistry
+import co.touchlab.sessionize.about.AboutFragment
 
 class SettingsFragment : Fragment() {
 
@@ -70,18 +73,18 @@ class SettingsFragment : Fragment() {
                         settingsViewModel.settingsModel.setLocalNotificationsEnabled(isChecked)
                     }
             )
+            adapter.addButtonRow("About",R.drawable.menu_info, View.OnClickListener {
+                (activity as NavigationHost).navigateTo(
+                        AboutFragment.newInstance(),
+                        true,
+                        FragmentAnimation(R.anim.slide_from_right,
+                                R.anim.slide_to_left,
+                                R.anim.slide_from_left,
+                                R.anim.slide_to_right)
+                )
+            })
         //}
 
         recycler.adapter = adapter
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

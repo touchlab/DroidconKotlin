@@ -74,5 +74,14 @@ class AboutFragment : Fragment() {
         val body = itemView.findViewById<TextView>(R.id.body)
         val logo = itemView.findViewById<ImageView>(R.id.logo)
     }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+                AboutFragment().apply {
+                    arguments = Bundle().apply {
+                    }
+                }
+    }
 }
 

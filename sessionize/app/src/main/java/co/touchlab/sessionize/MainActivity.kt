@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
             R.id.navigation_schedule -> navigateTo(ScheduleFragment.newInstance(true), false)
             R.id.navigation_my_agenda -> navigateTo(ScheduleFragment.newInstance(false), false)
             R.id.navigation_sponsors -> navigateTo(SponsorsFragment(), false)
-            R.id.navigation_about -> navigateTo(AboutFragment(), false)
+            R.id.navigation_settings -> navigateTo(SettingsFragment(), false)
             else -> return@OnNavigationItemSelectedListener false
         }
         true
@@ -58,10 +58,6 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         }
 
         setSupportActionBar(findViewById(R.id.app_bar) as Toolbar)
-
-        settingsButton.setOnClickListener {
-            settingsButtonPressed()
-        }
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
         }
@@ -127,16 +123,5 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         }
 
         transaction.commit()
-    }
-
-    private fun settingsButtonPressed(){
-            (this as NavigationHost).navigateTo(
-                    SettingsFragment.newInstance(),
-                    true,
-                    FragmentAnimation(R.anim.slide_from_right,
-                            R.anim.slide_to_left,
-                            R.anim.slide_from_left,
-                            R.anim.slide_to_right)
-            )
     }
 }

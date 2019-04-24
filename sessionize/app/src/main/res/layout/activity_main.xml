@@ -29,16 +29,6 @@
             >
             </androidx.appcompat.widget.Toolbar>
 
-            <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/app_bar"
-                    app:layout_constraintBottom_toBottomOf="@id/app_bar"
-                    app:layout_constraintDimensionRatio="1:1"
-                    android:id="@+id/settingsButton"
-                    android:background="@drawable/baseline_settings_white_48"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
