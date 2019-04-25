@@ -12,6 +12,8 @@
 
 #import "MDFInternationalization.h"
 #import "MDFRTL.h"
+#import "NSLocale+MaterialRTL.h"
+#import "NSString+MaterialBidi.h"
 #import "UIImage+MaterialRTL.h"
 #import "UIView+MaterialRTL.h"
 

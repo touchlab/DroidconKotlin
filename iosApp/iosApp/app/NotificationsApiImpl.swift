@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import main
+import lib
 import UserNotifications
 
 class NotificationsApiImpl : NSObject, NotificationsApi {
