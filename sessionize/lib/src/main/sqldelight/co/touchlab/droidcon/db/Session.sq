@@ -42,7 +42,7 @@ WHERE rsvp != 0;
 myPastSession:
 SELECT session.id, session.title, session.endsAt, session.feedbackRating
 FROM session
-WHERE rsvp != 0 AND session.endsAt < NOW() AND session.feedbackRating IS NULL LIMIT 1;
+WHERE rsvp != 0 AND session.endsAt < datetime('now') AND session.feedbackRating IS NULL LIMIT 1;
 
 userSessions:
 SELECT session.* FROM session
