@@ -1,6 +1,6 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.MySessions
+import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.api.FeedbackApi
@@ -21,6 +21,7 @@ class EventModelTest {
     fun setup() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
                 Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock(), "-0400")
+
 
         AppContext.initAppContext({filePrefix, fileType ->
             when(filePrefix){
@@ -92,9 +93,9 @@ class FeedbackApiMock : FeedbackApi {
     fun getFeedbackModel(): FeedbackModel {
         return feedbackModel
     }
-    override fun generateFeedbackDialog(session: MySessions){
+    override fun generateFeedbackDialog(session: MyPastSession){
         generatingFeedbackDialog = true
-        //feedbackModel.finishedFeedback("1234",1,"This is a comment")
+        feedbackModel.finishedFeedback("1234",1,"This is a comment")
     }
 
     override fun onError(error: FeedbackApi.FeedBackError){

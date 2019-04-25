@@ -39,11 +39,10 @@ FROM session
 JOIN room ON session.roomId = room.id
 WHERE rsvp != 0;
 
-myPastSessions:
-SELECT session.id, session.title, session.startsAt, session.endsAt, session.feedbackRating, room.name AS roomName
+myPastSession:
+SELECT session.id, session.title, session.endsAt, session.feedbackRating
 FROM session
-JOIN room ON session.roomId = room.id
-WHERE rsvp != 0 AND session.endsAt < NOW() AND session.feedbackRating IS NOT NULL;
+WHERE rsvp != 0 AND session.endsAt < NOW() AND session.feedbackRating IS NULL LIMIT 1;
 
 userSessions:
 SELECT session.* FROM session
