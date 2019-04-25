@@ -31,6 +31,7 @@
 		6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424920FAD9B30049263B /* SpeakerTableViewCell.swift */; };
 		6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424A20FAD9B40049263B /* EventTableViewCell.swift */; };
 		6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372424B20FAD9B40049263B /* EventTableViewCell.xib */; };
+		637E5110227235890093DBF7 /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
 		63A76ACD2129E8F80000515D /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */; };
 		63A76ACF2129E93F0000515D /* SponsorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACE2129E93F0000515D /* SponsorViewController.swift */; };
 		63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */; };
@@ -93,6 +94,7 @@
 		6372424920FAD9B30049263B /* SpeakerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerTableViewCell.swift; sourceTree = "<group>"; };
 		6372424A20FAD9B40049263B /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		6372424B20FAD9B40049263B /* EventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
+		637E510F227235890093DBF7 /* NotificationsApiImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsApiImpl.swift; sourceTree = "<group>"; };
 		63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A76ACE2129E93F0000515D /* SponsorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorViewController.swift; sourceTree = "<group>"; };
 		63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorGroupCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		63711D3A2110F9040099FF25 /* app */ = {
 			isa = PBXGroup;
 			children = (
+				637E510F227235890093DBF7 /* NotificationsApiImpl.swift */,
 				6372423A20F973370049263B /* Main.storyboard */,
 				6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */,
 				6372423D20F975470049263B /* LaunchViewController.swift */,
@@ -523,6 +526,7 @@
 				637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */,
 				637100DC211086360099FF25 /* SpeakerInfoCellTableViewCell.swift in Sources */,
 				6372424720FAD04F0049263B /* EventDetailViewController.swift in Sources */,
+				637E5110227235890093DBF7 /* NotificationsApiImpl.swift in Sources */,
 				6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */,
 				6372424520F9B7800049263B /* AboutViewController.swift in Sources */,
 				63711D3F2111470A0099FF25 /* AboutInfoTableViewCell.swift in Sources */,
