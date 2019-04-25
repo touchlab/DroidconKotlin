@@ -1,8 +1,7 @@
 package co.touchlab.sessionize.feedback
 
 import androidx.fragment.app.FragmentManager
-import co.touchlab.droidcon.db.MyPastSessions
-import co.touchlab.droidcon.db.MySessions
+import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.FeedbackModel
 import co.touchlab.sessionize.api.FeedbackApi
 
@@ -31,7 +30,7 @@ class FeedbackManager : FeedbackApi {
         //feedbackEnabled = false
     }
 
-    override fun generateFeedbackDialog(session: MyPastSessions){
+    override fun generateFeedbackDialog(session: MyPastSession){
         feedbackDialog = FeedbackDialog.newInstance(sessionId = session.id, sessionTitle = session.title, feedbackManager = this)
         feedbackDialog?.showNow(fragmentManager, "FeedbackDialog")
     }
