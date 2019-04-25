@@ -1,32 +1,23 @@
-/*
- Copyright 2017-present the Material Components for iOS authors. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+// Copyright 2017-present the Material Components for iOS authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 #import "MDCTabBarViewController.h"
 
 #import "MaterialShadowElevations.h"
 #import "MaterialShadowLayer.h"
 
-static NSString *const MDCTabBarViewControllerViewControllersKey =
-    @"MDCTabBarViewControllerViewControllersKey";
-static NSString *const MDCTabBarViewControllerSelectedViewControllerKey =
-    @"MDCTabBarViewControllerSelectedViewControllerKey";
-static NSString *const MDCTabBarViewControllerDelegateKey = @"MDCTabBarViewControllerDelegateKey";
-static NSString *const MDCTabBarViewControllerTabBarKey = @"MDCTabBarViewControllerTabBarKey";
-
-const CGFloat MDCTabBarViewControllerAnimationDuration = 0.3f;
+const CGFloat MDCTabBarViewControllerAnimationDuration = (CGFloat)0.3;
 
 /**
  * View to host shadow for the tab bar.
@@ -78,14 +69,6 @@ const CGFloat MDCTabBarViewControllerAnimationDuration = 0.3f;
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder:aDecoder];
   if (self) {
-    _viewControllers = [aDecoder decodeObjectOfClass:[NSArray class]
-                                              forKey:MDCTabBarViewControllerViewControllersKey];
-    self.selectedViewController =
-        [aDecoder decodeObjectOfClass:[UIViewController class]
-                               forKey:MDCTabBarViewControllerSelectedViewControllerKey];
-    _tabBar = [aDecoder decodeObjectOfClass:[MDCTabBar class]
-                                     forKey:MDCTabBarViewControllerTabBarKey];
-    _delegate = [aDecoder decodeObjectForKey:MDCTabBarViewControllerDelegateKey];
     [self commonInit];
   }
   return self;
@@ -108,7 +91,6 @@ const CGFloat MDCTabBarViewControllerAnimationDuration = 0.3f;
 }
 
 -(void)commonInit {
-  // Already been setup through encoding/decoding
   if (self.tabBar) {
     return;
   }
@@ -117,15 +99,6 @@ const CGFloat MDCTabBarViewControllerAnimationDuration = 0.3f;
   tabBar.delegate = self;
   self.tabBar = tabBar;
   _tabBarShadow = [[MDCTabBarShadowView alloc] initWithFrame:CGRectZero];
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-  [super encodeWithCoder:coder];
-  [coder encodeObject:_viewControllers forKey:MDCTabBarViewControllerViewControllersKey];
-  [coder encodeConditionalObject:_selectedViewController
-                          forKey:MDCTabBarViewControllerSelectedViewControllerKey];
-  [coder encodeObject:_tabBar forKey:MDCTabBarViewControllerTabBarKey];
-  [coder encodeConditionalObject:_delegate forKey:MDCTabBarViewControllerDelegateKey];
 }
 
 - (void)viewDidLoad {
@@ -316,11 +289,9 @@ const CGFloat MDCTabBarViewControllerAnimationDuration = 0.3f;
   CGRect bounds = self.view.bounds;
   CGFloat tabBarHeight = [[_tabBar class] defaultHeightForBarPosition:UIBarPositionBottom
                                                        itemAppearance:_tabBar.itemAppearance];
-#if defined(__IPHONE_11_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0)
   if (@available(iOS 11.0, *)) {
     tabBarHeight += self.view.safeAreaInsets.bottom;
   }
-#endif
 
   CGRect currentViewFrame = bounds;
   CGRect tabBarFrame = CGRectMake(bounds.origin.x, bounds.origin.y + bounds.size.height,

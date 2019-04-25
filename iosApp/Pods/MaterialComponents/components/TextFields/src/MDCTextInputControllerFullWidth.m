@@ -1,18 +1,16 @@
-/*
- Copyright 2017-present the Material Components for iOS authors. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+// Copyright 2017-present the Material Components for iOS authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 #import "MDCTextInputControllerFullWidth.h"
 
@@ -28,37 +26,10 @@
 #import "MaterialPalettes.h"
 #import "MaterialTypography.h"
 
-static const CGFloat MDCTextInputControllerFullWidthHintTextOpacity = 0.54f;
-static const CGFloat MDCTextInputControllerFullWidthHorizontalInnerPadding = 8.f;
-static const CGFloat MDCTextInputControllerFullWidthHorizontalPadding = 16.f;
-static const CGFloat MDCTextInputControllerFullWidthVerticalPadding = 20.f;
-
-static NSString *const MDCTextInputControllerFullWidthCharacterCounterKey =
-    @"MDCTextInputControllerFullWidthCharacterCounterKey";
-static NSString *const MDCTextInputControllerFullWidthCharacterCountViewModeKey =
-    @"MDCTextInputControllerFullWidthCharacterCountViewModeKey";
-static NSString *const MDCTextInputControllerFullWidthCharacterCountMaxKey =
-    @"MDCTextInputControllerFullWidthCharacterCountMaxKey";
-static NSString *const MDCTextInputControllerFullWidthErrorAccessibilityValueKey =
-    @"MDCTextInputControllerFullWidthErrorAccessibilityValueKey";
-static NSString *const MDCTextInputControllerFullWidthErrorColorKey =
-    @"MDCTextInputControllerFullWidthErrorColorKey";
-static NSString *const MDCTextInputControllerFullWidthErrorTextKey =
-    @"MDCTextInputControllerFullWidthErrorTextKey";
-static NSString *const MDCTextInputControllerFullWidthHelperTextKey =
-    @"MDCTextInputControllerFullWidthHelperTextKey";
-static NSString *const MDCTextInputControllerFullWidthInlinePlaceholderColorKey =
-    @"MDCTextInputControllerFullWidthInlinePlaceholderColorKey";
-static NSString *const MDCTextInputControllerFullWidthInlinePlaceholderFontKey =
-    @"MDCTextInputControllerFullWidthInlinePlaceholderFontKey";
-static NSString *const MDCTextInputControllerFullWidthPresentationStyleKey =
-    @"MDCTextInputControllerFullWidthPresentationStyleKey";
-static NSString *const MDCTextInputControllerFullWidthTextInputKey =
-    @"MDCTextInputControllerFullWidthTextInputKey";
-static NSString *const MDCTextInputControllerFullWidthTrailingUnderlineLabelTextColor =
-    @"MDCTextInputControllerFullWidthTrailingUnderlineLabelTextColor";
-static NSString *const MDCTextInputControllerFullWidthTrailingUnderlineLabelFontKey =
-    @"MDCTextInputControllerFullWidthTrailingUnderlineLabelFontKey";
+static const CGFloat MDCTextInputControllerFullWidthHintTextOpacity = (CGFloat)0.54;
+static const CGFloat MDCTextInputControllerFullWidthHorizontalInnerPadding = 8;
+static const CGFloat MDCTextInputControllerFullWidthHorizontalPadding = 16;
+static const CGFloat MDCTextInputControllerFullWidthVerticalPadding = 20;
 
 static inline UIColor *MDCTextInputControllerFullWidthInlinePlaceholderTextColorDefault() {
   return [UIColor colorWithWhite:0 alpha:MDCTextInputControllerFullWidthHintTextOpacity];
@@ -115,6 +86,7 @@ static UIFont *_trailingUnderlineLabelFontDefault;
 
 @property(nonatomic, copy) NSString *errorAccessibilityValue;
 @property(nonatomic, copy, readwrite) NSString *errorText;
+@property(nonatomic, copy) NSString *helperAccessibilityLabel;
 @property(nonatomic, copy) NSString *previousLeadingText;
 
 @property(nonatomic, strong) UIColor *previousPlaceholderColor;
@@ -143,35 +115,6 @@ static UIFont *_trailingUnderlineLabelFontDefault;
   self = [super init];
   if (self) {
     [self commonMDCTextInputControllerFullWidthInitialization];
-
-    _characterCounter =
-        [aDecoder decodeObjectOfClass:[NSObject<MDCTextInputCharacterCounter> class]
-                               forKey:MDCTextInputControllerFullWidthCharacterCounterKey];
-    if ([aDecoder containsValueForKey:MDCTextInputControllerFullWidthCharacterCountMaxKey]) {
-      _characterCountMax =
-          [aDecoder decodeIntegerForKey:MDCTextInputControllerFullWidthCharacterCountMaxKey];
-    }
-    if ([aDecoder containsValueForKey:MDCTextInputControllerFullWidthCharacterCountViewModeKey]) {
-      _characterCountViewMode =
-          [aDecoder decodeIntegerForKey:MDCTextInputControllerFullWidthCharacterCountViewModeKey];
-    }
-    _errorColor = [aDecoder decodeObjectOfClass:[UIColor class]
-                                         forKey:MDCTextInputControllerFullWidthErrorColorKey];
-    _inlinePlaceholderColor =
-        [aDecoder decodeObjectOfClass:[UIColor class]
-                               forKey:MDCTextInputControllerFullWidthInlinePlaceholderColorKey];
-    _inlinePlaceholderFont =
-        [aDecoder decodeObjectOfClass:[UIFont class]
-                               forKey:MDCTextInputControllerFullWidthInlinePlaceholderFontKey];
-    _textInput =
-        [aDecoder decodeObjectOfClass:[UIView<MDCTextInput> class]
-                               forKey:MDCTextInputControllerFullWidthTextInputKey];
-    _trailingUnderlineLabelFont =
-        [aDecoder decodeObjectOfClass:[UIFont class]
-                               forKey:MDCTextInputControllerFullWidthTrailingUnderlineLabelFontKey];
-    _trailingUnderlineLabelTextColor = [aDecoder
-        decodeObjectOfClass:[UIColor class]
-                     forKey:MDCTextInputControllerFullWidthTrailingUnderlineLabelTextColor];
   }
   return self;
 }
@@ -184,32 +127,6 @@ static UIFont *_trailingUnderlineLabelFontDefault;
     [self setupInput];
   }
   return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-  if ([self.characterCounter conformsToProtocol:@protocol(NSSecureCoding)]) {
-    [aCoder encodeObject:self.characterCounter
-                  forKey:MDCTextInputControllerFullWidthCharacterCounterKey];
-  }
-  [aCoder encodeInteger:self.characterCountMax
-                 forKey:MDCTextInputControllerFullWidthCharacterCountMaxKey];
-  [aCoder encodeInteger:self.characterCountViewMode
-                 forKey:MDCTextInputControllerFullWidthCharacterCountViewModeKey];
-  [aCoder encodeObject:self.errorAccessibilityValue
-                forKey:MDCTextInputControllerFullWidthErrorAccessibilityValueKey];
-  [aCoder encodeObject:self.errorColor forKey:MDCTextInputControllerFullWidthErrorColorKey];
-  [aCoder encodeObject:self.errorText forKey:MDCTextInputControllerFullWidthErrorTextKey];
-  [aCoder encodeObject:self.helperText forKey:MDCTextInputControllerFullWidthHelperTextKey];
-  [aCoder encodeObject:self.inlinePlaceholderColor
-                forKey:MDCTextInputControllerFullWidthInlinePlaceholderColorKey];
-  [aCoder encodeObject:self.inlinePlaceholderFont
-                forKey:MDCTextInputControllerFullWidthInlinePlaceholderFontKey];
-  [aCoder encodeConditionalObject:self.textInput
-                           forKey:MDCTextInputControllerFullWidthTextInputKey];
-  [aCoder encodeObject:self.trailingUnderlineLabelFont
-                forKey:MDCTextInputControllerFullWidthTrailingUnderlineLabelFontKey];
-  [aCoder encodeObject:self.trailingUnderlineLabelTextColor
-                forKey:MDCTextInputControllerFullWidthTrailingUnderlineLabelTextColor];
 }
 
 - (instancetype)copyWithZone:(__unused NSZone *)zone {
@@ -510,6 +427,13 @@ static UIFont *_trailingUnderlineLabelFontDefault;
 
 - (void)setErrorAccessibilityValue:(NSString *)errorAccessibilityValue {
   _errorAccessibilityValue = [errorAccessibilityValue copy];
+}
+
+-(void)setHelperAccessibilityLabel:(NSString *)helperAccessibilityLabel {
+  _helperAccessibilityLabel = [helperAccessibilityLabel copy];
+  if ([self.textInput.leadingUnderlineLabel.text isEqualToString:self.helperText]) {
+    self.textInput.leadingUnderlineLabel.accessibilityLabel = _helperAccessibilityLabel;
+  }
 }
 
 - (UIColor *)errorColor {
@@ -857,12 +781,6 @@ static UIFont *_trailingUnderlineLabelFontDefault;
   // Not implemented. Underline is never shown.
 }
 
-#pragma mark - NSSecureCoding
-
-+ (BOOL)supportsSecureCoding {
-  return YES;
-}
-
 #pragma mark - Layout
 
 - (void)updateLayout {
@@ -1079,7 +997,7 @@ static UIFont *_trailingUnderlineLabelFontDefault;
 
   // The trailing label gets in the way. If it has a frame, it's used. But if not, an
   // estimate is made of the size the text will be.
-  if (CGRectGetWidth(self.textInput.trailingUnderlineLabel.frame) > 1.f) {
+  if (CGRectGetWidth(self.textInput.trailingUnderlineLabel.frame) > 1) {
     textInsets.right += MDCCeil(CGRectGetWidth(self.textInput.trailingUnderlineLabel.frame));
   } else if (self.characterCountMax) {
     CGRect charCountRect = [[self characterCountText]
@@ -1237,8 +1155,18 @@ static UIFont *_trailingUnderlineLabelFontDefault;
                                    leadingUnderlineLabelText ? leadingUnderlineLabelText : @""];
   } else {
     self.textInput.accessibilityValue = nil;
-    self.textInput.leadingUnderlineLabel.accessibilityLabel = nil;
+    if ([self.textInput.leadingUnderlineLabel.text isEqualToString:self.helperText]) {
+      self.textInput.leadingUnderlineLabel.accessibilityLabel = self.helperAccessibilityLabel;
+    } else {
+      self.textInput.leadingUnderlineLabel.accessibilityLabel = nil;
+    }
   }
+}
+
+- (void)setHelperText:(NSString *)helperText
+    helperAccessibilityLabel:(NSString *)helperAccessibilityLabel {
+  self.helperText = helperText;
+  self.helperAccessibilityLabel = helperAccessibilityLabel;
 }
 
 #pragma mark - Accessibility
