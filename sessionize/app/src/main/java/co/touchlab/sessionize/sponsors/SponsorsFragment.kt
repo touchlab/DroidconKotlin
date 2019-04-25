@@ -15,6 +15,7 @@ import com.nex3z.flowlayout.FlowLayout
 import com.squareup.picasso.Picasso
 import android.content.Intent
 import android.net.Uri
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import co.touchlab.sessionize.db.SponsorGroupDbItem
 
@@ -26,7 +27,7 @@ class SponsorsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sponsorViewModel = ViewModelProviders.of(this, SponsorViewModel.SponsorViewModelFactory())[SponsorViewModel::class.java]
+        sponsorViewModel = ViewModelProviders.of(this, ViewModelProvider.NewInstanceFactory())[SponsorViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
