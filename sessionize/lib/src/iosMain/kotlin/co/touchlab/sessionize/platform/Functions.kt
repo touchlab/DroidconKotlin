@@ -1,16 +1,17 @@
 package co.touchlab.sessionize.platform
 
-import co.touchlab.droidcon.db.Database
+import co.touchlab.droidcon.db.DroidconDb
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.lateValue
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
-import com.russhwolf.settings.PlatformSettings
+import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import kotlinx.cinterop.COpaquePointer
 import kotlinx.cinterop.staticCFunction
+import kotlinx.coroutines.CoroutineDispatcher
 import platform.Foundation.NSApplicationSupportDirectory
 import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
@@ -88,10 +89,10 @@ actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
 
 @Suppress("unused")
-fun defaultDriver(): SqlDriver = NativeSqliteDriver(Database.Schema, "sessionizedb")
+fun defaultDriver(): SqlDriver = NativeSqliteDriver(DroidconDb.Schema, "sessionizedb")
 
 @Suppress("unused")
-fun defaultSettings(): Settings = PlatformSettings.Factory().create("DROIDCON_SETTINGS")
+fun defaultSettings(): Settings = AppleSettings.Factory().create("DROIDCON_SETTINGS")
 
 private fun getDirPath(folder: String): String {
     val paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, true);
@@ -117,3 +118,5 @@ fun createAnalyticsApiImpl(analyticsCallback: (name: String, params: Map<String,
         }
     }
 }
+
+fun forceInclude() = listOf(CoroutineDispatcher::class)

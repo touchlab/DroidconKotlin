@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import main
+import lib
 import Fabric
 import Crashlytics
 import UserNotifications

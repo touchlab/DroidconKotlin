@@ -1,4 +1,5 @@
 apply plugin: 'kotlin-multiplatform'
+apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.android.library'
 apply plugin: 'com.squareup.sqldelight'
@@ -38,6 +39,8 @@ dependencies {
     implementation "androidx.core:core:1.0.0"
 }
 
+version = "1.0"
+
 kotlin {
     targets {
         fromPreset(presets.android, 'android')
@@ -46,7 +49,7 @@ kotlin {
                                 ? presets.iosArm64 : presets.iosX64
 
         fromPreset(iOSTarget, 'ios') {
-            compilations.main.outputKinds('FRAMEWORK')
+            compilations.main.outputKinds("FRAMEWORK")
             compilations.test.outputKinds("FRAMEWORK")
         }
     }
@@ -116,10 +119,18 @@ kotlin {
             }
         }
     }
+
+    cocoapods {
+        // Configure fields required by CocoaPods.
+        summary = "Lots of Droidcon Stuff"
+        homepage = "https://github.com/touchlab/DroidconKotlin"
+    }
 }
 
 sqldelight {
-    packageName = "co.touchlab.droidcon.db"
+    DroidconDb {
+        packageName = "co.touchlab.droidcon.db"
+    }
 }
 
 xcode {
@@ -181,5 +192,6 @@ task iosTest {
     }
 }
 
-tasks.preBuild.dependsOn "generateSqlDelightInterface"
+//This can maybe go away
 tasks.build.dependsOn packForXCode
+

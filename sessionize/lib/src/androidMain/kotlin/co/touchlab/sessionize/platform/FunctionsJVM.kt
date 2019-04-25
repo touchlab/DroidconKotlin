@@ -1,28 +1,12 @@
 package co.touchlab.sessionize.platform
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import com.russhwolf.settings.PlatformSettings
-import com.russhwolf.settings.Settings
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Intent
-import android.content.BroadcastReceiver
-import android.app.Notification
-import android.content.IntentFilter
-import app.sessionize.touchlab.lib.R
-import java.util.Date
 
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()

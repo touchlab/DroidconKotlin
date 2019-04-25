@@ -1,18 +1,16 @@
-/*
- Copyright 2016-present the Material Components for iOS authors. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+// Copyright 2016-present the Material Components for iOS authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 #import "MDCAppBar.h"
 
@@ -31,169 +29,45 @@
 #import "private/MaterialAppBarStrings_table.h"
 
 static NSString *const kBarStackKey = @"barStack";
-static NSString *const kStatusBarHeightKey = @"statusBarHeight";
-static NSString *const MDCAppBarHeaderViewControllerKey = @"MDCAppBarHeaderViewControllerKey";
-static NSString *const MDCAppBarNavigationBarKey = @"MDCAppBarNavigationBarKey";
-static NSString *const MDCAppBarHeaderStackViewKey = @"MDCAppBarHeaderStackViewKey";
 
 // The Bundle for string resources.
 static NSString *const kMaterialAppBarBundle = @"MaterialAppBar.bundle";
 
-@implementation MDCAppBarTextColorAccessibilityMutator
-
-- (void)mutate:(nonnull MDCAppBar *)appBar {
-  // Determine what is the appropriate background color
-  // Because navigation bar renders above headerview, it takes presedence
-  UIColor *backgroundColor = appBar.navigationBar.backgroundColor ?:
-      appBar.headerViewController.headerView.backgroundColor;
-  if (!backgroundColor) {
-    return;
-  }
-
-  // Update title label color based on navigationBar/headerView backgroundColor
-  NSMutableDictionary *textAttr =
-      [NSMutableDictionary dictionaryWithDictionary:[appBar.navigationBar titleTextAttributes]];
-  MDFTextAccessibilityOptions options = 0;
-  BOOL isLarge =
-      [MDCTypography isLargeForContrastRatios:[textAttr objectForKey:NSFontAttributeName]];
-  if (isLarge) {
-    options |= MDFTextAccessibilityOptionsLargeFont;
-  }
-  UIColor *textColor =
-      [MDFTextAccessibility textColorOnBackgroundColor:backgroundColor
-                                       targetTextAlpha:1.0
-                                                  options:options];
-
-  [textAttr setObject:textColor forKey:NSForegroundColorAttributeName];
-  [appBar.navigationBar setTitleTextAttributes:textAttr];
-
-  // Update button's tint color based on navigationBar backgroundColor
-  appBar.navigationBar.tintColor = textColor;
+@implementation MDCAppBarViewController {
+  NSLayoutConstraint *_verticalConstraint;
+  NSLayoutConstraint *_topSafeAreaConstraint;
 }
 
-@end
-
-@class MDCAppBarViewController;
-
-@interface MDCAppBar ()
-
-@property(nonatomic, strong) MDCAppBarViewController *appBarController;
-
-@end
-
-@interface MDCAppBarViewController : UIViewController
-
-@property(nonatomic, strong) MDCHeaderStackView *headerStackView;
-@property(nonatomic, strong) MDCNavigationBar *navigationBar;
-
-@end
-
-@implementation MDCAppBar
-
-- (instancetype)init {
-  self = [super init];
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    [self commonMDCAppBarInit];
-    [self commonMDCAppBarViewSetup];
+    [self MDCAppBarViewController_commonInit];
   }
   return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-  self = [super init];
+  self = [super initWithCoder:aDecoder];
   if (self) {
-    [self commonMDCAppBarInit];
-    if ([aDecoder containsValueForKey:MDCAppBarHeaderViewControllerKey]) {
-      _headerViewController = [aDecoder decodeObjectOfClass:[MDCFlexibleHeaderViewController class]
-                                                     forKey:MDCAppBarHeaderViewControllerKey];
-    }
-
-    if ([aDecoder containsValueForKey:MDCAppBarNavigationBarKey]) {
-      _navigationBar = [aDecoder decodeObjectOfClass:[MDCNavigationBar class]
-                                              forKey:MDCAppBarNavigationBarKey];
-      _appBarController.navigationBar = _navigationBar;
-    }
-
-    if ([aDecoder containsValueForKey:MDCAppBarHeaderStackViewKey]) {
-      _headerStackView = [aDecoder decodeObjectOfClass:[MDCHeaderStackView class]
-                                              forKey:MDCAppBarHeaderStackViewKey];
-      _appBarController.headerStackView = _headerStackView;
-    }
-
-    [self commonMDCAppBarViewSetup];
+    [self MDCAppBarViewController_commonInit];
   }
   return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-  [aCoder encodeObject:self.headerViewController forKey:MDCAppBarHeaderViewControllerKey];
-  [aCoder encodeObject:self.navigationBar forKey:MDCAppBarNavigationBarKey];
-  [aCoder encodeObject:self.headerStackView forKey:MDCAppBarHeaderStackViewKey];
-}
-
-- (void)commonMDCAppBarInit {
-  _headerViewController = [[MDCFlexibleHeaderViewController alloc] init];
-
+- (void)MDCAppBarViewController_commonInit {
   // Shadow layer
-  MDCFlexibleHeaderView *headerView = _headerViewController.headerView;
   MDCFlexibleHeaderShadowIntensityChangeBlock intensityBlock =
-      ^(CALayer *_Nonnull shadowLayer, CGFloat intensity) {
-        CGFloat elevation = MDCShadowElevationAppBar * intensity;
-        [(MDCShadowLayer *)shadowLayer setElevation:elevation];
-      };
-  [headerView setShadowLayer:[MDCShadowLayer layer] intensityDidChangeBlock:intensityBlock];
-  _appBarController = [[MDCAppBarViewController alloc] init];
-  _headerStackView = _appBarController.headerStackView;
-  _navigationBar = _appBarController.navigationBar;
-}
+  ^(CALayer *_Nonnull shadowLayer, CGFloat intensity) {
+    CGFloat elevation = MDCShadowElevationAppBar * intensity;
+    [(MDCShadowLayer *)shadowLayer setElevation:elevation];
+  };
+  [self.headerView setShadowLayer:[MDCShadowLayer layer] intensityDidChangeBlock:intensityBlock];
 
-- (void)commonMDCAppBarViewSetup {
-  [_headerViewController addChildViewController:_appBarController];
-  _appBarController.view.frame = _headerViewController.view.bounds;
-  [_headerViewController.view addSubview:_appBarController.view];
-  [_appBarController didMoveToParentViewController:_headerViewController];
+  [self.headerView forwardTouchEventsForView:self.headerStackView];
+  [self.headerView forwardTouchEventsForView:self.navigationBar];
 
-  [_headerViewController.headerView forwardTouchEventsForView:_appBarController.headerStackView];
-  [_headerViewController.headerView forwardTouchEventsForView:_appBarController.navigationBar];
-}
-
-- (void)addHeaderViewControllerToParentViewController:
-        (nonnull UIViewController *)parentViewController {
-  [parentViewController addChildViewController:_headerViewController];
-}
-
-- (void)addSubviewsToParent {
-  MDCFlexibleHeaderViewController *fhvc = self.headerViewController;
-  NSAssert(fhvc.parentViewController,
-           @"headerViewController does not have a parentViewController. "
-           @"Use [self addChildViewController:appBar.headerViewController]. "
-           @"This warning only appears in DEBUG builds");
-  if (fhvc.view.superview == fhvc.parentViewController.view) {
-    return;
-  }
-
-  // Enforce the header's desire to fully cover the width of its parent view.
-  CGRect frame = fhvc.view.frame;
-  frame.origin.x = 0;
-  frame.size.width = fhvc.parentViewController.view.bounds.size.width;
-  fhvc.view.frame = frame;
-
-  [fhvc.parentViewController.view addSubview:fhvc.view];
-  [fhvc didMoveToParentViewController:fhvc.parentViewController];
-
-  [self.navigationBar observeNavigationItem:fhvc.parentViewController.navigationItem];
-}
-
-#pragma mark - NSSecureCoding
-
-+ (BOOL)supportsSecureCoding {
-  return YES;
-}
-
-@end
-
-@implementation MDCAppBarViewController {
-  NSLayoutConstraint *_verticalConstraint;
+  self.headerStackView.translatesAutoresizingMaskIntoConstraints = NO;
+  self.headerStackView.topBar = self.navigationBar;
 }
 
 - (MDCHeaderStackView *)headerStackView {
@@ -215,25 +89,18 @@ static NSString *const kMaterialAppBarBundle = @"MaterialAppBar.bundle";
   return _navigationBar;
 }
 
-- (UIViewController *)flexibleHeaderParentViewController {
-  NSAssert([self.parentViewController isKindOfClass:[MDCFlexibleHeaderViewController class]],
-           @"Expected the parent of %@ to be a type of %@", NSStringFromClass([self class]),
-           NSStringFromClass([MDCFlexibleHeaderViewController class]));
-  return self.parentViewController.parentViewController;
-}
-
 - (UIBarButtonItem *)backButtonItem {
-  UIViewController *fhvParent = self.flexibleHeaderParentViewController;
-  UINavigationController *navigationController = fhvParent.navigationController;
+  UIViewController *parent = self.parentViewController;
+  UINavigationController *navigationController = parent.navigationController;
 
   NSArray<UIViewController *> *viewControllerStack = navigationController.viewControllers;
 
   // This will be zero if there is no navigation controller, so a view controller which is not
   // inside a navigation controller will be treated the same as a view controller at the root of a
   // navigation controller
-  NSUInteger index = [viewControllerStack indexOfObject:fhvParent];
+  NSUInteger index = [viewControllerStack indexOfObject:parent];
 
-  UIViewController *iterator = fhvParent;
+  UIViewController *iterator = parent;
 
   // In complex cases it might actually be a parent of @c fhvParent which is on the nav stack.
   while (index == NSNotFound && iterator && ![iterator isEqual:navigationController]) {
@@ -306,9 +173,6 @@ static NSString *const kMaterialAppBarBundle = @"MaterialAppBar.bundle";
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  self.headerStackView.translatesAutoresizingMaskIntoConstraints = NO;
-  self.headerStackView.topBar = self.navigationBar;
-
   [self.view addSubview:self.headerStackView];
 
   // Bar stack expands vertically, but has a margin above it for the status bar.
@@ -327,7 +191,17 @@ static NSString *const kMaterialAppBarBundle = @"MaterialAppBar.bundle";
                                                      attribute:NSLayoutAttributeTop
                                                     multiplier:1
                                                       constant:topMargin];
-  _verticalConstraint.active = YES;
+  _verticalConstraint.active = !self.inferTopSafeAreaInsetFromViewController;
+
+  _topSafeAreaConstraint =
+      [NSLayoutConstraint constraintWithItem:self.headerView.topSafeAreaGuide
+                                   attribute:NSLayoutAttributeBottom
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.headerStackView
+                                   attribute:NSLayoutAttributeTop
+                                  multiplier:1
+                                    constant:0];
+  _topSafeAreaConstraint.active = self.inferTopSafeAreaInsetFromViewController;
 
   [NSLayoutConstraint constraintWithItem:self.headerStackView
                                attribute:NSLayoutAttributeBottom
@@ -336,6 +210,17 @@ static NSString *const kMaterialAppBarBundle = @"MaterialAppBar.bundle";
                                attribute:NSLayoutAttributeBottom
                               multiplier:1
                                 constant:0].active = YES;
+}
+
+- (void)setInferTopSafeAreaInsetFromViewController:(BOOL)inferTopSafeAreaInsetFromViewController {
+  [super setInferTopSafeAreaInsetFromViewController:inferTopSafeAreaInsetFromViewController];
+
+  if (inferTopSafeAreaInsetFromViewController) {
+    self.topLayoutGuideAdjustmentEnabled = YES;
+  }
+
+  _verticalConstraint.active = !self.inferTopSafeAreaInsetFromViewController;
+  _topSafeAreaConstraint.active = self.inferTopSafeAreaInsetFromViewController;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -350,13 +235,21 @@ static NSString *const kMaterialAppBarBundle = @"MaterialAppBar.bundle";
 - (void)viewWillLayoutSubviews {
   [super viewWillLayoutSubviews];
 
-#if defined(__IPHONE_11_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0)
   if (@available(iOS 11.0, *)) {
     // We only update the top inset on iOS 11 because previously we were not adjusting the header
     // height to make it smaller when the status bar is hidden.
     _verticalConstraint.constant = MDCDeviceTopSafeAreaInset();
   }
-#endif
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent {
+  [super didMoveToParentViewController:parent];
+
+  [self.navigationBar observeNavigationItem:parent.navigationItem];
+
+  CGRect frame = self.view.frame;
+  frame.size.width = CGRectGetWidth(parent.view.bounds);
+  self.view.frame = frame;
 }
 
 - (BOOL)accessibilityPerformEscape {
@@ -371,12 +264,67 @@ static NSString *const kMaterialAppBarBundle = @"MaterialAppBar.bundle";
 }
 
 - (void)dismissSelf {
-  UIViewController *pvc = self.flexibleHeaderParentViewController;
+  UIViewController *pvc = self.parentViewController;
   if (pvc.navigationController && pvc.navigationController.viewControllers.count > 1) {
     [pvc.navigationController popViewControllerAnimated:YES];
   } else {
     [pvc dismissViewControllerAnimated:YES completion:nil];
   }
+}
+
+@end
+
+#pragma mark - To be deprecated
+
+@implementation MDCAppBar
+
+- (instancetype)init {
+  self = [super init];
+  if (self) {
+    _appBarViewController = [[MDCAppBarViewController alloc] init];
+  }
+  return self;
+}
+
+- (MDCFlexibleHeaderViewController *)headerViewController {
+  return self.appBarViewController;
+}
+
+- (MDCHeaderStackView *)headerStackView {
+  return self.appBarViewController.headerStackView;
+}
+
+- (MDCNavigationBar *)navigationBar {
+  return self.appBarViewController.navigationBar;
+}
+
+- (void)addSubviewsToParent {
+  MDCAppBarViewController *abvc = self.appBarViewController;
+  NSAssert(abvc.parentViewController,
+           @"appBarViewController does not have a parentViewController. "
+           @"Use [self addChildViewController:appBar.appBarViewController]. "
+           @"This warning only appears in DEBUG builds");
+  if (abvc.view.superview == abvc.parentViewController.view) {
+    return;
+  }
+
+  // Enforce the header's desire to fully cover the width of its parent view.
+  CGRect frame = abvc.view.frame;
+  frame.origin.x = 0;
+  frame.size.width = abvc.parentViewController.view.bounds.size.width;
+  abvc.view.frame = frame;
+
+  [abvc.parentViewController.view addSubview:abvc.view];
+  [abvc didMoveToParentViewController:abvc.parentViewController];
+}
+
+- (void)setInferTopSafeAreaInsetFromViewController:(BOOL)inferTopSafeAreaInsetFromViewController {
+  self.appBarViewController.inferTopSafeAreaInsetFromViewController =
+      inferTopSafeAreaInsetFromViewController;
+}
+
+- (BOOL)inferTopSafeAreaInsetFromViewController {
+  return self.appBarViewController.inferTopSafeAreaInsetFromViewController;
 }
 
 @end
