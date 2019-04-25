@@ -4,11 +4,6 @@ MDFTextAccessibility assists in selecting text colors that will meet the
 [![Build Status](https://travis-ci.org/material-foundation/material-text-accessibility-ios.svg?branch=develop)](https://travis-ci.org/material-foundation/material-text-accessibility-ios)
 [![Code Coverage](http://codecov.io/github/material-foundation/material-text-accessibility-ios/coverage.svg?branch=develop)](http://codecov.io/github/material-foundation/material-text-accessibility-ios?branch=develop)
 
-*May 24, 2016: We're still staging MDFTextAccessibility, feel free to poke
-around, but non-code things like CocoaPods support and continuous integration
-testing will be ramping up over the next few weeks. The API is relatively stable
-at this point.*
-
 ## Accessibility of text
 
 Apps created for the widest range of users should ensure that users can read

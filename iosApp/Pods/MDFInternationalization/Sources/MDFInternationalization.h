@@ -16,16 +16,11 @@
 
 #import <UIKit/UIKit.h>
 
-// TODO(#33): Always use import <> once Bazel supports it.
-#ifdef IS_BAZEL_BUILD
-#import "MDFRTL.h"
-#import "UIImage+MaterialRTL.h"
-#import "UIView+MaterialRTL.h"
-#else
 #import <MDFInternationalization/MDFRTL.h>
+#import <MDFInternationalization/NSLocale+MaterialRTL.h>
+#import <MDFInternationalization/NSString+MaterialBidi.h>
 #import <MDFInternationalization/UIImage+MaterialRTL.h>
 #import <MDFInternationalization/UIView+MaterialRTL.h>
-#endif // IS_BAZEL_BUILD
 
 //! Project version number for MDFInternationalization.
 FOUNDATION_EXPORT double MDFInternationalizationVersionNumber;

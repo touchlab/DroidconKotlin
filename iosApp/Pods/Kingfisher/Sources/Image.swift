@@ -181,7 +181,11 @@ extension Kingfisher where Base: Image {
             let rep = NSBitmapImageRep(cgImage: cgimage)
             return rep.representation(using: .png, properties: [:])
         #else
+            #if swift(>=4.2)
+            return base.pngData()
+            #else
             return UIImagePNGRepresentation(base)
+            #endif
         #endif
     }
     
@@ -194,7 +198,11 @@ extension Kingfisher where Base: Image {
             let rep = NSBitmapImageRep(cgImage: cgImage)
             return rep.representation(using:.jpeg, properties: [.compressionFactor: compressionQuality])
         #else
+            #if swift(>=4.2)
+            return base.jpegData(compressionQuality: compressionQuality)
+            #else
             return UIImageJPEGRepresentation(base, compressionQuality)
+            #endif
         #endif
     }
     
@@ -206,7 +214,7 @@ extension Kingfisher where Base: Image {
 
 // MARK: - Create images from data
 extension Kingfisher where Base: Image {
-    static func animated(with data: Data, scale: CGFloat = 1.0, duration: TimeInterval = 0.0, preloadAll: Bool, onlyFirstFrame: Bool = false) -> Image? {
+    public static func animated(with data: Data, scale: CGFloat = 1.0, duration: TimeInterval = 0.0, preloadAll: Bool, onlyFirstFrame: Bool = false) -> Image? {
         
         func decode(from imageSource: CGImageSource, for options: NSDictionary) -> ([Image], TimeInterval)? {
             
@@ -285,7 +293,7 @@ extension Kingfisher where Base: Image {
                 guard let (images, gifDuration) = decode(from: imageSource, for: options) else { return nil }
                 image = onlyFirstFrame ? images.first : Kingfisher<Image>.animated(with: images, forDuration: duration <= 0.0 ? gifDuration : duration)
             } else {
-                image = Image(data: data)
+                image = Image(data: data, scale: scale)
                 image?.kf.imageSource = ImageSource(ref: imageSource)
             }
             image?.kf.animatedImageData = data
@@ -293,7 +301,7 @@ extension Kingfisher where Base: Image {
         #endif
     }
 
-    static func image(data: Data, scale: CGFloat, preloadAllAnimationData: Bool, onlyFirstFrame: Bool) -> Image? {
+    public static func image(data: Data, scale: CGFloat, preloadAllAnimationData: Bool, onlyFirstFrame: Bool) -> Image? {
         var image: Image?
 
         #if os(macOS)
@@ -431,7 +439,11 @@ extension Kingfisher where Base: Image {
                 }
 
                 let path = NSBezierPath(roundedRect: rect, byRoundingCorners: corners, radius: radius)
+                #if swift(>=4.2)
+                path.windingRule = .evenOdd
+                #else
                 path.windingRule = .evenOddWindingRule
+                #endif
                 path.addClip()
                 base.draw(in: rect)
             #else
@@ -457,7 +469,7 @@ extension Kingfisher where Base: Image {
     }
     
     #if os(iOS) || os(tvOS)
-    func resize(to size: CGSize, for contentMode: UIViewContentMode) -> Image {
+    func resize(to size: CGSize, for contentMode: UIView.ContentMode) -> Image {
         switch contentMode {
         case .scaleAspectFit:
             return resize(to: size, for: .aspectFit)
@@ -708,11 +720,11 @@ extension Kingfisher where Base: Image {
 
 // MARK: - Decode
 extension Kingfisher where Base: Image {
-    var decoded: Image {
+    public var decoded: Image {
         return decoded(scale: scale)
     }
     
-    func decoded(scale: CGFloat) -> Image {
+    public func decoded(scale: CGFloat) -> Image {
         // prevent animated image (GIF) lose it's images
         #if os(iOS)
             if imageSource != nil { return base }
@@ -756,7 +768,7 @@ private struct ImageHeaderData {
     static var GIF: [UInt8] = [0x47, 0x49, 0x46]
 }
 
-enum ImageFormat {
+public enum ImageFormat {
     case unknown, PNG, JPEG, GIF
 }
 
@@ -777,7 +789,7 @@ extension Data: KingfisherCompatible {
 }
 
 extension DataProxy {
-    var imageFormat: ImageFormat {
+    public var imageFormat: ImageFormat {
         var buffer = [UInt8](repeating: 0, count: 8)
         (base as NSData).getBytes(&buffer, length: 8)
         if buffer == ImageHeaderData.PNG {
@@ -813,14 +825,26 @@ extension CGSize: KingfisherCompatible {
 }
 
 extension CGSizeProxy {
-    func constrained(_ size: CGSize) -> CGSize {
+    
+    public func resize(to size: CGSize, for contentMode: ContentMode) -> CGSize {
+        switch contentMode {
+        case .aspectFit:
+            return constrained(size)
+        case .aspectFill:
+            return filling(size)
+        default:
+            return self.base
+        }
+    }
+    
+    public func constrained(_ size: CGSize) -> CGSize {
         let aspectWidth = round(aspectRatio * size.height)
         let aspectHeight = round(size.width / aspectRatio)
 
         return aspectWidth > size.width ? CGSize(width: size.width, height: aspectHeight) : CGSize(width: aspectWidth, height: size.height)
     }
 
-    func filling(_ size: CGSize) -> CGSize {
+    public func filling(_ size: CGSize) -> CGSize {
         let aspectWidth = round(aspectRatio * size.height)
         let aspectHeight = round(size.width / aspectRatio)
 
@@ -832,7 +856,7 @@ extension CGSizeProxy {
     }
     
     
-    func constrainedRect(for size: CGSize, anchor: CGPoint) -> CGRect {
+    public func constrainedRect(for size: CGSize, anchor: CGPoint) -> CGRect {
         
         let unifiedAnchor = CGPoint(x: anchor.x.clamped(to: 0.0...1.0),
                                     y: anchor.y.clamped(to: 0.0...1.0))

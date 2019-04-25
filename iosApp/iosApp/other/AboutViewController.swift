@@ -10,7 +10,7 @@ import UIKit
 import MaterialComponents.MaterialAppBar
 import MaterialComponents.MaterialAppBar_ColorThemer
 import MaterialComponents.MaterialAppBar_TypographyThemer
-import main
+import lib
 
 class AboutViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
     
