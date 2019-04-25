@@ -7,10 +7,8 @@ import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
-import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
-import co.touchlab.sessionize.platform.deinitializeNotifications
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
@@ -30,10 +28,6 @@ object AppContext {
 
     fun initAppContext() {
         dbHelper.initDatabase(ServiceRegistry.dbDriver)
-    }
-
-    fun deinitPlatformClient(){
-        deinitializeNotifications()
     }
 
     internal val sessionQueries: SessionQueries
@@ -151,7 +145,7 @@ object AppContext {
             mySessions.forEach { session ->
                 val notificationTime = session.startsAt.toLongMillis() - tenMinutesInMS
                 if (notificationTime > currentTimeMillis()) {
-                    createLocalNotification("Upcoming Event in " + session.roomName,
+                    ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + session.roomName,
                             session.title + " is starting soon.",
                             notificationTime,
                             session.id.toInt())
