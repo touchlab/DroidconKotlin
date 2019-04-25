@@ -13,16 +13,16 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'       : '28.0.0',
-            'kotlin'               : '1.3.21',
-            'kotlinCoroutines'     : '1.1.1',
-            'multiplatformSettings': '0.2',
-            'sqldelight'           : '1.0.3',
-            'stately'              : '0.6.0',
-            'sqliter'              : '0.5.13',
-            'ktor'                 : '1.1.3',
-            'serialization'        : '0.10.0',
+            'kotlin'               : '1.3.30',
+            'kotlinCoroutines'     : '1.2.0',
+            'multiplatformSettings': '0.3',
+            'sqldelight'           : '1.1.3',
+            'stately'              : '0.7.1',
+            'sqliter'              : '0.6.1',
+            'ktor'                 : '1.1.4',
+            'serialization'        : '0.11.0',
             'xcode'                : '0.1.2',
-            'testhelp':'0.1.2'
+            'testhelp'             : '0.2.1'
     ]
 
     ext.deps = [

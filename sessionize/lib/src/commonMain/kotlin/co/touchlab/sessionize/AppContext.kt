@@ -15,10 +15,12 @@ import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import kotlin.coroutines.CoroutineContext
 
 object AppContext {
 
+    private val primeJson = Json.nonstrict
     val dbHelper = SessionizeDbHelper()
 
     val KEY_FIRST_RUN = "FIRST_RUN1"
