@@ -38,11 +38,13 @@ abstract class AppContextTests {
     fun testAbout() {
         val about = loadAbout()
         about?.let {
+
             val aboutJson = Json.nonstrict.parseJson(it).jsonArray
             assertNotEquals(aboutJson.size, 0, "empty about.json or none found")
             assertTrue(aboutJson[0].jsonObject.containsKey("icon"))
             assertTrue(aboutJson[0].jsonObject.containsKey("title"))
             assertTrue(aboutJson[0].jsonObject.containsKey("detail"))
+
         }
     }
 
@@ -51,12 +53,11 @@ abstract class AppContextTests {
         val schedule = loadSchedule()
         schedule?.let {
             val scheduleJson = Json.nonstrict.parseJson(it).jsonArray
-            assertNotEquals(scheduleJson.size, 0, "empty schedule.json or none found")
-            assertTrue(scheduleJson[0].jsonObject.containsKey("date"))
-            assertTrue(scheduleJson[0].jsonObject.containsKey("rooms"))
+        assertNotEquals(scheduleJson.size, 0, "empty schedule.json or none found")
+        assertTrue(scheduleJson[0].jsonObject.containsKey("date"))
+        assertTrue(scheduleJson[0].jsonObject.containsKey("rooms"))
         }
     }
-
 
     @Test
     fun testSpeakers() {

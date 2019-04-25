@@ -3,7 +3,7 @@ package co.touchlab.sessionize
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import co.touchlab.droidcon.db.Database
+import co.touchlab.droidcon.db.DroidconDb
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.MainConcurrent
 import co.touchlab.sessionize.api.SessionizeApiImpl
@@ -12,7 +12,7 @@ import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import com.crashlytics.android.answers.CustomEvent
-import com.russhwolf.settings.PlatformSettings
+import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import kotlinx.coroutines.*
 
@@ -26,8 +26,8 @@ class MainApp :Application(){
         ServiceRegistry.initLambdas({filePrefix, fileType -> loadAsset("${filePrefix}.${fileType}")},
                 { Log.w("MainApp", it) })
 
-        ServiceRegistry.initServiceRegistry(AndroidSqliteDriver(Database.Schema, this, "droidcondb"), Dispatchers.Main,
-                PlatformSettings.Factory(this).create("DROIDCON_SETTINGS"), MainConcurrent, SessionizeApiImpl,
+        ServiceRegistry.initServiceRegistry(AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb"), Dispatchers.Main,
+                AndroidSettings.Factory(this).create("DROIDCON_SETTINGS"), MainConcurrent, SessionizeApiImpl,
                 object: AnalyticsApi{
                     override fun logEvent(name: String, params: Map<String, Any>) {
                         val event = CustomEvent(name)
