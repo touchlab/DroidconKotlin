@@ -131,11 +131,15 @@ final class ActivityIndicator: Indicator {
             activityIndicatorView.style = .spinning
         #else
             #if os(tvOS)
-                let indicatorStyle = UIActivityIndicatorViewStyle.white
+                let indicatorStyle = UIActivityIndicatorView.Style.white
             #else
-                let indicatorStyle = UIActivityIndicatorViewStyle.gray
+                let indicatorStyle = UIActivityIndicatorView.Style.gray
             #endif
-            activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle:indicatorStyle)
+        #if swift(>=4.2)
+            activityIndicatorView = UIActivityIndicatorView(style: indicatorStyle)
+        #else
+            activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: indicatorStyle)
+        #endif
             activityIndicatorView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleTopMargin]
         #endif
     }

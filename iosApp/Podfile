@@ -1,12 +1,13 @@
-platform :ios, '11.0'
+use_frameworks!
+
+platform :ios, '9.0'
+
+install! 'cocoapods', :deterministic_uuids => false
 
 target 'iosApp' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for ios
     pod 'Kingfisher', '~> 4.0'
     pod 'MaterialComponents'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'lib', :path => '../sessionize/lib'
 end
