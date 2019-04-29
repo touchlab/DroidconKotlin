@@ -1,5 +1,6 @@
 package co.touchlab.sessionize
 
+import co.touchlab.sessionize.AppContext.clLog
 import co.touchlab.sessionize.platform.backgroundSuspend
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
