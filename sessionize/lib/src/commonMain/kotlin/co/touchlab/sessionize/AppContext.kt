@@ -5,6 +5,7 @@ import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.platform.Date
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.createUuid
@@ -149,7 +150,7 @@ object AppContext {
     }
 
     private fun createNotificationsForSessions() {
-        if(reminderNotificationsEnabled()){
+        if (reminderNotificationsEnabled()) {
             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
                 val tenMinutesInMS: Int = 1000 * 10 * 60
                 mySessions.forEach { session ->
@@ -159,20 +160,21 @@ object AppContext {
                                 session.title + " is starting soon.",
                                 notificationTime,
                                 session.id.toInt())
+                    }
                 }
             }
         }
     }
-}
 
-val <T> ThreadLocalRef<T>.lateValue: T
-    get() = this.value!!
+    val <T> ThreadLocalRef<T>.lateValue: T
+        get() = this.value!!
 
-internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
+    internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
 
-/**
- * Log statement to Crashlytics
- */
-fun clLog(s: String) {
-    AppContext.clLogCallback(s)
+    /**
+     * Log statement to Crashlytics
+     */
+    fun clLog(s: String) {
+        AppContext.clLogCallback(s)
+    }
 }
