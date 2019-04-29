@@ -1,7 +1,6 @@
 package co.touchlab.sessionize
 
 import co.touchlab.sessionize.AppContext.FEEDBACK_ENABLED
-import co.touchlab.sessionize.AppContext.LOCAL_NOTIFICATIONS_ENABLED
 import co.touchlab.sessionize.AppContext.REMINDERS_ENABLED
 import co.touchlab.sessionize.platform.initializeNotifications
 import com.russhwolf.settings.set
@@ -24,12 +23,5 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
         }
 
         ServiceRegistry.appSettings[REMINDERS_ENABLED] = enabled
-    }
-
-    fun setLocalNotificationsEnabled(enabled:Boolean) = launch {
-        if(enabled){
-            initializeNotifications()
-        }
-        ServiceRegistry.appSettings[LOCAL_NOTIFICATIONS_ENABLED] = enabled
     }
 }

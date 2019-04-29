@@ -66,13 +66,6 @@ class SettingsFragment : Fragment() {
                         settingsViewModel.settingsModel.setRemindersEnabled(isChecked)
                     }
             )
-            adapter.addSwitchRow("Enable Notifications",
-                    R.drawable.baseline_insert_invitation_24,
-                    ServiceRegistry.appSettings.getBoolean(LOCAL_NOTIFICATIONS_ENABLED),
-                    CompoundButton.OnCheckedChangeListener { _, isChecked ->
-                        settingsViewModel.settingsModel.setLocalNotificationsEnabled(isChecked)
-                    }
-            )
             adapter.addButtonRow("About",R.drawable.menu_info, View.OnClickListener {
                 (activity as NavigationHost).navigateTo(
                         AboutFragment.newInstance(),

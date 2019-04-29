@@ -75,6 +75,8 @@ actual fun initializeNotifications(){
     AndroidAppContext.app.registerReceiver(notificationPublisher, filter)
 
     createNotificationChannel()
+
+    setNotificationsEnabled(true)
 }
 
 actual fun deinitializeNotifications(){
