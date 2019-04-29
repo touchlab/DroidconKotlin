@@ -17,7 +17,7 @@ object AboutModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 
 internal object AboutProc {
     fun parseAbout(): List<AboutInfo> {
-        val aboutJsonString = AppContext.staticFileLoader("about", "json")!!
+        val aboutJsonString = AppContext.loadAbout()!!
         return Json.parse(AboutInfo.serializer().list, aboutJsonString)
     }
 }
