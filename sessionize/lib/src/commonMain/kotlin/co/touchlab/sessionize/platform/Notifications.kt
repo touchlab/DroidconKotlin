@@ -18,11 +18,3 @@ fun reminderNotificationsEnabled() : Boolean{
 fun setNotificationsEnabled(enabled: Boolean){
     ServiceRegistry.appSettings[AppContext.LOCAL_NOTIFICATIONS_ENABLED] = enabled
 }
-
-expect fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int)
-
-expect fun cancelLocalNotification(notificationId: Int)
-
-expect fun initializeNotifications()
-
-expect fun deinitializeNotifications()
