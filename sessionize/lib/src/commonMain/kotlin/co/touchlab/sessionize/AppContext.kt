@@ -5,9 +5,10 @@ import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
+import co.touchlab.sessionize.api.NotificationsApi
+import co.touchlab.sessionize.api.notificationFeedbackTag
+import co.touchlab.sessionize.api.notificationReminderTag
 import co.touchlab.sessionize.db.SessionizeDbHelper
-import co.touchlab.sessionize.platform.NotificationFeedbackTag
-import co.touchlab.sessionize.platform.NotificationReminderTag
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.createUuid
@@ -152,18 +153,18 @@ object AppContext {
                             session.title + " is starting soon.",
                             notificationTime,
                             session.id.hashCode(),
-                            NotificationReminderTag)
+                            notificationReminderTag)
                 }
 
                 // Feedback Notifications
                 if(session.feedbackRating == null) {
                     val feedbackNotificationTime = session.endsAt.toLongMillis() + TEN_MINS_MILLIS
-                    createLocalNotification("How was the session?",
+                    ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
                             " Leave feedback for " + session.title,
                             feedbackNotificationTime,
                             //Not great. Possible to clash, although super unlikely
                             session.id.hashCode(),
-                            NotificationFeedbackTag)
+                            notificationFeedbackTag)
                 }
             }
         }
