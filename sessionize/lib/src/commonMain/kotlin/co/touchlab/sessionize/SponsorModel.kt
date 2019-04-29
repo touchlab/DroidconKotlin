@@ -1,6 +1,7 @@
 package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.Sponsor
+import co.touchlab.sessionize.AppContext.clLog
 import co.touchlab.sessionize.AppContext.sponsorQueries
 import co.touchlab.sessionize.db.SponsorGroupDbItem
 
