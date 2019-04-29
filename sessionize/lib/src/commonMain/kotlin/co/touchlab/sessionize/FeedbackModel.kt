@@ -1,9 +1,8 @@
 package co.touchlab.sessionize
 
 import co.touchlab.sessionize.api.FeedbackApi
-import co.touchlab.sessionize.platform.NotificationFeedbackTag
+import co.touchlab.sessionize.api.notificationFeedbackTag
 import co.touchlab.sessionize.platform.backgroundTask
-import co.touchlab.sessionize.platform.cancelLocalNotification
 
 class FeedbackModel {
     private var feedbackListener: FeedbackApi? = null
@@ -31,7 +30,7 @@ class FeedbackModel {
         backgroundTask({
             AppContext.dbHelper.updateFeedback(rating.toLong(),comment,sessionId)
         },{
-            cancelLocalNotification(sessionId.hashCode(), NotificationFeedbackTag)
+            ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.hashCode(), notificationFeedbackTag)
 
             requestNextFeedback()
         })
