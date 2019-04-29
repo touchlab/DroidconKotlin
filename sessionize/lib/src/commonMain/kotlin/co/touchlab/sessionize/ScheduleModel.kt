@@ -1,6 +1,7 @@
 package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.sessionize.AppContext.clLog
 import co.touchlab.sessionize.AppContext.dbHelper
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
