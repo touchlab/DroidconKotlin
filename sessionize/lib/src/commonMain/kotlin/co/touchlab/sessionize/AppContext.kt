@@ -10,8 +10,6 @@ import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
-import co.touchlab.sessionize.platform.deinitializeNotifications
-import co.touchlab.sessionize.platform.initializeNotifications
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.sessionize.platform.reminderNotificationsEnabled
 import co.touchlab.stately.concurrency.AtomicReference
