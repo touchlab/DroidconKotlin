@@ -10,8 +10,6 @@ import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.NotificationFeedbackTag
 import co.touchlab.sessionize.platform.NotificationReminderTag
 import co.touchlab.sessionize.platform.backgroundSuspend
-import co.touchlab.sessionize.platform.cancelLocalNotification
-import co.touchlab.sessionize.platform.createLocalNotification
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
 import kotlinx.coroutines.launch
@@ -55,7 +53,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         }
 
         if(rsvp){
-            createLocalNotification("Upcoming Event in " + event.session.room().name,
+            ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + event.session.room().name,
                     event.session.title + " is starting soon.",
                     event.session.startsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS,
                     sessionId.toInt(),
@@ -72,9 +70,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             }
 
         }else{
-            cancelLocalNotification(sessionId.toInt(),NotificationReminderTag)
-            cancelLocalNotification(sessionId.toInt(),NotificationFeedbackTag)
-
+            ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.toInt())
         }
 
         ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)

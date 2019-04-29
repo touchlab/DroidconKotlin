@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "14BD4E01810EF905FD068B7F3BDD5EF4"
+               BlueprintIdentifier = "000000005110"
                BuildableName = "MaterialIcons_ic_radio_button_unchecked.bundle"
                BlueprintName = "MaterialComponents-MaterialIcons_ic_radio_button_unchecked"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "14BD4E01810EF905FD068B7F3BDD5EF4"
+            BlueprintIdentifier = "000000005110"
             BuildableName = "MaterialIcons_ic_radio_button_unchecked.bundle"
             BlueprintName = "MaterialComponents-MaterialIcons_ic_radio_button_unchecked"
             ReferencedContainer = "container:Pods.xcodeproj">

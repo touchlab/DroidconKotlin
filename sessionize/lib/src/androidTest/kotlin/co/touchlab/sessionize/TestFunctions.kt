@@ -1,15 +1,15 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.Database
+import android.app.Application
+import androidx.test.core.app.ApplicationProvider
+import co.touchlab.droidcon.db.DroidconDb
+import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import kotlinx.coroutines.runBlocking
 
 actual fun testDbConnection(): SqlDriver {
-    //AndroidSqliteDriver(Database.Schema, this, "droidcondb")
-    val driver = JdbcSqliteDriver()
-    Database.Schema.create(driver)
-    return driver
+    val app = ApplicationProvider.getApplicationContext<Application>()
+    return AndroidSqliteDriver(DroidconDb.Schema, app, "droidcondb")
 }
 
 actual fun <T> runTest(block: suspend () -> T) { runBlocking { block() } }

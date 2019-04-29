@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import main
+import lib
 
 class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
