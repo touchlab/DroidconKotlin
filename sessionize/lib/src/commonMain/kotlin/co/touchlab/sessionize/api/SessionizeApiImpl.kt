@@ -13,7 +13,7 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.isSuccess
 import io.ktor.http.takeFrom
 import kotlinx.io.core.use
-import kotlinx.serialization.json.JSON
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.native.concurrent.ThreadLocal
 
@@ -63,11 +63,10 @@ object SessionizeApiImpl : SessionizeApi {
             encodedPath = path
         }
     }
-
 }
 
 internal fun parseSessionsFromDays(scheduleJson: String): List<Session> {
-    val days = JSON.nonstrict.parse(Days.serializer().list, scheduleJson)
+    val days = Json.nonstrict.parse(Days.serializer().list, scheduleJson)
     val sessions = mutableListOf<Session>()
 
     days.forEach { day ->

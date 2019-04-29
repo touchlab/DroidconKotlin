@@ -31,7 +31,6 @@
 		6356313B20DC58F600BCCDF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6356313A20DC58F600BCCDF9 /* AppDelegate.swift */; };
 		6356314220DC58F700BCCDF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6356314120DC58F700BCCDF9 /* Assets.xcassets */; };
 		6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */; };
-		6356315020DC58F800BCCDF9 /* iosAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6356314F20DC58F800BCCDF9 /* iosAppTests.swift */; };
 		6359EB8F2112650200424B73 /* UITextViewFixed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359EB8E2112650200424B73 /* UITextViewFixed.swift */; };
 		637100CD210E409E0099FF25 /* MaterialTabNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100CC210E409E0099FF25 /* MaterialTabNavController.swift */; };
 		637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637100D0210F69160099FF25 /* ApplicationScheme.swift */; };
@@ -53,6 +52,7 @@
 		6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424920FAD9B30049263B /* SpeakerTableViewCell.swift */; };
 		6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424A20FAD9B40049263B /* EventTableViewCell.swift */; };
 		6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372424B20FAD9B40049263B /* EventTableViewCell.xib */; };
+		637E5110227235890093DBF7 /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
 		63A76ACD2129E8F80000515D /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */; };
 		63A76ACF2129E93F0000515D /* SponsorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACE2129E93F0000515D /* SponsorViewController.swift */; };
 		63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */; };
@@ -108,20 +108,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		6349D73C2201027500559B51 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6349D73B2201027500559B51 /* main.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		0230500DE2A801A811C854FA /* ExpectSuccess.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ExpectSuccess.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/ExpectSuccess.kt; sourceTree = "<group>"; };
 		037212D4434537622C53ECF0 /* SponsorViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/SponsorViewModel.kt; sourceTree = "<group>"; };
@@ -172,6 +158,7 @@
 		6372424920FAD9B30049263B /* SpeakerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeakerTableViewCell.swift; sourceTree = "<group>"; };
 		6372424A20FAD9B40049263B /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		6372424B20FAD9B40049263B /* EventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
+		637E510F227235890093DBF7 /* NotificationsApiImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsApiImpl.swift; sourceTree = "<group>"; };
 		63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A76ACE2129E93F0000515D /* SponsorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorViewController.swift; sourceTree = "<group>"; };
 		63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorGroupCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -224,8 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B51DD52BB0A76EFCC3FD922 /* Pods_iosApp.framework in Frameworks */,
-				6349D73A2201027500559B51 /* main.framework in Frameworks */,
+				EFCC38925068884E4B4DAD4E /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +219,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D496704C2242808600F276DF /* test.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D46A4849224A80D200B1D60C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D46A4854224A813900B1D60C /* test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +383,8 @@
 		54B4B9682B691272D8F8ED02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4B1BDD7224244C700F778E6 /* test.framework */,
+				D4B1BDD5224244A100F778E6 /* xcode-frameworks-test */,
 				E04CC97704F132875703ACD3 /* Pods_iosApp.framework */,
 			);
 			name = Frameworks;
@@ -431,13 +428,12 @@
 		6356312E20DC58F600BCCDF9 = {
 			isa = PBXGroup;
 			children = (
-				6349D7392201027500559B51 /* main.framework */,
 				6356313920DC58F600BCCDF9 /* iosApp */,
 				6356314E20DC58F800BCCDF9 /* iosAppTests */,
+				D46A484D224A80D200B1D60C /* iosAppKtTests */,
 				6356313820DC58F600BCCDF9 /* Products */,
 				F51C475F4737FE9D915D4236 /* Pods */,
 				54B4B9682B691272D8F8ED02 /* Frameworks */,
-				C9FD78B21EE1C1A75DF44C35 /* Kotlin */,
 			);
 			sourceTree = "<group>";
 		};
@@ -446,6 +442,7 @@
 			children = (
 				6356313720DC58F600BCCDF9 /* iosApp.app */,
 				6356314B20DC58F800BCCDF9 /* iosAppTests.xctest */,
+				D46A484C224A80D200B1D60C /* iosAppKtTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -528,6 +525,7 @@
 		63711D3A2110F9040099FF25 /* app */ = {
 			isa = PBXGroup;
 			children = (
+				637E510F227235890093DBF7 /* NotificationsApiImpl.swift */,
 				6372423A20F973370049263B /* Main.storyboard */,
 				6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */,
 				6372423D20F975470049263B /* LaunchViewController.swift */,
@@ -721,7 +719,8 @@
 		C036AA0C18796156999A9F2E /* touchlab */ = {
 			isa = PBXGroup;
 			children = (
-				0713EEB1311E853CB1544AEE /* sessionize */,
+				D46A484E224A80D200B1D60C /* iosAppKtTests.swift */,
+				D46A4850224A80D200B1D60C /* Info.plist */,
 			);
 			name = touchlab;
 			sourceTree = "<group>";
@@ -899,14 +898,11 @@
 			buildConfigurationList = 6356315420DC58F800BCCDF9 /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
 				81B84390B07E56A66415404A /* [CP] Check Pods Manifest.lock */,
-				630B349D216BA2CC00B591AD /* ShellScript */,
 				6356313320DC58F600BCCDF9 /* Sources */,
 				6356313420DC58F600BCCDF9 /* Frameworks */,
 				6356313520DC58F600BCCDF9 /* Resources */,
 				0DCB78009BA7F3A64B6F74B5 /* [CP] Embed Pods Frameworks */,
-				C8D497457C66F761A657AA5D /* [CP] Copy Pods Resources */,
 				6359EB922113CB2E00424B73 /* ShellScript */,
-				6349D73C2201027500559B51 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -935,13 +931,31 @@
 			productReference = 6356314B20DC58F800BCCDF9 /* iosAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D46A484B224A80D200B1D60C /* iosAppKtTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D46A4851224A80D200B1D60C /* Build configuration list for PBXNativeTarget "iosAppKtTests" */;
+			buildPhases = (
+				D46A4859224A883600B1D60C /* ShellScript */,
+				D46A4848224A80D200B1D60C /* Sources */,
+				D46A4849224A80D200B1D60C /* Frameworks */,
+				D46A484A224A80D200B1D60C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iosAppKtTests;
+			productName = iosAppKtTests;
+			productReference = D46A484C224A80D200B1D60C /* iosAppKtTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		6356312F20DC58F600BCCDF9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Kevin Galligan";
 				TargetAttributes = {
@@ -951,6 +965,9 @@
 					6356314A20DC58F800BCCDF9 = {
 						CreatedOnToolsVersion = 9.4;
 						TestTargetID = 6356313620DC58F600BCCDF9;
+					};
+					D46A484B224A80D200B1D60C = {
+						CreatedOnToolsVersion = 10.1;
 					};
 				};
 			};
@@ -969,6 +986,7 @@
 			targets = (
 				6356313620DC58F600BCCDF9 /* iosApp */,
 				6356314A20DC58F800BCCDF9 /* iosAppTests */,
+				D46A484B224A80D200B1D60C /* iosAppKtTests */,
 			);
 		};
 /* End PBXProject section */
@@ -998,6 +1016,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D46A4843224A7E9B00B1D60C /* sponsors.json in Resources */,
+				D46A4844224A7E9B00B1D60C /* speakers.json in Resources */,
+				D46A4845224A7E9B00B1D60C /* schedule.json in Resources */,
+				D46A4846224A7E9B00B1D60C /* about.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D46A484A224A80D200B1D60C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D46A4855224A814900B1D60C /* sponsors.json in Resources */,
+				D46A4856224A814900B1D60C /* speakers.json in Resources */,
+				D46A4857224A814900B1D60C /* schedule.json in Resources */,
+				D46A4858224A814900B1D60C /* about.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,23 +1067,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		630B349D216BA2CC00B591AD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/../sessionize/lib/build/xcode-frameworks\"\n./gradlew :sessionize:lib:packForXCode\n";
-		};
 		6359EB922113CB2E00424B73 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1082,20 +1098,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C8D497457C66F761A657AA5D /* [CP] Copy Pods Resources */ = {
+		D46A4859224A883600B1D60C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "cd \"$SRCROOT/../sessionize/lib/build/xcode-frameworks\"\n./gradlew :sessionize:lib:packForXCodeTest\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1183,7 +1201,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6356315020DC58F800BCCDF9 /* iosAppTests.swift in Sources */,
+				D46A4847224A804200B1D60C /* iosAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D46A4848224A80D200B1D60C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D46A484F224A80D200B1D60C /* iosAppKtTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1351,7 +1377,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
 					"\"${PODS_ROOT}/Crashlytics/iOS\"",
 					"\"${PODS_ROOT}/Fabric/iOS\"",
-					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1364,6 +1389,41 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"MDFInternationalization\"",
+					"-framework",
+					"\"MDFTextAccessibility\"",
+					"-framework",
+					"\"MaterialComponents\"",
+					"-framework",
+					"\"MotionAnimator\"",
+					"-framework",
+					"\"MotionInterchange\"",
+					"-framework",
+					"\"MotionTransitioning\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"lib\"",
+					"-framework",
+					"\"lib_umbrella\"",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.albany;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1391,7 +1451,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
 					"\"${PODS_ROOT}/Crashlytics/iOS\"",
 					"\"${PODS_ROOT}/Fabric/iOS\"",
-					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1404,6 +1463,41 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"MDFInternationalization\"",
+					"-framework",
+					"\"MDFTextAccessibility\"",
+					"-framework",
+					"\"MaterialComponents\"",
+					"-framework",
+					"\"MotionAnimator\"",
+					"-framework",
+					"\"MotionInterchange\"",
+					"-framework",
+					"\"MotionTransitioning\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"lib\"",
+					"-framework",
+					"\"lib_umbrella\"",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.albany;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1418,11 +1512,25 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionAnimator\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionInterchange\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
+					"\"${PODS_ROOT}/Crashlytics/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test",
+				);
 				INFOPLIST_FILE = iosAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.iosAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1438,17 +1546,74 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionAnimator\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionInterchange\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
+					"\"${PODS_ROOT}/Crashlytics/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test",
+				);
 				INFOPLIST_FILE = iosAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.iosAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosApp.app/iosApp";
+			};
+			name = Release;
+		};
+		D46A4852224A80D200B1D60C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test";
+				INFOPLIST_FILE = iosAppKtTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.iosAppKtTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D46A4853224A80D200B1D60C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test";
+				INFOPLIST_FILE = iosAppKtTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.iosAppKtTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1478,6 +1643,15 @@
 			buildConfigurations = (
 				6356315820DC58F800BCCDF9 /* Debug */,
 				6356315920DC58F800BCCDF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D46A4851224A80D200B1D60C /* Build configuration list for PBXNativeTarget "iosAppKtTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D46A4852224A80D200B1D60C /* Debug */,
+				D46A4853224A80D200B1D60C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
