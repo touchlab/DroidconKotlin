@@ -2,7 +2,6 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.AppContext.clLog
 import co.touchlab.sessionize.AppContext.userAccountQueries
 import co.touchlab.sessionize.db.sessions
 
