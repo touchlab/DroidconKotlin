@@ -40,6 +40,9 @@ class SessionizeDbHelper {
 
     fun getSessionsQuery(): Query<SessionWithRoom> = instance.sessionQueries.sessionWithRoom()
 
+    fun updateFeedback(feedbackRating: Long?, feedbackComment: String?, id: String) = instance.sessionQueries.updateFeedBack(feedbackRating,feedbackComment,id)
+
+
     fun primeAll(speakerJson: String, scheduleJson: String, sponsorJson: String) {
         instance.sessionQueries.transaction {
             try {
@@ -144,6 +147,8 @@ class SessionizeDbHelper {
                         },
                         roomId = session.roomId!!.toLong(),
                         rsvp = dbSession.rsvp,
+                        feedbackRating =  dbSession.feedbackRating,
+                        feedbackComment = dbSession.feedbackComment,
                         id = session.id
                 )
             }
