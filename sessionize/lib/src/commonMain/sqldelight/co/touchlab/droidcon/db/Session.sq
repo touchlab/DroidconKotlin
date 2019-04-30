@@ -9,6 +9,8 @@ endsAt TEXT AS Date NOT NULL,
 serviceSession INTEGER NOT NULL DEFAULT 0,
 rsvp INTEGER NOT NULL DEFAULT 0,
 roomId INTEGER,
+feedbackRating INTEGER,
+feedbackComment TEXT,
 FOREIGN KEY (roomId) REFERENCES room(id)
 );
 
@@ -19,7 +21,7 @@ VALUES (?,?,?,?,?,?,?)
 
 update:
 UPDATE session SET title = ?, description = ?, startsAt = ?,
-endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?
+endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?, feedbackRating = ?, feedbackComment = ?
 WHERE id = ?;
 
 deleteById:
@@ -32,10 +34,15 @@ sessionById:
 SELECT * FROM session WHERE id = ?;
 
 mySessions:
-SELECT session.id, session.title, session.startsAt, session.endsAt, room.name AS roomName
+SELECT session.id, session.title, session.startsAt, session.endsAt, session.feedbackRating, room.name AS roomName
 FROM session
 JOIN room ON session.roomId = room.id
 WHERE rsvp != 0;
+
+myPastSession:
+SELECT session.id, session.title, session.endsAt, session.feedbackRating
+FROM session
+WHERE rsvp != 0 AND session.endsAt < datetime('now') AND session.feedbackRating IS NULL LIMIT 1;
 
 userSessions:
 SELECT session.* FROM session
@@ -44,6 +51,9 @@ WHERE sessionSpeaker.userAccountId = ?;
 
 updateRsvp:
 UPDATE session SET rsvp = ? WHERE id = ?;
+
+updateFeedBack:
+UPDATE session SET feedbackRating = ?, feedbackComment = ? WHERE id = ?;
 
 --Special query for schedule view
 sessionWithRoom:
