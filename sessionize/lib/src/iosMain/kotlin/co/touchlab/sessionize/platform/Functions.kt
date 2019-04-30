@@ -2,7 +2,6 @@ package co.touchlab.sessionize.platform
 
 import co.touchlab.droidcon.db.DroidconDb
 import co.touchlab.sessionize.api.AnalyticsApi
-import co.touchlab.sessionize.lateValue
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import com.russhwolf.settings.AppleSettings
@@ -59,7 +58,7 @@ internal actual fun <B> backgroundTaskPlatform(backJob: () -> B, mainJob: (B) ->
     val worker = makeQueue("back")
     worker.execute(TransferMode.SAFE, { JobWrapper(backJob, mainJobHolder).freeze() }) { wrapper ->
         backToFront(wrapper.backJob, {
-            wrapper.mainJobLocal.lateValue.invoke(it)
+            wrapper.mainJobLocal.get()!!.invoke(it)
         })
     }
 }
