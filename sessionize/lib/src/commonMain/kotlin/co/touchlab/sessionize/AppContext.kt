@@ -155,40 +155,41 @@ object AppContext {
 
     private fun createNotificationsForSessions() {
         if (reminderNotificationsEnabled()) {
-        backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-            mySessions.forEach { session ->
-                val notificationTime = session.startsAt.toLongMillis() - TEN_MINS_MILLIS
-                if (notificationTime > currentTimeMillis()) {
-                    ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + session.roomName,
-                            session.title + " is starting soon.",
-                            notificationTime,
-                            session.id.hashCode(),
-                            notificationReminderTag)
-                }
+            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+                mySessions.forEach { session ->
+                    val notificationTime = session.startsAt.toLongMillis() - TEN_MINS_MILLIS
+                    if (notificationTime > currentTimeMillis()) {
+                        ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + session.roomName,
+                                session.title + " is starting soon.",
+                                notificationTime,
+                                session.id.hashCode(),
+                                notificationReminderTag)
+                    }
 
-                // Feedback Notifications
-                if(session.feedbackRating == null) {
-                    val feedbackNotificationTime = session.endsAt.toLongMillis() + TEN_MINS_MILLIS
-                    ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
-                            " Leave feedback for " + session.title,
-                            feedbackNotificationTime,
-                            //Not great. Possible to clash, although super unlikely
-                            session.id.hashCode(),
-                            notificationFeedbackTag)
+                    // Feedback Notifications
+                    if (session.feedbackRating == null) {
+                        val feedbackNotificationTime = session.endsAt.toLongMillis() + TEN_MINS_MILLIS
+                        ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
+                                " Leave feedback for " + session.title,
+                                feedbackNotificationTime,
+                                //Not great. Possible to clash, although super unlikely
+                                session.id.hashCode(),
+                                notificationFeedbackTag)
+                    }
                 }
             }
         }
     }
 
-    val <T> ThreadLocalRef<T>.lateValue: T
+        val <T> ThreadLocalRef<T>.lateValue: T
         get() = this.value!!
 
-    internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
+        internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
 
-    /**
-     * Log statement to Crashlytics
-     */
-    fun clLog(s: String) {
-        AppContext.clLogCallback(s)
-    }
+}
+/**
+ * Log statement to Crashlytics
+ */
+fun clLog(s: String) {
+    AppContext.clLogCallback(s)
 }

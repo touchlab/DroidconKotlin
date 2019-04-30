@@ -3,7 +3,6 @@ package co.touchlab.sessionize
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.AppContext.clLog
 import co.touchlab.sessionize.AppContext.sessionQueries
 import co.touchlab.sessionize.AppContext.userAccountQueries
 import co.touchlab.sessionize.api.notificationFeedbackTag
@@ -54,31 +53,32 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             "sessionizeUnrsvpEvent"
         }
 
-        if(rsvp){
-            if(reminderNotificationsEnabled()) {
-            ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + event.session.room().name,
-                    event.session.title + " is starting soon.",
-                    event.session.startsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS,
-                    sessionId.toInt(),
-                    notificationReminderTag)
-
-            // Feedback Notifications
-            if(event.session.feedbackRating == null) {
-                val feedbackNotificationTime = event.session.endsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS
-                ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
-                        " Leave feedback for " + event.session.title,
-                        feedbackNotificationTime,
+        if (rsvp) {
+            if (reminderNotificationsEnabled()) {
+                ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + event.session.room().name,
+                        event.session.title + " is starting soon.",
+                        event.session.startsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS,
                         sessionId.toInt(),
-                        notificationFeedbackTag)
+                        notificationReminderTag)
+
+                // Feedback Notifications
+                if (event.session.feedbackRating == null) {
+                    val feedbackNotificationTime = event.session.endsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS
+                    ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
+                            " Leave feedback for " + event.session.title,
+                            feedbackNotificationTime,
+                            sessionId.toInt(),
+                            notificationFeedbackTag)
+                }
+            } else {
+                ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.toInt(), notificationReminderTag)
+                ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.toInt(), notificationFeedbackTag)
             }
-        }else{
-            ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.toInt(), notificationReminderTag)
-            ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.toInt(), notificationFeedbackTag)
+
+            ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
+
+            sendAnalytics(localSessionId, rsvp)
         }
-
-        ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
-
-        sendAnalytics(localSessionId, rsvp)
     }
 
     private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) {
