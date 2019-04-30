@@ -8,16 +8,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import co.touchlab.sessionize.about.AboutFragment
 import co.touchlab.sessionize.schedule.ScheduleFragment
 import co.touchlab.sessionize.sponsors.SponsorsFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
+import co.touchlab.sessionize.feedback.FeedbackManager
 
 
 class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
+
+    private var feedbackManager = FeedbackManager()
+
     override fun showSnack(message: String, length: Int) {
         Snackbar.make(findViewById<View>(R.id.navigation), message, Snackbar.LENGTH_SHORT).show()
     }
@@ -62,6 +65,9 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
         }
+
+        feedbackManager.setFragmentManager(supportFragmentManager)
+        feedbackManager.showFeedbackForPastSessions()
     }
 
     override fun onResume() {
@@ -69,6 +75,10 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         AppContext.refreshData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        feedbackManager.close()
+    }
     private fun findApplicationName(context: Context): String {
         val applicationInfo = context.applicationInfo
         val stringId = applicationInfo.labelRes
