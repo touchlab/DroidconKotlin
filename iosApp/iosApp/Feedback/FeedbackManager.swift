@@ -34,7 +34,7 @@ class FeedbackManager: NSObject,FeedbackApi, FeedbackDialogDelegate {
     }
     
     func generateFeedbackDialog(session: MyPastSession) {
-        let alert = FeedbackAlertViewController(preferredStyle: .alert,sessionid: session.id,sessionTitle: session.title)
+        let alert = FeedbackAlertViewController(preferredStyle: .alert,sessionid: session.id,sessionTitle: session.title, feedbackManager: self)
         alert.setFeedbackDialogDelegate(feedbackDialogDelegate: self)
         viewController?.present(alert, animated: true, completion: nil)
     }
