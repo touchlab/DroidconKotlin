@@ -1,18 +1,16 @@
-/*
- Copyright 2018-present the Material Components for iOS authors. All Rights Reserved.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+// Copyright 2018-present the Material Components for iOS authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 #import "MDCTypographyScheme.h"
 
@@ -67,6 +65,27 @@
     }
   }
   return self;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+  MDCTypographyScheme *copy = [[MDCTypographyScheme alloc] init];
+  copy.headline1 = self.headline1;
+  copy.headline2 = self.headline2;
+  copy.headline3 = self.headline3;
+  copy.headline4 = self.headline4;
+  copy.headline5 = self.headline5;
+  copy.headline6 = self.headline6;
+  copy.subtitle1 = self.subtitle1;
+  copy.subtitle2 = self.subtitle2;
+  copy.body1 = self.body1;
+  copy.body2 = self.body2;
+  copy.caption = self.caption;
+  copy.button = self.button;
+  copy.overline = self.overline;
+
+  return copy;
 }
 
 @end

@@ -1,0 +1,71 @@
+import co.touchlab.sessionize.platform.Date;
+
+CREATE TABLE session(
+id TEXT NOT NULL PRIMARY KEY,
+title TEXT NOT NULL,
+description TEXT NOT NULL,
+startsAt TEXT AS Date NOT NULL,
+endsAt TEXT AS Date NOT NULL,
+serviceSession INTEGER NOT NULL DEFAULT 0,
+rsvp INTEGER NOT NULL DEFAULT 0,
+roomId INTEGER,
+feedbackRating INTEGER,
+feedbackComment TEXT,
+FOREIGN KEY (roomId) REFERENCES room(id)
+);
+
+insert:
+INSERT INTO session(id, title, description, startsAt, endsAt, serviceSession, roomId)
+VALUES (?,?,?,?,?,?,?)
+;
+
+update:
+UPDATE session SET title = ?, description = ?, startsAt = ?,
+endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?, feedbackRating = ?, feedbackComment = ?
+WHERE id = ?;
+
+deleteById:
+DELETE FROM session WHERE id = ?;
+
+allSessions:
+SELECT * FROM session;
+
+sessionById:
+SELECT * FROM session WHERE id = ?;
+
+mySessions:
+SELECT session.id, session.title, session.startsAt, session.endsAt, session.feedbackRating, room.name AS roomName
+FROM session
+JOIN room ON session.roomId = room.id
+WHERE rsvp != 0;
+
+myPastSession:
+SELECT session.id, session.title, session.endsAt, session.feedbackRating
+FROM session
+WHERE rsvp != 0 AND session.endsAt < datetime('now') AND session.feedbackRating IS NULL LIMIT 1;
+
+userSessions:
+SELECT session.* FROM session
+JOIN sessionSpeaker ON session.id = sessionSpeaker.sessionId
+WHERE sessionSpeaker.userAccountId = ?;
+
+updateRsvp:
+UPDATE session SET rsvp = ? WHERE id = ?;
+
+updateFeedBack:
+UPDATE session SET feedbackRating = ?, feedbackComment = ? WHERE id = ?;
+
+--Special query for schedule view
+sessionWithRoom:
+SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,
+session.serviceSession, session.rsvp, session.roomId, room.name AS roomName,
+speakers.allNames
+FROM session
+LEFT JOIN (
+SELECT sessionId,group_concat(fullName, ', ') AS allNames
+FROM sessionSpeaker
+JOIN userAccount ON userAccount.id = sessionSpeaker.userAccountId
+GROUP BY sessionId
+) AS speakers ON speakers.sessionId = session.id
+JOIN room ON session.roomId = room.id
+;

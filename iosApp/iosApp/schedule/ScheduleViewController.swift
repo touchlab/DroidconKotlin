@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import main
+import lib
 import MaterialComponents
 
 class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource, MDCTabBarDelegate {
@@ -125,12 +125,14 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
+        
         let cday = conferenceDays![selectedDayIndex()]
         let hourHolder = cday.hourBlock[indexPath.row]
         
         if(!(hourHolder.rowType() == RowType.block)){
             showEventDetailView(with: hourHolder, andIndex: indexPath.row)
         }
+        
     }
     
     func selectedDayIndex() -> Int {
@@ -167,5 +169,6 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         
         return cell
     }
+    
 }
 

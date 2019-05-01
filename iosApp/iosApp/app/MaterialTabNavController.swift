@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import main
 import MaterialComponents
 
-class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelegate {
-
+class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelegate, FeedbackDialogDelegate {
+    
     let bottomNavBar = MDCBottomNavigationBar()
     
     override func viewDidLoad() {
@@ -29,6 +30,10 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         MDCBottomNavigationBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.menuColorScheme, toBottomNavigation: bottomNavBar)
         bottomNavBar.unselectedItemTintColor = bottomNavBar.selectedItemTintColor
 //        MDCAppBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.colorScheme, to:bottomNavBar)
+        
+        for session in AppContext().requestMySessionsForFeedback() {
+            showFeedbackAlert(session: session)
+        }
     }
     
     
@@ -85,4 +90,14 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
     }
     */
 
+    private func showFeedbackAlert(session:MySessions){
+        let alert = FeedbackAlertViewController(preferredStyle: .alert,sessionid: session.id,sessionTitle: session.title)
+        alert.setFeedbackDialogDelegate(feedbackDialogDelegate: self)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func finishedFeedback(sessionId: String, rating: Int, comment: String) {
+        AppContext().dbHelper.updateFeedback(feedbackRating: NSNumber(value: rating) as! KotlinLong, feedbackComment: comment, id: sessionId)
+
+    }
 }

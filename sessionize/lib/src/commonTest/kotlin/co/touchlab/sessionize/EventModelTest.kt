@@ -1,7 +1,9 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
+import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
 import kotlin.test.BeforeTest
@@ -12,11 +14,13 @@ import kotlin.test.assertTrue
 abstract class EventModelTest {
     private val sessionizeApiMock = SessionizeApiMock()
     private val analyticsApiMock = AnalyticsApiMock()
+    private val notificationsApiMock = NotificationsApiMock()
+    private val feedbackApiMock = FeedbackApiMock()
 
     @BeforeTest
     fun setup() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock(), "-0400")
+                Dispatchers.Main, TestSettings(), TestConcurrent, sessionizeApiMock, analyticsApiMock, notificationsApiMock, "-0400")
 
         ServiceRegistry.initLambdas({filePrefix, fileType ->
             when(filePrefix){
@@ -37,9 +41,18 @@ abstract class EventModelTest {
         val eventModel = EventModel("67316")
         val session = AppContext.sessionQueries.sessionById("67316").executeAsOne()
         val si = collectSessionInfo(session)
-        /*eventModel.toggleRsvpSuspend(si)
+        eventModel.toggleRsvpSuspend(si)
         assertTrue { sessionizeApiMock.rsvpCalled }
-        assertTrue { analyticsApiMock.logCalled }*/
+        assertTrue { analyticsApiMock.logCalled }
+        assertTrue { notificationsApiMock.notificationCalled }
+    }
+
+    @Test
+    fun testFeedbackModel() = runTest {
+        val fbModel = feedbackApiMock.getFeedbackModel()
+        fbModel.showFeedbackForPastSessions(feedbackApiMock)
+
+        assertTrue { feedbackApiMock.feedbackError != null }
     }
 }
 
@@ -49,25 +62,66 @@ class AnalyticsApiMock : AnalyticsApi {
     override fun logEvent(name: String, params: Map<String, Any>) {
         logCalled = true
     }
-
 }
 
 class SessionizeApiMock : SessionizeApi {
     var rsvpCalled = false
     override suspend fun getSpeakersJson(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ""
     }
 
     override suspend fun getSessionsJson(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ""
     }
 
     override suspend fun getSponsorJson(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ""
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean {
         rsvpCalled = true
         return true
     }
+}
+
+class FeedbackApiMock : FeedbackApi {
+
+    var generatingFeedbackDialog:Boolean = false
+    var feedbackError : FeedbackApi.FeedBackError? = null
+
+
+    private var feedbackModel:FeedbackModel = FeedbackModel()
+
+    fun getFeedbackModel(): FeedbackModel {
+        return feedbackModel
+    }
+    override fun generateFeedbackDialog(session: MyPastSession){
+        generatingFeedbackDialog = true
+        feedbackModel.finishedFeedback("1234",1,"This is a comment")
+    }
+
+    override fun onError(error: FeedbackApi.FeedBackError){
+        feedbackError = error
+        }
+  }
+class NotificationsApiMock : NotificationsApi {
+
+    var notificationCalled = false
+    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int){
+        notificationCalled = true;
+    }
+
+    override fun cancelLocalNotification(notificationId: Int){
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun initializeNotifications(){
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deinitializeNotifications(){
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+    }
+
 }

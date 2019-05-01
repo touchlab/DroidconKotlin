@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import main
+import lib
 import Fabric
 import Crashlytics
 import UserNotifications
@@ -20,13 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
-        
+      
         let serviceRegistry = ServiceRegistry()
-        
         serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
-        serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(), coroutineDispatcher: UI(), settings: FunctionsKt.defaultSettings(),
-                                                concurrent: MainConcurrent(), sessionizeApi: SessionizeApiImpl(),
-                                                analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback), timeZone: "-0400")
+      
+        serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
+                                                coroutineDispatcher: UI(),
+                                                settings: FunctionsKt.defaultSettings(),
+                                                concurrent: MainConcurrent(),
+                                                sessionizeApi: SessionizeApiImpl(),
+                                                analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
+                                                notificationsApi: NotificationsApiImpl(),
+                                                timeZone: "-0400")
 
         let appContext = AppContext()
         

@@ -1,6 +1,6 @@
 package co.touchlab.sessionize.db
 
-import co.touchlab.droidcon.db.Database
+import co.touchlab.droidcon.db.DroidconDb
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.ServiceRegistry
@@ -13,17 +13,18 @@ import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.serialization.json.JSON
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 
 class SessionizeDbHelper {
 
     private val driverRef = AtomicReference<SqlDriver?>(null)
-    private val dbRef = AtomicReference<Database?>(null)
+    private val dbRef = AtomicReference<DroidconDb?>(null)
+    private val sessionDateAdapter = DateAdapter()
 
     fun initDatabase(sqlDriver: SqlDriver) {
         driverRef.value = sqlDriver.freeze()
-        dbRef.value = Database(sqlDriver, Session.Adapter(
+        dbRef.value = DroidconDb(sqlDriver, Session.Adapter(
                 startsAtAdapter = DateAdapter(), endsAtAdapter = DateAdapter()
         )).freeze()
     }
@@ -34,10 +35,13 @@ class SessionizeDbHelper {
         driverRef.value = null
     }
 
-    internal val instance: Database
+    internal val instance: DroidconDb
         get() = dbRef.value!!
 
     fun getSessionsQuery(): Query<SessionWithRoom> = instance.sessionQueries.sessionWithRoom()
+
+    fun updateFeedback(feedbackRating: Long?, feedbackComment: String?, id: String) = instance.sessionQueries.updateFeedBack(feedbackRating,feedbackComment,id)
+
 
     fun primeAll(speakerJson: String, scheduleJson: String, sponsorJson: String) {
         instance.sessionQueries.transaction {
@@ -53,7 +57,7 @@ class SessionizeDbHelper {
     }
 
     private fun primeSpeakers(speakerJson: String) {
-        val speakers = JSON.nonstrict.parse(Speaker.serializer().list, speakerJson)//DefaultData.parseSpeakers(speakerJson)
+        val speakers = Json.nonstrict.parse(Speaker.serializer().list, speakerJson)//DefaultData.parseSpeakers(speakerJson)
 
         for (speaker in speakers) {
             var twitter: String? = null
@@ -122,8 +126,8 @@ class SessionizeDbHelper {
                         session.id,
                         session.title,
                         session.descriptionText ?: "",
-                        instance.sessionAdapter.startsAtAdapter.decode(startsAt),
-                        instance.sessionAdapter.endsAtAdapter.decode(endsAt),
+                        sessionDateAdapter.decode(startsAt),
+                        sessionDateAdapter.decode(endsAt),
                         if (session.isServiceSession) {
                             1
                         } else {
@@ -134,8 +138,8 @@ class SessionizeDbHelper {
                 instance.sessionQueries.update(
                         title = session.title,
                         description = session.descriptionText ?: "",
-                        startsAt = instance.sessionAdapter.startsAtAdapter.decode(startsAt),
-                        endsAt = instance.sessionAdapter.endsAtAdapter.decode(endsAt),
+                        startsAt = sessionDateAdapter.decode(startsAt),
+                        endsAt = sessionDateAdapter.decode(endsAt),
                         serviceSession = if (session.isServiceSession) {
                             1
                         } else {
@@ -143,6 +147,8 @@ class SessionizeDbHelper {
                         },
                         roomId = session.roomId!!.toLong(),
                         rsvp = dbSession.rsvp,
+                        feedbackRating =  dbSession.feedbackRating,
+                        feedbackComment = dbSession.feedbackComment,
                         id = session.id
                 )
             }
@@ -164,7 +170,7 @@ class SessionizeDbHelper {
     }
 
     private fun primeSponsors(sponsorJson: String) {
-        val sponsorGroups = JSON.nonstrict.parse(SponsorGroup.serializer().list, sponsorJson)
+        val sponsorGroups = Json.nonstrict.parse(SponsorGroup.serializer().list, sponsorJson)
         instance.sponsorQueries.deleteAll()
 
         for(group in sponsorGroups) {
