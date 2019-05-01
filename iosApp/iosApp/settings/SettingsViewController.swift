@@ -27,13 +27,13 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
         data = [
             SwitchDetail(title: "Enable Feedback",
                          image: UIImage.init(named: "icon_feedback")!,
-                         enabled:  ServiceRegistry().appSettings.getBoolean(key: AppContext().FEEDBACK_ENABLED, defaultValue: false),
+                         enabled:  ServiceRegistry().appSettings.getBoolean(key: AppContext().FEEDBACK_ENABLED, defaultValue: true),
                          listener: { isOn in
                 self.viewModel.settingsModel.setFeedbackEnabled(enabled: isOn)
             }),
             SwitchDetail(title: "Enable Reminders",
                          image: UIImage.init(named: "ic_event")!,
-                         enabled: ServiceRegistry().appSettings.getBoolean(key: AppContext().REMINDERS_ENABLED, defaultValue: false),
+                         enabled: ServiceRegistry().appSettings.getBoolean(key: AppContext().REMINDERS_ENABLED, defaultValue: true),
                          listener: { isOn in
                 self.viewModel.settingsModel.setRemindersEnabled(enabled: isOn)
             }),
