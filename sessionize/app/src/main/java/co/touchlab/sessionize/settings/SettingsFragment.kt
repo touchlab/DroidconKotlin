@@ -55,14 +55,14 @@ class SettingsFragment : Fragment() {
                     R.drawable.baseline_feedback_24,
                     ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED, true),
                     CompoundButton.OnCheckedChangeListener { _, isChecked ->
-                        settingsViewModel.settingsModel.setFeedbackEnabled(isChecked)
+                        settingsViewModel.settingsModel.setFeedbackSettingEnabled(isChecked)
                     }
             )
             adapter.addSwitchRow("Enable Reminders",
                     R.drawable.baseline_insert_invitation_24,
                     ServiceRegistry.appSettings.getBoolean(REMINDERS_ENABLED, true),
                     CompoundButton.OnCheckedChangeListener { _, isChecked ->
-                        settingsViewModel.settingsModel.setRemindersEnabled(isChecked)
+                        settingsViewModel.settingsModel.setRemindersSettingEnabled(isChecked)
                     }
             )
             adapter.addButtonRow("About",R.drawable.menu_info, View.OnClickListener {
