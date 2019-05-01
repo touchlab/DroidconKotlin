@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import main
+import lib
 
 class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -27,21 +27,15 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
         data = [
             SwitchDetail(title: "Enable Feedback",
                          image: UIImage.init(named: "icon_feedback")!,
-                         enabled:  ServiceRegistry().appSettings.getBoolean(key: AppContext().feedback_ENABLED, defaultValue: false),
+                         enabled:  ServiceRegistry().appSettings.getBoolean(key: AppContext().FEEDBACK_ENABLED, defaultValue: false),
                          listener: { isOn in
                 self.viewModel.settingsModel.setFeedbackEnabled(enabled: isOn)
             }),
             SwitchDetail(title: "Enable Reminders",
                          image: UIImage.init(named: "ic_event")!,
-                         enabled: ServiceRegistry().appSettings.getBoolean(key: AppContext().reminders_ENABLED, defaultValue: false),
+                         enabled: ServiceRegistry().appSettings.getBoolean(key: AppContext().REMINDERS_ENABLED, defaultValue: false),
                          listener: { isOn in
                 self.viewModel.settingsModel.setRemindersEnabled(enabled: isOn)
-            }),
-            SwitchDetail(title: "Enable Notifications",
-                         image: UIImage.init(named: "ic_event")!,
-                         enabled: ServiceRegistry().appSettings.getBoolean(key: AppContext().local_NOTIFICATIONS_ENABLED, defaultValue: false),
-                         listener: { isOn in
-                self.viewModel.settingsModel.setLocalNotificationsEnabled(enabled: isOn)
             }),
             ButtonDetail(title: "About",
                          image: UIImage.init(named: "ic_info_outline_white")!,

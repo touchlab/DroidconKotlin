@@ -15,7 +15,6 @@
 		210722D4B09BEAF533418F8B /* EventModelTest.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8DC06B61C3AF3EA119D184ED /* EventModelTest.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		212A05E955C7DAB7221CC509 /* FunctionsJVM.kt in Sources */ = {isa = PBXBuildFile; fileRef = 7B8744B848463C09669197DD /* FunctionsJVM.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		2323FD67EA4C0D9878661D89 /* StaticFiles.kt in Sources */ = {isa = PBXBuildFile; fileRef = 5441AE901CA6DD9C25CF47C4 /* StaticFiles.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		2B51DD52BB0A76EFCC3FD922 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04CC97704F132875703ACD3 /* Pods_iosApp.framework */; };
 		2FBA0E961E7954510F10142A /* TestFunctions.kt in Sources */ = {isa = PBXBuildFile; fileRef = 08F4E11C17B2120E4BC85DC8 /* TestFunctions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		304A18B64A26949C5D464E64 /* MainThreadPubSub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 577E294E998BF75EDD701F35 /* MainThreadPubSub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		304E5637389A73B7652919A2 /* File.kt in Sources */ = {isa = PBXBuildFile; fileRef = C351C93850E84268E8BCF7D3 /* File.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -26,8 +25,6 @@
 		48D2C9943260AEA15BA3AF6B /* AnalyticsApi.kt in Sources */ = {isa = PBXBuildFile; fileRef = 956D6B892731AA292E5B839A /* AnalyticsApi.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		4A1E56196E45DB28D51B0D77 /* AppContext.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2520222C14041C690436F852 /* AppContext.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		4EDF0951CCE7254EDC9CA1D2 /* SessionizeApiImpl.kt in Sources */ = {isa = PBXBuildFile; fileRef = 6E6D62691C49CBF3F75817DB /* SessionizeApiImpl.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		6349D73A2201027500559B51 /* main.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6349D7392201027500559B51 /* main.framework */; };
-		6349D73B2201027500559B51 /* main.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6349D7392201027500559B51 /* main.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6356313B20DC58F600BCCDF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6356313A20DC58F600BCCDF9 /* AppDelegate.swift */; };
 		6356314220DC58F700BCCDF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6356314120DC58F700BCCDF9 /* Assets.xcassets */; };
 		6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */; };
@@ -52,7 +49,6 @@
 		6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424920FAD9B30049263B /* SpeakerTableViewCell.swift */; };
 		6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424A20FAD9B40049263B /* EventTableViewCell.swift */; };
 		6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372424B20FAD9B40049263B /* EventTableViewCell.xib */; };
-		637E5110227235890093DBF7 /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
 		63A76ACD2129E8F80000515D /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */; };
 		63A76ACF2129E93F0000515D /* SponsorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACE2129E93F0000515D /* SponsorViewController.swift */; };
 		63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */; };
@@ -63,15 +59,6 @@
 		71FCC78DC8DA714D63FE18FB /* Coroutines.kt in Sources */ = {isa = PBXBuildFile; fileRef = F3268F03C19C8685393B8DDA /* Coroutines.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		730C9521F5CDB441D6FD4D02 /* SponsorModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 079877B9A5F7CBDE3EF45704 /* SponsorModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		73E01016CA8E1E7238F8241B /* PubSub.kt in Sources */ = {isa = PBXBuildFile; fileRef = AA8B1E691EF99D531191BC78 /* PubSub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-
-		785CF0ED224E31269FBEDFFD /* ExpectSuccess.kt in Sources */ = {isa = PBXBuildFile; fileRef = 0230500DE2A801A811C854FA /* ExpectSuccess.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		854B26E3B1E2FF397AE1154A /* Sponsor.kt in Sources */ = {isa = PBXBuildFile; fileRef = 3BF88428C95993F5196D8BB2 /* Sponsor.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		8CCB6E6FBBDE4456FDAC6248 /* DateHelpers.kt in Sources */ = {isa = PBXBuildFile; fileRef = AC1E58A8A1E85420519CBD6F /* DateHelpers.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */ = {isa = PBXBuildFile; fileRef = D89833A54AB00BC23091E619 /* Functions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		962974E75078C2E7FBE580BC /* DateAdapter.kt in Sources */ = {isa = PBXBuildFile; fileRef = B7FBB68DD89A5CA80DD37542 /* DateAdapter.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		AAF80D1F28A81A39404519A8 /* BasePub.kt in Sources */ = {isa = PBXBuildFile; fileRef = B25E757FC7166B4499CF4E36 /* BasePub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		B3320598655AFC63A7CC608D /* AboutModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 67E628C6476781BDD645A000 /* AboutModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-
 		75B75B003E6700DC2833D030 /* NotificationsJVM.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6DA0EFBE561CD035FB9B2 /* NotificationsJVM.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		785CF0ED224E31269FBEDFFD /* ExpectSuccess.kt in Sources */ = {isa = PBXBuildFile; fileRef = 0230500DE2A801A811C854FA /* ExpectSuccess.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		854B26E3B1E2FF397AE1154A /* Sponsor.kt in Sources */ = {isa = PBXBuildFile; fileRef = 3BF88428C95993F5196D8BB2 /* Sponsor.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -95,10 +82,7 @@
 		E186F527F790D23F182BCEFB /* Extensions.kt in Sources */ = {isa = PBXBuildFile; fileRef = 6606AA52E5A814F0F286D046 /* Extensions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E3B6400B2B1104410AC16605 /* EventModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 54A477CAF63691B9D7FF26DE /* EventModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E54EE7DAFB9F33D15E11C2A1 /* ScheduleViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 39777FAE65B310A22CAD1D10 /* ScheduleViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		F16A0D87226A4DD000199DF3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */; };
-		F16A0D89226A513100199DF3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */; };
-		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		FE7B22AB48874F7140F42B10 /* Coroutines.kt in Sources */ = {isa = PBXBuildFile; fileRef = CF10C231D1475A2DC849C81B /* Coroutines.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
+		F10566B22279DB2E009E5B24 /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
 		F111E60D22569ED1000B3F3D /* FeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F111E60C22569ED1000B3F3D /* FeedbackView.xib */; };
 		F111E60F2256A276000B3F3D /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E60E2256A276000B3F3D /* FeedbackView.swift */; };
 		F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */; };
@@ -107,8 +91,12 @@
 		F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */; };
 		F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */; };
 		F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */; };
+		F16A0D87226A4DD000199DF3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */; };
+		F16A0D89226A513100199DF3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */; };
+		F1ADB9282278E59C007BAF5B /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */; };
 		F698E4A89CECD079D75F8997 /* SponsorViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 037212D4434537622C53ECF0 /* SponsorViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
+		FE7B22AB48874F7140F42B10 /* (null) in Sources */ = {isa = PBXBuildFile; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,7 +129,6 @@
 		5441AE901CA6DD9C25CF47C4 /* StaticFiles.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = StaticFiles.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/StaticFiles.kt; sourceTree = "<group>"; };
 		54A477CAF63691B9D7FF26DE /* EventModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/EventModel.kt; sourceTree = "<group>"; };
 		577E294E998BF75EDD701F35 /* MainThreadPubSub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MainThreadPubSub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/architecture/MainThreadPubSub.kt; sourceTree = "<group>"; };
-		6349D7392201027500559B51 /* main.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = main.framework; path = "../sessionize/lib/build/xcode-frameworks/main.framework"; sourceTree = "<group>"; };
 		6356313720DC58F600BCCDF9 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6356313A20DC58F600BCCDF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6356314120DC58F700BCCDF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -203,9 +190,6 @@
 		C351C93850E84268E8BCF7D3 /* File.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = File.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/File.kt; sourceTree = "<group>"; };
 		D89833A54AB00BC23091E619 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
 		E04CC97704F132875703ACD3 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9D0970290E8B09CD71F3AD6 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
-		F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		E2C1C70469586CA24B48DF4B /* MainConcurrent.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MainConcurrent.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/MainConcurrent.kt; sourceTree = "<group>"; };
 		E3BBF73ECE74E4DCB9CA323E /* ServiceRegistry.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ServiceRegistry.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/ServiceRegistry.kt; sourceTree = "<group>"; };
 		E9D0970290E8B09CD71F3AD6 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
@@ -218,6 +202,9 @@
 		F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_black_48dp.png; path = images/baseline_sentiment_satisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_very_dissatisfied_black_48dp.png; path = images/baseline_sentiment_very_dissatisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_alt_black_48dp.png; path = images/baseline_sentiment_satisfied_alt_black_48dp.png; sourceTree = "<group>"; };
+		F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		F3268F03C19C8685393B8DDA /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -227,7 +214,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFCC38925068884E4B4DAD4E /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,7 +221,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D496704C2242808600F276DF /* test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,202 +228,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D46A4854224A813900B1D60C /* test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0713EEB1311E853CB1544AEE /* sessionize */ = {
-			isa = PBXGroup;
-			children = (
-				95AC9D99D9ABB8E2E8EF3F73 /* platform */,
-			);
-			name = sessionize;
-			sourceTree = "<group>";
-		};
-		08D93D7FAE38FBFEDDF52A71 /* co */ = {
-			isa = PBXGroup;
-			children = (
-				5EAAE4556E22AA33A533BAC4 /* touchlab */,
-			);
-			name = co;
-			sourceTree = "<group>";
-		};
-		0EF9B9B9CC12BD70DAA41F30 /* co */ = {
-			isa = PBXGroup;
-			children = (
-				C036AA0C18796156999A9F2E /* touchlab */,
-			);
-			name = co;
-			sourceTree = "<group>";
-		};
-		13E213656269FC48CCFE4095 /* touchlab */ = {
-			isa = PBXGroup;
-			children = (
-				ED2381F16F533C7404393272 /* sessionize */,
-			);
-			name = touchlab;
-			sourceTree = "<group>";
-		};
-		1CC0FE3CF7974E226B9A6209 /* drawable */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = drawable;
-			sourceTree = "<group>";
-		};
-		248193079D1E1BDE5C7CFAA5 /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				E9D0970290E8B09CD71F3AD6 /* Functions.kt */,
-				64FEE71709E0EFB6E2135781 /* DateHelpers.kt */,
-				6817CD091AE278F0A1077385 /* Notifications.kt */,
-				8673736A19BE2116F72DE852 /* Concurrent.kt */,
-				E2C1C70469586CA24B48DF4B /* MainConcurrent.kt */,
-			);
-			name = platform;
-			sourceTree = "<group>";
-		};
-		269F3450B76A83073615C974 /* co */ = {
-			isa = PBXGroup;
-			children = (
-				C17498015BD86E323ECA3128 /* touchlab */,
-			);
-			name = co;
-			sourceTree = "<group>";
-		};
-		2920D058886FAF5A7C919788 /* sessionize */ = {
-			isa = PBXGroup;
-			children = (
-				4ACF72894BB6E48248D46247 /* EventViewModel.kt */,
-				8C40677B832A85589CF8C635 /* SpeakerViewModel.kt */,
-				AAD7048F02A50E404F32377A /* platform */,
-				39777FAE65B310A22CAD1D10 /* ScheduleViewModel.kt */,
-				037212D4434537622C53ECF0 /* SponsorViewModel.kt */,
-			);
-			name = sessionize;
-			sourceTree = "<group>";
-		};
-		2EA4080D72E3556A58D883C6 /* commonTest */ = {
-			isa = PBXGroup;
-			children = (
-				8EB595FF3169053B305B8823 /* kotlin */,
-			);
-			name = commonTest;
-			sourceTree = "<group>";
-		};
-		321E26AA0D8C71A533EC16D0 /* jsondata */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = jsondata;
-			sourceTree = "<group>";
-		};
-		3AE622C0EBDA26DBAB9612DC /* co */ = {
-			isa = PBXGroup;
-			children = (
-				13E213656269FC48CCFE4095 /* touchlab */,
-			);
-			name = co;
-			sourceTree = "<group>";
-		};
-		3C4BA955046DF413A973B0EC /* platform */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = platform;
-			sourceTree = "<group>";
-		};
-		3D759FF34975823CAFEA1C26 /* res */ = {
-			isa = PBXGroup;
-			children = (
-				D704FE5DD10CBDF8E73916B1 /* values */,
-				1CC0FE3CF7974E226B9A6209 /* drawable */,
-				8F8A9005F370E5A679E288DC /* drawable-xhdpi */,
-				4045CCDF922399BA21C6F4ED /* drawable-xxhdpi */,
-				9A406D83B44B21BE7E1116E6 /* drawable-hdpi */,
-				CB458FAEC8EECE9407701A42 /* drawable-mdpi */,
-				F7A3238DBCDA34CCFEB01E85 /* drawable-xxxhdpi */,
-			);
-			name = res;
-			sourceTree = "<group>";
-		};
-		3FF44FD7BEFD806EA66D3FDE /* co */ = {
-			isa = PBXGroup;
-			children = (
-				EEFC644D6F4A6412FE0876E4 /* touchlab */,
-			);
-			name = co;
-			sourceTree = "<group>";
-		};
-		3FF5730A73C27289A12B8A00 /* kotlin */ = {
-			isa = PBXGroup;
-			children = (
-				3FF44FD7BEFD806EA66D3FDE /* co */,
-			);
-			name = kotlin;
-			sourceTree = "<group>";
-		};
-		4045CCDF922399BA21C6F4ED /* drawable-xxhdpi */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "drawable-xxhdpi";
-			sourceTree = "<group>";
-		};
-		438308AFF07AE8DA62D1653A /* display */ = {
-			isa = PBXGroup;
-			children = (
-				43CFCECCACAE038D1BCCC4AC /* ScheduleFormats.kt */,
-			);
-			name = display;
-			sourceTree = "<group>";
-		};
 		54B4B9682B691272D8F8ED02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D4B1BDD7224244C700F778E6 /* test.framework */,
-				D4B1BDD5224244A100F778E6 /* xcode-frameworks-test */,
 				E04CC97704F132875703ACD3 /* Pods_iosApp.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		55041CD3160D01F866D632B1 /* main */ = {
-			isa = PBXGroup;
-			children = (
-				3D759FF34975823CAFEA1C26 /* res */,
-				BD43221452779E06DD32D0CB /* java */,
-				72FD2412CCB36EA3E09BBD0A /* sqldelight */,
-			);
-			name = main;
-			sourceTree = "<group>";
-		};
-		5E7E57BFF25AB400ABAD737F /* iosMain */ = {
-			isa = PBXGroup;
-			children = (
-				E4ED3086FB3A944F319672C0 /* kotlin */,
-			);
-			name = iosMain;
-			sourceTree = "<group>";
-		};
-		5EAAE4556E22AA33A533BAC4 /* touchlab */ = {
-			isa = PBXGroup;
-			children = (
-				A19FB3FF4D6B339FB443E1ED /* sessionize */,
-			);
-			name = touchlab;
-			sourceTree = "<group>";
-		};
-		5F96E7F26CB0B7BCE5DBDD4C /* jsondata */ = {
-			isa = PBXGroup;
-			children = (
-				3BF88428C95993F5196D8BB2 /* Sponsor.kt */,
-				8D169D9E6F670E9EFFDDD9C0 /* Session.kt */,
-			);
-			name = jsondata;
 			sourceTree = "<group>";
 		};
 		6356312E20DC58F600BCCDF9 = {
@@ -446,10 +247,10 @@
 			children = (
 				6356313920DC58F600BCCDF9 /* iosApp */,
 				6356314E20DC58F800BCCDF9 /* iosAppTests */,
-				D46A484D224A80D200B1D60C /* iosAppKtTests */,
 				6356313820DC58F600BCCDF9 /* Products */,
 				F51C475F4737FE9D915D4236 /* Pods */,
 				54B4B9682B691272D8F8ED02 /* Frameworks */,
+				F1ADB9262278E481007BAF5B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -458,7 +259,6 @@
 			children = (
 				6356313720DC58F600BCCDF9 /* iosApp.app */,
 				6356314B20DC58F800BCCDF9 /* iosAppTests.xctest */,
-				D46A484C224A80D200B1D60C /* iosAppKtTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -571,306 +371,6 @@
 			path = sponsor;
 			sourceTree = "<group>";
 		};
-		65D1FCE1F94E63D2502B6BAC /* kotlin */ = {
-			isa = PBXGroup;
-			children = (
-				08D93D7FAE38FBFEDDF52A71 /* co */,
-			);
-			name = kotlin;
-			sourceTree = "<group>";
-		};
-		6936972A7C144D16E7F80739 /* droidcon */ = {
-			isa = PBXGroup;
-			children = (
-				96169B8DEF80D19F9795CC8C /* db */,
-			);
-			name = droidcon;
-			sourceTree = "<group>";
-		};
-		6D15310956B68433C5F65792 /* co */ = {
-			isa = PBXGroup;
-			children = (
-				CA7E464AD34831A89243A76E /* touchlab */,
-			);
-			name = co;
-			sourceTree = "<group>";
-		};
-		72FD2412CCB36EA3E09BBD0A /* sqldelight */ = {
-			isa = PBXGroup;
-			children = (
-				269F3450B76A83073615C974 /* co */,
-			);
-			name = sqldelight;
-			sourceTree = "<group>";
-		};
-		7657155725CD20EFA25619FD /* androidTest */ = {
-			isa = PBXGroup;
-			children = (
-				65D1FCE1F94E63D2502B6BAC /* kotlin */,
-			);
-			name = androidTest;
-			sourceTree = "<group>";
-		};
-		818EB355F2E478C424154F45 /* commonMain */ = {
-			isa = PBXGroup;
-			children = (
-				FA6A2C8954131451CE942674 /* kotlin */,
-			);
-			name = commonMain;
-			sourceTree = "<group>";
-		};
-		89E2DDB969062CA3DFCBBD46 /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				74194C8ABF96DA5A197F9966 /* TestConcurrent.kt */,
-			);
-			name = platform;
-			sourceTree = "<group>";
-		};
-		8EB595FF3169053B305B8823 /* kotlin */ = {
-			isa = PBXGroup;
-			children = (
-				D0EBB05E3A3C525A1DC47C1A /* co */,
-			);
-			name = kotlin;
-			sourceTree = "<group>";
-		};
-		8F8A9005F370E5A679E288DC /* drawable-xhdpi */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "drawable-xhdpi";
-			sourceTree = "<group>";
-		};
-		95AC9D99D9ABB8E2E8EF3F73 /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				7B8744B848463C09669197DD /* FunctionsJVM.kt */,
-				F3268F03C19C8685393B8DDA /* Coroutines.kt */,
-				F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */,
-				2CD6DA0EFBE561CD035FB9B2 /* NotificationsJVM.kt */,
-			);
-			name = platform;
-			sourceTree = "<group>";
-		};
-		96169B8DEF80D19F9795CC8C /* db */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = db;
-			sourceTree = "<group>";
-		};
-		9A406D83B44B21BE7E1116E6 /* drawable-hdpi */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "drawable-hdpi";
-			sourceTree = "<group>";
-		};
-		9DC83E0B2DBC56B4AC8F41D5 /* db */ = {
-			isa = PBXGroup;
-			children = (
-				6606AA52E5A814F0F286D046 /* Extensions.kt */,
-				B7FBB68DD89A5CA80DD37542 /* DateAdapter.kt */,
-				2584E6485FBEB4999A335565 /* QueryPub.kt */,
-				A7E6E2DC821391803974368E /* SessionizeDbHelper.kt */,
-				6A7A5EED9346D2130AFCDC0A /* SponsorGroupDbItem.kt */,
-			);
-			name = db;
-			sourceTree = "<group>";
-		};
-		A1514EF9C2D76C9C72EAA348 /* api */ = {
-			isa = PBXGroup;
-			children = (
-				0230500DE2A801A811C854FA /* ExpectSuccess.kt */,
-				3D9CDB3FC1326761B377AA74 /* SessionizeApi.kt */,
-				956D6B892731AA292E5B839A /* AnalyticsApi.kt */,
-				6E6D62691C49CBF3F75817DB /* SessionizeApiImpl.kt */,
-			);
-			name = api;
-			sourceTree = "<group>";
-		};
-		A19FB3FF4D6B339FB443E1ED /* sessionize */ = {
-			isa = PBXGroup;
-			children = (
-				08F4E11C17B2120E4BC85DC8 /* TestFunctions.kt */,
-			);
-			name = sessionize;
-			sourceTree = "<group>";
-		};
-		A6D58B25A89554EDA3F9B92F /* iosTest */ = {
-			isa = PBXGroup;
-			children = (
-				3FF5730A73C27289A12B8A00 /* kotlin */,
-			);
-			name = iosTest;
-			sourceTree = "<group>";
-		};
-		AAD7048F02A50E404F32377A /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				C351C93850E84268E8BCF7D3 /* File.kt */,
-				D89833A54AB00BC23091E619 /* Functions.kt */,
-				AC1E58A8A1E85420519CBD6F /* DateHelpers.kt */,
-				2E8B86D35B531B08C191C76D /* Notifications.kt */,
-			);
-			name = platform;
-			sourceTree = "<group>";
-		};
-		ABF4C2803BCE5106842137E2 /* touchlab */ = {
-			isa = PBXGroup;
-			children = (
-				C084BB5970906A3CDF332363 /* sessionize */,
-			);
-			name = touchlab;
-			sourceTree = "<group>";
-		};
-		BD43221452779E06DD32D0CB /* java */ = {
-			isa = PBXGroup;
-			children = (
-				0EF9B9B9CC12BD70DAA41F30 /* co */,
-			);
-			name = java;
-			sourceTree = "<group>";
-		};
-		C036AA0C18796156999A9F2E /* touchlab */ = {
-			isa = PBXGroup;
-			children = (
-				D46A484E224A80D200B1D60C /* iosAppKtTests.swift */,
-				D46A4850224A80D200B1D60C /* Info.plist */,
-			);
-			name = touchlab;
-			sourceTree = "<group>";
-		};
-		C084BB5970906A3CDF332363 /* sessionize */ = {
-			isa = PBXGroup;
-			children = (
-				89E2DDB969062CA3DFCBBD46 /* platform */,
-				321E26AA0D8C71A533EC16D0 /* jsondata */,
-				CEE35AE18F19BA351C50F152 /* api */,
-				EAC50DD7577BDBAECF2A4DB6 /* TestSettings.kt */,
-				5441AE901CA6DD9C25CF47C4 /* StaticFiles.kt */,
-				8DC06B61C3AF3EA119D184ED /* EventModelTest.kt */,
-				A9AFAC7B607FAC746C536621 /* TestFunctions.kt */,
-			);
-			name = sessionize;
-			sourceTree = "<group>";
-		};
-		C17498015BD86E323ECA3128 /* touchlab */ = {
-			isa = PBXGroup;
-			children = (
-				6936972A7C144D16E7F80739 /* droidcon */,
-			);
-			name = touchlab;
-			sourceTree = "<group>";
-		};
-		C9FD78B21EE1C1A75DF44C35 /* Kotlin */ = {
-			isa = PBXGroup;
-			children = (
-				5E7E57BFF25AB400ABAD737F /* iosMain */,
-				818EB355F2E478C424154F45 /* commonMain */,
-				2EA4080D72E3556A58D883C6 /* commonTest */,
-				A6D58B25A89554EDA3F9B92F /* iosTest */,
-				55041CD3160D01F866D632B1 /* main */,
-				7657155725CD20EFA25619FD /* androidTest */,
-			);
-			name = Kotlin;
-			sourceTree = "<group>";
-		};
-		CA7E464AD34831A89243A76E /* touchlab */ = {
-			isa = PBXGroup;
-			children = (
-				2920D058886FAF5A7C919788 /* sessionize */,
-			);
-			name = touchlab;
-			sourceTree = "<group>";
-		};
-		CB458FAEC8EECE9407701A42 /* drawable-mdpi */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "drawable-mdpi";
-			sourceTree = "<group>";
-		};
-		CD61ECE75A5C7F70D808D18D /* sessionize */ = {
-			isa = PBXGroup;
-			children = (
-				3C4BA955046DF413A973B0EC /* platform */,
-				9C72F015F71FB210C0DABE20 /* TestFunctions.kt */,
-			);
-			name = sessionize;
-			sourceTree = "<group>";
-		};
-		CEE35AE18F19BA351C50F152 /* api */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = api;
-			sourceTree = "<group>";
-		};
-		D0EBB05E3A3C525A1DC47C1A /* co */ = {
-			isa = PBXGroup;
-			children = (
-				ABF4C2803BCE5106842137E2 /* touchlab */,
-			);
-			name = co;
-			sourceTree = "<group>";
-		};
-		D704FE5DD10CBDF8E73916B1 /* values */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = values;
-			sourceTree = "<group>";
-		};
-		D981493C6C8146E5ED373DEF /* architecture */ = {
-			isa = PBXGroup;
-			children = (
-				AA8B1E691EF99D531191BC78 /* PubSub.kt */,
-				B25E757FC7166B4499CF4E36 /* BasePub.kt */,
-				577E294E998BF75EDD701F35 /* MainThreadPubSub.kt */,
-			);
-			name = architecture;
-			sourceTree = "<group>";
-		};
-		E4ED3086FB3A944F319672C0 /* kotlin */ = {
-			isa = PBXGroup;
-			children = (
-				6D15310956B68433C5F65792 /* co */,
-			);
-			name = kotlin;
-			sourceTree = "<group>";
-		};
-		ED2381F16F533C7404393272 /* sessionize */ = {
-			isa = PBXGroup;
-			children = (
-				B7B9AFAC0164856080EFB18F /* SpeakerModel.kt */,
-				2520222C14041C690436F852 /* AppContext.kt */,
-				079877B9A5F7CBDE3EF45704 /* SponsorModel.kt */,
-				248193079D1E1BDE5C7CFAA5 /* platform */,
-				67E628C6476781BDD645A000 /* AboutModel.kt */,
-				D981493C6C8146E5ED373DEF /* architecture */,
-				0921D7C2F35438EE4CFBAAA3 /* ScheduleModel.kt */,
-				5F96E7F26CB0B7BCE5DBDD4C /* jsondata */,
-				9DC83E0B2DBC56B4AC8F41D5 /* db */,
-				A80ECBEF2816C5E51A10BCD6 /* BaseModel.kt */,
-				A1514EF9C2D76C9C72EAA348 /* api */,
-				438308AFF07AE8DA62D1653A /* display */,
-				54A477CAF63691B9D7FF26DE /* EventModel.kt */,
-				981CF5B1DAE1FF4F11EC6A85 /* BaseQueryModelView.kt */,
-				E3BBF73ECE74E4DCB9CA323E /* ServiceRegistry.kt */,
-			);
-			name = sessionize;
-			sourceTree = "<group>";
-		};
-		EEFC644D6F4A6412FE0876E4 /* touchlab */ = {
-			isa = PBXGroup;
-			children = (
-				CD61ECE75A5C7F70D808D18D /* sessionize */,
-			);
-			name = touchlab;
-			sourceTree = "<group>";
-		};
 		F111E610225797A3000B3F3D /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
@@ -879,6 +379,7 @@
 				F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */,
 				F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */,
 				F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */,
+				F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -892,6 +393,61 @@
 			path = settings;
 			sourceTree = "<group>";
 		};
+		F1ADB9262278E481007BAF5B /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				4ACF72894BB6E48248D46247 /* EventViewModel.kt */,
+				8C40677B832A85589CF8C635 /* SpeakerViewModel.kt */,
+				C351C93850E84268E8BCF7D3 /* File.kt */,
+				D89833A54AB00BC23091E619 /* Functions.kt */,
+				AC1E58A8A1E85420519CBD6F /* DateHelpers.kt */,
+				39777FAE65B310A22CAD1D10 /* ScheduleViewModel.kt */,
+				B7B9AFAC0164856080EFB18F /* SpeakerModel.kt */,
+				2520222C14041C690436F852 /* AppContext.kt */,
+				079877B9A5F7CBDE3EF45704 /* SponsorModel.kt */,
+				E9D0970290E8B09CD71F3AD6 /* Functions.kt */,
+				64FEE71709E0EFB6E2135781 /* DateHelpers.kt */,
+				67E628C6476781BDD645A000 /* AboutModel.kt */,
+				AA8B1E691EF99D531191BC78 /* PubSub.kt */,
+				B25E757FC7166B4499CF4E36 /* BasePub.kt */,
+				577E294E998BF75EDD701F35 /* MainThreadPubSub.kt */,
+				0921D7C2F35438EE4CFBAAA3 /* ScheduleModel.kt */,
+				3BF88428C95993F5196D8BB2 /* Sponsor.kt */,
+				8D169D9E6F670E9EFFDDD9C0 /* Session.kt */,
+				6606AA52E5A814F0F286D046 /* Extensions.kt */,
+				B7FBB68DD89A5CA80DD37542 /* DateAdapter.kt */,
+				2584E6485FBEB4999A335565 /* QueryPub.kt */,
+				A7E6E2DC821391803974368E /* SessionizeDbHelper.kt */,
+				A80ECBEF2816C5E51A10BCD6 /* BaseModel.kt */,
+				0230500DE2A801A811C854FA /* ExpectSuccess.kt */,
+				3D9CDB3FC1326761B377AA74 /* SessionizeApi.kt */,
+				43CFCECCACAE038D1BCCC4AC /* ScheduleFormats.kt */,
+				54A477CAF63691B9D7FF26DE /* EventModel.kt */,
+				981CF5B1DAE1FF4F11EC6A85 /* BaseQueryModelView.kt */,
+				7B8744B848463C09669197DD /* FunctionsJVM.kt */,
+				F3268F03C19C8685393B8DDA /* Coroutines.kt */,
+				F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */,
+				08F4E11C17B2120E4BC85DC8 /* TestFunctions.kt */,
+				2E8B86D35B531B08C191C76D /* Notifications.kt */,
+				037212D4434537622C53ECF0 /* SponsorViewModel.kt */,
+				E3BBF73ECE74E4DCB9CA323E /* ServiceRegistry.kt */,
+				6817CD091AE278F0A1077385 /* Notifications.kt */,
+				8673736A19BE2116F72DE852 /* Concurrent.kt */,
+				E2C1C70469586CA24B48DF4B /* MainConcurrent.kt */,
+				6A7A5EED9346D2130AFCDC0A /* SponsorGroupDbItem.kt */,
+				956D6B892731AA292E5B839A /* AnalyticsApi.kt */,
+				6E6D62691C49CBF3F75817DB /* SessionizeApiImpl.kt */,
+				EAC50DD7577BDBAECF2A4DB6 /* TestSettings.kt */,
+				5441AE901CA6DD9C25CF47C4 /* StaticFiles.kt */,
+				74194C8ABF96DA5A197F9966 /* TestConcurrent.kt */,
+				8DC06B61C3AF3EA119D184ED /* EventModelTest.kt */,
+				A9AFAC7B607FAC746C536621 /* TestFunctions.kt */,
+				9C72F015F71FB210C0DABE20 /* TestFunctions.kt */,
+				2CD6DA0EFBE561CD035FB9B2 /* NotificationsJVM.kt */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		F51C475F4737FE9D915D4236 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,21 +455,6 @@
 				1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		F7A3238DBCDA34CCFEB01E85 /* drawable-xxxhdpi */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "drawable-xxxhdpi";
-			sourceTree = "<group>";
-		};
-		FA6A2C8954131451CE942674 /* kotlin */ = {
-			isa = PBXGroup;
-			children = (
-				3AE622C0EBDA26DBAB9612DC /* co */,
-			);
-			name = kotlin;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -972,7 +513,6 @@
 			);
 			name = iosAppKtTests;
 			productName = iosAppKtTests;
-			productReference = D46A484C224A80D200B1D60C /* iosAppKtTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1042,10 +582,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D46A4843224A7E9B00B1D60C /* sponsors.json in Resources */,
-				D46A4844224A7E9B00B1D60C /* speakers.json in Resources */,
-				D46A4845224A7E9B00B1D60C /* schedule.json in Resources */,
-				D46A4846224A7E9B00B1D60C /* about.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1053,10 +589,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D46A4855224A814900B1D60C /* sponsors.json in Resources */,
-				D46A4856224A814900B1D60C /* speakers.json in Resources */,
-				D46A4857224A814900B1D60C /* schedule.json in Resources */,
-				D46A4858224A814900B1D60C /* about.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1173,20 +705,21 @@
 				091B46F35A3E9A9FE7CBA94A /* EventViewModel.kt in Sources */,
 				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
 				304E5637389A73B7652919A2 /* File.kt in Sources */,
-				FE7B22AB48874F7140F42B10 /* Coroutines.kt in Sources */,
+				FE7B22AB48874F7140F42B10 /* (null) in Sources */,
 				90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */,
-
 				F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */,
 				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
 				304E5637389A73B7652919A2 /* File.kt in Sources */,
 				90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */,
 				F111E60F2256A276000B3F3D /* FeedbackView.swift in Sources */,
+				F1ADB9282278E59C007BAF5B /* FeedbackManager.swift in Sources */,
 				8CCB6E6FBBDE4456FDAC6248 /* DateHelpers.kt in Sources */,
 				E54EE7DAFB9F33D15E11C2A1 /* ScheduleViewModel.kt in Sources */,
 				CF4D7CA64E63E82BA1681E20 /* SpeakerModel.kt in Sources */,
 				4A1E56196E45DB28D51B0D77 /* AppContext.kt in Sources */,
 				730C9521F5CDB441D6FD4D02 /* SponsorModel.kt in Sources */,
 				DEEF4AC18B0C6C9B322C3E34 /* Functions.kt in Sources */,
+				F10566B22279DB2E009E5B24 /* NotificationsApiImpl.swift in Sources */,
 				09E8D3D6AF2E031FB00C541F /* DateHelpers.kt in Sources */,
 				B3320598655AFC63A7CC608D /* AboutModel.kt in Sources */,
 				73E01016CA8E1E7238F8241B /* PubSub.kt in Sources */,
@@ -1235,7 +768,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D46A4847224A804200B1D60C /* iosAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1243,7 +775,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D46A484F224A80D200B1D60C /* iosAppKtTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
