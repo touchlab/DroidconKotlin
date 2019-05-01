@@ -104,7 +104,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
                 center.requestAuthorization(options: options) {
                     (granted, error) in
                     NotificationsKt.setNotificationsEnabled(enabled: granted)
-                    _ = onSuccess(granted as! KotlinBoolean)
+                    _ = onSuccess(KotlinBoolean.init(bool: granted))
                 }
             } else if settings.authorizationStatus == .denied {
                 NotificationsKt.setNotificationsEnabled(enabled: false)

@@ -15,12 +15,13 @@ class FeedbackAlertViewController: UIAlertController {
     private var feedbackDialogDelegate:FeedbackDialogDelegate?
 
     
-    convenience init(preferredStyle: UIAlertControllerStyle,sessionid:String?,sessionTitle:String){
+    convenience init(preferredStyle: UIAlertControllerStyle,sessionid:String?,sessionTitle:String, feedbackManager: FeedbackManager){
         self.init(title: nil, message: nil, preferredStyle: preferredStyle)
         
         let customView = FeedbackView.createFeedbackView()
         if let feedbackView = customView {
             feedbackView.setAlertView(alertView: self)
+            feedbackView.setFeedbackManager(fbManager: feedbackManager)
             feedbackView.setSessionInfo(sessionId: sessionid, sessionTitle: sessionTitle)
             self.view.addSubview(feedbackView)
             
