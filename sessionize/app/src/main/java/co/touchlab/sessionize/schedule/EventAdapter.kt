@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.db.isBlock
@@ -81,10 +82,14 @@ class EventAdapter(private val context: Context,
                 RsvpState.Conflict -> {
                     rsvp.setImageResource(R.drawable.rsvp_conflict_vector)
                 }
-                RsvpState.RsvpPast -> {
-                    rsvp.setImageResource(R.drawable.rsvp_past_vector)
-                }
             }
+        }
+
+        override fun setPast(b: Boolean) {
+            val color = if (b) R.color.colorMenuOff else R.color.colorMenu
+                val cardView = itemView.findViewById<CardView>(R.id.card)
+                cardView.setCardBackgroundColor(
+                        ContextCompat.getColor(context, color))
         }
 
         private fun setTimeGap(gap: Boolean) {
