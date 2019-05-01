@@ -64,7 +64,9 @@ class MainApp :Application(){
         AppContext.initAppContext ()
 
         AppContext.dataLoad()
-        ServiceRegistry.notificationsApi.initializeNotifications()
+        ServiceRegistry.notificationsApi.initializeNotifications{success ->
+            if(success) AppContext.createNotificationsForSessions()
+        }
     }
 
     override fun onTerminate() {

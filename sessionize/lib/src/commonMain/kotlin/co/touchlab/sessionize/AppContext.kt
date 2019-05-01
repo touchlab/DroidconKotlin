@@ -148,34 +148,14 @@ object AppContext {
         }
     }
 
-    private fun createNotificationsForSessions() {
+    fun createNotificationsForSessions() {
         if(notificationsEnabled() && (reminderNotificationsEnabled() || feedbackEnabled())) {
             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                if (reminderNotificationsEnabled()) {
-                    mySessions.forEach { session ->
-                        val notificationTime = session.startsAt.toLongMillis() - TEN_MINS_MILLIS
-                        if (notificationTime > currentTimeMillis()) {
-                            ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + session.roomName,
-                                    session.title + " is starting soon.",
-                                    notificationTime,
-                                    session.id.hashCode(),
-                                    notificationReminderTag)
-                        }
-                    }
+                if(reminderNotificationsEnabled()){
+                    ServiceRegistry.notificationsApi.createReminderNotificationsForSessions(mySessions)
                 }
-                // Feedback Notifications
-                if (feedbackEnabled()) {
-                    mySessions.forEach { session ->
-                        if(session.feedbackRating == null) {
-                            val feedbackNotificationTime = session.endsAt.toLongMillis() + TEN_MINS_MILLIS
-                            ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
-                                    " Leave feedback for " + session.title,
-                                    feedbackNotificationTime,
-                                    //Not great. Possible to clash, although super unlikely
-                                    session.id.hashCode(),
-                                    notificationFeedbackTag)
-                        }
-                    }
+                if(feedbackEnabled()){
+                    ServiceRegistry.notificationsApi.createFeedbackNotificationsForSessions(mySessions)
                 }
             }
         }
