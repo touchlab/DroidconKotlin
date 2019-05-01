@@ -1,9 +1,7 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
-import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
 import kotlin.test.BeforeTest
@@ -82,46 +80,4 @@ class SessionizeApiMock : SessionizeApi {
         rsvpCalled = true
         return true
     }
-}
-
-class FeedbackApiMock : FeedbackApi {
-
-    var generatingFeedbackDialog:Boolean = false
-    var feedbackError : FeedbackApi.FeedBackError? = null
-
-
-    private var feedbackModel:FeedbackModel = FeedbackModel()
-
-    fun getFeedbackModel(): FeedbackModel {
-        return feedbackModel
-    }
-    override fun generateFeedbackDialog(session: MyPastSession){
-        generatingFeedbackDialog = true
-        feedbackModel.finishedFeedback("1234",1,"This is a comment")
-    }
-
-    override fun onError(error: FeedbackApi.FeedBackError){
-        feedbackError = error
-        }
-  }
-class NotificationsApiMock : NotificationsApi {
-
-    var notificationCalled = false
-    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int){
-        notificationCalled = true;
-    }
-
-    override fun cancelLocalNotification(notificationId: Int){
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun initializeNotifications(){
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun deinitializeNotifications(){
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
-
 }

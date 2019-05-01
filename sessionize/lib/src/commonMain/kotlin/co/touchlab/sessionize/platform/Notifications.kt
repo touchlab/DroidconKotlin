@@ -22,6 +22,10 @@ fun setNotificationsEnabled(enabled: Boolean){
     ServiceRegistry.appSettings[AppContext.LOCAL_NOTIFICATIONS_ENABLED] = enabled
 }
 
+fun setRemindersEnabled(enabled: Boolean){
+    ServiceRegistry.appSettings[AppContext.REMINDERS_ENABLED] = enabled
+}
+
 fun setFeedbackEnabled(enabled: Boolean){
     ServiceRegistry.appSettings[AppContext.FEEDBACK_ENABLED] = enabled
 }

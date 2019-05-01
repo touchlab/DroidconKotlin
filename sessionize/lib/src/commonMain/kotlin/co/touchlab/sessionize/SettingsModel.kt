@@ -7,14 +7,16 @@ import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.feedbackEnabled
 import co.touchlab.sessionize.platform.notificationsEnabled
 import co.touchlab.sessionize.platform.reminderNotificationsEnabled
+import co.touchlab.sessionize.platform.setFeedbackEnabled
+import co.touchlab.sessionize.platform.setRemindersEnabled
 import com.russhwolf.settings.set
 import kotlinx.coroutines.launch
 
 
 class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 
-    fun setRemindersEnabled(enabled:Boolean) = launch {
-        ServiceRegistry.appSettings[REMINDERS_ENABLED] = enabled
+    fun setRemindersSettingEnabled(enabled:Boolean) = launch {
+        setRemindersEnabled(enabled)
 
         if(enabled && !notificationsEnabled()){
             ServiceRegistry.notificationsApi.initializeNotifications{success ->
@@ -24,12 +26,12 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
                 }
             }
         }else{
-            handleFeedbackNotifications(enabled)
+            handleReminderNotifications(enabled)
         }
     }
 
-    fun setFeedbackEnabled(enabled:Boolean) = launch {
-        ServiceRegistry.appSettings[FEEDBACK_ENABLED] = enabled
+    fun setFeedbackSettingEnabled(enabled:Boolean) = launch {
+        setFeedbackEnabled(enabled)
 
         if(enabled && !notificationsEnabled()){
             ServiceRegistry.notificationsApi.initializeNotifications{success ->
