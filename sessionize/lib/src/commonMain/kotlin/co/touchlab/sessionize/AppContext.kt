@@ -4,8 +4,6 @@ import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
-import co.touchlab.sessionize.api.notificationFeedbackTag
-import co.touchlab.sessionize.api.notificationReminderTag
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
@@ -151,20 +149,25 @@ object AppContext {
     fun createNotificationsForSessions() {
         if(notificationsEnabled() && (reminderNotificationsEnabled() || feedbackEnabled())) {
             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                if(reminderNotificationsEnabled()){
-                    ServiceRegistry.notificationsApi.createReminderNotificationsForSessions(mySessions)
-                }
-                if(feedbackEnabled()){
-                    ServiceRegistry.notificationsApi.createFeedbackNotificationsForSessions(mySessions)
-                }
+                ServiceRegistry.notificationsApi.createReminderNotificationsForSessions(mySessions)
+                ServiceRegistry.notificationsApi.createFeedbackNotificationsForSessions(mySessions)
             }
         }
     }
 
-        val <T> ThreadLocalRef<T>.lateValue: T
-        get() = this.value!!
+    fun cancelNotificationsForSessions() {
+        if(!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
+            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+                ServiceRegistry.notificationsApi.cancelReminderNotificationsForSessions(mySessions)
+                ServiceRegistry.notificationsApi.cancelFeedbackNotificationsForSessions(mySessions)
+            }
+        }
+    }
 
-        internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
+    val <T> ThreadLocalRef<T>.lateValue: T
+    get() = this.value!!
+
+    internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
 
 }
 /**
