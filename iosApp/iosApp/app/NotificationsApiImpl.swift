@@ -21,7 +21,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
     
     let notificationDelegate = LocalNotificationDelegate()
     
-    func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32) {
+    func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32, notificationTag: String) {
         let timeDouble = Double(integerLiteral: timeInMS)
         let date = Date.init(timeIntervalSince1970: timeDouble / 1000.0)
         let dateInfo: DateComponents = Calendar.current.dateComponents([.month,.day,.year,.hour, .minute, .second, .timeZone], from: date)
@@ -36,15 +36,16 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         content.body = message
         content.sound = UNNotificationSound.default()
         
-        let notifString = String(notificationId)
+        let notifString = String(notificationId) + notificationTag
         let request = UNNotificationRequest(identifier: notifString, content: content, trigger: trigger)
         center.add(request,withCompletionHandler: nil)
         
     }
     
-    func cancelLocalNotification(notificationId: Int32) {
+    func cancelLocalNotification(notificationId: Int32, notificationTag: String) {
         let center = UNUserNotificationCenter.current()
-        let identifiers = [String(notificationId)]
+        let notifString = String(notificationId) + notificationTag
+        let identifiers = [notifString]
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
         center.removeDeliveredNotifications(withIdentifiers: identifiers)
     }
