@@ -17,6 +17,7 @@ import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSThread
+import platform.Foundation.NSDate
 import platform.Foundation.NSUUID
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.timeIntervalSince1970
@@ -27,7 +28,6 @@ import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
 import kotlin.native.concurrent.attach
 import kotlin.native.concurrent.freeze
-import kotlin.system.getTimeMillis
 
 actual fun currentTimeMillis(): Long = (NSDate().timeIntervalSince1970 * 1000).toLong()
 
