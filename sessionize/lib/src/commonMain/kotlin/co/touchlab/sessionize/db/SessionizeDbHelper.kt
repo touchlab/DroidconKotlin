@@ -20,12 +20,12 @@ class SessionizeDbHelper {
 
     private val driverRef = AtomicReference<SqlDriver?>(null)
     private val dbRef = AtomicReference<DroidconDb?>(null)
-    private val sessionDateAdapter = DateAdapter()
+    private val sessionDateAdapter = DateAdapter(ServiceRegistry.getTimeZoneString())
 
     fun initDatabase(sqlDriver: SqlDriver) {
         driverRef.value = sqlDriver.freeze()
         dbRef.value = DroidconDb(sqlDriver, Session.Adapter(
-                startsAtAdapter = DateAdapter(), endsAtAdapter = DateAdapter()
+                startsAtAdapter = DateAdapter(ServiceRegistry.getTimeZoneString()), endsAtAdapter = DateAdapter(ServiceRegistry.getTimeZoneString())
         )).freeze()
     }
 
@@ -116,7 +116,6 @@ class SessionizeDbHelper {
             newIdSet.add(session.id)
 
             val dbSession = instance.sessionQueries.sessionById(session.id).executeAsOneOrNull()
-
 
             val startsAt = session.startsAt!! + ServiceRegistry.timeZone
             val endsAt = session.endsAt!! + ServiceRegistry.timeZone

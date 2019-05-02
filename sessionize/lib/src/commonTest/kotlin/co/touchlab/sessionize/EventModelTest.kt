@@ -67,8 +67,7 @@ abstract class EventModelTest {
 
         val timeStrWithZone = timeStr + timeZone
 
-        val dateAdapter = DateAdapter()
-        dateAdapter.setTimeZone("GMT$timeZone")
+        val dateAdapter = DateAdapter("GMT$timeZone")
         val timeDate = dateAdapter.decode(timeStrWithZone)
         val newTimeStr = dateAdapter.encode(timeDate)
 
@@ -85,8 +84,7 @@ abstract class EventModelTest {
 
         val timeStrWithZone = timeStr + timeZonePST
 
-        val dateAdapter = DateAdapter()
-        dateAdapter.setTimeZone("GMT$timeZonePST")
+        val dateAdapter = DateAdapter("GMT$timeZonePST")
         val timeDate = dateAdapter.decode(timeStrWithZone)
         val newTimeStr = dateAdapter.encode(timeDate)
 
