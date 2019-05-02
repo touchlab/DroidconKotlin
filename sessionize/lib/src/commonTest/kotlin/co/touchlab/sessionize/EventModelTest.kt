@@ -4,6 +4,9 @@ import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.api.FeedbackApi
+import co.touchlab.sessionize.api.NotificationsApi
+import co.touchlab.sessionize.db.DateAdapter
+import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
 import kotlin.test.BeforeTest
@@ -17,10 +20,12 @@ abstract class EventModelTest {
     private val notificationsApiMock = NotificationsApiMock()
     private val feedbackApiMock = FeedbackApiMock()
 
+    private val timeZone = "-0400"
+
     @BeforeTest
     fun setup() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), TestConcurrent, sessionizeApiMock, analyticsApiMock, notificationsApiMock, "-0400")
+                Dispatchers.Main, TestSettings(), TestConcurrent, sessionizeApiMock, analyticsApiMock, notificationsApiMock, timeZone)
 
         ServiceRegistry.initLambdas({filePrefix, fileType ->
             when(filePrefix){
@@ -53,6 +58,40 @@ abstract class EventModelTest {
         fbModel.showFeedbackForPastSessions(feedbackApiMock)
 
         assertTrue { feedbackApiMock.feedbackError != null }
+    }
+
+    @Test
+    fun testEDTTimeZoneCorrect(){
+        val timeStr = "2019-04-12T08:00:00"
+        val correctMillis = 1555070400000
+
+        val timeStrWithZone = timeStr + timeZone
+
+        val dateAdapter = DateAdapter()
+        dateAdapter.setTimeZone("GMT$timeZone")
+        val timeDate = dateAdapter.decode(timeStrWithZone)
+        val newTimeStr = dateAdapter.encode(timeDate)
+
+        assertTrue { newTimeStr == timeStrWithZone }
+        assertTrue { timeDate.toLongMillis() == correctMillis }
+    }
+
+    @Test
+    fun testTimeZoneIncorrect(){
+        // Using Japanese Time Zone because they don't use daylight savings time
+        var timeZonePST = "+0900"
+        val timeStr = "2019-04-12T08:00:00"
+        val correctMillis = 1555070400000
+
+        val timeStrWithZone = timeStr + timeZonePST
+
+        val dateAdapter = DateAdapter()
+        dateAdapter.setTimeZone("GMT$timeZonePST")
+        val timeDate = dateAdapter.decode(timeStrWithZone)
+        val newTimeStr = dateAdapter.encode(timeDate)
+
+        assertTrue { newTimeStr == timeStrWithZone }
+        assertTrue { timeDate.toLongMillis() != correctMillis }
     }
 }
 
@@ -106,13 +145,14 @@ class FeedbackApiMock : FeedbackApi {
   }
 class NotificationsApiMock : NotificationsApi {
 
+
     var notificationCalled = false
-    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int){
-        notificationCalled = true;
+
+    override fun createLocalNotification(title: String, message: String, timeInMS: Long, notificationId: Int, notificationTag: String) {
+        notificationCalled = true
     }
 
-    override fun cancelLocalNotification(notificationId: Int){
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun cancelLocalNotification(notificationId: Int, notificationTag: String) {
     }
 
     override fun initializeNotifications(){
@@ -123,5 +163,3 @@ class NotificationsApiMock : NotificationsApi {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
-
-}
