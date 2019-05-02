@@ -43,6 +43,19 @@ Clone, and at the base, run:
 ./gradlew build
 ```
 
+## Time Zone
+
+The time zone of the conference can be changed for both the Android and iOS applications. The time zone is formatted in the offset format, for example for EDT you would set the variable as "-0400".
+
+In Android, you can find the variable in the apps build.gradle. 
+
+```
+buildConfigField "String", "TIME_ZONE", "\"-0400\""
+```
+
+In iOS you can find the variable in the projects info.plist, under Time Zone.
+
+
 ## Intellij or Android Studio
 
 You can use any recent version of Intellij (2018.3+) or Android Studio 3.3+. You should be able to open the
