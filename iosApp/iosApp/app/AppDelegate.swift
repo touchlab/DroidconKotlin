@@ -23,7 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
         let serviceRegistry = ServiceRegistry()
         serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
-      
+        
+        
+        let timeZone = Bundle.main.object(forInfoDictionaryKey: "TimeZone") as! String
         serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
                                                 coroutineDispatcher: UI(),
                                                 settings: FunctionsKt.defaultSettings(),
@@ -31,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 sessionizeApi: SessionizeApiImpl(),
                                                 analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
                                                 notificationsApi: NotificationsApiImpl(),
-                                                timeZone: "-0400")
+                                                timeZone: timeZone)
 
         let appContext = AppContext()
         

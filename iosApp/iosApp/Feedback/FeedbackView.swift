@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import main
+import lib
 
 protocol FeedbackDialogDelegate{
     func finishedFeedback(sessionId:String, rating:Int, comment: String)

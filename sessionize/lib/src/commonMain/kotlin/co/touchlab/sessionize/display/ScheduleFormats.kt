@@ -1,6 +1,7 @@
 package co.touchlab.sessionize.display
 
 import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.platform.DateFormatHelper
@@ -89,6 +90,7 @@ fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<H
 
     for (timeBlock in eventAndBlockList) {
         val startDateObj = timeBlock.startsAt
+        TAB_DATE_FORMAT.setTimeZone(ServiceRegistry.getTimeZoneString())
         val startDate = TAB_DATE_FORMAT.format(startDateObj)
         var blockHourList: ArrayList<HourBlock>? = dateWithBlocksTreeMap.get(startDate)
         if (blockHourList == null) {
@@ -96,6 +98,7 @@ fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<H
             dateWithBlocksTreeMap.put(startDate, blockHourList)
         }
 
+        TIME_FORMAT.setTimeZone(ServiceRegistry.timeZone)
         val startTime = TIME_FORMAT.format(startDateObj)
         val newHourDisplay = lastHourDisplay != startTime
         blockHourList.add(HourBlock(if (newHourDisplay) startTime else "", timeBlock))

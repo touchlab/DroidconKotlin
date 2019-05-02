@@ -28,7 +28,7 @@ actual class DateFormatHelper actual constructor(format: String) {
             seconds *= -1
         }
 
-        formatter.timeZone = NSTimeZone.timeZoneForSecondsFromGMT(seconds)
+        formatter.timeZone = NSTimeZone.timeZoneForSecondsFromGMT(seconds.toLong())
     }
     actual fun toDate(s: String): Date = Date(formatter.dateFromString(s)!!)
     actual fun format(d: Date): String = formatter.stringFromDate(d.iosDate)
