@@ -17,7 +17,9 @@ class FeedbackModel {
 
     fun requestNextFeedback(){
         backgroundTask({
-            AppContext.sessionQueries.myPastSession().executeAsOneOrNull()
+            if(feedbackEnabled()) {
+                AppContext.sessionQueries.myPastSession().executeAsOneOrNull()
+            }else null
         },{
 
             it?.let {pastSession ->
