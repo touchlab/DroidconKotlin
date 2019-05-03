@@ -25,7 +25,7 @@ import lib
     
     
     func setTimeGap(b: Bool) {
-        cardBackgroundToTopConstraint.constant = b ? 4 : 0
+        cardBackgroundToTopConstraint.constant = b ? 6 : 0
     }
     
     func setTitleText(s: String) {
@@ -75,6 +75,7 @@ import lib
         setSpeakerText(s: hourBlock.speakerText)
         setDescription(s: hourBlock.timeBlock.description)
         setRsvpState(state: hourBlock.getRsvpState(allEvents: allEvents, allBlocks: allBlocks))
+        setPast(b: hourBlock.isPast())
         setTimeGap(b: hourBlock.timeGap)
     }
     

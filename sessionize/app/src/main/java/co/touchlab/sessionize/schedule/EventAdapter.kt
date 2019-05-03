@@ -61,6 +61,7 @@ class EventAdapter(private val context: Context,
             speaker.text = scheduleBlockHour.speakerText
             description.text = scheduleBlockHour.timeBlock.description
             setRsvpState(scheduleBlockHour.getRsvpState(allEvents, dataSet))
+            setPast(scheduleBlockHour.isPast())
             setTimeGap(scheduleBlockHour.timeGap)
 
             if (!scheduleBlockHour.timeBlock.isBlock()) {
@@ -82,14 +83,17 @@ class EventAdapter(private val context: Context,
                 RsvpState.Conflict -> {
                     rsvp.setImageResource(R.drawable.rsvp_conflict_vector)
                 }
+                RsvpState.RsvpPast -> {
+                    rsvp.setImageResource(R.drawable.rsvp_past_vector)
+                }
             }
         }
 
-        override fun setPast(b: Boolean) {
+        private fun setPast(b: Boolean) {
             val color = if (b) R.color.colorMenuOff else R.color.colorMenu
-                val cardView = itemView.findViewById<CardView>(R.id.card)
-                cardView.setCardBackgroundColor(
-                        ContextCompat.getColor(context, color))
+            val cardView = itemView.findViewById<CardView>(R.id.card)
+            cardView.setCardBackgroundColor(
+                    ContextCompat.getColor(context, color))
         }
 
         private fun setTimeGap(gap: Boolean) {
