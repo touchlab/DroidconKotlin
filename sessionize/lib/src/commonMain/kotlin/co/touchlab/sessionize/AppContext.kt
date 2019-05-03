@@ -8,6 +8,10 @@ import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.backToFront
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.cancelFeedbackNotificationsForSessions
+import co.touchlab.sessionize.platform.cancelReminderNotificationsForSessions
+import co.touchlab.sessionize.platform.createFeedbackNotificationsForSessions
+import co.touchlab.sessionize.platform.createReminderNotificationsForSessions
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.feedbackEnabled
@@ -155,8 +159,8 @@ object AppContext {
     fun createNotificationsForSessions() {
         if(notificationsEnabled() && (reminderNotificationsEnabled() || feedbackEnabled())) {
             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                ServiceRegistry.notificationsApi.createReminderNotificationsForSessions(mySessions)
-                ServiceRegistry.notificationsApi.createFeedbackNotificationsForSessions(mySessions)
+                createReminderNotificationsForSessions(mySessions)
+                createFeedbackNotificationsForSessions(mySessions)
             }
         }
     }
@@ -164,8 +168,8 @@ object AppContext {
     fun cancelNotificationsForSessions() {
         if(!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                ServiceRegistry.notificationsApi.cancelReminderNotificationsForSessions(mySessions)
-                ServiceRegistry.notificationsApi.cancelFeedbackNotificationsForSessions(mySessions)
+                cancelReminderNotificationsForSessions(mySessions)
+                cancelFeedbackNotificationsForSessions(mySessions)
             }
         }
     }

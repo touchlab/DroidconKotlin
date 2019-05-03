@@ -4,6 +4,10 @@ import co.touchlab.sessionize.AppContext.FEEDBACK_ENABLED
 import co.touchlab.sessionize.AppContext.REMINDERS_ENABLED
 import co.touchlab.sessionize.AppContext.sessionQueries
 import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.cancelFeedbackNotificationsForSessions
+import co.touchlab.sessionize.platform.cancelReminderNotificationsForSessions
+import co.touchlab.sessionize.platform.createFeedbackNotificationsForSessions
+import co.touchlab.sessionize.platform.createReminderNotificationsForSessions
 import co.touchlab.sessionize.platform.feedbackEnabled
 import co.touchlab.sessionize.platform.notificationsEnabled
 import co.touchlab.sessionize.platform.reminderNotificationsEnabled
@@ -48,9 +52,9 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private fun handleReminderNotifications(create:Boolean){
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             if(create){
-                ServiceRegistry.notificationsApi.createReminderNotificationsForSessions(mySessions)
+                createReminderNotificationsForSessions(mySessions)
             }else{
-                ServiceRegistry.notificationsApi.cancelReminderNotificationsForSessions(mySessions)
+                cancelReminderNotificationsForSessions(mySessions)
             }
         }
     }
@@ -58,9 +62,9 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private fun handleFeedbackNotifications(create:Boolean){
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             if(create){
-                ServiceRegistry.notificationsApi.createFeedbackNotificationsForSessions(mySessions)
+                createFeedbackNotificationsForSessions(mySessions)
             }else {
-                ServiceRegistry.notificationsApi.cancelFeedbackNotificationsForSessions(mySessions)
+                cancelFeedbackNotificationsForSessions(mySessions)
             }
         }
     }

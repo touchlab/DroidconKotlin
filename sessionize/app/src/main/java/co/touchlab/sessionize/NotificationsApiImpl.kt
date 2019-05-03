@@ -14,69 +14,14 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
-import co.touchlab.droidcon.db.MySessions
 import co.touchlab.sessionize.api.NotificationsApi
-import co.touchlab.sessionize.api.notificationFeedbackTag
-import co.touchlab.sessionize.api.notificationReminderTag
 import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.AndroidAppContext.backgroundTask
-import co.touchlab.sessionize.platform.currentTimeMillis
-import co.touchlab.sessionize.platform.feedbackEnabled
-import co.touchlab.sessionize.platform.notificationsEnabled
-import co.touchlab.sessionize.platform.reminderNotificationsEnabled
 import co.touchlab.sessionize.platform.setNotificationsEnabled
 
 
 class NotificationsApiImpl : NotificationsApi {
 
     private val notificationPublisher: BroadcastReceiver = NotificationPublisher()
-
-    override fun createReminderNotificationsForSessions(sessions:List<MySessions>){
-        if(reminderNotificationsEnabled() && notificationsEnabled()) {
-            sessions.forEach { session ->
-                val notificationTime = session.startsAt.toLongMillis() - AppContext.TEN_MINS_MILLIS
-                if (notificationTime > currentTimeMillis()) {
-                    createLocalNotification("Upcoming Event in " + session.roomName,
-                            session.title + " is starting soon.",
-                            notificationTime,
-                            session.id.hashCode(),
-                            notificationReminderTag)
-                }
-            }
-        }
-    }
-
-    override fun createFeedbackNotificationsForSessions(sessions:List<MySessions>){
-        if (feedbackEnabled() && notificationsEnabled()) {
-            sessions.forEach { session ->
-                if(session.feedbackRating == null) {
-                    val feedbackNotificationTime = session.endsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS
-                    createLocalNotification("How was the session?",
-                            " Leave feedback for " + session.title,
-                            feedbackNotificationTime,
-                            //Not great. Possible to clash, although super unlikely
-                            session.id.hashCode(),
-                            notificationFeedbackTag)
-                }
-            }
-        }
-    }
-
-    override fun cancelReminderNotificationsForSessions(sessions:List<MySessions>){
-        if(!reminderNotificationsEnabled() || !notificationsEnabled()) {
-            sessions.forEach { session ->
-                cancelLocalNotification(session.id.hashCode(), notificationReminderTag)
-            }
-        }
-    }
-
-    override fun cancelFeedbackNotificationsForSessions(sessions:List<MySessions>){
-        if(!feedbackEnabled() || !notificationsEnabled()) {
-            sessions.forEach { session ->
-                cancelLocalNotification(session.id.hashCode(), notificationFeedbackTag)
-            }
-        }
-    }
 
     override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag: String) {
         // Building Notification
