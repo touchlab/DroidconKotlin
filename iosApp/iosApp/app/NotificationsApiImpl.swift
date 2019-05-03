@@ -105,15 +105,21 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
                 let options: UNAuthorizationOptions = [.alert, .sound];
                 center.requestAuthorization(options: options) {
                     (granted, error) in
-                    NotificationsKt.setNotificationsEnabled(enabled: granted)
-                    _ = onSuccess(KotlinBoolean.init(bool: granted))
+                    DispatchQueue.main.async {
+                        NotificationsKt.setNotificationsEnabled(enabled: granted)
+                        _ = onSuccess(KotlinBoolean.init(bool: granted))
+                    }
                 }
             } else if settings.authorizationStatus == .denied {
-                NotificationsKt.setNotificationsEnabled(enabled: false)
-                _ = onSuccess(false)
+                DispatchQueue.main.async {
+                    NotificationsKt.setNotificationsEnabled(enabled: false)
+                    _ = onSuccess(false)
+                }
             } else if settings.authorizationStatus == .authorized {
-                NotificationsKt.setNotificationsEnabled(enabled: true)
-                _ = onSuccess(true)
+                DispatchQueue.main.async {
+                    NotificationsKt.setNotificationsEnabled(enabled: true)
+                    _ = onSuccess(true)
+                }
             }
         })
     }

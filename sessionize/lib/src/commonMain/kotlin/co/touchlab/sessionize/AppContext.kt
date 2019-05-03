@@ -40,11 +40,7 @@ object AppContext {
         dbHelper.initDatabase(ServiceRegistry.dbDriver)
 
         ServiceRegistry.notificationsApi.initializeNotifications{success ->
-
-            backToFront({success},{
-                if(it) createNotificationsForSessions() else cancelNotificationsForSessions()
-            })
-
+            if(success) createNotificationsForSessions() else cancelNotificationsForSessions()
         }
     }
 
