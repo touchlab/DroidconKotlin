@@ -5,12 +5,14 @@ import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.platform.backToFront
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.feedbackEnabled
 import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.mainThread
 import co.touchlab.sessionize.platform.notificationsEnabled
 import co.touchlab.sessionize.platform.reminderNotificationsEnabled
 import co.touchlab.stately.concurrency.ThreadLocalRef
@@ -36,6 +38,14 @@ object AppContext {
 
     fun initAppContext() {
         dbHelper.initDatabase(ServiceRegistry.dbDriver)
+
+        ServiceRegistry.notificationsApi.initializeNotifications{success ->
+
+            backToFront({success},{
+                if(it) createNotificationsForSessions() else cancelNotificationsForSessions()
+            })
+
+        }
     }
 
     internal val sessionQueries: SessionQueries

@@ -61,12 +61,8 @@ class MainApp :Application(){
                 BuildConfig.TIME_ZONE
         )
 
-        AppContext.initAppContext ()
-
+        AppContext.initAppContext()
         AppContext.dataLoad()
-        ServiceRegistry.notificationsApi.initializeNotifications{success ->
-            if(success) AppContext.createNotificationsForSessions()
-        }
     }
 
     override fun onTerminate() {
