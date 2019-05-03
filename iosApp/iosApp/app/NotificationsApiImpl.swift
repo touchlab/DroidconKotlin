@@ -22,54 +22,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
     }
     
     let notificationDelegate = LocalNotificationDelegate()
-    
-    
-    func createReminderNotificationsForSessions(sessions: [MySessions]) {
-        if(NotificationsKt.reminderNotificationsEnabled() && NotificationsKt.notificationsEnabled()) {
-            for session in sessions {
-                let notificationTime = session.startsAt.toLongMillis() - Int64(AppContext().TEN_MINS_MILLIS)
-                if (notificationTime > FunctionsKt.currentTimeMillis()) {
-                    createLocalNotification(title: "Upcoming Event in " + session.roomName,
-                                            message: session.title + " is starting soon.",
-                                            timeInMS: notificationTime,
-                                            notificationId: Int32(session.id)!,
-                                            notificationTag: NotificationsApiKt.notificationReminderTag)
-                }
-            }
-        }
-    }
-    
-    func createFeedbackNotificationsForSessions(sessions: [MySessions]) {
-        if(NotificationsKt.feedbackEnabled() && NotificationsKt.notificationsEnabled()) {
-            for session in sessions {
-                if(session.feedbackRating == nil) {
-                    let feedbackNotificationTime = session.endsAt.toLongMillis() + Int64(AppContext().TEN_MINS_MILLIS)
-                    createLocalNotification(title: "How was the session?",
-                                            message: " Leave feedback for " + session.title,
-                                            timeInMS: feedbackNotificationTime,
-                                            notificationId: Int32(session.id)!,
-                                            notificationTag: NotificationsApiKt.notificationFeedbackTag)
-                }
-            }
-        }
-    }
-    
-    func cancelReminderNotificationsForSessions(sessions: [MySessions]) {
-        if(!NotificationsKt.reminderNotificationsEnabled() || !NotificationsKt.notificationsEnabled()) {
-            for session in sessions {
-                cancelLocalNotification(notificationId: Int32(session.id)!, notificationTag: NotificationsApiKt.notificationReminderTag)
-            }
-        }
-    }
-    
-    func cancelFeedbackNotificationsForSessions(sessions: [MySessions]) {
-        if(!NotificationsKt.feedbackEnabled() || !NotificationsKt.notificationsEnabled()) {
-            for session in sessions {
-                cancelLocalNotification(notificationId: Int32(session.id)!, notificationTag: NotificationsApiKt.notificationFeedbackTag)
-            }
-        }
-    }
-    
+
     func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32, notificationTag: String) {
         let timeDouble = Double(integerLiteral: timeInMS)
         let date = Date.init(timeIntervalSince1970: timeDouble / 1000.0)
