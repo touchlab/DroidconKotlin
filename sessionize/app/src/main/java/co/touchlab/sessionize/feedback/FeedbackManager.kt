@@ -19,9 +19,7 @@ class FeedbackManager : FeedbackApi {
     }
 
     fun showFeedbackForPastSessions(){
-        if(feedbackEnabled()) {
-            feedbackModel.showFeedbackForPastSessions(this)
-        }
+        feedbackModel.showFeedbackForPastSessions(this)
     }
 
     fun close(){
