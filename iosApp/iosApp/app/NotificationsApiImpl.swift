@@ -42,12 +42,14 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
     func createFeedbackNotificationsForSessions(sessions: [MySessions]) {
         if(NotificationsKt.feedbackEnabled() && NotificationsKt.notificationsEnabled()) {
             for session in sessions {
-                let feedbackNotificationTime = session.endsAt.toLongMillis() + Int64(AppContext().TEN_MINS_MILLIS)
-                createLocalNotification(title: "How was the session?",
-                                        message: " Leave feedback for " + session.title,
-                                        timeInMS: feedbackNotificationTime,
-                                        notificationId: Int32(session.id)!,
-                                        notificationTag: NotificationsApiKt.notificationFeedbackTag)
+                if(session.feedbackRating == nil) {
+                    let feedbackNotificationTime = session.endsAt.toLongMillis() + Int64(AppContext().TEN_MINS_MILLIS)
+                    createLocalNotification(title: "How was the session?",
+                                            message: " Leave feedback for " + session.title,
+                                            timeInMS: feedbackNotificationTime,
+                                            notificationId: Int32(session.id)!,
+                                            notificationTag: NotificationsApiKt.notificationFeedbackTag)
+                }
             }
         }
     }
