@@ -11,6 +11,8 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
+import kotlinx.android.synthetic.main.item_about_info.view.*
+import kotlinx.android.synthetic.main.item_setting_switch.view.*
 
 
 class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -58,26 +60,26 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (EntryType.values()[holder.itemViewType]) {
             EntryType.TYPE_SWITCH -> {
-                val view = (holder as SwitchVH).itemView
+                val view = (holder as SwitchVH)
                 val detail = (data[position] as SwitchDetail)
-                view.findViewById<Switch>(R.id.settingSwitch).text = detail.text.trim()
-                view.findViewById<Switch>(R.id.settingSwitch).isChecked = detail.isChecked
-                view.findViewById<ImageView>(R.id.image).setImageResource(detail.icon)
-                view.findViewById<Switch>(R.id.settingSwitch).setOnCheckedChangeListener(detail.listener)
+                view.switch.text = detail.text.trim()
+                view.switch.isChecked = detail.isChecked
+                view.image.setImageResource(detail.icon)
+                view.switch.setOnCheckedChangeListener(detail.listener)
             }
 
             EntryType.TYPE_BODY -> {
-                val view = (holder as TextVH).itemView
+                val view = (holder as TextVH)
                 val detail = (data[position] as TextDetail)
-                view.findViewById<TextView>(R.id.body).text = detail.text.trim()
-                view.findViewById<ImageView>(R.id.image).setImageResource(detail.icon)
+                view.body.text = detail.text.trim()
+                view.image.setImageResource(detail.icon)
             }
             EntryType.TYPE_BUTTON -> {
-                val view = (holder as ButtonVH).itemView
+                val view = (holder as ButtonVH)
                 val detail = (data[position] as ButtonDetail)
-                view.findViewById<TextView>(R.id.body).text = detail.text.trim()
-                view.findViewById<ImageView>(R.id.image).setImageResource(detail.icon)
-                view.setOnClickListener(detail.listener)
+                view.body.text = detail.text.trim()
+                view.image.setImageResource(detail.icon)
+                view.itemView.setOnClickListener(detail.listener)
             }
         }
     }
@@ -96,11 +98,19 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
 
     inner class TextDetail(type: EntryType, val text: String, val icon: Int) : Detail(type)
     inner class ButtonDetail(type: EntryType, val text: String, val icon: Int, val listener: View.OnClickListener) : Detail(type)
-
     inner class SwitchDetail(type: EntryType, val text: String, val icon: Int, var isChecked: Boolean, var listener:CompoundButton.OnCheckedChangeListener) : Detail(type)
 
-    inner class SwitchVH(val item: View) : RecyclerView.ViewHolder(item)
-    inner class ButtonVH(val item: View) : RecyclerView.ViewHolder(item)
-    inner class TextVH(val item: View) : RecyclerView.ViewHolder(item)
+    inner class SwitchVH(val item: View) : RecyclerView.ViewHolder(item){
+        val switch = item.settingSwitch!!
+        val image = item.image!!
+    }
+    inner class ButtonVH(val item: View) : RecyclerView.ViewHolder(item){
+        val body = item.body!!
+        val image = item.image!!
+    }
+    inner class TextVH(val item: View) : RecyclerView.ViewHolder(item){
+        val body = item.body!!
+        val image = item.image!!
+    }
 
 }
