@@ -41,7 +41,7 @@ class FeedbackAlertViewController: UIAlertController {
     }
     
     func closeWithFeedback(sessionId:String,rating:FeedbackRating, comments: String){
-        feedbackDialogDelegate?.finishedFeedback(sessionId: String(sessionId),rating: rating.hashValue,comment: comments)
+        feedbackDialogDelegate?.finishedFeedback(sessionId: String(sessionId),rating: rating.rawValue,comment: comments)
         close()
     }
     
