@@ -2,14 +2,9 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.sessionize.AppContext.dbHelper
-import co.touchlab.sessionize.db.isBlock
-import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.display.DaySchedule
-import co.touchlab.sessionize.display.HourBlock
 import co.touchlab.sessionize.display.convertMapToDaySchedule
 import co.touchlab.sessionize.display.formatHourBlocks
-import co.touchlab.sessionize.display.isConflict
-import co.touchlab.sessionize.display.isPast
 import co.touchlab.stately.ensureNeverFrozen
 import co.touchlab.stately.freeze
 
@@ -42,66 +37,4 @@ class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<Session
     }
 
     interface ScheduleView : View<List<DaySchedule>>
-
-    fun weaveSessionDetailsUi(hourBlock: HourBlock, allBlocks: List<HourBlock>, row: EventRow, allEvents: Boolean) {
-        val isFirstInBlock = !hourBlock.hourStringDisplay.isEmpty()
-        row.setTimeGap(isFirstInBlock)
-
-        row.setTitleText(hourBlock.timeBlock.title)
-        row.setTimeText(hourBlock.hourStringDisplay)
-        val speakerNames = if (hourBlock.timeBlock.allNames.isNullOrBlank()) {
-            ""
-        } else {
-            hourBlock.timeBlock.allNames!!
-        }
-        row.setSpeakerText(speakerNames)
-        row.setDescription(hourBlock.timeBlock.description)
-        row.setPast(hourBlock.isPast())
-
-        if (hourBlock.timeBlock.isBlock()) {
-            row.setLiveNowVisible(false)
-            row.setRsvpState(RsvpState.None)
-        } else {
-            //TODO: Add live
-            row.setLiveNowVisible(false)
-
-            val rsvpShow = allEvents && hourBlock.timeBlock.isRsvp()
-            val state = if (rsvpShow) {
-                if (hourBlock.isPast()) {
-                    RsvpState.RsvpPast
-                } else {
-                    if (hourBlock.isConflict(allBlocks)) {
-                        RsvpState.Conflict
-                    } else {
-                        RsvpState.Rsvp
-                    }
-                }
-            } else {
-                RsvpState.None
-            }
-            row.setRsvpState(state)
-        }
-    }
-}
-
-enum class RsvpState {
-    None, Rsvp, Conflict, RsvpPast
-}
-
-interface EventRow {
-    fun setTimeGap(b: Boolean)
-
-    fun setTitleText(s: String)
-
-    fun setTimeText(s: String)
-
-    fun setSpeakerText(s: String)
-
-    fun setDescription(s: String)
-
-    fun setLiveNowVisible(b: Boolean)
-
-    fun setRsvpState(state: RsvpState)
-
-    fun setPast(b: Boolean)
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import main
+import lib
 import MaterialComponents
 
 class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelegate, FeedbackDialogDelegate {
@@ -30,10 +30,7 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         MDCBottomNavigationBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.menuColorScheme, toBottomNavigation: bottomNavBar)
         bottomNavBar.unselectedItemTintColor = bottomNavBar.selectedItemTintColor
 //        MDCAppBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.colorScheme, to:bottomNavBar)
-        
-        for session in AppContext().requestMySessionsForFeedback() {
-            showFeedbackAlert(session: session)
-        }
+
     }
     
     
