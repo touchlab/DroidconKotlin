@@ -4,13 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import co.touchlab.droidcon.db.DroidconDb
-import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.MainConcurrent
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
-import com.crashlytics.android.answers.CustomEvent
 import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import io.fabric.sdk.android.Fabric
@@ -23,33 +21,20 @@ class MainApp : Application() {
         Fabric.with(this, Answers())
         Fabric.with(this, Crashlytics())
 
-        ServiceRegistry.initLambdas({ filePrefix, fileType -> loadAsset("${filePrefix}.${fileType}") },
-                { Log.w("MainApp", it) })
+        ServiceRegistry.initLambdas(this::loadAsset) { Log.w("MainApp", it) }
 
-        ServiceRegistry.initServiceRegistry(AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb"), Dispatchers.Main,
-                AndroidSettings.Factory(this).create("DROIDCON_SETTINGS"), MainConcurrent, SessionizeApiImpl,
-                object : AnalyticsApi {
-                    override fun logEvent(name: String, params: Map<String, Any>) {
-                        val event = CustomEvent(name)
-                        for (key in params.keys) {
-                            val obj = params.get(key)
-                            when (obj) {
-                                is String -> event.putCustomAttribute(key, obj)
-                                is Number -> event.putCustomAttribute(key, obj)
-                                else -> {
-                                    throw IllegalArgumentException("Don't know what this is $key/$obj")
-                                }
-                            }
-                        }
-                        Answers.getInstance().logCustom(event)
-                    }
-                },
+        ServiceRegistry.initServiceRegistry(
+                AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb"),
+                Dispatchers.Main,
+                AndroidSettings.Factory(this).create("DROIDCON_SETTINGS"),
+                MainConcurrent,
+                SessionizeApiImpl,
+                AnalyticsApiImpl(),
                 NotificationsApiImpl(),
                 BuildConfig.TIME_ZONE
         )
 
         AppContext.initAppContext()
-
         AppContext.dataLoad()
         ServiceRegistry.notificationsApi.initializeNotifications()
     }
@@ -59,8 +44,8 @@ class MainApp : Application() {
         ServiceRegistry.notificationsApi.deinitializeNotifications()
     }
 
-    private fun loadAsset(name: String) = assets
-            .open(name, Context.MODE_PRIVATE)
-            .bufferedReader()
-            .use { it.readText() }
+    private fun loadAsset(fileName: String, filePrefix: String): String? =
+            assets.open("$fileName.$filePrefix", Context.MODE_PRIVATE)
+                    .bufferedReader()
+                    .use { it.readText() }
 }
