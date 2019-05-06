@@ -19,7 +19,7 @@ abstract class EventModelTest {
     private val notificationsApiMock = NotificationsApiMock()
     private val feedbackApiMock = FeedbackApiMock()
 
-    private val timeZone = "-0400"
+    private val timeZone = "-0800"
 
     @BeforeTest
     fun setup() {
@@ -60,35 +60,18 @@ abstract class EventModelTest {
     }
 
     @Test
-    fun testEDTTimeZoneCorrect(){
+    fun testPSTTimeZoneCorrect(){
         val timeStr = "2019-04-12T08:00:00"
-        val correctMillis = 1555070400000
+        val correctMillis = 1555084800000
 
         val timeStrWithZone = timeStr + timeZone
 
-        val dateAdapter = DateAdapter("GMT$timeZone")
+        val dateAdapter = DateAdapter()
         val timeDate = dateAdapter.decode(timeStrWithZone)
         val newTimeStr = dateAdapter.encode(timeDate)
 
         assertTrue { newTimeStr == timeStrWithZone }
         assertTrue { timeDate.toLongMillis() == correctMillis }
-    }
-
-    @Test
-    fun testTimeZoneIncorrect(){
-        // Using Japanese Time Zone because they don't use daylight savings time
-        var timeZoneJST = "+0900"
-        val timeStr = "2019-04-12T08:00:00"
-        val correctMillis = 1555070400000
-
-        val timeStrWithZone = timeStr + timeZoneJST
-
-        val dateAdapter = DateAdapter("GMT$timeZoneJST")
-        val timeDate = dateAdapter.decode(timeStrWithZone)
-        val newTimeStr = dateAdapter.encode(timeDate)
-
-        assertTrue { newTimeStr == timeStrWithZone }
-        assertTrue { timeDate.toLongMillis() != correctMillis }
     }
 
     @Test
@@ -99,40 +82,13 @@ abstract class EventModelTest {
 
         val timeStrWithZone = timeStr + timeZonePST
 
-        val dateAdapter = DateAdapter("GMT$timeZonePST")
+        val dateAdapter = DateAdapter()
         val timeDate = dateAdapter.decode(timeStrWithZone)
         val newTimeStr = dateAdapter.encode(timeDate)
 
         print(timeDate.toLongMillis())
         assertTrue { newTimeStr == timeStrWithZone }
         assertEquals(timeDate.toLongMillis(), correctMillis,  timeDate.toLongMillis().toString() + " does not equal $correctMillis")
-    }
-
-    @Test
-    fun testTimeZoneConversion(){
-        var timeZonePST = "-0800"
-        val timeStr = "2019-04-12T08:00:00"
-        val correctMillis = 1555084800000
-
-        val timeStrWithZone = timeStr + timeZonePST
-
-        val dateAdapter = DateAdapter("GMT$timeZonePST")
-        val timeDate = dateAdapter.decode(timeStrWithZone)
-        val newTimeStr = dateAdapter.encode(timeDate)
-
-
-        val dateAdapter2 = DateAdapter("GMT$timeZone")
-        val timeDate2 = dateAdapter.decode(newTimeStr)
-        val newTimeStr2:String = dateAdapter2.encode(timeDate2)
-
-        assertTrue { newTimeStr != newTimeStr2 }
-        assertTrue { newTimeStr.contains(timeZonePST) }
-        assertTrue { newTimeStr2.contains(timeZone) }
-        assertEquals(timeDate.toLongMillis(), timeDate2.toLongMillis(),
-                timeDate.toLongMillis().toString() + " does not equal to " + timeDate2.toLongMillis().toString())
-
-        assertEquals(correctMillis, timeDate2.toLongMillis(),
-                correctMillis.toString() + " does not equal to " + timeDate2.toLongMillis().toString())
     }
 }
 

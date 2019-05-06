@@ -5,7 +5,10 @@ expect class Date {
 }
 
 expect class DateFormatHelper(format: String) {
-    fun setTimeZone(t: String)
-    fun toDate(s: String): Date
-    fun format(d: Date): String
+    fun toConferenceDate(s: String): Date
+    fun toLocalDate(s: String): Date
+    fun formatConferenceTZ(d: Date): String
+    fun formatLocalTZ(d: Date): String
 }
+
+//`from***` methods

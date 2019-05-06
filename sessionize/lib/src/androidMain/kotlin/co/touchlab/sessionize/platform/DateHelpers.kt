@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.platform
 
+import co.touchlab.sessionize.ServiceRegistry
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -9,11 +10,23 @@ actual class Date(val date: java.util.Date) {
 }
 
 actual class DateFormatHelper actual constructor(format: String) {
-    val dateFormatter = object : ThreadLocal<DateFormat>() {
-        override fun initialValue(): DateFormat = SimpleDateFormat(format)
+    private val dateFormatterConference = object : ThreadLocal<DateFormat>() {
+        override fun initialValue(): DateFormat = SimpleDateFormat(format).apply {
+            this.timeZone = TimeZone.getTimeZone("GMT" + ServiceRegistry.timeZone)
+        }
     }
-    actual fun setTimeZone(t: String) { dateFormatter.get().timeZone = TimeZone.getTimeZone(t) }
-    actual fun toDate(s: String): Date = Date(dateFormatter.get()!!.parse(s))
 
-    actual fun format(d: Date): String = dateFormatter.get()!!.format(d.date)
+    private val dateFormatterLocal = object : ThreadLocal<DateFormat>() {
+        override fun initialValue(): DateFormat = SimpleDateFormat(format).apply {
+            this.timeZone = TimeZone.getDefault()
+        }
+    }
+
+    actual fun toConferenceDate(s: String): Date = Date(dateFormatterConference.get()!!.parse(s))
+
+    actual fun toLocalDate(s: String): Date = Date(dateFormatterLocal.get()!!.parse(s))
+
+    actual fun formatConferenceTZ(d: Date): String = dateFormatterConference.get()!!.format(d.date)
+
+    actual fun formatLocalTZ(d: Date): String = dateFormatterLocal.get()!!.format(d.date)
 }

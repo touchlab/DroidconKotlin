@@ -90,16 +90,14 @@ fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<H
 
     for (timeBlock in eventAndBlockList) {
         val startDateObj = timeBlock.startsAt
-        TAB_DATE_FORMAT.setTimeZone(ServiceRegistry.getTimeZoneString())
-        val startDate = TAB_DATE_FORMAT.format(startDateObj)
+        val startDate = TAB_DATE_FORMAT.formatConferenceTZ(startDateObj)
         var blockHourList: ArrayList<HourBlock>? = dateWithBlocksTreeMap.get(startDate)
         if (blockHourList == null) {
             blockHourList = ArrayList()
             dateWithBlocksTreeMap.put(startDate, blockHourList)
         }
 
-        TIME_FORMAT.setTimeZone(ServiceRegistry.timeZone)
-        val startTime = TIME_FORMAT.format(startDateObj)
+        val startTime = TIME_FORMAT.formatConferenceTZ(startDateObj)
         val newHourDisplay = lastHourDisplay != startTime
         blockHourList.add(HourBlock(if (newHourDisplay) startTime else "", timeBlock))
         lastHourDisplay = startTime

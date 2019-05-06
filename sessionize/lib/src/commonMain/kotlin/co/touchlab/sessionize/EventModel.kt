@@ -87,8 +87,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             }
 
             val params = HashMap<String, Any>()
-            analyticsDateFormat.setTimeZone(ServiceRegistry.getTimeZoneString())
-            params["slot"] = analyticsDateFormat.format(session.startsAt)
+            params["slot"] = analyticsDateFormat.formatConferenceTZ(session.startsAt)
             params["sessionId"] = sessionId
             params["count"] = if (rsvp) {
                 1
@@ -149,9 +148,8 @@ fun SessionInfo.isRsvped(): Boolean {
 }
 
 suspend fun Session.formattedRoomTime(): String {
-    SessionInfoStuff.roomNameTimeFormatter.setTimeZone(ServiceRegistry.getTimeZoneString())
-    var formattedStart = SessionInfoStuff.roomNameTimeFormatter.format(this.startsAt)
-    val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.format(this.endsAt)
+    var formattedStart = SessionInfoStuff.roomNameTimeFormatter.formatConferenceTZ(this.startsAt)
+    val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.formatConferenceTZ(this.endsAt)
 
     val startMarker = formattedStart.substring(max(formattedStart.length - 3, 0))
     val endMarker = formattedEnd.substring(max(formattedEnd.length - 3, 0))
