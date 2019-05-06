@@ -2,16 +2,15 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.api.AnalyticsApi
-import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.NotificationsApi
+import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.DateAdapter
-import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
 import kotlin.test.BeforeTest
-
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 abstract class EventModelTest {
@@ -78,9 +77,25 @@ abstract class EventModelTest {
     @Test
     fun testTimeZoneIncorrect(){
         // Using Japanese Time Zone because they don't use daylight savings time
-        var timeZonePST = "+0900"
+        var timeZoneJST = "+0900"
         val timeStr = "2019-04-12T08:00:00"
         val correctMillis = 1555070400000
+
+        val timeStrWithZone = timeStr + timeZoneJST
+
+        val dateAdapter = DateAdapter("GMT$timeZoneJST")
+        val timeDate = dateAdapter.decode(timeStrWithZone)
+        val newTimeStr = dateAdapter.encode(timeDate)
+
+        assertTrue { newTimeStr == timeStrWithZone }
+        assertTrue { timeDate.toLongMillis() != correctMillis }
+    }
+
+    @Test
+    fun testTimeZonePST(){
+        var timeZonePST = "-0800"
+        val timeStr = "2019-04-12T08:00:00"
+        val correctMillis = 1555084800000
 
         val timeStrWithZone = timeStr + timeZonePST
 
@@ -88,8 +103,36 @@ abstract class EventModelTest {
         val timeDate = dateAdapter.decode(timeStrWithZone)
         val newTimeStr = dateAdapter.encode(timeDate)
 
+        print(timeDate.toLongMillis())
         assertTrue { newTimeStr == timeStrWithZone }
-        assertTrue { timeDate.toLongMillis() != correctMillis }
+        assertEquals(timeDate.toLongMillis(), correctMillis,  timeDate.toLongMillis().toString() + " does not equal $correctMillis")
+    }
+
+    @Test
+    fun testTimeZoneConversion(){
+        var timeZonePST = "-0800"
+        val timeStr = "2019-04-12T08:00:00"
+        val correctMillis = 1555084800000
+
+        val timeStrWithZone = timeStr + timeZonePST
+
+        val dateAdapter = DateAdapter("GMT$timeZonePST")
+        val timeDate = dateAdapter.decode(timeStrWithZone)
+        val newTimeStr = dateAdapter.encode(timeDate)
+
+
+        val dateAdapter2 = DateAdapter("GMT$timeZone")
+        val timeDate2 = dateAdapter.decode(newTimeStr)
+        val newTimeStr2:String = dateAdapter2.encode(timeDate2)
+
+        assertTrue { newTimeStr != newTimeStr2 }
+        assertTrue { newTimeStr.contains(timeZonePST) }
+        assertTrue { newTimeStr2.contains(timeZone) }
+        assertEquals(timeDate.toLongMillis(), timeDate2.toLongMillis(),
+                timeDate.toLongMillis().toString() + " does not equal to " + timeDate2.toLongMillis().toString())
+
+        assertEquals(correctMillis, timeDate2.toLongMillis(),
+                correctMillis.toString() + " does not equal to " + timeDate2.toLongMillis().toString())
     }
 }
 
