@@ -9,17 +9,23 @@
 import UIKit
 import lib
 
-@objc class ScheduleListCell: UITableViewCell, EventRow {
+@objc class ScheduleListCell: UITableViewCell {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var speakerNamesLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet weak var rsvpDot: DotView!
     @IBOutlet var cardBackgroundToTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var eventView: UIView!
     @IBInspectable var highlightedColor : UIColor?
+    private var isPast: Bool = false
+    private var notHighlightedColor: UIColor {
+        return isPast ? colorWithHexString(hexString: "DEDEDE") : .white
+    }
+    
     
     func setTimeGap(b: Bool) {
-        cardBackgroundToTopConstraint.constant = b ? 4 : 0
+        cardBackgroundToTopConstraint.constant = b ? 6 : 0
     }
     
     func setTitleText(s: String) {
@@ -42,6 +48,11 @@ import lib
         
     }
     
+    func setPast(b: Bool) {
+        isPast = b
+        updateBackgroundColor()
+    }
+    
     func setRsvpState(state: RsvpState) {
         if(state == RsvpState.none){
             rsvpDot.isHidden = true
@@ -58,6 +69,16 @@ import lib
         }
     }
     
+    func bind(hourBlock:HourBlock, allEvents:Bool, allBlocks:[HourBlock]){
+        setTimeText(s: hourBlock.hourStringDisplay)
+        setTitleText(s: hourBlock.timeBlock.title)
+        setSpeakerText(s: hourBlock.speakerText)
+        setDescription(s: hourBlock.timeBlock.description)
+        setRsvpState(state: hourBlock.getRsvpState(allEvents: allEvents, allBlocks: allBlocks))
+        setPast(b: hourBlock.isPast())
+        setTimeGap(b: hourBlock.timeGap)
+    }
+    
     override var isHighlighted: Bool {
         didSet {
             updateBackgroundColor()
@@ -65,6 +86,6 @@ import lib
     }
     
     func updateBackgroundColor() {
-        titleLabel.superview!.backgroundColor = isHighlighted ? highlightedColor : UIColor.white
+        eventView.backgroundColor = isHighlighted ? highlightedColor : notHighlightedColor
     }
 }

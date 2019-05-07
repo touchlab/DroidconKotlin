@@ -50,6 +50,7 @@
                 android:layout_marginEnd="@dimen/live_icon_margin"
                 android:contentDescription="@string/cd_live_now"
                 android:src="@drawable/ic_play_24dp"
+                android:visibility="invisible"
                 tools:visibility="visible"/>
 
 

@@ -32,10 +32,8 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         MDCBottomNavigationBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.menuColorScheme, toBottomNavigation: bottomNavBar)
         bottomNavBar.unselectedItemTintColor = bottomNavBar.selectedItemTintColor
 //        MDCAppBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.colorScheme, to:bottomNavBar)
-        
         feedbackManager.setViewController(self)
         feedbackManager.showFeedbackForPastSessions()
-        
     }
     
     
