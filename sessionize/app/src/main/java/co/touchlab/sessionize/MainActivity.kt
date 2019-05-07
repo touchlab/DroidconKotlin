@@ -14,6 +14,7 @@ import co.touchlab.sessionize.sponsors.SponsorsFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
+import co.touchlab.sessionize.settings.SettingsFragment
 import co.touchlab.sessionize.feedback.FeedbackManager
 
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
             R.id.navigation_schedule -> navigateTo(ScheduleFragment.newInstance(true), false)
             R.id.navigation_my_agenda -> navigateTo(ScheduleFragment.newInstance(false), false)
             R.id.navigation_sponsors -> navigateTo(SponsorsFragment(), false)
-            R.id.navigation_about -> navigateTo(AboutFragment(), false)
+            R.id.navigation_settings -> navigateTo(SettingsFragment(), false)
             else -> return@OnNavigationItemSelectedListener false
         }
         true
@@ -61,7 +62,6 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         }
 
         setSupportActionBar(findViewById(R.id.app_bar) as Toolbar)
-
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
         }

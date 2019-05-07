@@ -16,12 +16,14 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let serviceRegistry = ServiceRegistry()
+    let appContext = AppContext()
 
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         application.statusBarStyle = .lightContent
       
-        let serviceRegistry = ServiceRegistry()
         serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
       
         serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
@@ -33,27 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 notificationsApi: NotificationsApiImpl(),
                                                 timeZone: "-0400")
 
-        let appContext = AppContext()
         
         appContext.doInitAppContext()
-        
         appContext.dataLoad()
         
-        requestNotificationPermissions()
-
         return true
-    }
-    
-    func requestNotificationPermissions(){
-
-        let center = UNUserNotificationCenter.current()
-        let options: UNAuthorizationOptions = [.alert, .sound];
-        center.requestAuthorization(options: options) {
-            (granted, error) in
-            if !granted {
-                print("Something went wrong")
-            }
-        }
     }
 
     /*func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
@@ -102,6 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        serviceRegistry.notificationsApi.deinitializeNotifications()
     }
 }
 
