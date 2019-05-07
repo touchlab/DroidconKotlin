@@ -9,6 +9,7 @@ import co.touchlab.sessionize.platform.logException
 import kotlinx.serialization.json.Json
 
 object AppContext {
+    //Workaround for https://github.com/Kotlin/kotlinx.serialization/issues/441
     private val primeJson = Json.nonstrict
 
     fun initAppContext(networkRepo: NetworkRepo = NetworkRepo,
