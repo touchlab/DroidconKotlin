@@ -1,6 +1,7 @@
 package co.touchlab.sessionize
 
 import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
+import co.touchlab.sessionize.platform.NotificationsModel
 import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
 import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
 import co.touchlab.sessionize.platform.NotificationsModel.reminderNotificationsEnabled
@@ -45,9 +46,9 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private fun handleReminderNotifications(create:Boolean){
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             if(create){
-                ServiceRegistry.notificationsApi.createReminderNotificationsForSessions(mySessions)
+                NotificationsModel.createReminderNotificationsForSessions(mySessions)
             }else{
-                ServiceRegistry.notificationsApi.cancelReminderNotificationsForSessions(mySessions)
+                NotificationsModel.cancelReminderNotificationsForSessions(mySessions)
             }
         }
     }
@@ -55,9 +56,9 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private fun handleFeedbackNotifications(create:Boolean){
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             if(create){
-                ServiceRegistry.notificationsApi.createFeedbackNotificationsForSessions(mySessions)
+                NotificationsModel.createFeedbackNotificationsForSessions(mySessions)
             }else {
-                ServiceRegistry.notificationsApi.cancelFeedbackNotificationsForSessions(mySessions)
+                NotificationsModel.cancelFeedbackNotificationsForSessions(mySessions)
             }
         }
     }

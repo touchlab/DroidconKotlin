@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 timeZone: "-0400")
 
         
-        AppContext().doInitAppContext()
+        AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
         
         return true
     }
