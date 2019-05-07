@@ -36,7 +36,6 @@ class MainApp : Application() {
 
         AppContext.initAppContext()
         AppContext.dataLoad()
-        ServiceRegistry.notificationsApi.initializeNotifications()
     }
 
     override fun onTerminate() {

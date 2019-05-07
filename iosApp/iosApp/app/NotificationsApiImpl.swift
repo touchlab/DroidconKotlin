@@ -12,6 +12,8 @@ import UserNotifications
 
 class NotificationsApiImpl : NSObject, NotificationsApi {
     
+    
+    
     // Needed to approve local notifications
     class LocalNotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
         func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void){
@@ -20,7 +22,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
     }
     
     let notificationDelegate = LocalNotificationDelegate()
-    
+
     func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32, notificationTag: String) {
         let timeDouble = Double(integerLiteral: timeInMS)
         let date = Date.init(timeIntervalSince1970: timeDouble / 1000.0)
@@ -36,20 +38,43 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         content.body = message
         content.sound = UNNotificationSound.default()
         
-        let notifString = String(notificationId)
+        let notifString = String(notificationId) + notificationTag
         let request = UNNotificationRequest(identifier: notifString, content: content, trigger: trigger)
         center.add(request,withCompletionHandler: nil)
-        
     }
     
     func cancelLocalNotification(notificationId: Int32, notificationTag: String) {
         let center = UNUserNotificationCenter.current()
-        let identifiers = [String(notificationId)]
+        let notifString = String(notificationId) + notificationTag
+        let identifiers = [notifString]
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
         center.removeDeliveredNotifications(withIdentifiers: identifiers)
     }
     
-    func initializeNotifications() {
+    func initializeNotifications(onSuccess: @escaping (KotlinBoolean) -> KotlinUnit) {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings(completionHandler: { (settings) in
+            if settings.authorizationStatus == .notDetermined {
+                let options: UNAuthorizationOptions = [.alert, .sound];
+                center.requestAuthorization(options: options) {
+                    (granted, error) in
+                    DispatchQueue.main.async {
+                        NotificationsKt.setNotificationsEnabled(enabled: granted)
+                        _ = onSuccess(KotlinBoolean.init(bool: granted))
+                    }
+                }
+            } else if settings.authorizationStatus == .denied {
+                DispatchQueue.main.async {
+                    NotificationsKt.setNotificationsEnabled(enabled: false)
+                    _ = onSuccess(false)
+                }
+            } else if settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    NotificationsKt.setNotificationsEnabled(enabled: true)
+                    _ = onSuccess(true)
+                }
+            }
+        })
     }
     
     func deinitializeNotifications() {

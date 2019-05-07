@@ -1,6 +1,5 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.NotificationsApi
@@ -83,6 +82,7 @@ class SessionizeApiMock : SessionizeApi {
         return true
     }
 }
+/*
 
 class FeedbackApiMock : FeedbackApi {
 
@@ -126,3 +126,4 @@ class NotificationsApiMock : NotificationsApi {
     }
 }
 
+*/

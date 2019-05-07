@@ -3,18 +3,23 @@ package co.touchlab.sessionize
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.notificationFeedbackTag
 import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.feedbackEnabled
 
 class FeedbackModel {
     private var feedbackListener: FeedbackApi? = null
 
     fun showFeedbackForPastSessions(listener: FeedbackApi){
-        feedbackListener = listener
-        requestNextFeedback()
+        if(feedbackEnabled()) {
+            feedbackListener = listener
+            requestNextFeedback()
+        }
     }
 
     fun requestNextFeedback(){
         backgroundTask({
-            AppContext.sessionQueries.myPastSession().executeAsOneOrNull()
+            if(feedbackEnabled()) {
+                AppContext.sessionQueries.myPastSession().executeAsOneOrNull()
+            }else null
         },{
 
             it?.let {pastSession ->

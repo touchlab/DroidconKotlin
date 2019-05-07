@@ -16,6 +16,7 @@ import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.platform.AndroidAppContext
+import co.touchlab.sessionize.platform.setNotificationsEnabled
 
 
 class NotificationsApiImpl : NotificationsApi {
@@ -57,11 +58,17 @@ class NotificationsApiImpl : NotificationsApi {
         }
     }
 
-    override fun initializeNotifications() {
+
+    // General Notification Code
+
+    override fun initializeNotifications(onSuccess: (Boolean) -> Unit)
+    {
         val filter = IntentFilter(AndroidAppContext.app.getString(R.string.notification_action))
         AndroidAppContext.app.registerReceiver(notificationPublisher, filter)
 
         createNotificationChannel()
+        setNotificationsEnabled(true)
+        onSuccess(true)
     }
 
     override fun deinitializeNotifications() {

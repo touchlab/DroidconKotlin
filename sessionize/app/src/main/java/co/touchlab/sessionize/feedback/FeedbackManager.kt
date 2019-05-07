@@ -4,6 +4,8 @@ import androidx.fragment.app.FragmentManager
 import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.FeedbackModel
 import co.touchlab.sessionize.api.FeedbackApi
+import co.touchlab.sessionize.platform.feedbackEnabled
+import co.touchlab.sessionize.platform.setFeedbackEnabled
 
 class FeedbackManager : FeedbackApi {
 
@@ -27,7 +29,7 @@ class FeedbackManager : FeedbackApi {
     }
 
     fun disableFeedback(){
-        //feedbackEnabled = false
+        setFeedbackEnabled(false)
     }
 
     override fun generateFeedbackDialog(session: MyPastSession){
