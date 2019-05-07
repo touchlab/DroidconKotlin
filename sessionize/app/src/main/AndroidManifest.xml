@@ -24,7 +24,7 @@
                 android:value="90b5b9675372e1f2aff36d43ea5d6869040d37f3"
                 />
 
-        <receiver android:name="co.touchlab.sessionize.platform.NotificationPublisher"  android:exported="true">
+        <receiver android:name="co.touchlab.sessionize.NotificationsApiImpl$NotificationPublisher"  android:exported="true">
             <intent-filter>
                 <action android:name="NotificationAction"/>
             </intent-filter>
