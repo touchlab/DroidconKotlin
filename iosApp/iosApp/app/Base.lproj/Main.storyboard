@@ -107,6 +107,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="cardBackgroundToTopConstraint" destination="VKX-5j-P6W" id="Gnb-fW-wEu"/>
+                                            <outlet property="eventView" destination="rSg-a7-fib" id="0zu-dn-pVZ"/>
                                             <outlet property="rsvpDot" destination="q6Y-CG-t8p" id="2Gc-2p-NKj"/>
                                             <outlet property="speakerNamesLabel" destination="7Vh-d9-kGB" id="0mF-It-J5r"/>
                                             <outlet property="timeLabel" destination="9oQ-BT-1py" id="5uZ-hL-PWQ"/>

@@ -66,6 +66,7 @@
 		875DCD5694B99FBEF259FC27 /* TestSettings.kt in Sources */ = {isa = PBXBuildFile; fileRef = EAC50DD7577BDBAECF2A4DB6 /* TestSettings.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		8CCB6E6FBBDE4456FDAC6248 /* DateHelpers.kt in Sources */ = {isa = PBXBuildFile; fileRef = AC1E58A8A1E85420519CBD6F /* DateHelpers.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */ = {isa = PBXBuildFile; fileRef = D89833A54AB00BC23091E619 /* Functions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
+		9556FBD2227CC7BF001E9EBB /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
 		962974E75078C2E7FBE580BC /* DateAdapter.kt in Sources */ = {isa = PBXBuildFile; fileRef = B7FBB68DD89A5CA80DD37542 /* DateAdapter.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		99D8C23C566E3C923A09A94A /* TestFunctions.kt in Sources */ = {isa = PBXBuildFile; fileRef = A9AFAC7B607FAC746C536621 /* TestFunctions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		AAF80D1F28A81A39404519A8 /* BasePub.kt in Sources */ = {isa = PBXBuildFile; fileRef = B25E757FC7166B4499CF4E36 /* BasePub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -745,6 +746,7 @@
 				71FCC78DC8DA714D63FE18FB /* Coroutines.kt in Sources */,
 				3161952A95320D7FA337D820 /* DateHelpers.kt in Sources */,
 				2FBA0E961E7954510F10142A /* TestFunctions.kt in Sources */,
+				9556FBD2227CC7BF001E9EBB /* NotificationsApiImpl.swift in Sources */,
 				86E7721A86624FDE48003DCA /* Notifications.kt in Sources */,
 				F698E4A89CECD079D75F8997 /* SponsorViewModel.kt in Sources */,
 				B5B3ED3D9F987E89B0F4C229 /* ServiceRegistry.kt in Sources */,
