@@ -2,20 +2,20 @@ package co.touchlab.sessionize
 
 import android.content.Context
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import co.touchlab.sessionize.about.AboutFragment
+import co.touchlab.sessionize.api.NetworkRepo
+import co.touchlab.sessionize.feedback.FeedbackManager
 import co.touchlab.sessionize.schedule.ScheduleFragment
+import co.touchlab.sessionize.settings.SettingsFragment
 import co.touchlab.sessionize.sponsors.SponsorsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import android.view.MenuItem
-import co.touchlab.sessionize.settings.SettingsFragment
-import co.touchlab.sessionize.feedback.FeedbackManager
 
 
 class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
     override fun onResume() {
         super.onResume()
-        AppContext.refreshData()
+        NetworkRepo.refreshData()
     }
 
     override fun onDestroy() {

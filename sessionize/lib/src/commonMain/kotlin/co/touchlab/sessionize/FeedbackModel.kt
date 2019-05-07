@@ -2,6 +2,7 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.notificationFeedbackTag
+import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.feedbackEnabled
 
@@ -18,7 +19,7 @@ class FeedbackModel {
     fun requestNextFeedback(){
         backgroundTask({
             if(feedbackEnabled()) {
-                AppContext.sessionQueries.myPastSession().executeAsOneOrNull()
+                SessionizeDbHelper.sessionQueries.myPastSession().executeAsOneOrNull()
             }else null
         },{
 
@@ -33,7 +34,7 @@ class FeedbackModel {
 
     fun finishedFeedback(sessionId:String, rating:Int, comment: String) {
         backgroundTask({
-            AppContext.dbHelper.updateFeedback(rating.toLong(),comment,sessionId)
+            SessionizeDbHelper.updateFeedback(rating.toLong(), comment, sessionId)
         },{
             ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.hashCode(), notificationFeedbackTag)
 
