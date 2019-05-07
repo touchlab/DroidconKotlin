@@ -107,12 +107,15 @@ object AppContext {
             }) {
                 refreshData()
 
+                //If we do some kind of data re-load after a user logs in, we'll need to update this.
+                //We assume for now that when the app first starts, you have nothing rsvp'd
+                if(notificationsEnabled()) {
+                    createNotificationsForSessions()
+                }
             }
         }
 
-        //If we do some kind of data re-load after a user logs in, we'll need to update this.
-        //We assume for now that when the app first starts, you have nothing rsvp'd
-        createNotificationsForSessions()
+
     }
 
     internal fun seedFileLoad() {
