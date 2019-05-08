@@ -1,9 +1,10 @@
 package co.touchlab.sessionize.platform
 
+import co.touchlab.sessionize.ServiceRegistry
 import platform.Foundation.NSDate
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSTimeZone
-import platform.Foundation.NSTimeZoneMeta
+import platform.Foundation.defaultTimeZone
 import platform.Foundation.timeIntervalSince1970
 import platform.Foundation.timeZoneForSecondsFromGMT
 import kotlin.math.floor
@@ -16,9 +17,9 @@ actual class Date(val iosDate: NSDate) {
 
 actual class DateFormatHelper actual constructor(format: String) {
 
-    private val formatter: NSDateFormatter = NSDateFormatter().apply { dateFormat = format }
+    private val dateFormatterConference: NSDateFormatter = NSDateFormatter().apply {
 
-    actual fun setTimeZone(t: String) {
+        val t = ServiceRegistry.timeZone
         val symbol = t[t.length-5]
         val hoursStr = t.substring(t.length-4,t.length-2)
         val minutesStr = t.substring(t.length-2)
@@ -27,9 +28,18 @@ actual class DateFormatHelper actual constructor(format: String) {
         if(symbol == '-'){
             seconds *= -1
         }
-
-        formatter.timeZone = NSTimeZone.timeZoneForSecondsFromGMT(seconds.toLong())
+        this.timeZone = NSTimeZone.timeZoneForSecondsFromGMT(seconds.toLong())
+        this.dateFormat = format
     }
-    actual fun toDate(s: String): Date = Date(formatter.dateFromString(s)!!)
-    actual fun format(d: Date): String = formatter.stringFromDate(d.iosDate)
+
+    private val dateFormatterLocal: NSDateFormatter = NSDateFormatter().apply {
+        this.timeZone = NSTimeZone.defaultTimeZone
+        this.dateFormat = format
+
+    }
+
+    actual fun toConferenceDate(s: String): Date  = Date(dateFormatterConference.dateFromString(s)!!)
+    actual fun toLocalDate(s: String): Date  = Date(dateFormatterLocal.dateFromString(s)!!)
+    actual fun formatConferenceTZ(d: Date): String = dateFormatterConference.stringFromDate(d.iosDate)
+    actual fun formatLocalTZ(d: Date): String = dateFormatterLocal.stringFromDate(d.iosDate)
 }
