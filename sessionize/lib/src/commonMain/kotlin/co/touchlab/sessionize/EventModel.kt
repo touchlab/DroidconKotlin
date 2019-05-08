@@ -57,13 +57,13 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             if (reminderNotificationsEnabled()) {
                 ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + event.session.room().name,
                         event.session.title + " is starting soon.",
-                        event.session.startsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS,
+                        event.session.startsAt.toLongMillis() + Durations.TEN_MINS_MILLIS,
                         sessionId.hashCode(),
                         notificationReminderTag)
 
                 // Feedback Notifications
                 if (event.session.feedbackRating == null) {
-                    val feedbackNotificationTime = event.session.endsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS
+                    val feedbackNotificationTime = event.session.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS
                     ServiceRegistry.notificationsApi.createLocalNotification("Feedback Time!",
                             "Your Feedback is Requested",
                             feedbackNotificationTime,
