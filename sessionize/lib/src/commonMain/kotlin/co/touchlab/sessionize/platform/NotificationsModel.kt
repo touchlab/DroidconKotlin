@@ -77,8 +77,8 @@ object NotificationsModel {
             sessions.forEach { session ->
                 if (session.feedbackRating == null) {
                     val feedbackNotificationTime = session.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS
-                    ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
-                            " Leave feedback for " + session.title,
+                    ServiceRegistry.notificationsApi.createLocalNotification("Feedback Time!",
+                            "Your Feedback is Requested",
                             feedbackNotificationTime,
                             //Not great. Possible to clash, although super unlikely
                             session.id.hashCode(),
