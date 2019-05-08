@@ -1,7 +1,9 @@
 package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.SessionWithRoom
-import co.touchlab.sessionize.AppContext.dbHelper
+import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.db.isBlock
+import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.display.DaySchedule
 import co.touchlab.sessionize.display.convertMapToDaySchedule
 import co.touchlab.sessionize.display.formatHourBlocks
@@ -12,7 +14,7 @@ import co.touchlab.stately.freeze
  * Data model for schedule. Configure live data instances.
  */
 class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<SessionWithRoom, List<DaySchedule>>(
-        dbHelper.getSessionsQuery(),
+        SessionizeDbHelper.getSessionsQuery(),
         {
             val dbSessions = it.executeAsList()
             val sessions = if (allEvents) {
@@ -28,7 +30,7 @@ class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<Session
         ServiceRegistry.coroutinesDispatcher) {
 
     init {
-        clLog("init ScheduleModel()")
+        ServiceRegistry.clLogCallback("init ScheduleModel()")
         ensureNeverFrozen()
     }
 

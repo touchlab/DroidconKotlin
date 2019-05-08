@@ -2,11 +2,10 @@ package co.touchlab.sessionize
 
 import kotlin.test.BeforeTest
 
-class AppContextTestDarwin: AppContextTests(){
+class StaticFileLoaderTestDarwin : StaticFileLoaderTest() {
     @BeforeTest
     fun androidSetup(){
         setUp()
-        AppContext.initAppContext()
     }
 }
 

@@ -4,11 +4,13 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import co.touchlab.droidcon.db.DroidconDb
+import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.MainConcurrent
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.CustomEvent
 import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import io.fabric.sdk.android.Fabric
@@ -35,7 +37,6 @@ class MainApp : Application() {
         )
 
         AppContext.initAppContext()
-        AppContext.dataLoad()
     }
 
     override fun onTerminate() {

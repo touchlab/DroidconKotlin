@@ -19,7 +19,7 @@ class FeedbackManager: NSObject,FeedbackApi, FeedbackDialogDelegate {
     }
     
     func showFeedbackForPastSessions(){
-        if(NotificationsKt.feedbackEnabled()) {
+        if(NotificationsModel().feedbackEnabled()) {
             feedbackModel.showFeedbackForPastSessions(listener: self)
         }
     }
@@ -30,7 +30,7 @@ class FeedbackManager: NSObject,FeedbackApi, FeedbackDialogDelegate {
     }
     
     func disableFeedback(){
-        NotificationsKt.setFeedbackEnabled(enabled: false)
+        NotificationsModel().setFeedbackEnabled(enabled: false)
     }
     
     func generateFeedbackDialog(session: MyPastSession) {
