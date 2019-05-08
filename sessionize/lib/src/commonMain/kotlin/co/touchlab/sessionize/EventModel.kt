@@ -64,8 +64,8 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
                 // Feedback Notifications
                 if (event.session.feedbackRating == null) {
                     val feedbackNotificationTime = event.session.endsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS
-                    ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
-                            " Leave feedback for " + event.session.title,
+                    ServiceRegistry.notificationsApi.createLocalNotification("Feedback Time!",
+                            " Your Feedback is Requested",
                             feedbackNotificationTime,
                             sessionId.toInt(),
                             notificationFeedbackTag)
