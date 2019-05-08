@@ -76,11 +76,6 @@ fun sortTimeBlocks(o1: SessionWithRoom, o2: SessionWithRoom): Int {
     } else o1.roomName.compareTo(o2.roomName)
 }
 
-@ThreadLocal
-val TAB_DATE_FORMAT = DateFormatHelper("MMM dd")
-@ThreadLocal
-val TIME_FORMAT = DateFormatHelper("h:mma")
-
 fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<HourBlock>> {
 
     val eventAndBlockList = sortSessions(inList)
@@ -90,6 +85,7 @@ fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<H
 
     for (timeBlock in eventAndBlockList) {
         val startDateObj = timeBlock.startsAt
+        val TAB_DATE_FORMAT = DateFormatHelper("MMM dd")
         val startDate = TAB_DATE_FORMAT.formatConferenceTZ(startDateObj)
         var blockHourList: ArrayList<HourBlock>? = dateWithBlocksTreeMap.get(startDate)
         if (blockHourList == null) {
@@ -97,6 +93,7 @@ fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<H
             dateWithBlocksTreeMap.put(startDate, blockHourList)
         }
 
+        val TIME_FORMAT = DateFormatHelper("h:mma")
         val startTime = TIME_FORMAT.formatConferenceTZ(startDateObj)
         val newHourDisplay = lastHourDisplay != startTime
         blockHourList.add(HourBlock(if (newHourDisplay) startTime else "", timeBlock))
