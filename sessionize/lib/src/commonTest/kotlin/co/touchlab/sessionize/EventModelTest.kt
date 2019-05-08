@@ -4,6 +4,7 @@ import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.api.SessionizeApi
+import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
 import kotlin.test.BeforeTest
@@ -31,14 +32,12 @@ abstract class EventModelTest {
         }, { s: String -> Unit })
 
         AppContext.initAppContext()
-
-        AppContext.seedFileLoad()
     }
 
     @Test
     fun testRsvpAndAnalytics() = runTest {
         val eventModel = EventModel("67316")
-        val session = AppContext.sessionQueries.sessionById("67316").executeAsOne()
+        val session = SessionizeDbHelper.sessionQueries.sessionById("67316").executeAsOne()
         val si = collectSessionInfo(session)
         eventModel.toggleRsvpSuspend(si)
         assertTrue { sessionizeApiMock.rsvpCalled }

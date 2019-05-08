@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let serviceRegistry = ServiceRegistry()
-    let appContext = AppContext()
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -36,8 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 timeZone: "-0400")
 
         
-        appContext.doInitAppContext()
-        appContext.dataLoad()
+        AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
         
         return true
     }

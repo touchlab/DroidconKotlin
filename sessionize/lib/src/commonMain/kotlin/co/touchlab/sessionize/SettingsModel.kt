@@ -1,19 +1,13 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.AppContext.FEEDBACK_ENABLED
-import co.touchlab.sessionize.AppContext.REMINDERS_ENABLED
-import co.touchlab.sessionize.AppContext.sessionQueries
+import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
+import co.touchlab.sessionize.platform.NotificationsModel
+import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.reminderNotificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.setFeedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.setRemindersEnabled
 import co.touchlab.sessionize.platform.backgroundTask
-import co.touchlab.sessionize.platform.cancelFeedbackNotificationsForSessions
-import co.touchlab.sessionize.platform.cancelReminderNotificationsForSessions
-import co.touchlab.sessionize.platform.createFeedbackNotificationsForSessions
-import co.touchlab.sessionize.platform.createReminderNotificationsForSessions
-import co.touchlab.sessionize.platform.feedbackEnabled
-import co.touchlab.sessionize.platform.notificationsEnabled
-import co.touchlab.sessionize.platform.reminderNotificationsEnabled
-import co.touchlab.sessionize.platform.setFeedbackEnabled
-import co.touchlab.sessionize.platform.setRemindersEnabled
-import com.russhwolf.settings.set
 import kotlinx.coroutines.launch
 
 
@@ -52,9 +46,9 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private fun handleReminderNotifications(create:Boolean){
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             if(create){
-                createReminderNotificationsForSessions(mySessions)
+                NotificationsModel.createReminderNotificationsForSessions(mySessions)
             }else{
-                cancelReminderNotificationsForSessions(mySessions)
+                NotificationsModel.cancelReminderNotificationsForSessions(mySessions)
             }
         }
     }
@@ -62,9 +56,9 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private fun handleFeedbackNotifications(create:Boolean){
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             if(create){
-                createFeedbackNotificationsForSessions(mySessions)
+                NotificationsModel.createFeedbackNotificationsForSessions(mySessions)
             }else {
-                cancelFeedbackNotificationsForSessions(mySessions)
+                NotificationsModel.cancelFeedbackNotificationsForSessions(mySessions)
             }
         }
     }

@@ -27,13 +27,13 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
         data = [
             SwitchDetail(title: "Enable Feedback",
                          image: UIImage.init(named: "icon_feedback")!,
-                         enabled:  ServiceRegistry().appSettings.getBoolean(key: AppContext().FEEDBACK_ENABLED, defaultValue: true),
+                         enabled:  ServiceRegistry().appSettings.getBoolean(key: SettingsKeys().FEEDBACK_ENABLED, defaultValue: true),
                          listener: { isOn in
                             self.viewModel.settingsModel.setFeedbackSettingEnabled(enabled: isOn)
             }),
             SwitchDetail(title: "Enable Reminders",
                          image: UIImage.init(named: "ic_event")!,
-                         enabled: ServiceRegistry().appSettings.getBoolean(key: AppContext().REMINDERS_ENABLED, defaultValue: true),
+                         enabled: ServiceRegistry().appSettings.getBoolean(key: SettingsKeys().REMINDERS_ENABLED, defaultValue: true),
                          listener: { isOn in
                             self.viewModel.settingsModel.setRemindersSettingEnabled(enabled: isOn)
             }),
@@ -91,7 +91,7 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        NotificationsKt.setNotificationsEnabled(enabled: true)
+        NotificationsModel().setNotificationsEnabled(enabled: true)
         
         let row = (indexPath as NSIndexPath).row
 
