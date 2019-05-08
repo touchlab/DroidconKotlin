@@ -66,6 +66,7 @@
 		875DCD5694B99FBEF259FC27 /* TestSettings.kt in Sources */ = {isa = PBXBuildFile; fileRef = EAC50DD7577BDBAECF2A4DB6 /* TestSettings.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		8CCB6E6FBBDE4456FDAC6248 /* DateHelpers.kt in Sources */ = {isa = PBXBuildFile; fileRef = AC1E58A8A1E85420519CBD6F /* DateHelpers.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */ = {isa = PBXBuildFile; fileRef = D89833A54AB00BC23091E619 /* Functions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
+		9556FBD2227CC7BF001E9EBB /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
 		962974E75078C2E7FBE580BC /* DateAdapter.kt in Sources */ = {isa = PBXBuildFile; fileRef = B7FBB68DD89A5CA80DD37542 /* DateAdapter.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		99D8C23C566E3C923A09A94A /* TestFunctions.kt in Sources */ = {isa = PBXBuildFile; fileRef = A9AFAC7B607FAC746C536621 /* TestFunctions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		AAF80D1F28A81A39404519A8 /* BasePub.kt in Sources */ = {isa = PBXBuildFile; fileRef = B25E757FC7166B4499CF4E36 /* BasePub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -91,8 +92,12 @@
 		F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */; };
 		F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */; };
 		F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */; };
+		F16A0D87226A4DD000199DF3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */; };
+		F16A0D89226A513100199DF3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */; };
+		F1ADB9282278E59C007BAF5B /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */; };
 		F698E4A89CECD079D75F8997 /* SponsorViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 037212D4434537622C53ECF0 /* SponsorViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
+		FE7B22AB48874F7140F42B10 /* (null) in Sources */ = {isa = PBXBuildFile; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +203,9 @@
 		F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_black_48dp.png; path = images/baseline_sentiment_satisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_very_dissatisfied_black_48dp.png; path = images/baseline_sentiment_very_dissatisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_alt_black_48dp.png; path = images/baseline_sentiment_satisfied_alt_black_48dp.png; sourceTree = "<group>"; };
+		F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		F3268F03C19C8685393B8DDA /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -268,6 +276,7 @@
 				63711D3D211146D10099FF25 /* about */,
 				63711D3A2110F9040099FF25 /* app */,
 				63711D392110F8E10099FF25 /* other */,
+				F16A0D85226A4DAB00199DF3 /* settings */,
 				63711D382110F8AA0099FF25 /* event */,
 				63711D372110F8620099FF25 /* schedule */,
 				637100DA211085F80099FF25 /* speaker */,
@@ -664,6 +673,7 @@
 			files = (
 				637100D9210FF7BD0099FF25 /* SpeakerViewController.swift in Sources */,
 				6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */,
+				F16A0D89226A513100199DF3 /* SettingsTableViewCell.swift in Sources */,
 				63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */,
 				637100D3210F7B410099FF25 /* MaterialAppBarUIViewController.swift in Sources */,
 				637100D7210FC9740099FF25 /* DotView.swift in Sources */,
@@ -684,17 +694,23 @@
 				6359EB8F2112650200424B73 /* UITextViewFixed.swift in Sources */,
 				6372424020F975A70049263B /* ScheduleViewController.swift in Sources */,
 				091B46F35A3E9A9FE7CBA94A /* EventViewModel.kt in Sources */,
+				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
+				304E5637389A73B7652919A2 /* File.kt in Sources */,
+				FE7B22AB48874F7140F42B10 /* (null) in Sources */,
+				90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */,
 				F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */,
 				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
 				304E5637389A73B7652919A2 /* File.kt in Sources */,
 				90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */,
 				F111E60F2256A276000B3F3D /* FeedbackView.swift in Sources */,
+				F1ADB9282278E59C007BAF5B /* FeedbackManager.swift in Sources */,
 				8CCB6E6FBBDE4456FDAC6248 /* DateHelpers.kt in Sources */,
 				E54EE7DAFB9F33D15E11C2A1 /* ScheduleViewModel.kt in Sources */,
 				CF4D7CA64E63E82BA1681E20 /* SpeakerModel.kt in Sources */,
 				4A1E56196E45DB28D51B0D77 /* AppContext.kt in Sources */,
 				730C9521F5CDB441D6FD4D02 /* SponsorModel.kt in Sources */,
 				DEEF4AC18B0C6C9B322C3E34 /* Functions.kt in Sources */,
+				F10566B22279DB2E009E5B24 /* NotificationsApiImpl.swift in Sources */,
 				09E8D3D6AF2E031FB00C541F /* DateHelpers.kt in Sources */,
 				B3320598655AFC63A7CC608D /* AboutModel.kt in Sources */,
 				73E01016CA8E1E7238F8241B /* PubSub.kt in Sources */,
@@ -706,6 +722,8 @@
 				E186F527F790D23F182BCEFB /* Extensions.kt in Sources */,
 				962974E75078C2E7FBE580BC /* DateAdapter.kt in Sources */,
 				F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */,
+				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
+				F16A0D87226A4DD000199DF3 /* SettingsViewController.swift in Sources */,
 				F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
 				C764772084EDD3F58CAFB7E9 /* BaseModel.kt in Sources */,

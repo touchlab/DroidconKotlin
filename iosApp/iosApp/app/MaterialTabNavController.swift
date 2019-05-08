@@ -10,10 +10,12 @@ import UIKit
 import lib
 import MaterialComponents
 
-class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelegate, FeedbackDialogDelegate {
-    
+class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelegate {
+
+    private var feedbackManager = FeedbackManager()
+
     let bottomNavBar = MDCBottomNavigationBar()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomNavBar.items = tabBar.items!
@@ -22,19 +24,23 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         }else{
             bottomNavBar.selectedItem = tabBar.selectedItem
         }
-        
+
         view.addSubview(bottomNavBar)
-        
+
         bottomNavBar.delegate = self
-        
+
         MDCBottomNavigationBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.menuColorScheme, toBottomNavigation: bottomNavBar)
         bottomNavBar.unselectedItemTintColor = bottomNavBar.selectedItemTintColor
 //        MDCAppBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.colorScheme, to:bottomNavBar)
-    
+        feedbackManager.setViewController(self)
+        feedbackManager.showFeedbackForPastSessions()
     }
-    
-    
-    
+
+
+    override func viewDidDisappear(_ animated: Bool) {
+        feedbackManager.close()
+    }
+
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
         var count = 0
         for barItem in bottomNavBar.items {
@@ -50,12 +56,12 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutBottomNavBar()
     }
-    
+
     #if swift(>=3.2)
     @available(iOS 11, *)
     override func viewSafeAreaInsetsDidChange() {
@@ -63,7 +69,7 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         layoutBottomNavBar()
     }
     #endif
-    
+
     func layoutBottomNavBar() {
         let size = bottomNavBar.sizeThatFits(view.bounds.size)
         let bottomNavBarFrame = CGRect(x: 0,
@@ -72,11 +78,11 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
                                        height: size.height)
         bottomNavBar.frame = bottomNavBarFrame
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     /*
     // MARK: - Navigation
 
@@ -86,15 +92,4 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         // Pass the selected object to the new view controller.
     }
     */
-
-    private func showFeedbackAlert(session:MySessions){
-        let alert = FeedbackAlertViewController(preferredStyle: .alert,sessionid: session.id,sessionTitle: session.title)
-        alert.setFeedbackDialogDelegate(feedbackDialogDelegate: self)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func finishedFeedback(sessionId: String, rating: Int, comment: String) {
-        AppContext().dbHelper.updateFeedback(feedbackRating: NSNumber(value: rating) as! KotlinLong, feedbackComment: comment, id: sessionId)
-
-    }
 }

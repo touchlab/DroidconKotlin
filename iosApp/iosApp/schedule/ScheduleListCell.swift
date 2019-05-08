@@ -9,7 +9,7 @@
 import UIKit
 import lib
 
-@objc class ScheduleListCell: UITableViewCell, EventRow {
+@objc class ScheduleListCell: UITableViewCell {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var speakerNamesLabel: UILabel!
@@ -25,7 +25,7 @@ import lib
     
     
     func setTimeGap(b: Bool) {
-        cardBackgroundToTopConstraint.constant = b ? 4 : 0
+        cardBackgroundToTopConstraint.constant = b ? 6 : 0
     }
     
     func setTitleText(s: String) {
@@ -67,6 +67,16 @@ import lib
                 rsvpDot.backgroundColor = ApplicationScheme.shared.rsvpColorPast
             }
         }
+    }
+    
+    func bind(hourBlock:HourBlock, allEvents:Bool, allBlocks:[HourBlock]){
+        setTimeText(s: hourBlock.hourStringDisplay)
+        setTitleText(s: hourBlock.timeBlock.title)
+        setSpeakerText(s: hourBlock.speakerText)
+        setDescription(s: hourBlock.timeBlock.description)
+        setRsvpState(state: hourBlock.getRsvpState(allEvents: allEvents, allBlocks: allBlocks))
+        setPast(b: hourBlock.isPast())
+        setTimeGap(b: hourBlock.timeGap)
     }
     
     override var isHighlighted: Bool {

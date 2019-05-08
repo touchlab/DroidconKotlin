@@ -162,12 +162,8 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleListCellIdentifier", for: indexPath) as! ScheduleListCell
         let cday = conferenceDays![selectedDayIndex()]
         let scheduleBlockHour = cday.hourBlock[indexPath.row]
-
-        viewModel.scheduleModel.weaveSessionDetailsUi(
-            hourBlock: scheduleBlockHour,
-            allBlocks: cday.hourBlock,
-            row: cell,
-            allEvents: allEvents)
+        
+        cell.bind(hourBlock: scheduleBlockHour, allEvents: allEvents, allBlocks: cday.hourBlock)
         
         cell.layer.isOpaque = true
         

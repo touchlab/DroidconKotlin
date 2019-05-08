@@ -33,6 +33,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     private let animationTime = 0.4
     
     private var sessionId:String?
+    private var feedbackManager:FeedbackManager?
     private var rating:FeedbackRating = FeedbackRating.none
     private var comments:String?
     
@@ -109,6 +110,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     }
     
     @IBAction func BackButtonPressed(_ sender: Any) {
+        feedbackManager?.disableFeedback()
         alertViewController?.close()
     }
     
@@ -126,6 +128,9 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
         showCommentView()
     }
     
+    func setFeedbackManager(fbManager: FeedbackManager){
+        self.feedbackManager = fbManager
+    }
     
     private func setDoneButtonEnabled(enabled:Bool){
         doneButton.isEnabled = enabled
