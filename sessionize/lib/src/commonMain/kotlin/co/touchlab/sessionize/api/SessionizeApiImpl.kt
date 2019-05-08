@@ -1,8 +1,10 @@
 package co.touchlab.sessionize.api
 
-import co.touchlab.sessionize.AppContext
+import co.touchlab.sessionize.ServiceRegistry
+import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
+import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.stately.freeze
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
@@ -37,7 +39,7 @@ object SessionizeApiImpl : SessionizeApi {
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = client.request<HttpResponse> {
-        droidcon("/dataTest/$methodName/$sessionId/${AppContext.userUuid()}")
+        droidcon("/dataTest/$methodName/$sessionId/${userUuid()}")
         method = HttpMethod.Post
     }.use {
         it.status.isSuccess()
@@ -63,6 +65,13 @@ object SessionizeApiImpl : SessionizeApi {
             encodedPath = path
         }
     }
+}
+
+internal fun userUuid(): String {
+    if (ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID).isBlank()) {
+        ServiceRegistry.appSettings.putString(SettingsKeys.USER_UUID, createUuid())
+    }
+    return ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID)
 }
 
 internal fun parseSessionsFromDays(scheduleJson: String): List<Session> {

@@ -4,8 +4,8 @@ import co.touchlab.droidcon.db.Room
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.AppContext.roomQueries
-import co.touchlab.sessionize.AppContext.sessionQueries
+import co.touchlab.sessionize.db.SessionizeDbHelper.roomQueries
+import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
 import co.touchlab.sessionize.platform.backgroundSuspend
 
 fun SessionWithRoom.isBlock(): Boolean = this.serviceSession != 0L

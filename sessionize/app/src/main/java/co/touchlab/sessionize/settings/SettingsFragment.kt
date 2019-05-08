@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.sessionize.AppContext.FEEDBACK_ENABLED
-import co.touchlab.sessionize.AppContext.REMINDERS_ENABLED
 import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.ServiceRegistry
+import co.touchlab.sessionize.SettingsKeys.FEEDBACK_ENABLED
+import co.touchlab.sessionize.SettingsKeys.REMINDERS_ENABLED
 import co.touchlab.sessionize.about.AboutFragment
 
 class SettingsFragment : Fragment() {
