@@ -37,6 +37,9 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         content.title = title
         content.body = message
         content.sound = UNNotificationSound.default()
+        
+        print("Local \(notificationTag) Notification Created at \(timeInMS): \(title) - \(message) \n")
+
 
         let notifString = String(notificationId) + notificationTag
         let request = UNNotificationRequest(identifier: notifString, content: content, trigger: trigger)
@@ -49,6 +52,9 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         let identifiers = [notifString]
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
         center.removeDeliveredNotifications(withIdentifiers: identifiers)
+        
+        print("Cancelling Local \(notificationTag) Notification")
+
     }
 
     func initializeNotifications(onSuccess: @escaping (KotlinBoolean) -> KotlinUnit) {
