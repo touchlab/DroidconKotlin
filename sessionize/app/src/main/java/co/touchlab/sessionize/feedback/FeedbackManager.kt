@@ -4,8 +4,8 @@ import androidx.fragment.app.FragmentManager
 import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.FeedbackModel
 import co.touchlab.sessionize.api.FeedbackApi
-import co.touchlab.sessionize.platform.feedbackEnabled
-import co.touchlab.sessionize.platform.setFeedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.setFeedbackEnabled
 
 class FeedbackManager : FeedbackApi {
 
