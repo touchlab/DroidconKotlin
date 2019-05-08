@@ -1,6 +1,5 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.NotificationsApi
@@ -26,14 +25,14 @@ abstract class EventModelTest {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
                 Dispatchers.Main, TestSettings(), TestConcurrent, sessionizeApiMock, analyticsApiMock, notificationsApiMock, timeZone)
 
-        ServiceRegistry.initLambdas({filePrefix, fileType ->
-            when(filePrefix){
+        ServiceRegistry.initLambdas({ filePrefix, fileType ->
+            when (filePrefix) {
                 "sponsors" -> SPONSORS
                 "speakers" -> SPEAKERS
                 "schedule" -> SCHEDULE
                 else -> SCHEDULE
             }
-        }, {s: String -> Unit})
+        }, { s: String -> Unit })
 
         AppContext.initAppContext()
 
@@ -119,27 +118,30 @@ class SessionizeApiMock : SessionizeApi {
         return true
     }
 }
+/*
 
 class FeedbackApiMock : FeedbackApi {
 
-    var generatingFeedbackDialog:Boolean = false
-    var feedbackError : FeedbackApi.FeedBackError? = null
+    var generatingFeedbackDialog: Boolean = false
+    var feedbackError: FeedbackApi.FeedBackError? = null
 
 
-    private var feedbackModel:FeedbackModel = FeedbackModel()
+    private var feedbackModel: FeedbackModel = FeedbackModel()
 
     fun getFeedbackModel(): FeedbackModel {
         return feedbackModel
     }
-    override fun generateFeedbackDialog(session: MyPastSession){
+
+    override fun generateFeedbackDialog(session: MyPastSession) {
         generatingFeedbackDialog = true
-        feedbackModel.finishedFeedback("1234",1,"This is a comment")
+        feedbackModel.finishedFeedback("1234", 1, "This is a comment")
     }
 
-    override fun onError(error: FeedbackApi.FeedBackError){
+    override fun onError(error: FeedbackApi.FeedBackError) {
         feedbackError = error
-        }
-  }
+    }
+}
+
 class NotificationsApiMock : NotificationsApi {
 
 
@@ -152,11 +154,11 @@ class NotificationsApiMock : NotificationsApi {
     override fun cancelLocalNotification(notificationId: Int, notificationTag: String) {
     }
 
-    override fun initializeNotifications(){
+    override fun initializeNotifications() {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deinitializeNotifications(){
+    override fun deinitializeNotifications() {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
     }
+}

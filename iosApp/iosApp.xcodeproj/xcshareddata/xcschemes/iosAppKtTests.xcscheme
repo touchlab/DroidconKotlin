@@ -17,7 +17,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D46A484B224A80D200B1D60C"
-               BuildableName = "iosAppKtTests.xctest"
+               BuildableName = "iosAppKtTests"
                BlueprintName = "iosAppKtTests"
                ReferencedContainer = "container:iosApp.xcodeproj">
             </BuildableReference>

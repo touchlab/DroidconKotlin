@@ -1,19 +1,24 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
-import co.touchlab.sessionize.api.NotificationsApi
-import co.touchlab.sessionize.api.notificationFeedbackTag
-import co.touchlab.sessionize.api.notificationReminderTag
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.platform.backToFront
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.cancelFeedbackNotificationsForSessions
+import co.touchlab.sessionize.platform.cancelReminderNotificationsForSessions
+import co.touchlab.sessionize.platform.createFeedbackNotificationsForSessions
+import co.touchlab.sessionize.platform.createReminderNotificationsForSessions
 import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.currentTimeMillis
+import co.touchlab.sessionize.platform.feedbackEnabled
 import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.mainThread
+import co.touchlab.sessionize.platform.notificationsEnabled
+import co.touchlab.sessionize.platform.reminderNotificationsEnabled
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.concurrency.value
 import kotlinx.coroutines.launch
@@ -28,12 +33,19 @@ object AppContext {
     val KEY_FIRST_RUN = "FIRST_RUN1"
     val KEY_LAST_LOAD = "LAST_LOAD"
     val USER_UUID = "USER_UUID"
+    val FEEDBACK_ENABLED = "FEEDBACK_ENABLED"
+    val REMINDERS_ENABLED = "REMINDERS_ENABLED"
+    val LOCAL_NOTIFICATIONS_ENABLED = "LOCAL_NOTIFICATIONS_ENABLED"
     val TWO_HOURS_MILLIS = 2 * 60 * 60 * 1000
     val TEN_MINS_MILLIS = 1000 * 10 * 60
 
 
     fun initAppContext() {
         dbHelper.initDatabase(ServiceRegistry.dbDriver)
+
+        ServiceRegistry.notificationsApi.initializeNotifications{success ->
+            if(success) createNotificationsForSessions() else cancelNotificationsForSessions()
+        }
     }
 
     internal val sessionQueries: SessionQueries
@@ -94,13 +106,10 @@ object AppContext {
                 }
             }) {
                 refreshData()
-
             }
         }
 
-        //If we do some kind of data re-load after a user logs in, we'll need to update this.
-        //We assume for now that when the app first starts, you have nothing rsvp'd
-        createNotificationsForSessions()
+
     }
 
     internal fun seedFileLoad() {
@@ -130,6 +139,12 @@ object AppContext {
                 dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson)
                 ServiceRegistry.appSettings.putLong(KEY_LAST_LOAD, currentTimeMillis())
             }
+            //If we do some kind of data re-load after a user logs in, we'll need to update this.
+            //We assume for now that when the app first starts, you have nothing rsvp'd
+            if(notificationsEnabled()) {
+                createNotificationsForSessions()
+            }
+
         } catch (e: Exception) {
             logException(e)
         }
@@ -144,38 +159,30 @@ object AppContext {
         }
     }
 
-    private fun createNotificationsForSessions() {
-        backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-            mySessions.forEach { session ->
-                val notificationTime = session.startsAt.toLongMillis() - TEN_MINS_MILLIS
-                if (notificationTime > currentTimeMillis()) {
-                    ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + session.roomName,
-                            session.title + " is starting soon.",
-                            notificationTime,
-                            session.id.hashCode(),
-                            notificationReminderTag)
-                }
-
-                // Feedback Notifications
-                if(session.feedbackRating == null) {
-                    val feedbackNotificationTime = session.endsAt.toLongMillis() + TEN_MINS_MILLIS
-                    ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
-                            " Leave feedback for " + session.title,
-                            feedbackNotificationTime,
-                            //Not great. Possible to clash, although super unlikely
-                            session.id.hashCode(),
-                            notificationFeedbackTag)
-                }
+    fun createNotificationsForSessions() {
+        if(notificationsEnabled() && (reminderNotificationsEnabled() || feedbackEnabled())) {
+            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+                createReminderNotificationsForSessions(mySessions)
+                createFeedbackNotificationsForSessions(mySessions)
             }
         }
     }
-}
 
-val <T> ThreadLocalRef<T>.lateValue: T
+    fun cancelNotificationsForSessions() {
+        if(!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
+            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+                cancelReminderNotificationsForSessions(mySessions)
+                cancelFeedbackNotificationsForSessions(mySessions)
+            }
+        }
+    }
+
+    val <T> ThreadLocalRef<T>.lateValue: T
     get() = this.value!!
 
-internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
+    internal class AppContextCoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
 
+}
 /**
  * Log statement to Crashlytics
  */

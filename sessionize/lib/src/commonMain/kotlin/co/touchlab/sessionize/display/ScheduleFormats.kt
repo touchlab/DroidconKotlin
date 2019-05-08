@@ -17,39 +17,66 @@ data class HourBlock(
         //Need to set this after sorting, which needs dates
         var hourStringDisplay: String,
         val timeBlock: SessionWithRoom,
-        val startDateLong: Long = timeBlock.startsAt.toLongMillis(),
-        val endDateLong: Long = timeBlock.endsAt.toLongMillis()
-)
+        val startDateLong: Long,
+        val endDateLong: Long,
+        val timeGap: Boolean,
+        val speakerText: String
+){
+    fun rowType(): RowType = if (this.timeBlock.isBlock()) {
+        RowType.Block
+    } else {
+        if (this.isPast())
+            RowType.PastEvent
+        else
+            RowType.FutureEvent
+    }
+
+    fun isPast(): Boolean = currentTimeMillis() > endDateLong
+
+    fun isConflict(others: List<HourBlock>): Boolean {
+        if (this.timeBlock.isRsvp() && !this.isPast()) {
+            for (other in others.filter {
+                it.timeBlock.isRsvp() &&
+                        !it.isPast() &&
+                        this.timeBlock.id != it.timeBlock.id
+            }) {
+                if (this.startDateLong < other.endDateLong &&
+                        this.endDateLong > other.startDateLong)
+                    return true
+            }
+        }
+
+        return false
+    }
+
+    fun getRsvpState(allEvents: Boolean, allBlocks: List<HourBlock>): RsvpState {
+        return if (timeBlock.isBlock()) {
+            RsvpState.None
+        } else {
+            val rsvpShow = allEvents && timeBlock.isRsvp()
+            if (rsvpShow) {
+                if (isPast()) {
+                    RsvpState.RsvpPast
+                } else {
+                    if (isConflict(allBlocks)) {
+                        RsvpState.Conflict
+                    } else {
+                        RsvpState.Rsvp
+                    }
+                }
+            } else {
+                RsvpState.None
+            }
+        }
+    }
+}
+
+enum class RsvpState {
+    None, Rsvp, Conflict, RsvpPast
+}
 
 enum class RowType {
     Block, FutureEvent, PastEvent
-}
-
-fun HourBlock.rowType(): RowType = if (this.timeBlock.isBlock()) {
-    RowType.Block
-} else {
-    if (this.isPast())
-        RowType.PastEvent
-    else
-        RowType.FutureEvent
-}
-
-fun HourBlock.isPast(): Boolean = currentTimeMillis() > endDateLong
-
-fun HourBlock.isConflict(others: List<HourBlock>): Boolean {
-    if (this.timeBlock.isRsvp() && !this.isPast()) {
-        for (other in others.filter {
-            it.timeBlock.isRsvp() &&
-                    !it.isPast() &&
-                    this.timeBlock.id != it.timeBlock.id
-        }) {
-            if (this.startDateLong < other.endDateLong &&
-                    this.endDateLong > other.startDateLong)
-                return true
-        }
-    }
-
-    return false
 }
 
 fun sortSessions(sessions: List<SessionWithRoom>): List<SessionWithRoom> {
@@ -90,13 +117,20 @@ fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<H
         var blockHourList: ArrayList<HourBlock>? = dateWithBlocksTreeMap.get(startDate)
         if (blockHourList == null) {
             blockHourList = ArrayList()
-            dateWithBlocksTreeMap.put(startDate, blockHourList)
+            dateWithBlocksTreeMap[startDate] = blockHourList
         }
 
         val TIME_FORMAT = DateFormatHelper("h:mma")
         val startTime = TIME_FORMAT.formatConferenceTZ(startDateObj)
         val newHourDisplay = lastHourDisplay != startTime
-        blockHourList.add(HourBlock(if (newHourDisplay) startTime else "", timeBlock))
+
+        blockHourList.add(HourBlock(
+                hourStringDisplay = if (newHourDisplay) startTime else "",
+                timeBlock = timeBlock,
+                startDateLong = timeBlock.startsAt.toLongMillis(),
+                endDateLong = timeBlock.endsAt.toLongMillis(),
+                timeGap = newHourDisplay,
+                speakerText = timeBlock.allNames.orEmpty()))
         lastHourDisplay = startTime
     }
     return dateWithBlocksTreeMap
@@ -118,4 +152,3 @@ fun convertMapToDaySchedule(dateWithBlocksTreeMap: HashMap<String, ArrayList<Hou
 
     return dayScheduleList
 }
-
