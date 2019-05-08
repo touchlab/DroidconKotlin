@@ -16,7 +16,7 @@ import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.setNotificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnabled
 
 
 class NotificationsApiImpl : NotificationsApi {

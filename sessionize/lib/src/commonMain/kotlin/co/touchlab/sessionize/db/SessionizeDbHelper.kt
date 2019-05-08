@@ -1,8 +1,12 @@
 package co.touchlab.sessionize.db
 
 import co.touchlab.droidcon.db.DroidconDb
+import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.db.Session
+import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SessionWithRoom
+import co.touchlab.droidcon.db.SponsorQueries
+import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
@@ -16,7 +20,7 @@ import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 
-class SessionizeDbHelper {
+object SessionizeDbHelper {
 
     private val driverRef = AtomicReference<SqlDriver?>(null)
     private val dbRef = AtomicReference<DroidconDb?>(null)
@@ -184,4 +188,16 @@ class SessionizeDbHelper {
             }
         }
     }
+
+    val sessionQueries: SessionQueries
+        get() = instance.sessionQueries
+
+    val userAccountQueries: UserAccountQueries
+        get() = instance.userAccountQueries
+
+    val roomQueries: RoomQueries
+        get() = instance.roomQueries
+
+    val sponsorQueries: SponsorQueries
+        get() = instance.sponsorQueries
 }

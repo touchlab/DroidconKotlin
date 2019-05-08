@@ -6,12 +6,12 @@ import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.api.notificationFeedbackTag
 import co.touchlab.sessionize.api.notificationReminderTag
+import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.reminderNotificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnabled
 
 import co.touchlab.sessionize.platform.TestConcurrent
-import co.touchlab.sessionize.platform.feedbackEnabled
-import co.touchlab.sessionize.platform.notificationsEnabled
-import co.touchlab.sessionize.platform.reminderNotificationsEnabled
-import co.touchlab.sessionize.platform.setNotificationsEnabled
 import kotlinx.coroutines.Dispatchers
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -43,9 +43,7 @@ abstract class NotificationTest {
             }
         }, {s: String -> Unit})
 
-        AppContext.initAppContext()
-
-        AppContext.seedFileLoad()
+//        AppContext.initAppContext()
 
         settingsModel = SettingsModel()
     }
