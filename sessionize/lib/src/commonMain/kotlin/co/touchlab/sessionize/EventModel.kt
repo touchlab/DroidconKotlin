@@ -29,7 +29,6 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
 
     interface EventView : View<SessionInfo>
 
-    private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(event: SessionInfo) = launch {
         toggleRsvpSuspend(event)
     }
@@ -87,6 +86,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             }
 
             val params = HashMap<String, Any>()
+            val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
             params["slot"] = analyticsDateFormat.formatConferenceTZ(session.startsAt)
             params["sessionId"] = sessionId
             params["count"] = if (rsvp) {
