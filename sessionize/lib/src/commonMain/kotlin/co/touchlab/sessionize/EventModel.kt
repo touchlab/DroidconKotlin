@@ -57,8 +57,8 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             if (reminderNotificationsEnabled()) {
                 ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + event.session.room().name,
                         event.session.title + " is starting soon.",
-                        event.session.startsAt.toLongMillis() + Durations.TEN_MINS_MILLIS,
-                        sessionId.toInt(),
+                        event.session.startsAt.toLongMillis() + AppContext.TEN_MINS_MILLIS,
+                        sessionId.hashCode(),
                         notificationReminderTag)
 
                 // Feedback Notifications
@@ -67,12 +67,12 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
                     ServiceRegistry.notificationsApi.createLocalNotification("How was the session?",
                             " Leave feedback for " + event.session.title,
                             feedbackNotificationTime,
-                            sessionId.toInt(),
+                            sessionId.hashCode(),
                             notificationFeedbackTag)
                 }
             } else {
-                ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.toInt(), notificationReminderTag)
-                ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.toInt(), notificationFeedbackTag)
+                ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.hashCode(), notificationReminderTag)
+                ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.hashCode(), notificationFeedbackTag)
             }
 
             ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
