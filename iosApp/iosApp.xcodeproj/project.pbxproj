@@ -66,7 +66,6 @@
 		875DCD5694B99FBEF259FC27 /* TestSettings.kt in Sources */ = {isa = PBXBuildFile; fileRef = EAC50DD7577BDBAECF2A4DB6 /* TestSettings.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		8CCB6E6FBBDE4456FDAC6248 /* DateHelpers.kt in Sources */ = {isa = PBXBuildFile; fileRef = AC1E58A8A1E85420519CBD6F /* DateHelpers.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */ = {isa = PBXBuildFile; fileRef = D89833A54AB00BC23091E619 /* Functions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		9556FBD2227CC7BF001E9EBB /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
 		962974E75078C2E7FBE580BC /* DateAdapter.kt in Sources */ = {isa = PBXBuildFile; fileRef = B7FBB68DD89A5CA80DD37542 /* DateAdapter.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		99D8C23C566E3C923A09A94A /* TestFunctions.kt in Sources */ = {isa = PBXBuildFile; fileRef = A9AFAC7B607FAC746C536621 /* TestFunctions.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		AAF80D1F28A81A39404519A8 /* BasePub.kt in Sources */ = {isa = PBXBuildFile; fileRef = B25E757FC7166B4499CF4E36 /* BasePub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -89,15 +88,14 @@
 		F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */; };
 		F111E61422579D65000B3F3D /* FeedbackRatingSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */; };
 		F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */; };
+		F1378D8D22834077009E70D3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */; };
+		F1378D8E22834077009E70D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8C22834077009E70D3 /* SettingsViewController.swift */; };
+		F1378D90228340AC009E70D3 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8F228340AC009E70D3 /* FeedbackManager.swift */; };
 		F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */; };
 		F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */; };
 		F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */; };
-		F16A0D87226A4DD000199DF3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */; };
-		F16A0D89226A513100199DF3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */; };
-		F1ADB9282278E59C007BAF5B /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */; };
 		F698E4A89CECD079D75F8997 /* SponsorViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 037212D4434537622C53ECF0 /* SponsorViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
-		FE7B22AB48874F7140F42B10 /* (null) in Sources */ = {isa = PBXBuildFile; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +198,9 @@
 		F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCommentSubView.swift; sourceTree = "<group>"; };
 		F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackRatingSubView.swift; sourceTree = "<group>"; };
 		F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAlertViewController.swift; sourceTree = "<group>"; };
+		F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		F1378D8C22834077009E70D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F1378D8F228340AC009E70D3 /* FeedbackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_black_48dp.png; path = images/baseline_sentiment_satisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_very_dissatisfied_black_48dp.png; path = images/baseline_sentiment_very_dissatisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_alt_black_48dp.png; path = images/baseline_sentiment_satisfied_alt_black_48dp.png; sourceTree = "<group>"; };
@@ -276,10 +277,10 @@
 				63711D3D211146D10099FF25 /* about */,
 				63711D3A2110F9040099FF25 /* app */,
 				63711D392110F8E10099FF25 /* other */,
-				F16A0D85226A4DAB00199DF3 /* settings */,
 				63711D382110F8AA0099FF25 /* event */,
 				63711D372110F8620099FF25 /* schedule */,
 				637100DA211085F80099FF25 /* speaker */,
+				F1378D8A22834077009E70D3 /* settings */,
 				6356314120DC58F700BCCDF9 /* Assets.xcassets */,
 				6356314620DC58F700BCCDF9 /* Info.plist */,
 				6372423620F914D60049263B /* speakers.json */,
@@ -423,6 +424,9 @@
 				A9AFAC7B607FAC746C536621 /* TestFunctions.kt */,
 				9C72F015F71FB210C0DABE20 /* TestFunctions.kt */,
 				2CD6DA0EFBE561CD035FB9B2 /* NotificationsJVM.kt */,
+				F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */,
+				F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */,
+				F16A0D86226A4DD000199DF3 /* SettingsViewController.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -432,11 +436,21 @@
 			children = (
 				F111E60C22569ED1000B3F3D /* FeedbackView.xib */,
 				F111E60E2256A276000B3F3D /* FeedbackView.swift */,
+				F1378D8F228340AC009E70D3 /* FeedbackManager.swift */,
 				F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */,
 				F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */,
 				F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */,
 			);
 			path = Feedback;
+			sourceTree = "<group>";
+		};
+		F1378D8A22834077009E70D3 /* settings */ = {
+			isa = PBXGroup;
+			children = (
+				F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */,
+				F1378D8C22834077009E70D3 /* SettingsViewController.swift */,
+			);
+			path = settings;
 			sourceTree = "<group>";
 		};
 		F51C475F4737FE9D915D4236 /* Pods */ = {
@@ -673,7 +687,6 @@
 			files = (
 				637100D9210FF7BD0099FF25 /* SpeakerViewController.swift in Sources */,
 				6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */,
-				F16A0D89226A513100199DF3 /* SettingsTableViewCell.swift in Sources */,
 				63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */,
 				637100D3210F7B410099FF25 /* MaterialAppBarUIViewController.swift in Sources */,
 				637100D7210FC9740099FF25 /* DotView.swift in Sources */,
@@ -687,6 +700,7 @@
 				63711D3F2111470A0099FF25 /* AboutInfoTableViewCell.swift in Sources */,
 				6372424220F9AE240049263B /* ScheduleListCell.swift in Sources */,
 				63CF388E218E165000BA0367 /* UI.swift in Sources */,
+				F1378D90228340AC009E70D3 /* FeedbackManager.swift in Sources */,
 				637100CD210E409E0099FF25 /* MaterialTabNavController.swift in Sources */,
 				6372423E20F975470049263B /* LaunchViewController.swift in Sources */,
 				6356313B20DC58F600BCCDF9 /* AppDelegate.swift in Sources */,
@@ -696,21 +710,18 @@
 				091B46F35A3E9A9FE7CBA94A /* EventViewModel.kt in Sources */,
 				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
 				304E5637389A73B7652919A2 /* File.kt in Sources */,
-				FE7B22AB48874F7140F42B10 /* (null) in Sources */,
 				90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */,
 				F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */,
 				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
 				304E5637389A73B7652919A2 /* File.kt in Sources */,
 				90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */,
 				F111E60F2256A276000B3F3D /* FeedbackView.swift in Sources */,
-				F1ADB9282278E59C007BAF5B /* FeedbackManager.swift in Sources */,
 				8CCB6E6FBBDE4456FDAC6248 /* DateHelpers.kt in Sources */,
 				E54EE7DAFB9F33D15E11C2A1 /* ScheduleViewModel.kt in Sources */,
 				CF4D7CA64E63E82BA1681E20 /* SpeakerModel.kt in Sources */,
 				4A1E56196E45DB28D51B0D77 /* AppContext.kt in Sources */,
 				730C9521F5CDB441D6FD4D02 /* SponsorModel.kt in Sources */,
 				DEEF4AC18B0C6C9B322C3E34 /* Functions.kt in Sources */,
-				F10566B22279DB2E009E5B24 /* NotificationsApiImpl.swift in Sources */,
 				09E8D3D6AF2E031FB00C541F /* DateHelpers.kt in Sources */,
 				B3320598655AFC63A7CC608D /* AboutModel.kt in Sources */,
 				73E01016CA8E1E7238F8241B /* PubSub.kt in Sources */,
@@ -723,11 +734,11 @@
 				962974E75078C2E7FBE580BC /* DateAdapter.kt in Sources */,
 				F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
-				F16A0D87226A4DD000199DF3 /* SettingsViewController.swift in Sources */,
 				F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
 				C764772084EDD3F58CAFB7E9 /* BaseModel.kt in Sources */,
 				785CF0ED224E31269FBEDFFD /* ExpectSuccess.kt in Sources */,
+				F1378D8E22834077009E70D3 /* SettingsViewController.swift in Sources */,
 				38B8C6B0C361EC56756C2957 /* SessionizeApi.kt in Sources */,
 				692293BD85E332482FDBC4E9 /* ScheduleFormats.kt in Sources */,
 				E3B6400B2B1104410AC16605 /* EventModel.kt in Sources */,
@@ -746,6 +757,7 @@
 				0F5DED3A06B6F9C209AC28AD /* SponsorGroupDbItem.kt in Sources */,
 				48D2C9943260AEA15BA3AF6B /* AnalyticsApi.kt in Sources */,
 				4EDF0951CCE7254EDC9CA1D2 /* SessionizeApiImpl.kt in Sources */,
+				F1378D8D22834077009E70D3 /* SettingsTableViewCell.swift in Sources */,
 				875DCD5694B99FBEF259FC27 /* TestSettings.kt in Sources */,
 				2323FD67EA4C0D9878661D89 /* StaticFiles.kt in Sources */,
 				67F253A5CA38DBB56818EE41 /* TestConcurrent.kt in Sources */,
