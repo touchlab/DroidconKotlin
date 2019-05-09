@@ -43,10 +43,6 @@ object ServiceRegistry {
         ServiceRegistry.staticFileLoader = staticFileLoader
         ServiceRegistry.clLogCallback = clLogCallback
     }
-
-    fun getTimeZoneString(): String {
-        return "GMT${ServiceRegistry.timeZone}"
-    }
 }
 
 internal class FrozenDelegate<T>{
