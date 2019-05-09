@@ -7,6 +7,7 @@ import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.jsondata.SponsorGroup
+import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.value
@@ -117,11 +118,10 @@ class SessionizeDbHelper {
             val dbSession = instance.sessionQueries.sessionById(session.id).executeAsOneOrNull()
 
 
-            val startsAt = session.startsAt!! + ServiceRegistry.timeZone
-            val endsAt = session.endsAt!! + ServiceRegistry.timeZone
+            val startsAt = session.startsAt!!
+            val endsAt = session.endsAt!!
 
             val sessionDateAdapter = DateAdapter()
-
             if (dbSession == null) {
                 instance.sessionQueries.insert(
                         session.id,

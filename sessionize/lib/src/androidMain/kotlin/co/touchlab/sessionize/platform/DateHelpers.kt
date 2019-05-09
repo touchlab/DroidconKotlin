@@ -12,7 +12,7 @@ actual class Date(val date: java.util.Date) {
 actual class DateFormatHelper actual constructor(format: String) {
     private val dateFormatterConference = object : ThreadLocal<DateFormat>() {
         override fun initialValue(): DateFormat = SimpleDateFormat(format).apply {
-            this.timeZone = TimeZone.getTimeZone(ServiceRegistry.getTimeZoneString())
+            this.timeZone = TimeZone.getTimeZone(ServiceRegistry.timeZone)
         }
     }
 
