@@ -45,15 +45,17 @@ Clone, and at the base, run:
 
 ## Time Zone
 
-The time zone of the conference can be changed for both the Android and iOS applications. The time zone is formatted in the offset format, for example for EDT you would set the variable as "-0400".
+The time zone of the conference can be changed for both the Android and iOS applications. The time zone is formatted by the country / city, for example for New York  you would set the variable as "America/New_York".
 
 In Android, you can find the variable in the apps build.gradle. 
 
 ```
-buildConfigField "String", "TIME_ZONE", "\"-0400\""
+buildConfigField "String", "TIME_ZONE", "\"America/Los_Angeles\""
 ```
 
 In iOS you can find the variable in the projects info.plist, under Time Zone.
+
+If you want a full list of available Time Zone options, take a look at the TimeZoneAndroid and TimeZoneiOS files in the root.
 
 
 ## Intellij or Android Studio
