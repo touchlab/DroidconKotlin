@@ -9,6 +9,7 @@ import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
+import co.touchlab.sessionize.platform.NotificationsModel.feedbackId
 import co.touchlab.sessionize.platform.NotificationsModel.reminderNotificationsEnabled
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.currentTimeMillis
@@ -66,12 +67,12 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
                     ServiceRegistry.notificationsApi.createLocalNotification("Feedback Time!",
                             "Your Feedback is Requested",
                             feedbackNotificationTime,
-                            sessionId.hashCode(),
+                            feedbackId,
                             notificationFeedbackTag)
                 }
             } else {
                 ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.hashCode(), notificationReminderTag)
-                ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.hashCode(), notificationFeedbackTag)
+                ServiceRegistry.notificationsApi.cancelLocalNotification(feedbackId, notificationFeedbackTag)
             }
 
             ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)

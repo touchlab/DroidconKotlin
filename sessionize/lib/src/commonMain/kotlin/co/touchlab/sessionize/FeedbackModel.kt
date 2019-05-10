@@ -4,6 +4,7 @@ import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.notificationFeedbackTag
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.feedbackId
 import co.touchlab.sessionize.platform.backgroundTask
 
 class FeedbackModel {
@@ -36,7 +37,7 @@ class FeedbackModel {
         backgroundTask({
             SessionizeDbHelper.updateFeedback(rating.toLong(), comment, sessionId)
         },{
-            ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.hashCode(), notificationFeedbackTag)
+            ServiceRegistry.notificationsApi.cancelLocalNotification(feedbackId, notificationFeedbackTag)
 
             requestNextFeedback()
         })
