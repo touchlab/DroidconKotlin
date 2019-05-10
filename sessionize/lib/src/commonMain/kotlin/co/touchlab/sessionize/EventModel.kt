@@ -30,7 +30,6 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
 
     interface EventView : View<SessionInfo>
 
-    private val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
     fun toggleRsvp(event: SessionInfo) = launch {
         toggleRsvpSuspend(event)
     }
@@ -89,7 +88,8 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             }
 
             val params = HashMap<String, Any>()
-            params["slot"] = analyticsDateFormat.format(session.startsAt)
+            val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
+            params["slot"] = analyticsDateFormat.formatConferenceTZ(session.startsAt)
             params["sessionId"] = sessionId
             params["count"] = if (rsvp) {
                 1
@@ -150,8 +150,8 @@ fun SessionInfo.isRsvped(): Boolean {
 }
 
 suspend fun Session.formattedRoomTime(): String {
-    var formattedStart = SessionInfoStuff.roomNameTimeFormatter.format(this.startsAt)
-    val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.format(this.endsAt)
+    var formattedStart = SessionInfoStuff.roomNameTimeFormatter.formatConferenceTZ(this.startsAt)
+    val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.formatConferenceTZ(this.endsAt)
 
     val startMarker = formattedStart.substring(max(formattedStart.length - 3, 0))
     val endMarker = formattedEnd.substring(max(formattedEnd.length - 3, 0))

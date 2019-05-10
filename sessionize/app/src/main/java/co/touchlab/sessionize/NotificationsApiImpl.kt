@@ -47,6 +47,8 @@ class NotificationsApiImpl : NotificationsApi {
 
         val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
+        print("Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
+
         // Scheduling Intent
         val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
@@ -55,6 +57,8 @@ class NotificationsApiImpl : NotificationsApi {
     override fun cancelLocalNotification(notificationId: Int, notificationTag: String) {
         with(NotificationManagerCompat.from(AndroidAppContext.app)) {
             this.cancel(notificationTag,notificationId)
+            print("Cancelling Local $notificationTag Notification")
+
         }
     }
 
@@ -84,6 +88,8 @@ class NotificationsApiImpl : NotificationsApi {
             with(NotificationManagerCompat.from(AndroidAppContext.app)) {
                 // notificationId is a unique int for each notification that you must define
                 this.notify(notificationTag, notificationId, notification)
+                print("Showing Local $notificationTag Notification")
+
             }
         }
 
