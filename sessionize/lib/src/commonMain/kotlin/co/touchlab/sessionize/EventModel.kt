@@ -3,13 +3,14 @@ package co.touchlab.sessionize
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.api.notificationFeedbackTag
-import co.touchlab.sessionize.api.notificationReminderTag
 import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
-import co.touchlab.sessionize.platform.NotificationsModel.feedbackId
+import co.touchlab.sessionize.platform.NotificationsModel.cancelFeedbackNotificationsForSession
+import co.touchlab.sessionize.platform.NotificationsModel.cancelReminderNotificationsForSession
+import co.touchlab.sessionize.platform.NotificationsModel.createFeedbackNotificationsForSession
+import co.touchlab.sessionize.platform.NotificationsModel.createReminderNotificationsForSession
 import co.touchlab.sessionize.platform.NotificationsModel.reminderNotificationsEnabled
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.currentTimeMillis
@@ -55,24 +56,11 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
 
         if (rsvp) {
             if (reminderNotificationsEnabled()) {
-                ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in " + event.session.room().name,
-                        event.session.title + " is starting soon.",
-                        event.session.startsAt.toLongMillis() + Durations.TEN_MINS_MILLIS,
-                        sessionId.hashCode(),
-                        notificationReminderTag)
-
-                // Feedback Notifications
-                if (event.session.feedbackRating == null) {
-                    val feedbackNotificationTime = event.session.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS
-                    ServiceRegistry.notificationsApi.createLocalNotification("Feedback Time!",
-                            "Your Feedback is Requested",
-                            feedbackNotificationTime,
-                            feedbackId,
-                            notificationFeedbackTag)
-                }
+                createReminderNotificationsForSession(event.session, event.session.room().name)
+                createFeedbackNotificationsForSession(event.session)
             } else {
-                ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId.hashCode(), notificationReminderTag)
-                ServiceRegistry.notificationsApi.cancelLocalNotification(feedbackId, notificationFeedbackTag)
+                cancelReminderNotificationsForSession(event.session)
+                cancelFeedbackNotificationsForSession()
             }
 
             ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
