@@ -45,11 +45,16 @@ class NotificationsApiImpl : NotificationsApi {
 
         WorkManager.getInstance().cancelAllWorkByTag(notificationTag + notificationId.toString())
         WorkManager.getInstance().enqueue(notificationWorkRequest)
+
+        print("Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
+
     }
 
     override fun cancelLocalNotification(notificationId: Int, notificationTag: String) {
         with(NotificationManagerCompat.from(AndroidAppContext.app)) {
             this.cancel(notificationTag,notificationId)
+            print("Cancelling Local $notificationTag Notification")
+
         }
     }
 
