@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 import kotlin.test.BeforeTest
 
 @RunWith(AndroidJUnit4::class)
-class AppContextTestJVM : AppContextTests() {
+class StaticFileLoaderTestJVM : StaticFileLoaderTest() {
     @BeforeTest
     fun androidSetup() {
 
@@ -18,7 +18,6 @@ class AppContextTestJVM : AppContextTests() {
 
         setUp()
 
-        AppContext.initAppContext()
         AndroidAppContext.app = ApplicationProvider.getApplicationContext()
     }
 }
