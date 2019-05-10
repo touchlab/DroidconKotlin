@@ -13,6 +13,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import app.sessionize.touchlab.lib.R
 import co.touchlab.sessionize.api.NotificationsApi
+import co.touchlab.sessionize.api.notificationReminderTag
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnabled
 import co.touchlab.sessionize.platform.currentTimeMillis
@@ -46,7 +47,29 @@ class NotificationsApiImpl : NotificationsApi {
         WorkManager.getInstance().cancelAllWorkByTag(notificationTag + notificationId.toString())
         WorkManager.getInstance().enqueue(notificationWorkRequest)
 
+
+        if(notificationTag == notificationReminderTag){
+            createDismissalWorker(notificationId,notificationTag, delay)
+        }
+
         print("Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
+    }
+
+
+    private fun createDismissalWorker(notificationId: Int, notificationTag: String,timeInMS: Long){
+        val data = Data.Builder()
+        data.put(keyNotificationId,notificationId)
+        data.put(keyNotificationTag, notificationTag)
+
+        val delay = timeInMS + (Durations.TEN_MINS_MILLIS * 2)
+
+        val notificationWorkRequest = OneTimeWorkRequestBuilder<NotificationDismissalWorker>()
+                .setInputData(data.build())
+                .addTag(notificationTag + notificationId.toString())
+                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                .build()
+
+        WorkManager.getInstance().enqueue(notificationWorkRequest)
 
     }
 
@@ -124,6 +147,24 @@ class NotificationsApiImpl : NotificationsApi {
 
             with(NotificationManagerCompat.from(AndroidAppContext.app)) {
                 this.notify(notificationTag, notificationId, builder.build())
+            }
+            return Result.success()
+        }
+    }
+
+    class NotificationDismissalWorker(appContext: Context, workerParams: WorkerParameters)
+        : Worker(appContext, workerParams) {
+
+        override fun doWork(): Result {
+            val notificationId = inputData.getInt(keyNotificationId, -1)
+            val notificationTag = inputData.getString(keyNotificationTag)
+
+            if(notificationTag.isNullOrBlank() || notificationId == -1){
+                return Result.failure()
+            }
+
+            with(NotificationManagerCompat.from(AndroidAppContext.app)) {
+                this.cancel(notificationTag, notificationId)
             }
             return Result.success()
         }
