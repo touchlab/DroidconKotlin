@@ -14,6 +14,9 @@ import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 object NotificationsModel {
+
+    const val feedbackId:Int = 1
+
     fun notificationsEnabled(): Boolean {
         return ServiceRegistry.appSettings.getBoolean(LOCAL_NOTIFICATIONS_ENABLED, true)
     }
@@ -81,7 +84,7 @@ object NotificationsModel {
                             "Your Feedback is Requested",
                             feedbackNotificationTime,
                             //Not great. Possible to clash, although super unlikely
-                            session.id.hashCode(),
+                            feedbackId,
                             notificationFeedbackTag)
                 }
             }
@@ -99,7 +102,7 @@ object NotificationsModel {
     fun cancelFeedbackNotificationsForSessions(sessions: List<MySessions>) {
         if (!feedbackEnabled() || !notificationsEnabled()) {
             sessions.forEach { session ->
-                ServiceRegistry.notificationsApi.cancelLocalNotification(session.id.hashCode(), notificationFeedbackTag)
+                ServiceRegistry.notificationsApi.cancelLocalNotification(feedbackId, notificationFeedbackTag)
             }
         }
     }
