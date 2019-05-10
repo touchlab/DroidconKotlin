@@ -46,17 +46,24 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         center.add(request,withCompletionHandler: nil)
     }
     
-    func cancelLocalNotification(notificationId: Int32, notificationTag: String) {
-        let center = UNUserNotificationCenter.current()
+    func cancelLocalNotification(notificationId: Int32, notificationTag: String, withDelay: KotlinLong?) {
         let notifString = String(notificationId) + notificationTag
         let identifiers = [notifString]
-        center.removePendingNotificationRequests(withIdentifiers: identifiers)
-        center.removeDeliveredNotifications(withIdentifiers: identifiers)
         
+        var dismissalDelay:Double = 0
+        if let it = withDelay{
+            dismissalDelay = it.doubleValue
+        }
+        perform(#selector(cancelNotification), with: identifiers, afterDelay: dismissalDelay)
         print("Cancelling Local \(notificationTag) Notification")
-
     }
 
+    @objc private func cancelNotification(identifiers:[String]){
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: identifiers)
+        center.removeDeliveredNotifications(withIdentifiers: identifiers)
+    }
+    
     func initializeNotifications(onSuccess: @escaping (KotlinBoolean) -> KotlinUnit) {
         let center = UNUserNotificationCenter.current()
         center.getNotificationSettings(completionHandler: { (settings) in

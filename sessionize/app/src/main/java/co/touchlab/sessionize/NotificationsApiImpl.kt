@@ -49,36 +49,27 @@ class NotificationsApiImpl : NotificationsApi {
 
 
         if(notificationTag == notificationReminderTag){
-            createDismissalWorker(notificationId,notificationTag, delay)
+            val dismissalDelay = delay + (Durations.TEN_MINS_MILLIS * 2)
+            cancelLocalNotification(notificationId,notificationTag,dismissalDelay)
         }
 
         print("Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
     }
 
+    override fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long?) {
 
-    private fun createDismissalWorker(notificationId: Int, notificationTag: String,timeInMS: Long){
         val data = Data.Builder()
-        data.put(keyNotificationId,notificationId)
-        data.put(keyNotificationTag, notificationTag)
+        data.putInt(keyNotificationId,notificationId)
+        data.putString(keyNotificationTag, notificationTag)
 
-        val delay = timeInMS + (Durations.TEN_MINS_MILLIS * 2)
-
-        val notificationWorkRequest = OneTimeWorkRequestBuilder<NotificationDismissalWorker>()
+        val notificationWorkRequestBuilder = OneTimeWorkRequestBuilder<NotificationDismissalWorker>()
                 .setInputData(data.build())
                 .addTag(notificationTag + notificationId.toString())
-                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                .build()
 
-        WorkManager.getInstance().enqueue(notificationWorkRequest)
-
-    }
-
-    override fun cancelLocalNotification(notificationId: Int, notificationTag: String) {
-        with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-            this.cancel(notificationTag,notificationId)
-            print("Cancelling Local $notificationTag Notification")
-
+        withDelay?.let {
+            notificationWorkRequestBuilder.setInitialDelay(it, TimeUnit.MILLISECONDS)
         }
+        WorkManager.getInstance().enqueue(notificationWorkRequestBuilder.build())
     }
 
 
@@ -165,9 +156,10 @@ class NotificationsApiImpl : NotificationsApi {
 
             with(NotificationManagerCompat.from(AndroidAppContext.app)) {
                 this.cancel(notificationTag, notificationId)
+                print("Cancelling Local $notificationTag Notification")
             }
+
             return Result.success()
         }
     }
-
 }
