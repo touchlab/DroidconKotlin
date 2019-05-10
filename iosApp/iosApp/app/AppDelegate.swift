@@ -24,7 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.statusBarStyle = .lightContent
       
         serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
-      
+        
+        
+        let timeZone = Bundle.main.object(forInfoDictionaryKey: "TimeZone") as! String
         serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
                                                 coroutineDispatcher: UI(),
                                                 settings: FunctionsKt.defaultSettings(),
@@ -32,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 sessionizeApi: SessionizeApiImpl(),
                                                 analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
                                                 notificationsApi: NotificationsApiImpl(),
-                                                timeZone: "-0400")
+                                                timeZone: timeZone)
 
         
         AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
