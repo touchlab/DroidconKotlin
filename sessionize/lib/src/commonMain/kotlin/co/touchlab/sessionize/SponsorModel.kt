@@ -1,7 +1,7 @@
 package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.Sponsor
-import co.touchlab.sessionize.AppContext.sponsorQueries
+import co.touchlab.sessionize.db.SessionizeDbHelper.sponsorQueries
 import co.touchlab.sessionize.db.SponsorGroupDbItem
 
 class SponsorModel : BaseQueryModelView<Sponsor, List<SponsorGroupDbItem>>(
@@ -16,6 +16,6 @@ class SponsorModel : BaseQueryModelView<Sponsor, List<SponsorGroupDbItem>>(
     interface SponsorView : View<List<SponsorGroupDbItem>>
 
     init {
-        clLog("init SponsorModel()")
+        ServiceRegistry.clLogCallback("init SponsorModel()")
     }
 }

@@ -2,7 +2,7 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.AppContext.userAccountQueries
+import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.db.sessions
 
 class SpeakerModel(speakerId: String) : BaseQueryModelView<UserAccount, UserAccount>(
@@ -13,7 +13,7 @@ class SpeakerModel(speakerId: String) : BaseQueryModelView<UserAccount, UserAcco
         ServiceRegistry.coroutinesDispatcher
 ) {
     init {
-        clLog("init SpeakerModel($speakerId)")
+        ServiceRegistry.clLogCallback("init SpeakerModel($speakerId)")
     }
 
     interface SpeakerView : View<UserAccount>
