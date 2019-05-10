@@ -1,7 +1,7 @@
 package co.touchlab.sessionize.display
 
 import co.touchlab.droidcon.db.SessionWithRoom
-import co.touchlab.sessionize.ScheduleModel
+import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.platform.DateFormatHelper
@@ -103,11 +103,6 @@ fun sortTimeBlocks(o1: SessionWithRoom, o2: SessionWithRoom): Int {
     } else o1.roomName.compareTo(o2.roomName)
 }
 
-@ThreadLocal
-val TAB_DATE_FORMAT = DateFormatHelper("MMM dd")
-@ThreadLocal
-val TIME_FORMAT = DateFormatHelper("h:mma")
-
 fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<HourBlock>> {
 
     val eventAndBlockList = sortSessions(inList)
@@ -117,14 +112,16 @@ fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<H
 
     for (timeBlock in eventAndBlockList) {
         val startDateObj = timeBlock.startsAt
-        val startDate = TAB_DATE_FORMAT.format(startDateObj)
+        val TAB_DATE_FORMAT = DateFormatHelper("MMM dd")
+        val startDate = TAB_DATE_FORMAT.formatConferenceTZ(startDateObj)
         var blockHourList: ArrayList<HourBlock>? = dateWithBlocksTreeMap.get(startDate)
         if (blockHourList == null) {
             blockHourList = ArrayList()
             dateWithBlocksTreeMap[startDate] = blockHourList
         }
 
-        val startTime = TIME_FORMAT.format(startDateObj)
+        val TIME_FORMAT = DateFormatHelper("h:mma")
+        val startTime = TIME_FORMAT.formatConferenceTZ(startDateObj)
         val newHourDisplay = lastHourDisplay != startTime
 
         blockHourList.add(HourBlock(
@@ -155,4 +152,3 @@ fun convertMapToDaySchedule(dateWithBlocksTreeMap: HashMap<String, ArrayList<Hou
 
     return dayScheduleList
 }
-
