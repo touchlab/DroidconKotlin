@@ -46,7 +46,8 @@ class NotificationsApiImpl : NotificationsApi {
             putExtra(NotificationPublisher.NOTIFICATION_CHANNEL_ID,AndroidAppContext.app.getString(R.string.notification_channel_id))
         }
 
-        return PendingIntent.getBroadcast(AndroidAppContext.app, id, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val uniqueId = id.toString() + tag + notificationAction
+        return PendingIntent.getBroadcast(AndroidAppContext.app, uniqueId.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
 
