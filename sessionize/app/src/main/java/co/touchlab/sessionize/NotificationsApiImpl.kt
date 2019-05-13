@@ -8,7 +8,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import app.sessionize.touchlab.lib.R
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.platform.AndroidAppContext
@@ -18,7 +17,7 @@ class NotificationsApiImpl : NotificationsApi {
 
     override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag: String) {
 
-        Log.i("Notif","Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
+        print("Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
 
         val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_CREATE, title, message)
         val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
@@ -27,7 +26,7 @@ class NotificationsApiImpl : NotificationsApi {
 
     override fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long?) {
 
-        Log.i("Notif","Local $notificationTag Notification Cancelled at \n")
+        print("Local $notificationTag Notification Cancelled at $withDelay\n")
 
         val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_DISMISS)
         val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager

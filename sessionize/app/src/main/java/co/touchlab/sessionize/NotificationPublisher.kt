@@ -36,6 +36,8 @@ class NotificationPublisher : BroadcastReceiver() {
                 val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
                 if(intent.action == NOTIFICATION_ACTION_CREATE){
+                    print("OnReceive called, creating notification $id \n")
+
                     val title = intent.getStringExtra(NOTIFICATION_TITLE)
                     val message = intent.getStringExtra(NOTIFICATION_MESSAGE)
                     val channel = intent.getStringExtra(NOTIFICATION_CHANNEL_ID)
@@ -44,6 +46,7 @@ class NotificationPublisher : BroadcastReceiver() {
                     notificationManager.notify(tag, id, notification)
                 }
                 else if(intent.action == NOTIFICATION_ACTION_DISMISS){
+                    print("OnReceive called, dismissing notification $id \n")
 
                     val oldIntent = Intent(AndroidAppContext.app, NotificationPublisher::class.java).apply {
                         action = NotificationPublisher.NOTIFICATION_ACTION_CREATE
