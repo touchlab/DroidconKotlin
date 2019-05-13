@@ -46,9 +46,9 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private fun handleReminderNotifications(create:Boolean){
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             if(create){
-                NotificationsModel.createReminderNotificationsForSessions(mySessions)
+                NotificationsModel.createReminderNotificationsForMySessions(mySessions)
             }else{
-                NotificationsModel.cancelReminderNotificationsForSessions(mySessions)
+                NotificationsModel.cancelReminderNotificationsForMySessions(mySessions)
             }
         }
     }
@@ -56,9 +56,9 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private fun handleFeedbackNotifications(create:Boolean){
         backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
             if(create){
-                NotificationsModel.createFeedbackNotificationsForSessions(mySessions)
+                NotificationsModel.createFeedbackNotificationsForMySessions(mySessions)
             }else {
-                NotificationsModel.cancelFeedbackNotificationsForSessions(mySessions)
+                NotificationsModel.cancelFeedbackNotificationsForMySessions(mySessions)
             }
         }
     }
