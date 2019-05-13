@@ -1,12 +1,16 @@
 package co.touchlab.sessionize
 
+import android.app.Activity
+import android.app.AlarmManager
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.app.Notification
+import android.app.PendingIntent
 import android.os.Build
 import android.util.Log
+import co.touchlab.sessionize.platform.AndroidAppContext
 
 class NotificationPublisher : BroadcastReceiver() {
 
@@ -40,7 +44,16 @@ class NotificationPublisher : BroadcastReceiver() {
                     notificationManager.notify(tag, id, notification)
                 }
                 else if(intent.action == NOTIFICATION_ACTION_DISMISS){
+
+                    val oldIntent = Intent(AndroidAppContext.app, NotificationPublisher::class.java).apply {
+                        action = NotificationPublisher.NOTIFICATION_ACTION_CREATE
+                    }
+                    val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app, id, oldIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
+                    alarmManager.cancel(pendingIntent!!)
+
                     notificationManager.cancel(tag, id)
+
                 }
             }
         }

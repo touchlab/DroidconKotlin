@@ -20,36 +20,34 @@ class NotificationsApiImpl : NotificationsApi {
 
         Log.i("Notif","Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
 
-        val intent = Intent(AndroidAppContext.app, NotificationPublisher::class.java).apply {
-            action = NotificationPublisher.NOTIFICATION_ACTION_CREATE
-
-            putExtra(NotificationPublisher.NOTIFICATION_TITLE,title)
-            putExtra(NotificationPublisher.NOTIFICATION_MESSAGE,message)
-
-            putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId)
-            putExtra(NotificationPublisher.NOTIFICATION_TAG, notificationTag)
-
-            putExtra(NotificationPublisher.NOTIFICATION_CHANNEL_ID,AndroidAppContext.app.getString(R.string.notification_channel_id))
-            putExtra(NotificationPublisher.NOTIFICATION_MESSAGE,message)
-        }
-
-        val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_CREATE, title, message)
         val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
     }
 
     override fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long?) {
-        val intent = Intent(AndroidAppContext.app, NotificationPublisher::class.java).apply {
-            action = NotificationPublisher.NOTIFICATION_ACTION_CREATE
-        }
-        val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
-        alarmManager.cancel(pendingIntent!!)
 
-        val notificationManager = AndroidAppContext.app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(notificationTag, notificationId)
+        Log.i("Notif","Local $notificationTag Notification Cancelled at \n")
+
+        val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_DISMISS)
+        val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay ?: 0, pendingIntent)
     }
 
+    private fun createPendingIntent(id:Int, tag: String, notificationAction:String, title:String? = "", message: String? = ""): PendingIntent{
+        val intent = Intent(AndroidAppContext.app, NotificationPublisher::class.java).apply {
+            action = notificationAction
+            putExtra(NotificationPublisher.NOTIFICATION_TITLE,title)
+            putExtra(NotificationPublisher.NOTIFICATION_MESSAGE,message)
+
+            putExtra(NotificationPublisher.NOTIFICATION_ID, id)
+            putExtra(NotificationPublisher.NOTIFICATION_TAG, tag)
+
+            putExtra(NotificationPublisher.NOTIFICATION_CHANNEL_ID,AndroidAppContext.app.getString(R.string.notification_channel_id))
+        }
+
+        return PendingIntent.getBroadcast(AndroidAppContext.app, id, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
 
 
 

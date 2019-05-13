@@ -112,6 +112,8 @@ object NotificationsModel {
                     notificationTime,
                     sessionId,
                     notificationReminderTag)
+
+            ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId, notificationReminderTag, startsAtTime + Durations.TEN_MINS_MILLIS)
         }
     }
 
