@@ -10,6 +10,7 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import co.touchlab.sessionize.platform.AndroidAppContext
 
 class NotificationPublisher : BroadcastReceiver() {
@@ -72,6 +73,7 @@ class NotificationPublisher : BroadcastReceiver() {
         builder.setContentTitle(title)
         builder.setContentText(message)
         builder.setSmallIcon(R.drawable.menu_schedule)
+        builder.setCategory(NotificationCompat.CATEGORY_REMINDER)
         return builder.build()
     }
 }
