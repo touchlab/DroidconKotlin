@@ -71,15 +71,8 @@ object NotificationsModel {
     // Create Lists
 
     fun createReminderNotificationsForMySessions(sessions: List<MySessions>) {
-
-
         if (reminderNotificationsEnabled() && notificationsEnabled()) {
-
             var lowestDate:Date? = null
-
-            sessions.forEach { session ->
-                print("Notif - ${session.title}  : ${session.startsAt.toLongMillis()} \n")
-            }
             sessions.forEach { session ->
                 if(lowestDate == null || session.startsAt.toLongMillis() > lowestDate!!.toLongMillis()) {
                     val partitionedSessions = sessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
