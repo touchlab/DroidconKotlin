@@ -79,12 +79,12 @@ object NotificationsModel {
                     val matchingSessions = partitionedSessions.first
 
                     if(matchingSessions.size == 1) {
-                        createReminderNotification(currentTimeMillis() + 1000,
+                        createReminderNotification(session.startsAt,
                                                     session.id.hashCode(),
                                                     "Upcoming Event in ${session.roomName}",
                                                     "${session.title} is starting soon.")
                     }else{
-                        createReminderNotification(currentTimeMillis() + 1000,
+                        createReminderNotification(session.startsAt,
                                                     session.id.hashCode(),
                                                     "${matchingSessions.size} Upcoming Sessions",
                                                     "You have ${matchingSessions.size} Sessions Starting soon")
@@ -123,7 +123,7 @@ object NotificationsModel {
     // create Singular
 
     private fun createReminderNotification(startsAtTime: Long, sessionId: Int, title:String, message:String){
-        val notificationTime = startsAtTime// - Durations.TEN_MINS_MILLIS
+        val notificationTime = startsAtTime - Durations.TEN_MINS_MILLIS
         if (notificationTime > currentTimeMillis()) {
             ServiceRegistry.notificationsApi.createLocalNotification(title,
                                                                     message,
