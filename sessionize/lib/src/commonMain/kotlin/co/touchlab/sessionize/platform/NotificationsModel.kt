@@ -71,9 +71,34 @@ object NotificationsModel {
     // Create Lists
 
     fun createReminderNotificationsForMySessions(sessions: List<MySessions>) {
+
+
         if (reminderNotificationsEnabled() && notificationsEnabled()) {
+
+            var lowestDate:Date? = null
+
             sessions.forEach { session ->
-                createReminderNotification(session.endsAt.toLongMillis(),session.id.hashCode(),session.title, session.roomName)
+                print("Notif - ${session.title}  : ${session.startsAt.toLongMillis()} \n")
+            }
+            sessions.forEach { session ->
+                if(lowestDate == null || session.startsAt.toLongMillis() > lowestDate!!.toLongMillis()) {
+                    val partitionedSessions = sessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
+                    val matchingSessions = partitionedSessions.first
+
+                    if(matchingSessions.size == 1) {
+                        createReminderNotification(currentTimeMillis() + 1000,
+                                                    session.id.hashCode(),
+                                                    "Upcoming Event in ${session.roomName}",
+                                                    "${session.title} is starting soon.")
+                    }else{
+                        createReminderNotification(currentTimeMillis() + 1000,
+                                                    session.id.hashCode(),
+                                                    "${matchingSessions.size} Upcoming Sessions",
+                                                    "You have ${matchingSessions.size} Sessions Starting soon")
+                    }
+
+                    lowestDate = session.startsAt
+                }
             }
         }
     }
@@ -104,14 +129,14 @@ object NotificationsModel {
 
     // create Singular
 
-    private fun createReminderNotification(startsAtTime: Long, sessionId: Int, title:String, roomName:String){
-        val notificationTime = startsAtTime - Durations.TEN_MINS_MILLIS
+    private fun createReminderNotification(startsAtTime: Long, sessionId: Int, title:String, message:String){
+        val notificationTime = startsAtTime// - Durations.TEN_MINS_MILLIS
         if (notificationTime > currentTimeMillis()) {
-            ServiceRegistry.notificationsApi.createLocalNotification("Upcoming Event in $roomName",
-                    "$title is starting soon.",
-                    notificationTime,
-                    sessionId,
-                    notificationReminderTag)
+            ServiceRegistry.notificationsApi.createLocalNotification(title,
+                                                                    message,
+                                                                    notificationTime,
+                                                                    sessionId,
+                                                                    notificationReminderTag)
         }
     }
 

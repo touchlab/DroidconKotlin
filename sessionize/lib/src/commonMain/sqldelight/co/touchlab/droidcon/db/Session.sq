@@ -37,7 +37,7 @@ mySessions:
 SELECT session.id, session.title, session.startsAt, session.endsAt, session.feedbackRating, room.name AS roomName
 FROM session
 JOIN room ON session.roomId = room.id
-WHERE rsvp != 0;
+WHERE rsvp != 0 ORDER BY session.startsAt ASC;
 
 myPastSession:
 SELECT session.id, session.title, session.endsAt, session.feedbackRating
