@@ -105,8 +105,8 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 
   // Configure the collection view.
   _flowLayout = [self generatedFlowLayout];
-  UICollectionView *collectionView =
-      [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_flowLayout];
+  UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.bounds
+                                                        collectionViewLayout:_flowLayout];
   collectionView.backgroundColor = [UIColor clearColor];
   collectionView.clipsToBounds = NO;
   collectionView.scrollsToTop = NO;
@@ -328,6 +328,21 @@ static void *kItemPropertyContext = &kItemPropertyContext;
   [self updateColors];
 }
 
+// UISemanticContentAttribute was added in iOS SDK 9.0 but is available on devices running earlier
+// version of iOS. We ignore the partial-availability warning that gets thrown on our use of this
+// symbol.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+- (void)mdf_setSemanticContentAttribute:(UISemanticContentAttribute)semanticContentAttribute {
+  if (semanticContentAttribute == self.mdf_semanticContentAttribute) {
+    return;
+  }
+  [super mdf_setSemanticContentAttribute:semanticContentAttribute];
+  _collectionView.mdf_semanticContentAttribute = semanticContentAttribute;
+  [_collectionView.collectionViewLayout invalidateLayout];
+}
+#pragma clang diagnostic pop
+
 #pragma mark - UICollectionViewDelegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView
@@ -378,8 +393,8 @@ static void *kItemPropertyContext = &kItemPropertyContext;
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
   NSParameterAssert(_collectionView == collectionView);
 
-  MDCItemBarCell *itemCell =
-      [collectionView dequeueReusableCellWithReuseIdentifier:kItemReuseID forIndexPath:indexPath];
+  MDCItemBarCell *itemCell = [collectionView dequeueReusableCellWithReuseIdentifier:kItemReuseID
+                                                                       forIndexPath:indexPath];
   UITabBarItem *item = [self itemAtIndexPath:indexPath];
 
   [self configureCell:itemCell];
@@ -401,9 +416,7 @@ static void *kItemPropertyContext = &kItemPropertyContext;
   CGSize size = CGSizeMake(CGFLOAT_MAX, itemHeight);
 
   // Size cell to fit content.
-  size = [MDCItemBarCell sizeThatFits:size
-                                 item:item
-                                style:_style];
+  size = [MDCItemBarCell sizeThatFits:size item:item style:_style];
 
   // Divide justified items evenly across the view.
   if (_alignment == MDCItemBarAlignmentJustified) {
@@ -428,8 +441,8 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 
 - (CGFloat)adjustedCollectionViewWidth {
   if (@available(iOS 11.0, *)) {
-    return CGRectGetWidth(UIEdgeInsetsInsetRect(_collectionView.bounds,
-                                                _collectionView.adjustedContentInset));
+    return CGRectGetWidth(
+        UIEdgeInsetsInsetRect(_collectionView.bounds, _collectionView.adjustedContentInset));
   }
   return CGRectGetWidth(_collectionView.bounds);
 }
@@ -622,7 +635,6 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 }
 
 - (void)updateFlowLayoutMetrics {
-
   UIUserInterfaceSizeClass horizontalSizeClass = [self horizontalSizeClass];
 
   UIEdgeInsets newSectionInset = UIEdgeInsetsZero;
@@ -818,7 +830,7 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 }
 
 - (nullable UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:
-        (NSIndexPath *)indexPath {
+    (NSIndexPath *)indexPath {
   if (_correctedAttributesForIndexPath) {
     return _correctedAttributesForIndexPath[indexPath];
   }
@@ -860,7 +872,7 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 
 /// Computes RTL-flipped attributes given superclass-calculated attributes.
 - (UICollectionViewLayoutAttributes *)flippedAttributesFromAttributes:
-        (UICollectionViewLayoutAttributes *)attributes {
+    (UICollectionViewLayoutAttributes *)attributes {
   UICollectionViewLayoutAttributes *newAttributes = [attributes copy];
 
   CGRect itemFrame = attributes.frame;
@@ -878,7 +890,7 @@ static void *kItemPropertyContext = &kItemPropertyContext;
   UIUserInterfaceLayoutDirection rtl = UIUserInterfaceLayoutDirectionRightToLeft;
   NSProcessInfo *processInfo = [NSProcessInfo processInfo];
   return [processInfo isOperatingSystemAtLeastVersion:iOS9Version] &&
-    self.collectionView.mdf_effectiveUserInterfaceLayoutDirection == rtl;
+         self.collectionView.mdf_effectiveUserInterfaceLayoutDirection == rtl;
 }
 
 /// Indicates if the superclass' layout appears to have been layed out in a left-to-right order. If
@@ -949,7 +961,7 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 }
 
 - (UICollectionViewLayoutAttributes *)paddedAttributesFromAttributes:
-        (UICollectionViewLayoutAttributes *)attributes {
+    (UICollectionViewLayoutAttributes *)attributes {
   // Must call super here to ensure we have the original collection content size.
   CGSize contentSize = [super collectionViewContentSize];
   CGRect scrollBounds = [self adjustedCollectionViewBounds];
