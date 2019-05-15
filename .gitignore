@@ -78,3 +78,4 @@ fastlane/test_output
 
 buildboth.sh
 sessionize/app/google-services.json
+iosApp/iosApp/app/GoogleService-Info.plist
