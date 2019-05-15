@@ -77,9 +77,13 @@ dependencies {
     implementation deps.kotlin.coroutines.jdk
     implementation deps.kotlin.coroutines.android
     implementation deps.ktor.androidCore
+    implementation deps.firebase.androidMessaging
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation deps.multiplatformSettings
 }
+
+apply plugin: 'com.google.gms.google-services'
