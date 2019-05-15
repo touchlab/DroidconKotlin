@@ -101,6 +101,8 @@ kotlin {
                 implementation deps.ktor.jvmCore
                 implementation deps.ktor.jvmJson
                 implementation deps.serialization.jvmRuntime
+                implementation deps.firebase.androidMessaging
+
             }
         }
 

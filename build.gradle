@@ -22,7 +22,8 @@ buildscript {
             'ktor'                 : '1.1.4',
             'serialization'        : '0.11.0',
             'xcode'                : '0.1.2',
-            'testhelp'             : '0.2.1'
+            'testhelp'             : '0.2.1',
+            'firebase'              : '16.0.9'
     ]
 
     ext.deps = [
@@ -80,6 +81,11 @@ buildscript {
                     'iosRuntime'   : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${versions.serialization}",
             ]
             ,
+            'firebase'              : [
+                    'androidCore'       : "com.google.firebase:firebase-core:${versions.firebase}",
+                    'androidMessaging'       : "com.google.firebase:firebase-messaging:18.0.0",
+
+            ],
             'testhelp' : "co.touchlab:testhelp:${versions.testhelp}"
     ]
 
