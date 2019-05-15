@@ -2,6 +2,9 @@ package co.touchlab.sessionize.platform
 
 import android.content.Context
 import android.util.Log
+import co.touchlab.sessionize.AppContext
+import co.touchlab.sessionize.ServiceRegistry
+import co.touchlab.sessionize.api.NetworkRepo
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -37,6 +40,9 @@ class FirebaseMessageHandler : FirebaseMessagingService() {
         remoteMessage?.notification?.let {
             Log.d("TAG", "Message Notification Body: ${it.body}")
         }
+
+
+        NetworkRepo.dataCalls()
     }
     override fun onNewToken(token: String?) {
         Log.d("TAG", "Refreshed token: $token")
