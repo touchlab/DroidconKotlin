@@ -32,7 +32,7 @@
 
 
         <service
-                android:name=".platform.Messager"
+                android:name=".platform.FirebaseMessageHandler"
                 android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
