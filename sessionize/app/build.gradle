@@ -77,7 +77,6 @@ dependencies {
     implementation deps.kotlin.coroutines.jdk
     implementation deps.kotlin.coroutines.android
     implementation deps.ktor.androidCore
-    implementation deps.firebase.androidMessaging
 
 
     testImplementation 'junit:junit:4.12'

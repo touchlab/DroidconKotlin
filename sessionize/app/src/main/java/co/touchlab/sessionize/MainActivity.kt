@@ -12,15 +12,11 @@ import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.feedback.FeedbackManager
 import co.touchlab.sessionize.platform.firebaseInit
 import co.touchlab.sessionize.platform.firebaseRequestToken
-import co.touchlab.sessionize.platform.initApp
-import co.touchlab.sessionize.platform.requestInstanceId
 import co.touchlab.sessionize.schedule.ScheduleFragment
 import co.touchlab.sessionize.settings.SettingsFragment
 import co.touchlab.sessionize.sponsors.SponsorsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
 import kotlinx.android.synthetic.main.activity_main.*
 
 
