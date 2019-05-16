@@ -34,6 +34,9 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
 //        MDCAppBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.colorScheme, to:bottomNavBar)
         feedbackManager.setViewController(self)
         feedbackManager.showFeedbackForPastSessions()
+        
+        var test = FirebaseHandler()
+        test.firebaseRequestToken()
     }
 
 

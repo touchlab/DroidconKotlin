@@ -19,6 +19,7 @@
 		304A18B64A26949C5D464E64 /* MainThreadPubSub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 577E294E998BF75EDD701F35 /* MainThreadPubSub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		304E5637389A73B7652919A2 /* File.kt in Sources */ = {isa = PBXBuildFile; fileRef = C351C93850E84268E8BCF7D3 /* File.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		3161952A95320D7FA337D820 /* DateHelpers.kt in Sources */ = {isa = PBXBuildFile; fileRef = F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
+		348E60A402B68A38675622F8 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04CC97704F132875703ACD3 /* Pods_iosApp.framework */; };
 		38B8C6B0C361EC56756C2957 /* SessionizeApi.kt in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CDB3FC1326761B377AA74 /* SessionizeApi.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8C40677B832A85589CF8C635 /* SpeakerViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		48C573A1F5D360811E47588C /* Concurrent.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8673736A19BE2116F72DE852 /* Concurrent.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -91,9 +92,11 @@
 		F1378D8D22834077009E70D3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */; };
 		F1378D8E22834077009E70D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8C22834077009E70D3 /* SettingsViewController.swift */; };
 		F1378D90228340AC009E70D3 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8F228340AC009E70D3 /* FeedbackManager.swift */; };
+		F15978AD228D93930038BD02 /* FirebaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15978AC228D93930038BD02 /* FirebaseHandler.swift */; };
 		F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */; };
 		F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */; };
 		F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */; };
+		F1F78F12228CB5FB00CD2CB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1F78F11228CB5FB00CD2CB9 /* GoogleService-Info.plist */; };
 		F698E4A89CECD079D75F8997 /* SponsorViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 037212D4434537622C53ECF0 /* SponsorViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
@@ -201,6 +204,7 @@
 		F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		F1378D8C22834077009E70D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F1378D8F228340AC009E70D3 /* FeedbackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
+		F15978AC228D93930038BD02 /* FirebaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHandler.swift; sourceTree = "<group>"; };
 		F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_black_48dp.png; path = images/baseline_sentiment_satisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_very_dissatisfied_black_48dp.png; path = images/baseline_sentiment_very_dissatisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_alt_black_48dp.png; path = images/baseline_sentiment_satisfied_alt_black_48dp.png; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 		F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
+		F1F78F11228CB5FB00CD2CB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F3268F03C19C8685393B8DDA /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +221,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				348E60A402B68A38675622F8 /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				637E510F227235890093DBF7 /* NotificationsApiImpl.swift */,
+				F15978AC228D93930038BD02 /* FirebaseHandler.swift */,
 				6372423A20F973370049263B /* Main.storyboard */,
 				6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */,
 				6372423D20F975470049263B /* LaunchViewController.swift */,
@@ -352,6 +359,7 @@
 				637100CC210E409E0099FF25 /* MaterialTabNavController.swift */,
 				6356313A20DC58F600BCCDF9 /* AppDelegate.swift */,
 				637100D0210F69160099FF25 /* ApplicationScheme.swift */,
+				F1F78F11228CB5FB00CD2CB9 /* GoogleService-Info.plist */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -580,6 +588,7 @@
 				6372423C20F973370049263B /* Main.storyboard in Resources */,
 				6372423720F914D60049263B /* speakers.json in Resources */,
 				F111E60D22569ED1000B3F3D /* FeedbackView.xib in Resources */,
+				F1F78F12228CB5FB00CD2CB9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +616,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
@@ -614,9 +624,12 @@
 				"${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework",
 				"${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework",
 				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
@@ -624,6 +637,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionInterchange.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -737,6 +752,7 @@
 				F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
 				C764772084EDD3F58CAFB7E9 /* BaseModel.kt in Sources */,
+				F15978AD228D93930038BD02 /* FirebaseHandler.swift in Sources */,
 				785CF0ED224E31269FBEDFFD /* ExpectSuccess.kt in Sources */,
 				F1378D8E22834077009E70D3 /* SettingsViewController.swift in Sources */,
 				38B8C6B0C361EC56756C2957 /* SessionizeApi.kt in Sources */,
@@ -933,7 +949,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 2UER9BPG44;
+				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -955,6 +971,7 @@
 					"/Users/kgalligan/devel_kmp/kotlin-native-latest/runtime/src/main/cpp",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -994,7 +1011,7 @@
 					"\"lib_umbrella\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.albany;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.droidcon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1007,7 +1024,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2UER9BPG44;
+				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1029,6 +1046,7 @@
 					"/Users/kgalligan/devel_kmp/kotlin-native-latest/runtime/src/main/cpp",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1068,7 +1086,7 @@
 					"\"lib_umbrella\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.albany;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.droidcon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
