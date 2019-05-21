@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import Firebase
+import lib
 
 class FirebaseHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDelegate {
 
@@ -33,7 +34,6 @@ class FirebaseHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDele
         
         UIApplication.shared.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
-
     }
     
     func firebaseRequestToken(){
@@ -48,7 +48,7 @@ class FirebaseHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDele
     }
     
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-            print("TEST")
+        NetworkRepo().dataCalls()
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
@@ -58,5 +58,6 @@ class FirebaseHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDele
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
+        token = fcmToken
     }
 }
