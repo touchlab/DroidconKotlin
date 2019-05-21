@@ -11,7 +11,7 @@ import UserNotifications
 import Firebase
 import lib
 
-class FirebaseHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDelegate {
+class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDelegate {
 
     var token:String?
     
@@ -19,10 +19,8 @@ class FirebaseHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDele
         super.init()
         
         if #available(iOS 10.0, *) {
-            // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
-            
-            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            let authOptions: UNAuthorizationOptions = [.alert]
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
                 completionHandler: {_, _ in })
@@ -41,7 +39,6 @@ class FirebaseHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDele
             if let error = error {
                 print("Error fetching remote instance ID: \(error)")
             } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
                 self.token = result.token
             }
         }
@@ -52,10 +49,8 @@ class FirebaseHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDele
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
-        
-        let dataDict:[String: String] = ["token": fcmToken]
-        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+       // let dataDict:[String: String] = ["token": fcmToken]
+        //NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
         token = fcmToken
