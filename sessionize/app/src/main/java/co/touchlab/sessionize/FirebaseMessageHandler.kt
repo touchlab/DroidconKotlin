@@ -36,7 +36,7 @@ class FirebaseMessageHandler : FirebaseMessagingService() {
     }
 
     companion object {
-        val TAG = FirebaseMessageHandler.javaClass.simpleName
+        val TAG = FirebaseMessageHandler::class.java.simpleName
         fun initFirebaseApp(context: Context){
             FirebaseApp.initializeApp(context)
         }
