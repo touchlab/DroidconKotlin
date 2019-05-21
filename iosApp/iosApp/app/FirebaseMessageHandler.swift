@@ -13,7 +13,7 @@ import lib
 
 class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDelegate {
 
-    var token:String?
+    private var token:String?
     
     override init() {
         super.init()
@@ -54,5 +54,12 @@ class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, Messag
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
         token = fcmToken
+    }
+    
+    
+    static func initFirebaseApp(){
+        FirebaseApp.configure()
+        Messaging.messaging().shouldEstablishDirectChannel = true
+        Messaging.messaging().useMessagingDelegateForDirectChannel = true
     }
 }

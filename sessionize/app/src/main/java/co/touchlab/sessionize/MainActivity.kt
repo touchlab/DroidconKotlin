@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.feedback.FeedbackManager
-import co.touchlab.sessionize.platform.firebaseInit
-import co.touchlab.sessionize.platform.firebaseRequestToken
 import co.touchlab.sessionize.schedule.ScheduleFragment
 import co.touchlab.sessionize.settings.SettingsFragment
 import co.touchlab.sessionize.sponsors.SponsorsFragment
@@ -71,8 +69,8 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         feedbackManager.setFragmentManager(supportFragmentManager)
         feedbackManager.showFeedbackForPastSessions()
 
-        firebaseInit(this)
-        firebaseRequestToken()
+        val firebaseMessageHandler = FirebaseMessageHandler()
+        firebaseMessageHandler.requestToken()
     }
 
 
