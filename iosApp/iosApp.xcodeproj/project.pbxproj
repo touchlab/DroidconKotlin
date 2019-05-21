@@ -93,7 +93,7 @@
 		F1378D8E22834077009E70D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8C22834077009E70D3 /* SettingsViewController.swift */; };
 		F1378D90228340AC009E70D3 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8F228340AC009E70D3 /* FeedbackManager.swift */; };
 		F147CF15228F2C6C009F04E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F147CF14228F2C6C009F04E5 /* GoogleService-Info.plist */; };
-		F15978AD228D93930038BD02 /* FirebaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15978AC228D93930038BD02 /* FirebaseHandler.swift */; };
+		F15978AD228D93930038BD02 /* FirebaseMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15978AC228D93930038BD02 /* FirebaseMessageHandler.swift */; };
 		F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */; };
 		F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */; };
 		F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */; };
@@ -206,7 +206,7 @@
 		F1378D8F228340AC009E70D3 /* FeedbackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		F147CF11228F1A77009F04E5 /* iosApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iosApp.entitlements; sourceTree = "<group>"; };
 		F147CF14228F2C6C009F04E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F15978AC228D93930038BD02 /* FirebaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHandler.swift; sourceTree = "<group>"; };
+		F15978AC228D93930038BD02 /* FirebaseMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageHandler.swift; sourceTree = "<group>"; };
 		F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_black_48dp.png; path = images/baseline_sentiment_satisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_very_dissatisfied_black_48dp.png; path = images/baseline_sentiment_very_dissatisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_alt_black_48dp.png; path = images/baseline_sentiment_satisfied_alt_black_48dp.png; sourceTree = "<group>"; };
@@ -354,7 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				637E510F227235890093DBF7 /* NotificationsApiImpl.swift */,
-				F15978AC228D93930038BD02 /* FirebaseHandler.swift */,
+				F15978AC228D93930038BD02 /* FirebaseMessageHandler.swift */,
 				6372423A20F973370049263B /* Main.storyboard */,
 				6356314320DC58F700BCCDF9 /* LaunchScreen.storyboard */,
 				6372423D20F975470049263B /* LaunchViewController.swift */,
@@ -759,7 +759,7 @@
 				F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
 				C764772084EDD3F58CAFB7E9 /* BaseModel.kt in Sources */,
-				F15978AD228D93930038BD02 /* FirebaseHandler.swift in Sources */,
+				F15978AD228D93930038BD02 /* FirebaseMessageHandler.swift in Sources */,
 				785CF0ED224E31269FBEDFFD /* ExpectSuccess.kt in Sources */,
 				F1378D8E22834077009E70D3 /* SettingsViewController.swift in Sources */,
 				38B8C6B0C361EC56756C2957 /* SessionizeApi.kt in Sources */,
