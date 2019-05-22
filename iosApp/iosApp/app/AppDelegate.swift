@@ -11,7 +11,6 @@ import lib
 import Fabric
 import Crashlytics
 import UserNotifications
-import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
