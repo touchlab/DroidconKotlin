@@ -50,72 +50,13 @@ object NotificationsModel {
     // Create Everything
 
     fun createNotificationsForSessions() {
-        if (notificationsEnabled() && (reminderNotificationsEnabled() || feedbackEnabled())) {
-            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                createReminderNotificationsForMySessions(mySessions)
-                createFeedbackNotificationsForMySessions(mySessions)
-            }
-        }
+        recreateNotifications()
     }
 
     fun cancelNotificationsForSessions() {
         if (!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                cancelReminderNotificationsForMySessions(mySessions)
-                cancelFeedbackNotificationsForMySessions(mySessions)
-            }
-        }
-    }
-
-
-    // Create Lists
-
-    fun createReminderNotificationsForMySessions(sessions: List<MySessions>) {
-        if (reminderNotificationsEnabled() && notificationsEnabled()) {
-            var lowestDate:Date? = null
-            sessions.forEach { session ->
-                if(lowestDate == null || session.startsAt.toLongMillis() > lowestDate!!.toLongMillis()) {
-                    val partitionedSessions = sessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
-                    val matchingSessions = partitionedSessions.first
-
-                    if(matchingSessions.size == 1) {
-                        createReminderNotification(session.startsAt,
-                                                    session.id.hashCode(),
-                                                    "Upcoming Event in ${session.roomName}",
-                                                    "${session.title} is starting soon.")
-                    }else{
-                        createReminderNotification(session.startsAt,
-                                                    session.id.hashCode(),
-                                                    "${matchingSessions.size} Upcoming Sessions",
-                                                    "You have ${matchingSessions.size} Sessions Starting soon")
-                    }
-
-                    lowestDate = session.startsAt
-                }
-            }
-        }
-    }
-
-    fun createFeedbackNotificationsForMySessions(sessions: List<MySessions>) {
-        if (feedbackEnabled() && notificationsEnabled()) {
-            sessions.forEach { session ->
-                if (session.feedbackRating == null) {
-                    createFeedbackNotification(session.endsAt.toLongMillis())
-                }
-            }
-        }
-    }
-
-    fun createReminderNotificationsForSession(session: Session,roomName: String) {
-        if (reminderNotificationsEnabled() && notificationsEnabled()) {
-                createReminderNotification(session.endsAt.toLongMillis(),session.id.hashCode(),session.title, roomName)
-        }
-    }
-
-    fun createFeedbackNotificationsForSession(session: Session) {
-        if (feedbackEnabled() && notificationsEnabled()) {
-            if (session.feedbackRating == null) {
-                createFeedbackNotification(session.endsAt.toLongMillis())
+                ServiceRegistry.notificationsApi.cancelAllNotifications(mySessions)
             }
         }
     }
@@ -145,28 +86,6 @@ object NotificationsModel {
 
     // Cancel List
 
-    fun cancelReminderNotificationsForMySessions(sessions: List<MySessions>) {
-        if (!reminderNotificationsEnabled() || !notificationsEnabled()) {
-            sessions.forEach { session ->
-                ServiceRegistry.notificationsApi.cancelLocalNotification(session.id.hashCode(), notificationReminderTag)
-            }
-        }
-    }
-
-    fun cancelFeedbackNotificationsForMySessions(sessions: List<MySessions>) {
-        if (!feedbackEnabled() || !notificationsEnabled()) {
-            sessions.forEach { session ->
-                ServiceRegistry.notificationsApi.cancelLocalNotification(feedbackId, notificationFeedbackTag)
-            }
-        }
-    }
-
-    fun cancelReminderNotificationsForSession(session: Session) {
-        if (!reminderNotificationsEnabled() || !notificationsEnabled()) {
-            cancelReminderNotification(session.id.hashCode())
-        }
-    }
-
     fun cancelFeedbackNotificationsForSession() {
         if (!feedbackEnabled() || !notificationsEnabled()) {
             cancelFeedbackNotification()
@@ -175,11 +94,40 @@ object NotificationsModel {
 
     // Cancel Singular
 
-    private fun cancelReminderNotification(sessionid: Int) {
-        ServiceRegistry.notificationsApi.cancelLocalNotification(sessionid, notificationReminderTag)
-    }
-
     private fun cancelFeedbackNotification() {
         ServiceRegistry.notificationsApi.cancelLocalNotification(feedbackId, notificationFeedbackTag)
+    }
+
+    fun recreateNotifications(){
+        backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+            ServiceRegistry.notificationsApi.cancelAllNotifications(mySessions)
+            if (notificationsEnabled()){
+                if(reminderNotificationsEnabled()) {
+                    val session = mySessions.first()
+
+                    val partitionedSessions = mySessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
+                    val matchingSessions = partitionedSessions.first
+
+                    if (matchingSessions.size == 1) {
+                        createReminderNotification(session.startsAt.toLongMillis(),
+                                session.startsAt.toLongMillis().hashCode(),
+                                "Upcoming Event in ${session.roomName}",
+                                "${session.title} is starting soon.")
+                    } else {
+                        createReminderNotification(session.startsAt.toLongMillis(),
+                                session.startsAt.toLongMillis().hashCode(),
+                                "${matchingSessions.size} Upcoming Sessions",
+                                "You have ${matchingSessions.size} Sessions Starting soon")
+                    }
+                }
+                if (feedbackEnabled()) {
+                    mySessions.forEach { session ->
+                        if (session.feedbackRating == null) {
+                            createFeedbackNotification(session.endsAt.toLongMillis())
+                        }
+                    }
+                }
+            }
+        }
     }
 }
