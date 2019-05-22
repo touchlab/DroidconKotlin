@@ -36,7 +36,6 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         feedbackManager.showFeedbackForPastSessions()
         
         let firebaseMessageHandler = FirebaseMessageHandler()
-        firebaseMessageHandler.firebaseRequestToken()
     }
 
 

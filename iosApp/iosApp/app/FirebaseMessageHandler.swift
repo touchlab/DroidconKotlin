@@ -12,8 +12,6 @@ import Firebase
 import lib
 
 class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDelegate {
-
-    private var token:String?
     
     override init() {
         super.init()
@@ -34,26 +32,13 @@ class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, Messag
         Messaging.messaging().delegate = self
     }
     
-    func firebaseRequestToken(){
-        InstanceID.instanceID().instanceID { (result, error) in
-            if let error = error {
-                print("Error fetching remote instance ID: \(error)")
-            } else if let result = result {
-                self.token = result.token
-            }
-        }
-    }
-    
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print("From: \(remoteMessage.messageID)")
+        print("Message data payload: \(remoteMessage.appData)")
         NetworkRepo().dataCalls()
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-       // let dataDict:[String: String] = ["token": fcmToken]
-        //NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
-        token = fcmToken
     }
     
     
@@ -61,5 +46,7 @@ class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, Messag
         FirebaseApp.configure()
         Messaging.messaging().shouldEstablishDirectChannel = true
         Messaging.messaging().useMessagingDelegateForDirectChannel = true
+        
+        Messaging.messaging().subscribe(toTopic: "all")
     }
 }
