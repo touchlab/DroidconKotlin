@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
     private var feedbackManager = FeedbackManager()
+    val firebaseMessageHandler = FirebaseMessageHandler()
 
     override fun showSnack(message: String, length: Int) {
         Snackbar.make(findViewById<View>(R.id.navigation), message, Snackbar.LENGTH_SHORT).show()
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         feedbackManager.setFragmentManager(supportFragmentManager)
         feedbackManager.showFeedbackForPastSessions()
 
-        val firebaseMessageHandler = FirebaseMessageHandler()
+
     }
 
 

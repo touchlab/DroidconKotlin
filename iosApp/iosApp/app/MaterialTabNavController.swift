@@ -15,7 +15,8 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
     private var feedbackManager = FeedbackManager()
 
     let bottomNavBar = MDCBottomNavigationBar()
-
+    let firebaseMessageHandler = FirebaseMessageHandler()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomNavBar.items = tabBar.items!
@@ -35,7 +36,7 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         feedbackManager.setViewController(self)
         feedbackManager.showFeedbackForPastSessions()
         
-        let firebaseMessageHandler = FirebaseMessageHandler()
+        
     }
 
 
