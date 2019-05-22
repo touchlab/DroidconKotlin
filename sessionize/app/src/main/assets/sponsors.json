@@ -65,7 +65,8 @@
       {
         "name": "Touchlab",
         "url": "https://touchlab.co/",
-        "icon": "https://static.wixstatic.com/media/26bcf1_7e164fa48a864abba5f63b2c749bd870~mv2.png"
+        "icon": "https://static.wixstatic.com/media/26bcf1_7e164fa48a864abba5f63b2c749bd870~mv2.png",
+        "sponsorId": 123867
       },
       {
         "name": "Ray Wenderlich",
@@ -275,7 +276,8 @@
       {
         "name": "Touchlab",
         "url": "https://touchlab.co/",
-        "icon": "https://static.wixstatic.com/media/a378f5_15aa6c7e61c545969b93b4a5cd68ff86~mv2.png"
+        "icon": "https://static.wixstatic.com/media/a378f5_15aa6c7e61c545969b93b4a5cd68ff86~mv2.png",
+        "sponsorId": 123867
       },
       {
         "name": "Pro Android Dev",

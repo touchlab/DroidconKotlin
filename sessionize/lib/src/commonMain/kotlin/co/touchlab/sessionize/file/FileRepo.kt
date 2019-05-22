@@ -10,9 +10,10 @@ object FileRepo {
         val sponsorJson = staticFileLoader("sponsors", "json")
         val speakerJson = staticFileLoader("speakers", "json")
         val scheduleJson = staticFileLoader("schedule", "json")
+        val sponsorSessionJson = staticFileLoader("sponsor_session", "json")
 
-        if (sponsorJson != null && speakerJson != null && scheduleJson != null) {
-            SessionizeDbHelper.primeAll(speakerJson, scheduleJson, sponsorJson)
+        if (sponsorJson != null && speakerJson != null && scheduleJson != null && sponsorSessionJson != null) {
+            SessionizeDbHelper.primeAll(speakerJson, scheduleJson, sponsorJson, sponsorSessionJson)
         } else {
             //This should only ever happen in dev
             throw NullPointerException("Couldn't load static files")

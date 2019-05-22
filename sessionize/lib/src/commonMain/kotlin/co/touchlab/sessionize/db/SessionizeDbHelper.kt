@@ -10,7 +10,10 @@ import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.Speaker
+import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.jsondata.SponsorGroup
+import co.touchlab.sessionize.jsondata.SponsorSession
+import co.touchlab.sessionize.jsondata.SponsorSessionResponse
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
@@ -20,6 +23,7 @@ import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
+import kotlinx.serialization.parse
 
 object SessionizeDbHelper {
 
@@ -47,12 +51,13 @@ object SessionizeDbHelper {
     fun updateFeedback(feedbackRating: Long?, feedbackComment: String?, id: String) = instance.sessionQueries.updateFeedBack(feedbackRating,feedbackComment,id)
 
 
-    fun primeAll(speakerJson: String, scheduleJson: String, sponsorJson: String) {
+    fun primeAll(speakerJson: String, scheduleJson: String, sponsorJson: String, sponsorSessionJson: String) {
         instance.sessionQueries.transaction {
             try {
                 primeSpeakers(speakerJson)
                 primeSessions(scheduleJson)
                 primeSponsors(sponsorJson)
+                primeSponsorSessions(sponsorSessionJson)
             } catch (e: Exception) {
                 logException(e)
                 throw e
@@ -188,6 +193,11 @@ object SessionizeDbHelper {
                 )
             }
         }
+    }
+
+    private fun primeSponsorSessions(sponsorSessionsJson: String) {
+        val sponsorSessionResponse = Json.nonstrict.parse(SponsorSessionResponse.serializer().list, sponsorSessionsJson)
+        println("sponsorSessions.sessions: ${sponsorSessionResponse.first().sessions}")
     }
 
     val sessionQueries: SessionQueries

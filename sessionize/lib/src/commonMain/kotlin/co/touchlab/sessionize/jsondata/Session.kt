@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.jsondata
 
+import co.touchlab.droidcon.db.Sponsor
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,4 +47,17 @@ data class SpeakerLink(
         val title: String,
         val url: String,
         val linkType: String
+)
+
+@Serializable
+data class SponsorSessionResponse(
+        val sessions: List<SponsorSession>
+)
+
+@Serializable
+data class SponsorSession(
+        val id: String,
+        val title: String,
+        @SerialName("description")
+        val descriptionText: String?
 )

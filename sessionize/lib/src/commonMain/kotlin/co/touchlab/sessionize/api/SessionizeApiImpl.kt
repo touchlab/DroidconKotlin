@@ -38,6 +38,10 @@ object SessionizeApiImpl : SessionizeApi {
         amazon("/droidconsponsers/sponsors-$INSTANCE_ID.json")
     }
 
+//    override suspend fun getSponsorSessionJson(): String = client.get<String> {
+//        sessionize("/api/v2/$INSTANCE_ID/view/sessions")
+//    }
+
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = client.request<HttpResponse> {
         droidcon("/dataTest/$methodName/$sessionId/${userUuid()}")
         method = HttpMethod.Post
