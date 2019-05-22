@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         feedbackManager.showFeedbackForPastSessions()
 
         val firebaseMessageHandler = FirebaseMessageHandler()
-        firebaseMessageHandler.requestToken()
     }
 
 
