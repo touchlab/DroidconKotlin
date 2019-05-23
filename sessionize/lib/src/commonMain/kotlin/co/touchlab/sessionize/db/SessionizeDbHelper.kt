@@ -189,7 +189,8 @@ object SessionizeDbHelper {
                         sponsor.name,
                         sponsor.url,
                         sponsor.icon,
-                        group.groupName
+                        group.groupName,
+                        sponsor.sponsorId
                 )
             }
         }

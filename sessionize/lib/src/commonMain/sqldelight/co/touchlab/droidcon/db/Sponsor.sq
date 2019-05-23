@@ -3,12 +3,14 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
 url TEXT,
 icon TEXT,
-groupName TEXT NOT NULL
+groupName TEXT NOT NULL,
+sponsorId TEXT,
+description TEXT
 );
 
 insert:
-INSERT INTO sponsor(name, url, icon, groupName)
-VALUES (?,?,?,?)
+INSERT INTO sponsor(name, url, icon, groupName, sponsorId, description)
+VALUES (?,?,?,?,?,?)
 ;
 
 selectAll:
