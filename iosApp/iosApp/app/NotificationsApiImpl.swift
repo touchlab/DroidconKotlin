@@ -12,8 +12,6 @@ import UserNotifications
 
 class NotificationsApiImpl : NSObject, NotificationsApi {
 
-
-
     // Needed to approve local notifications
     class LocalNotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
         func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void){
@@ -56,7 +54,12 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         print("Cancelling Local \(notificationTag) Notification")
 
     }
-
+    
+    func cancelAllNotifications() {
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+    }
+    
     func initializeNotifications(onSuccess: @escaping (KotlinBoolean) -> KotlinUnit) {
         let center = UNUserNotificationCenter.current()
         center.getNotificationSettings(completionHandler: { (settings) in
