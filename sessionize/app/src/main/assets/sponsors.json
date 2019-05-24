@@ -86,7 +86,8 @@
       {
         "name": "Bugsnag",
         "url": "https://www.bugsnag.com/platforms/android/?utm_source=conference-website&utm_medium=referral&utm_content=blurb&utm_campaign=droidcon&utm_term=",
-        "icon": "https://static.wixstatic.com/media/a378f5_ee6afe1ef9d24e1b9bc14175a059532b~mv2.png"
+        "icon": "https://static.wixstatic.com/media/a378f5_ee6afe1ef9d24e1b9bc14175a059532b~mv2.png",
+        "sponsorId": 128002
       },
       {
         "name": "Uber",

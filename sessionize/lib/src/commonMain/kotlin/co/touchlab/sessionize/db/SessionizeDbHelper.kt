@@ -9,11 +9,13 @@ import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
+import co.touchlab.sessionize.db.SessionizeDbHelper.instance
+import co.touchlab.sessionize.jsondata.SessionSpeaker
 import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.jsondata.SponsorSession
-import co.touchlab.sessionize.jsondata.SponsorSessionResponse
+import co.touchlab.sessionize.jsondata.SponsorSessionGroup
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
@@ -56,8 +58,7 @@ object SessionizeDbHelper {
             try {
                 primeSpeakers(speakerJson)
                 primeSessions(scheduleJson)
-                primeSponsors(sponsorJson)
-                primeSponsorSessions(sponsorSessionJson)
+                primeSponsors(sponsorJson, sponsorSessionJson)
             } catch (e: Exception) {
                 logException(e)
                 throw e
@@ -122,9 +123,10 @@ object SessionizeDbHelper {
         for (session in sessions) {
             instance.roomQueries.insertRoot(session.roomId!!.toLong(), session.room)
 
-            newIdSet.add(session.id)
+            val sessionId = session.id
+            newIdSet.add(sessionId)
 
-            val dbSession = instance.sessionQueries.sessionById(session.id).executeAsOneOrNull()
+            val dbSession = instance.sessionQueries.sessionById(sessionId).executeAsOneOrNull()
 
 
             val startsAt = session.startsAt!!
@@ -133,7 +135,7 @@ object SessionizeDbHelper {
             val sessionDateAdapter = DateAdapter()
             if (dbSession == null) {
                 instance.sessionQueries.insert(
-                        session.id,
+                        sessionId,
                         session.title,
                         session.descriptionText ?: "",
                         sessionDateAdapter.decode(startsAt),
@@ -159,17 +161,13 @@ object SessionizeDbHelper {
                         rsvp = dbSession.rsvp,
                         feedbackRating =  dbSession.feedbackRating,
                         feedbackComment = dbSession.feedbackComment,
-                        id = session.id
+                        id = sessionId
                 )
             }
 
-            var displayOrder = 0L
-            for (sessionSpeaker in session.speakers) {
-                instance.sessionSpeakerQueries.insertUpdate(
-                        session.id,
-                        sessionSpeaker.id,
-                        displayOrder++)
-            }
+            val speakers = session.speakers
+
+            insertSessionSpeakers(speakers, sessionId)
         }
 
         allSessions.forEach {
@@ -179,26 +177,52 @@ object SessionizeDbHelper {
         }
     }
 
-    private fun primeSponsors(sponsorJson: String) {
+    private fun insertSessionSpeakers(speakers: List<SessionSpeaker>, sessionId: String) {
+        var displayOrder = 0L
+
+        for (sessionSpeaker in speakers) {
+            instance.sessionSpeakerQueries.insertUpdate(
+                    sessionId,
+                    sessionSpeaker.id,
+                    displayOrder++)
+        }
+    }
+
+    private fun primeSponsors(sponsorJson: String, sponsorSessionsJson: String) {
         val sponsorGroups = Json.nonstrict.parse(SponsorGroup.serializer().list, sponsorJson)
+        val sponsorSessionGroups = Json.nonstrict.parse(SponsorSessionGroup.serializer().list, sponsorSessionsJson)
+
         instance.sponsorQueries.deleteAll()
+
+        val sessionizeSponsors: MutableMap<String, SponsorSession> = mutableMapOf()
+        sponsorSessionGroups.forEach {
+            it.sessions.forEach {
+                sessionizeSponsors.put(it.id, it)
+            }
+        }
 
         for(group in sponsorGroups) {
             for(sponsor in group.sponsors) {
+                val sessionizeSession = if (!sponsor.sponsorId.isNullOrEmpty()) {
+                    sessionizeSponsors.get(sponsor.sponsorId)
+                } else {
+                    null
+                }
+
                 instance.sponsorQueries.insert(
                         sponsor.name,
                         sponsor.url,
                         sponsor.icon,
                         group.groupName,
-                        sponsor.sponsorId
+                        sponsor.sponsorId,
+                        sessionizeSession?.descriptionText
                 )
+
+                sessionizeSession?.let {
+                    insertSessionSpeakers(it.speakers, it.id)
+                }
             }
         }
-    }
-
-    private fun primeSponsorSessions(sponsorSessionsJson: String) {
-        val sponsorSessionResponse = Json.nonstrict.parse(SponsorSessionResponse.serializer().list, sponsorSessionsJson)
-        println("sponsorSessions.sessions: ${sponsorSessionResponse.first().sessions}")
     }
 
     val sessionQueries: SessionQueries

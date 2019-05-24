@@ -50,7 +50,7 @@ data class SpeakerLink(
 )
 
 @Serializable
-data class SponsorSessionResponse(
+data class SponsorSessionGroup(
         val sessions: List<SponsorSession>
 )
 
@@ -59,5 +59,6 @@ data class SponsorSession(
         val id: String,
         val title: String,
         @SerialName("description")
-        val descriptionText: String?
+        val descriptionText: String?,
+        val speakers: List<SessionSpeaker>
 )

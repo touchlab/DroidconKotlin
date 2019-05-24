@@ -5,14 +5,49 @@
         "sessions": [
             {
                 "questionAnswers": [],
-                "id": "123867",
-                "title": "Touchlab",
-                "description": "Touchlab is the best. We're hiring: https://touchlab.co/about-us/",
+                "id": "128002",
+                "title": "Bugsnag",
+                "description": "Doing the bugsnag things",
                 "startsAt": null,
                 "endsAt": null,
                 "isServiceSession": false,
                 "isPlenumSession": false,
                 "speakers": [
+                    {
+                        "id": "9d2ecd4c-fd6e-444f-b80f-bd8ef04106ae",
+                        "name": "Kevin Galligan"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 3477,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 16187,
+                                "name": "sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": null,
+                "room": null
+            },
+            {
+                "questionAnswers": [],
+                "id": "123867",
+                "title": "Touchlab",
+                "description": "Touchlab is the best2 . We're hiring: https://touchlab.co/about-us/",
+                "startsAt": null,
+                "endsAt": null,
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "7488feb9-5f99-404f-8b5c-6adc6354ebef",
+                        "name": "Ben Whitley"
+                    },
                     {
                         "id": "9d2ecd4c-fd6e-444f-b80f-bd8ef04106ae",
                         "name": "Kevin Galligan"
