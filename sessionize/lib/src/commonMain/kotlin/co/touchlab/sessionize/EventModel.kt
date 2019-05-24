@@ -50,7 +50,8 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             "sessionizeUnrsvpEvent"
         }
 
-        NotificationsModel.recreateNotifications()
+        NotificationsModel.recreateReminderNotifications()
+        NotificationsModel.recreateFeedbackNotifications()
         if (rsvp) {
             ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
 

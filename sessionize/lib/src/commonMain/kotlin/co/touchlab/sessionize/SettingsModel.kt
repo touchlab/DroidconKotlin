@@ -18,10 +18,10 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 
         if(enabled && !notificationsEnabled()){
             ServiceRegistry.notificationsApi.initializeNotifications{success ->
-                NotificationsModel.recreateNotifications()
+                NotificationsModel.recreateReminderNotifications()
             }
         }else{
-            NotificationsModel.recreateNotifications()
+            NotificationsModel.recreateReminderNotifications()
         }
     }
 
@@ -30,10 +30,10 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 
         if(enabled && !notificationsEnabled()){
             ServiceRegistry.notificationsApi.initializeNotifications{success ->
-                NotificationsModel.recreateNotifications()
+                NotificationsModel.recreateFeedbackNotifications()
             }
         }else{
-            NotificationsModel.recreateNotifications()
+            NotificationsModel.recreateFeedbackNotifications()
         }
     }
 }
