@@ -1,13 +1,13 @@
 package co.touchlab.sessionize.platform
 
-import co.touchlab.droidcon.db.MySessions
-import co.touchlab.droidcon.db.Session
 import co.touchlab.sessionize.Durations
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys.FEEDBACK_ENABLED
 import co.touchlab.sessionize.SettingsKeys.LOCAL_NOTIFICATIONS_ENABLED
 import co.touchlab.sessionize.SettingsKeys.REMINDERS_ENABLED
+import co.touchlab.sessionize.api.notificationFeedbackId
 import co.touchlab.sessionize.api.notificationFeedbackTag
+import co.touchlab.sessionize.api.notificationReminderId
 import co.touchlab.sessionize.api.notificationReminderTag
 import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
 import com.russhwolf.settings.set
@@ -15,9 +15,6 @@ import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 object NotificationsModel {
-
-    const val feedbackId:Int = 1
-
 
     // Settings
 
@@ -55,19 +52,20 @@ object NotificationsModel {
 
     fun cancelNotificationsForSessions() {
         if (!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
-            ServiceRegistry.notificationsApi.cancelAllNotifications()
+            ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId, notificationReminderTag)
+            cancelFeedbackNotification()
         }
     }
 
     // create Singular
 
-    private fun createReminderNotification(startsAtTime: Long, sessionId: Int, title:String, message:String){
+    private fun createReminderNotification(startsAtTime: Long, title:String, message:String){
         val notificationTime = startsAtTime - Durations.TEN_MINS_MILLIS
         if (notificationTime > currentTimeMillis()) {
             ServiceRegistry.notificationsApi.createLocalNotification(title,
                                                                     message,
                                                                     notificationTime,
-                                                                    sessionId,
+                                                                    notificationReminderId,
                                                                     notificationReminderTag)
         }
     }
@@ -77,7 +75,7 @@ object NotificationsModel {
         ServiceRegistry.notificationsApi.createLocalNotification("Feedback Time!",
                 "Your Feedback is Requested",
                 feedbackNotificationTime,
-                feedbackId,
+                notificationFeedbackId,
                 notificationFeedbackTag)
     }
 
@@ -93,12 +91,14 @@ object NotificationsModel {
     // Cancel Singular
 
     private fun cancelFeedbackNotification() {
-        ServiceRegistry.notificationsApi.cancelLocalNotification(feedbackId, notificationFeedbackTag)
+        ServiceRegistry.notificationsApi.cancelLocalNotification(notificationFeedbackId, notificationFeedbackTag)
     }
 
     fun recreateNotifications(){
-        ServiceRegistry.notificationsApi.cancelAllNotifications()
-         if (notificationsEnabled()){
+        ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId, notificationReminderTag)
+        cancelFeedbackNotification()
+
+        if (notificationsEnabled()){
              backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
                  if(mySessions.isNotEmpty()) {
                      if (reminderNotificationsEnabled()) {
@@ -110,12 +110,10 @@ object NotificationsModel {
 
                              if (matchingSessions.size == 1) {
                                  createReminderNotification(session.startsAt.toLongMillis(),
-                                         session.startsAt.toLongMillis().toInt(),
                                          "Upcoming Event in ${session.roomName}",
                                          "${session.title} is starting soon.")
                              } else {
                                  createReminderNotification(session.startsAt.toLongMillis(),
-                                         session.startsAt.toLongMillis().toInt(),
                                          "${matchingSessions.size} Upcoming Sessions",
                                          "You have ${matchingSessions.size} Sessions Starting soon")
                              }

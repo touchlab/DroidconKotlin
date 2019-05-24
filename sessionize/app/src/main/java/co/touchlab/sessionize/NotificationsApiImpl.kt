@@ -11,7 +11,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
-import android.os.Looper
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
@@ -20,13 +19,7 @@ import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnabled
 import android.os.RemoteException
 import android.util.Log
-import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.platform.NotificationsModel
-import co.touchlab.sessionize.platform.currentTimeMillis
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.*
 
 
 class NotificationsApiImpl : NotificationsApi {
@@ -46,17 +39,7 @@ class NotificationsApiImpl : NotificationsApi {
 
 
         // Building Intent wrapper
-        val intent = Intent().also { intent ->
-            intent.action = AndroidAppContext.app.getString(R.string.notification_action)
-            intent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId)
-            intent.putExtra(NotificationPublisher.NOTIFICATION_TAG, notificationTag)
-            intent.putExtra(NotificationPublisher.NOTIFICATION, builder.build())
-            val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
-            intent.component = componentName
-        }
-
-        val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-        intentMap[notificationId] = pendingIntent
+        val pendingIntent = createPendingIntent(notificationId, notificationTag, builder.build())
         Log.i(TAG, "Local $notificationTag Notification ${timeInMS.toInt()} Created at $timeInMS ms: $title - $message \n")
 
         // Scheduling Intent
@@ -66,40 +49,14 @@ class NotificationsApiImpl : NotificationsApi {
 
     override fun cancelLocalNotification(notificationId: Int, notificationTag: String) {
         val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = intentMap[notificationId]
+        val pendingIntent = createPendingIntent(notificationId, notificationTag)
         try {
             alarmManager.cancel(pendingIntent)
-
-            intentMap.remove(notificationId)
             Log.i(TAG, "Cancelled Notification(1): $notificationId")
         } catch (e: RemoteException) {
             Log.i(TAG, e.localizedMessage)
         }
-
-        with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-            this.cancel(notificationTag, notificationId)
-            Log.i(TAG, "Cancelling Local $notificationTag Notification")
-
-        }
     }
-
-    override fun cancelAllNotifications(){
-        val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        for (entry in intentMap.iterator()) {
-            try {
-                Log.i(TAG, "Cancelled Notification(2): ${entry.key}")
-                alarmManager.cancel(entry.value)
-            } catch (e: RemoteException) {
-                Log.i(TAG, e.localizedMessage)
-            }
-        }
-        intentMap.clear()
-
-        //with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-        //    this.cancel()
-        //}
-    }
-
 
     // General Notification Code
 
@@ -161,9 +118,23 @@ class NotificationsApiImpl : NotificationsApi {
         }
     }
 
+
+
     companion object{
         val TAG:String = NotificationsApiImpl::class.java.simpleName
-        private val intentMap:MutableMap<Int, PendingIntent> = mutableMapOf()
 
+
+        private fun createPendingIntent(id:Int, tag:String, notification:Notification? = null): PendingIntent{
+            // Building Intent wrapper
+            val intent = Intent().also { intent ->
+                intent.action = AndroidAppContext.app.getString(R.string.notification_action)
+                intent.putExtra(NotificationPublisher.NOTIFICATION_ID, id)
+                intent.putExtra(NotificationPublisher.NOTIFICATION_TAG, tag)
+                intent.putExtra(NotificationPublisher.NOTIFICATION, notification)
+                val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
+                intent.component = componentName
+            }
+            return PendingIntent.getBroadcast(AndroidAppContext.app, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        }
     }
 }
