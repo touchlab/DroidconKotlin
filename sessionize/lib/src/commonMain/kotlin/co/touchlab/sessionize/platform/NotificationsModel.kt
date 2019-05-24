@@ -55,9 +55,7 @@ object NotificationsModel {
 
     fun cancelNotificationsForSessions() {
         if (!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
-            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                ServiceRegistry.notificationsApi.cancelAllNotifications(mySessions)
-            }
+            ServiceRegistry.notificationsApi.cancelAllNotifications()
         }
     }
 
@@ -99,34 +97,40 @@ object NotificationsModel {
     }
 
     fun recreateNotifications(){
-        backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-            ServiceRegistry.notificationsApi.cancelAllNotifications(mySessions)
-            if (notificationsEnabled()){
-                if(reminderNotificationsEnabled()) {
-                    val session = mySessions.first()
+        ServiceRegistry.notificationsApi.cancelAllNotifications()
+         if (notificationsEnabled()){
+             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+                 if(mySessions.isNotEmpty()) {
+                     if (reminderNotificationsEnabled()) {
 
-                    val partitionedSessions = mySessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
-                    val matchingSessions = partitionedSessions.first
+                         try {
+                             val session = mySessions.first { it.startsAt.toLongMillis() - Durations.TEN_MINS_MILLIS > currentTimeMillis() }
+                             val partitionedSessions = mySessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
+                             val matchingSessions = partitionedSessions.first
 
-                    if (matchingSessions.size == 1) {
-                        createReminderNotification(session.startsAt.toLongMillis(),
-                                session.startsAt.toLongMillis().hashCode(),
-                                "Upcoming Event in ${session.roomName}",
-                                "${session.title} is starting soon.")
-                    } else {
-                        createReminderNotification(session.startsAt.toLongMillis(),
-                                session.startsAt.toLongMillis().hashCode(),
-                                "${matchingSessions.size} Upcoming Sessions",
-                                "You have ${matchingSessions.size} Sessions Starting soon")
-                    }
-                }
-                if (feedbackEnabled()) {
-                    mySessions.forEach { session ->
-                        if (session.feedbackRating == null) {
-                            createFeedbackNotification(session.endsAt.toLongMillis())
-                        }
-                    }
-                }
+                             if (matchingSessions.size == 1) {
+                                 createReminderNotification(session.startsAt.toLongMillis(),
+                                         session.startsAt.toLongMillis().toInt(),
+                                         "Upcoming Event in ${session.roomName}",
+                                         "${session.title} is starting soon.")
+                             } else {
+                                 createReminderNotification(session.startsAt.toLongMillis(),
+                                         session.startsAt.toLongMillis().toInt(),
+                                         "${matchingSessions.size} Upcoming Sessions",
+                                         "You have ${matchingSessions.size} Sessions Starting soon")
+                             }
+                         } catch (e: NoSuchElementException){
+                             print(e.message)
+                         }
+                     }
+                     if (feedbackEnabled()) {
+                         mySessions.forEach { session ->
+                             if (session.feedbackRating == null) {
+                                 createFeedbackNotification(session.endsAt.toLongMillis())
+                             }
+                         }
+                     }
+                 }
             }
         }
     }

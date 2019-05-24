@@ -50,14 +50,13 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             "sessionizeUnrsvpEvent"
         }
 
+        NotificationsModel.recreateNotifications()
         if (rsvp) {
-
-            NotificationsModel.recreateNotifications()
-
             ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
 
             sendAnalytics(localSessionId, rsvp)
         }
+
     }
 
     private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) {

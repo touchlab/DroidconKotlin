@@ -11,7 +11,7 @@ interface NotificationsApi {
 
     fun cancelLocalNotification(notificationId: Int, notificationTag: String)
 
-    fun cancelAllNotifications(sessions:List<MySessions>)
+    fun cancelAllNotifications()
 
     fun initializeNotifications(onSuccess: (Boolean) -> Unit)
 
