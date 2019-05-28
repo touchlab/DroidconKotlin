@@ -73,7 +73,7 @@ object NotificationsModel {
     fun createReminderNotificationsForMySessions(sessions: List<MySessions>) {
         if (reminderNotificationsEnabled() && notificationsEnabled()) {
             sessions.forEach { session ->
-                createReminderNotification(session.endsAt.toLongMillis(),session.id.hashCode(),session.title, session.roomName)
+                createReminderNotification(session.startsAt.toLongMillis(),session.id.hashCode(),session.title, session.roomName)
             }
         }
     }
@@ -90,7 +90,7 @@ object NotificationsModel {
 
     fun createReminderNotificationsForSession(session: Session,roomName: String) {
         if (reminderNotificationsEnabled() && notificationsEnabled()) {
-                createReminderNotification(session.endsAt.toLongMillis(),session.id.hashCode(),session.title, roomName)
+                createReminderNotification(session.startsAt.toLongMillis(),session.id.hashCode(),session.title, roomName)
         }
     }
 
@@ -112,6 +112,8 @@ object NotificationsModel {
                     notificationTime,
                     sessionId,
                     notificationReminderTag)
+
+            ServiceRegistry.notificationsApi.cancelLocalNotification(sessionId, notificationReminderTag, startsAtTime + Durations.TEN_MINS_MILLIS)
         }
     }
 
