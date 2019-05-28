@@ -101,6 +101,7 @@ kotlin {
                 implementation deps.ktor.jvmCore
                 implementation deps.ktor.jvmJson
                 implementation deps.serialization.jvmRuntime
+
             }
         }
 
@@ -194,4 +195,5 @@ task iosTest {
 
 //This can maybe go away
 tasks.build.dependsOn packForXCode
+
 

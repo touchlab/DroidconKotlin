@@ -37,6 +37,8 @@ static UIEdgeInsets MDCDialogEdgeInsets = {24, 20, 24, 20};
 
 @implementation MDCDialogPresentationController {
   UITapGestureRecognizer *_dismissGestureRecognizer;
+  BOOL useDialogCornerRadius;
+  CGFloat previousPresentedViewCornerRadius;
 }
 
 #pragma mark - UIPresentationController
@@ -55,6 +57,7 @@ static UIEdgeInsets MDCDialogEdgeInsets = {24, 20, 24, 20};
 // duplication.
 - (void)setDialogCornerRadius:(CGFloat)cornerRadius {
   _trackingView.layer.cornerRadius = cornerRadius;
+  useDialogCornerRadius = YES;
 }
 
 - (CGFloat)dialogCornerRadius {
@@ -82,11 +85,13 @@ static UIEdgeInsets MDCDialogEdgeInsets = {24, 20, 24, 20};
   self = [super initWithPresentedViewController:presentedViewController
                        presentingViewController:presentingViewController];
   if (self) {
+    useDialogCornerRadius = NO;
+
     _dimmingView = [[UIView alloc] initWithFrame:CGRectZero];
     _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:(CGFloat)0.32];
     _dimmingView.alpha = 0;
-    _dismissGestureRecognizer =
-        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
+    _dismissGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(dismiss:)];
     [_dimmingView addGestureRecognizer:_dismissGestureRecognizer];
 
     _trackingView = [[MDCDialogShadowedView alloc] init];
@@ -121,7 +126,8 @@ static UIEdgeInsets MDCDialogEdgeInsets = {24, 20, 24, 20};
   containerSafeAreaInsets.bottom = MAX(containerSafeAreaInsets.bottom, keyboardHeight);
 
   // Area that the presented dialog can use.
-  CGRect standardPresentableBounds = UIEdgeInsetsInsetRect(containerBounds, containerSafeAreaInsets);
+  CGRect standardPresentableBounds =
+      UIEdgeInsetsInsetRect(containerBounds, containerSafeAreaInsets);
 
   CGRect presentedViewFrame = CGRectZero;
   presentedViewFrame.size = [self sizeForChildContentContainer:self.presentedViewController
@@ -144,6 +150,21 @@ static UIEdgeInsets MDCDialogEdgeInsets = {24, 20, 24, 20};
   // TODO: Follow the Material spec description of Autonomous surface creation for both
   // presentation and dismissal of the dialog.
   // https://material.io/guidelines/motion/choreography.html#choreography-creation
+
+  // Ensure the same corner radius is used by both the tracking view and the view being presented
+  if (useDialogCornerRadius) {
+    // If dialogCornerRadius is set, use its value for the shadow layer as well as the presented
+    // view layer, overriding any direct assignments to the presented view's cornerRadius.
+    _trackingView.layer.cornerRadius = self.dialogCornerRadius;
+    // Note: For MDCAlertController, this assumes that the "view" property points to the same
+    // instance as the "alertView" property. Therefore, we are safe to not set its cornerRadius
+    // property (its ".cornerRadius", rather then its "presentedView.layer.cornerRadius")
+    previousPresentedViewCornerRadius = self.presentedView.layer.cornerRadius;
+    self.presentedView.layer.cornerRadius = self.dialogCornerRadius;
+  } else {
+    // If dialogCornerRadius is not set, use the presented view's cornerRadius for the shadow layer.
+    _trackingView.layer.cornerRadius = self.presentedView.layer.cornerRadius;
+  }
 
   // Set the dimming view to the container's bounds and fully transparent.
   self.dimmingView.frame = self.containerView.bounds;
@@ -214,6 +235,11 @@ static UIEdgeInsets MDCDialogEdgeInsets = {24, 20, 24, 20};
 
     // Re-enable accessibilityElements on the presenting view controller.
     self.presentingViewController.view.accessibilityElementsHidden = NO;
+
+    if (useDialogCornerRadius) {
+      // Restore cornerRadius in case it had changed during presentation
+      self.presentedView.layer.cornerRadius = previousPresentedViewCornerRadius;
+    }
   }
 
   [super dismissalTransitionDidEnd:completed];
@@ -267,14 +293,15 @@ static UIEdgeInsets MDCDialogEdgeInsets = {24, 20, 24, 20};
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
   [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
-  [coordinator animateAlongsideTransition:
-      ^(__unused id<UIViewControllerTransitionCoordinatorContext> context) {
+  [coordinator
+      animateAlongsideTransition:^(
+          __unused id<UIViewControllerTransitionCoordinatorContext> context) {
         self.dimmingView.frame = self.containerView.bounds;
         CGRect presentedViewFrame = [self frameOfPresentedViewInContainerView];
         self.presentedView.frame = presentedViewFrame;
         self.trackingView.frame = presentedViewFrame;
       }
-                               completion:NULL];
+                      completion:NULL];
 }
 
 /**
@@ -299,7 +326,16 @@ static UIEdgeInsets MDCDialogEdgeInsets = {24, 20, 24, 20};
 
 - (void)dismiss:(UIGestureRecognizer *)gesture {
   if (gesture.state == UIGestureRecognizerStateRecognized) {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self.presentingViewController
+        dismissViewControllerAnimated:YES
+                           completion:^{
+                             if ([self.dialogPresentationControllerDelegate
+                                     respondsToSelector:@selector
+                                     (dialogPresentationControllerDidDismiss:)]) {
+                               [self.dialogPresentationControllerDelegate
+                                   dialogPresentationControllerDidDismiss:self];
+                             }
+                           }];
   }
 }
 

@@ -9,5 +9,7 @@ target 'iosApp' do
     pod 'MaterialComponents'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
     pod 'lib', :path => '../sessionize/lib'
 end
