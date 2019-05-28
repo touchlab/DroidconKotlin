@@ -24,13 +24,13 @@ class NotificationsApiImpl : NotificationsApi {
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
     }
 
-    override fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long?) {
+    override fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long) {
 
         print("Local $notificationTag Notification Cancelled at $withDelay\n")
 
         val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_DISMISS)
         val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
-        alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay ?: 0, pendingIntent)
+        alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay, pendingIntent)
     }
 
     private fun createPendingIntent(id:Int, tag: String, notificationAction:String, title:String? = "", message: String? = ""): PendingIntent{

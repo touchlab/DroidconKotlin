@@ -9,7 +9,7 @@ interface NotificationsApi {
 
     fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag: String)
 
-    fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long? = null)
+    fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long = 0)
 
     fun initializeNotifications(onSuccess: (Boolean) -> Unit)
 
