@@ -1,103 +1,66 @@
 package co.touchlab.sessionize
 
+import android.app.Activity
 import android.app.AlarmManager
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnabled
 
-
 class NotificationsApiImpl : NotificationsApi {
 
-    private val notificationPublisher: BroadcastReceiver = NotificationPublisher()
-
     override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag: String) {
-        // Building Notification
-        val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
-        val builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
-                .setSmallIcon(R.drawable.baseline_insert_invitation_24)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setWhen(timeInMS)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setCategory(NotificationCompat.CATEGORY_REMINDER)
-
-
-        // Building Intent wrapper
-        val intent = Intent().also { intent ->
-            intent.action = AndroidAppContext.app.getString(R.string.notification_action)
-            intent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId)
-            intent.putExtra(NotificationPublisher.NOTIFICATION_TAG, notificationTag)
-            intent.putExtra(NotificationPublisher.NOTIFICATION, builder.build())
-            val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
-            intent.component = componentName
-        }
-
-        val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         print("Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
 
-        // Scheduling Intent
-        val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_CREATE, title, message)
+        val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
     }
 
-    override fun cancelLocalNotification(notificationId: Int, notificationTag: String) {
-        with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-            this.cancel(notificationTag,notificationId)
-            print("Cancelling Local $notificationTag Notification")
+    override fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long) {
 
-        }
+        print("Local $notificationTag Notification Cancelled at $withDelay\n")
+
+        val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_DISMISS)
+        val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay, pendingIntent)
     }
+
+    private fun createPendingIntent(id:Int, tag: String, notificationAction:String, title:String? = "", message: String? = ""): PendingIntent{
+        val intent = Intent(AndroidAppContext.app, NotificationPublisher::class.java).apply {
+            action = notificationAction
+            putExtra(NotificationPublisher.NOTIFICATION_TITLE,title)
+            putExtra(NotificationPublisher.NOTIFICATION_MESSAGE,message)
+
+            putExtra(NotificationPublisher.NOTIFICATION_ID, id)
+            putExtra(NotificationPublisher.NOTIFICATION_TAG, tag)
+
+            putExtra(NotificationPublisher.NOTIFICATION_CHANNEL_ID,AndroidAppContext.app.getString(R.string.notification_channel_id))
+        }
+
+        val uniqueId = id.toString() + tag + notificationAction
+        return PendingIntent.getBroadcast(AndroidAppContext.app, uniqueId.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    }
+
 
 
     // General Notification Code
 
     override fun initializeNotifications(onSuccess: (Boolean) -> Unit)
     {
-        val filter = IntentFilter(AndroidAppContext.app.getString(R.string.notification_action))
-        AndroidAppContext.app.registerReceiver(notificationPublisher, filter)
-
         createNotificationChannel()
         setNotificationsEnabled(true)
         onSuccess(true)
     }
 
     override fun deinitializeNotifications() {
-    }
-
-    class NotificationPublisher : BroadcastReceiver() {
-
-        override fun onReceive(context: Context, intent: Intent) {
-            val notification = intent.getParcelableExtra<Notification>(NOTIFICATION)
-            val notificationId = intent.getIntExtra(NOTIFICATION_ID, 0)
-            val notificationTag = intent.getStringExtra(NOTIFICATION_TAG)
-
-            with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-                // notificationId is a unique int for each notification that you must define
-                this.notify(notificationTag, notificationId, notification)
-                print("Showing Local $notificationTag Notification")
-
-            }
-        }
-
-        companion object {
-            var NOTIFICATION_ID = "notification_id"
-            var NOTIFICATION_TAG = "notification_tag"
-            var NOTIFICATION = "notification"
-        }
     }
 
     private fun createNotificationChannel() {
@@ -115,10 +78,7 @@ class NotificationsApiImpl : NotificationsApi {
             // Register the channel with the system
             val notificationManager: NotificationManager = AndroidAppContext.app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-
-            if(!notificationManager.notificationChannels.contains(channel)) {
-                notificationManager.createNotificationChannel(channel)
-            }
+            notificationManager.createNotificationChannel(channel)
         }
     }
 }
