@@ -76,7 +76,6 @@ object NotificationsModel {
                 notificationFeedbackId)
     }
 
-
     // Cancel List
 
     fun cancelFeedbackNotificationsForSession() {
@@ -131,15 +130,8 @@ object NotificationsModel {
                     if (feedbackEnabled()) {
 
                         try {
-                            val session = mySessions.first { (it.endsAt.toLongMillis() - Durations.TEN_MINS_MILLIS > currentTimeMillis()) && (it.feedbackRating == null)}
-                            val partitionedSessions = mySessions.partition { it.endsAt.toLongMillis() == session.endsAt.toLongMillis() }
-                            val matchingSessions = partitionedSessions.first
-
-                            if (matchingSessions.size == 1) {
-                                createReminderNotification(session.startsAt.toLongMillis(),
-                                        "Upcoming Event in ${session.roomName}",
-                                        "${session.title} is starting soon.")
-                            }
+                            val session = mySessions.first { (it.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS > currentTimeMillis())}
+                            createFeedbackNotification(session.startsAt.toLongMillis() + Durations.TEN_MINS_MILLIS)
                         } catch (e: NoSuchElementException){
                             print(e.message)
                         }
