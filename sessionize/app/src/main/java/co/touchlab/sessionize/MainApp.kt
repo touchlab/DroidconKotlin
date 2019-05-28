@@ -37,6 +37,8 @@ class MainApp : Application() {
         )
 
         AppContext.initAppContext()
+
+        FirebaseMessageHandler.initFirebaseApp(this)
     }
 
     override fun onTerminate() {

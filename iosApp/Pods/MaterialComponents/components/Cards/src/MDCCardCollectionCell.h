@@ -32,9 +32,15 @@ typedef NS_ENUM(NSInteger, MDCCardCellState) {
 
   /** The visual state when the cell is in its highlighted state. */
   MDCCardCellStateHighlighted,
-  
+
   /** The visual state when the cell has been selected. */
-  MDCCardCellStateSelected
+  MDCCardCellStateSelected,
+
+  /**
+   The visual state when the cell is being dragged.
+   Currently only used with the Ripple Beta component.
+  */
+  MDCCardCellStateDragged
 };
 
 /**
@@ -49,8 +55,8 @@ typedef NS_ENUM(NSInteger, MDCCardCellHorizontalImageAlignment) {
 
   /** The alignment of the image is to the left of the card. */
   MDCCardCellHorizontalImageAlignmentLeft,
- 
- // TODO: Add AlignmentLeading and AlignmentTrailing. See Github issue #3045
+
+  // TODO: Add AlignmentLeading and AlignmentTrailing. See Github issue #3045
 };
 
 /**
@@ -100,7 +106,7 @@ typedef NS_ENUM(NSInteger, MDCCardCellVerticalImageAlignment) {
  Therefore, this property should be set to NO *only if* there are other interactable items within
  the card's content, such as buttons or other tappable controls.
  */
-@property (nonatomic, getter=isInteractable) IBInspectable BOOL interactable;
+@property(nonatomic, getter=isInteractable) IBInspectable BOOL interactable;
 
 /*
  The shape generator used to define the card cell's shape.
@@ -121,8 +127,8 @@ typedef NS_ENUM(NSInteger, MDCCardCellVerticalImageAlignment) {
  @param shadowElevation The shadow elevation
  @param state MDCCardCellState the card state
  */
-- (void)setShadowElevation:(MDCShadowElevation)shadowElevation forState:(MDCCardCellState)state
-    UI_APPEARANCE_SELECTOR;
+- (void)setShadowElevation:(MDCShadowElevation)shadowElevation
+                  forState:(MDCCardCellState)state UI_APPEARANCE_SELECTOR;
 
 /**
  Returns the shadow elevation for an MDCCardViewState state
@@ -143,8 +149,7 @@ typedef NS_ENUM(NSInteger, MDCCardCellVerticalImageAlignment) {
  @param borderWidth The border width
  @param state MDCCardCellState the card state
  */
-- (void)setBorderWidth:(CGFloat)borderWidth forState:(MDCCardCellState)state
-    UI_APPEARANCE_SELECTOR;
+- (void)setBorderWidth:(CGFloat)borderWidth forState:(MDCCardCellState)state UI_APPEARANCE_SELECTOR;
 
 /**
  Returns the border width for an MDCCardCellState state
@@ -163,8 +168,8 @@ typedef NS_ENUM(NSInteger, MDCCardCellVerticalImageAlignment) {
  @param borderColor The border color
  @param state MDCCardCellState the card state
  */
-- (void)setBorderColor:(nullable UIColor *)borderColor forState:(MDCCardCellState)state
-    UI_APPEARANCE_SELECTOR;
+- (void)setBorderColor:(nullable UIColor *)borderColor
+              forState:(MDCCardCellState)state UI_APPEARANCE_SELECTOR;
 
 /**
  Returns the border color for an MDCCardCellStateNormal state
@@ -183,8 +188,8 @@ typedef NS_ENUM(NSInteger, MDCCardCellVerticalImageAlignment) {
  @param shadowColor The shadow color
  @param state MDCCardCellState the card state
  */
-- (void)setShadowColor:(nullable UIColor *)shadowColor forState:(MDCCardCellState)state
-    UI_APPEARANCE_SELECTOR;
+- (void)setShadowColor:(nullable UIColor *)shadowColor
+              forState:(MDCCardCellState)state UI_APPEARANCE_SELECTOR;
 
 /**
  Returns the shadow color for an MDCCardCellStateNormal state
@@ -217,8 +222,7 @@ typedef NS_ENUM(NSInteger, MDCCardCellVerticalImageAlignment) {
  @param image The image
  @param state MDCCardCellState the card state
  */
-- (void)setImage:(nullable UIImage *)image forState:(MDCCardCellState)state
-UI_APPEARANCE_SELECTOR;
+- (void)setImage:(nullable UIImage *)image forState:(MDCCardCellState)state UI_APPEARANCE_SELECTOR;
 
 /**
  Returns the horizontal image alignment for an MDCCardCellStateNormal state
@@ -285,8 +289,8 @@ UI_APPEARANCE_SELECTOR;
  @param imageTintColor The image tint color
  @param state MDCCardCellState the card state
  */
-- (void)setImageTintColor:(nullable UIColor *)imageTintColor forState:(MDCCardCellState)state
-UI_APPEARANCE_SELECTOR;
+- (void)setImageTintColor:(nullable UIColor *)imageTintColor
+                 forState:(MDCCardCellState)state UI_APPEARANCE_SELECTOR;
 
 /**
  The state of the card cell.

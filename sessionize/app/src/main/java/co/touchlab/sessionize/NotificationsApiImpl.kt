@@ -1,18 +1,13 @@
 package co.touchlab.sessionize
 
+import android.app.Activity
 import android.app.AlarmManager
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import app.sessionize.touchlab.lib.R
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.platform.AndroidAppContext
@@ -22,7 +17,6 @@ import android.util.Log
 import co.touchlab.sessionize.api.notificationFeedbackId
 import co.touchlab.sessionize.api.notificationReminderId
 import co.touchlab.sessionize.platform.NotificationsModel
-
 
 class NotificationsApiImpl : NotificationsApi {
 
@@ -44,8 +38,8 @@ class NotificationsApiImpl : NotificationsApi {
         val pendingIntent = createPendingIntent(notificationId, builder.build())
         Log.i(TAG, "Local Notification ${timeInMS.toInt()} Created at $timeInMS ms: $title - $message \n")
 
-        // Scheduling Intent
-        val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_CREATE, title, message)
+        val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
     }
 
@@ -58,46 +52,21 @@ class NotificationsApiImpl : NotificationsApi {
         } catch (e: RemoteException) {
             Log.i(TAG, e.localizedMessage)
         }
+
+        val uniqueId = id.toString() + tag + notificationAction
+        return PendingIntent.getBroadcast(AndroidAppContext.app, uniqueId.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     // General Notification Code
 
     override fun initializeNotifications(onSuccess: (Boolean) -> Unit)
     {
-        val filter = IntentFilter(AndroidAppContext.app.getString(R.string.notification_action))
-        AndroidAppContext.app.registerReceiver(notificationPublisher, filter)
-
         createNotificationChannel()
         setNotificationsEnabled(true)
         onSuccess(true)
     }
 
     override fun deinitializeNotifications() {
-    }
-
-    class NotificationPublisher : BroadcastReceiver() {
-
-        override fun onReceive(context: Context, intent: Intent) {
-            val notification = intent.getParcelableExtra<Notification>(NOTIFICATION)
-            val notificationId = intent.getIntExtra(NOTIFICATION_ID, 0)
-
-            with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-                // notificationId is a unique int for each notification that you must define
-                this.notify(notificationId, notification)
-                Log.i(TAG,"Showing Local Notification $notificationId")
-            }
-            if(notificationId == notificationReminderId) {
-                NotificationsModel.recreateReminderNotifications()
-            }
-            if(notificationId == notificationFeedbackId){
-                NotificationsModel.recreateFeedbackNotifications()
-            }
-        }
-
-        companion object {
-            var NOTIFICATION_ID = "notification_id"
-            var NOTIFICATION = "notification"
-        }
     }
 
     private fun createNotificationChannel() {
@@ -115,15 +84,10 @@ class NotificationsApiImpl : NotificationsApi {
             // Register the channel with the system
             val notificationManager: NotificationManager = AndroidAppContext.app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-
-            if(!notificationManager.notificationChannels.contains(channel)) {
-                notificationManager.createNotificationChannel(channel)
-            }
+            notificationManager.createNotificationChannel(channel)
         }
     }
-
-
-
+  
     companion object{
         val TAG:String = NotificationsApiImpl::class.java.simpleName
 

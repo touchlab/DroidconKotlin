@@ -24,10 +24,14 @@
                 android:value="90b5b9675372e1f2aff36d43ea5d6869040d37f3"
                 />
 
-        <receiver android:name="co.touchlab.sessionize.NotificationsApiImpl$NotificationPublisher"  android:exported="true">
+        <receiver android:name=".NotificationPublisher"/>
+      
+        <service
+                android:name=".FirebaseMessageHandler"
+                android:exported="false">
             <intent-filter>
-                <action android:name="NotificationAction"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </receiver>
+        </service>
     </application>
 </manifest>
