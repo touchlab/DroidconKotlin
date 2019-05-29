@@ -15,6 +15,13 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
     // Needed to approve local notifications
     class LocalNotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
         func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void){
+            if(notification.request.identifier == String(NotificationsApiKt.notificationReminderId)){
+                NotificationsModel().recreateReminderNotifications()
+            }
+            if(notification.request.identifier == String(NotificationsApiKt.notificationFeedbackId)){
+                NotificationsModel().recreateFeedbackNotifications()
+            }
+            
             completionHandler(.alert)
         }
     }
