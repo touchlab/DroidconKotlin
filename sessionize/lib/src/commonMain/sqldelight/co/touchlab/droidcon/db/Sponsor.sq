@@ -16,5 +16,8 @@ VALUES (?,?,?,?,?,?)
 selectAll:
 SELECT * FROM sponsor;
 
+sponsorById:
+SELECT * FROM sponsor WHERE sponsorId = ?;
+
 deleteAll:
 DELETE FROM sponsor;

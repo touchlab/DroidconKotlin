@@ -17,7 +17,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import co.touchlab.sessionize.FragmentAnimation
+import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.db.SponsorGroupDbItem
+import co.touchlab.sessionize.event.EventFragment
 
 
 class SponsorsFragment : Fragment() {
@@ -51,6 +54,17 @@ class SponsorsFragment : Fragment() {
         sponsorViewModel.unregister()
     }
 
+    fun navigateToSponsor(sponsorId: String) {
+        (activity as NavigationHost).navigateTo(
+                SponsorSessionFragment.newInstance(sponsorId),
+                true,
+                FragmentAnimation(R.anim.slide_from_right,
+                        R.anim.slide_to_left,
+                        R.anim.slide_from_left,
+                        R.anim.slide_to_right)
+        )
+    }
+
     inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
         var sponsorGroupDbItems:List<SponsorGroupDbItem> = emptyList()
 
@@ -74,10 +88,14 @@ class SponsorsFragment : Fragment() {
                 Picasso.get().load(sponsor.icon).into(iv)
                 holder.flowGroup.addView(iv)
                 iv.setOnClickListener {
-                    if(!sponsor.url.isNullOrBlank()) {
+                    if (sponsor.sponsorId.isNullOrBlank()) {
                         val i = Intent(Intent.ACTION_VIEW)
                         i.data = Uri.parse(sponsor.url)
                         startActivity(i)
+                    } else {
+                        sponsor.sponsorId?.let {
+                            navigateToSponsor(it)
+                        }
                     }
                 }
             }
