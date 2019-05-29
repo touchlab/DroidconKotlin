@@ -21,7 +21,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
 
     let notificationDelegate = LocalNotificationDelegate()
 
-    func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32, notificationTag: String) {
+    func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32) {
         let timeDouble = Double(integerLiteral: timeInMS)
         let date = Date.init(timeIntervalSince1970: timeDouble / 1000.0)
         let dateInfo: DateComponents = Calendar.current.dateComponents([.month,.day,.year,.hour, .minute, .second, .timeZone], from: date)
@@ -36,30 +36,21 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         content.body = message
         content.sound = UNNotificationSound.default()
         
-        print("Local \(notificationTag) Notification Created at \(timeInMS): \(title) - \(message) \n")
+        print("Local Notification Created at \(timeInMS): \(title) - \(message) \n")
 
 
-        let notifString = String(notificationId) + notificationTag
+        let notifString = String(notificationId)
         let request = UNNotificationRequest(identifier: notifString, content: content, trigger: trigger)
         center.add(request,withCompletionHandler: nil)
     }
     
-    func cancelLocalNotification(notificationId: Int32, notificationTag: String, withDelay: Int64) {
-        let notifString = String(notificationId) + notificationTag
+    func cancelLocalNotification(notificationId: Int32) {
+        let notifString = String(notificationId)
         let identifiers = [notifString]
         
-        perform(#selector(cancelNotification), with: identifiers, afterDelay: TimeInterval(withDelay))
-        print("Cancelling Local \(notificationTag) Notification")
-    }
-    
-    func cancelAllNotifications() {
         let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
-
-    @objc private func cancelNotification(identifiers:[String]){
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: identifiers)
-        center.removeDeliveredNotifications(withIdentifiers: identifiers)
+        center.removePendingNotificationRequests(withIdentifiers: identifiers)        
+        print("Cancelling Local Notification")
     }
     
     func initializeNotifications(onSuccess: @escaping (KotlinBoolean) -> KotlinUnit) {
