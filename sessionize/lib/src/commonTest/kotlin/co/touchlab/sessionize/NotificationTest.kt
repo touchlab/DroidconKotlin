@@ -4,15 +4,18 @@ import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.NotificationsApi
-import co.touchlab.sessionize.api.notificationFeedbackTag
-import co.touchlab.sessionize.api.notificationReminderTag
+import co.touchlab.sessionize.api.notificationFeedbackId
+import co.touchlab.sessionize.api.notificationReminderId
 import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
 import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
 import co.touchlab.sessionize.platform.NotificationsModel.reminderNotificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.setFeedbackEnabled
 import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.setRemindersEnabled
 
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
@@ -26,7 +29,6 @@ abstract class NotificationTest {
 
     lateinit var settingsModel:SettingsModel
 
-    val sessionId = "67316"
     private val sessionIdInt = 67316
 
     @BeforeTest
@@ -77,7 +79,7 @@ abstract class NotificationTest {
         var sessions = listOf<MySessions>()
         createFeedbackNotificationsForSessions(sessions)
         assertTrue { notificationsApiMock.notificationCalled }
-        assertTrue { notificationsApiMock.feedbackNotifications.contains(sessionIdInt) }
+        assertTrue { notificationsApiMock.feedbackNotification == notificationFeedbackId }
     }
 
     @Test
@@ -100,7 +102,7 @@ abstract class NotificationTest {
         var sessions = listOf<MySessions>()
         createReminderNotificationsForSessions(sessions)
         assertTrue { notificationsApiMock.notificationCalled }
-        assertTrue { notificationsApiMock.reminderNotifications.contains(sessionIdInt) }
+        assertTrue { notificationsApiMock.reminderNotification == notificationReminderId }
     }
 
     @Test
@@ -146,16 +148,19 @@ abstract class NotificationTest {
     @Test
     fun testDisablingReminders() = runTest {
         setNotificationsEnabled(true)
-        settingsModel.setRemindersSettingEnabled(true)
+        setRemindersEnabled(true)
         notificationsApiMock.initializeNotifications { success ->
         }
+
         var sessions = listOf<MySessions>()
         createReminderNotificationsForSessions(sessions)
-        settingsModel.setRemindersSettingEnabled(false)
 
-        // TODO Add a wait timer so feedback notifications are correct
+        runTest {
+            settingsModel.setRemindersSettingEnabled(false)
+        }
+
         assertTrue { notificationsApiMock.notificationCalled }
-        assertTrue { notificationsApiMock.reminderNotifications.isEmpty() }
+        assertTrue { notificationsApiMock.reminderNotification == -1 }
     }
 
     @Test
@@ -166,9 +171,9 @@ abstract class NotificationTest {
         }
         var sessions = listOf<MySessions>()
         createFeedbackNotificationsForSessions(sessions)
-        settingsModel.setFeedbackSettingEnabled(false)
-
-        // TODO Add a wait timer so feedback notifications are correct
+        runTest {
+            settingsModel.setFeedbackSettingEnabled(false)
+        }
         assertTrue { notificationsApiMock.notificationCalled }
         //assertTrue { notificationsApiMock.feedbackNotifications.isEmpty() }
     }
@@ -176,8 +181,8 @@ abstract class NotificationTest {
     @Test
     fun testDisablingRemindersWithFeedback() = runTest {
         setNotificationsEnabled(true)
-        settingsModel.setRemindersSettingEnabled(true)
-        settingsModel.setFeedbackSettingEnabled(true)
+        setRemindersEnabled(true)
+        setFeedbackEnabled(true)
 
         notificationsApiMock.initializeNotifications { success ->
         }
@@ -185,54 +190,54 @@ abstract class NotificationTest {
         createReminderNotificationsForSessions(sessions)
         createFeedbackNotificationsForSessions(sessions)
 
-        settingsModel.setRemindersSettingEnabled(false)
-
+        runTest {
+            settingsModel.setRemindersSettingEnabled(false)
+        }
         assertTrue { notificationsApiMock.notificationCalled }
-        assertTrue { notificationsApiMock.reminderNotifications.isEmpty() }
-        assertTrue { !notificationsApiMock.feedbackNotifications.isEmpty() }
+        assertTrue { notificationsApiMock.reminderNotification == -1}
+        assertTrue { notificationsApiMock.feedbackNotification != -1 }
     }
 
     @Test
     fun testDisablingFeedbackWithReminders() = runTest {
         setNotificationsEnabled(true)
-        settingsModel.setFeedbackSettingEnabled(true)
-        settingsModel.setRemindersSettingEnabled(true)
+        setFeedbackEnabled(true)
+        setRemindersEnabled(true)
 
         notificationsApiMock.initializeNotifications { success ->
         }
         var sessions = listOf<MySessions>()
         createFeedbackNotificationsForSessions(sessions)
         createReminderNotificationsForSessions(sessions)
-
-        settingsModel.setFeedbackSettingEnabled(false)
-
-        // TODO Add a wait timer so feedback notifications are correct
+        runTest {
+            settingsModel.setFeedbackSettingEnabled(false)
+        }
         assertTrue { notificationsApiMock.notificationCalled }
-        assertTrue { notificationsApiMock.feedbackNotifications.isEmpty() }
-        assertTrue { !notificationsApiMock.reminderNotifications.isEmpty() }
+        assertTrue { notificationsApiMock.feedbackNotification == -1 }
+        assertTrue { notificationsApiMock.reminderNotification != -1 }
     }
 
-    fun createReminderNotificationsForSessions(sessions:List<MySessions>){
+    private fun createReminderNotificationsForSessions(sessions:List<MySessions>){
         if(reminderNotificationsEnabled() && notificationsEnabled()) {
-            notificationsApiMock.createLocalNotification("Room Name", "Title", 0, 67316, notificationReminderTag)
+            notificationsApiMock.createLocalNotification("Room Name", "Title", 0, notificationReminderId)
         }
     }
 
-    fun createFeedbackNotificationsForSessions(sessions:List<MySessions>){
+    private fun createFeedbackNotificationsForSessions(sessions:List<MySessions>){
         if (feedbackEnabled() && notificationsEnabled()) {
-            notificationsApiMock.createLocalNotification("RoomName", "Title", 0, 67316, notificationFeedbackTag)
+            notificationsApiMock.createLocalNotification("RoomName", "Title", 0, notificationFeedbackId)
         }
     }
 
     fun cancelReminderNotificationsForSessions(sessions:List<MySessions>){
         if(!reminderNotificationsEnabled() || !notificationsEnabled()) {
-            notificationsApiMock.cancelLocalNotification(67316, notificationReminderTag)
+            notificationsApiMock.cancelLocalNotification(notificationReminderId)
         }
     }
 
     fun cancelFeedbackNotificationsForSessions(sessions:List<MySessions>){
         if(!feedbackEnabled() || !notificationsEnabled()) {
-            notificationsApiMock.cancelLocalNotification(67316, notificationFeedbackTag)
+            notificationsApiMock.cancelLocalNotification(notificationFeedbackId)
         }
     }
 }
@@ -267,32 +272,24 @@ class NotificationsApiMock : NotificationsApi {
     var shouldInitialize = true
     var notificationCalled = false
     var notificationCancelled = false
-    var reminderNotifications:MutableList<Int> = mutableListOf()
-    var feedbackNotifications:MutableList<Int> = mutableListOf()
+    var reminderNotification:Int = -1
+    var feedbackNotification:Int = -1
 
-    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag: String){
+    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int){
         notificationCalled = true
-        if(notificationTag == notificationFeedbackTag){
-            if(!feedbackNotifications.contains(notificationId)){
-                feedbackNotifications.add(notificationId)
-            }
+        if(notificationId == notificationFeedbackId){
+            feedbackNotification = notificationId
         }else{
-            if(!reminderNotifications.contains(notificationId)){
-                reminderNotifications.add(notificationId)
-            }
+            reminderNotification = notificationId
         }
     }
 
-    override fun cancelLocalNotification(notificationId: Int, notificationTag: String){
+    override fun cancelLocalNotification(notificationId: Int){
         notificationCancelled = true
-        if(notificationTag == notificationFeedbackTag){
-            if(feedbackNotifications.contains(notificationId)){
-                feedbackNotifications.remove(notificationId)
-            }
+        if(notificationId == notificationFeedbackId){
+            feedbackNotification = -1
         }else{
-            if(reminderNotifications.contains(notificationId)){
-                reminderNotifications.remove(notificationId)
-            }
+            reminderNotification = -1
         }
     }
 
