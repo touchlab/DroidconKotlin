@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import co.touchlab.sessionize.R
 import com.nex3z.flowlayout.FlowLayout
 import com.squareup.picasso.Picasso
@@ -20,7 +19,7 @@ import androidx.lifecycle.ViewModelProviders
 import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.db.SponsorGroupDbItem
-import co.touchlab.sessionize.event.EventFragment
+import kotlinx.android.synthetic.main.item_sponsor_group.*
 
 
 class SponsorsFragment : Fragment() {
@@ -54,9 +53,9 @@ class SponsorsFragment : Fragment() {
         sponsorViewModel.unregister()
     }
 
-    fun navigateToSponsor(sponsorId: String) {
+    fun navigateToSponsor(sponsorId: String, groupName: String) {
         (activity as NavigationHost).navigateTo(
-                SponsorSessionFragment.newInstance(sponsorId),
+                SponsorSessionFragment.newInstance(sponsorId, groupName),
                 true,
                 FragmentAnimation(R.anim.slide_from_right,
                         R.anim.slide_to_left,
@@ -94,7 +93,7 @@ class SponsorsFragment : Fragment() {
                         startActivity(i)
                     } else {
                         sponsor.sponsorId?.let {
-                            navigateToSponsor(it)
+                            navigateToSponsor(it, sponsor.groupName)
                         }
                     }
                 }

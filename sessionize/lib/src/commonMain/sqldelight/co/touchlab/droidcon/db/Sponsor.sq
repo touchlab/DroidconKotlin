@@ -17,7 +17,7 @@ selectAll:
 SELECT * FROM sponsor;
 
 sponsorById:
-SELECT * FROM sponsor WHERE sponsorId = ?;
+SELECT * FROM sponsor WHERE sponsorId = ? AND groupName = ? LIMIT 1;
 
 deleteAll:
 DELETE FROM sponsor;

@@ -189,6 +189,7 @@ object SessionizeDbHelper {
     }
 
     private fun primeSponsors(sponsorJson: String, sponsorSessionsJson: String) {
+        println("sponsorJson: $sponsorJson")
         val sponsorGroups = Json.nonstrict.parse(SponsorGroup.serializer().list, sponsorJson)
         val sponsorSessionGroups = Json.nonstrict.parse(SponsorSessionGroup.serializer().list, sponsorSessionsJson)
 

@@ -5,8 +5,8 @@ import co.touchlab.sessionize.db.SessionizeDbHelper.sponsorQueries
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.logException
 
-class SponsorSessionModel(val sponsorId: String) : BaseQueryModelView<Sponsor, SponsorSessionInfo>(
-        sponsorQueries.sponsorById(sponsorId),
+class SponsorSessionModel(val sponsorId: String, val groupName: String) : BaseQueryModelView<Sponsor, SponsorSessionInfo>(
+        sponsorQueries.sponsorById(sponsorId, groupName),
         { q ->
             val sponsor = q.executeAsOne()
             collectSponsorInfo(sponsor)
@@ -23,7 +23,7 @@ class SponsorSessionModel(val sponsorId: String) : BaseQueryModelView<Sponsor, S
 
         try {
             val sponsor = backgroundSuspend {
-                sponsorQueries.sponsorById(sponsorId).executeAsOne()
+                sponsorQueries.sponsorById(sponsorId, groupName).executeAsOne()
             }
 
             val params = HashMap<String, Any>()
