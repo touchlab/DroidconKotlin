@@ -7,11 +7,7 @@ import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
-import co.touchlab.sessionize.platform.NotificationsModel.cancelFeedbackNotificationsForSession
-import co.touchlab.sessionize.platform.NotificationsModel.cancelReminderNotificationsForSession
-import co.touchlab.sessionize.platform.NotificationsModel.createFeedbackNotificationsForSession
-import co.touchlab.sessionize.platform.NotificationsModel.createReminderNotificationsForSession
-import co.touchlab.sessionize.platform.NotificationsModel.reminderNotificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
@@ -54,19 +50,14 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             "sessionizeUnrsvpEvent"
         }
 
+        NotificationsModel.recreateReminderNotifications()
+        NotificationsModel.recreateFeedbackNotifications()
         if (rsvp) {
-            if (reminderNotificationsEnabled()) {
-                createReminderNotificationsForSession(event.session, event.session.room().name)
-                createFeedbackNotificationsForSession(event.session)
-            } else {
-                cancelReminderNotificationsForSession(event.session)
-                cancelFeedbackNotificationsForSession()
-            }
-
             ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
 
             sendAnalytics(localSessionId, rsvp)
         }
+
     }
 
     private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) {

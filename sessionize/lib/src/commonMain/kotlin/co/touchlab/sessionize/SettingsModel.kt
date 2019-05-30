@@ -18,13 +18,10 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 
         if(enabled && !notificationsEnabled()){
             ServiceRegistry.notificationsApi.initializeNotifications{success ->
-                if(success) {
-                    handleReminderNotifications(enabled)
-                    handleFeedbackNotifications(feedbackEnabled())
-                }
+                NotificationsModel.recreateReminderNotifications()
             }
         }else{
-            handleReminderNotifications(enabled)
+            NotificationsModel.recreateReminderNotifications()
         }
     }
 
@@ -33,33 +30,10 @@ class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 
         if(enabled && !notificationsEnabled()){
             ServiceRegistry.notificationsApi.initializeNotifications{success ->
-                if(success) {
-                    handleFeedbackNotifications(enabled)
-                    handleReminderNotifications(reminderNotificationsEnabled())
-                }
+                NotificationsModel.recreateFeedbackNotifications()
             }
         }else{
-            handleFeedbackNotifications(enabled)
-        }
-    }
-
-    private fun handleReminderNotifications(create:Boolean){
-        backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-            if(create){
-                NotificationsModel.createReminderNotificationsForMySessions(mySessions)
-            }else{
-                NotificationsModel.cancelReminderNotificationsForMySessions(mySessions)
-            }
-        }
-    }
-
-    private fun handleFeedbackNotifications(create:Boolean){
-        backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-            if(create){
-                NotificationsModel.createFeedbackNotificationsForMySessions(mySessions)
-            }else {
-                NotificationsModel.cancelFeedbackNotificationsForMySessions(mySessions)
-            }
+            NotificationsModel.recreateFeedbackNotifications()
         }
     }
 }

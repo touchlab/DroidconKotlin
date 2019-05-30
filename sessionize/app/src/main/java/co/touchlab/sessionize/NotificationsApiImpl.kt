@@ -2,9 +2,11 @@ package co.touchlab.sessionize
 
 import android.app.Activity
 import android.app.AlarmManager
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,44 +14,41 @@ import app.sessionize.touchlab.lib.R
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnabled
+import android.os.RemoteException
+import android.util.Log
+import androidx.core.app.NotificationCompat
 
 class NotificationsApiImpl : NotificationsApi {
 
-    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag: String) {
+    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
+        // Building Notification
+        val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
+        val builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
+                .setSmallIcon(R.drawable.baseline_insert_invitation_24)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setWhen(timeInMS)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER)
 
-        print("Local $notificationTag Notification Created at $timeInMS: $title - $message \n")
 
-        val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_CREATE, title, message)
+        // Building Intent wrapper
+        val pendingIntent = createPendingIntent(notificationId, builder.build())
+        Log.i(TAG, "Local Notification ${timeInMS.toInt()} Created at $timeInMS ms: $title - $message \n")
         val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
     }
 
-    override fun cancelLocalNotification(notificationId: Int, notificationTag: String, withDelay: Long) {
-
-        print("Local $notificationTag Notification Cancelled at $withDelay\n")
-
-        val pendingIntent = createPendingIntent(notificationId, notificationTag, NotificationPublisher.NOTIFICATION_ACTION_DISMISS)
-        val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
-        alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay, pendingIntent)
-    }
-
-    private fun createPendingIntent(id:Int, tag: String, notificationAction:String, title:String? = "", message: String? = ""): PendingIntent{
-        val intent = Intent(AndroidAppContext.app, NotificationPublisher::class.java).apply {
-            action = notificationAction
-            putExtra(NotificationPublisher.NOTIFICATION_TITLE,title)
-            putExtra(NotificationPublisher.NOTIFICATION_MESSAGE,message)
-
-            putExtra(NotificationPublisher.NOTIFICATION_ID, id)
-            putExtra(NotificationPublisher.NOTIFICATION_TAG, tag)
-
-            putExtra(NotificationPublisher.NOTIFICATION_CHANNEL_ID,AndroidAppContext.app.getString(R.string.notification_channel_id))
+    override fun cancelLocalNotification(notificationId: Int) {
+        val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = createPendingIntent(notificationId)
+        try {
+            alarmManager.cancel(pendingIntent)
+            Log.i(TAG, "Cancelled Notification(1): $notificationId")
+        } catch (e: RemoteException) {
+            Log.i(TAG, e.localizedMessage)
         }
-
-        val uniqueId = id.toString() + tag + notificationAction
-        return PendingIntent.getBroadcast(AndroidAppContext.app, uniqueId.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
-
-
 
     // General Notification Code
 
@@ -79,6 +78,22 @@ class NotificationsApiImpl : NotificationsApi {
             val notificationManager: NotificationManager = AndroidAppContext.app.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             notificationManager.createNotificationChannel(channel)
+        }
+    }
+  
+    companion object{
+        val TAG:String = NotificationsApiImpl::class.java.simpleName
+
+
+        private fun createPendingIntent(id:Int, notification: Notification? = null): PendingIntent{
+            // Building Intent wrapper
+            val intent = Intent().also { intent ->
+                intent.putExtra(NotificationPublisher.NOTIFICATION_ID, id)
+                intent.putExtra(NotificationPublisher.NOTIFICATION, notification)
+                val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
+                intent.component = componentName
+            }
+            return PendingIntent.getBroadcast(AndroidAppContext.app, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
         }
     }
 }
