@@ -30,8 +30,9 @@ class SponsorSessionModel(val sponsorId: String, val groupName: String) : BaseQu
 
             val params = HashMap<String, Any>()
             params["sponsorId"] = sponsorId
+            params["name"] = sponsor.name
 
-//            ServiceRegistry.analyticsApi.logEvent("SPONSOR_VIEWED", params)
+            ServiceRegistry.analyticsApi.logEvent("SPONSOR_VIEWED", params)
         } catch (e: Exception) {
             logException(e)
         }
