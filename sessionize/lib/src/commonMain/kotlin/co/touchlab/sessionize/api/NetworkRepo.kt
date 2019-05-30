@@ -23,10 +23,10 @@ object NetworkRepo {
             val networkSpeakerJson = api.getSpeakersJson()
             val networkSessionJson = api.getSessionsJson()
             val networkSponsorJson = api.getSponsorJson()
-//            val networkSponsorSessionJson = api.getSponsorSessionJson()
+            val networkSponsorSessionJson =  api.getSponsorSessionJson()
 
             backgroundSuspend {
-                SessionizeDbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson, "")
+                SessionizeDbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson, networkSponsorSessionJson)
                 ServiceRegistry.appSettings.putLong(SettingsKeys.KEY_LAST_LOAD, currentTimeMillis())
             }
 
@@ -44,7 +44,7 @@ object NetworkRepo {
         if (!ServiceRegistry.appSettings.getBoolean(SettingsKeys.KEY_FIRST_RUN, true)) {
             val lastLoad = ServiceRegistry.appSettings.getLong(SettingsKeys.KEY_LAST_LOAD)
             if (lastLoad < (currentTimeMillis() - (Durations.TWO_HOURS_MILLIS.toLong()))) {
-//                dataCalls()
+                dataCalls()
             }
         }
     }
