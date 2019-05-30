@@ -5,14 +5,16 @@ import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys.FEEDBACK_ENABLED
 import co.touchlab.sessionize.SettingsKeys.LOCAL_NOTIFICATIONS_ENABLED
 import co.touchlab.sessionize.SettingsKeys.REMINDERS_ENABLED
-import co.touchlab.sessionize.api.notificationFeedbackId
-import co.touchlab.sessionize.api.notificationReminderId
+import co.touchlab.sessionize.api.notificationFeedbackTag
+import co.touchlab.sessionize.api.notificationReminderTag
 import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
 import com.russhwolf.settings.set
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 object NotificationsModel {
+
+    val notificationInfo = mutableListOf<Pair<Int,String>>()
 
     // Settings
 
@@ -51,7 +53,7 @@ object NotificationsModel {
 
     fun cancelNotificationsForSessions() {
         if (!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
-            ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId)
+            cancelAllNotifications(notificationReminderTag)
             cancelFeedbackNotification()
         }
     }
@@ -61,19 +63,23 @@ object NotificationsModel {
     private fun createReminderNotification(startsAtTime: Long, title:String, message:String){
         val notificationTime = startsAtTime - Durations.TEN_MINS_MILLIS
         if (notificationTime > currentTimeMillis()) {
+            notificationInfo.add(Pair(notificationTime.toInt(), notificationReminderTag))
             ServiceRegistry.notificationsApi.createLocalNotification(title,
                                                                     message,
                                                                     notificationTime,
-                                                                    notificationReminderId)
+                                                                    notificationTime.toInt(),
+                                                                    notificationReminderTag)
         }
     }
 
     private fun createFeedbackNotification(endsAtTime: Long){
         val feedbackNotificationTime = endsAtTime + Durations.TEN_MINS_MILLIS
+        notificationInfo.add(Pair(feedbackNotificationTime.toInt(), notificationFeedbackTag))
         ServiceRegistry.notificationsApi.createLocalNotification("Feedback Time!",
                 "Your Feedback is Requested",
                 feedbackNotificationTime,
-                notificationFeedbackId)
+                feedbackNotificationTime.toInt(),
+                notificationFeedbackTag)
     }
 
     // Cancel List
@@ -87,11 +93,11 @@ object NotificationsModel {
     // Cancel Singular
 
     private fun cancelFeedbackNotification() {
-        ServiceRegistry.notificationsApi.cancelLocalNotification(notificationFeedbackId)
+        cancelAllNotifications(notificationFeedbackTag)
     }
 
     fun recreateReminderNotifications(){
-        ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId)
+        cancelAllNotifications(notificationReminderTag)
 
         if (notificationsEnabled()){
              backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
@@ -99,19 +105,19 @@ object NotificationsModel {
                      if (reminderNotificationsEnabled()) {
 
                          try {
-                             val session = mySessions.first { it.startsAt.toLongMillis() - Durations.TEN_MINS_MILLIS > currentTimeMillis() }
-                             val partitionedSessions = mySessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
-                             val matchingSessions = partitionedSessions.first
-
-                             if (matchingSessions.size == 1) {
-                                 createReminderNotification(session.startsAt.toLongMillis(),
-                                         "Upcoming Event in ${session.roomName}",
-                                         "${session.title} is starting soon.")
-                             } else {
-                                 createReminderNotification(session.startsAt.toLongMillis(),
-                                         "${matchingSessions.size} Upcoming Sessions",
-                                         "You have ${matchingSessions.size} Sessions Starting soon")
+                             mySessions.groupBy { it.startsAt.toLongMillis() }.forEach {
+                                 if (it.value.size == 1) {
+                                     val session = it.value.first()
+                                     createReminderNotification(it.key,
+                                             "Upcoming Event in ${session.roomName}",
+                                             "${session.title} is starting soon.")
+                                 } else {
+                                     createReminderNotification(it.key,
+                                             "${it.value.size} Upcoming Sessions",
+                                             "You have ${it.value.size} Sessions Starting soon")
+                                 }
                              }
+
                          } catch (e: NoSuchElementException){
                              print(e.message)
                          }
@@ -130,8 +136,17 @@ object NotificationsModel {
                     if (feedbackEnabled()) {
 
                         try {
+                            mySessions.filter{ it.feedbackRating == null }.groupBy{ it.endsAt.toLongMillis() }.forEach {
+                                createFeedbackNotification(it.key + Durations.TEN_MINS_MILLIS)
+                            }
+
+                        } catch (e: NoSuchElementException){
+                            print(e.message)
+                        }
+
+
+                        try {
                             val session = mySessions.first { (it.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS > currentTimeMillis())}
-                            createFeedbackNotification(session.startsAt.toLongMillis() + Durations.TEN_MINS_MILLIS)
                         } catch (e: NoSuchElementException){
                             print(e.message)
                         }
@@ -139,5 +154,18 @@ object NotificationsModel {
                 }
             }
         }
+    }
+
+    private fun cancelAllNotifications(notificationTag:String?){
+
+        var list: List<Pair<Int,String>> = notificationInfo
+        notificationTag?.let { tag ->
+            list = notificationInfo.partition { it.second == tag }.first
+        }
+
+        list.forEach {
+            ServiceRegistry.notificationsApi.cancelLocalNotification(it.first,it.second)
+        }
+        notificationInfo.removeAll(list)
     }
 }

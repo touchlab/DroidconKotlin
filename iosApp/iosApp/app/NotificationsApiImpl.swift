@@ -15,20 +15,13 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
     // Needed to approve local notifications
     class LocalNotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
         func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void){
-            if(notification.request.identifier == String(NotificationsApiKt.notificationReminderId)){
-                NotificationsModel().recreateReminderNotifications()
-            }
-            if(notification.request.identifier == String(NotificationsApiKt.notificationFeedbackId)){
-                NotificationsModel().recreateFeedbackNotifications()
-            }
-            
             completionHandler(.alert)
         }
     }
 
     let notificationDelegate = LocalNotificationDelegate()
 
-    func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32) {
+    func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32, notificationTag: String) {
         let timeDouble = Double(integerLiteral: timeInMS)
         let date = Date.init(timeIntervalSince1970: timeDouble / 1000.0)
         let dateInfo: DateComponents = Calendar.current.dateComponents([.month,.day,.year,.hour, .minute, .second, .timeZone], from: date)
@@ -46,13 +39,13 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         print("Local Notification Created at \(timeInMS): \(title) - \(message) \n")
 
 
-        let notifString = String(notificationId)
+        let notifString = String(notificationId) + notificationTag
         let request = UNNotificationRequest(identifier: notifString, content: content, trigger: trigger)
         center.add(request,withCompletionHandler: nil)
     }
     
-    func cancelLocalNotification(notificationId: Int32) {
-        let notifString = String(notificationId)
+    func cancelLocalNotification(notificationId: Int32, notificationTag: String) {
+        let notifString = String(notificationId) + notificationTag
         let identifiers = [notifString]
         
         let center = UNUserNotificationCenter.current()
