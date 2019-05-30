@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<co.touchlab.sessionize.feedback.FeedbackView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
@@ -29,6 +29,7 @@
             android:layout_height="48dp"
             android:scaleType="fitCenter"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/textColorLight"
             android:background="@drawable/baseline_sentiment_satisfied_alt_24"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintTop_toBottomOf="@id/titleTextView"
@@ -39,6 +40,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="4dp"
+            android:backgroundTint="@color/textColorLight"
             android:scaleType="fitCenter"
             android:background="@drawable/baseline_sentiment_satisfied_24"
             app:layout_constraintStart_toEndOf="@+id/goodButton"
@@ -50,6 +52,7 @@
             android:id="@+id/badButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:backgroundTint="@color/textColorLight"
             android:scaleType="fitCenter"
             android:background="@drawable/baseline_sentiment_very_dissatisfied_24"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
@@ -75,6 +78,7 @@
             android:layout_height="48sp"
             android:text="SUBMIT"
             android:layout_marginTop="56dp"
+            android:background="@drawable/rounded_blue_button"
             android:textColor="@color/textColorLight"
             app:layout_constraintTop_toBottomOf="@id/commentEditText"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
@@ -84,22 +88,17 @@
     <Button
             android:id="@+id/closeButton"
             android:layout_width="0dp"
-            android:layout_height="64sp"
+            android:layout_height="48sp"
             android:text="CLOSE AND DISABLE FEEDBACK"
             android:background="@drawable/rounded_blue_button"
-            android:backgroundTint="@android:color/transparent"
-            android:textColor="@color/textColorLight"
+            android:backgroundTint="@color/colorMenu"
+            android:layout_marginBottom="16sp"
             app:layout_constraintTop_toBottomOf="@id/submitButton"
+            android:textColor="#FFF"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/test123"
-            android:background="@android:color/transparent"
-            app:layout_constraintTop_toBottomOf="@id/closeButton"
-            style="@style/button_style"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</co.touchlab.sessionize.feedback.FeedbackView>

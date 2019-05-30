@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.Button
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.view.*
+import androidx.appcompat.view.ContextThemeWrapper
+
 
 enum class FeedbackRating(val value: Int) {
     None(0),
@@ -50,20 +53,16 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
 
+
             arguments?.let { bundle ->
                 sessionId = bundle[sessionIdName] as String
                 sessionTitle = bundle[sessionTitleName] as String
             }
 
-            feedbackView = createFeedbackView(requireActivity().layoutInflater)
+            feedbackView = createFeedbackView(it.layoutInflater)
 
             val builder = AlertDialog.Builder(it)
             builder.setView(feedbackView)
-                    .setNegativeButton("Close and Disable Feedback", DialogInterface.OnClickListener { dialog, _ ->
-                        feedbackManager?.disableFeedback()
-                        dialog.dismiss()
-                    })
-
             val dialog = builder.create()
             dialog.setOnShowListener {
                 dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
@@ -79,13 +78,14 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
 
         view.setFeedbackViewListener(this)
         // Submit Button
+        /*
         view.submitButton.setOnClickListener {
             view.submitButton?.isEnabled = true
             this.rating = rating
             finishAndClose()
         }
         view.submitButton?.isEnabled = false
-
+*/
         // Cancel Button
         view.closeButton.setOnClickListener {
             finishAndClose()
