@@ -20,7 +20,7 @@ import androidx.core.app.NotificationCompat
 
 class NotificationsApiImpl : NotificationsApi {
 
-    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int, notificationTag: String) {
+    override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
         // Building Notification
         val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
         val builder = NotificationCompat.Builder(AndroidAppContext.app, channelId)
@@ -31,19 +31,19 @@ class NotificationsApiImpl : NotificationsApi {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
 
+
         // Building Intent wrapper
-        val pendingIntent = createPendingIntent(notificationId, notificationTag, builder.build())
+        val pendingIntent = createPendingIntent(notificationId, builder.build())
         Log.i(TAG, "Local Notification ${timeInMS.toInt()} Created at $timeInMS ms: $title - $message \n")
         val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
     }
 
-    override fun cancelLocalNotification(notificationId: Int, notificationTag:String) {
+    override fun cancelLocalNotification(notificationId: Int) {
         val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = createPendingIntent(notificationId, notificationTag)
+        val pendingIntent = createPendingIntent(notificationId)
         try {
             alarmManager.cancel(pendingIntent)
-
             Log.i(TAG, "Cancelled Notification(1): $notificationId")
         } catch (e: RemoteException) {
             Log.i(TAG, e.localizedMessage)
@@ -84,11 +84,11 @@ class NotificationsApiImpl : NotificationsApi {
     companion object{
         val TAG:String = NotificationsApiImpl::class.java.simpleName
 
-        private fun createPendingIntent(id:Int, tag:String, notification: Notification? = null): PendingIntent{
+
+        private fun createPendingIntent(id:Int, notification: Notification? = null): PendingIntent{
             // Building Intent wrapper
             val intent = Intent().also { intent ->
                 intent.putExtra(NotificationPublisher.NOTIFICATION_ID, id)
-                intent.putExtra(NotificationPublisher.NOTIFICATION_TAG, tag)
                 intent.putExtra(NotificationPublisher.NOTIFICATION, notification)
                 val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
                 intent.component = componentName
