@@ -1,15 +1,17 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.SessionSpeaker
 import co.touchlab.droidcon.db.Sponsor
+import co.touchlab.droidcon.db.UserAccount
+import co.touchlab.sessionize.db.SessionizeDbHelper.sessionSpeakerQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper.sponsorQueries
+import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.logException
 
-class SponsorSessionModel(val sponsorId: String, val groupName: String) : BaseQueryModelView<Sponsor, SponsorSessionInfo>(
-        sponsorQueries.sponsorById(sponsorId, groupName),
+class SponsorSessionModel(val sponsorId: String, val groupName: String) : BaseQueryModelView<Sponsor, SponsorSessionInfo>(sponsorQueries.sponsorById(sponsorId, groupName),
         { q ->
-            val sponsor = q.executeAsOne()
-            collectSponsorInfo(sponsor)
+            collectSponsorInfo(sponsorId, groupName)
         },
         ServiceRegistry.coroutinesDispatcher) {
 
@@ -29,21 +31,21 @@ class SponsorSessionModel(val sponsorId: String, val groupName: String) : BaseQu
             val params = HashMap<String, Any>()
             params["sponsorId"] = sponsorId
 
-//            ServiceRegistry.analyticsApi.logEvent("RSVP_EVENT", params)
+//            ServiceRegistry.analyticsApi.logEvent("SPONSOR_VIEWED", params)
         } catch (e: Exception) {
             logException(e)
         }
     }
 }
 
-internal fun collectSponsorInfo(sponsor: Sponsor): SponsorSessionInfo{
-//    val speakers = userAccountQueries.selectBySession(sponsor.sponsorId).executeAsList()
-//    val mySessions = sponsorQueries.mys().executeAsList()
+internal fun collectSponsorInfo(sponsorId: String, groupName: String): SponsorSessionInfo {
+    val sponsor = sponsorQueries.sponsorById(sponsorId, groupName).executeAsOne()
+    val speakers = userAccountQueries.selectBySession(sponsorId).executeAsList()
 
-    return SponsorSessionInfo(sponsor) //, speakers, session.conflict(mySessions))
+    return SponsorSessionInfo(sponsor, speakers)
 }
 
 data class SponsorSessionInfo(
-        val sponsor: Sponsor
-//        val speakers: List<UserAccount>
+        val sponsor: Sponsor,
+        val speakers: List<UserAccount>
 )

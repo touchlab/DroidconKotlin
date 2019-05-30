@@ -99,9 +99,9 @@ class SponsorSessionFragment : Fragment() {
             adapter.addBody(it)
         }
 
-//        for (item in sponsor.sponsor.speakers) {
-//            adapter.addSpeaker(item)
-//        }
+        for (item in sponsor.speakers) {
+            adapter.addSpeaker(item)
+        }
 
         recycler.adapter = adapter
     }
