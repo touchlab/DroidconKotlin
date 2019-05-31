@@ -2,7 +2,7 @@
 <co.touchlab.sessionize.feedback.FeedbackView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
+        xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -77,27 +77,27 @@
             android:layout_width="0dp"
             android:layout_height="48sp"
             android:text="SUBMIT"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/rounded_blue_button"
-            android:textColor="@color/textColorLight"
+            android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/commentEditText"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
-            app:layout_constraintBottom_toTopOf="@+id/closeButton"/>
+            app:layout_constraintBottom_toTopOf="@+id/closeButton" tools:layout_editor_absoluteY="195dp"/>
 
     <Button
             android:id="@+id/closeButton"
             android:layout_width="0dp"
             android:layout_height="48sp"
             android:text="CLOSE AND DISABLE FEEDBACK"
-            android:background="@drawable/rounded_blue_button"
-            android:backgroundTint="@color/colorMenu"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="16sp"
-            app:layout_constraintTop_toBottomOf="@id/submitButton"
-            android:textColor="#FFF"
+            android:textColor="#0086EC"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/submitButton"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 

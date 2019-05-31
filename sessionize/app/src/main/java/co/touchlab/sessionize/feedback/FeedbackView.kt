@@ -14,7 +14,6 @@ class FeedbackView @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-
     private var feedbackViewListener: FeedbackViewListener? = null
 
     fun setFeedbackViewListener(fbListener: FeedbackViewListener){
@@ -24,15 +23,29 @@ class FeedbackView @JvmOverloads constructor(
 
         goodButton.setOnClickListener {
             resetRatingButtons()
+            submitButton.isEnabled = true
+            feedbackViewListener?.ratingSelected(FeedbackRating.Good)
             goodButton.background.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN)
         }
         okButton.setOnClickListener {
             resetRatingButtons()
+            submitButton.isEnabled = true
+            feedbackViewListener?.ratingSelected(FeedbackRating.Ok)
             okButton.background.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN)
         }
         badButton.setOnClickListener {
             resetRatingButtons()
+            submitButton.isEnabled = true
+            feedbackViewListener?.ratingSelected(FeedbackRating.Bad)
             badButton.background.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN)
+        }
+
+        submitButton.isEnabled = false
+        submitButton.setOnClickListener {
+            feedbackViewListener?.submitPressed(commentEditText.text.toString())
+        }
+        closeButton.setOnClickListener {
+            feedbackViewListener?.closePressed()
         }
         resetRatingButtons()
     }
@@ -48,7 +61,8 @@ class FeedbackView @JvmOverloads constructor(
     }
 
     interface FeedbackViewListener {
-        fun submitPressed()
+        fun ratingSelected(rating: FeedbackRating)
+        fun submitPressed(comment: String?)
         fun closePressed()
     }
 }

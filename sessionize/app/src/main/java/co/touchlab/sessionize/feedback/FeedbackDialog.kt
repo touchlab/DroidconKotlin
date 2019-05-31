@@ -52,8 +52,6 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-
-
             arguments?.let { bundle ->
                 sessionId = bundle[sessionIdName] as String
                 sessionTitle = bundle[sessionTitleName] as String
@@ -71,31 +69,13 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-
-
     private fun createFeedbackView(inflater: LayoutInflater):FeedbackView{
         val view = inflater.inflate(R.layout.feedback_view, null) as FeedbackView
-
         view.setFeedbackViewListener(this)
-        // Submit Button
-        /*
-        view.submitButton.setOnClickListener {
-            view.submitButton?.isEnabled = true
-            this.rating = rating
-            finishAndClose()
-        }
-        view.submitButton?.isEnabled = false
-*/
-        // Cancel Button
-        view.closeButton.setOnClickListener {
-            finishAndClose()
-        }
-
         view.createButtonListeners()
         sessionTitle.let {
             view.setSessionTitle(it)
         }
-
         return view
     }
 
@@ -108,10 +88,16 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
         dismiss()
     }
 
-    override fun submitPressed(){
+    override fun ratingSelected(rating: FeedbackRating){
+        this.rating = rating
+    }
 
+    override fun submitPressed(comment: String?){
+        this.comments = comment ?: ""
+        finishAndClose()
     }
     override fun closePressed(){
-
+        feedbackManager?.disableFeedback()
+        dismiss()
     }
 }
