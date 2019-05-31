@@ -52,10 +52,6 @@ class FeedbackRatingSubView: UIView {
         buttonPressed(rating: FeedbackRating.bad)
     }
     
-    @IBAction func addCommentButtonPressed(_ sender: Any) {
-        feedbackHandler?.requestCommentView()
-    }
-    
     func setFeedbackHandler(handler:FeedbackInteractionDelegate) {
         feedbackHandler = handler
     }

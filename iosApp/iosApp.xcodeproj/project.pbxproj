@@ -86,7 +86,6 @@
 		F10A7D00227B777700DED10F /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
 		F111E60D22569ED1000B3F3D /* FeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F111E60C22569ED1000B3F3D /* FeedbackView.xib */; };
 		F111E60F2256A276000B3F3D /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E60E2256A276000B3F3D /* FeedbackView.swift */; };
-		F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */; };
 		F111E61422579D65000B3F3D /* FeedbackRatingSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */; };
 		F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */; };
 		F1378D8D22834077009E70D3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */; };
@@ -198,7 +197,6 @@
 		EAC50DD7577BDBAECF2A4DB6 /* TestSettings.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestSettings.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/TestSettings.kt; sourceTree = "<group>"; };
 		F111E60C22569ED1000B3F3D /* FeedbackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackView.xib; sourceTree = "<group>"; };
 		F111E60E2256A276000B3F3D /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
-		F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCommentSubView.swift; sourceTree = "<group>"; };
 		F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackRatingSubView.swift; sourceTree = "<group>"; };
 		F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAlertViewController.swift; sourceTree = "<group>"; };
 		F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -448,7 +446,6 @@
 				F111E60E2256A276000B3F3D /* FeedbackView.swift */,
 				F1378D8F228340AC009E70D3 /* FeedbackManager.swift */,
 				F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */,
-				F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */,
 				F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */,
 			);
 			path = Feedback;
@@ -756,7 +753,6 @@
 				962974E75078C2E7FBE580BC /* DateAdapter.kt in Sources */,
 				F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
-				F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
 				C764772084EDD3F58CAFB7E9 /* BaseModel.kt in Sources */,
 				F15978AD228D93930038BD02 /* FirebaseMessageHandler.swift in Sources */,

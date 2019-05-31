@@ -22,8 +22,8 @@ public enum FeedbackRating: Int {
 
 class FeedbackView: UIView, FeedbackInteractionDelegate {
     
+    
     private var alertViewController: FeedbackAlertViewController?
-    private var commentView: FeedbackCommentSubView?
     private var ratingView: FeedbackRatingSubView?
     
     @IBOutlet weak var doneButton: UIButton!
@@ -46,13 +46,11 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         initRatingView()
-        initCommentView()
         setDoneButtonEnabled(enabled: false)
     }
     
     public static func createFeedbackView() -> FeedbackView? {
         var feedbackView: FeedbackView?
-        var commentView: FeedbackCommentSubView?
         var ratingView: FeedbackRatingSubView?
         
         let nibName = "FeedbackView"
@@ -60,13 +58,10 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
         for v in views{
             if let fView = v as? FeedbackView {
                 feedbackView = fView
-            }else if let cView = v as? FeedbackCommentSubView {
-                commentView = cView
             }else if let sView = v as? FeedbackRatingSubView {
                 ratingView = sView
             }
         }
-        feedbackView?.commentView = commentView
         feedbackView?.ratingView = ratingView
         return feedbackView
     }
@@ -78,10 +73,6 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     private func initRatingView() {
         ratingView?.setFeedbackHandler(handler: self)
         addFeedbackSubview(ratingView,hidden: false)
-    }
-    
-    private func initCommentView() {
-        addFeedbackSubview(commentView,hidden: true)
     }
     
     private func addFeedbackSubview(_ v:UIView?,hidden:Bool){
@@ -105,7 +96,6 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     // MARK: - Interaction
 
     private func finishAndClose(){
-        comments = commentView?.getComment()
         alertViewController?.closeWithFeedback(sessionId: sessionId!,rating: rating,comments: comments!)
     }
     
@@ -124,10 +114,6 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
 
     }
     
-    internal func requestCommentView(){
-        showCommentView()
-    }
-    
     func setFeedbackManager(fbManager: FeedbackManager){
         self.feedbackManager = fbManager
     }
@@ -141,37 +127,10 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
         }
         
     }
-    
-    // MARK: - Showing SubViews
-    
-    private func showCommentView(){
-        animateOut(ratingView!)
-        animateIn(commentView!)
-    }
-    
-    func animateIn(_ v:UIView) {
-        v.frame.origin.x = v.frame.width
-        
-        UIView.animate(withDuration: animationTime, delay: 0, options: .curveEaseInOut, animations: {
-            v.frame.origin.x = 0
-        },completion: { finished in
-            if finished {
-                self.commentView?.setFocus()
-            }
-        })
-    }
-    
-    func animateOut(_ v:UIView) {
-        
-        UIView.animate(withDuration: animationTime, delay: 0, options: .curveEaseInOut, animations: {
-            v.frame.origin.x -= v.frame.width
-        })
-    }
 }
 
 protocol FeedbackInteractionDelegate {
     func feedbackSelected(rating:FeedbackRating)
-    func requestCommentView()
 }
 
 
