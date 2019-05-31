@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProviders
 import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.db.SponsorGroupDbItem
-import kotlinx.android.synthetic.main.item_sponsor_group.*
 
 
 class SponsorsFragment : Fragment() {

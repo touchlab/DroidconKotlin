@@ -86,14 +86,7 @@ class SponsorSessionFragment : Fragment() {
         val adapter = SponsorSessionAdapter(activity!!)
 
         sponsorSessionTitle.text = sponsor.sponsor.name
-//        eventRoomTime.text = formattedRoomTime
         adapter.addHeader(sponsor.sponsor.name)
-
-//        when {
-//            event.isNow() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_now) + "</b></i>")
-//            event.isPast() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_past) + "</b></i>")
-//            event.conflict -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_conflict) + "</b></i>")
-//        }
 
         sponsor.sponsor.description?.let {
             adapter.addBody(it)
