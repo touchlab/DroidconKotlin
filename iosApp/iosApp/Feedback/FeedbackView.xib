@@ -18,13 +18,12 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15Y-gp-B2d">
                     <rect key="frame" x="8" y="420" width="504" height="44"/>
-                    <color key="backgroundColor" white="0.8497699058219178" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="6Na-OL-mDb"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="CLOSE AND DISABLE FEEDBACK">
-                        <color key="titleColor" red="0.1647058824" green="0.2784313725" blue="0.54117647059999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="titleColor" red="0.0" green="0.52549019607843139" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </state>
                     <connections>
                         <action selector="BackButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="mYV-Sr-dso"/>
@@ -36,7 +35,7 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fhn-cT-CmA">
                     <rect key="frame" x="8" y="368" width="504" height="44"/>
-                    <color key="backgroundColor" red="0.12548968199999999" green="0.2806155682" blue="0.56104314330000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.52549019607843139" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="zEq-nF-9tV"/>
                     </constraints>
@@ -79,10 +78,11 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEY-Ls-iri">
-                    <rect key="frame" x="178.5" y="50.5" width="163" height="162.5"/>
+                    <rect key="frame" x="236" y="77" width="48" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="vEY-Ls-iri" secondAttribute="height" multiplier="1:1" id="7Sn-32-Pqu"/>
+                        <constraint firstAttribute="height" constant="48" id="8V5-MK-MBU"/>
+                        <constraint firstAttribute="width" constant="48" id="s9v-FZ-mJL"/>
                     </constraints>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" backgroundImage="baseline_sentiment_satisfied_black_48dp.png"/>
@@ -91,10 +91,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTy-CK-FQe">
-                    <rect key="frame" x="349.5" y="50.5" width="162.5" height="162.5"/>
+                    <rect key="frame" x="444" y="77" width="48" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="kTy-CK-FQe" secondAttribute="height" multiplier="1:1" id="EVF-hU-AXD"/>
+                        <constraint firstAttribute="width" constant="48" id="D7N-YY-HYj"/>
+                        <constraint firstAttribute="height" constant="48" id="yEK-oq-sD0"/>
                     </constraints>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" backgroundImage="baseline_sentiment_very_dissatisfied_black_48dp.png"/>
@@ -102,17 +103,18 @@
                         <action selector="badButtonPressed:" destination="Lpe-Tb-5l3" eventType="touchUpInside" id="7y3-FK-Qlx"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What did you think of Kotlin on Code Quality Tools?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FQ-96-t7V">
-                    <rect key="frame" x="8" y="16" width="504" height="26.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What did you think of Kotlin on Code Quality Tools?" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FQ-96-t7V">
+                    <rect key="frame" x="28" y="16" width="464" height="53"/>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ho-1Y-aTA">
-                    <rect key="frame" x="8" y="50.5" width="162.5" height="162.5"/>
+                    <rect key="frame" x="28" y="77" width="48" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="5Ho-1Y-aTA" secondAttribute="height" multiplier="1:1" id="nSZ-Jp-EpB"/>
+                        <constraint firstAttribute="width" constant="48" id="3Qh-A2-CJa"/>
+                        <constraint firstAttribute="height" constant="48" id="o6j-6r-aj3"/>
                     </constraints>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" backgroundImage="baseline_sentiment_satisfied_alt_black_48dp.png"/>
@@ -120,22 +122,31 @@
                         <action selector="goodButtonPressed:" destination="Lpe-Tb-5l3" eventType="touchUpInside" id="czC-qv-flR"/>
                     </connections>
                 </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ty-2B-Kol">
+                    <rect key="frame" x="28" y="141" width="464" height="48"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="4Uy-Qn-wu4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="3FQ-96-t7V" secondAttribute="trailing" constant="8" id="0Yf-oH-6Ic"/>
+                <constraint firstAttribute="trailing" secondItem="3FQ-96-t7V" secondAttribute="trailing" constant="28" id="0Yf-oH-6Ic"/>
                 <constraint firstItem="3FQ-96-t7V" firstAttribute="top" secondItem="Lpe-Tb-5l3" secondAttribute="top" constant="16" id="0qQ-p8-afE"/>
                 <constraint firstItem="vEY-Ls-iri" firstAttribute="top" secondItem="5Ho-1Y-aTA" secondAttribute="top" id="82t-Tt-MWc"/>
                 <constraint firstItem="vEY-Ls-iri" firstAttribute="top" secondItem="3FQ-96-t7V" secondAttribute="bottom" constant="8" id="9fx-rP-AFP"/>
                 <constraint firstItem="vEY-Ls-iri" firstAttribute="centerX" secondItem="Lpe-Tb-5l3" secondAttribute="centerX" id="9mf-Dy-gHv"/>
-                <constraint firstItem="3FQ-96-t7V" firstAttribute="leading" secondItem="Lpe-Tb-5l3" secondAttribute="leading" constant="8" id="9s3-aD-exA"/>
-                <constraint firstAttribute="trailing" secondItem="kTy-CK-FQe" secondAttribute="trailing" constant="8" id="BgW-qp-O6Y"/>
-                <constraint firstItem="kTy-CK-FQe" firstAttribute="leading" secondItem="vEY-Ls-iri" secondAttribute="trailing" constant="8" id="CGI-TV-2x0"/>
+                <constraint firstItem="3FQ-96-t7V" firstAttribute="leading" secondItem="Lpe-Tb-5l3" secondAttribute="leading" constant="28" id="9s3-aD-exA"/>
+                <constraint firstAttribute="trailing" secondItem="kTy-CK-FQe" secondAttribute="trailing" constant="28" id="BgW-qp-O6Y"/>
                 <constraint firstItem="kTy-CK-FQe" firstAttribute="width" secondItem="5Ho-1Y-aTA" secondAttribute="width" id="Hq4-cp-ken"/>
-                <constraint firstItem="5Ho-1Y-aTA" firstAttribute="leading" secondItem="Lpe-Tb-5l3" secondAttribute="leading" constant="8" id="IXv-rD-IkP"/>
-                <constraint firstItem="vEY-Ls-iri" firstAttribute="width" secondItem="5Ho-1Y-aTA" secondAttribute="width" id="aPq-ul-IKl"/>
-                <constraint firstItem="vEY-Ls-iri" firstAttribute="leading" secondItem="5Ho-1Y-aTA" secondAttribute="trailing" constant="8" id="bZJ-sH-SIa"/>
+                <constraint firstItem="5Ho-1Y-aTA" firstAttribute="leading" secondItem="Lpe-Tb-5l3" secondAttribute="leading" constant="28" id="IXv-rD-IkP"/>
+                <constraint firstItem="9Ty-2B-Kol" firstAttribute="top" secondItem="vEY-Ls-iri" secondAttribute="bottom" constant="16" id="ZQu-wZ-veZ"/>
                 <constraint firstItem="kTy-CK-FQe" firstAttribute="top" secondItem="5Ho-1Y-aTA" secondAttribute="top" id="lAl-28-LeB"/>
+                <constraint firstItem="9Ty-2B-Kol" firstAttribute="leading" secondItem="4bG-Re-oAt" secondAttribute="leading" constant="28" id="odt-9R-6u4"/>
+                <constraint firstItem="4bG-Re-oAt" firstAttribute="trailing" secondItem="9Ty-2B-Kol" secondAttribute="trailing" constant="28" id="r9f-17-Sdz"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
@@ -143,6 +154,7 @@
             <viewLayoutGuide key="safeArea" id="4bG-Re-oAt"/>
             <connections>
                 <outlet property="badButton" destination="kTy-CK-FQe" id="kMo-z6-uaF"/>
+                <outlet property="commentTextView" destination="9Ty-2B-Kol" id="Haf-75-k98"/>
                 <outlet property="goodButton" destination="5Ho-1Y-aTA" id="Oc5-4X-Dez"/>
                 <outlet property="okButton" destination="vEY-Ls-iri" id="pWL-bI-jaQ"/>
                 <outlet property="selectionTitle" destination="3FQ-96-t7V" id="kaj-tr-TGi"/>

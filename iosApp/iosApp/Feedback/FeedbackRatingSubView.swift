@@ -8,10 +8,10 @@
 
 import UIKit
 
-class FeedbackRatingSubView: UIView {
+class FeedbackRatingSubView: UIView, UITextViewDelegate {
     @IBOutlet weak var selectionTitle: UILabel!
-    @IBOutlet weak var addCommentButton: UIButton!
     
+    @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var goodButton: UIButton!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var badButton: UIButton!
@@ -30,6 +30,18 @@ class FeedbackRatingSubView: UIView {
         
         let tintableImageBad = badButton.currentBackgroundImage?.withRenderingMode(.alwaysTemplate)
         badButton.setBackgroundImage(tintableImageBad,for: UIControlState.normal)
+        
+        commentTextView.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).cgColor
+        commentTextView.layer.borderWidth = 1.0
+        
+        commentTextView.layer.cornerRadius = 4
+        commentTextView.clipsToBounds = true
+        
+        commentTextView.text = "(Optional) suggest improvements"
+        commentTextView.textColor = UIColor.lightGray
+        commentTextView.delegate = self
+        commentTextView.textContainerInset = UIEdgeInsetsMake(16, 16, 0, 16)
+
     }
     
     private var feedbackHandler: FeedbackInteractionDelegate?
@@ -61,18 +73,35 @@ class FeedbackRatingSubView: UIView {
     }
     
     private func buttonPressed(rating:FeedbackRating){
-        activateCommentButton()
         feedbackHandler?.feedbackSelected(rating: rating)
-    }
-    
-    private func activateCommentButton(){
-        addCommentButton.setTitleColor(UIColor.darkGray, for: .normal)
-        addCommentButton.isEnabled = true
     }
     
     private func unhighlightButtons(){
         goodButton.tintColor = UIColor.black
         okButton.tintColor = UIColor.black
         badButton.tintColor = UIColor.black
+    }
+    
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let margin:CGFloat = 16
+        let fixedWidth = textView.frame.size.width
+        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        commentTextView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height + margin)
+        
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if commentTextView.textColor == UIColor.lightGray {
+            commentTextView.text = ""
+            commentTextView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentTextView.text.isEmpty {
+            commentTextView.text = "Placeholder"
+            commentTextView.textColor = UIColor.lightGray
+        }
     }
 }
