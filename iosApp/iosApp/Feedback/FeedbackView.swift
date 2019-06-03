@@ -20,12 +20,17 @@ public enum FeedbackRating: Int {
     case bad = 3
 }
 
-class FeedbackView: UIView, FeedbackInteractionDelegate {
+class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
     
     
     private var alertViewController: FeedbackAlertViewController?
     private var ratingView: FeedbackRatingSubView?
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var ratingGoodButton: UIButton!
+    @IBOutlet weak var ratingOkButton: UIButton!
+    @IBOutlet weak var ratingBadButton: UIButton!
+    @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var baseView: UIView!
@@ -50,6 +55,28 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
         
         doneButton.layer.cornerRadius = 24
         doneButton.clipsToBounds = true
+        
+        let tintableImageGood = ratingGoodButton.currentBackgroundImage?.withRenderingMode(.alwaysTemplate)
+        ratingGoodButton.setBackgroundImage(tintableImageGood,for: UIControlState.normal)
+        
+        let tintableImageOk = ratingOkButton.currentBackgroundImage?.withRenderingMode(.alwaysTemplate)
+        ratingOkButton.setBackgroundImage(tintableImageOk,for: UIControlState.normal)
+        
+        let tintableImageBad = ratingBadButton.currentBackgroundImage?.withRenderingMode(.alwaysTemplate)
+        ratingBadButton.setBackgroundImage(tintableImageBad,for: UIControlState.normal)
+        
+        unhighlightButtons()
+        
+        commentTextView.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).cgColor
+        commentTextView.layer.borderWidth = 1.0
+        
+        commentTextView.layer.cornerRadius = 4
+        commentTextView.clipsToBounds = true
+        
+        commentTextView.text = "(Optional) suggest improvements"
+        commentTextView.textColor = UIColor.lightGray
+        commentTextView.delegate = self
+        commentTextView.textContainerInset = UIEdgeInsetsMake(16, 16, 0, 16)
     }
     
     public static func createFeedbackView() -> FeedbackView? {
@@ -79,6 +106,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
     }
     
     private func addFeedbackSubview(_ v:UIView?,hidden:Bool){
+        /*
         if let realSelectionView = v {
             if !realSelectionView.isDescendant(of: baseView) {
                 baseView.addSubview(realSelectionView)
@@ -86,20 +114,49 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
                 let x = hidden ? baseView.frame.width : 0
                 realSelectionView.frame = CGRect(x: x,y: 0,width: baseView.frame.width,height: baseView.frame.height)
             }
-        }
+        }*/
     }
     
     
     
     public func setSessionInfo(sessionId: String?,sessionTitle:String){
         self.sessionId = sessionId
-        ratingView?.setSessionTitle(title: sessionTitle)
+        titleLabel.text = "What did you think of \(sessionTitle)?"
     }
+
     
     // MARK: - Interaction
 
     private func finishAndClose(){
         alertViewController?.closeWithFeedback(sessionId: sessionId!,rating: rating,comments: comments!)
+    }
+    
+    @IBAction func goodButtonPressed(_ sender: Any) {
+        unhighlightButtons()
+        ratingGoodButton.tintColor = UIColor.blue
+        buttonPressed(rating: FeedbackRating.good)
+    }
+    
+    @IBAction func okButtonPressed(_ sender: Any) {
+        unhighlightButtons()
+        ratingOkButton.tintColor = UIColor.blue
+        buttonPressed(rating: FeedbackRating.ok)
+    }
+    
+    @IBAction func badButtonPressed(_ sender: Any) {
+        unhighlightButtons()
+        ratingBadButton.tintColor = UIColor.blue
+        buttonPressed(rating: FeedbackRating.bad)
+    }
+    
+    private func unhighlightButtons(){
+        ratingGoodButton.tintColor = UIColor.black
+        ratingOkButton.tintColor = UIColor.black
+        ratingBadButton.tintColor = UIColor.black
+    }
+    
+    private func buttonPressed(rating:FeedbackRating){
+        //feedbackHandler?.feedbackSelected(rating: rating)
     }
     
     @IBAction func BackButtonPressed(_ sender: Any) {
@@ -129,6 +186,28 @@ class FeedbackView: UIView, FeedbackInteractionDelegate {
             doneButton.backgroundColor = UIColor.lightGray
         }
         
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let margin:CGFloat = 16
+        let fixedWidth = textView.frame.size.width
+        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        commentTextView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height + margin)
+        
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if commentTextView.textColor == UIColor.lightGray {
+            commentTextView.text = ""
+            commentTextView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentTextView.text.isEmpty {
+            commentTextView.text = "Placeholder"
+            commentTextView.textColor = UIColor.lightGray
+        }
     }
 }
 
