@@ -1,17 +1,12 @@
 //
-//  FeedbackView.swift
+//  FeedbackViewController.swift
 //  iosApp
 //
-//  Created by Kevin Schildhorn on 4/4/19.
+//  Created by Kevin Schildhorn on 6/3/19.
 //  Copyright © 2019 Kevin Galligan. All rights reserved.
 //
 
 import UIKit
-import lib
-
-protocol FeedbackDialogDelegate{
-    func finishedFeedback(sessionId:String, rating:Int, comment: String)
-}
 
 public enum FeedbackRating: Int {
     case none = 0
@@ -20,11 +15,7 @@ public enum FeedbackRating: Int {
     case bad = 3
 }
 
-class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
-    
-    
-    private var alertViewController: FeedbackAlertViewController?
-    private var ratingView: FeedbackRatingSubView?
+class FeedbackViewController: UIViewController,UITextViewDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ratingGoodButton: UIButton!
@@ -33,11 +24,11 @@ class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var baseView: UIView!
     
     private let animationTime = 0.4
     
     private var sessionId:String?
+    private var sessionTitle:String?
     private var feedbackManager:FeedbackManager?
     private var rating:FeedbackRating = FeedbackRating.none
     private var comments:String?
@@ -48,9 +39,8 @@ class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        initRatingView()
+override func viewDidLoad() {
+    super.viewDidLoad()
         setDoneButtonEnabled(enabled: false)
         
         doneButton.layer.cornerRadius = 24
@@ -66,7 +56,9 @@ class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
         ratingBadButton.setBackgroundImage(tintableImageBad,for: UIControlState.normal)
         
         unhighlightButtons()
-        
+    
+        titleLabel.text = sessionTitle
+    
         commentTextView.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).cgColor
         commentTextView.layer.borderWidth = 1.0
         
@@ -79,56 +71,16 @@ class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
         commentTextView.textContainerInset = UIEdgeInsetsMake(16, 16, 0, 16)
     }
     
-    public static func createFeedbackView() -> FeedbackView? {
-        var feedbackView: FeedbackView?
-        var ratingView: FeedbackRatingSubView?
-        
-        let nibName = "FeedbackView"
-        let views = Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)!
-        for v in views{
-            if let fView = v as? FeedbackView {
-                feedbackView = fView
-            }else if let sView = v as? FeedbackRatingSubView {
-                ratingView = sView
-            }
-        }
-        feedbackView?.ratingView = ratingView
-        return feedbackView
-    }
-
-    public func setAlertView(alertView: FeedbackAlertViewController) {
-        alertViewController = alertView
-    }
-    
-    private func initRatingView() {
-        ratingView?.setFeedbackHandler(handler: self)
-        addFeedbackSubview(ratingView,hidden: false)
-    }
-    
-    private func addFeedbackSubview(_ v:UIView?,hidden:Bool){
-        /*
-        if let realSelectionView = v {
-            if !realSelectionView.isDescendant(of: baseView) {
-                baseView.addSubview(realSelectionView)
-                
-                let x = hidden ? baseView.frame.width : 0
-                realSelectionView.frame = CGRect(x: x,y: 0,width: baseView.frame.width,height: baseView.frame.height)
-            }
-        }*/
-    }
-    
-    
-    
     public func setSessionInfo(sessionId: String?,sessionTitle:String){
         self.sessionId = sessionId
-        titleLabel.text = "What did you think of \(sessionTitle)?"
+        self.sessionTitle = "What did you think of \(sessionTitle)?"
     }
-
+    
     
     // MARK: - Interaction
-
+    
     private func finishAndClose(){
-        alertViewController?.closeWithFeedback(sessionId: sessionId!,rating: rating,comments: comments!)
+        feedbackManager?.finishedFeedback(sessionId: String(sessionId!),rating: rating.rawValue,comment: comments!)
     }
     
     @IBAction func goodButtonPressed(_ sender: Any) {
@@ -156,12 +108,12 @@ class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
     }
     
     private func buttonPressed(rating:FeedbackRating){
-        //feedbackHandler?.feedbackSelected(rating: rating)
+        feedbackSelected(rating: rating)
     }
     
     @IBAction func BackButtonPressed(_ sender: Any) {
         feedbackManager?.disableFeedback()
-        alertViewController?.close()
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
@@ -171,7 +123,7 @@ class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
     internal func feedbackSelected(rating:FeedbackRating){
         self.rating = rating
         setDoneButtonEnabled(enabled: true)
-
+        
     }
     
     func setFeedbackManager(fbManager: FeedbackManager){
@@ -205,16 +157,11 @@ class FeedbackView: UIView, FeedbackInteractionDelegate, UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if commentTextView.text.isEmpty {
-            commentTextView.text = "Placeholder"
+            commentTextView.text = "(Optional) suggest improvements"
             commentTextView.textColor = UIColor.lightGray
         }
     }
 }
-
-protocol FeedbackInteractionDelegate {
-    func feedbackSelected(rating:FeedbackRating)
-}
-
 
 extension UIColor {
     public convenience init?(hex: String) {
@@ -222,7 +169,7 @@ extension UIColor {
         
         let scanner = Scanner(string: hex)
         var hexNumber: UInt64 = 0
-    
+        
         if scanner.scanHexInt64(&hexNumber) {
             r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
             g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
