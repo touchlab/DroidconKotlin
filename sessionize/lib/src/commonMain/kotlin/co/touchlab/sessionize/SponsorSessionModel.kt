@@ -39,7 +39,7 @@ class SponsorSessionModel(val sponsorId: String, val groupName: String) : BaseQu
     }
 }
 
-internal fun collectSponsorInfo(sponsorId: String, groupName: String): SponsorSessionInfo {
+fun collectSponsorInfo(sponsorId: String, groupName: String): SponsorSessionInfo {
     val sponsor = sponsorQueries.sponsorById(sponsorId, groupName).executeAsOne()
     val speakers = userAccountQueries.selectBySession(sponsorId).executeAsList()
 

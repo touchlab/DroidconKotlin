@@ -1,5 +1,6 @@
 package co.touchlab.sessionize
 
+import co.touchlab.droidcon.db.Sponsor
 import co.touchlab.sessionize.db.SponsorGroupDbItem
 
 class SponsorViewModel {
