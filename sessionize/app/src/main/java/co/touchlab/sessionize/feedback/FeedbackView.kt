@@ -6,6 +6,7 @@ import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.view.*
 
 class FeedbackView @JvmOverloads constructor(
@@ -20,24 +21,28 @@ class FeedbackView @JvmOverloads constructor(
         feedbackViewListener = fbListener
     }
     fun createButtonListeners(){
+        setDoneButtonEnabled(false)
 
         goodButton.setOnClickListener {
             resetRatingButtons()
             submitButton.isEnabled = true
             feedbackViewListener?.ratingSelected(FeedbackRating.Good)
             goodButton.background.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN)
+            setDoneButtonEnabled(true)
         }
         okButton.setOnClickListener {
             resetRatingButtons()
             submitButton.isEnabled = true
             feedbackViewListener?.ratingSelected(FeedbackRating.Ok)
             okButton.background.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN)
+            setDoneButtonEnabled(true)
         }
         badButton.setOnClickListener {
             resetRatingButtons()
             submitButton.isEnabled = true
             feedbackViewListener?.ratingSelected(FeedbackRating.Bad)
             badButton.background.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN)
+            setDoneButtonEnabled(true)
         }
 
         submitButton.isEnabled = false
@@ -58,6 +63,16 @@ class FeedbackView @JvmOverloads constructor(
         goodButton.background.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
         okButton.background.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
         badButton.background.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
+    }
+
+    private fun setDoneButtonEnabled(enabled:Boolean){
+        submitButton.isEnabled = enabled
+        if(enabled){
+            submitButton.background = resources.getDrawable(R.drawable.rounded_blue_button, null)
+        }else{
+            submitButton.background = resources.getDrawable(R.drawable.rounded_gray_button, null)
+        }
+
     }
 
     interface FeedbackViewListener {

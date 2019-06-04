@@ -66,6 +66,7 @@
             android:layout_marginTop="16dp"
             android:hint="(Optional) suggest improvements"
             android:padding="16dp"
+            android:maxLines="3"
             android:background="@drawable/rounded_border_edittext"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
@@ -77,13 +78,13 @@
             android:layout_width="0dp"
             android:layout_height="48sp"
             android:text="SUBMIT"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="136sp"
             android:background="@drawable/rounded_blue_button"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/commentEditText"
+            app:layout_constraintTop_toBottomOf="@id/goodButton"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
-            app:layout_constraintBottom_toTopOf="@+id/closeButton" tools:layout_editor_absoluteY="195dp"/>
+            app:layout_constraintBottom_toTopOf="@+id/closeButton"/>
 
     <Button
             android:id="@+id/closeButton"
