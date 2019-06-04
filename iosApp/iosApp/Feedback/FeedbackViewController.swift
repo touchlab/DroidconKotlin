@@ -25,14 +25,12 @@ class FeedbackViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    private let animationTime = 0.4
-    
     private var sessionId:String?
     private var sessionTitle:String?
     private var feedbackManager:FeedbackManager?
     private var rating:FeedbackRating = FeedbackRating.none
-    private var comments:String?
     
+    private let optionalText = "(Optional) suggest improvements"
     // MARK: - Initialization
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,10 +63,10 @@ override func viewDidLoad() {
         commentTextView.layer.cornerRadius = 4
         commentTextView.clipsToBounds = true
         
-        commentTextView.text = "(Optional) suggest improvements"
+        commentTextView.text = optionalText
         commentTextView.textColor = UIColor.lightGray
         commentTextView.delegate = self
-        commentTextView.textContainerInset = UIEdgeInsetsMake(16, 16, 0, 16)
+        commentTextView.textContainerInset = UIEdgeInsetsMake(16, 8, 0, 8)
     }
     
     public func setSessionInfo(sessionId: String?,sessionTitle:String){
@@ -80,7 +78,13 @@ override func viewDidLoad() {
     // MARK: - Interaction
     
     private func finishAndClose(){
-        feedbackManager?.finishedFeedback(sessionId: String(sessionId!),rating: rating.rawValue,comment: comments!)
+        var comment = ""
+        if commentTextView.text != optionalText {
+            comment = commentTextView.text
+        }
+        
+        feedbackManager?.finishedFeedback(sessionId: String(sessionId!),rating: rating.rawValue,comment: comment)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func goodButtonPressed(_ sender: Any) {
@@ -144,7 +148,15 @@ override func viewDidLoad() {
         let margin:CGFloat = 16
         let fixedWidth = textView.frame.size.width
         let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        commentTextView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height + margin)
+        var newHeight = newSize.height + margin
+        
+        if(newHeight > 82){
+            newHeight = 82
+            commentTextView.isScrollEnabled = true
+        }else{
+            commentTextView.isScrollEnabled = false
+        }
+        commentTextView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newHeight)
         
     }
     
@@ -157,7 +169,7 @@ override func viewDidLoad() {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if commentTextView.text.isEmpty {
-            commentTextView.text = "(Optional) suggest improvements"
+            commentTextView.text = optionalText
             commentTextView.textColor = UIColor.lightGray
         }
     }
