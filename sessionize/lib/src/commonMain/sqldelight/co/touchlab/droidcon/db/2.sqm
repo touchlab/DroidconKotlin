@@ -1,4 +1,2 @@
-ALTER TABLE session ADD COLUMN feedbackRating INTEGER;
-ALTER TABLE session ADD COLUMN feedbackComment TEXT;
 ALTER TABLE sponsor ADD COLUMN sponsorId TEXT;
 ALTER TABLE sponsor ADD COLUMN description TEXT;
