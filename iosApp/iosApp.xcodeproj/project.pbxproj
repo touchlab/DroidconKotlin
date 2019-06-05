@@ -92,7 +92,6 @@
 		F1378D8D22834077009E70D3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */; };
 		F1378D8E22834077009E70D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8C22834077009E70D3 /* SettingsViewController.swift */; };
 		F1378D90228340AC009E70D3 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8F228340AC009E70D3 /* FeedbackManager.swift */; };
-		F147CF15228F2C6C009F04E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F147CF14228F2C6C009F04E5 /* GoogleService-Info.plist */; };
 		F15978AD228D93930038BD02 /* FirebaseMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15978AC228D93930038BD02 /* FirebaseMessageHandler.swift */; };
 		F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */; };
 		F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */; };
@@ -205,7 +204,6 @@
 		F1378D8C22834077009E70D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F1378D8F228340AC009E70D3 /* FeedbackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		F147CF11228F1A77009F04E5 /* iosApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iosApp.entitlements; sourceTree = "<group>"; };
-		F147CF14228F2C6C009F04E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F15978AC228D93930038BD02 /* FirebaseMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageHandler.swift; sourceTree = "<group>"; };
 		F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_satisfied_black_48dp.png; path = images/baseline_sentiment_satisfied_black_48dp.png; sourceTree = "<group>"; };
 		F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = baseline_sentiment_very_dissatisfied_black_48dp.png; path = images/baseline_sentiment_very_dissatisfied_black_48dp.png; sourceTree = "<group>"; };
@@ -290,7 +288,6 @@
 				637100DA211085F80099FF25 /* speaker */,
 				F1378D8A22834077009E70D3 /* settings */,
 				6356314120DC58F700BCCDF9 /* Assets.xcassets */,
-				F147CF14228F2C6C009F04E5 /* GoogleService-Info.plist */,
 				6356314620DC58F700BCCDF9 /* Info.plist */,
 				6372423620F914D60049263B /* speakers.json */,
 				6372423820F915EA0049263B /* schedule.json */,
@@ -595,7 +592,6 @@
 				6372423C20F973370049263B /* Main.storyboard in Resources */,
 				6372423720F914D60049263B /* speakers.json in Resources */,
 				F111E60D22569ED1000B3F3D /* FeedbackView.xib in Resources */,
-				F147CF15228F2C6C009F04E5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

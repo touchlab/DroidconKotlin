@@ -41,6 +41,8 @@ class MainApp : Application() {
         @Suppress("ConstantConditionIf")
         if(BuildConfig.FIREBASE_ENABLED) {
             FirebaseMessageHandler.initFirebaseApp(this)
+        }else{
+            print("Firebase json not found: Firebased Not Enabled")
         }
     }
 

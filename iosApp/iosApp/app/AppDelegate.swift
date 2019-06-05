@@ -38,8 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
-        
-        FirebaseMessageHandler.initFirebaseApp()
+                
+        let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") ?? ""
+        let fileExists = FileManager.default.fileExists(atPath: path)
+        if(fileExists){
+            FirebaseMessageHandler.initFirebaseApp()
+        }else{
+            print("Firebase plist not found: Firebased Not Enabled")
+        }
         
         return true
     }
