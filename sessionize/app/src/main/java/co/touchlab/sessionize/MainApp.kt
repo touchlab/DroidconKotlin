@@ -38,7 +38,10 @@ class MainApp : Application() {
 
         AppContext.initAppContext()
 
-        FirebaseMessageHandler.initFirebaseApp(this)
+        @Suppress("ConstantConditionIf")
+        if(BuildConfig.FIREBASE_ENABLED) {
+            FirebaseMessageHandler.initFirebaseApp(this)
+        }
     }
 
     override fun onTerminate() {
