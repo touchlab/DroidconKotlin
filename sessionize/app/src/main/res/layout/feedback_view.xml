@@ -1,162 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<co.touchlab.sessionize.feedback.FeedbackView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+    <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            android:text="What did you think of X?"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/goodButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <co.touchlab.sessionize.feedback.FeedbackRatingView
-            android:id="@+id/ratingView"
+    <ImageButton
+            android:id="@+id/goodButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/textColorLight"
+            android:background="@drawable/baseline_sentiment_satisfied_alt_24"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintBottom_toTopOf="@id/commentEditText"/>
+
+    <ImageButton
+            android:id="@+id/okButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/textColorLight"
+            android:scaleType="fitCenter"
+            android:background="@drawable/baseline_sentiment_satisfied_24"
+            app:layout_constraintStart_toEndOf="@+id/goodButton"
+            app:layout_constraintEnd_toStartOf="@id/badButton"
+            app:layout_constraintTop_toTopOf="@id/goodButton"
+            app:layout_constraintBottom_toBottomOf="@id/goodButton"/>
+
+    <ImageButton
+            android:id="@+id/badButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/textColorLight"
+            android:scaleType="fitCenter"
+            android:background="@drawable/baseline_sentiment_very_dissatisfied_24"
+            app:layout_constraintEnd_toEndOf="@id/titleTextView"
+            app:layout_constraintTop_toTopOf="@id/goodButton"
+            app:layout_constraintBottom_toBottomOf="@id/goodButton"/>
+
+    <EditText
+            android:id="@+id/commentEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/doneButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="center"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:text="What did you think of X?"
-                android:layout_margin="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/goodButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-        <ImageButton
-                android:id="@+id/goodButton"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"
-                android:scaleType="fitCenter"
-                android:background="@drawable/baseline_sentiment_satisfied_alt_24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/okButton"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                app:layout_constraintBottom_toTopOf="@id/additionalButton"
-                app:layout_constraintDimensionRatio="H,1:1"/>
-
-        <ImageButton
-                android:id="@+id/okButton"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:scaleType="fitCenter"
-                android:background="@drawable/baseline_sentiment_satisfied_24"
-                app:layout_constraintStart_toEndOf="@+id/goodButton"
-                app:layout_constraintEnd_toStartOf="@id/badButton"
-                app:layout_constraintTop_toTopOf="@id/goodButton"
-                app:layout_constraintBottom_toBottomOf="@id/goodButton"
-                app:layout_constraintDimensionRatio="H,1:1"/>
-
-        <ImageButton
-                android:id="@+id/badButton"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="8dp"
-                android:scaleType="fitCenter"
-                android:background="@drawable/baseline_sentiment_very_dissatisfied_24"
-                app:layout_constraintStart_toEndOf="@+id/okButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/goodButton"
-                app:layout_constraintBottom_toBottomOf="@id/goodButton"
-                app:layout_constraintDimensionRatio="H,1:1"/>
-
-        <Button
-                android:id="@+id/additionalButton"
-                android:layout_width="0dp"
-                android:layout_height="64sp"
-                android:text="Add A Comment"
-                android:layout_margin="4dp"
-                android:background="@drawable/transparent_bg_bordered"
-                android:backgroundTint="@android:color/transparent"
-                android:textColor="@color/textColorLight"
-                app:layout_constraintTop_toBottomOf="@id/goodButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </co.touchlab.sessionize.feedback.FeedbackRatingView>
-
-
-    <co.touchlab.sessionize.feedback.FeedbackCommentView
-            android:id="@+id/commentView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@+id/ratingView"
-            app:layout_constraintBottom_toTopOf="@+id/doneButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-
-        <TextView
-                android:id="@+id/commentTitleTextView"
-                android:layout_width="388dp"
-                android:layout_height="0dp"
-                android:textSize="32sp"
-                android:gravity="center"
-                android:text="Comments"
-                android:layout_margin="16dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/commentEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintVertical_weight="2"
-        />
-
-        <Button
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="@android:color/transparent"
-                android:textColor="@color/textColorLight"
-                android:text="Back"
-                app:layout_constraintTop_toTopOf="@id/commentTitleTextView"
-                app:layout_constraintBottom_toBottomOf="@id/commentTitleTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintDimensionRatio="H,1:1"/>
-
-        <EditText
-                android:id="@+id/commentEditText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="16dp"
-                android:gravity="top"
-                android:textSize="20sp"
-                android:textCursorDrawable="@null"
-                android:padding="8dp"
-                android:background="@drawable/transparent_bg_bordered"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintTop_toBottomOf="@id/commentTitleTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_weight="8"/>
-
-    </co.touchlab.sessionize.feedback.FeedbackCommentView>
-
+            android:layout_marginTop="16dp"
+            android:hint="(Optional) suggest improvements"
+            android:padding="16dp"
+            android:maxLines="3"
+            android:background="@drawable/rounded_border_edittext"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintEnd_toEndOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/goodButton"
+    />
 
     <Button
-            android:id="@+id/doneButton"
+            android:id="@+id/submitButton"
             android:layout_width="0dp"
-            android:layout_height="64sp"
-            android:text="Done"
-            android:layout_margin="4dp"
-            app:layout_constraintTop_toBottomOf="@id/ratingView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:backgroundTint="@color/colorPrimaryDark"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="48sp"
+            android:text="SUBMIT"
+            android:layout_marginTop="136sp"
+            android:background="@drawable/rounded_blue_button"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/goodButton"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintEnd_toEndOf="@id/titleTextView"
+            app:layout_constraintBottom_toTopOf="@+id/closeButton"/>
+
+    <Button
+            android:id="@+id/closeButton"
+            android:layout_width="0dp"
+            android:layout_height="48sp"
+            android:text="CLOSE AND DISABLE FEEDBACK"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16sp"
+            android:textColor="#0086EC"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintEnd_toEndOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/submitButton"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</co.touchlab.sessionize.feedback.FeedbackView>
