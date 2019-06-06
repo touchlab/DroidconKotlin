@@ -9,22 +9,34 @@ import sys
 
 
 filePath = "sessionize/app/src/main/assets/schedule.json"
+outputPathAndroid = "sessionize/app/src/main/assets/schedule.json"
+outputPathiOS = "iosApp/iosApp/schedule.json"
 startDate = datetime.date.today()
+customOutput = False
+shouldPrint = False
 
 # Gathering Arguments
 if '-h' in sys.argv:
-    print "usage: updateDates.py [option] ... [-fp | -fn | -d] [arg] ..."
-    print "-fp   : FilePath, defaults to \"sessionize/app/src/main/assets/schedule.json\""
-    print "-d    : Date, defaults to todays date"
+    print "usage: updateDates.py [option] ... [-i | -o | -d | -p] [arg] ..."
+    print "-i   : Input schedule file. Defaults to \"sessionize/app/src/main/assets/schedule.json\""
+    print "-o   : Output schedule file. If this is not specified, it will output to BOTH \"sessionize/app/src/main/assets/schedule.json\" and \"iosApp/iosApp/schedule.json\""
+    print "-d   : Date to set as the first day of the conference, defaults to todays date"
+    print "-p   : Set to 1 to print the result to stdOut. If this is set no output files will be written"
 else:
     argumentList = [sys.argv[i:i + 2] for i in xrange(1, len(sys.argv), 2)]
     for argPair in argumentList:
         argType = argPair[0]
         argValue = argPair[1]
-        if argType ==   "-fp":
+        if argType ==   "-i":
             filePath = argValue
+        elif argType == "-o":
+            outputPathAndroid = argValue
+            customOutput = True
         elif argType == "-d":
             startDate = datetime.datetime.strptime(argValue, "%m-%d-%Y")
+        elif argType == "-p" and argValue == "1":
+            shouldPrint = True
+
 
 
     if os.path.isfile(filePath) == 0:
@@ -85,5 +97,12 @@ else:
 
             data[i] = day
 
-        dataStr = str(data)
-        print json.dumps(data)
+        if shouldPrint:
+            print json.dumps(data)
+        else:
+            with open(outputPathAndroid, "w") as f:
+                json.dump(data, f, indent=4)
+
+            if not customOutput:
+                with open(outputPathiOS, "w") as f:
+                    json.dump(data, f, indent=4)
