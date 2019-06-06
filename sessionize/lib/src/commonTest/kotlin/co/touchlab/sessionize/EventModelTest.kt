@@ -112,6 +112,10 @@ class SessionizeApiMock : SessionizeApi {
         return ""
     }
 
+    override suspend fun getSponsorSessionJson(): String {
+        return ""
+    }
+
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean {
         rsvpCalled = true
         return true

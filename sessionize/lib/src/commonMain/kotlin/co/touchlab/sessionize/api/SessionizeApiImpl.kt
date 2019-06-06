@@ -35,7 +35,11 @@ object SessionizeApiImpl : SessionizeApi {
     }
 
     override suspend fun getSponsorJson(): String = client.get<String> {
-        amazon("/droidconsponsers/sponsors-$INSTANCE_ID.json")
+        amazon("/droidconsponsers/sponsors-$INSTANCE_ID.json") // github = 404
+    }
+
+    override suspend fun getSponsorSessionJson(): String = client.get<String> {
+        sessionize("/api/v2/$INSTANCE_ID/view/sessions")
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = client.request<HttpResponse> {
@@ -62,6 +66,13 @@ object SessionizeApiImpl : SessionizeApi {
     private fun HttpRequestBuilder.droidcon(path: String) {
         url {
             takeFrom("https://droidcon-server.herokuapp.com")
+            encodedPath = path
+        }
+    }
+
+    private fun HttpRequestBuilder.github(path: String) {
+        url {
+            takeFrom("https://raw.githubusercontent.com/touchlab/DroidconKotlin")
             encodedPath = path
         }
     }

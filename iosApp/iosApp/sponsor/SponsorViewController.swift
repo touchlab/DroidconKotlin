@@ -72,7 +72,9 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let sponsorInfo = sponsorGroups![(indexPath as NSIndexPath).section].sponsors[indexPath.item]
-        if let sponsorUrl = sponsorInfo.url {
+        if sponsorInfo.sponsorId != nil {
+            performSegue(withIdentifier: "ShowSponsorDetail", sender: sponsorInfo)
+        } else if let sponsorUrl = sponsorInfo.url {
             guard let url = URL(string: sponsorUrl) else {
                 return //be safe
             }
@@ -87,6 +89,18 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         }else{
             return sponsorGroups![section].sponsors.count
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            segue.identifier == "ShowSponsorDetail",
+            let sponsor = sender as? Sponsor,
+            let sponsorId = sponsor.sponsorId,
+            let detail = segue.destination as? SponsorDetailViewController
+            else { return }
+        
+        detail.sponsorId = sponsorId
+        detail.groupName = sponsor.groupName
     }
     
     deinit {

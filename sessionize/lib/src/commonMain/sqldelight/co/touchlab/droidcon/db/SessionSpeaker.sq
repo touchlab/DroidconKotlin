@@ -10,5 +10,8 @@ INSERT OR REPLACE INTO sessionSpeaker(sessionId, userAccountId, displayOrder)
 VALUES (?,?,?)
 ;
 
+selectBySessionId:
+SELECT * FROM sessionSpeaker WHERE sessionId = ?;
+
 deleteAll:
 DELETE FROM sessionSpeaker;

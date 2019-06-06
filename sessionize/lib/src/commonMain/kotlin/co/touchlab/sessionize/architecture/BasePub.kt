@@ -13,7 +13,7 @@ abstract class BasePub<T> : Pub<T> {
 
     fun applyError(throwable: Throwable) {
         val subIter = subs().iterator()
-        subs().clear()
+//        subs().clear()
         hadError.value = true
         subIter.forEach { it.onError(throwable) }
     }
