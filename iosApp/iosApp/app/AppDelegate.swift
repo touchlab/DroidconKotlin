@@ -8,9 +8,8 @@
 
 import UIKit
 import lib
-import Fabric
-import Crashlytics
 import UserNotifications
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Crashlytics.self])
+        FirebaseApp.configure()
         application.statusBarStyle = .lightContent
       
         serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
@@ -39,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
         
-        FirebaseMessageHandler.initFirebaseApp()
+        FirebaseMessageHandler.initMessaging()
         
         return true
     }
@@ -66,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func analyticsCallback(name:String, params:[String:Any]) -> KotlinUnit{
-        Answers.logCustomEvent(withName: name, customAttributes: params)
+        Analytics.logEvent(name, parameters: params)
         return KotlinUnit()
     }
 

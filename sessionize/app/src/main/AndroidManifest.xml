@@ -19,10 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <meta-data
-                android:name="io.fabric.ApiKey"
-                android:value="90b5b9675372e1f2aff36d43ea5d6869040d37f3"
-                />
 
         <receiver android:name=".NotificationPublisher"/>
       

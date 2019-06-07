@@ -4,25 +4,18 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import co.touchlab.droidcon.db.DroidconDb
-import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.MainConcurrent
-import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.answers.Answers
-import com.crashlytics.android.answers.CustomEvent
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
-import io.fabric.sdk.android.Fabric
 import kotlinx.coroutines.Dispatchers
 
 class MainApp : Application() {
     override fun onCreate() {
         super.onCreate()
         AndroidAppContext.app = this
-        Fabric.with(this, Answers())
-        Fabric.with(this, Crashlytics())
-
         ServiceRegistry.initLambdas(this::loadAsset) { Log.w("MainApp", it) }
 
         ServiceRegistry.initServiceRegistry(
@@ -31,14 +24,14 @@ class MainApp : Application() {
                 AndroidSettings.Factory(this).create("DROIDCON_SETTINGS"),
                 MainConcurrent,
                 SessionizeApiImpl,
-                AnalyticsApiImpl(),
+                AnalyticsApiImpl(FirebaseAnalytics.getInstance(this)),
                 NotificationsApiImpl(),
                 BuildConfig.TIME_ZONE
         )
 
         AppContext.initAppContext()
 
-        FirebaseMessageHandler.initFirebaseApp(this)
+        FirebaseMessageHandler.init()
     }
 
     override fun onTerminate() {

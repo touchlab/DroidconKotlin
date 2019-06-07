@@ -12,18 +12,20 @@ buildscript {
     ]
 
     ext.versions = [
-            'supportLibrary'       : '28.0.0',
-            'kotlin'               : '1.3.30',
-            'kotlinCoroutines'     : '1.2.0',
-            'multiplatformSettings': '0.3',
-            'sqldelight'           : '1.1.3',
-            'stately'              : '0.7.1',
-            'sqliter'              : '0.6.1',
-            'ktor'                 : '1.1.4',
-            'serialization'        : '0.11.0',
-            'xcode'                : '0.1.2',
-            'testhelp'             : '0.2.1',
-            'firebase'              : '16.0.9'
+            'supportLibrary'        : '28.0.0',
+            'kotlin'                : '1.3.30',
+            'kotlinCoroutines'      : '1.2.0',
+            'multiplatformSettings' : '0.3',
+            'sqldelight'            : '1.1.3',
+            'stately'               : '0.7.1',
+            'sqliter'               : '0.6.1',
+            'ktor'                  : '1.1.4',
+            'serialization'         : '0.11.0',
+            'xcode'                 : '0.1.2',
+            'testhelp'              : '0.2.1',
+            'firebase'              : '16.0.9',
+            'fabric'                : '1.29.0',
+            'crashlytics'           : '2.10.1'
     ]
 
     ext.deps = [
@@ -86,7 +88,8 @@ buildscript {
                     'androidMessaging'       : "com.google.firebase:firebase-messaging:18.0.0",
 
             ],
-            'testhelp' : "co.touchlab:testhelp:${versions.testhelp}"
+            'testhelp' : "co.touchlab:testhelp:${versions.testhelp}",
+            'crashlytics' : "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}"
     ]
 
     repositories {
@@ -105,7 +108,7 @@ buildscript {
         classpath 'com.google.gms:google-services:4.2.0'
         classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
         classpath "co.touchlab:kotlinxcodesync:${versions.xcode}"
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath "io.fabric.tools:gradle:${versions.fabric}"
     }
 }
 
@@ -114,7 +117,6 @@ allprojects {
         jcenter()
         google()
         mavenCentral()
-        maven { url 'https://maven.fabric.io/public' }
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url "https://dl.bintray.com/russhwolf/multiplatform-settings" }
     }

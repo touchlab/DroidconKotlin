@@ -6,7 +6,7 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "co.touchlab.droidconsf2018"
+        applicationId "co.touchlab.droidcon.base"
         buildConfigField "String", "TIME_ZONE", "\"America/Los_Angeles\""
 
         minSdkVersion 21
@@ -65,12 +65,6 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation ('com.crashlytics.sdk.android:answers:1.4.2@aar') {
-        transitive = true
-    }
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true
-    }
 
     implementation deps.sqldelight.runtimeJdk
     implementation deps.sqldelight.driverAndroid
@@ -79,7 +73,7 @@ dependencies {
     implementation deps.ktor.androidCore
     implementation deps.firebase.androidCore
     implementation deps.firebase.androidMessaging
-
+    implementation deps.crashlytics
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
