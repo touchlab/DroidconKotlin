@@ -24,8 +24,34 @@
                 "title": "LinkedIn",
                 "url": "http://linkedin.com/in/adriancatalan",
                 "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://ykro.github.io",
+                "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "cdc513e8-cd46-49d8-a3d1-ac2ec53d11c6",
+        "firstName": "Akshata",
+        "lastName": "Ramesh",
+        "fullName": "Akshata Ramesh",
+        "bio": "She was a front-end web developer at Yahoo when Android development caught her eye, and she has never been the same since. That was a little over 5 years ago, when she moved to work on the Android teams at Yahoo and Tumblr.\r\n\r\nCurrently, she's Androiding at Tinder trying to enrich the way users communicate with one another, while also striving to think about ways to make UI development a little more intuitive and predictable. She's passionate about advancing ways in which we conceptualize, design, and realize lively user interfaces and experiences. \r\n\r\nIn her spare time, she sometimes dabbles in Unity and music production.",
+        "tagLine": "Android Engineer @ Tinder",
+        "profilePicture": "https://sessionize.com/image?f=c10d64dd7e7964b4fabeaadb4e49987e,400,400,True,False,e8-cd46-49d8-a3d1-ac2ec53d11c6.2da5f3a5-ec8e-4241-839f-eb6db1fb2769.jpg",
+        "sessions": [
+            {
+                "id": 66383,
+                "name": "LiveData beyond VIewModels"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "a1b89eab-992f-4b41-9da5-1d1aa910fac2",
@@ -48,7 +74,9 @@
                 "url": "https://twitter.com/azakharov",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "45de6a3b-7163-4e4d-9cb4-7969670da9f2",
@@ -65,14 +93,16 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "aff7434e-db8a-4b27-8aef-4354509b980e",
         "firstName": "Alina",
         "lastName": "Matyukhina",
         "fullName": "Alina Matyukhina",
-        "bio": "Alina is a cyber security researcher and 3rd-year PhD candidate at Canadian Institute for Cybersecurity (CIC). Her research work focuses on applying machine learning, computational intelligence, and data analysis techniques to design innovative security solutions.  Before joining CIC, she worked as a research assistant at Swiss Federal Institute of Technology where she took part in cryptography and security research projects.  Both her B.S. and M.S. was completed in Math and IT. During her studies she has been awarded 2 gold medals as well as 3 silver medals in national and international competitions. She has been named “Young Scientist of the Year” and one of the “Ten Outstanding Young Persons of Ukraine” and received \"Yale Science & Engineering Association Medallion\"  for her contribution in the field of mathematics and computer science",
+        "bio": "Alina is a cyber security researcher and 3rd-year PhD candidate at Canadian Institute for Cybersecurity (CIC). Her research work focuses on applying machine learning, computational intelligence, and data analysis techniques to design innovative security solutions.  Before joining CIC, she worked as a research assistant at Swiss Federal Institute of Technology where she took part in cryptography and security research projects.   Alina is a member of the Association for Computing Machinery, the IEEE Computer Society. She is presenting her research at several security and software engineering conferences including PyCon Canada, HackFest, IdentityNorth, and ISACA Security & Risk.",
         "tagLine": "Canadian Institute for Cybersecurity, Cybersecurity Researcher",
         "profilePicture": "https://sessionize.com/image?f=1a1542d77ac8261a34d6053c4e928fce,400,400,True,False,4e-db8a-4b27-8aef-4354509b980e.168090aa-f2ba-43df-9fc9-daaa5dd3fa46.jpg",
         "sessions": [
@@ -98,7 +128,9 @@
                 "url": "http://www.unb.ca/cic/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "c32f2ffc-c88a-451b-9d0a-453b6b342377",
@@ -112,6 +144,10 @@
             {
                 "id": 66196,
                 "name": "How HTTP/2 works, and how Android developers can leverage it"
+            },
+            {
+                "id": 74270,
+                "name": "Office Hours: CDNs, Web Performance, Akamai"
             }
         ],
         "isTopSpeaker": false,
@@ -126,7 +162,34 @@
                 "url": "https://www.akamai.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "1c582dc8-41be-4470-ab28-0ed0b4ca3821",
+        "firstName": "Andrew",
+        "lastName": "Watson",
+        "fullName": "Andrew Watson",
+        "bio": "Andrew finds it particularly awkward to write about himself in the third person. But once he gets past the awkwardness, he points out that he's a Senior Android developer on the Yammer Android team at Microsoft. He's been doing Android for a good long time now, and is really happy that with Kotlin he never has to write a Utils class ever again.",
+        "tagLine": "Senior Android Developer",
+        "profilePicture": "https://sessionize.com/image?f=7b9b8ca3dcbe3149a2538bacbf42d15a,400,400,True,False,29c1158e-70e4-4ad8-8636-b01768e21f27.jpg",
+        "sessions": [
+            {
+                "id": 74177,
+                "name": "Kotlin, Practically Speaking"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://www.twitter.com/creativedrewy",
+                "linkType": "Twitter"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "bda7d5c7-bd14-46e0-81d9-353e4c119dc8",
@@ -143,7 +206,9 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "4069d809-60df-47f4-90e2-9b912576adf1",
@@ -160,20 +225,22 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "35ef5dc9-243d-49c5-b1fe-807d7983a673",
         "firstName": "Ben",
         "lastName": "Schwab",
         "fullName": "Ben Schwab",
-        "bio": "Ben is on the Native Infrastructure team at Airbnb. He was worked on various open source projects including MvRx,  DeepLinkDispatch, and Apollo's Android GraphQL client.",
+        "bio": "Ben is on the Native Infrastructure team at Airbnb. He has worked on various open source projects including MvRx,  DeepLinkDispatch, and Apollo's Android GraphQL client.",
         "tagLine": "Android Infrastructure at Airbnb",
         "profilePicture": "https://sessionize.com/image?f=b59450e05f92f7efd1f6e1316c09a533,400,400,True,False,667d6803-ef0d-41b4-9427-12cfc1497395.jpg",
         "sessions": [
             {
                 "id": 66129,
-                "name": "Scaling an Android App from 1 to 100 developers."
+                "name": "Scaling an Android App from 1 to 100 developers with modularization."
             }
         ],
         "isTopSpeaker": false,
@@ -188,7 +255,28 @@
                 "url": "https://airbnb.io/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "7488feb9-5f99-404f-8b5c-6adc6354ebef",
+        "firstName": "Ben",
+        "lastName": "Whitley",
+        "fullName": "Ben Whitley",
+        "bio": "It all started when I was born...",
+        "tagLine": "Mobile Developer at Touchlab",
+        "profilePicture": "https://sessionize.com/image?f=2a1dcf4eb2d813adf35478d776883c9c,400,400,True,False,b9-5f99-404f-8b5c-6adc6354ebef.6c6938cd-0543-4b85-8be1-9eccba516f6a.jpg",
+        "sessions": [
+            {
+                "id": 123867,
+                "name": "Touchlab"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "288473ce-efb4-43a4-bdde-95b5543be36f",
@@ -216,7 +304,9 @@
                 "url": "https://www.caffeine.tv",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "31fc3c23-dc47-4937-bef5-4ecac667377e",
@@ -230,6 +320,10 @@
             {
                 "id": 64372,
                 "name": "Advanced Kotlin"
+            },
+            {
+                "id": 74276,
+                "name": "Office Hours: All Things Kotlin"
             }
         ],
         "isTopSpeaker": false,
@@ -239,7 +333,9 @@
                 "url": "https://twitter.com/brent_watson",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "b46e887c-afac-4b0d-b79d-15df537c122d",
@@ -262,7 +358,9 @@
                 "url": "https://twitter.com/BrianGardnerAtl",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "179614ae-d830-44aa-9d26-a56a31aaa30c",
@@ -279,7 +377,9 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "f9544911-1242-484c-a974-430fb1f693f1",
@@ -317,35 +417,9 @@
                 "url": "https://www.nexmo.com/",
                 "linkType": "Company_Website"
             }
-        ]
-    },
-    {
-        "id": "938ea439-d6b8-4085-b866-9bf5c9733d9d",
-        "firstName": "Caren",
-        "lastName": "Chang",
-        "fullName": "Caren Chang",
-        "bio": "Caren is an Android developer currently at June helping build an intelligent oven that recognizes and cooks your food. She is most interested in how Android APIs work under the hood, and building slick UI. When not writing Android code, Caren can be probably be found drinking boba in the San Francisco.",
-        "tagLine": "android developer programming ovens",
-        "profilePicture": "https://sessionize.com/image?f=4a2d7c88173b9a0353d017e84247a3ac,400,400,True,False,39-d6b8-4085-b866-9bf5c9733d9d.957d0705-ddf5-4800-801f-8504614584e0.png",
-        "sessions": [
-            {
-                "id": 64702,
-                "name": "Leveling Up Your Experience as an Android Developer"
-            }
         ],
-        "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/calren24",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://juneoven.com/about-us",
-                "linkType": "Company_Website"
-            }
-        ]
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "840a2267-a8b0-45b9-b575-f62a30835535",
@@ -359,10 +433,16 @@
             {
                 "id": 65394,
                 "name": "Debugging Application Performance"
+            },
+            {
+                "id": 74277,
+                "name": "Office Hours: Reading Systrace: Performance"
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "4b833e3a-d5c1-463e-bd3d-9d5c6caf8a39",
@@ -395,7 +475,9 @@
                 "url": "http://girlsattech.org/",
                 "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "bbf9c2ed-21be-4388-a6b4-138561d76376",
@@ -423,7 +505,9 @@
                 "url": "https://medium.com/@chethaase/",
                 "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "485d9bfc-cad0-4c7d-8fc1-349f7bce8d92",
@@ -451,7 +535,9 @@
                 "url": "http://bottlerocketstudios.com/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "feccb156-be27-4b73-b61c-61f3705ea0f9",
@@ -478,8 +564,20 @@
                 "title": "Company Website",
                 "url": "https://www.usebutton.com/",
                 "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/ecgreb/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@ecgreb",
+                "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "bf9dbf29-fca8-44ec-b66a-2145713d72a7",
@@ -507,7 +605,9 @@
                 "url": "https://www.zebra.com/us/en.html",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "d46106ad-29a6-4a7e-8212-edf43c4f7060",
@@ -521,6 +621,10 @@
             {
                 "id": 65695,
                 "name": "Mastering the Images Spectrum"
+            },
+            {
+                "id": 74274,
+                "name": "Office Hours: Image Formats, Images on Android, Fresco and Spectrum"
             }
         ],
         "isTopSpeaker": false,
@@ -535,7 +639,9 @@
                 "url": "https://developers.facebook.com/products#open-source",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "b1054623-35fc-41c6-afbe-3a4261468c69",
@@ -558,7 +664,9 @@
                 "url": "https://www.arm.com/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "a0586acc-ac50-4560-ac22-8d0d50229245",
@@ -596,7 +704,9 @@
                 "url": "https://medium.com/@elizacamber/",
                 "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "5d93a033-2cbe-4286-acc8-1b928e616210",
@@ -608,12 +718,12 @@
         "profilePicture": "https://sessionize.com/image?f=066cdf4ff0c619a3444c775fc23521e9,400,400,True,False,c23f54d0-48bb-45f4-b24e-e01f7a5fe6f0.jpg",
         "sessions": [
             {
-                "id": 62428,
-                "name": "Lessons Learned from React Native at Airbnb"
-            },
-            {
                 "id": 62430,
                 "name": "Cross-Platform Fireside Chat"
+            },
+            {
+                "id": 62428,
+                "name": "Lessons Learned from React Native at Airbnb"
             }
         ],
         "isTopSpeaker": false,
@@ -633,7 +743,9 @@
                 "url": "https://www.linkedin.com/in/gpeal/",
                 "linkType": "LinkedIn"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "833790eb-c1a5-47f9-ab5d-576e30943b62",
@@ -647,6 +759,10 @@
             {
                 "id": 60066,
                 "name": "Dude, Where's My Build? Android CI/CD at Uber"
+            },
+            {
+                "id": 74272,
+                "name": "Office Hours: Android CI/CD and Build"
             }
         ],
         "isTopSpeaker": false,
@@ -661,7 +777,9 @@
                 "url": "https://www.uber.com/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "1258496a-abb3-4acb-bf5d-f5388691e498",
@@ -678,7 +796,9 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "f233a0e9-be6e-4ebf-bc0d-3f8d5f361859",
@@ -692,6 +812,10 @@
             {
                 "id": 65695,
                 "name": "Mastering the Images Spectrum"
+            },
+            {
+                "id": 74274,
+                "name": "Office Hours: Image Formats, Images on Android, Fresco and Spectrum"
             }
         ],
         "isTopSpeaker": false,
@@ -701,17 +825,23 @@
                 "url": "http://twitter.com/hcuva",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "52f33c2d-0b1d-43ff-a746-936173efc506",
         "firstName": "Ifeoma",
         "lastName": "Okereke",
         "fullName": "Ifeoma Okereke",
-        "bio": "Ifeoma is currently an Android Software Engineer at WW (formerly Weight Watchers), working on the Community product, a platform that provides WW members with a community focused on building habits for a healthy life. She's also a co-organizer of the Write Speak Code NYC meetup. When she's not coding, she likes to explore new cuisines at restaurants or via cookbooks. She also enjoys reading.",
-        "tagLine": "Android Software Engineer at WW",
-        "profilePicture": "https://sessionize.com/image?f=08d95461e5e0bd87d60d114df6c2d7fd,400,400,True,False,2d-0b1d-43ff-a746-936173efc506.5ff11ea4-66ca-41fb-b0ec-1463dca3edad.jpg",
+        "bio": "Ifeoma is currently an Android Engineer at WW (formerly known as Weight Watchers). She's also a co-organizer of the Write Speak Code NYC meetup. When she's not coding, she likes to explore new cuisines at restaurants or via cookbooks. She also enjoys reading.",
+        "tagLine": "Android Engineer at WW",
+        "profilePicture": "https://sessionize.com/image?f=dded7768387c5bb3182c13c2392d6dc9,400,400,True,False,2d-0b1d-43ff-a746-936173efc506.399e3146-0144-46dc-bca9-e4f9bfbc1a83.jpg",
         "sessions": [
+            {
+                "id": 62430,
+                "name": "Cross-Platform Fireside Chat"
+            },
             {
                 "id": 65662,
                 "name": "Flutter + ML Kit: Building smart cross-platform apps"
@@ -724,7 +854,9 @@
                 "url": "https://twitter.com/ifeomaro",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "34cccc73-6a55-4ff4-bf8a-0a27927be7b3",
@@ -746,13 +878,10 @@
                 "title": "Twitter",
                 "url": "https://twitter.com/rallat",
                 "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://mercari.jp",
-                "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "03ddce36-452c-4e09-91b5-af456959c103",
@@ -775,7 +904,28 @@
                 "url": "http://www.epam.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "ec0ad514-b114-4d42-bc76-4cd59a8186db",
+        "firstName": "James",
+        "lastName": "Smith",
+        "fullName": "James Smith",
+        "bio": "Running Bugsnag as CEO and co-founder.\r\n\r\nEntrepreneur and software engineer with a broad base of experience. Passionate about building great products, growing teams and scaling infrastructure and data.\r\n\r\nI've also created a number of popular open source projects (https://github.com/loopj) which are used by companies such as Twitter, Pinterest and Trello.",
+        "tagLine": "Co-Founder and CEO, Bugsnag",
+        "profilePicture": "https://sessionize.com/image?f=a5f91c41608005cff0e90740af2ee8ec,400,400,True,False,59-b76b-4f88-a408-4fc6b4f77258.4714a64f-2db0-4e2f-83b8-cbbceeffc691.jpg",
+        "sessions": [
+            {
+                "id": 74395,
+                "name": "Office Hours: Why Android apps are crashy"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "da0d0b74-71cf-4ac6-941b-94626dd92bf0",
@@ -787,12 +937,24 @@
         "profilePicture": "https://sessionize.com/image?f=0d672560f2f98b4276e06fc79a240a02,400,400,True,False,5a98c6ce-3702-4859-ae21-8f012a0494ac.jpg",
         "sessions": [
             {
+                "id": 62430,
+                "name": "Cross-Platform Fireside Chat"
+            },
+            {
                 "id": 66507,
                 "name": "Quick and clean prototypes that scale with Helium: a reactive MVP framework in Kotlin"
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/joenrv",
+                "linkType": "Twitter"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "a7d0fcec-49dd-4e65-bcb7-ad3d1901928c",
@@ -820,7 +982,9 @@
                 "url": "https://www.linkedin.com/in/john-hoford/",
                 "linkType": "LinkedIn"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "903c7a65-63f0-4244-8f8c-7ab8f7acae75",
@@ -848,7 +1012,9 @@
                 "url": "https://squareup.com/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "910f395b-9d2b-4f7d-8ab4-c4008bd9f0c4",
@@ -871,7 +1037,9 @@
                 "url": "http://usebutton.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "dd6914b4-51ed-4d50-bedc-efc8e8a83b74",
@@ -891,10 +1059,12 @@
         "links": [
             {
                 "title": "Company Website",
-                "url": "https://www.foodnetwork.com",
+                "url": "https://www.wsj.com/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "b21abbea-f8b3-4388-88d9-941dc0338d22",
@@ -921,8 +1091,20 @@
                 "title": "LinkedIn",
                 "url": "https://www.linkedin.com/in/moraesjuliano/",
                 "linkType": "LinkedIn"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/juliano_moraes",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://github.com/julianomoraes",
+                "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "d8444de5-27c4-4778-b3f9-f88090236897",
@@ -945,7 +1127,9 @@
                 "url": "https://www.etsy.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "9d2ecd4c-fd6e-444f-b80f-bd8ef04106ae",
@@ -957,8 +1141,24 @@
         "profilePicture": "https://sessionize.com/image?f=9fec74a400c257a47049ffc5966436fc,400,400,True,False,4c-fd6e-444f-b80f-bd8ef04106ae.c1832c5d-4c04-420d-a8b8-f5dc898703ae.jpg",
         "sessions": [
             {
+                "id": 128002,
+                "name": "Bugsnag"
+            },
+            {
+                "id": 62430,
+                "name": "Cross-Platform Fireside Chat"
+            },
+            {
                 "id": 66405,
                 "name": "Kotlin Multiplatform In Production"
+            },
+            {
+                "id": 74271,
+                "name": "Office Hours: Kotlin Multiplatform"
+            },
+            {
+                "id": 123867,
+                "name": "Touchlab"
             }
         ],
         "isTopSpeaker": false,
@@ -973,7 +1173,9 @@
                 "url": "https://touchlab.co/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "355899b3-60c9-43ec-9b86-514d5ae81cb3",
@@ -1011,7 +1213,9 @@
                 "url": "https://www.uber.com/careers/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "2efae903-71f9-4b5d-9af2-253a497aeeea",
@@ -1034,7 +1238,9 @@
                 "url": "http://twitter.com/heylaurakelly",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "b645bd7a-0c51-4791-8fbb-04770c1571b0",
@@ -1051,7 +1257,9 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "068c7821-e138-4137-a8da-5359ec7ff483",
@@ -1065,6 +1273,10 @@
             {
                 "id": 66215,
                 "name": "Mindfulness for Achievers"
+            },
+            {
+                "id": 74275,
+                "name": "Office Hours: Mindful Leadership"
             }
         ],
         "isTopSpeaker": false,
@@ -1079,7 +1291,9 @@
                 "url": "Http://Pidari.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "4b5caeb3-6896-484a-8831-d4c2ae5f56c4",
@@ -1102,7 +1316,9 @@
                 "url": "https://twitter.com/ceruleanotter",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "92e668d7-38f7-4a39-99ba-b1eb57fc1659",
@@ -1130,7 +1346,9 @@
                 "url": "https://www.linkedin.com/in/manpreetsgarha/",
                 "linkType": "LinkedIn"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "bf2d5f77-1bd0-4cc9-b35e-ca6d82ee782c",
@@ -1158,7 +1376,39 @@
                 "url": "https://tech.gotinder.com/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "9d0314c9-5030-489e-a3ce-9494c7bf63cf",
+        "firstName": "Matthias",
+        "lastName": "Wenz",
+        "fullName": "Matthias Wenz",
+        "bio": "Before joining Microsoft, Mat worked on the HockeyApp Android apps and SDK. These days he focuses on the Build service in App Center.",
+        "tagLine": "Software Engineer on App Center at Microsoft",
+        "profilePicture": "https://sessionize.com/image?f=56dca32376fc1a1752112035f5280f74,400,400,True,False,a5d9d5c5-5c96-475e-852b-ae1fe88f80ce.jpg",
+        "sessions": [
+            {
+                "id": 62430,
+                "name": "Cross-Platform Fireside Chat"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ranterle",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://appcenter.ms",
+                "linkType": "Company_Website"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "ccfce933-2528-4937-a6fb-37661e29699e",
@@ -1191,14 +1441,16 @@
                 "url": "https://medium.com/@itrjwyss/",
                 "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "30a334bd-9d99-4563-a608-7c076efc655a",
         "firstName": "Michael",
         "lastName": "Dang",
         "fullName": "Michael Dang",
-        "bio": "Hi everyone! My name is Michael Dang and I work on the Mobile DevInfra team at Airbnb, specifically for Android. I work on the tools that help Android engineers build and release our application.",
+        "bio": "Hi everyone! I work on the Mobile DevInfra team at Airbnb, specifically for Android. I work on the tools that ensure our Android developers have a stable and speedy build environment",
         "tagLine": "Mobile Developer Infrastructure Engineer @ Airbnb",
         "profilePicture": "https://sessionize.com/image?f=67c981616c221e5d18d8b695932365f9,400,400,True,False,c66a7d04-f3ef-4ba9-ab78-311d4ed141f4.jpg",
         "sessions": [
@@ -1208,7 +1460,9 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "a79f3682-df5c-40e4-8aa8-1b6eaa7bdeec",
@@ -1246,7 +1500,9 @@
                 "url": "https://speakerdeck.com/heyitsmohit",
                 "linkType": "Other"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "1bd7cb89-02cf-436d-bf9f-c59b82a6ed64",
@@ -1259,7 +1515,7 @@
         "sessions": [
             {
                 "id": 64498,
-                "name": "Intro to the Android NDK: Making a game using C++ (Cocos2d-x)"
+                "name": "Getting Started with the Android NDK"
             }
         ],
         "isTopSpeaker": false,
@@ -1284,7 +1540,9 @@
                 "url": "https://github.com/prodbymozart",
                 "linkType": "Other"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "ed1e4545-4547-4697-9515-28f4174f09dd",
@@ -1312,30 +1570,9 @@
                 "url": "http://www.roard.com",
                 "linkType": "Company_Website"
             }
-        ]
-    },
-    {
-        "id": "1e9e4a7b-b8f4-411c-90a5-5ea4ba1e3a25",
-        "firstName": "Nicolette",
-        "lastName": "Yadegar",
-        "fullName": "Nicolette Yadegar",
-        "bio": "Nicolette works at Intercom as a Senior Engineer on the Messenger Android SDK. The thing she likes most about Android development is the community and culture of learning and growing together.",
-        "tagLine": "Senior Engineer at Intercom",
-        "profilePicture": "https://sessionize.com/image?f=01f623285b4e47c89a5739bbbd2c42d6,400,400,True,False,7b-b8f4-411c-90a5-5ea4ba1e3a25.3c7ee470-1ec7-488b-8441-08d169fd6939.png",
-        "sessions": [
-            {
-                "id": 61324,
-                "name": "Sharing is Caring: Material Design and Shareable UI Components"
-            }
         ],
-        "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/00nicolette",
-                "linkType": "Twitter"
-            }
-        ]
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "6b292ca7-773d-4c06-8c9d-bc2654f1c69c",
@@ -1363,7 +1600,9 @@
                 "url": "https://medium.com/@vanniktech",
                 "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "82097a52-8b7b-4a15-afe7-4a19ebd8e527",
@@ -1391,7 +1630,9 @@
                 "url": "https://www.uber.com/info/atg/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "04b83901-ab30-49e4-a06d-98ecb611aeaf",
@@ -1423,8 +1664,15 @@
                 "title": "Blog",
                 "url": "http://pguardiola.com/",
                 "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/pabloguardiola",
+                "linkType": "LinkedIn"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "689c7d97-daf7-4adc-8535-1fd646915977",
@@ -1441,7 +1689,9 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "a733fc42-dcb9-4107-9675-70335f2889e9",
@@ -1464,15 +1714,17 @@
                 "url": "http://twitter.com/Piwai",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "646237bf-ccc5-43fa-a659-0b361b08d651",
         "firstName": "Ralf",
         "lastName": "Wondratschek",
         "fullName": "Ralf Wondratschek",
-        "bio": "Ralf is the tech lead for Android at Evernote. He's leading a team of 7 engineers working on the product by providing technical guidance and coordinating technical tasks. His main focus lies on the architecture of the Android related projects to be able to move forward fast.\r\n\r\nRalf also maintains several open-source projects on Github, e.g. android-job, which is used by many other companies like Twitter, Dropbox, Square, Pocket and The New York Times.\r\n\r\nPrior to Evernote, Ralf worked together with several companies in Germany and published as independent developer four apps in the Google Play Store.",
-        "tagLine": "Tech lead for Android at Evernote",
+        "bio": "Ralf is a software engineer at Square. He maintains several open-source projects on Github, e.g. android-job, which is used by many other companies like Twitter, Dropbox, Square, Pocket and The New York Times.\r\n\r\nPrior to Square, Ralf worked at Evernote and several several companies in Germany and published as independent developer four apps in the Google Play Store.",
+        "tagLine": "Software Engineer at Square",
         "profilePicture": "https://sessionize.com/image?f=3ccd104f461a44eb66a971061bbc671c,400,400,True,False,dd98533c-fbc1-45da-998f-53a6da1d5cf4.jpg",
         "sessions": [
             {
@@ -1486,13 +1738,10 @@
                 "title": "Twitter",
                 "url": "https://twitter.com/vRallev",
                 "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://evernote.com/",
-                "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "80d278b7-0978-4879-bc85-f1a9f1dfc175",
@@ -1520,7 +1769,9 @@
                 "url": "https://here.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "152f613f-841b-407d-9a65-3703ec2dfae2",
@@ -1532,21 +1783,16 @@
         "profilePicture": "https://sessionize.com/image?f=bfdfd8df4877afa2bd3557378f4fd771,400,400,True,False,d068ae37-2e0e-49bd-a4be-b376a32367a8.jpg",
         "sessions": [
             {
-                "id": 65168,
-                "name": "The Art of Photography"
-            },
-            {
                 "id": 71949,
                 "name": "A Comedy Talk"
+            },
+            {
+                "id": 65168,
+                "name": "The Art of Photography"
             }
         ],
         "isTopSpeaker": false,
         "links": [
-            {
-                "title": "Company Website",
-                "url": "http://www.google.com",
-                "linkType": "Company_Website"
-            },
             {
                 "title": "Twitter",
                 "url": "http://twitter.com/romainguy",
@@ -1557,7 +1803,9 @@
                 "url": "http://www.curious-creature.com",
                 "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "0fa4903a-c1e8-4147-b9d1-668ec508269f",
@@ -1580,7 +1828,9 @@
                 "url": "https://twitter.com/the__Ryanator?lang=en",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "a4042dd8-3151-468d-8827-f21be2d9a4f4",
@@ -1608,7 +1858,9 @@
                 "url": "http://www.slack.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "e6013c33-9db5-481d-9653-94030603c334",
@@ -1631,7 +1883,9 @@
                 "url": "http://yelp.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "5a675a84-672d-4e59-bd7e-3c162c2e97bf",
@@ -1650,26 +1904,18 @@
         "isTopSpeaker": false,
         "links": [
             {
-                "title": "Company Website",
-                "url": "https://google.com",
-                "linkType": "Company_Website"
-            },
-            {
                 "title": "Twitter",
                 "url": "https://twitter.com/objcode",
                 "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/seanmcq/",
-                "linkType": "LinkedIn"
             },
             {
                 "title": "Blog",
                 "url": "https://medium.com/@objcode",
                 "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "eb1a2a18-6b45-46a8-b58e-78dba26ddd74",
@@ -1697,7 +1943,9 @@
                 "url": "https://twitter.com/d_lemures",
                 "linkType": "Twitter"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "c370999a-6f19-4e94-8bbc-2db95339d711",
@@ -1725,7 +1973,9 @@
                 "url": "https://www.mercari.com/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "11a677c8-d171-4c3d-8ea4-48b14bea1c3f",
@@ -1739,6 +1989,10 @@
             {
                 "id": 67562,
                 "name": "Improving Android Build performance"
+            },
+            {
+                "id": 74273,
+                "name": "Office Hours: Gradle, Android Build Times"
             }
         ],
         "isTopSpeaker": false,
@@ -1753,7 +2007,9 @@
                 "url": "https://gradle.com/",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "6a3de662-ef86-4c62-bb68-2f7ebe607f76",
@@ -1791,7 +2047,9 @@
                 "url": "http://uber.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "e793a768-700e-4b33-be2f-2e159c19c84f",
@@ -1808,7 +2066,9 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": []
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "ca887d91-53e4-4d13-8e94-fbd235e958e0",
@@ -1841,7 +2101,9 @@
                 "url": "https://slack.engineering",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "f40903e1-4bdb-431c-b691-f9b033c39f2b",
@@ -1850,7 +2112,7 @@
         "fullName": "Vivek Chanddru",
         "bio": "First of his name. Developer of frameworks. Advocate of modular code. Master of Android. Lover of Kotlin. Loves to teach and learn. Fell in love with programming when he was 8. Works at Zoho Corporation, India - Developing masterclass software for the world. Working as the Android developer and Mobile App Lead for Zoho Assist suite of products. Writes all the code as modules and publishes it as frameworks that are used by other apps. Google certified Associate Android Developer and Google India scholarship recipient for Android Nanodegree. Have some experience working with WebRTC and constantly tries to write blogs at vivekc.xyz. ",
         "tagLine": "Developer of frameworks - Kotlin Enthusiast",
-        "profilePicture": "https://sessionize.com/image?f=ae83dc005b1abe2dd42d1034bb621f10,400,400,True,False,e1-4bdb-431c-b691-f9b033c39f2b.1f9f4417-42db-49ca-b584-8fa0c6a98501.jpg",
+        "profilePicture": "https://sessionize.com/image?f=9a6c104b670e551f1aaab90b0542bf38,400,400,True,False,e1-4bdb-431c-b691-f9b033c39f2b.46008406-b358-4e5c-96f3-80954b257db1.jpg",
         "sessions": [
             {
                 "id": 70034,
@@ -1861,7 +2123,7 @@
         "links": [
             {
                 "title": "Company Website",
-                "url": "https://zoho.com",
+                "url": "https://freshworks.io",
                 "linkType": "Company_Website"
             },
             {
@@ -1873,8 +2135,15 @@
                 "title": "Blog",
                 "url": "https://vivekc.xyz",
                 "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/vivek1794/",
+                "linkType": "LinkedIn"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "1f7dbad9-ed5e-4951-9df4-19d5d70100f2",
@@ -1902,7 +2171,9 @@
                 "url": "https://www.uber.com",
                 "linkType": "Company_Website"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     },
     {
         "id": "bc7a07b3-e971-4786-8237-7168a6a1e22d",
@@ -1940,6 +2211,8 @@
                 "url": "https://medium.com/@zhxnlai",
                 "linkType": "Blog"
             }
-        ]
+        ],
+        "questionAnswers": [],
+        "categories": []
     }
 ]

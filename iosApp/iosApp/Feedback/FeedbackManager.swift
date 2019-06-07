@@ -9,7 +9,7 @@
 import UIKit
 import lib
 
-class FeedbackManager: NSObject,FeedbackApi, FeedbackDialogDelegate {
+class FeedbackManager: NSObject,FeedbackApi {
     
     var viewController:UIViewController?
     private var feedbackModel:FeedbackModel = FeedbackModel()
@@ -34,9 +34,15 @@ class FeedbackManager: NSObject,FeedbackApi, FeedbackDialogDelegate {
     }
     
     func generateFeedbackDialog(session: MyPastSession) {
-        let alert = FeedbackAlertViewController(preferredStyle: .alert,sessionid: session.id,sessionTitle: session.title, feedbackManager: self)
-        alert.setFeedbackDialogDelegate(feedbackDialogDelegate: self)
-        viewController?.present(alert, animated: true, completion: nil)
+        let test = viewController?.storyboard?.instantiateViewController(withIdentifier: "Feedback")
+        let feedbackView = test as! FeedbackViewController
+        feedbackView.providesPresentationContextTransitionStyle = true
+        feedbackView.definesPresentationContext = true
+        feedbackView.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        feedbackView.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        viewController?.present(feedbackView, animated: true, completion: nil)
+        feedbackView.setFeedbackManager(fbManager: self)
+        feedbackView.setSessionInfo(sessionId: session.id, sessionTitle: session.title)
     }
     
     func finishedFeedback(sessionId:String, rating:Int, comment: String) {

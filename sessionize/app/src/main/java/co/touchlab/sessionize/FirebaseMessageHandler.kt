@@ -1,9 +1,7 @@
 package co.touchlab.sessionize
 
-import android.content.Context
 import android.util.Log
 import co.touchlab.sessionize.api.NetworkRepo
-import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -25,8 +23,7 @@ class FirebaseMessageHandler : FirebaseMessagingService() {
 
     companion object {
         val TAG = FirebaseMessageHandler::class.java.simpleName
-        fun initFirebaseApp(context: Context){
-            FirebaseApp.initializeApp(context)
+        fun init() {
             FirebaseMessaging.getInstance().subscribeToTopic("all").addOnCompleteListener {
                 if (!it.isSuccessful) {
                     print("Error subscribing to topic")

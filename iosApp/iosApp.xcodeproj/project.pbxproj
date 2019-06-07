@@ -22,6 +22,10 @@
 		348E60A402B68A38675622F8 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E04CC97704F132875703ACD3 /* Pods_iosApp.framework */; };
 		38B8C6B0C361EC56756C2957 /* SessionizeApi.kt in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CDB3FC1326761B377AA74 /* SessionizeApi.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8C40677B832A85589CF8C635 /* SpeakerViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
+		4505FF5722A5B9010035001A /* SponsorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4505FF5622A5B9010035001A /* SponsorTableViewCell.swift */; };
+		4505FF5922A5B91F0035001A /* SponsorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4505FF5822A5B91F0035001A /* SponsorTableViewCell.xib */; };
+		4560AA3822A6C743000719E1 /* sponsor_session.json in Resources */ = {isa = PBXBuildFile; fileRef = 4560AA3722A6C743000719E1 /* sponsor_session.json */; };
+		45F1EE5922A5A4FF00212D9C /* SponsorDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F1EE5822A5A4FF00212D9C /* SponsorDetailViewController.swift */; };
 		48C573A1F5D360811E47588C /* Concurrent.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8673736A19BE2116F72DE852 /* Concurrent.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		48D2C9943260AEA15BA3AF6B /* AnalyticsApi.kt in Sources */ = {isa = PBXBuildFile; fileRef = 956D6B892731AA292E5B839A /* AnalyticsApi.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		4A1E56196E45DB28D51B0D77 /* AppContext.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2520222C14041C690436F852 /* AppContext.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -84,11 +88,6 @@
 		E3B6400B2B1104410AC16605 /* EventModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 54A477CAF63691B9D7FF26DE /* EventModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E54EE7DAFB9F33D15E11C2A1 /* ScheduleViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 39777FAE65B310A22CAD1D10 /* ScheduleViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F10A7D00227B777700DED10F /* NotificationsApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E510F227235890093DBF7 /* NotificationsApiImpl.swift */; };
-		F111E60D22569ED1000B3F3D /* FeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F111E60C22569ED1000B3F3D /* FeedbackView.xib */; };
-		F111E60F2256A276000B3F3D /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E60E2256A276000B3F3D /* FeedbackView.swift */; };
-		F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */; };
-		F111E61422579D65000B3F3D /* FeedbackRatingSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */; };
-		F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */; };
 		F1378D8D22834077009E70D3 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */; };
 		F1378D8E22834077009E70D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8C22834077009E70D3 /* SettingsViewController.swift */; };
 		F1378D90228340AC009E70D3 /* FeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1378D8F228340AC009E70D3 /* FeedbackManager.swift */; };
@@ -96,6 +95,7 @@
 		F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */; };
 		F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */; };
 		F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */; };
+		F1E3105C22A5B238008F999F /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3105B22A5B238008F999F /* FeedbackViewController.swift */; };
 		F698E4A89CECD079D75F8997 /* SponsorViewModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 037212D4434537622C53ECF0 /* SponsorViewModel.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */ = {isa = PBXBuildFile; fileRef = 2584E6485FBEB4999A335565 /* QueryPub.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
@@ -126,6 +126,10 @@
 		3BF88428C95993F5196D8BB2 /* Sponsor.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Sponsor.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/jsondata/Sponsor.kt; sourceTree = "<group>"; };
 		3D9CDB3FC1326761B377AA74 /* SessionizeApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SessionizeApi.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/SessionizeApi.kt; sourceTree = "<group>"; };
 		43CFCECCACAE038D1BCCC4AC /* ScheduleFormats.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ScheduleFormats.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/display/ScheduleFormats.kt; sourceTree = "<group>"; };
+		4505FF5622A5B9010035001A /* SponsorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorTableViewCell.swift; sourceTree = "<group>"; };
+		4505FF5822A5B91F0035001A /* SponsorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SponsorTableViewCell.xib; sourceTree = "<group>"; };
+		4560AA3722A6C743000719E1 /* sponsor_session.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sponsor_session.json; sourceTree = "<group>"; };
+		45F1EE5822A5A4FF00212D9C /* SponsorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorDetailViewController.swift; sourceTree = "<group>"; };
 		4ACF72894BB6E48248D46247 /* EventViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/EventViewModel.kt; sourceTree = "<group>"; };
 		5441AE901CA6DD9C25CF47C4 /* StaticFiles.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = StaticFiles.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/StaticFiles.kt; sourceTree = "<group>"; };
 		54A477CAF63691B9D7FF26DE /* EventModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/EventModel.kt; sourceTree = "<group>"; };
@@ -195,11 +199,6 @@
 		E3BBF73ECE74E4DCB9CA323E /* ServiceRegistry.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ServiceRegistry.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/ServiceRegistry.kt; sourceTree = "<group>"; };
 		E9D0970290E8B09CD71F3AD6 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
 		EAC50DD7577BDBAECF2A4DB6 /* TestSettings.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestSettings.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/TestSettings.kt; sourceTree = "<group>"; };
-		F111E60C22569ED1000B3F3D /* FeedbackView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedbackView.xib; sourceTree = "<group>"; };
-		F111E60E2256A276000B3F3D /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
-		F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCommentSubView.swift; sourceTree = "<group>"; };
-		F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackRatingSubView.swift; sourceTree = "<group>"; };
-		F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackAlertViewController.swift; sourceTree = "<group>"; };
 		F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		F1378D8C22834077009E70D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F1378D8F228340AC009E70D3 /* FeedbackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
@@ -212,6 +211,7 @@
 		F16A0D88226A513100199DF3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		F1ADB9272278E59C007BAF5B /* FeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
 		F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
+		F1E3105B22A5B238008F999F /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		F3268F03C19C8685393B8DDA /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -290,6 +290,7 @@
 				6356314120DC58F700BCCDF9 /* Assets.xcassets */,
 				6356314620DC58F700BCCDF9 /* Info.plist */,
 				6372423620F914D60049263B /* speakers.json */,
+				4560AA3722A6C743000719E1 /* sponsor_session.json */,
 				6372423820F915EA0049263B /* schedule.json */,
 				63711D3B211143390099FF25 /* about.json */,
 				6359EB8E2112650200424B73 /* UITextViewFixed.swift */,
@@ -374,8 +375,11 @@
 			isa = PBXGroup;
 			children = (
 				63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */,
+				4505FF5822A5B91F0035001A /* SponsorTableViewCell.xib */,
+				4505FF5622A5B9010035001A /* SponsorTableViewCell.swift */,
 				63A76ACE2129E93F0000515D /* SponsorViewController.swift */,
 				63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */,
+				45F1EE5822A5A4FF00212D9C /* SponsorDetailViewController.swift */,
 			);
 			path = sponsor;
 			sourceTree = "<group>";
@@ -441,12 +445,8 @@
 		F111E610225797A3000B3F3D /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
-				F111E60C22569ED1000B3F3D /* FeedbackView.xib */,
-				F111E60E2256A276000B3F3D /* FeedbackView.swift */,
 				F1378D8F228340AC009E70D3 /* FeedbackManager.swift */,
-				F111E61322579D65000B3F3D /* FeedbackRatingSubView.swift */,
-				F111E611225797EC000B3F3D /* FeedbackCommentSubView.swift */,
-				F111E6172257DA1A000B3F3D /* FeedbackAlertViewController.swift */,
+				F1E3105B22A5B238008F999F /* FeedbackViewController.swift */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -579,6 +579,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4560AA3822A6C743000719E1 /* sponsor_session.json in Resources */,
 				6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */,
 				F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */,
 				6372423920F915EA0049263B /* schedule.json in Resources */,
@@ -588,10 +589,11 @@
 				6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */,
 				F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */,
 				F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */,
+				4505FF5922A5B91F0035001A /* SponsorTableViewCell.xib in Resources */,
 				63711D3C211143390099FF25 /* about.json in Resources */,
 				6372423C20F973370049263B /* Main.storyboard in Resources */,
 				6372423720F914D60049263B /* speakers.json in Resources */,
-				F111E60D22569ED1000B3F3D /* FeedbackView.xib in Resources */,
+				F147CF15228F2C6C009F04E5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,7 +620,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
@@ -645,7 +647,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6359EB922113CB2E00424B73 /* ShellScript */ = {
@@ -654,12 +656,13 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 90b5b9675372e1f2aff36d43ea5d6869040d37f3 a70308da17e66d33b166e029eabb96754f40e2dd2ec0fefd2a48e1c89e76f7a6\n";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		81B84390B07E56A66415404A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -709,10 +712,10 @@
 				637100D3210F7B410099FF25 /* MaterialAppBarUIViewController.swift in Sources */,
 				637100D7210FC9740099FF25 /* DotView.swift in Sources */,
 				63A76ACD2129E8F80000515D /* SponsorCollectionViewCell.swift in Sources */,
+				4505FF5722A5B9010035001A /* SponsorTableViewCell.swift in Sources */,
 				637100D1210F69160099FF25 /* ApplicationScheme.swift in Sources */,
 				637100DC211086360099FF25 /* SpeakerInfoCellTableViewCell.swift in Sources */,
 				6372424720FAD04F0049263B /* EventDetailViewController.swift in Sources */,
-				F111E61422579D65000B3F3D /* FeedbackRatingSubView.swift in Sources */,
 				6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */,
 				6372424520F9B7800049263B /* AboutViewController.swift in Sources */,
 				63711D3F2111470A0099FF25 /* AboutInfoTableViewCell.swift in Sources */,
@@ -729,14 +732,13 @@
 				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
 				304E5637389A73B7652919A2 /* File.kt in Sources */,
 				90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */,
-				F111E6182257DA1A000B3F3D /* FeedbackAlertViewController.swift in Sources */,
 				3B57B84E9E32CE4ACAAD7CC9 /* SpeakerViewModel.kt in Sources */,
 				304E5637389A73B7652919A2 /* File.kt in Sources */,
 				90BC1A7D5A693D2C404815E3 /* Functions.kt in Sources */,
-				F111E60F2256A276000B3F3D /* FeedbackView.swift in Sources */,
 				8CCB6E6FBBDE4456FDAC6248 /* DateHelpers.kt in Sources */,
 				E54EE7DAFB9F33D15E11C2A1 /* ScheduleViewModel.kt in Sources */,
 				CF4D7CA64E63E82BA1681E20 /* SpeakerModel.kt in Sources */,
+				F1E3105C22A5B238008F999F /* FeedbackViewController.swift in Sources */,
 				4A1E56196E45DB28D51B0D77 /* AppContext.kt in Sources */,
 				730C9521F5CDB441D6FD4D02 /* SponsorModel.kt in Sources */,
 				DEEF4AC18B0C6C9B322C3E34 /* Functions.kt in Sources */,
@@ -752,7 +754,6 @@
 				962974E75078C2E7FBE580BC /* DateAdapter.kt in Sources */,
 				F6E4FFAABB41BD61BD91502D /* QueryPub.kt in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
-				F111E612225797EC000B3F3D /* FeedbackCommentSubView.swift in Sources */,
 				1601562F0C1D410B6E17F2FD /* SessionizeDbHelper.kt in Sources */,
 				C764772084EDD3F58CAFB7E9 /* BaseModel.kt in Sources */,
 				F15978AD228D93930038BD02 /* FirebaseMessageHandler.swift in Sources */,
@@ -767,6 +768,7 @@
 				3161952A95320D7FA337D820 /* DateHelpers.kt in Sources */,
 				2FBA0E961E7954510F10142A /* TestFunctions.kt in Sources */,
 				F10A7D00227B777700DED10F /* NotificationsApiImpl.swift in Sources */,
+				45F1EE5922A5A4FF00212D9C /* SponsorDetailViewController.swift in Sources */,
 				86E7721A86624FDE48003DCA /* Notifications.kt in Sources */,
 				F698E4A89CECD079D75F8997 /* SponsorViewModel.kt in Sources */,
 				B5B3ED3D9F987E89B0F4C229 /* ServiceRegistry.kt in Sources */,
@@ -1015,7 +1017,7 @@
 					"\"lib_umbrella\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.droidcon;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1091,7 +1093,7 @@
 					"\"lib_umbrella\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.droidcon;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

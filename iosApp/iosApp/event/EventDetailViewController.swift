@@ -56,7 +56,7 @@ import MaterialComponents
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowSpeakerDetail" {
+        if segue.identifier == "ShowSpeakerDetailFromEvent" {
             let detailViewController = segue.destination as! SpeakerViewController
             let speaker = sender as! UserAccount
             detailViewController.speakerId = speaker.id
@@ -166,6 +166,6 @@ import MaterialComponents
     }
     
     func showSpeakerDetailView(speaker: UserAccount) {
-        performSegue(withIdentifier: "ShowSpeakerDetail", sender: speaker)
+        performSegue(withIdentifier: "ShowSpeakerDetailFromEvent", sender: speaker)
     }
 }

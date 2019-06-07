@@ -8,9 +8,8 @@
 
 import UIKit
 import lib
-import Fabric
-import Crashlytics
 import UserNotifications
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,14 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let serviceRegistry = ServiceRegistry()
 
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Fabric.with([Crashlytics.self])
+        FirebaseApp.configure()
         application.statusBarStyle = .lightContent
-      
+
         serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
-        
-        
+
+
         let timeZone = Bundle.main.object(forInfoDictionaryKey: "TimeZone") as! String
         serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
                                                 coroutineDispatcher: UI(),
@@ -36,17 +35,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 notificationsApi: NotificationsApiImpl(),
                                                 timeZone: timeZone)
 
-        
+
         AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
-                
+
         let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") ?? ""
         let fileExists = FileManager.default.fileExists(atPath: path)
         if(fileExists){
-            FirebaseMessageHandler.initFirebaseApp()
+            FirebaseMessageHandler.initMessaging()
         }else{
             print("Firebase plist not found: Firebased Not Enabled")
         }
-        
         return true
     }
 
@@ -56,12 +54,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return KotlinUnit()
     }*/
-    
+
     func csLog(s:String) -> KotlinUnit{
         CLSLogv(s, getVaList([]))
         return KotlinUnit()
     }
-    
+
     func loadAsset(filePrefix:String, fileType:String) -> String?{
         do{
             let bundleFile = Bundle.main.path(forResource: filePrefix, ofType: fileType)
@@ -70,9 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return nil
         }
     }
-    
+
     func analyticsCallback(name:String, params:[String:Any]) -> KotlinUnit{
-        Answers.logCustomEvent(withName: name, customAttributes: params)
+        Analytics.logEvent(name, parameters: params)
         return KotlinUnit()
     }
 
@@ -99,4 +97,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         serviceRegistry.notificationsApi.deinitializeNotifications()
     }
 }
-
