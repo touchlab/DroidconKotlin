@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'io.fabric'
 
 def firebaseEnabled = file("./google-services.json").exists()
-
+if (firebaseEnabled) {
+    apply plugin: 'io.fabric'
+}
 android {
     compileSdkVersion 28
     defaultConfig {
