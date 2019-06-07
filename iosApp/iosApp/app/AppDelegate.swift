@@ -19,7 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
+        let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") ?? ""
+        let fileExists = FileManager.default.fileExists(atPath: path)
+        if(fileExists){
+            FirebaseApp.configure()
+        }else{
+            print("Firebase plist not found: Firebased Not Enabled")
+        }
+        
         application.statusBarStyle = .lightContent
 
         serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
@@ -38,12 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
 
-        let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") ?? ""
-        let fileExists = FileManager.default.fileExists(atPath: path)
+        
         if(fileExists){
             FirebaseMessageHandler.initMessaging()
-        }else{
-            print("Firebase plist not found: Firebased Not Enabled")
         }
         return true
     }

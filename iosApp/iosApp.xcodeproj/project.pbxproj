@@ -593,7 +593,6 @@
 				63711D3C211143390099FF25 /* about.json in Resources */,
 				6372423C20F973370049263B /* Main.storyboard in Resources */,
 				6372423720F914D60049263B /* speakers.json in Resources */,
-				F147CF15228F2C6C009F04E5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +654,8 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
 				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
@@ -662,7 +663,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
+			shellScript = "file_name=$SRCROOT/iosApp/GoogleService-Info.plist\nif [ -f $file_name ]\nthen   \n\"${PODS_ROOT}/Fabric/run\"\nfi\n";
 		};
 		81B84390B07E56A66415404A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
