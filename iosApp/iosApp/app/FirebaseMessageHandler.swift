@@ -42,8 +42,7 @@ class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, Messag
     }
     
     
-    static func initFirebaseApp(){
-        FirebaseApp.configure()
+    static func initMessaging(){
         Messaging.messaging().shouldEstablishDirectChannel = true
         Messaging.messaging().useMessagingDelegateForDirectChannel = true
         

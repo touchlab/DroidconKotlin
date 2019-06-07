@@ -659,12 +659,13 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 90b5b9675372e1f2aff36d43ea5d6869040d37f3 a70308da17e66d33b166e029eabb96754f40e2dd2ec0fefd2a48e1c89e76f7a6\n";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		81B84390B07E56A66415404A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1019,7 +1020,7 @@
 					"\"lib_umbrella\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.droidcon;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1095,7 +1096,7 @@
 					"\"lib_umbrella\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.ios.droidcon;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

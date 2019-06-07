@@ -1,21 +1,21 @@
 package co.touchlab.sessionize
 
+import android.os.Bundle
 import co.touchlab.sessionize.api.AnalyticsApi
-import com.crashlytics.android.answers.Answers
-import com.crashlytics.android.answers.CustomEvent
+import com.google.firebase.analytics.FirebaseAnalytics
 
-class AnalyticsApiImpl : AnalyticsApi {
+class AnalyticsApiImpl(val firebaseAnalytics: FirebaseAnalytics) : AnalyticsApi {
     override fun logEvent(name: String, params: Map<String, Any>) {
-        val event = CustomEvent(name)
+        val bundle = Bundle()
         params.keys.forEach { key ->
             when (val obj = params[key]) {
-                is String -> event.putCustomAttribute(key, obj)
-                is Number -> event.putCustomAttribute(key, obj)
+                is String -> bundle.putString(key, obj)
+                is Int -> bundle.putInt(key, obj)
                 else -> {
                     throw IllegalArgumentException("Don't know what this is $key/$obj")
                 }
             }
         }
-        Answers.getInstance().logCustom(event)
+        firebaseAnalytics.logEvent(name, bundle)
     }
 }
