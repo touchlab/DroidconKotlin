@@ -1,7 +1,9 @@
 PODS:
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
-  - Fabric (1.9.0)
+  - Crashlytics (3.13.1):
+    - Fabric (~> 1.10.1)
+  - Fabric (1.10.1)
+  - Firebase/Analytics (5.18.0):
+    - Firebase/Core
   - Firebase/Core (5.18.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.7.0)
@@ -583,8 +585,9 @@ PODS:
   - Protobuf (3.7.0)
 
 DEPENDENCIES:
-  - Crashlytics
-  - Fabric
+  - Crashlytics (~> 3.13.1)
+  - Fabric (~> 1.10.1)
+  - Firebase/Analytics
   - Firebase/Core
   - Firebase/Messaging
   - Kingfisher (~> 4.0)
@@ -618,8 +621,8 @@ EXTERNAL SOURCES:
     :path: "../sessionize/lib"
 
 SPEC CHECKSUMS:
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
+  Fabric: f6f21452846788bb44595d73e9909d79d328e617
   Firebase: 02f3281965c075426141a0ce1277e9de6649cab9
   FirebaseAnalytics: 23851fe602c872130a2c5c55040b302120346cc2
   FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
@@ -629,7 +632,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 6cf307834da065863f9faf4c0de0a936d81dd832
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
-  lib: a940e804a5281b97b1d066342f7dfafd44c2c630
+  lib: 3f84004060361191ef0fefc71ff3c62469572996
   MaterialComponents: 8fcdd4efb1f262423ce9bf922d9f29250812fd03
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
@@ -639,6 +642,6 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
 
-PODFILE CHECKSUM: e7849bb279c730fc10da58c8c434fac5724937a1
+PODFILE CHECKSUM: a773fe2e68da5fca4ad9f6a838c8589c2022ebd9
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
