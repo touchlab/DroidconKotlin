@@ -45,6 +45,7 @@ object SessionizeApiImpl : SessionizeApi {
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = client.request<HttpResponse> {
         droidcon("/dataTest/$methodName/$sessionId/${userUuid()}")
         method = HttpMethod.Post
+        body = ""
     }.use {
         it.status.isSuccess()
     }
