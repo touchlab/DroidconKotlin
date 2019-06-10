@@ -1,13 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'io.fabric'
 
+def firebaseEnabled = file("./google-services.json").exists()
+if (firebaseEnabled) {
+    apply plugin: 'io.fabric'
+}
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "co.touchlab.droidcon.base"
         buildConfigField "String", "TIME_ZONE", "\"America/Los_Angeles\""
+        buildConfigField "boolean", "FIREBASE_ENABLED", "${firebaseEnabled}"
 
         minSdkVersion 21
         targetSdkVersion 28
@@ -81,4 +85,6 @@ dependencies {
     implementation deps.multiplatformSettings
 }
 
-apply plugin: 'com.google.gms.google-services'
+if (firebaseEnabled) {
+    apply plugin: 'com.google.gms.google-services'
+}

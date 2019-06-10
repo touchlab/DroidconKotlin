@@ -31,7 +31,12 @@ class MainApp : Application() {
 
         AppContext.initAppContext()
 
-        FirebaseMessageHandler.init()
+        @Suppress("ConstantConditionIf")
+        if(BuildConfig.FIREBASE_ENABLED) {
+            FirebaseMessageHandler.init()
+        }else{
+            Log.d("MainApp","Firebase json not found: Firebased Not Enabled")
+        }
     }
 
     override fun onTerminate() {
