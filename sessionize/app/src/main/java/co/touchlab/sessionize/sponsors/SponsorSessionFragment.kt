@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SponsorSessionInfo
 import co.touchlab.sessionize.SponsorSessionModel
+import com.squareup.picasso.Picasso
 
 class SponsorSessionFragment : Fragment() {
     companion object {
@@ -35,7 +37,8 @@ class SponsorSessionFragment : Fragment() {
     lateinit var sponsorSessionViewModel: SponsorSessionViewModel
     lateinit var recycler: RecyclerView
     lateinit var sponsorSessionTitle: TextView
-    lateinit var sponsorSessionRoomTime: TextView
+    lateinit var sponsorGroupName: TextView
+    lateinit var sponsorImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +56,9 @@ class SponsorSessionFragment : Fragment() {
         )
 
         sponsorSessionTitle= view.findViewById(R.id.sponsorSessionTitle)
-        sponsorSessionRoomTime = view.findViewById(R.id.sponsorSessionRoomTime)
+        sponsorGroupName = view.findViewById(R.id.sponsorGroupName)
         recycler = view.findViewById(R.id.recycler)
+        sponsorImage = view.findViewById(R.id.sponsorImage)
 
         sponsorSessionViewModel
                 .sponsorSessionModel
@@ -82,17 +86,23 @@ class SponsorSessionFragment : Fragment() {
         updateContent(sponsorInfo)
     }
 
-    private fun updateContent(sponsor: SponsorSessionInfo) {
+    private fun updateContent(sponsorInfo: SponsorSessionInfo) {
         val adapter = SponsorSessionAdapter(activity!!)
+        val sponsor = sponsorInfo.sponsor
 
-        sponsorSessionTitle.text = sponsor.sponsor.name
-        adapter.addHeader(sponsor.sponsor.name)
+        sponsorSessionTitle.text = sponsor.name
+        sponsorGroupName.text = sponsor.groupName
+        adapter.addHeader(sponsor.name)
 
-        sponsor.sponsor.description?.let {
+        sponsor.icon.let {
+            Picasso.get().load(it).into(sponsorImage)
+        }
+
+        sponsor.description?.let {
             adapter.addBody(it)
         }
 
-        for (item in sponsor.speakers) {
+        for (item in sponsorInfo.speakers) {
             adapter.addSpeaker(item)
         }
 
