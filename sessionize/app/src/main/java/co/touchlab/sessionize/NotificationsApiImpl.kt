@@ -6,7 +6,6 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -17,9 +16,6 @@ import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnable
 import android.os.RemoteException
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
-import android.R.attr.delay
-import android.os.SystemClock
 
 
 
