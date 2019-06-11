@@ -17,6 +17,13 @@ import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnable
 import android.os.RemoteException
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
+import android.R.attr.delay
+import android.os.SystemClock
+
+
+
+
 
 class NotificationsApiImpl : NotificationsApi {
 
@@ -31,6 +38,10 @@ class NotificationsApiImpl : NotificationsApi {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
 
+
+        val intent = Intent(AndroidAppContext.app, MainActivity::class.java)
+        val activityIntent = PendingIntent.getActivity(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        builder.setContentIntent(activityIntent)
 
         // Building Intent wrapper
         val pendingIntent = createPendingIntent(notificationId, builder.build())
@@ -87,11 +98,9 @@ class NotificationsApiImpl : NotificationsApi {
 
         private fun createPendingIntent(id:Int, notification: Notification? = null): PendingIntent{
             // Building Intent wrapper
-            val intent = Intent().also { intent ->
-                intent.putExtra(NotificationPublisher.NOTIFICATION_ID, id)
-                intent.putExtra(NotificationPublisher.NOTIFICATION, notification)
-                val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
-                intent.component = componentName
+            val intent = Intent(AndroidAppContext.app,NotificationPublisher::class.java).apply {
+                putExtra(NotificationPublisher.NOTIFICATION_ID, id)
+                putExtra(NotificationPublisher.NOTIFICATION, notification)
             }
             return PendingIntent.getBroadcast(AndroidAppContext.app, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
         }
