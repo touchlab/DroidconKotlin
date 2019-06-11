@@ -17,10 +17,6 @@ import android.os.RemoteException
 import android.util.Log
 import androidx.core.app.NotificationCompat
 
-
-
-
-
 class NotificationsApiImpl : NotificationsApi {
 
     override fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
