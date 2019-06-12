@@ -51,6 +51,7 @@ object NotificationsModel {
 
     fun cancelNotificationsForSessions() {
         if (!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
+            print("cancelNotificationsForSessions\n")
             ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId)
             cancelFeedbackNotification()
         }
@@ -59,12 +60,14 @@ object NotificationsModel {
     // create Singular
 
     private fun createReminderNotification(startsAtTime: Long, title:String, message:String){
+        print("createReminderNotification\n")
         val notificationTime = startsAtTime - Durations.TEN_MINS_MILLIS
         if (notificationTime > currentTimeMillis()) {
             ServiceRegistry.notificationsApi.createLocalNotification(title,
                                                                     message,
                                                                     notificationTime,
                                                                     notificationReminderId)
+            ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId, startsAtTime + Durations.TEN_MINS_MILLIS)
         }
     }
 
@@ -87,10 +90,12 @@ object NotificationsModel {
     // Cancel Singular
 
     private fun cancelFeedbackNotification() {
+        print("cancelFeedbackNotification\n")
         ServiceRegistry.notificationsApi.cancelLocalNotification(notificationFeedbackId)
     }
 
     fun recreateReminderNotifications(){
+        print("recreateReminderNotifications\n")
         ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId)
 
         if (notificationsEnabled()){

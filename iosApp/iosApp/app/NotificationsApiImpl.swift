@@ -11,6 +11,7 @@ import lib
 import UserNotifications
 
 class NotificationsApiImpl : NSObject, NotificationsApi {
+    
 
     // Needed to approve local notifications
     class LocalNotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
@@ -51,7 +52,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         center.add(request,withCompletionHandler: nil)
     }
     
-    func cancelLocalNotification(notificationId: Int32) {
+    func cancelLocalNotification(notificationId: Int32, withDelay: Int64) {
         let notifString = String(notificationId)
         let identifiers = [notifString]
         

@@ -17,6 +17,9 @@ import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnable
 import android.os.RemoteException
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import co.touchlab.sessionize.NotificationPublisher.Companion.NOTIFICATION_ACTION_CREATE
+import co.touchlab.sessionize.NotificationPublisher.Companion.NOTIFICATION_ACTION_DISMISS
+import co.touchlab.sessionize.api.notificationReminderId
 
 class NotificationsApiImpl : NotificationsApi {
 
@@ -33,21 +36,29 @@ class NotificationsApiImpl : NotificationsApi {
 
 
         // Building Intent wrapper
-        val pendingIntent = createPendingIntent(notificationId, builder.build())
-        Log.i(TAG, "Local Notification ${timeInMS.toInt()} Created at $timeInMS ms: $title - $message \n")
+        val pendingIntent = createPendingIntent(notificationId, NOTIFICATION_ACTION_CREATE, builder.build())
+        Log.i(TAG, "Creating   ${if(notificationId == notificationReminderId) "reminder" else "feedback"} notification at $timeInMS ms: $title - $message")
         val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
     }
 
-    override fun cancelLocalNotification(notificationId: Int) {
+    override fun cancelLocalNotification(notificationId: Int, withDelay: Long) {
         val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = createPendingIntent(notificationId)
-        try {
+        val pendingIntent = createPendingIntent(notificationId, NOTIFICATION_ACTION_DISMISS)
+        if(withDelay != 0L) {
+            try {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay, pendingIntent)
+                Log.i(TAG, "Cancelling ${if (notificationId == notificationReminderId) "reminder" else "feedback"} notification at $withDelay ms")
+
+            } catch (e: RemoteException) {
+                Log.i(TAG, e.localizedMessage)
+            }
+        }else{
+            Log.i(TAG, "Cancelling ${if (notificationId == notificationReminderId) "reminder" else "feedback"} notification, alarm only")
+            val pendingIntent = createPendingIntent(notificationId, NOTIFICATION_ACTION_CREATE)
             alarmManager.cancel(pendingIntent)
-            Log.i(TAG, "Cancelled Notification(1): $notificationId")
-        } catch (e: RemoteException) {
-            Log.i(TAG, e.localizedMessage)
         }
+
     }
 
     // General Notification Code
@@ -80,20 +91,19 @@ class NotificationsApiImpl : NotificationsApi {
             notificationManager.createNotificationChannel(channel)
         }
     }
-  
+
     companion object{
         val TAG:String = NotificationsApiImpl::class.java.simpleName
 
 
-        private fun createPendingIntent(id:Int, notification: Notification? = null): PendingIntent{
+        fun createPendingIntent(id:Int, action:String, notification: Notification? = null): PendingIntent{
             // Building Intent wrapper
-            val intent = Intent().also { intent ->
-                intent.putExtra(NotificationPublisher.NOTIFICATION_ID, id)
-                intent.putExtra(NotificationPublisher.NOTIFICATION, notification)
-                val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
-                intent.component = componentName
+            val intent = Intent(AndroidAppContext.app,NotificationPublisher::class.java).apply {
+                putExtra(NotificationPublisher.NOTIFICATION_ID, id)
+                putExtra(NotificationPublisher.NOTIFICATION, notification)
+                this.action = action
             }
-            return PendingIntent.getBroadcast(AndroidAppContext.app, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+            return PendingIntent.getBroadcast(AndroidAppContext.app, id + action.hashCode(), intent, PendingIntent.FLAG_CANCEL_CURRENT)
         }
     }
 }
