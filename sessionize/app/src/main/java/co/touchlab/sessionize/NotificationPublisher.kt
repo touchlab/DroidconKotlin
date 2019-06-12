@@ -22,13 +22,13 @@ class NotificationPublisher : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val notification = intent.getParcelableExtra<Notification>(NOTIFICATION)
         val notificationId = intent.getIntExtra(NOTIFICATION_ID, 0)
+        val notificationActionId = intent.getIntExtra(NOTIFICATION_ACTION_ID, 0)
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if(intent.action == NOTIFICATION_ACTION_CREATE){
+        if(notificationActionId == 0){
             Log.i(TAG, "---OnReceive called, creating   ${if(notificationId == notificationReminderId) "reminder" else "feedback"} notification")
             with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-                // notificationId is a unique int for each notification that you must define
                 this.notify(notificationId, notification)
             }
 
@@ -39,29 +39,20 @@ class NotificationPublisher : BroadcastReceiver() {
                 NotificationsModel.recreateFeedbackNotifications()
             }
         }
-        else if(intent.action == NOTIFICATION_ACTION_DISMISS){
-            Log.i(TAG, "---OnReceive called, cancelling ${if(notificationId == notificationReminderId) "reminder" else "feedback"} notification")
-            val oldIntent = Intent(AndroidAppContext.app, NotificationPublisher::class.java).apply {
-                action = NOTIFICATION_ACTION_CREATE
-            }
-            val pendingIntent = PendingIntent.getBroadcast(AndroidAppContext.app, notificationId + NOTIFICATION_ACTION_CREATE.hashCode(), oldIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        else {
+            Log.i(TAG, "---OnReceive called, dismissing ${if(notificationActionId == notificationReminderId) "reminder" else "feedback"} notification")
+            val pendingIntent = NotificationsApiImpl.createPendingIntent(notificationActionId)
             val alarmManager = AndroidAppContext.app.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
-            alarmManager.cancel(pendingIntent!!)
-
-            notificationManager.cancel(notificationId)
+            alarmManager.cancel(pendingIntent)
+            notificationManager.cancel(notificationActionId)
         }
-
-
-
     }
 
     companion object {
         val TAG:String = NotificationPublisher::class.java.simpleName
 
         var NOTIFICATION_ID = "notification_id"
+        var NOTIFICATION_ACTION_ID = "notification_action_id"
         var NOTIFICATION = "notification"
-
-        const val NOTIFICATION_ACTION_CREATE = "notificationCreate"
-        const val NOTIFICATION_ACTION_DISMISS = "notificationDismiss"
     }
 }

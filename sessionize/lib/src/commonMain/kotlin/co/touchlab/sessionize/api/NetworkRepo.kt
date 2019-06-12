@@ -5,7 +5,7 @@ import co.touchlab.sessionize.Durations
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.db.SessionizeDbHelper
-import co.touchlab.sessionize.platform.NotificationsModel.createNotificationsForSessions
+import co.touchlab.sessionize.platform.NotificationsModel.createNotifications
 import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.currentTimeMillis
@@ -33,7 +33,7 @@ object NetworkRepo {
             //If we do some kind of data re-load after a user logs in, we'll need to update this.
             //We assume for now that when the app first starts, you have nothing rsvp'd
             if (notificationsEnabled()) {
-                createNotificationsForSessions()
+                createNotifications()
             }
         } catch (e: Exception) {
             logException(e)

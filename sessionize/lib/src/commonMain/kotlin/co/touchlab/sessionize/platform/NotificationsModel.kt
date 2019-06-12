@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.platform
 
+import co.touchlab.droidcon.db.MySessions
 import co.touchlab.sessionize.Durations
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys.FEEDBACK_ENABLED
@@ -24,7 +25,7 @@ object NotificationsModel {
         return ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED, true)
     }
 
-    fun reminderNotificationsEnabled(): Boolean {
+    fun remindersEnabled(): Boolean {
         return ServiceRegistry.appSettings.getBoolean(LOCAL_NOTIFICATIONS_ENABLED, true) &&
                 ServiceRegistry.appSettings.getBoolean(REMINDERS_ENABLED, true)
     }
@@ -42,107 +43,103 @@ object NotificationsModel {
     }
 
 
-    // Create Everything
-
-    fun createNotificationsForSessions() {
-        recreateReminderNotifications()
-        recreateFeedbackNotifications()
-    }
-
-    fun cancelNotificationsForSessions() {
-        if (!notificationsEnabled() || !reminderNotificationsEnabled() || !feedbackEnabled()) {
-            print("cancelNotificationsForSessions\n")
-            ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId)
-            cancelFeedbackNotification()
+    fun createNotifications(){
+        if(notificationsEnabled()) {
+            recreateReminderNotifications()
+            recreateFeedbackNotifications()
         }
     }
 
-    // create Singular
-
-    private fun createReminderNotification(startsAtTime: Long, title:String, message:String){
-        print("createReminderNotification\n")
-        val notificationTime = startsAtTime - Durations.TEN_MINS_MILLIS
-        if (notificationTime > currentTimeMillis()) {
-            ServiceRegistry.notificationsApi.createLocalNotification(title,
-                                                                    message,
-                                                                    notificationTime,
-                                                                    notificationReminderId)
-            ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId, startsAtTime + Durations.TEN_MINS_MILLIS)
-        }
+    fun cancelNotifications(){
+        cancelReminderNotifications()
+        cancelFeedbackNotifications()
     }
 
-    private fun createFeedbackNotification(endsAtTime: Long){
-        val feedbackNotificationTime = endsAtTime + Durations.TEN_MINS_MILLIS
-        ServiceRegistry.notificationsApi.createLocalNotification("Feedback Time!",
-                "Your Feedback is Requested",
-                feedbackNotificationTime,
-                notificationFeedbackId)
-    }
-
-    // Cancel List
-
-    fun cancelFeedbackNotificationsForSession() {
-        if (!feedbackEnabled() || !notificationsEnabled()) {
-            cancelFeedbackNotification()
-        }
-    }
-
-    // Cancel Singular
-
-    private fun cancelFeedbackNotification() {
-        print("cancelFeedbackNotification\n")
+    fun cancelFeedbackNotifications(){
         ServiceRegistry.notificationsApi.cancelLocalNotification(notificationFeedbackId)
     }
 
-    fun recreateReminderNotifications(){
-        print("recreateReminderNotifications\n")
+    fun cancelReminderNotifications(){
         ServiceRegistry.notificationsApi.cancelLocalNotification(notificationReminderId)
-
-        if (notificationsEnabled()){
-             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                 if(mySessions.isNotEmpty()) {
-                     if (reminderNotificationsEnabled()) {
-
-                         try {
-                             val session = mySessions.first { it.startsAt.toLongMillis() - Durations.TEN_MINS_MILLIS > currentTimeMillis() }
-                             val partitionedSessions = mySessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
-                             val matchingSessions = partitionedSessions.first
-
-                             if (matchingSessions.size == 1) {
-                                 createReminderNotification(session.startsAt.toLongMillis(),
-                                         "Upcoming Event in ${session.roomName}",
-                                         "${session.title} is starting soon.")
-                             } else {
-                                 createReminderNotification(session.startsAt.toLongMillis(),
-                                         "${matchingSessions.size} Upcoming Sessions",
-                                         "You have ${matchingSessions.size} Sessions Starting soon")
-                             }
-                         } catch (e: NoSuchElementException){
-                             print(e.message)
-                         }
-                     }
-                 }
-            }
-        }
     }
 
-    fun recreateFeedbackNotifications(){
-        cancelFeedbackNotification()
-
-        if (notificationsEnabled()){
+    // Reminder
+    fun recreateReminderNotifications() {
+        if (remindersEnabled()){
             backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
                 if(mySessions.isNotEmpty()) {
-                    if (feedbackEnabled()) {
+                    try {
+                        val session = mySessions.first { it.startsAt.toLongMillis() - Durations.TEN_MINS_MILLIS > currentTimeMillis() }
+                        val partitionedSessions = mySessions.partition { it.startsAt.toLongMillis() == session.startsAt.toLongMillis() }
+                        val sessionGroup = partitionedSessions.first
+                        scheduleReminderForSessionGroup(sessionGroup)
+                        scheduleDismissalForSessionGroup(sessionGroup)
 
-                        try {
-                            val session = mySessions.first { (it.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS > currentTimeMillis())}
-                            createFeedbackNotification(session.startsAt.toLongMillis() + Durations.TEN_MINS_MILLIS)
-                        } catch (e: NoSuchElementException){
-                            print(e.message)
-                        }
+                    } catch (e: NoSuchElementException) {
+                        print(e.message)
                     }
                 }
             }
         }
     }
+
+    // Schedule Reminder
+    private fun scheduleReminderForSessionGroup(sessions:List<MySessions>){
+        print("scheduleReminderForSessionGroup\n")
+
+        val firstSession = sessions.first()
+        val reminderTime = firstSession.startsAt.toLongMillis() - Durations.TEN_MINS_MILLIS
+
+        if (sessions.size == 1) {
+            ServiceRegistry.notificationsApi.scheduleLocalNotification(
+                    "Upcoming Event in ${firstSession.roomName}",
+                    "${firstSession.title} is starting soon.",
+                    reminderTime,
+                    notificationReminderId)
+        } else {
+            ServiceRegistry.notificationsApi.scheduleLocalNotification(
+                    "${sessions.size} Upcoming Sessions",
+                    "You have ${sessions.size} Sessions Starting soon",
+                    reminderTime,
+                    notificationReminderId)
+        }
+    }
+
+    // Schedule Cancel
+    private fun scheduleDismissalForSessionGroup(sessions:List<MySessions>){
+        print("scheduleDismissalForSessionGroup\n")
+
+        val firstSession = sessions.first()
+        val dismissalTime = firstSession.startsAt.toLongMillis() + Durations.TEN_MINS_MILLIS
+
+        ServiceRegistry.notificationsApi.dismissLocalNotification(notificationReminderId, dismissalTime)
+    }
+
+
+    // Feedback
+    fun recreateFeedbackNotifications() {
+        if (feedbackEnabled()){
+            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
+                if(mySessions.isNotEmpty()) {
+                    try {
+                        val mySession = mySessions.first { (it.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS > currentTimeMillis())}
+                        scheduleFeedbackForSession(mySession)
+                    } catch (e: NoSuchElementException) {
+                        print(e.message)
+                    }
+                }
+            }
+        }
+    }
+
+    // Schedule Feedback
+    private fun scheduleFeedbackForSession(sessions:MySessions){
+        print("scheduleFeedbackForSession\n")
+        val feedbackTime = sessions.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS
+        ServiceRegistry.notificationsApi.scheduleLocalNotification("Feedback Time!",
+                "Your Feedback is Requested",
+                feedbackTime,
+                notificationFeedbackId)
+    }
+
 }
