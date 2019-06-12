@@ -1,73 +1,97 @@
 [
     {
-        "groupId": 16187,
-        "groupName": "sponsor",
-        "sessions": [
+        "groupName": "Iridium",
+        "sponsors": [
             {
-                "questionAnswers": [],
-                "id": "128002",
-                "title": "Bugsnag",
-                "description": "Doing the bugsnag things",
-                "startsAt": null,
-                "endsAt": null,
-                "isServiceSession": false,
-                "isPlenumSession": false,
-                "speakers": [
-                    {
-                        "id": "9d2ecd4c-fd6e-444f-b80f-bd8ef04106ae",
-                        "name": "Kevin Galligan"
-                    }
-                ],
-                "categories": [
-                    {
-                        "id": 3477,
-                        "name": "Tags",
-                        "categoryItems": [
-                            {
-                                "id": 16187,
-                                "name": "sponsor"
-                            }
-                        ],
-                        "sort": 1004
-                    }
-                ],
-                "roomId": null,
-                "room": null
+                "name": "myTaxi",
+                "url": "https://mytaxi.com/de/career/",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_3525d18a154d46d094b2fffeaaaa8a48~mv2.png"
+            }
+        ]
+    },{
+    "groupName": "Gold",
+    "sponsors": [
+        {
+            "name": "Huawei",
+            "url": "",
+            "icon": "https://static.wixstatic.com/media/b1f32d_fc05a8326f2e462e8314e0d6ae51e818~mv2.png"
+        },
+        {
+            "name": "Touchlab",
+            "url": "https://touchlab.co/",
+            "icon": "https://static.wixstatic.com/media/26bcf1_7e164fa48a864abba5f63b2c749bd870~mv2.png"
+        }
+    ]
+},
+    {
+        "groupName": "Silver",
+        "sponsors": [
+            {
+                "name": "Here",
+                "url": "https://www.here.com/",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png"
             },
             {
-                "questionAnswers": [],
-                "id": "123867",
-                "title": "Touchlab",
-                "description": "Touchlab is the best2 . We're hiring: https://touchlab.co/about-us/",
-                "startsAt": null,
-                "endsAt": null,
-                "isServiceSession": false,
-                "isPlenumSession": false,
-                "speakers": [
-                    {
-                        "id": "7488feb9-5f99-404f-8b5c-6adc6354ebef",
-                        "name": "Ben Whitley"
-                    },
-                    {
-                        "id": "9d2ecd4c-fd6e-444f-b80f-bd8ef04106ae",
-                        "name": "Kevin Galligan"
-                    }
-                ],
-                "categories": [
-                    {
-                        "id": 3477,
-                        "name": "Tags",
-                        "categoryItems": [
-                            {
-                                "id": 16187,
-                                "name": "sponsor"
-                            }
-                        ],
-                        "sort": 1004
-                    }
-                ],
-                "roomId": null,
-                "room": null
+                "name": "Ebay",
+                "url": "https://ebaytech.berlin/",
+                "icon": "https://static.wixstatic.com/media/e257c0_e8d722d4a9794fbcbefa300f1a3fd2a8~mv2.png"
+            },
+            {
+                "name": "1 And 1",
+                "url": "https://jobs.1und1.de/",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_9d045e47e7d44562a6fceb1f829f75fa~mv2.png"
+            },
+            {
+                "name": "Delivery Hero",
+                "url": "https://www.deliveryhero.com/",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_f6f68c51c77c40f9b060514d052d23b0~mv2.png"
+            },
+            {
+                "name": "Zebra",
+                "url": "https://www.zebra.com/us/en.html",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_42dede91771e4b30803b76b508b46918~mv2.png"
+            },
+            {
+                "name": "Nevercode",
+                "url": "https://nevercode.io/",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_917172f17a484ba2bc97df2e3db14ed0~mv2.png"
+            },
+            {
+                "name": "Bitrise",
+                "url": "https://www.bitrise.io/",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_28af3649186a40ccad35e0360199b1ab~mv2.png"
+            }
+        ]
+    },
+    {
+        "groupName": "Bronze",
+        "sponsors": [
+            {
+                "name": "N26",
+                "url": "https://n26.com/en/careers/departments/13426?gh_src=33bf499b1",
+                "icon": "https://static.wixstatic.com/media/e257c0_9bbe12b6e4124d3f96edc3aca8246696~mv2.png",
+                "sponsorId": 123867
+            },
+            {
+                "name": "moovel",
+                "url": "https://www.moovel.com/en/about/careers",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_faba08fea7ce4d679df3961801898eeb~mv2.png"
+            },
+            {
+                "name": "Jobsense.ai",
+                "url": "",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_b283e64ef12d438ca3dc82e1737ac1e3~mv2.png"
+            },
+            {
+                "name": "Object Box",
+                "url": "https://objectbox.io/",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_0f288ed80ee843beb4eb611ad4b74613~mv2.png"
+            },
+            {
+                "name": "Gradle",
+                "url": "https://gradle.com/",
+                "icon": "https://static.wixstatic.com/media/6e1ab2_1a056e368ba047968366b4944666c3dd~mv2.png",
+                "sponsorId": 128002
             }
         ]
     }

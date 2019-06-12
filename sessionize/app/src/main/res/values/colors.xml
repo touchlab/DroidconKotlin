@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="tabBackground">#00A5FB</color>
+    <color name="tabBackground">#f34e22</color>
     <color name="textColor">#000</color>
     <color name="textColorLight">#333</color>
 
-    <color name="colorPrimary">#00A5FB</color>
-    <color name="colorPrimaryDark">#0086EC</color>
-    <color name="colorAccent">#FFD44F</color>
+    <color name="colorPrimary">#f34e22</color>
+    <color name="colorPrimaryDark">#d6431b</color>
+    <color name="colorAccent">#fed65a</color>
     <color name="colorMenu">#FFF</color>
     <color name="colorMenuOff">#DEDEDE</color>
 
     <color name="white">#FFF</color>
     <color name="black">#000</color>
 
-    <color name="rsvpColor">#68d1fd</color>
+    <color name="rsvpColor">#ff7f5b</color>
     <color name="rsvpConflictColor">#f1582c</color>
 
     <color name="profile_circle">#dcdcdc</color>

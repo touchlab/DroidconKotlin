@@ -10,7 +10,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "co.touchlab.droidcon.base"
-        buildConfigField "String", "TIME_ZONE", "\"America/Los_Angeles\""
+        buildConfigField "String", "TIME_ZONE", "\"Europe/Berlin\""
         buildConfigField "boolean", "FIREBASE_ENABLED", "${firebaseEnabled}"
 
         minSdkVersion 21
