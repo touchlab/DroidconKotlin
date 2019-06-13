@@ -6,7 +6,6 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -34,6 +33,11 @@ class NotificationsApiImpl : NotificationsApi {
                 .setWhen(timeInMS)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
+
+
+        val intent = Intent(AndroidAppContext.app, MainActivity::class.java)
+        val activityIntent = PendingIntent.getActivity(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        builder.setContentIntent(activityIntent)
 
         // Building Intent wrapper
         val pendingIntent = createPendingIntent(notificationId, notification = builder.build())
