@@ -11,7 +11,6 @@ import lib
 import UserNotifications
 
 class NotificationsApiImpl : NSObject, NotificationsApi {
-    
 
     // Needed to approve local notifications
     class LocalNotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
@@ -29,7 +28,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
 
     let notificationDelegate = LocalNotificationDelegate()
 
-    func createLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32) {
+    func scheduleLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32) {
         let timeDouble = Double(integerLiteral: timeInMS)
         let date = Date.init(timeIntervalSince1970: timeDouble / 1000.0)
         let dateInfo: DateComponents = Calendar.current.dateComponents([.month,.day,.year,.hour, .minute, .second, .timeZone], from: date)
@@ -51,8 +50,19 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         let request = UNNotificationRequest(identifier: notifString, content: content, trigger: trigger)
         center.add(request,withCompletionHandler: nil)
     }
+
+    func dismissLocalNotification(notificationId: Int32, withDelay: Int64) {
+        let identifiers = [String(notificationId)]
+        perform(#selector(dismissNotification), with: identifiers, afterDelay: TimeInterval(withDelay))
+    }
     
-    func cancelLocalNotification(notificationId: Int32, withDelay: Int64) {
+    @objc private func dismissNotification(identifiers:[String]){
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: identifiers)
+        center.removeDeliveredNotifications(withIdentifiers: identifiers)
+    }
+    
+    func cancelLocalNotification(notificationId: Int32) {
         let notifString = String(notificationId)
         let identifiers = [notifString]
         
