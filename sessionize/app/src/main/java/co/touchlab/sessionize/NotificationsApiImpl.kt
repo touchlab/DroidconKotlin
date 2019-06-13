@@ -57,7 +57,11 @@ class NotificationsApiImpl : NotificationsApi {
         Log.i(TAG, "Cancelling ${if (notificationId == notificationReminderId) "reminder" else "feedback"} notification, alarm only")
         val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pendingIntent = createPendingIntent(notificationId)
-        alarmManager.cancel(pendingIntent)
+        try {
+            alarmManager.cancel(pendingIntent)
+        } catch (e: RemoteException) {
+            Log.i(TAG, e.localizedMessage)
+        }
     }
 
     // General Notification Code
