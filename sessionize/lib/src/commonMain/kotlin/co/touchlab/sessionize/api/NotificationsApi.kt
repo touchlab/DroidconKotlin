@@ -10,7 +10,7 @@ interface NotificationsApi {
 
     fun dismissLocalNotification(notificationId: Int, withDelay: Long)
 
-    fun cancelLocalNotification(notificationId: Int)
+    fun cancelLocalNotification(notificationId: Int, withDelay: Long = 0)
 
     fun initializeNotifications(onSuccess: (Boolean) -> Unit)
 

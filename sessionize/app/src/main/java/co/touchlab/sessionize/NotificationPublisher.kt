@@ -46,6 +46,9 @@ class NotificationPublisher : BroadcastReceiver() {
             alarmManager.cancel(pendingIntent)
             notificationManager.cancel(notificationActionId)
         }
+
+
+
     }
 
     companion object {
@@ -54,5 +57,8 @@ class NotificationPublisher : BroadcastReceiver() {
         var NOTIFICATION_ID = "notification_id"
         var NOTIFICATION_ACTION_ID = "notification_action_id"
         var NOTIFICATION = "notification"
+
+        const val NOTIFICATION_ACTION_CREATE = "notificationCreate"
+        const val NOTIFICATION_ACTION_DISMISS = "notificationDismiss"
     }
 }

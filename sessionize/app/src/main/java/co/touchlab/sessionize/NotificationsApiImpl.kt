@@ -56,12 +56,23 @@ class NotificationsApiImpl : NotificationsApi {
     override fun cancelLocalNotification(notificationId: Int) {
         Log.i(TAG, "Cancelling ${if (notificationId == notificationReminderId) "reminder" else "feedback"} notification, alarm only")
         val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = createPendingIntent(notificationId)
-        try {
+        val pendingIntent = createPendingIntent(notificationId, NOTIFICATION_ACTION_DISMISS)
+        if(withDelay != 0L) {
+            try {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay, pendingIntent)
+                Log.i(TAG, "Cancelling ${if (notificationId == notificationReminderId) "reminder" else "feedback"} notification at $withDelay ms")
+
+            } catch (e: RemoteException) {
+                Log.i(TAG, e.localizedMessage)
+            }
+        }else{
+            Log.i(TAG, "Cancelling ${if (notificationId == notificationReminderId) "reminder" else "feedback"} notification, alarm only")
+            val pendingIntent = createPendingIntent(notificationId, NOTIFICATION_ACTION_CREATE)
             alarmManager.cancel(pendingIntent)
         } catch (e: RemoteException) {
             Log.i(TAG, e.localizedMessage)
         }
+
     }
 
     // General Notification Code
@@ -106,7 +117,7 @@ class NotificationsApiImpl : NotificationsApi {
                 putExtra(NotificationPublisher.NOTIFICATION_ACTION_ID, actionId)
                 putExtra(NotificationPublisher.NOTIFICATION, notification)
             }
-            return PendingIntent.getBroadcast(AndroidAppContext.app, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+            return PendingIntent.getBroadcast(AndroidAppContext.app, id + action.hashCode(), intent, PendingIntent.FLAG_CANCEL_CURRENT)
         }
     }
 }
