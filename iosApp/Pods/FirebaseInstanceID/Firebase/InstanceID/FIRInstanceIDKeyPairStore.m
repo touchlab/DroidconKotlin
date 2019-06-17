@@ -18,7 +18,6 @@
 
 #import "FIRInstanceIDBackupExcludedPlist.h"
 #import "FIRInstanceIDConstants.h"
-#import "FIRInstanceIDDefines.h"
 #import "FIRInstanceIDKeyPair.h"
 #import "FIRInstanceIDKeyPairUtilities.h"
 #import "FIRInstanceIDKeychain.h"
@@ -45,7 +44,6 @@ NSString *const kFIRInstanceIDKeyPairSubType = @"";
 
 // Query the key with NSData format
 NSData *FIRInstanceIDKeyDataWithTag(NSString *tag) {
-  _FIRInstanceIDDevAssert([tag length], @"Invalid tag for keychain specified");
   if (![tag length]) {
     return NULL;
   }
@@ -59,8 +57,7 @@ NSData *FIRInstanceIDKeyDataWithTag(NSString *tag) {
 
 // Query the key given a tag
 SecKeyRef FIRInstanceIDCachedKeyRefWithTag(NSString *tag) {
-  _FIRInstanceIDDevAssert([tag length], @"Invalid tag for keychain specified");
-  if (![tag length]) {
+  if (!tag.length) {
     return NULL;
   }
   NSDictionary *queryKey = FIRInstanceIDKeyPairQuery(tag, YES, NO);
@@ -119,7 +116,7 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
 @interface FIRInstanceIDKeyPairStore ()
 
 @property(nonatomic, readwrite, strong) FIRInstanceIDBackupExcludedPlist *plist;
-@property(nonatomic, readwrite, strong) FIRInstanceIDKeyPair *keyPair;
+@property(atomic, readwrite, strong) FIRInstanceIDKeyPair *keyPair;
 @property(nonatomic, readwrite, assign) NSInteger keychainEntitlementsErrorCount;
 
 @end
@@ -130,9 +127,9 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
   self = [super init];
   if (self) {
     NSString *fileName = [[self class] keyStoreFileName];
-    _plist = [[FIRInstanceIDBackupExcludedPlist alloc]
-                      initWithFileName:fileName
-        applicationSupportSubDirectory:kFIRInstanceIDApplicationSupportSubDirectory];
+    _plist =
+        [[FIRInstanceIDBackupExcludedPlist alloc] initWithFileName:fileName
+                                                      subDirectory:kFIRInstanceIDSubDirectoryName];
   }
   return self;
 }
@@ -159,7 +156,7 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
   if ([self cachedKeyPairWithSubtype:kFIRInstanceIDKeyPairSubType error:&error] == nil) {
     if (error) {
       FIRInstanceIDLoggerDebug(kFIRInstanceIDMessageCodeKeyPairStore000,
-                               @"Failed to get cached keyPair %@", error);
+                               @"Failed to get the cached keyPair %@", error);
     }
     error = nil;
     [self removeKeyPairCreationTimePlistWithError:&error];
@@ -279,7 +276,9 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
     // There is no need to reset keypair again here as FIRInstanceID init call is always
     // going to be ahead of this call, which already trigger keypair reset if it's new install
     FIRInstanceIDErrorCode code = kFIRInstanceIDErrorCodeInvalidKeyPairCreationTime;
-    *error = [NSError errorWithFIRInstanceIDErrorCode:code];
+    if (error) {
+      *error = [NSError errorWithFIRInstanceIDErrorCode:code];
+    }
     return nil;
   }
 }
@@ -297,8 +296,6 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
 + (FIRInstanceIDKeyPair *)keyPairForPrivateKeyTag:(NSString *)privateKeyTag
                                      publicKeyTag:(NSString *)publicKeyTag
                                             error:(NSError *__autoreleasing *)error {
-  _FIRInstanceIDDevAssert([privateKeyTag length] && [publicKeyTag length],
-                          @"Invalid tags for keypair");
   if (![privateKeyTag length] || ![publicKeyTag length]) {
     if (error) {
       *error = [NSError errorWithFIRInstanceIDErrorCode:kFIRInstanceIDErrorCodeInvalidKeyPairTags];
@@ -314,7 +311,7 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
       *error = [NSError errorWithFIRInstanceIDErrorCode:kFIRInstanceIDErrorCodeMissingKeyPair];
     }
     FIRInstanceIDLoggerDebug(kFIRInstanceIDMessageCodeKeyPair000,
-                             @"No keypair info is retrieved with tag %@", privateKeyTag);
+                             @"No keypair info is found with tag %@", privateKeyTag);
     return nil;
   }
 
@@ -342,6 +339,8 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
                                             publicKeyTag:legacyPublicKeyTag
                                                    error:&error];
   if (![keyPair isValid]) {
+    FIRInstanceIDLoggerDebug(kFIRInstanceIDMessageCodeKeyPairNoLegacyKeyPair,
+                             @"There's no legacy keypair so no need to do migration.");
     if (handler) {
       handler(nil);
     }
@@ -361,6 +360,8 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
   self.keyPair = keyPair;
 
   // Either new key pair doesn't exist or it's different than legacy key pair, start the migration.
+  __block NSError *updateKeyRefError;
+
   NSString *privateKeyTag = FIRInstanceIDPrivateTagWithSubtype(kFIRInstanceIDKeyPairSubType);
   [self updateKeyRef:keyPair.publicKey
              withTag:publicKeyTag
@@ -368,23 +369,22 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
                if (error) {
                  FIRInstanceIDLoggerError(kFIRInstanceIDMessageCodeKeyPairMigrationError,
                                           @"Unable to migrate key pair from legacy ones.");
+                 updateKeyRefError = error;
                }
-               [self updateKeyRef:keyPair.privateKey
-                          withTag:privateKeyTag
-                          handler:^(NSError *error) {
-                            if (error) {
-                              FIRInstanceIDLoggerError(
-                                  kFIRInstanceIDMessageCodeKeyPairMigrationError,
-                                  @"Unable to migrate key pair from legacy ones.");
-                              return;
-                            }
-                            FIRInstanceIDLoggerDebug(
-                                kFIRInstanceIDMessageCodeKeyPairMigrationSuccess,
-                                @"Successfully migrated the key pair from legacy ones.");
-                            if (handler) {
-                              handler(error);
-                            }
-                          }];
+             }];
+
+  [self updateKeyRef:keyPair.privateKey
+             withTag:privateKeyTag
+             handler:^(NSError *error) {
+               if (error) {
+                 FIRInstanceIDLoggerError(kFIRInstanceIDMessageCodeKeyPairMigrationError,
+                                          @"Unable to migrate key pair from legacy ones.");
+                 updateKeyRefError = error;
+               }
+
+               if (handler) {
+                 handler(updateKeyRefError);
+               }
              }];
 }
 
@@ -396,6 +396,8 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
              handler:(void (^)(NSError *error))handler {
   NSData *updatedTagData = [tag dataUsingEncoding:NSUTF8StringEncoding];
 
+  __block NSError *keychainError;
+
   // Always delete the old keychain before adding a new one to avoid conflicts.
   NSDictionary *deleteQuery = @{
     (__bridge id)kSecAttrApplicationTag : updatedTagData,
@@ -403,30 +405,29 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
     (__bridge id)kSecAttrKeyType : (__bridge id)kSecAttrKeyTypeRSA,
     (__bridge id)kSecReturnRef : @(YES),
   };
+  [[FIRInstanceIDKeychain sharedInstance] removeItemWithQuery:deleteQuery
+                                                      handler:^(NSError *error) {
+                                                        if (error) {
+                                                          keychainError = error;
+                                                        }
+                                                      }];
 
-  [[FIRInstanceIDKeychain sharedInstance]
-      removeItemWithQuery:deleteQuery
-                  handler:^(NSError *error) {
-                    if (error) {
-                      if (handler) {
-                        handler(error);
-                      }
-                      return;
-                    }
-                    NSDictionary *addQuery = @{
-                      (__bridge id)kSecAttrApplicationTag : updatedTagData,
-                      (__bridge id)kSecClass : (__bridge id)kSecClassKey,
-                      (__bridge id)kSecValueRef : (__bridge id)keyRef,
-                      (__bridge id)
-                      kSecAttrAccessible : (__bridge id)kSecAttrAccessibleAlwaysThisDeviceOnly,
-                    };
-                    [[FIRInstanceIDKeychain sharedInstance] addItemWithQuery:addQuery
-                                                                     handler:^(NSError *addError) {
-                                                                       if (handler) {
-                                                                         handler(addError);
-                                                                       }
-                                                                     }];
-                  }];
+  NSDictionary *addQuery = @{
+    (__bridge id)kSecAttrApplicationTag : updatedTagData,
+    (__bridge id)kSecClass : (__bridge id)kSecClassKey,
+    (__bridge id)kSecValueRef : (__bridge id)keyRef,
+    (__bridge id)kSecAttrAccessible : (__bridge id)kSecAttrAccessibleAlwaysThisDeviceOnly,
+  };
+  [[FIRInstanceIDKeychain sharedInstance] addItemWithQuery:addQuery
+                                                   handler:^(NSError *addError) {
+                                                     if (addError) {
+                                                       keychainError = addError;
+                                                     }
+
+                                                     if (handler) {
+                                                       handler(keychainError);
+                                                     }
+                                                   }];
 }
 
 - (void)deleteSavedKeyPairWithSubtype:(NSString *)subtype
@@ -448,6 +449,8 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
                                @"Unable to remove keypair creation time from plist %@", plistError);
     }
   }
+
+  self.keyPair = nil;
 
   [FIRInstanceIDKeyPairStore
       deleteKeyPairWithPrivateTag:privateKeyTag
@@ -471,7 +474,6 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
                                 handler(error);
                               }
                             } else {
-                              self.keyPair = nil;
                               if (handler) {
                                 handler(nil);
                               }
@@ -485,28 +487,25 @@ NSString *FIRInstanceIDCreationTimeKeyWithSubtype(NSString *subtype) {
   NSDictionary *queryPublicKey = FIRInstanceIDKeyPairQuery(publicTag, NO, NO);
   NSDictionary *queryPrivateKey = FIRInstanceIDKeyPairQuery(privateTag, NO, NO);
 
+  __block NSError *keychainError;
+
   // Always remove public key first because it is the key we generate IID.
   [[FIRInstanceIDKeychain sharedInstance] removeItemWithQuery:queryPublicKey
                                                       handler:^(NSError *error) {
                                                         if (error) {
-                                                          if (handler) {
-                                                            handler(error);
-                                                          }
-                                                          return;
+                                                          keychainError = error;
                                                         }
-                                                        [[FIRInstanceIDKeychain sharedInstance]
-                                                            removeItemWithQuery:queryPrivateKey
-                                                                        handler:^(NSError *error) {
-                                                                          if (error) {
-                                                                            if (handler) {
-                                                                              handler(error);
-                                                                            }
-                                                                            return;
-                                                                          }
-                                                                          if (handler) {
-                                                                            handler(nil);
-                                                                          }
-                                                                        }];
+                                                      }];
+
+  [[FIRInstanceIDKeychain sharedInstance] removeItemWithQuery:queryPrivateKey
+                                                      handler:^(NSError *error) {
+                                                        if (error) {
+                                                          keychainError = error;
+                                                        }
+
+                                                        if (handler) {
+                                                          handler(keychainError);
+                                                        }
                                                       }];
 }
 

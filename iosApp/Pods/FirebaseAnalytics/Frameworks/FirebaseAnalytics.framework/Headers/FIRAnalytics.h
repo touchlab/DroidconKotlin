@@ -107,6 +107,19 @@ NS_SWIFT_NAME(Analytics)
 + (void)setScreenName:(nullable NSString *)screenName
           screenClass:(nullable NSString *)screenClassOverride;
 
+/// Sets whether analytics collection is enabled for this app on this device. This setting is
+/// persisted across app sessions. By default it is enabled.
+///
+/// @param analyticsCollectionEnabled A flag that enables or disables Analytics collection.
++ (void)setAnalyticsCollectionEnabled:(BOOL)analyticsCollectionEnabled;
+
+/// Sets the interval of inactivity in seconds that terminates the current session. The default
+/// value is 1800 seconds (30 minutes).
+///
+/// @param sessionTimeoutInterval The custom time of inactivity in seconds before the current
+///     session terminates.
++ (void)setSessionTimeoutInterval:(NSTimeInterval)sessionTimeoutInterval;
+
 /// The unique ID for this instance of the application.
 + (NSString *)appInstanceID;
 
