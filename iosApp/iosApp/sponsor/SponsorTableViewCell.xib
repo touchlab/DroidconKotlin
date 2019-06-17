@@ -18,18 +18,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="318" height="299.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UjN-OZ-hE6">
-                        <rect key="frame" x="82" y="66" width="220" height="15"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="15" id="PZG-Ni-mLS"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1XK-63-vyD" customClass="UITextViewFixed" customModule="iosApp" customModuleProvider="target">
-                        <rect key="frame" x="82" y="89" width="220" height="166"/>
+                        <rect key="frame" x="82" y="45" width="220" height="244"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -38,18 +28,14 @@
                     </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="1XK-63-vyD" firstAttribute="leading" secondItem="UjN-OZ-hE6" secondAttribute="leading" id="MNJ-O2-pfF"/>
-                    <constraint firstItem="1XK-63-vyD" firstAttribute="trailing" secondItem="UjN-OZ-hE6" secondAttribute="trailing" id="SIy-nT-Qqd"/>
-                    <constraint firstItem="UjN-OZ-hE6" firstAttribute="leading" secondItem="CCn-r8-AUV" secondAttribute="leadingMargin" constant="66" id="ZKT-Rf-vei"/>
-                    <constraint firstItem="1XK-63-vyD" firstAttribute="top" secondItem="UjN-OZ-hE6" secondAttribute="bottom" constant="8" id="bni-to-pAz"/>
-                    <constraint firstItem="UjN-OZ-hE6" firstAttribute="trailing" secondItem="CCn-r8-AUV" secondAttribute="trailingMargin" id="eWR-QE-DxC"/>
+                    <constraint firstItem="1XK-63-vyD" firstAttribute="top" secondItem="CCn-r8-AUV" secondAttribute="top" constant="45" id="0nc-Uq-N1y"/>
+                    <constraint firstAttribute="trailing" secondItem="1XK-63-vyD" secondAttribute="trailing" constant="16" id="BcF-U4-6Yg"/>
+                    <constraint firstItem="1XK-63-vyD" firstAttribute="leading" secondItem="CCn-r8-AUV" secondAttribute="leading" constant="82" id="X5l-q8-i6A"/>
                     <constraint firstAttribute="bottomMargin" secondItem="1XK-63-vyD" secondAttribute="bottom" id="fUT-Ga-iNT"/>
-                    <constraint firstItem="UjN-OZ-hE6" firstAttribute="top" secondItem="CCn-r8-AUV" secondAttribute="topMargin" constant="11" id="x87-8a-TXL"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="descriptionLabel" destination="1XK-63-vyD" id="3Qi-12-fH6"/>
-                <outlet property="titleLabel" destination="UjN-OZ-hE6" id="BSg-Yh-iyn"/>
             </connections>
             <point key="canvasLocation" x="368.11594202898556" y="242.41071428571428"/>
         </tableViewCell>
