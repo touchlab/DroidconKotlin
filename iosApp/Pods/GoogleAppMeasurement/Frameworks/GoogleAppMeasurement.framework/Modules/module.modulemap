@@ -1,9 +1,10 @@
 framework module GoogleAppMeasurement {
   export *
-  module * { export *}
+  module * { export * }
   link "sqlite3"
   link "z"
   link framework "Security"
   link framework "StoreKit"
   link framework "SystemConfiguration"
-  link framework "UIKit"}
+  link framework "UIKit"
+}
