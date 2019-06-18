@@ -16,13 +16,86 @@ import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnable
 import android.os.RemoteException
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import co.touchlab.sessionize.api.notificationDismissId
-import co.touchlab.sessionize.api.notificationReminderId
+import co.touchlab.droidcon.db.MySessions
+import co.touchlab.sessionize.platform.NotificationsModel.getFeedbackNotificationMessage
+import co.touchlab.sessionize.platform.NotificationsModel.getFeedbackNotificationTitle
+import co.touchlab.sessionize.platform.NotificationsModel.getFeedbackTimeFromSession
+import co.touchlab.sessionize.platform.NotificationsModel.getReminderNotificationMessage
+import co.touchlab.sessionize.platform.NotificationsModel.getReminderNotificationTitle
+import co.touchlab.sessionize.platform.NotificationsModel.getReminderTimeFromSession
+import co.touchlab.sessionize.platform.currentTimeMillis
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.NoSuchElementException
+
 
 class NotificationsApiImpl : NotificationsApi {
 
-    override fun scheduleLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
-        Log.i(TAG, "Creating   ${if(notificationId == notificationReminderId) "reminder" else "feedback"} notification at $timeInMS ms: $title - $message")
+    override fun scheduleReminderNotificationsForSessions(sessions:List<MySessions>){
+        try {
+            val keySession = sessions.first { getReminderTimeFromSession(it) > currentTimeMillis() }
+            val partitionedSessions = sessions.partition { it.startsAt.toLongMillis() == keySession.startsAt.toLongMillis() }
+            val sessionGroup = partitionedSessions.first
+            scheduleReminderForSessionGroup(sessionGroup)
+
+        } catch (e: NoSuchElementException) {
+            Log.i(TAG,e.message)
+        }
+    }
+
+    private fun scheduleReminderForSessionGroup(sessions:List<MySessions>){
+        //Log.i(TAG,"scheduleReminderForSessionGroup\n")
+
+        val firstSession = sessions.first()
+        val reminderTime = getReminderTimeFromSession(firstSession)
+
+        if (sessions.size == 1) {
+            scheduleLocalNotification(
+                    getReminderNotificationTitle(firstSession),
+                    getReminderNotificationMessage(firstSession),
+                    reminderTime,
+                    notificationReminderId)
+        } else {
+            scheduleLocalNotification(
+                    "${sessions.size} Upcoming Sessions",
+                    "You have ${sessions.size} Sessions Starting soon",
+                    reminderTime,
+                    notificationReminderId)
+        }
+    }
+
+
+
+
+    override fun scheduleFeedbackNotificationsForSessions(sessions:List<MySessions>){
+        //Log.i(TAG,"scheduleFeedbackForSession\n")
+        try {
+            val session = sessions.first { (getFeedbackTimeFromSession(it) > currentTimeMillis())}
+            val feedbackTime = getFeedbackTimeFromSession(session)
+            scheduleLocalNotification(getFeedbackNotificationTitle(),
+                    getFeedbackNotificationMessage(),
+                    feedbackTime,
+                    notificationFeedbackId)
+
+        } catch (e: NoSuchElementException) {
+            Log.e(TAG,e.message)
+        }
+    }
+
+    override fun cancelReminderNotifications(andDismissals: Boolean) {
+        cancelLocalNotification(notificationReminderId)
+        if(andDismissals)
+            cancelLocalNotification(notificationDismissId)
+    }
+
+    override fun cancelFeedbackNotifications(){
+        cancelLocalNotification(notificationFeedbackId)
+    }
+
+
+
+    private fun scheduleLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int) {
+        Log.i(TAG, "Creating   ${notificationIdToString(notificationId)} notification at ${msTimeToString(timeInMS)}(${timeInMS}ms): $title - $message")
 
         // Building Notification
         val channelId = AndroidAppContext.app.getString(R.string.notification_channel_id)
@@ -45,16 +118,8 @@ class NotificationsApiImpl : NotificationsApi {
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMS, pendingIntent)
     }
 
-    override fun dismissLocalNotification(notificationId: Int, withDelay: Long){
-        Log.i(TAG, "Dismissing ${if (notificationId == notificationReminderId) "reminder" else "feedback"} notification at $withDelay ms")
-        val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = createPendingIntent(notificationDismissId, actionId = notificationId)
-        alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay, pendingIntent)
-    }
-
-
-    override fun cancelLocalNotification(notificationId: Int) {
-        Log.i(TAG, "Cancelling ${if (notificationId == notificationReminderId) "reminder" else "feedback"} notification, alarm only")
+    private fun cancelLocalNotification(notificationId: Int) {
+        Log.i(TAG, "Cancelling ${notificationIdToString(notificationId)} notification, alarm only")
         val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pendingIntent = createPendingIntent(notificationId)
         try {
@@ -63,8 +128,6 @@ class NotificationsApiImpl : NotificationsApi {
             Log.i(TAG, e.localizedMessage)
         }
     }
-
-    // General Notification Code
 
     override fun initializeNotifications(onSuccess: (Boolean) -> Unit)
     {
@@ -97,7 +160,24 @@ class NotificationsApiImpl : NotificationsApi {
 
     companion object{
         val TAG:String = NotificationsApiImpl::class.java.simpleName
+        const val notificationFeedbackId = 1
+        const val notificationReminderId = 2
+        const val notificationDismissId = 3
 
+        fun notificationIdToString(id: Int) :String = when (id) {
+            notificationReminderId -> "Reminder"
+            notificationFeedbackId -> "Feedback"
+            notificationDismissId ->  "Dismiss"
+            else -> ""
+        }
+
+        fun msTimeToString(time:Long): String{
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = time
+            calendar.timeZone = TimeZone.getTimeZone(ServiceRegistry.timeZone)
+            val format = SimpleDateFormat("MM/dd/YYYY, hh:mma")
+            return format.format(calendar.time)
+        }
 
         fun createPendingIntent(id:Int, actionId:Int? = null, notification: Notification? = null): PendingIntent{
             // Building Intent wrapper

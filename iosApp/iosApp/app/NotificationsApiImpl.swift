@@ -11,24 +11,59 @@ import lib
 import UserNotifications
 
 class NotificationsApiImpl : NSObject, NotificationsApi {
+    
+    let reminderTag = "Reminder"
+    let feedbackTag = "Feedback"
+    
+    
+    func scheduleReminderNotificationsForSessions(sessions: [MySessions]) {
+        for session in sessions {
+            let title = NotificationsModel().getReminderNotificationTitle(session: session)
+            let message = NotificationsModel().getReminderNotificationMessage(session: session)
+            let time = NotificationsModel().getReminderTimeFromSession(session: session)
+            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(session.id.hashValue), notificationTag: reminderTag)
+        }
+    }
+    
+    func scheduleFeedbackNotificationsForSessions(sessions: [MySessions]) {
+        for session in sessions {
+            let title = NotificationsModel().getFeedbackNotificationTitle()
+            let message = NotificationsModel().getFeedbackNotificationMessage()
+            let time = NotificationsModel().getFeedbackTimeFromSession(session: session)
+            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(session.id.hashValue), notificationTag: feedbackTag)
+        }
+    }
+    
+    func cancelReminderNotifications(andDismissals: Bool) {
+        cancelNotificationsWithTag(tag: reminderTag)
+    }
+    
+    func cancelFeedbackNotifications() {
+        cancelNotificationsWithTag(tag: feedbackTag)
+    }
+    
+    private func cancelNotificationsWithTag(tag:String){
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { (requests) in
+            for request in requests {
+                if request.identifier.starts(with: tag) {
+                    center.removePendingNotificationRequests(withIdentifiers: [request.identifier])
+                }
+            }
+        })
+    }
+    
 
     // Needed to approve local notifications
     class LocalNotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
         func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void){
-            if(notification.request.identifier == String(NotificationsApiKt.notificationReminderId)){
-                NotificationsModel().recreateReminderNotifications()
-            }
-            if(notification.request.identifier == String(NotificationsApiKt.notificationFeedbackId)){
-                NotificationsModel().recreateFeedbackNotifications()
-            }
-            
             completionHandler(.alert)
         }
     }
 
     let notificationDelegate = LocalNotificationDelegate()
 
-    func scheduleLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32) {
+    private func scheduleLocalNotification(title: String, message: String, timeInMS: Int64, notificationId: Int32, notificationTag: String) {
         let timeDouble = Double(integerLiteral: timeInMS)
         let date = Date.init(timeIntervalSince1970: timeDouble / 1000.0)
         let dateInfo: DateComponents = Calendar.current.dateComponents([.month,.day,.year,.hour, .minute, .second, .timeZone], from: date)
@@ -50,19 +85,8 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         let request = UNNotificationRequest(identifier: notifString, content: content, trigger: trigger)
         center.add(request,withCompletionHandler: nil)
     }
-
-    func dismissLocalNotification(notificationId: Int32, withDelay: Int64) {
-        let identifiers = [String(notificationId)]
-        perform(#selector(dismissNotification), with: identifiers, afterDelay: TimeInterval(withDelay))
-    }
     
-    @objc private func dismissNotification(identifiers:[String]){
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: identifiers)
-        center.removeDeliveredNotifications(withIdentifiers: identifiers)
-    }
-    
-    func cancelLocalNotification(notificationId: Int32) {
+    private func cancelLocalNotification(notificationId: Int32) {
         let notifString = String(notificationId)
         let identifiers = [notifString]
         
