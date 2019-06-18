@@ -995,9 +995,6 @@
 					"\"UIKit\"",
 					"-framework",
 					"\"lib\"",
-					"-framework",
-					"\"lib_umbrella\"",
-					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1071,9 +1068,6 @@
 					"\"UIKit\"",
 					"-framework",
 					"\"lib\"",
-					"-framework",
-					"\"lib_umbrella\"",
-					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
