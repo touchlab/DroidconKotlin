@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -644,7 +644,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "file_name=$SRCROOT/iosApp/GoogleService-Info.plist\nif [ -f $file_name ]\nthen   \n\"${PODS_ROOT}/Fabric/run\"\nfi\n";
+			shellScript = "file_name=$SRCROOT/iosApp/GoogleService-Info.plist\nif [ -f $file_name ]\nthen   \ncp $file_name ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\"${PODS_ROOT}/Fabric/run\"\nfi\n";
 		};
 		81B84390B07E56A66415404A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

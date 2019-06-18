@@ -11,7 +11,6 @@ import lib
 
 class SponsorTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var titleLabel : UILabel!
     @IBOutlet weak var descriptionLabel : UITextView!
     
     var viewModel: SponsorSessionViewModel!
@@ -23,13 +22,10 @@ class SponsorTableViewCell: UITableViewCell {
         self.viewModel = viewModel
         self.sponsorSessionInfo = sponsorSessionInfo
         
-        titleLabel.text = sponsorSessionInfo.sponsor.name
-        
         if let description = sponsorSessionInfo.sponsor.description {
             descriptionLabel.text = description.replacingOccurrences(of: "/n/n", with: "/n")
         }
         
-        titleLabel.sizeToFit()
         descriptionLabel.sizeToFit()
     }
     

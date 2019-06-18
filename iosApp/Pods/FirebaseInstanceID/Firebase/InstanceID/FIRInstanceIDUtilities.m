@@ -23,7 +23,6 @@
 #import <GoogleUtilities/GULUserDefaults.h>
 #import "FIRInstanceID.h"
 #import "FIRInstanceIDConstants.h"
-#import "FIRInstanceIDDefines.h"
 #import "FIRInstanceIDLogger.h"
 
 // Convert the macro to a string
@@ -108,7 +107,7 @@ NSString *FIRInstanceIDDeviceModel() {
 
 // Get the system version from Firebase Core's App Environment Util
 NSString *FIRInstanceIDOperatingSystemVersion() {
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_TV
   return [UIDevice currentDevice].systemVersion;
 #elif TARGET_OS_OSX
   return [NSProcessInfo processInfo].operatingSystemVersionString;

@@ -11,7 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="139dp"
             android:fitsSystemWindows="true">
-
         <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
@@ -20,35 +19,47 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:statusBarScrim="@android:color/transparent">
 
-            <LinearLayout
+            <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/padding_xlarge"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_vertical"
-                    android:fitsSystemWindows="true"
-                    android:gravity="bottom|start">
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true">
 
-                <TextView
-                        android:id="@+id/sponsorSessionTitle"
-                        android:ellipsize="end"
-                        android:singleLine="true"
+                <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_xxlarge"
-                        tools:text="John Doe"/>
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/padding_medium"
+                        android:layout_marginStart="@dimen/padding_medium"
+                        android:orientation="vertical">
 
-                <TextView
-                        android:id="@+id/sponsorSessionRoomTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_micro"
-                        android:textColor="@color/white"
-                        tools:text="Company"
-                        tools:visibility="visible"/>
+                    <TextView
+                            android:id="@+id/sponsorSessionTitle"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_xxlarge"
+                            tools:text="John Doe"/>
 
-            </LinearLayout>
+                    <TextView
+                            android:id="@+id/sponsorGroupName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            tools:text="Company"
+                            tools:visibility="visible"/>
+                </LinearLayout>
+
+
+                <ImageView
+                        android:id="@+id/sponsorImage"
+                        android:layout_width="@dimen/wrap_content"
+                        android:layout_height="@dimen/match_parent"
+                        android:layout_margin="@dimen/padding_medium"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
