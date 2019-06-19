@@ -939,63 +939,15 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionAnimator\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionInterchange\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
-					"\"${PODS_ROOT}/Crashlytics/iOS\"",
-					"\"${PODS_ROOT}/Fabric/iOS\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
-					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
-					"/Users/kgalligan/devel_kmp/kotlin-native-latest/runtime/src/main/cpp",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"c++\"",
-					"-l\"z\"",
-					"-framework",
-					"\"Crashlytics\"",
-					"-framework",
-					"\"Fabric\"",
-					"-framework",
-					"\"Kingfisher\"",
-					"-framework",
-					"\"MDFInternationalization\"",
-					"-framework",
-					"\"MDFTextAccessibility\"",
-					"-framework",
-					"\"MaterialComponents\"",
-					"-framework",
-					"\"MotionAnimator\"",
-					"-framework",
-					"\"MotionInterchange\"",
-					"-framework",
-					"\"MotionTransitioning\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
-					"-framework",
-					"\"lib\"",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1012,63 +964,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionAnimator\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionInterchange\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
-					"\"${PODS_ROOT}/Crashlytics/iOS\"",
-					"\"${PODS_ROOT}/Fabric/iOS\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
-					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
-					"/Users/kgalligan/devel_kmp/kotlin-native-latest/runtime/src/main/cpp",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"c++\"",
-					"-l\"z\"",
-					"-framework",
-					"\"Crashlytics\"",
-					"-framework",
-					"\"Fabric\"",
-					"-framework",
-					"\"Kingfisher\"",
-					"-framework",
-					"\"MDFInternationalization\"",
-					"-framework",
-					"\"MDFTextAccessibility\"",
-					"-framework",
-					"\"MaterialComponents\"",
-					"-framework",
-					"\"MotionAnimator\"",
-					"-framework",
-					"\"MotionInterchange\"",
-					"-framework",
-					"\"MotionTransitioning\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
-					"-framework",
-					"\"lib\"",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
