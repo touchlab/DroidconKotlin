@@ -563,9 +563,6 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
 }
 
 - (void)setTitleView:(UIView *)titleView {
-  if (self.titleView == titleView) {
-    return;
-  }
   // Ignore sandbag KVO events
   if ([_observedNavigationItem.titleView isKindOfClass:[MDCNavigationBarSandbagView class]]) {
     return;
@@ -580,8 +577,10 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
     _observedNavigationItem.titleView = nil;
   }
 
-  [self.titleView removeFromSuperview];
-  _titleView = titleView;
+  if (self.titleView != titleView) {
+    [self.titleView removeFromSuperview];
+    _titleView = titleView;
+  }
 
   if (_titleView != nil) {
     [self addSubview:_titleView];
@@ -668,6 +667,16 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
 
 - (UIBarButtonItem *)trailingBarButtonItem {
   return [self.trailingBarButtonItems firstObject];
+}
+
+- (CGRect)rectForLeadingBarButtonItem:(nonnull UIBarButtonItem *)item
+                    inCoordinateSpace:(nonnull id<UICoordinateSpace>)coordinateSpace {
+  return [self.leadingButtonBar rectForItem:item inCoordinateSpace:coordinateSpace];
+}
+
+- (CGRect)rectForTrailingBarButtonItem:(nonnull UIBarButtonItem *)item
+                     inCoordinateSpace:(nonnull id<UICoordinateSpace>)coordinateSpace {
+  return [self.trailingButtonBar rectForItem:item inCoordinateSpace:coordinateSpace];
 }
 
 - (void)setBackBarButtonItem:(UIBarButtonItem *)backBarButtonItem {

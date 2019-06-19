@@ -48,6 +48,16 @@
 @property(nonatomic, assign) CGFloat inkMaxRippleRadius UI_APPEARANCE_SELECTOR;
 
 /**
+ This property determines if an @c MDCButton should use the @c MDCInkView behavior or not.
+
+ By setting this property to @c YES, @c MDCStatefulRippleView is used to provide the user visual
+ touch feedback, instead of the legacy @c MDCInkView.
+
+ @note Defaults to @c NO.
+ */
+@property(nonatomic, assign) BOOL enableRippleBehavior;
+
+/**
  The alpha value that will be applied when the button is disabled. Most clients can leave this as
  the default value to get a semi-transparent button automatically.
  */
@@ -119,6 +129,20 @@
     BOOL mdc_adjustsFontForContentSizeCategory UI_APPEARANCE_SELECTOR;
 
 /**
+ Affects the fallback behavior for when a scaled font is not provided.
+
+ If @c YES, the font size will adjust even if a scaled font has not been provided for
+ a given @c UIFont property on this component.
+
+ If @c NO, the font size will only be adjusted if a scaled font has been provided.
+
+ Default value is @c YES.
+ */
+@property(nonatomic, assign) BOOL adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable;
+@property(nonatomic, readwrite, setter=mdc_setLegacyFontScaling:)
+    BOOL mdc_legacyFontScaling __deprecated;
+
+/**
  The shape generator used to define the button's shape.
 
  note: If a layer property is explicitly set after the shapeGenerator has been set,
@@ -130,6 +154,13 @@
  Default value for shapeGenerator is nil.
  */
 @property(nullable, nonatomic, strong) id<MDCShapeGenerating> shapeGenerator;
+
+/**
+ If true, @c accessiblityTraits will always include @c UIAccessibilityTraitButton.
+
+ @note Defaults to true.
+ */
+@property(nonatomic, assign) BOOL accessibilityTraitsIncludesButton;
 
 /**
  A color used as the button's @c backgroundColor for @c state.

@@ -6,7 +6,6 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -31,6 +30,10 @@ class NotificationsApiImpl : NotificationsApi {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
 
+
+        val intent = Intent(AndroidAppContext.app, MainActivity::class.java)
+        val activityIntent = PendingIntent.getActivity(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        builder.setContentIntent(activityIntent)
 
         // Building Intent wrapper
         val pendingIntent = createPendingIntent(notificationId, builder.build())
@@ -87,11 +90,9 @@ class NotificationsApiImpl : NotificationsApi {
 
         private fun createPendingIntent(id:Int, notification: Notification? = null): PendingIntent{
             // Building Intent wrapper
-            val intent = Intent().also { intent ->
-                intent.putExtra(NotificationPublisher.NOTIFICATION_ID, id)
-                intent.putExtra(NotificationPublisher.NOTIFICATION, notification)
-                val componentName = ComponentName(AndroidAppContext.app, NotificationPublisher::class.java)
-                intent.component = componentName
+            val intent = Intent(AndroidAppContext.app,NotificationPublisher::class.java).apply {
+                putExtra(NotificationPublisher.NOTIFICATION_ID, id)
+                putExtra(NotificationPublisher.NOTIFICATION, notification)
             }
             return PendingIntent.getBroadcast(AndroidAppContext.app, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
         }

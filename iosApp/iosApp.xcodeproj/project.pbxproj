@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -618,31 +618,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
-				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
-				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
-				"${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework",
-				"${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework",
-				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionInterchange.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -663,7 +644,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "file_name=$SRCROOT/iosApp/GoogleService-Info.plist\nif [ -f $file_name ]\nthen   \n\"${PODS_ROOT}/Fabric/run\"\nfi\n";
+			shellScript = "file_name=$SRCROOT/iosApp/GoogleService-Info.plist\nif [ -f $file_name ]\nthen   \ncp $file_name ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\"${PODS_ROOT}/Fabric/run\"\nfi\n";
 		};
 		81B84390B07E56A66415404A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1014,9 +995,6 @@
 					"\"UIKit\"",
 					"-framework",
 					"\"lib\"",
-					"-framework",
-					"\"lib_umbrella\"",
-					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1090,9 +1068,6 @@
 					"\"UIKit\"",
 					"-framework",
 					"\"lib\"",
-					"-framework",
-					"\"lib_umbrella\"",
-					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
 				PRODUCT_NAME = "$(TARGET_NAME)";

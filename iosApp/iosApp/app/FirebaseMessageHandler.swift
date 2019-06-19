@@ -44,7 +44,7 @@ class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, Messag
     
     static func initMessaging(){
         Messaging.messaging().shouldEstablishDirectChannel = true
-        Messaging.messaging().useMessagingDelegateForDirectChannel = true
+//        Messaging.messaging().useMessagingDelegateForDirectChannel = true
         
         Messaging.messaging().subscribe(toTopic: "all")
     }

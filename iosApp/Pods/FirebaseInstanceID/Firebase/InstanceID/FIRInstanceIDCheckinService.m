@@ -70,7 +70,16 @@ static FIRInstanceIDURLRequestTestBlock testBlock;
 
 - (void)checkinWithExistingCheckin:(FIRInstanceIDCheckinPreferences *)existingCheckin
                         completion:(FIRInstanceIDDeviceCheckinCompletion)completion {
-  _FIRInstanceIDDevAssert(completion != nil, @"completion required");
+  if (self.session == nil) {
+    FIRInstanceIDLoggerError(kFIRInstanceIDInvalidNetworkSession,
+                             @"Inconsistent state: NSURLSession has been invalidated");
+    NSError *error =
+        [NSError errorWithFIRInstanceIDErrorCode:kFIRInstanceIDErrorCodeRegistrarFailedToCheckIn];
+    if (completion) {
+      completion(nil, error);
+    }
+    return;
+  }
 
   NSURL *url = [NSURL URLWithString:kDeviceCheckinURL];
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -88,7 +97,9 @@ static FIRInstanceIDURLRequestTestBlock testBlock;
           FIRInstanceIDLoggerDebug(kFIRInstanceIDMessageCodeService000,
                                    @"Device checkin HTTP fetch error. Error Code: %ld",
                                    (long)error.code);
-          completion(nil, error);
+          if (completion) {
+            completion(nil, error);
+          }
           return;
         }
 
@@ -100,7 +111,9 @@ static FIRInstanceIDURLRequestTestBlock testBlock;
           FIRInstanceIDLoggerDebug(kFIRInstanceIDMessageCodeService001,
                                    @"Error serializing json object. Error Code: %ld",
                                    _FIRInstanceID_L(serializationError.code));
-          completion(nil, serializationError);
+          if (completion) {
+            completion(nil, serializationError);
+          }
           return;
         }
 
@@ -109,7 +122,9 @@ static FIRInstanceIDURLRequestTestBlock testBlock;
         if ([deviceAuthID length] == 0) {
           NSError *error =
               [NSError errorWithFIRInstanceIDErrorCode:kFIRInstanceIDErrorCodeInvalidRequest];
-          completion(nil, error);
+          if (completion) {
+            completion(nil, error);
+          }
           return;
         }
 
@@ -118,8 +133,9 @@ static FIRInstanceIDURLRequestTestBlock testBlock;
         // Somehow the server clock gets out of sync with the device clock.
         // Reset the last checkin timestamp in case this happens.
         if (lastCheckinTimestampMillis > currentTimestampMillis) {
-          FIRInstanceIDLoggerDebug(kFIRInstanceIDMessageCodeService002,
-                                   @"Invalid last checkin timestamp in future.");
+          FIRInstanceIDLoggerDebug(
+              kFIRInstanceIDMessageCodeService002, @"Invalid last checkin timestamp %@ in future.",
+              [NSDate dateWithTimeIntervalSince1970:lastCheckinTimestampMillis / 1000.0]);
           lastCheckinTimestampMillis = currentTimestampMillis;
         }
 
@@ -141,8 +157,9 @@ static FIRInstanceIDURLRequestTestBlock testBlock;
           if (dict[@"name"] && dict[@"value"]) {
             gservicesData[dict[@"name"]] = dict[@"value"];
           } else {
-            _FIRInstanceIDDevAssert(NO, @"Invalid setting in checkin response: (%@: %@)",
-                                    dict[@"name"], dict[@"value"]);
+            FIRInstanceIDLoggerDebug(kFIRInstanceIDInvalidSettingResponse,
+                                     @"Invalid setting in checkin response: (%@: %@)",
+                                     dict[@"name"], dict[@"value"]);
           }
         }
 
@@ -157,7 +174,9 @@ static FIRInstanceIDURLRequestTestBlock testBlock;
           kFIRInstanceIDDeviceDataVersionKey : deviceDataVersionInfo,
         };
         [checkinPreferences updateWithCheckinPlistContents:preferences];
-        completion(checkinPreferences, nil);
+        if (completion) {
+          completion(checkinPreferences, nil);
+        }
       };
   // Test block
   if (testBlock) {
@@ -173,6 +192,8 @@ static FIRInstanceIDURLRequestTestBlock testBlock;
 
 - (void)stopFetching {
   [self.session invalidateAndCancel];
+  // The session cannot be reused after invalidation. Dispose it to prevent accident reusing.
+  self.session = nil;
 }
 
 #pragma mark - Private

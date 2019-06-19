@@ -15,6 +15,8 @@ import MaterialComponents
     @IBOutlet weak var tableView : UITableView!
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var sponsorName: UILabel!
+    @IBOutlet weak var groupNameLabel: UILabel!
+    @IBOutlet weak var sponsorImage: UIImageView!
     
     // MARK: Properties
     var sponsorId: String!
@@ -80,7 +82,12 @@ import MaterialComponents
     }
     
     func updateAllUi() {
+        if let icon = sponsor.icon {
+            sponsorImage.kf.setImage(with: URL(string: icon))
+        }
+
         sponsorName.text = sponsor.name
+        groupNameLabel.text = groupName
         tableView.reloadData()
     }
     

@@ -1044,27 +1044,48 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sponsor Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E51-vM-sox">
-                                <rect key="frame" x="32" y="102" width="311" height="34"/>
+                                <rect key="frame" x="32" y="102" width="219" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6L-MQ-qO4">
-                                <rect key="frame" x="32" y="138" width="311" height="0.0"/>
+                                <rect key="frame" x="32" y="138" width="219" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sponsor Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mz6-Qx-bAN">
+                                <rect key="frame" x="32" y="138" width="219" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="qy0-wr-iFb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eJq-U2-0Kb">
+                                <rect key="frame" x="259" y="83" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="eJq-U2-0Kb" secondAttribute="height" multiplier="1:1" id="wgh-hq-Npu"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="lHT-SG-PdW" secondAttribute="trailing" id="09r-lr-eQF"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="E51-vM-sox" secondAttribute="trailing" constant="16" id="5b4-eg-bQF"/>
+                            <constraint firstItem="jFV-WI-QzE" firstAttribute="top" secondItem="eJq-U2-0Kb" secondAttribute="bottom" constant="20" id="1gt-fh-ZxE"/>
+                            <constraint firstItem="mz6-Qx-bAN" firstAttribute="width" secondItem="E51-vM-sox" secondAttribute="width" id="9Se-8T-q9l"/>
+                            <constraint firstItem="eJq-U2-0Kb" firstAttribute="leading" secondItem="E51-vM-sox" secondAttribute="trailing" constant="8" id="Cgq-E9-43o"/>
+                            <constraint firstItem="eJq-U2-0Kb" firstAttribute="trailing" secondItem="dwb-wb-o4N" secondAttribute="trailingMargin" id="JKz-aV-ZSy"/>
                             <constraint firstItem="O6L-MQ-qO4" firstAttribute="top" secondItem="E51-vM-sox" secondAttribute="bottom" constant="2" id="LwM-eH-L9e"/>
                             <constraint firstAttribute="trailing" secondItem="jFV-WI-QzE" secondAttribute="trailing" id="OS9-do-Cjz"/>
+                            <constraint firstItem="mz6-Qx-bAN" firstAttribute="top" secondItem="E51-vM-sox" secondAttribute="bottom" constant="2" id="WIf-qv-t9v"/>
                             <constraint firstItem="jFV-WI-QzE" firstAttribute="top" secondItem="lHT-SG-PdW" secondAttribute="bottom" id="YAH-aW-VJ2"/>
                             <constraint firstItem="lHT-SG-PdW" firstAttribute="leading" secondItem="dwb-wb-o4N" secondAttribute="leading" id="YgH-gc-Prm"/>
                             <constraint firstItem="sMi-Ug-0Id" firstAttribute="top" secondItem="jFV-WI-QzE" secondAttribute="bottom" id="ZOT-k4-oKR"/>
+                            <constraint firstItem="mz6-Qx-bAN" firstAttribute="leading" secondItem="E51-vM-sox" secondAttribute="leading" id="bjj-rH-Cue"/>
+                            <constraint firstItem="eJq-U2-0Kb" firstAttribute="top" secondItem="UoN-7e-HJ0" secondAttribute="bottom" constant="19" id="gAl-mV-UWv"/>
                             <constraint firstItem="E51-vM-sox" firstAttribute="leading" secondItem="dwb-wb-o4N" secondAttribute="leadingMargin" constant="16" id="im4-f2-9N5"/>
                             <constraint firstItem="O6L-MQ-qO4" firstAttribute="trailing" secondItem="E51-vM-sox" secondAttribute="trailing" id="jWS-Kr-5HW"/>
                             <constraint firstItem="jFV-WI-QzE" firstAttribute="leading" secondItem="dwb-wb-o4N" secondAttribute="leading" id="nyD-gO-FZX"/>
@@ -1074,7 +1095,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="groupNameLabel" destination="mz6-Qx-bAN" id="YZm-sB-RHJ"/>
                         <outlet property="headerImage" destination="lHT-SG-PdW" id="neD-Hh-9Kh"/>
+                        <outlet property="sponsorImage" destination="eJq-U2-0Kb" id="bAO-gf-hwM"/>
                         <outlet property="sponsorName" destination="E51-vM-sox" id="1xV-aG-MFS"/>
                         <outlet property="tableView" destination="jFV-WI-QzE" id="O6V-8t-9YU"/>
                         <segue destination="K4g-B7-LAe" kind="show" identifier="ShowSpeakerDetailFromSponsor" id="xks-9m-eeO"/>
@@ -1126,7 +1149,7 @@
         <image name="icon_sponsors" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Jp1-M9-6W4"/>
+        <segue reference="xks-9m-eeO"/>
         <segue reference="pVg-yj-H2O"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.25490196079999999" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

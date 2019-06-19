@@ -72,8 +72,8 @@ class SponsorSessionAdapter(private val activity: Activity) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (EntryType.values()[holder.itemViewType]) {
             EntryType.TYPE_HEADER -> {
-                val view = (holder as HeaderVH).itemView
-                view.findViewById<TextView>(R.id.title).text = (data[position] as HeaderDetail).title
+//                val view = (holder as HeaderVH).itemView
+//                view.findViewById<TextView>(R.id.title).text = (data[position] as HeaderDetail).title
             }
 
             EntryType.TYPE_INFO -> {
