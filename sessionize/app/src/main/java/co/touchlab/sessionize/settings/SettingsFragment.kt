@@ -20,6 +20,7 @@ import co.touchlab.sessionize.about.AboutFragment
 class SettingsFragment : Fragment() {
 
     lateinit var recycler: RecyclerView
+    lateinit var adapter: SettingsAdapter
     lateinit var settingsViewModel: SettingsViewModel
 
 
@@ -36,7 +37,7 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         recycler = view.findViewById(R.id.recycler)
 
-        val adapter = SettingsAdapter(activity!!)
+        adapter = SettingsAdapter(activity!!)
         recycler.adapter = adapter
 
         return view
@@ -51,35 +52,30 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateContent() {
-        val adapter = SettingsAdapter(activity!!)
-
-        //SettingsModel.loadSettingsInfo {
-            adapter.addSwitchRow("Enable Feedback",
-                    R.drawable.baseline_feedback_24,
-                    ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED, true),
-                    CompoundButton.OnCheckedChangeListener { _, isChecked ->
-                        settingsViewModel.settingsModel.setFeedbackSettingEnabled(isChecked)
-                    }
+        adapter.addSwitchRow("Enable Feedback",
+                R.drawable.baseline_feedback_24,
+                ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED, true),
+                CompoundButton.OnCheckedChangeListener { _, isChecked ->
+                    settingsViewModel.settingsModel.setFeedbackSettingEnabled(isChecked)
+                }
+        )
+        adapter.addSwitchRow("Enable Reminders",
+                R.drawable.baseline_insert_invitation_24,
+                ServiceRegistry.appSettings.getBoolean(REMINDERS_ENABLED, true),
+                CompoundButton.OnCheckedChangeListener { _, isChecked ->
+                    settingsViewModel.settingsModel.setRemindersSettingEnabled(isChecked)
+                }
+        )
+        adapter.addButtonRow("About",R.drawable.menu_info, View.OnClickListener {
+            (activity as NavigationHost).navigateTo(
+                    AboutFragment.newInstance(),
+                    true,
+                    FragmentAnimation(R.anim.slide_from_right,
+                            R.anim.slide_to_left,
+                            R.anim.slide_from_left,
+                            R.anim.slide_to_right)
             )
-            adapter.addSwitchRow("Enable Reminders",
-                    R.drawable.baseline_insert_invitation_24,
-                    ServiceRegistry.appSettings.getBoolean(REMINDERS_ENABLED, true),
-                    CompoundButton.OnCheckedChangeListener { _, isChecked ->
-                        settingsViewModel.settingsModel.setRemindersSettingEnabled(isChecked)
-                    }
-            )
-            adapter.addButtonRow("About",R.drawable.menu_info, View.OnClickListener {
-                (activity as NavigationHost).navigateTo(
-                        AboutFragment.newInstance(),
-                        true,
-                        FragmentAnimation(R.anim.slide_from_right,
-                                R.anim.slide_to_left,
-                                R.anim.slide_from_left,
-                                R.anim.slide_to_right)
-                )
-            })
-        //}
-
-        recycler.adapter = adapter
+        })
+        adapter.notifyDataSetChanged()
     }
 }

@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +31,7 @@ class EventFragment : Fragment() {
     lateinit var eventViewModel: EventViewModel
     lateinit var fab: FloatingActionButton
     lateinit var recycler: RecyclerView
+    lateinit var adapter: EventDetailAdapter
     lateinit var eventTitle: TextView
     lateinit var eventRoomTime: TextView
 
@@ -55,7 +54,7 @@ class EventFragment : Fragment() {
             }
         })
 
-        val adapter = EventDetailAdapter(activity!!)
+        adapter = EventDetailAdapter(activity!!)
         recycler.adapter = adapter
 
         return view
@@ -104,26 +103,11 @@ class EventFragment : Fragment() {
     }
 
     private fun updateContent(event: SessionInfo, formattedRoomTime:String) {
-        val adapter = EventDetailAdapter(activity!!)
-
         eventTitle.text = event.session.title
         eventRoomTime.text = formattedRoomTime
-        adapter.addHeader(event.session.title)
 
-        when {
-            event.isNow() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_now) + "</b></i>")
-            event.isPast() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_past) + "</b></i>")
-            event.conflict -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_conflict) + "</b></i>")
-        }
-
-        if (!event.session.description.isBlank())
-            adapter.addBody(event.session.description)
-
-        for (item in event.speakers) {
-            adapter.addSpeaker(item)
-        }
-
-        recycler.adapter = adapter
+        adapter.updateWithSession(event, resources)
+        adapter.notifyDataSetChanged()
     }
 
 }
