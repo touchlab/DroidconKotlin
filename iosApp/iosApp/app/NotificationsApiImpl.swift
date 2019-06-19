@@ -17,19 +17,21 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
     
     
     func scheduleReminderNotificationsForSessions(sessions: [MySessions]) {
+        let notificationModel = NotificationsModel()
         for session in sessions {
-            let title = NotificationsModel().getReminderNotificationTitle(session: session)
-            let message = NotificationsModel().getReminderNotificationMessage(session: session)
-            let time = NotificationsModel().getReminderTimeFromSession(session: session)
+            let title = notificationModel.getReminderNotificationTitle(session: session)
+            let message = notificationModel.getReminderNotificationMessage(session: session)
+            let time = notificationModel.getReminderTimeFromSession(session: session)
             scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(session.id.hashValue), notificationTag: reminderTag)
         }
     }
     
     func scheduleFeedbackNotificationsForSessions(sessions: [MySessions]) {
+        let notificationModel = NotificationsModel()
         for session in sessions {
-            let title = NotificationsModel().getFeedbackNotificationTitle()
-            let message = NotificationsModel().getFeedbackNotificationMessage()
-            let time = NotificationsModel().getFeedbackTimeFromSession(session: session)
+            let title = notificationModel.getFeedbackNotificationTitle()
+            let message = notificationModel.getFeedbackNotificationMessage()
+            let time = notificationModel.getFeedbackTimeFromSession(session: session)
             scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(session.id.hashValue), notificationTag: feedbackTag)
         }
     }
