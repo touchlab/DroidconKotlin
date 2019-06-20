@@ -15,7 +15,6 @@ import co.touchlab.sessionize.platform.NotificationsModel.setRemindersEnabled
 
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
