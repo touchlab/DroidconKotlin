@@ -8,16 +8,12 @@ import co.touchlab.droidcon.db.SessionSpeakerQueries
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.db.UserAccountQueries
-import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
-import co.touchlab.sessionize.db.SessionizeDbHelper.instance
 import co.touchlab.sessionize.jsondata.SessionSpeaker
 import co.touchlab.sessionize.jsondata.Speaker
-import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.jsondata.SponsorSession
 import co.touchlab.sessionize.jsondata.SponsorSessionGroup
-import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.logException
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.value
@@ -26,7 +22,6 @@ import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
-import kotlinx.serialization.parse
 
 object SessionizeDbHelper {
 

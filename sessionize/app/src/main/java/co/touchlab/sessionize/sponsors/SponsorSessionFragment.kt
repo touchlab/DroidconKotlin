@@ -60,6 +60,9 @@ class SponsorSessionFragment : Fragment() {
         recycler = view.findViewById(R.id.recycler)
         sponsorImage = view.findViewById(R.id.sponsorImage)
 
+        val adapter = SponsorSessionAdapter(activity!!)
+        recycler.adapter = adapter
+
         sponsorSessionViewModel
                 .sponsorSessionModel
                 .register(object : SponsorSessionModel.SponsorSessionView {
