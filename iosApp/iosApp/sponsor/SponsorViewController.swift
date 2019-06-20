@@ -46,6 +46,7 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
             let sponsorInfo = sponsorGroups![(indexPath as NSIndexPath).section].sponsors[indexPath.item]
             if let icon = sponsorInfo.icon {
                 sponsorView.sponsorImageView.kf.setImage(with: URL(string: icon)!)
+                sponsorView.sponsorImageView.backgroundColor = UIColor.white
             }
         }
         
