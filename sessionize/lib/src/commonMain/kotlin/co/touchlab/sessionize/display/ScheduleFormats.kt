@@ -105,7 +105,8 @@ fun sortTimeBlocks(o1: SessionWithRoom, o2: SessionWithRoom): Int {
 
 fun formatHourBlocks(inList: List<SessionWithRoom>): HashMap<String, ArrayList<HourBlock>> {
 
-    val eventAndBlockList = sortSessions(inList)
+    val distinctInList = inList.distinctBy { it.title.toLowerCase() to it.startsAt.toLongMillis() }
+    val eventAndBlockList = sortSessions(distinctInList)
 
     val dateWithBlocksTreeMap = HashMap<String, ArrayList<HourBlock>>()
     var lastHourDisplay = ""
