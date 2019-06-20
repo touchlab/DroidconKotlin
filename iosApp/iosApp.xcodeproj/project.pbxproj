@@ -948,7 +948,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -973,7 +973,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

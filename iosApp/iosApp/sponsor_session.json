@@ -5,40 +5,9 @@
         "sessions": [
             {
                 "questionAnswers": [],
-                "id": "128002",
-                "title": "Bugsnag",
-                "description": "Doing the bugsnag things",
-                "startsAt": null,
-                "endsAt": null,
-                "isServiceSession": false,
-                "isPlenumSession": false,
-                "speakers": [
-                    {
-                        "id": "9d2ecd4c-fd6e-444f-b80f-bd8ef04106ae",
-                        "name": "Kevin Galligan"
-                    }
-                ],
-                "categories": [
-                    {
-                        "id": 3477,
-                        "name": "Tags",
-                        "categoryItems": [
-                            {
-                                "id": 16187,
-                                "name": "sponsor"
-                            }
-                        ],
-                        "sort": 1004
-                    }
-                ],
-                "roomId": null,
-                "room": null
-            },
-            {
-                "questionAnswers": [],
                 "id": "123867",
                 "title": "Touchlab",
-                "description": "Touchlab is the best2 . We're hiring: https://touchlab.co/about-us/",
+                "description": "Touchlab is the best. We're hiring: https://touchlab.co/about-us/",
                 "startsAt": null,
                 "endsAt": null,
                 "isServiceSession": false,
