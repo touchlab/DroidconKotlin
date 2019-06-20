@@ -36,6 +36,9 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         recycler = view.findViewById(R.id.recycler)
 
+        val adapter = SettingsAdapter(activity!!)
+        recycler.adapter = adapter
+
         return view
     }
 

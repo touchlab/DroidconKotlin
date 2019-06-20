@@ -55,6 +55,9 @@ class EventFragment : Fragment() {
             }
         })
 
+        val adapter = EventDetailAdapter(activity!!)
+        recycler.adapter = adapter
+
         return view
     }
 
