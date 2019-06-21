@@ -3,6 +3,7 @@ package co.touchlab.sessionize
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
+import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.db.room
@@ -53,7 +54,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         NotificationsModel.recreateReminderNotifications()
         NotificationsModel.recreateFeedbackNotifications()
         if (rsvp) {
-            ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
+            SessionizeApiImpl().recordRsvp(methodName, localSessionId)
 
             sendAnalytics(localSessionId, rsvp)
         }

@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlin.reflect.KProperty
 
 object ServiceRegistry {
-    var sessionizeApi:SessionizeApi by FrozenDelegate()
+    //var sessionizeApi:SessionizeApi by FrozenDelegate()
     var analyticsApi: AnalyticsApi by FrozenDelegate()
     var notificationsApi:NotificationsApi by FrozenDelegate()
     var dbDriver: SqlDriver by FrozenDelegate()
@@ -25,13 +25,12 @@ object ServiceRegistry {
     var clLogCallback: ((s: String) -> Unit) by FrozenDelegate()
 
     fun initServiceRegistry(sqlDriver: SqlDriver, coroutineDispatcher: CoroutineDispatcher, settings: Settings,
-                            concurrent: Concurrent, sessionizeApi: SessionizeApi, analyticsApi: AnalyticsApi,
+                            concurrent: Concurrent, analyticsApi: AnalyticsApi,
                             notificationsApi: NotificationsApi, timeZone: String) {
         ServiceRegistry.dbDriver = sqlDriver
         ServiceRegistry.coroutinesDispatcher = coroutineDispatcher
         ServiceRegistry.appSettings = settings
         ServiceRegistry.concurrent = concurrent
-        ServiceRegistry.sessionizeApi = sessionizeApi
         ServiceRegistry.analyticsApi = analyticsApi
         ServiceRegistry.notificationsApi = notificationsApi
         ServiceRegistry.appSettings = settings

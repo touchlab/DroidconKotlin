@@ -19,7 +19,7 @@ import kotlin.native.concurrent.ThreadLocal
 object NetworkRepo {
     fun dataCalls() = CoroutineScope(ServiceRegistry.coroutinesDispatcher).launch {
         try {
-            val api = ServiceRegistry.sessionizeApi
+            val api = SessionizeApiImpl()// ServiceRegistry.sessionizeApi
             val networkSpeakerJson = api.getSpeakersJson()
             val networkSessionJson = api.getSessionsJson()
             val networkSponsorJson = api.getSponsorJson()

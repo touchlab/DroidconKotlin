@@ -37,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 coroutineDispatcher: UI(),
                                                 settings: FunctionsKt.defaultSettings(),
                                                 concurrent: MainConcurrent(),
-                                                sessionizeApi: SessionizeApiImpl(),
                                                 analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
                                                 notificationsApi: NotificationsApiImpl(),
                                                 timeZone: timeZone)

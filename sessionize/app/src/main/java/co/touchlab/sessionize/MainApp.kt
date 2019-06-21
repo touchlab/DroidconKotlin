@@ -23,7 +23,6 @@ class MainApp : Application() {
                 Dispatchers.Main,
                 AndroidSettings.Factory(this).create("DROIDCON_SETTINGS"),
                 MainConcurrent,
-                SessionizeApiImpl,
                 AnalyticsApiImpl(FirebaseAnalytics.getInstance(this)),
                 NotificationsApiImpl(),
                 BuildConfig.TIME_ZONE
