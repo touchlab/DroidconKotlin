@@ -131,7 +131,7 @@ object NotificationsModel {
 
                         try {
                             val session = mySessions.first { (it.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS > currentTimeMillis())}
-                            createFeedbackNotification(session.startsAt.toLongMillis() + Durations.TEN_MINS_MILLIS)
+                            createFeedbackNotification(session.endsAt.toLongMillis())
                         } catch (e: NoSuchElementException){
                             print(e.message)
                         }
