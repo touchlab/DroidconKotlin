@@ -5,6 +5,7 @@ import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.platform.Concurrent
 import co.touchlab.stately.concurrency.AtomicReference
+import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.freeze
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
@@ -12,7 +13,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlin.reflect.KProperty
 
 object ServiceRegistry {
-    var sessionizeApi:SessionizeApi by FrozenDelegate()
+    var sessionizeApi:SessionizeApi by ThreadLocalDelegate()
     var analyticsApi: AnalyticsApi by FrozenDelegate()
     var notificationsApi:NotificationsApi by FrozenDelegate()
     var dbDriver: SqlDriver by FrozenDelegate()
@@ -51,5 +52,14 @@ internal class FrozenDelegate<T>{
 
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         delegateReference.set(value.freeze())
+    }
+}
+
+internal class ThreadLocalDelegate<T>{
+    private val delegateReference = ThreadLocalRef<T?>()
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T = delegateReference.get()!!
+
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        delegateReference.set(value)
     }
 }

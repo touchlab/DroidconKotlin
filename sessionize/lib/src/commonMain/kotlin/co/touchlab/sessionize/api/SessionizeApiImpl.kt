@@ -5,7 +5,6 @@ import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.sessionize.platform.createUuid
-import co.touchlab.stately.freeze
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
@@ -24,7 +23,7 @@ object SessionizeApiImpl : SessionizeApi {
     private val INSTANCE_ID = "eh8k1018"
     private val client = HttpClient {
         install(ExpectSuccess)
-    }.freeze()
+    }
 
     override suspend fun getSpeakersJson(): String = client.get<String> {
         sessionize("/api/v2/$INSTANCE_ID/view/speakers")
