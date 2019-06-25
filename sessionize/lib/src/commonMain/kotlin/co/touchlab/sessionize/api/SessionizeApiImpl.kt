@@ -23,12 +23,13 @@ import kotlin.native.concurrent.ThreadLocal
 @ThreadLocal
 object SessionizeApiImpl : SessionizeApi {
     private val INSTANCE_ID = "eh8k1018"
+    private val SPONSOR_INSTANCE_ID = "or4t8mzl"
     private val client = HttpClient {
         install(ExpectSuccess)
     }
 
     override suspend fun getSpeakersJson(): String = client.get<String> {
-        sessionize("/api/v2/$INSTANCE_ID/view/speakers")
+        sessionize("/api/v2/$SPONSOR_INSTANCE_ID/view/speakers")
     }
 
     override suspend fun getSessionsJson(): String = client.get<String> {
@@ -36,11 +37,11 @@ object SessionizeApiImpl : SessionizeApi {
     }
 
     override suspend fun getSponsorJson(): String = client.get<String> {
-        amazon("/droidconsponsers/sponsors-$INSTANCE_ID.json") // github = 404
+        amazon("/droidconsponsers/sponsors-$SPONSOR_INSTANCE_ID.json")
     }
 
     override suspend fun getSponsorSessionJson(): String = client.get<String> {
-        sessionize("/api/v2/$INSTANCE_ID/view/sessions")
+        sessionize("/api/v2/$SPONSOR_INSTANCE_ID/view/sessions")
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = client.request<HttpResponse> {
