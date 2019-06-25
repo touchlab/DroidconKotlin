@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
 
         feedbackManager.setFragmentManager(supportFragmentManager)
         feedbackManager.showFeedbackForPastSessions()
-
-
     }
 
 

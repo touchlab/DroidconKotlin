@@ -49,5 +49,13 @@ object NetworkRepo {
         }
     }
 
+    fun sendFeedback() = CoroutineScope(ServiceRegistry.coroutinesDispatcher).launch {
+        try {
+            SessionizeDbHelper.sendFeedback()
+        } catch (e: Throwable) {
+            ServiceRegistry.softExceptionCallback(e, "Feedback Send Failed")
+        }
+    }
+
     private class CoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
 }

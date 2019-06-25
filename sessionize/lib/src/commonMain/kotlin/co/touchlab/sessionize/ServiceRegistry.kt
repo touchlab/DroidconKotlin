@@ -24,6 +24,7 @@ object ServiceRegistry {
 
     var staticFileLoader: ((filePrefix: String, fileType: String) -> String?) by FrozenDelegate()
     var clLogCallback: ((s: String) -> Unit) by FrozenDelegate()
+    var softExceptionCallback: ((e:Throwable, message:String) ->Unit) by FrozenDelegate()
 
     fun initServiceRegistry(sqlDriver: SqlDriver, coroutineDispatcher: CoroutineDispatcher, settings: Settings,
                             concurrent: Concurrent, sessionizeApi: SessionizeApi, analyticsApi: AnalyticsApi,
@@ -40,9 +41,11 @@ object ServiceRegistry {
     }
 
     fun initLambdas(staticFileLoader: (filePrefix: String, fileType: String) -> String?,
-                       clLogCallback: (s: String) -> Unit){
+                       clLogCallback: (s: String) -> Unit,
+                    softExceptionCallback: (e:Throwable, message:String) ->Unit){
         ServiceRegistry.staticFileLoader = staticFileLoader
         ServiceRegistry.clLogCallback = clLogCallback
+        ServiceRegistry.softExceptionCallback = softExceptionCallback
     }
 }
 
