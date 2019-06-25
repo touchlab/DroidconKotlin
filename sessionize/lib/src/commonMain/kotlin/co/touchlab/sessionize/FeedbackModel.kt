@@ -25,17 +25,9 @@ class FeedbackModel {
                 SessionizeDbHelper.sessionQueries.myPastSession().executeAsList()
             }else null
         },{ pastSessions ->
-
-            var foundFeedback = false
-            pastSessions?.let { temp ->
-                temp.firstOrNull { it.endsAt.toLongMillis() < currentTimeMillis() }?.let {pastSession ->
-                    feedbackListener?.generateFeedbackDialog(pastSession)
-                    foundFeedback = true
-                }
-            }
-            if(!foundFeedback) {
-                feedbackListener?.onError(FeedbackApi.FeedBackError.NoSessions)
-            }
+            pastSessions?.firstOrNull { it.endsAt.toLongMillis() < currentTimeMillis() }
+                    ?.let { feedbackListener?.generateFeedbackDialog(it) }
+                    ?: feedbackListener?.onError(FeedbackApi.FeedBackError.NoSessions)
         })
     }
 
