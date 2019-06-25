@@ -4,7 +4,7 @@
         tools:targetApi="lollipop"
         android:width="72dp"
         android:height="72dp"
-        android:tint="@color/white"
+        android:tint="@color/black"
         android:viewportWidth="72"
         android:viewportHeight="72">
 

@@ -41,7 +41,7 @@ class ApplicationScheme: NSObject {
     public let colorScheme: MDCColorScheming = {
         let scheme = MDCSemanticColorScheme(defaults: .material201804)
         
-        scheme.primaryColor = colorWithHexString(hexString: "d6431b")
+        scheme.primaryColor = colorWithHexString(hexString: "#B34524")
         scheme.primaryColorVariant = colorWithHexString(hexString: "f34e22")
         scheme.onPrimaryColor = colorWithHexString(hexString: "FFFFFF")
         scheme.secondaryColor = colorWithHexString(hexString: "f34e22")
