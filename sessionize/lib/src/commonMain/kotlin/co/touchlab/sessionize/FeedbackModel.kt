@@ -2,9 +2,12 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.jsondata.Session
+import co.touchlab.sessionize.platform.Date
 import co.touchlab.sessionize.platform.NotificationsModel.cancelFeedbackNotificationsForSession
 import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
 import co.touchlab.sessionize.platform.backgroundTask
+import co.touchlab.sessionize.platform.currentTimeMillis
 
 class FeedbackModel {
     private var feedbackListener: FeedbackApi? = null
@@ -19,13 +22,18 @@ class FeedbackModel {
     fun requestNextFeedback(){
         backgroundTask({
             if(feedbackEnabled()) {
-                SessionizeDbHelper.sessionQueries.myPastSession().executeAsOneOrNull()
+                SessionizeDbHelper.sessionQueries.myPastSession().executeAsList()
             }else null
-        },{
+        },{ pastSessions ->
 
-            it?.let {pastSession ->
-                feedbackListener?.generateFeedbackDialog(pastSession)
-            }?: run {
+            var foundFeedback = false
+            pastSessions?.let { temp ->
+                temp.firstOrNull { it.endsAt.toLongMillis() < currentTimeMillis() }?.let {pastSession ->
+                    feedbackListener?.generateFeedbackDialog(pastSession)
+                    foundFeedback = true
+                }
+            }
+            if(!foundFeedback) {
                 feedbackListener?.onError(FeedbackApi.FeedBackError.NoSessions)
             }
         })
