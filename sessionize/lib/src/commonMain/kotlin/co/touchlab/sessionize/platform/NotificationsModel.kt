@@ -130,8 +130,9 @@ object NotificationsModel {
                     if (feedbackEnabled()) {
 
                         try {
-                            val session = mySessions.first { (it.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS > currentTimeMillis())}
-                            createFeedbackNotification(session.endsAt.toLongMillis())
+                            mySessions.firstOrNull { (it.endsAt.toLongMillis() + Durations.TEN_MINS_MILLIS > currentTimeMillis())}?.let {session ->
+                                createFeedbackNotification(session.endsAt.toLongMillis())
+                            }
                         } catch (e: NoSuchElementException){
                             print(e.message)
                         }
