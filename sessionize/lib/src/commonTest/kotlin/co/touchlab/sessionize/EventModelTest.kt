@@ -31,7 +31,7 @@ abstract class EventModelTest {
                 "schedule" -> SCHEDULE
                 else -> SCHEDULE
             }
-        }, { s: String -> Unit })
+        }, { s: String -> Unit }, {e:Throwable, message:String -> println(message)})
 
         AppContext.initAppContext()
 
@@ -84,6 +84,10 @@ class AnalyticsApiMock : AnalyticsApi {
 }
 
 class SessionizeApiMock : SessionizeApi {
+    override suspend fun sendFeedback(sessionId: String, rating: Int, comment: String?): Boolean {
+        return true
+    }
+
     var rsvpCalled = false
     override suspend fun getSpeakersJson(): String {
         return ""

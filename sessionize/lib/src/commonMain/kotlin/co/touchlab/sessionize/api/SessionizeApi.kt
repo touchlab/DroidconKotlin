@@ -10,4 +10,6 @@ interface SessionizeApi {
     suspend fun getSponsorSessionJson(): String
 
     suspend fun recordRsvp(methodName: String, sessionId: String): Boolean
+
+    suspend fun sendFeedback(sessionId: String, rating: Int, comment: String?): Boolean
 }
