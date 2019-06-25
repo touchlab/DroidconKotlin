@@ -78,7 +78,7 @@ class EventFragment : Fragment() {
     }
 
     private fun updateFAB(event: SessionInfo) {
-        fab.rippleColor = ContextCompat.getColor(context!!, R.color.white)
+        fab.rippleColor = ContextCompat.getColor(context!!, R.color.black)
 
         if (event.isRsvped()) {
             fab.setImageDrawable(ContextCompat.getDrawable(activity!!, R.drawable.ic_check))

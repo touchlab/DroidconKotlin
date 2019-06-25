@@ -5,9 +5,9 @@
     <color name="textColor">#000</color>
     <color name="textColorLight">#333</color>
 
-    <color name="colorPrimary">#f34e22</color>
-    <color name="colorPrimaryDark">#d6431b</color>
-    <color name="colorAccent">#fed65a</color>
+    <color name="colorPrimary">#E6592E</color>
+    <color name="colorPrimaryDark">#B34524</color>
+    <color name="colorAccent">#FCC010</color>
     <color name="colorMenu">#FFF</color>
     <color name="colorMenuOff">#DEDEDE</color>
 
