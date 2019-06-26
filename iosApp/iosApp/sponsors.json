@@ -1,99 +1,185 @@
 [
-    {
-      "groupName": "Iridium",
-      "sponsors": [
-        {
-          "name": "myTaxi",
-          "url": "https://mytaxi.com/de/career/",
-          "icon": "https://static.wixstatic.com/media/6e1ab2_3525d18a154d46d094b2fffeaaaa8a48~mv2.png"
-        }
-      ]
-    },
+  {
+    "groupName": "Platinum",
+    "sponsors": [
+      {
+        "name": "myTaxi",
+        "url": "https://mytaxi.com/de/career/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_3525d18a154d46d094b2fffeaaaa8a48~mv2.png"
+      },
+      {
+        "name": "Google",
+        "url": "https://www.google.de/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_1c648ca948e34dcc9aa4cac28004ff73~mv2.png"
+      }
+    ]
+  },
   {
     "groupName": "Gold",
     "sponsors": [
       {
         "name": "Huawei",
-        "url": "",
+        "url": "https://www.huawei.com/",
         "icon": "https://static.wixstatic.com/media/b1f32d_fc05a8326f2e462e8314e0d6ae51e818~mv2.png"
-      },
-      {
-        "name": "Touchlab",
-        "url": "https://touchlab.co/",
-        "icon": "https://static.wixstatic.com/media/26bcf1_7e164fa48a864abba5f63b2c749bd870~mv2.png"
       }
     ]
   },
-    {
-        "groupName": "Silver",
-        "sponsors": [
-            {
-                "name": "Here",
-              "url": "https://www.here.com/",
-                "icon": "https://static.wixstatic.com/media/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png"
-            },
-            {
-              "name": "Ebay",
-              "url": "https://ebaytech.berlin/",
-              "icon": "https://static.wixstatic.com/media/e257c0_e8d722d4a9794fbcbefa300f1a3fd2a8~mv2.png"
-            },
-          {
-            "name": "1 And 1",
-            "url": "https://jobs.1und1.de/",
-            "icon": "https://static.wixstatic.com/media/6e1ab2_9d045e47e7d44562a6fceb1f829f75fa~mv2.png"
-          },
-          {
-            "name": "Delivery Hero",
-            "url": "https://www.deliveryhero.com/",
-            "icon": "https://static.wixstatic.com/media/6e1ab2_f6f68c51c77c40f9b060514d052d23b0~mv2.png"
-            },
-            {
-              "name": "Zebra",
-              "url": "https://www.zebra.com/us/en.html",
-              "icon": "https://static.wixstatic.com/media/6e1ab2_42dede91771e4b30803b76b508b46918~mv2.png"
-            },
-            {
-              "name": "Nevercode",
-              "url": "https://nevercode.io/",
-              "icon": "https://static.wixstatic.com/media/6e1ab2_917172f17a484ba2bc97df2e3db14ed0~mv2.png"
-            },
-            {
-              "name": "Bitrise",
-              "url": "https://www.bitrise.io/",
-              "icon": "https://static.wixstatic.com/media/6e1ab2_28af3649186a40ccad35e0360199b1ab~mv2.png"
-            }
-        ]
-    },
-    {
-        "groupName": "Bronze",
-        "sponsors": [
-            {
-              "name": "N26",
-              "url": "https://n26.com/en/careers/departments/13426?gh_src=33bf499b1",
-              "icon": "https://static.wixstatic.com/media/e257c0_9bbe12b6e4124d3f96edc3aca8246696~mv2.png",
-                "sponsorId": 123867
-            },
-            {
-              "name": "moovel",
-              "url": "https://www.moovel.com/en/about/careers",
-              "icon": "https://static.wixstatic.com/media/6e1ab2_faba08fea7ce4d679df3961801898eeb~mv2.png"
-            },
-            {
-              "name": "Jobsense.ai",
-              "url": "",
-              "icon": "https://static.wixstatic.com/media/6e1ab2_b283e64ef12d438ca3dc82e1737ac1e3~mv2.png"
-            },
-            {
-              "name": "Object Box",
-              "url": "https://objectbox.io/",
-              "icon": "https://static.wixstatic.com/media/6e1ab2_0f288ed80ee843beb4eb611ad4b74613~mv2.png"
-            },
-            {
-              "name": "Gradle",
-              "url": "https://gradle.com/",
-              "icon": "https://static.wixstatic.com/media/6e1ab2_1a056e368ba047968366b4944666c3dd~mv2.png",
-                "sponsorId": 128002
-            }
-        ]
-    }
+  {
+    "groupName": "Silver",
+    "sponsors": [
+      {
+        "name": "Here",
+        "url": "https://www.here.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png"
+      },
+      {
+        "name": "Ebay",
+        "url": "https://ebaytech.berlin/",
+        "icon": "https://static.wixstatic.com/media/e257c0_e8d722d4a9794fbcbefa300f1a3fd2a8~mv2.png"
+      },
+      {
+        "name": "1 And 1",
+        "url": "https://jobs.1und1.de/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_9d045e47e7d44562a6fceb1f829f75fa~mv2.png"
+      },
+      {
+        "name": "Delivery Hero",
+        "url": "https://www.deliveryhero.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_f6f68c51c77c40f9b060514d052d23b0~mv2.png"
+      },
+      {
+        "name": "Zebra",
+        "url": "https://www.zebra.com/us/en.html",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_42dede91771e4b30803b76b508b46918~mv2.png"
+      },
+      {
+        "name": "Nevercode",
+        "url": "https://nevercode.io/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_917172f17a484ba2bc97df2e3db14ed0~mv2.png"
+      },
+      {
+        "name": "Bitrise",
+        "url": "https://www.bitrise.io/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_28af3649186a40ccad35e0360199b1ab~mv2.png"
+      }
+    ]
+  },
+  {
+    "groupName": "Bronze",
+    "sponsors": [
+      {
+        "name": "N26",
+        "url": "https://n26.com/en/careers/departments/13426?gh_src=33bf499b1",
+        "icon": "https://static.wixstatic.com/media/e257c0_9bbe12b6e4124d3f96edc3aca8246696~mv2.png"
+      },
+      {
+        "name": "ReachNow",
+        "url": "https://reachnow.com/en/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_cd6fd512c6a84f758f065c3fc751868e~mv2.png"
+      },
+      {
+        "name": "Jobsense.ai",
+        "url": "https://www.jobsens.ai/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_b283e64ef12d438ca3dc82e1737ac1e3~mv2.png"
+      },
+      {
+        "name": "Object Box",
+        "url": "https://objectbox.io/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_0f288ed80ee843beb4eb611ad4b74613~mv2.png"
+      },
+      {
+        "name": "Gradle",
+        "url": "https://gradle.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_1a056e368ba047968366b4944666c3dd~mv2.png"
+      },
+      {
+        "name": "Babbel",
+        "url": "https://www.babbel.com",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_c2af6fc6d28a4633b34f12d2eddf40b5~mv2.png"
+      },
+      {
+        "name": "Preemptive",
+        "url": "https://www.preemptive.com",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_57db8eef2e4e4d0cbde8a7cbf84ecf49~mv2.png"
+      },
+      {
+        "name": "Mercedes-Benz",
+        "url": "https://www.mercedes-benz.io",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_769944598ac446bab2cf17ffa526ec80~mv2.png"
+      },
+      {
+        "name": "Uber",
+        "url": "https://www.uber.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_a9468a33835e4f6bbc70d8d7842de012~mv2.png"
+      }
+    ]
+  },
+  {
+    "groupName": "Speaker VIP Party",
+    "sponsors": [
+      {
+        "name": "Volkswagen",
+        "url": "https://www.volkswagen.de",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_f797c811930644c590fb98eb56d177b7~mv2.png"
+      },
+      {
+        "name": "Digital Lab",
+        "url": "https://vw-dilab.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_ff63a2cceb8b4617acd3e70eb39275e0~mv2.png"
+      }
+
+    ]
+  },
+  {
+    "groupName": "Coffee",
+    "sponsors": [
+      {
+        "name": "ReachNow",
+        "url": "https://reachnow.com/en/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_cd6fd512c6a84f758f065c3fc751868e~mv2.png"
+      }
+    ]
+  },
+  {
+    "groupName": "Community",
+    "sponsors": [
+      {
+        "name": "Sticker Mule",
+        "url": "https://www.stickermule.com/eu/uses?utm_source=sponsorship&utm_medium=referral&utm_campaign=DroidConBerlin19",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_d21b1dcdfbd3481fab979b1f3a0870b9~mv2.png"
+      },
+      {
+        "name": "GDG",
+        "url": "https://www.meetup.com/de-DE/pro/gdg",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_64ad1c080cd1481fa0305534ee77c66c~mv2.png"
+      }
+
+    ]
+  },
+  {
+    "groupName": "Startup Alley",
+    "sponsors": [
+      {
+        "name": "Applike",
+        "url": "https://www.applike.info/jobs/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_2486a2aaddf741c0be33e97001d697d7~mv2.png"
+      },
+      {
+        "name": "Acellere",
+        "url": "http://acellere.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_82117824edb949b3a09e08c5d394d8cd~mv2.png"
+      }
+
+    ]
+  },
+  {
+    "groupName": "Lanyard",
+    "sponsors": [
+      {
+        "name": "Wayfair",
+        "url": "https://www.wayfair.com/",
+        "icon": "https://static.wixstatic.com/media/6e1ab2_9702298d781b48aa9f094b8138038f59~mv2.png"
+      }
+    ]
+  }
 ]
