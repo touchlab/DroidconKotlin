@@ -14,63 +14,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://redmart.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/adnanM0123",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://www.adnan.am",
-                "linkType": "Blog"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/adnan-a-m-9b378955/",
-                "linkType": "LinkedIn"
-            }
-        ],
-        "questionAnswers": [],
-        "categories": []
-    },
-    {
-        "id": "5424a4f2-0ada-4c78-a72b-bf6f100a3fd7",
-        "firstName": "Adrian",
-        "lastName": "Catalan",
-        "fullName": "Adrian Catalan",
-        "bio": "Adrián has been involved in software industry for 13+ years, working both in web and mobile apps. GDG Guatemala, GuatemalaJS and Nodebots former co-organizer. Currently he leads the Innovation Lab at Galileo University and is a Google Developer Expert(GDE) for Android, IoT and Firebase.",
-        "tagLine": "Innovation Lab Director",
-        "profilePicture": "https://sessionize.com/image?f=680d0d538eb67cf19d03f90875bb5a44,400,400,True,False,f058fd36-bb11-40e9-8c85-5338830ea222.jpg",
-        "sessions": [
-            {
-                "id": 104187,
-                "name": "Two birds, one stone: a journey from refactoring and migrating from Java to Kotlin"
-            }
-        ],
-        "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/ykro",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "http://linkedin.com/in/adriancatalan",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://ykro.github.io",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -89,28 +33,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/Akshay_Chordiya",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/akshaychordiya/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@aky/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://bitfurther.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -129,23 +52,34 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "799936d4-e7dd-44e0-8e8a-794711a1a155",
+        "firstName": "Alasdair",
+        "lastName": "McMaster",
+        "fullName": "Alasdair McMaster",
+        "bio": "Alasdair works with game developers in Western Europe, helping them to bring their amazing games to the Play Store. Once upon a time he was an apprentice blacksmith.",
+        "tagLine": "Business Development Manager",
+        "profilePicture": "https://sessionize.com/image?f=7454b8b9e7c98e8dc085c9f3f5b0bb01,400,400,True,False,59-b76b-4f88-a408-4fc6b4f77258.6143da24-e798-4ee8-8dd1-c75ec51209e5.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/alsutton",
-                "linkType": "Twitter"
+                "id": 134375,
+                "name": "Google Play, UX and Vitals Reviews"
             },
             {
-                "title": "Blog",
-                "url": "https://alsutton.blog",
-                "linkType": "Blog"
+                "id": 134382,
+                "name": "Google Play, UX and Vitals Reviews"
             },
             {
-                "title": "Company Website",
-                "url": "https://google.com",
-                "linkType": "Company_Website"
+                "id": 134388,
+                "name": "Google Play, UX and Vitals Reviews"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -164,23 +98,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://twitter.com/pelotasplus",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://linkedin.com/in/pelotasplus",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.grubhub.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -218,7 +136,7 @@
             },
             {
                 "id": 130582,
-                "name": "Powerpoint Karaoke / improv / random slides"
+                "name": "Slide Karaoke"
             },
             {
                 "id": 127258,
@@ -226,18 +144,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/AnastasiaLopezD",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.memrise.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -252,7 +159,7 @@
         "sessions": [
             {
                 "id": 130582,
-                "name": "Powerpoint Karaoke / improv / random slides"
+                "name": "Slide Karaoke"
             },
             {
                 "id": 80216,
@@ -260,18 +167,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/asfalcone",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://verily.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -290,28 +186,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://quizlet.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/ankushg",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/ankushmg/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://ankushg.com",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -330,23 +205,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/championswimmer",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://online.codingblocks.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://blog.championswimmer.in",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -361,7 +220,7 @@
         "sessions": [
             {
                 "id": 130582,
-                "name": "Powerpoint Karaoke / improv / random slides"
+                "name": "Slide Karaoke"
             },
             {
                 "id": 103790,
@@ -369,28 +228,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://www.immobilienscout24.de/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/askashdavies",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@ashdavies",
-                "linkType": "Blog"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/ashowendavies/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -406,41 +244,6 @@
             {
                 "id": 118468,
                 "name": "What's Next? Driving inclusive design at your company"
-            }
-        ],
-        "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/ataulm",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://monzo.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://ataulm.com",
-                "linkType": "Blog"
-            }
-        ],
-        "questionAnswers": [],
-        "categories": []
-    },
-    {
-        "id": "86ee02c4-2d7e-4382-83e1-21a0de87806b",
-        "firstName": "Attendee",
-        "lastName": "TBA",
-        "fullName": "Attendee TBA",
-        "bio": "TBA",
-        "tagLine": "tba",
-        "profilePicture": null,
-        "sessions": [
-            {
-                "id": 130255,
-                "name": "PlayStore and the Power of Google"
             }
         ],
         "isTopSpeaker": false,
@@ -463,28 +266,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/aygul",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.aygul.co/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "http://www.linkedin.com/in/aygulzagidullina",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/google-assistant",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -499,17 +281,11 @@
         "sessions": [
             {
                 "id": 126697,
-                "name": "Proactive and Reactive approaches to improving UI performance using benchmarks"
+                "name": "Tracking Regressions and Improving UI Performance using Benchmarking Approach"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://www.facebook.com",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -523,18 +299,24 @@
         "profilePicture": "https://sessionize.com/image?f=fadb761b3b59f3285b67a0ec481078de,400,400,True,False,89ca7e1d-4d4e-42ff-b912-a0e21c74ebcc.jpg",
         "sessions": [
             {
+                "id": 134371,
+                "name": "Android, Google Play"
+            },
+            {
+                "id": 134385,
+                "name": "Android, Google Play"
+            },
+            {
+                "id": 134391,
+                "name": "Android, Google Play"
+            },
+            {
                 "id": 102680,
                 "name": "Modularization for dynamic delivery"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://twitter.com/keyboardsurfer",
-                "linkType": "Twitter"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -553,13 +335,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/calren24",
-                "linkType": "Twitter"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -578,18 +354,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://twitter.com/carrie_l_hall",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.carriehall.co.uk",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -631,18 +396,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/chrisbanes",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://chris.banes.me",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -661,28 +415,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/damian2048",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://medium.com/@burkedamian",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://onefootball.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/damianburke2/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -701,32 +434,11 @@
             },
             {
                 "id": 130582,
-                "name": "Powerpoint Karaoke / improv / random slides"
+                "name": "Slide Karaoke"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "http://www.sporttotal.tv/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/PreusslerBerlin",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@dpreussler",
-                "linkType": "Blog"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/danny-preussler-557a3b79/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -745,28 +457,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/darryncampbell",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/darryn-campbell-1b0127ab/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.zebra.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "http://www.darryncampbell.co.uk/",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -782,36 +473,6 @@
             {
                 "id": 123683,
                 "name": "Android... without Google"
-            }
-        ],
-        "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/BrantApps",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://candidegardening.com",
-                "linkType": "Company_Website"
-            }
-        ],
-        "questionAnswers": [],
-        "categories": []
-    },
-    {
-        "id": "7c593da5-b25a-4dff-bca7-24f50acadc70",
-        "firstName": "Dima",
-        "lastName": "Merkurev",
-        "fullName": "Dima Merkurev",
-        "bio": "More than 5 years of Android developing experience. Now working as an infrastructure mobile developer in one of the largest IT companies in Russia.",
-        "tagLine": "Senior Android Developer, Avito",
-        "profilePicture": "https://sessionize.com/image?f=0bd9b4b093acf26ddaf8606335a9ab05,400,400,True,False,a5-b25a-4dff-bca7-24f50acadc70.67c132fe-56b4-421d-960c-ec52d7fefda1.png",
-        "sessions": [
-            {
-                "id": 76260,
-                "name": "Android CI: Impact Analysis"
             }
         ],
         "isTopSpeaker": false,
@@ -834,23 +495,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/elainedbatista",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/elaine-dias-batista-25517520/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://sfeir.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -869,13 +514,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/hejelinnilsson",
-                "linkType": "Twitter"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -894,28 +533,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/lupsyn",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://github.com/lupsyn",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.tui.co.uk",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/lupsyn/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -934,28 +552,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://www.twitter.com/eenriquelopez",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://de.linkedin.com/in/eenriquelopez",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "http://www.lopez-manas.com",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.lopez-manas.com",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -974,7 +571,7 @@
             },
             {
                 "id": 130582,
-                "name": "Powerpoint Karaoke / improv / random slides"
+                "name": "Slide Karaoke"
             },
             {
                 "id": 96887,
@@ -982,28 +579,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/ErikHellman",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/erikhelllman/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://hellsoft.se/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://hellsoft.se/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1022,18 +598,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://twitter.com/fabiocarballo",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://n26.com",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1048,32 +613,19 @@
         "sessions": [
             {
                 "id": 81302,
-                "name": "How to avoid calling the lawyer – A legal session on mobile gaming and a case study of GDPR violatio"
+                "name": "How to avoid calling the lawyer (part 1) - A case study of GDPR violation"
+            },
+            {
+                "id": 134707,
+                "name": "How to avoid calling the lawyer (part 2) - A legal session on mobile gaming"
+            },
+            {
+                "id": 134710,
+                "name": "How to avoid calling the lawyer (part 3) - Q&A - Ask a lawyer"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/Felix_SFO",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/felix-hilgert-34a11184/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://gameslaw.org",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.osborneclarke.com",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1092,28 +644,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/filbabic",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/filip-babi%C4%87-52b73a130/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://five.agency/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@fbabic",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1127,28 +658,24 @@
         "profilePicture": "https://sessionize.com/image?f=e3257bb7cea5ec26ccd5d413884b50c6,400,400,True,False,b11f37db-4527-4f87-af20-fe3dfdb5f59c.jpg",
         "sessions": [
             {
+                "id": 134374,
+                "name": "Flutter, UX and Vitals Reviews"
+            },
+            {
                 "id": 99610,
                 "name": "Android with a side of Flutter, please"
+            },
+            {
+                "id": 134379,
+                "name": "Flutter, UX and Vitals Reviews, Android Enterprise"
+            },
+            {
+                "id": 134386,
+                "name": "Flutter, UX and Vitals Reviews, Android Enterprise"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/filiphracek",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.google.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@filiph",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1163,7 +690,7 @@
         "sessions": [
             {
                 "id": 130582,
-                "name": "Powerpoint Karaoke / improv / random slides"
+                "name": "Slide Karaoke"
             },
             {
                 "id": 101386,
@@ -1171,23 +698,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://developer.android.com/index.html",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/Fmuntenescu/",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@florina.muntenescu",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1202,7 +713,7 @@
         "sessions": [
             {
                 "id": 127337,
-                "name": "Make Your App Smarter - Workshop / Hands on Session"
+                "name": "Make Your App Smarter - Workshop/Hands on Session"
             },
             {
                 "id": 127336,
@@ -1210,18 +721,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/_romanofranz",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://developer.huawei.com/consumer/en/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1240,23 +740,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/tamrefrank",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://tamrefrank.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@tamrefrank",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1275,23 +759,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/tfcporciuncula",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@tfcporciuncula/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.blinkist.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1310,18 +778,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/gabrielittner",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.freeletics.com/en/corporate",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1340,28 +797,58 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "854210bf-6f87-4172-bc12-bbd8dbab4d6e",
+        "firstName": "Gavin Kinghall",
+        "lastName": "Were",
+        "fullName": "Gavin Kinghall Were",
+        "bio": "Gavin leads the Play BD Solutions team in Europe, Middle East & Africa, providing reviews and consultations to partners on app quality, UX and monetization.",
+        "tagLine": "EMEA BD Solutions Manager",
+        "profilePicture": "https://sessionize.com/image?f=9c38087fb78ecd6ebb1ec9b20e9d84d0,400,400,True,False,59-b76b-4f88-a408-4fc6b4f77258.3a09b420-971e-4838-abf6-dddabaac960e.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/ragdroid",
-                "linkType": "Twitter"
+                "id": 134374,
+                "name": "Flutter, UX and Vitals Reviews"
             },
             {
-                "title": "Blog",
-                "url": "https://medium.com/@ragdroid",
-                "linkType": "Blog"
+                "id": 134381,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
             },
             {
-                "title": "Company Website",
-                "url": "https://www.madewithover.com/",
-                "linkType": "Company_Website"
+                "id": 134375,
+                "name": "Google Play, UX and Vitals Reviews"
             },
             {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/ragdroid/",
-                "linkType": "LinkedIn"
+                "id": 134379,
+                "name": "Flutter, UX and Vitals Reviews, Android Enterprise"
+            },
+            {
+                "id": 134387,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
+            },
+            {
+                "id": 134382,
+                "name": "Google Play, UX and Vitals Reviews"
+            },
+            {
+                "id": 134386,
+                "name": "Flutter, UX and Vitals Reviews, Android Enterprise"
+            },
+            {
+                "id": 134392,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
+            },
+            {
+                "id": 134388,
+                "name": "Google Play, UX and Vitals Reviews"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1380,28 +867,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "http://www.laquysoft.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/joaolaq",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://www.laquysoft.com/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/glaquidara/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1420,23 +886,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://freeletics.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/sockeqwe",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://hannesdorfmann.com",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1451,27 +901,19 @@
         "sessions": [
             {
                 "id": 81302,
-                "name": "How to avoid calling the lawyer – A legal session on mobile gaming and a case study of GDPR violatio"
+                "name": "How to avoid calling the lawyer (part 1) - A case study of GDPR violation"
+            },
+            {
+                "id": 134707,
+                "name": "How to avoid calling the lawyer (part 2) - A legal session on mobile gaming"
+            },
+            {
+                "id": 134710,
+                "name": "How to avoid calling the lawyer (part 3) - Q&A - Ask a lawyer"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/christian_woger",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://spielerecht.de/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.osborneclarke.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1490,28 +932,26 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "2808745e-8195-42e3-9393-df8dd36a6cc6",
+        "firstName": "Hawra",
+        "lastName": "Milani",
+        "fullName": "Hawra Milani",
+        "bio": "Hawra Milani is an active community organiser, where she spends a lot of her time in organising, attending, and speaking at technical conferences around the world. A former high-school teacher, she is now the founder and CEO of ‘Code 2 Serve’ where she spends a lot of her time creating coding programmes and convincing youth that no matter what their educational or cultural background, they have a place in tech. She is the Lead Organiser for the Google Developer Group (GDG) Oxford, a Women Techmakers Ambassador in Iraq, and a STEM UK ambassador. She also teaches in Code Clubs and CoderDojos in various parts of London, and is an Apple, Google and Raspberry Pi Certified Educator. She holds a BSc in Computer Science, a PGCE in Computer Science, and an MA in Computer Science Education from King’s College London.",
+        "tagLine": "GDG and WTM Oxford Lead, GDG and WTM Najaf Lead, Computer Science Educator",
+        "profilePicture": "https://sessionize.com/image?f=ff3dd6da3cbf32a3931a29c0b4e6d3da,400,400,True,False,5e-8195-42e3-9393-df8dd36a6cc6.d7305e71-badf-4956-9516-25f8fb9745ab.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/alosdev",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/hosgel/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.lab1886.io/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@alosdev",
-                "linkType": "Blog"
+                "id": 133679,
+                "name": "Leveraging the power of social media to grow as a developer"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1530,28 +970,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://www.yahoo.co.jp/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/moridroid",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://techblog.yahoo.co.jp/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/%E6%B4%8B%E4%B9%8B-%E6%A3%AE-859b17147/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1570,28 +989,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/@droidchef",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/ishankhanna/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.getaround.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://droidchef.co/",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1610,23 +1008,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/hamen",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://ivanmorgillo.com",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://mobimeo.com/en/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1645,28 +1027,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://www.joinolx.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/bennegeek",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@bennegeek",
-                "linkType": "Blog"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "http://linkedin.com/in/jblorenzo/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1685,23 +1046,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/jbvincey",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.deezer.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://linkedin.com/in/jbvincey",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1720,23 +1065,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/@molsjeroen",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://jeroenmols.com/blog/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www2.meethue.com/en-us",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1755,18 +1084,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/jitgo",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://jitgo.uk/blog/",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1785,23 +1103,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/_jitinsharma",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/jitinsharma7",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.go-jek.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1820,28 +1122,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/hitherejoe",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@hitherejoe",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://buffer.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/joe-birch-80392157/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1859,18 +1140,35 @@
                 "name": "Data Encryption on Android"
             },
             {
-                "id": 128224,
-                "name": "Write your own EMM and Enterprise app best practices"
+                "id": 134379,
+                "name": "Flutter, UX and Vitals Reviews, Android Enterprise"
+            },
+            {
+                "id": 134386,
+                "name": "Flutter, UX and Vitals Reviews, Android Enterprise"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "c03a7211-54ff-4819-9789-1a22ed91fafc",
+        "firstName": "Jossi",
+        "lastName": "Wolf",
+        "fullName": "Jossi Wolf",
+        "bio": "Jossi is a Freelance Android Developer from Hamburg, Germany. Jossi graduated high school in 2018 and has been working on many projects, including software for startups as well as car manufacturers. As a GDG Organiser and part of Women Tech Makers Hamburg, he is working on a project bringing coding classes to schools using several new approaches. Jossi also loves Kotlin and Rabbits!",
+        "tagLine": "Freelance Android Developer",
+        "profilePicture": "https://sessionize.com/image?f=4486a4c558ebaa1cb3d8c98417e6b858,400,400,True,False,7a6b15fa-3ca2-4fee-845a-a72d4d9f9f08.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "http://twitter.com/jonmarkoff",
-                "linkType": "Twitter"
+                "id": 134299,
+                "name": "Building SDKs - The Kotlin Way"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1908,18 +1206,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/its_jaede",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/jyoti-dubey-827b9267/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1934,7 +1221,7 @@
         "sessions": [
             {
                 "id": 130255,
-                "name": "PlayStore and the Power of Google"
+                "name": "Play Store & App store policy experiences"
             },
             {
                 "id": 116874,
@@ -1942,13 +1229,26 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "647a7482-b498-4ed8-8eca-a4a0ad656723",
+        "firstName": "Karim",
+        "lastName": "Mostafa",
+        "fullName": "Karim Mostafa",
+        "bio": "Android developer",
+        "tagLine": "Android Developer - mytaxi",
+        "profilePicture": "https://sessionize.com/image?f=e0167550be5b4bacbd76c5ca378482ff,400,400,True,False,4e39476f-4504-4346-9025-fe7f1486be83.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "http://twitter.com/AgentK",
-                "linkType": "Twitter"
+                "id": 134547,
+                "name": "Vehicles on Google Maps Challenge"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -1967,33 +1267,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/fei_kome",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://qiita.com/k_keisuke",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Github",
-                "url": "https://github.com/kiuchikeisuke",
-                "linkType": "Other"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/%E5%95%93%E8%BC%94-%E6%9C%A8%E5%86%85-05396816b/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://about.yahoo.co.jp/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2007,28 +1281,62 @@
         "profilePicture": "https://sessionize.com/image?f=8d4f9b3737b56b3e1049665cb9fd0e1d,400,400,True,False,32-2918-4be4-9e51-1fed7d6635d0.0bf74fcb-229c-464a-bfb9-5deab32be4ae.jpg",
         "sessions": [
             {
+                "id": 134381,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
+            },
+            {
+                "id": 134387,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
+            },
+            {
                 "id": 80567,
                 "name": "Tablets, Desktops, Foldables Oh My!"
+            },
+            {
+                "id": 134392,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "1bdf0b7f-2a71-4d40-a3e1-cb481f328361",
+        "firstName": "Kevin",
+        "lastName": "Galligan",
+        "fullName": "Kevin Galligan",
+        "bio": "Kevin Galligan is a Partner at Touchlab. He has 20 years of professional software development experience, and has been working on Android since the first public platform release. Kevin is currently focused on developing and evangelizing Kotlin multiplatform native tools for the next generation of mobile development.",
+        "tagLine": "Partner at Touchlab",
+        "profilePicture": "https://sessionize.com/image?f=e7bcddc0158dcf4a11c27b4d383952d0,400,400,True,False,7f-2a71-4d40-a3e1-cb481f328361.91f83573-a3b9-471e-8815-e1de2f897e6e.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/KennethFSWE",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.google.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://www.twitter.com/kennethfswe",
-                "linkType": "Blog"
+                "id": 134558,
+                "name": "Touchlab"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "cad95830-993e-42f8-bd8f-cfe76a6fedd7",
+        "firstName": "Kevin",
+        "lastName": "McDonagh",
+        "fullName": "Kevin McDonagh",
+        "bio": "Kevin McDonagh is the founder and CEO of Novoda, Europe’s largest and fastest growing independent Android consultancy with offices in London and Berlin.\r\n\r\nFounded in 2008, Novoda offers software development exclusively for the Android platform, helping companies embrace Android strategies while providing assured development quality for manufacturers like Sony and Motorola.\r\n\r\nNovoda works with big businesses across all sectors as well as with many venture capital funded tech start-ups such as Songkick, Podio, Meetup and WeeWorld. It also recently delivered a native suite of Android applications for Tesco’s new hudl tablet including its flagship ‘Tesco groceries’ app and ‘Tesco launcher’.\r\n\r\nNovoda remains active in Android’s community by organising the London Android user group and the London arm of Droidcon, which is the UK’s largest Android conference.",
+        "tagLine": "Moderator, CEO Novoda",
+        "profilePicture": "https://sessionize.com/image?f=339ab97b132502aac5af821ffe93cc95,400,400,True,False,b1-61e5-4a26-9ca3-c9f30e3eaa08.3420cd46-b213-4acd-aa19-504b159f2a78.jpg",
+        "sessions": [
+            {
+                "id": 130255,
+                "name": "Play Store & App store policy experiences"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2047,18 +1355,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://mewssystems.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/ookamikb/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2096,28 +1393,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/kpsroka",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://kpsroka.dev",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://callstack.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/krzysztofsroka/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2136,23 +1412,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/lariki",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@laramartin",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://laramartin.eu/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2171,28 +1431,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/LevVidrak",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/levvidrak",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://github.com/ButtersHub",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.wix.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2208,41 +1447,6 @@
             {
                 "id": 128155,
                 "name": "Cross Platform AR with Unity"
-            }
-        ],
-        "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/LiamSorta",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://voice.tv/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://unity3d.com/",
-                "linkType": "Company_Website"
-            }
-        ],
-        "questionAnswers": [],
-        "categories": []
-    },
-    {
-        "id": "da05362d-506b-44e4-ba8c-712fa438270c",
-        "firstName": "Liz",
-        "lastName": "Louis",
-        "fullName": "Liz Louis",
-        "bio": "Liz is a product manager in Android at Google in Mountain View, California.  She is a member of the privacy product team.",
-        "tagLine": "Android Product Manager",
-        "profilePicture": "https://sessionize.com/image?f=4c22faeaa46d183203f7ee05f4e530a5,400,400,True,False,2d-506b-44e4-ba8c-712fa438270c.ea0a37fc-54e5-460d-8b99-d41842638bb5.png",
-        "sessions": [
-            {
-                "id": 127839,
-                "name": "Adapting Your Apps  for Android Q  Privacy Requirements"
             }
         ],
         "isTopSpeaker": false,
@@ -2265,18 +1469,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/louis993546/",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@louis993546",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2314,18 +1507,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/manuelvicnt",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@manuelvicnt",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2344,23 +1526,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/maozt?lang=en",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/maoztamir/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.mobilefactory.co.il",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2379,38 +1545,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@marcinmoskala",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Github",
-                "url": "https://github.com/MarcinMoskala",
-                "linkType": "Other"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/marcinmoskala",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Personal website",
-                "url": "http://marcinmoskala.com/",
-                "linkType": "Other"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://marcinmoskala.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/marcin-moskala-6869a864/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2429,28 +1564,45 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "ac16a863-f9c8-408e-ab1c-38c958b05d75",
+        "firstName": "Marcus",
+        "lastName": "Hoffmann",
+        "fullName": "Marcus Hoffmann",
+        "bio": "I'm Marcus, a freelance software developer from Berlin.\r\n\r\nI'm interested in free software and decentralized, open conmmunication. I have experience working with embedded Linux systems. Both in a commercial automotive context as well as the Android Open Source Project.\r\n\r\nSince 2016 I'm involved in the F-Droid project. I maintain various apps there and contribute to client, server and infrastructure.\r\n\r\nCurrently I'm working on designing and implementing a free and distributed alternative to the centralized and proprietary Google/Firebase cloud messaging system. This project is funded in the 5th round of Prototype Fund. The Prototype Fund is a funding program by the Federal Ministry of Education and Research (BMBF). A very high level project overview can currently be found here: prototypefund.de/project/open-source-push-service-fuer-android-apps/ (German).",
+        "tagLine": "F-Froid, free software",
+        "profilePicture": "https://sessionize.com/image?f=2d58e43c9b58c5697310fab5170d569d,400,400,True,False,b1-61e5-4a26-9ca3-c9f30e3eaa08.75d56216-f40a-4ed5-9600-21139baf1234.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/orbycius",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/marcosholgado/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.sky.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "http://marcosholgado.com",
-                "linkType": "Blog"
+                "id": 130255,
+                "name": "Play Store & App store policy experiences"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "79f1ae63-e21f-4d6a-9cf5-14e94ed0f114",
+        "firstName": "Markus",
+        "lastName": "Junginger",
+        "fullName": "Markus Junginger",
+        "bio": "Markus Junginger is an Android enthusiast and developer since the first SDK release in 2007. He is the founder of ObjectBox and the Open Source libraries greenDAO, EventBus which are widely used by many popular apps. Markus has 15+ years experience with Java and did his first mobile software project in 2001. He regularly speaks and writes about Android, gives Android training, and develops for Android.",
+        "tagLine": "CTO, ObjectBox",
+        "profilePicture": "https://sessionize.com/image?f=694fb36f75d1037d9a10891b97f2ddcc,400,400,True,False,59-b76b-4f88-a408-4fc6b4f77258.d5f5b075-6396-4347-a66d-d30a968decda.png",
+        "sessions": [
+            {
+                "id": 119422,
+                "name": "Leading edge: Sync solutions for connecting offline-apps"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2488,23 +1640,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/martinjeret",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://blog.codemagic.io/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://nevercode.io/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2523,23 +1659,26 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "4b43ae24-d700-41f6-a4c0-a39c822f06d7",
+        "firstName": "Mathias",
+        "lastName": "Paech",
+        "fullName": "Mathias Paech",
+        "bio": "started coding on amiga 500 now android chapter lead @mytaxi in hamburg, always trying to learn new things also beekeping",
+        "tagLine": "Android Chapter Lead, mytaxi",
+        "profilePicture": "https://sessionize.com/image?f=38fe60f925c3491fe3f88d487fefbcb5,400,400,True,False,24-d700-41f6-a4c0-a39c822f06d7.34b474de-fce6-473d-af78-663e1e6bd5d2.png",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/zsmb13",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://zsmb.co",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://autsoft.hu/en",
-                "linkType": "Company_Website"
+                "id": 134547,
+                "name": "Vehicles on Google Maps Challenge"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2558,13 +1697,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@appmattus/",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2583,23 +1716,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/MiBLT",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://beltran.work",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://beltran.work",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2623,25 +1740,6 @@
         "categories": []
     },
     {
-        "id": "5a9e3959-b76b-4f88-a408-4fc6b4f77258",
-        "firstName": "Moderator",
-        "lastName": "TBA",
-        "fullName": "Moderator TBA",
-        "bio": "TBA",
-        "tagLine": "Organizer",
-        "profilePicture": "https://sessionize.com/image?f=0c8d5470516e2f9409ba5d747e2ff73c,400,400,True,False,59-b76b-4f88-a408-4fc6b4f77258.42529dfd-db51-45fa-a726-093d9ccabb1e.jpg",
-        "sessions": [
-            {
-                "id": 130255,
-                "name": "PlayStore and the Power of Google"
-            }
-        ],
-        "isTopSpeaker": false,
-        "links": [],
-        "questionAnswers": [],
-        "categories": []
-    },
-    {
         "id": "d3c1c307-5543-44bb-a534-90ca53331b51",
         "firstName": "Murat",
         "lastName": "Yener",
@@ -2656,13 +1754,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://twitter.com/yenerm",
-                "linkType": "Twitter"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2681,18 +1773,26 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "f56d151c-5b68-44fd-a780-a0b9707225d5",
+        "firstName": "Neto",
+        "lastName": "Marin",
+        "fullName": "Neto Marin",
+        "bio": "With almost 20 years of software development experience, Neto Marin has been at Google for 6 years and is currently a Developer Advocate on the Google Developer Relations team, helping partners to create high-quality Android apps and games, supporting the implementation of cutting edge technologies, providing best practices, and advice for many topics on the platforms. Neto is an expert in mobile development, mobile platforms, and architecture specifications and implementations, with experience in both startup development and corporate applications.",
+        "tagLine": "Developer Advocate",
+        "profilePicture": "https://sessionize.com/image?f=039d3fc192e17e9fe9588eca973ffce3,400,400,True,False,f773e14c-d7f9-4317-a7e2-b7877113d94a.jpg",
+        "sessions": [
             {
-                "title": "Company Website",
-                "url": "https://www.soundcloud.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/nellyspageli",
-                "linkType": "Twitter"
+                "id": 128224,
+                "name": "Write your own EMM and Enterprise app best practices"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2711,28 +1811,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://www.twitter.com/niamh__power",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.monzo.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/niamhpower93/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "http://medium.com/@niamhpower",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2751,18 +1830,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/crafty",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@crafty",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2773,7 +1841,7 @@
         "fullName": "Nick Rout",
         "bio": "Nick Rout is an Android Engineer, with over 4 years of experience, currently employed at Over - the easy app for creating. He is passionate about Material Design and Human-Computer Interaction. He is the organizer for GDG Cape Town, enjoys public speaking and frequently posts Android-related articles on Medium. He is featured on Android Experiments for his creative, open source apps that he works on in his spare time.",
         "tagLine": "Android Engineer at Over and GDG Cape Town Organizer",
-        "profilePicture": "https://sessionize.com/image?f=7a115fc8f7861fc92e46cba8fccf8228,400,400,True,False,d6a040c6-e88d-411f-9932-ebcb4be83b0a.jpg",
+        "profilePicture": "https://sessionize.com/image?f=62da48adb3de789c8c2ce2e7be59241e,400,400,True,False,28-63a7-4f57-838d-8871f500913b.37f5a708-82e5-4a3f-8fcf-4e713e190875.png",
         "sessions": [
             {
                 "id": 86127,
@@ -2781,28 +1849,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/ricknout",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://ricknout.com",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://madewithover.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://linkedin.com/in/nicholasrout",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2817,7 +1864,7 @@
         "sessions": [
             {
                 "id": 130582,
-                "name": "Powerpoint Karaoke / improv / random slides"
+                "name": "Slide Karaoke"
             },
             {
                 "id": 122367,
@@ -2825,33 +1872,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/cortinico",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://ncorti.com",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.yelp.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Github",
-                "url": "https://github.com/cortinico",
-                "linkType": "Other"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/cortinico/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2865,23 +1886,16 @@
         "profilePicture": "https://sessionize.com/image?f=f695924b9b178e1af2e5229c08e78859,400,400,True,False,be-a29f-4a2c-8a00-cf1e7bbfc567.e82969b4-9efc-45d4-bb1d-075b81515bff.jpg",
         "sessions": [
             {
+                "id": 127839,
+                "name": "Adapting Your Apps  for Android Q  Privacy Requirements"
+            },
+            {
                 "id": 127377,
                 "name": "Android on the Road: Playing Music with UAMP in Cars"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/LadyNikoleta",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://developer.android.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2900,18 +1914,46 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "8facf0e8-0623-46d8-8fc0-e4341cfe6d6c",
+        "firstName": "Niko",
+        "lastName": "Schröer",
+        "fullName": "Niko Schröer",
+        "bio": "Niko is a subscriptions expert and partner manager for social, entertainment and sports developers. He loves sports in the real world too.",
+        "tagLine": "Business Development Manager",
+        "profilePicture": "https://sessionize.com/image?f=9077db313f5aab4b267f235aa673c5c9,400,400,True,False,59-b76b-4f88-a408-4fc6b4f77258.c8338986-23ab-4363-871b-f448d05ef24f.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/@vanniktech",
-                "linkType": "Twitter"
+                "id": 134371,
+                "name": "Android, Google Play"
             },
             {
-                "title": "Blog",
-                "url": "https://medium.com/@vanniktech",
-                "linkType": "Blog"
+                "id": 134375,
+                "name": "Google Play, UX and Vitals Reviews"
+            },
+            {
+                "id": 134385,
+                "name": "Android, Google Play"
+            },
+            {
+                "id": 134382,
+                "name": "Google Play, UX and Vitals Reviews"
+            },
+            {
+                "id": 134391,
+                "name": "Android, Google Play"
+            },
+            {
+                "id": 134388,
+                "name": "Google Play, UX and Vitals Reviews"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2930,28 +1972,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/waterlink000",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://iwillteachyoukotlin.com/blog",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://iwillteachyoukotlin.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/oleksii-fedorov-b0b81186/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -2984,23 +2005,24 @@
         "profilePicture": "https://sessionize.com/image?f=b93d4f17241e1145947e6ba7bfb2b165,400,400,True,False,474cac7e-79d3-4989-9bab-1e98ee4676f8.jpg",
         "sessions": [
             {
+                "id": 134381,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
+            },
+            {
+                "id": 134387,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
+            },
+            {
+                "id": 134392,
+                "name": "Android TV, Chrome OS, UX and Vitals Reviews"
+            },
+            {
                 "id": 126345,
                 "name": "Getting Started with CameraX"
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/owahltinez",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@owahltinez",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3019,23 +2041,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/ptzinis",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/ptzinis/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://thexlab.io/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3045,7 +2051,7 @@
         "lastName": "Padgaonkar",
         "fullName": "Parth Padgaonkar",
         "bio": "Parth has been developing Android apps since 2013, and knows just enough RxJava to get into (and out of) trouble. He currently works at August Home, leading the Android team to create a faster and safer home access experience. He received a B.A. in Linguistics & Cognitive Science from Claremont McKenna College, and very occasionally puts it to use when iterating on UI. He's worked on 8 different Android apps and SDKs - here's to many more!\r\nKeywords: Brazilian Jiu-Jitsu, Android dev, diversity advocate, WCS dancer, feminist",
-        "tagLine": "Android @ August Home",
+        "tagLine": "Android Engineer @ Front",
         "profilePicture": "https://sessionize.com/image?f=bff2da529216b124837a7f7cd405254a,400,400,True,False,72-cc23-42e7-818e-4fd5153f7283.dd8482c4-d486-4af3-bb23-000b5a06ef91.jpg",
         "sessions": [
             {
@@ -3054,23 +2060,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Company Website",
-                "url": "https://august.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/parthpadg/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/ParthDroid",
-                "linkType": "Twitter"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3089,7 +2079,7 @@
             },
             {
                 "id": 130582,
-                "name": "Powerpoint Karaoke / improv / random slides"
+                "name": "Slide Karaoke"
             },
             {
                 "id": 127222,
@@ -3097,18 +2087,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/passsy",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://pascal.page",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3127,23 +2106,26 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "f0c8e830-36c9-4831-a07d-68e6d2437d1c",
+        "firstName": "Purnima",
+        "lastName": "Kochikar",
+        "fullName": "Purnima Kochikar",
+        "bio": "Purnima Kochikar is the Global Head of Apps and Games business development at Google Play where she oversees all aspects of the app ecosystem including strategy, operations, partnership management, technical support and developer marketing. Her team focuses on helping both world’s leading companies and fledging entrepreneurs create effective mobile businesses and reach global audiences. \r\nPrior to Google, Purnima held various roles at Nokia including leading developer activities worldwide, which took her to more than 30 countries working on initiatives as diverse as building mobile education centers in Africa, tech incubators in Singapore, Bangalore and Tel Aviv, and launching mobile apps to solve some of the most fundamental human problems including education, healthcare, and supply chain management for food and medicines.\r\nPurnima is passionate about K-12 education and entrepreneurship, and focuses on helping girls and women excel in both.  A self professed geek, she is a tinkerer (her first toy was a meccano set),  traveller, bookworm and a budding chef. She serves on the board of SVForum, which focuses on fostering entrepreneurship through education and mentorship.\r\n",
+        "tagLine": "Director,  Apps and Games Business Development, Google Play",
+        "profilePicture": "https://sessionize.com/image?f=7f37f4ff7a801f6a74f8db6b8a55823b,400,400,True,False,59-b76b-4f88-a408-4fc6b4f77258.7a84aee0-8cba-44d1-a09f-92fb7862ef2c.jpg",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/pfmaggi",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://developer.android.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@pmaggi",
-                "linkType": "Blog"
+                "id": 134342,
+                "name": "Designing for Sustainable GROWTH/Digital Well Being"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3162,23 +2144,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/ragunathjawahar",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://obvious.in/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@ragunathjawahar",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3197,23 +2163,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/remmies",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.disneystreaming.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "https://remcomokveld.nl",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3232,23 +2182,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/sueselbeck",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://developer.here.com/blog",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://developer.here.com",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3267,23 +2201,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://twitter.com/rjmarsan",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://instagram.com/rjmarsan",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.lyft.com/scooters",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3302,28 +2220,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "http://twitter.com/@rohantaneja_",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://medium.com/@rohantaneja",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.rohantaneja.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/rohantaneja/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3342,18 +2239,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/saekisaekisaeki",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "http://3jigen.net/",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3372,38 +2258,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/salihgueler",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/msalihguler/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@muhammedsalihguler",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.karlmax-berlin.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Github",
-                "url": "https://github.com/salihgueler",
-                "linkType": "Other"
-            },
-            {
-                "title": "SpeakerDeck",
-                "url": "https://speakerdeck.com/salihgueler",
-                "linkType": "Other"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3422,18 +2277,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/objcode",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@objcode",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3443,7 +2287,7 @@
         "lastName": "Smith",
         "fullName": "Sean Smith",
         "bio": "Sean has worked in application security and SDL for more than a decade. He got his start in security at Indiana University working to prevent web application attacks. He eventually moved to Microsoft where he worked on projects such as Exchange, Kinect, Xbox One and the Microsoft Threat Intelligence Center. Recently he has joined Google to manage the Android OS SDL Process.\r\n\r\nSean is originally from Indiana and lives in Seattle, Washington. He is married to a very understanding wife and has two amazing young boys. If he had free time, it would consist of barbecuing, video games and hiking. ",
-        "tagLine": "Security Program Manager",
+        "tagLine": "Security Program Manager, Google",
         "profilePicture": "https://sessionize.com/image?f=ab2589b2c8114bfe24b454a8752f16b5,400,400,True,False,08-5894-4b26-9e7d-6c941bc67e31.bddff4cf-6508-451a-a03d-9dff44de63f6.jpg",
         "sessions": [
             {
@@ -3494,18 +2338,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/LambdaCube",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.android.com/play-protect/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3524,28 +2357,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/@rotxed",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.blinkist.com/",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/sebastianogottardo/",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@rotxed",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3564,28 +2376,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/Sourabh46792678",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://medium.com/@sourabhgupta_63169",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://play.google.com/store/apps/details?id=in.swiggy.android&hl=en_IN",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/namesourabh005/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3608,23 +2399,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/DoesitPew",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://stacydevino.com",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "http://www.s23nyc.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3686,6 +2461,33 @@
         "categories": []
     },
     {
+        "id": "0cb70036-ca3b-43a5-bcf9-aece31909def",
+        "firstName": "Tim",
+        "lastName": "Messerschmidt",
+        "fullName": "Tim Messerschmidt",
+        "bio": "Tim oversees DACH, UK, and Russia as Lead on Google's Developer Relations team. He also runs the Operations team that supports Google's community across the globe. His favorite technologies are Flutter and Firebase. In 2016, Tim authored a book about web security and identity for O'Reilly.",
+        "tagLine": "Developer Relations Program Manager Lead",
+        "profilePicture": "https://sessionize.com/image?f=344d5b03b4ecfc21977d839beb342bcf,400,400,True,False,59-b76b-4f88-a408-4fc6b4f77258.5df08019-14d2-493d-8fd3-939e22ec1248.jpg",
+        "sessions": [
+            {
+                "id": 134371,
+                "name": "Android, Google Play"
+            },
+            {
+                "id": 134385,
+                "name": "Android, Google Play"
+            },
+            {
+                "id": 134391,
+                "name": "Android, Google Play"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
         "id": "40ee2eed-e7c4-47fc-baf4-f31b50ff6d77",
         "firstName": "Vignesh",
         "lastName": "Ramachandra",
@@ -3700,18 +2502,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/_vigneshr",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/vignesh-ramachandra-78a62b77/",
-                "linkType": "LinkedIn"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3730,23 +2521,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/_vipuls",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "LinkedIn",
-                "url": "https://www.linkedin.com/in/vipulshah123",
-                "linkType": "LinkedIn"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://backbase.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3765,23 +2540,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/vivienbarousse",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://vivien.barous.se/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://hubblehq.com/",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3800,23 +2559,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/objectbox_io",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Blog",
-                "url": "https://objectbox.io/blog/",
-                "linkType": "Blog"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://objectbox.io",
-                "linkType": "Company_Website"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3831,7 +2574,7 @@
         "sessions": [
             {
                 "id": 130255,
-                "name": "PlayStore and the Power of Google"
+                "name": "Play Store & App store policy experiences"
             },
             {
                 "id": 126638,
@@ -3839,23 +2582,7 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/vvsevolodovich",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "Https://epam.com",
-                "linkType": "Company_Website"
-            },
-            {
-                "title": "Blog",
-                "url": "Https://medium.com/@dzigorium",
-                "linkType": "Blog"
-            }
-        ],
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3874,18 +2601,26 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "e1033b1a-4939-45fe-b384-877c829d125f",
+        "firstName": "William",
+        "lastName": "Hoang",
+        "fullName": "William Hoang",
+        "bio": "William Hoang is a seasoned developer experienced in building software and engineering teams.  Along with over 16 years of instructor and mentoring in technical functions, William now leads the effort of Axiom Technology Group.  \u2028 \u2028Before starting Axiom Technology Group, William worked as a Developer Advocate on the Mobile Engineering and the Developer Relations team at Couchbase. His love for coffee and code has transcended him into the world of mobile applications while appreciating the offline in-person experiences. \u2028 \u2028Prior, William was a team lead and worked on Developer Relations team over at Twitter, BlackBerry, and Microsoft.  William also worked on location-based applications as a Software Embedded GPS engineer at Research In Motion on the Operating Systems group.\u2028 \u2028William graduated from McGill University in Electrical & Software Engineering and attended Harvard University in Computer Science and has spoken at various technology conferences including:  GDC, Droidcon NYC & Montreal, Mobileweek NYC, AnDevCon Boston, PAX Seattle, Full Stack Conf, O'Reilly Fluent, Tectonic Summit and technology meetups in various cities.",
+        "tagLine": "Droidcon China | Axiom Technology Group",
+        "profilePicture": "https://sessionize.com/image?f=ee541596c12e631a83a37b2d991072b4,400,400,True,False,1a-4939-45fe-b384-877c829d125f.245c1d3d-631b-4691-b304-b5ac538fa334.png",
+        "sessions": [
             {
-                "title": "Twitter",
-                "url": "https://twitter.com/devisnik",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.gradle.org",
-                "linkType": "Company_Website"
+                "id": 130255,
+                "name": "Play Store & App store policy experiences"
             }
         ],
+        "isTopSpeaker": false,
+        "links": [],
         "questionAnswers": [],
         "categories": []
     },
@@ -3901,36 +2636,6 @@
             {
                 "id": 114977,
                 "name": "Android Studio Super Shortcuts"
-            }
-        ],
-        "isTopSpeaker": false,
-        "links": [
-            {
-                "title": "Twitter",
-                "url": "https://twitter.com/u5_dev",
-                "linkType": "Twitter"
-            },
-            {
-                "title": "Company Website",
-                "url": "https://www.yahoo.co.jp",
-                "linkType": "Company_Website"
-            }
-        ],
-        "questionAnswers": [],
-        "categories": []
-    },
-    {
-        "id": "8cbc1672-8dd1-4f67-8aac-ec4c3fdb90a2",
-        "firstName": "Yury",
-        "lastName": "Camacho",
-        "fullName": "Yury Camacho",
-        "bio": "Yury is Systems Engineer and Google Developer Expert for Android. He is passionate about technology and software development, working in mobile applications development since 2010. Yury is GDG Cochabamba organizer. He likes to learn and share with the communities of developers and entrepreneurs giving talks, workshops and mentoring. Globant , OLX Group former,  He's currently working at Hipcam company as Android Software Engineer and he is also an independent consultant.",
-        "tagLine": "Google Developer Expert for Android",
-        "profilePicture": "https://sessionize.com/image?f=c60deb31408405dce0bb1b1ccc918ebd,400,400,True,False,8954bbdd-023d-4c1e-a527-026dc8041ad8.jpg",
-        "sessions": [
-            {
-                "id": 104187,
-                "name": "Two birds, one stone: a journey from refactoring and migrating from Java to Kotlin"
             }
         ],
         "isTopSpeaker": false,
