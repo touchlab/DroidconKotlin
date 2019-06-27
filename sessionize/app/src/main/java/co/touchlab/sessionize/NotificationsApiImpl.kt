@@ -29,6 +29,7 @@ class NotificationsApiImpl : NotificationsApi {
                 .setWhen(timeInMS)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                .setAutoCancel(true)
 
 
         val intent = Intent(AndroidAppContext.app, MainActivity::class.java)
