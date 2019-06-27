@@ -30,12 +30,14 @@
       {
         "name": "Here",
         "url": "https://www.here.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png"
+        "icon": "https://static.wixstatic.com/media/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png",,,
+        "sponsorId": 134890
       },
       {
         "name": "Ebay",
         "url": "https://ebaytech.berlin/",
-        "icon": "https://static.wixstatic.com/media/e257c0_e8d722d4a9794fbcbefa300f1a3fd2a8~mv2.png"
+        "icon": "https://static.wixstatic.com/media/e257c0_e8d722d4a9794fbcbefa300f1a3fd2a8~mv2.png",
+        "sponsorId": 134877
       },
       {
         "name": "1 And 1",
@@ -45,12 +47,14 @@
       {
         "name": "Delivery Hero",
         "url": "https://www.deliveryhero.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_f6f68c51c77c40f9b060514d052d23b0~mv2.png"
+        "icon": "https://static.wixstatic.com/media/6e1ab2_f6f68c51c77c40f9b060514d052d23b0~mv2.png",
+        "sponsorId": 134860
       },
       {
         "name": "Zebra",
         "url": "https://www.zebra.com/us/en.html",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_42dede91771e4b30803b76b508b46918~mv2.png"
+        "icon": "https://static.wixstatic.com/media/6e1ab2_42dede91771e4b30803b76b508b46918~mv2.png",
+        "sponsorId": 134882
       },
       {
         "name": "Nevercode",
@@ -60,7 +64,8 @@
       {
         "name": "Bitrise",
         "url": "https://www.bitrise.io/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_28af3649186a40ccad35e0360199b1ab~mv2.png"
+        "icon": "https://static.wixstatic.com/media/6e1ab2_28af3649186a40ccad35e0360199b1ab~mv2.png",
+        "sponsorId": 134766
       }
     ]
   },
@@ -70,7 +75,8 @@
       {
         "name": "N26",
         "url": "https://n26.com/en/careers/departments/13426?gh_src=33bf499b1",
-        "icon": "https://static.wixstatic.com/media/e257c0_9bbe12b6e4124d3f96edc3aca8246696~mv2.png"
+        "icon": "https://static.wixstatic.com/media/e257c0_9bbe12b6e4124d3f96edc3aca8246696~mv2.png",
+        "sponsorId": 134878
       },
       {
         "name": "ReachNow",
@@ -90,7 +96,8 @@
       {
         "name": "Gradle",
         "url": "https://gradle.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_1a056e368ba047968366b4944666c3dd~mv2.png"
+        "icon": "https://static.wixstatic.com/media/6e1ab2_1a056e368ba047968366b4944666c3dd~mv2.png",
+        "sponsorId": 134901
       },
       {
         "name": "Babbel",
@@ -165,9 +172,10 @@
         "icon": "https://static.wixstatic.com/media/6e1ab2_2486a2aaddf741c0be33e97001d697d7~mv2.png"
       },
       {
-        "name": "Acellere",
+        "name": "Embold Technologies GmbH",
         "url": "http://acellere.com/",
-        "icon": "https://static.wixstatic.com/media/6e1ab2_82117824edb949b3a09e08c5d394d8cd~mv2.png"
+        "icon": "https://static.wixstatic.com/media/6e1ab2_82117824edb949b3a09e08c5d394d8cd~mv2.png",
+        "sponsorId": 134881
       }
 
     ]
