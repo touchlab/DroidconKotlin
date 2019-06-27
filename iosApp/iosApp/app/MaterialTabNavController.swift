@@ -33,12 +33,15 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         MDCBottomNavigationBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.menuColorScheme, toBottomNavigation: bottomNavBar)
         bottomNavBar.unselectedItemTintColor = bottomNavBar.selectedItemTintColor
 //        MDCAppBarColorThemer.applySemanticColorScheme(ApplicationScheme.shared.colorScheme, to:bottomNavBar)
-        feedbackManager.setViewController(self)
-        feedbackManager.showFeedbackForPastSessions()
-        
-        
+       
+        NotificationCenter.default.addObserver(self, selector:#selector(showFeedback), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        showFeedback()
     }
 
+    @objc func showFeedback(){
+        feedbackManager.setViewController(self)
+        feedbackManager.showFeedbackForPastSessions()
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         feedbackManager.close()
@@ -86,6 +89,10 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
         return .lightContent
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     /*
     // MARK: - Navigation
 

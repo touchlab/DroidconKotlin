@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.FragmentAnimation
@@ -16,6 +17,13 @@ import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys.FEEDBACK_ENABLED
 import co.touchlab.sessionize.SettingsKeys.REMINDERS_ENABLED
 import co.touchlab.sessionize.about.AboutFragment
+import android.content.Intent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
+import co.touchlab.sessionize.feedback.FeedbackManager.Companion.FeedbackDisabledNotificationName
+import co.touchlab.sessionize.platform.AndroidAppContext
+
 
 class SettingsFragment : Fragment() {
 
@@ -28,6 +36,20 @@ class SettingsFragment : Fragment() {
         arguments?.let {
         }
         settingsViewModel = ViewModelProviders.of(this, SettingsViewModelFactory())[SettingsViewModel::class.java]
+
+        LocalBroadcastManager.getInstance(AndroidAppContext.app).registerReceiver(changedSettingReciever,
+                 IntentFilter (FeedbackDisabledNotificationName))
+    }
+
+    private val changedSettingReciever = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            updateContent()
+        }
+    }
+
+    override fun onDestroy() {
+        LocalBroadcastManager.getInstance(AndroidAppContext.app).unregisterReceiver(changedSettingReciever)
+        super.onDestroy()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +60,7 @@ class SettingsFragment : Fragment() {
 
         val adapter = SettingsAdapter(activity!!)
         recycler.adapter = adapter
+        updateContent()
 
         return view
     }
