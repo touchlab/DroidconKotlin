@@ -72,6 +72,10 @@ override func viewDidLoad() {
     public func setSessionInfo(sessionId: String?,sessionTitle:String){
         self.sessionId = sessionId
         self.sessionTitle = "What did you think of \(sessionTitle)?"
+        if(titleLabel != nil){
+            titleLabel.text = self.sessionTitle
+        }
+
     }
     
     
