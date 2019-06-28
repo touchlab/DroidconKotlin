@@ -16,8 +16,6 @@ import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnable
 import android.os.RemoteException
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import co.touchlab.sessionize.api.notificationFeedbackId
-import co.touchlab.sessionize.api.notificationReminderId
 
 class NotificationsApiImpl : NotificationsApi {
 
