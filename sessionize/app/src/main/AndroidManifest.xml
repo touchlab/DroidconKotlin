@@ -3,12 +3,12 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:name="co.touchlab.sessionize.MainApp"
-        android:theme="@style/Theme.Shrine">
+            android:allowBackup="false"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:name="co.touchlab.sessionize.MainApp"
+            android:theme="@style/Theme.Shrine">
         <activity
             android:name="co.touchlab.sessionize.MainActivity"
             android:label="@string/app_name">
