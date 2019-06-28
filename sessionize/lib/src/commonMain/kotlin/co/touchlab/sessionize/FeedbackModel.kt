@@ -1,6 +1,7 @@
 package co.touchlab.sessionize
 
 import co.touchlab.sessionize.api.FeedbackApi
+import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.sessionize.platform.Date
@@ -38,6 +39,7 @@ class FeedbackModel {
         },{
             cancelFeedbackNotificationsForSession()
             requestNextFeedback()
+            NetworkRepo.sendFeedback()
         })
     }
 }

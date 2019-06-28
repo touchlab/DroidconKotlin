@@ -14,7 +14,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://redmart.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/adnanM0123",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://www.adnan.am",
+                "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/adnan-a-m-9b378955/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -33,7 +54,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/Akshay_Chordiya",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/akshaychordiya/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@aky/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://bitfurther.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -52,7 +94,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/alsutton",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://alsutton.blog",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://google.com",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -98,7 +156,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/pelotasplus",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://linkedin.com/in/pelotasplus",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.grubhub.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -144,7 +218,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/AnastasiaLopezD",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.memrise.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -167,7 +252,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/asfalcone",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://verily.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -186,7 +282,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://quizlet.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ankushg",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/ankushmg/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://ankushg.com",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -205,7 +322,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/championswimmer",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://online.codingblocks.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://blog.championswimmer.in",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -228,7 +361,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://www.immobilienscout24.de/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/askashdavies",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@ashdavies",
+                "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/ashowendavies/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -247,7 +401,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ataulm",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://monzo.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://ataulm.com",
+                "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/ataulm/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -266,7 +441,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/aygul",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.aygul.co/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "http://www.linkedin.com/in/aygulzagidullina",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/google-assistant",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -285,7 +481,13 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://www.facebook.com",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -316,7 +518,13 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/keyboardsurfer",
+                "linkType": "Twitter"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -335,7 +543,13 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/calren24",
+                "linkType": "Twitter"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -354,7 +568,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/carrie_l_hall",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.carriehall.co.uk",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -396,7 +621,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/chrisbanes",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://chris.banes.me",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -412,6 +648,46 @@
             {
                 "id": 123879,
                 "name": "Navigation in Modular Applications with Deep Linking"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/damian2048",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://medium.com/@burkedamian",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://onefootball.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/damianburke2/",
+                "linkType": "LinkedIn"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "2d173aad-2c37-4761-9f45-ca01aca62380",
+        "firstName": "Daniela",
+        "lastName": "Bentrup",
+        "fullName": "Daniela Bentrup",
+        "bio": "Daniela attends all kinds of developer events to tell the world more about HEREs APIs and SDKs for maps and location-aware web and mobile apps. Swing by the HERE booth and she will give you 250.000 API transactions for free! Every month! Forever! Just sign up for a Freemium account at https://developer.here.com/events/droidberlin19 and enter the Nintendo Switch raffle on top of that.\r\n",
+        "tagLine": "Senior Marketing Specialist",
+        "profilePicture": "https://sessionize.com/image?f=1ca4fdc108d8a0e785e208491e0f188e,400,400,True,False,ad-2c37-4761-9f45-ca01aca62380.e0539402-e08c-47fc-9523-6ac3b680654f.jpg",
+        "sessions": [
+            {
+                "id": 134890,
+                "name": "HERE Technologies"
             }
         ],
         "isTopSpeaker": false,
@@ -438,7 +714,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "http://www.sporttotal.tv/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/PreusslerBerlin",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@dpreussler",
+                "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/danny-preussler-557a3b79/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -457,7 +754,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/darryncampbell",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/darryn-campbell-1b0127ab/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.zebra.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "http://www.darryncampbell.co.uk/",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -476,7 +794,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/BrantApps",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://candidegardening.com",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -495,7 +824,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/elainedbatista",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/elaine-dias-batista-25517520/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://sfeir.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -514,7 +859,13 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/hejelinnilsson",
+                "linkType": "Twitter"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -533,7 +884,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/lupsyn",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://github.com/lupsyn",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.tui.co.uk",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/lupsyn/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -552,7 +924,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://www.twitter.com/eenriquelopez",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://de.linkedin.com/in/eenriquelopez",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "http://www.lopez-manas.com",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.lopez-manas.com",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -579,7 +972,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ErikHellman",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/erikhelllman/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://hellsoft.se/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://hellsoft.se/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -598,7 +1012,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/fabiocarballo",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://n26.com",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -625,7 +1050,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/Felix_SFO",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/felix-hilgert-34a11184/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://gameslaw.org",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.osborneclarke.com",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -644,7 +1090,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/filbabic",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/filip-babi%C4%87-52b73a130/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://five.agency/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@fbabic",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -675,7 +1142,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/filiphracek",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.google.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@filiph",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -698,7 +1181,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://developer.android.com/index.html",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/Fmuntenescu/",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@florina.muntenescu",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -721,7 +1220,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/_romanofranz",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://developer.huawei.com/consumer/en/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -740,7 +1250,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/tamrefrank",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://tamrefrank.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@tamrefrank",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -759,7 +1285,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/tfcporciuncula",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@tfcporciuncula",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.blinkist.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/tfcporciuncula",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -778,7 +1325,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/gabrielittner",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.freeletics.com/en/corporate",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -797,7 +1355,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ragdroid",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@ragdroid",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.madewithover.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/ragdroid/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -867,7 +1446,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "http://www.laquysoft.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/joaolaq",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://www.laquysoft.com/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/glaquidara/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -886,7 +1486,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://freeletics.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/sockeqwe",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://hannesdorfmann.com",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -913,7 +1529,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/christian_woger",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://spielerecht.de/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.osborneclarke.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -932,7 +1564,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/alosdev",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/hosgel/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.lab1886.io/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@alosdev",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -951,7 +1604,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/HawraMilani",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/hawramilani/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://hawramilani.com/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://hawramilani.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -970,7 +1644,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://www.yahoo.co.jp/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/moridroid",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://techblog.yahoo.co.jp/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/%E6%B4%8B%E4%B9%8B-%E6%A3%AE-859b17147/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -989,7 +1684,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/@droidchef",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/ishankhanna/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.getaround.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://droidchef.co/",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1008,7 +1724,53 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/hamen",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://ivanmorgillo.com",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://mobimeo.com/en/",
+                "linkType": "Company_Website"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "517893ac-2bca-4bc6-bd23-0a8e6156dfa7",
+        "firstName": "James",
+        "lastName": "Swinton-Bland",
+        "fullName": "James Swinton-Bland",
+        "bio": "Hi, I'm a developer advocate working for Zebra Technologies UK covering the entire EMEA (Europe, Middle East & Africa) region. I’ve been an Android developer since graduating in 2016, and a developer Advocate for Zebra since 2018. As a developer advocate, It’s my job to facilitate & promote the use of Zebra’s vast portfolio of devices by developing proof of concept demo applications, speaking at conferences, holding development workshops and providing consultancy services to developers all across the world.",
+        "tagLine": "Developer Advocate",
+        "profilePicture": "https://sessionize.com/image?f=fb6d52869c050476b38f631330124dcc,400,400,True,False,ac-2bca-4bc6-bd23-0a8e6156dfa7.07e6dff0-499e-4e27-a783-a22d64f0618b.JPG",
+        "sessions": [
+            {
+                "id": 134882,
+                "name": "Zebra Technologies"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://www.zebra.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/james-swinton-bland-40135958/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1027,7 +1789,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://www.joinolx.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/bennegeek",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@bennegeek",
+                "linkType": "Blog"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "http://linkedin.com/in/jblorenzo/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1046,7 +1829,53 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/jbvincey",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.deezer.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://linkedin.com/in/jbvincey",
+                "linkType": "LinkedIn"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "7e4ef4e7-ba0e-4e3c-b8ea-141800e6dcb6",
+        "firstName": "Jenn ",
+        "lastName": "Strater",
+        "fullName": "Jenn  Strater",
+        "bio": "Jennifer “Jenn” Strater is a developer advocate for Gradle based in Berlin, Germany. She is the owner of the Groovy Community slack and a contributor to various Open Source projects including Spring REST Docs, Codenarc, Groovy, and Gradle.",
+        "tagLine": "Developer Advocate at Gradle",
+        "profilePicture": "https://sessionize.com/image?f=1e9356b0ee30da2be782ea94ecfab16f,400,400,True,False,2385a37d-19ab-40a6-a2b8-2036b246d6ed.jpg",
+        "sessions": [
+            {
+                "id": 134901,
+                "name": "Gradle"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/codejennerator",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://gradle.com",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1065,7 +1894,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/@molsjeroen",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://jeroenmols.com/blog/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www2.meethue.com/en-us",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1084,7 +1929,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/jitgo",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://jitgo.uk/blog/",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1103,7 +1959,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/_jitinsharma",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/jitinsharma7",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.go-jek.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1122,7 +1994,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/hitherejoe",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@hitherejoe",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://buffer.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/joe-birch-80392157/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1149,7 +2042,43 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/jonmarkoff",
+                "linkType": "Twitter"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "7652867b-5530-435c-8eab-4859cdb9b968",
+        "firstName": "Joshua",
+        "lastName": "Lindstrom",
+        "fullName": "Joshua Lindstrom",
+        "bio": "Josh has over 17 years experience in corporate sales with proven analytical and problem solving skills to ensure outstanding account management, loyalty, post-sale support, and customer satisfaction. ",
+        "tagLine": "VP of Sales",
+        "profilePicture": "https://sessionize.com/image?f=f4bf924258d5999b6c9db12ca131bf41,400,400,True,False,7b-5530-435c-8eab-4859cdb9b968.8443889c-10ec-4c65-ae82-8dd93aeeb1e1.jpg",
+        "sessions": [
+            {
+                "id": 134968,
+                "name": "PreEmptive Solutions"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "http://www.preemptive.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/joshlindstrom/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1168,7 +2097,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/jossiwolf",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://jossiwolf.de",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://josswolf.de",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1187,7 +2132,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/lehtimaeki",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://snappmobile.io/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1206,7 +2162,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/its_jaede",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/jyoti-dubey-827b9267/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1229,7 +2196,13 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/AgentK",
+                "linkType": "Twitter"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1267,7 +2240,33 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/fei_kome",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://qiita.com/k_keisuke",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Github",
+                "url": "https://github.com/kiuchikeisuke",
+                "linkType": "Other"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/%E5%95%93%E8%BC%94-%E6%9C%A8%E5%86%85-05396816b/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://about.yahoo.co.jp/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1298,7 +2297,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/KennethFSWE",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.google.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://www.twitter.com/kennethfswe",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1317,7 +2332,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://touchlab.co/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/kpgalligan",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@kpgalligan/",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1355,7 +2386,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://mewssystems.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/ookamikb/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1393,7 +2435,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/kpsroka",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://kpsroka.dev",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://callstack.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/krzysztofsroka/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1412,7 +2475,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/lariki",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@laramartin",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://laramartin.eu/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1431,7 +2510,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/LevVidrak",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/levvidrak",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://github.com/ButtersHub",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.wix.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1447,6 +2547,41 @@
             {
                 "id": 128155,
                 "name": "Cross Platform AR with Unity"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/LiamSorta",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://voice.tv/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://unity3d.com/",
+                "linkType": "Company_Website"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "9c966124-2465-4f19-8d92-f2a1700f3d9a",
+        "firstName": "Lisa",
+        "lastName": "Klostermann",
+        "fullName": "Lisa Klostermann",
+        "bio": "Delivery Hero Tech is playing an exceptional role in the large growth of our company. Our Product teams leverage a diverse stack to create cutting-edge solutions which cover the full customer experience - starting with a  great online search experience and ending with a real-time delivery at your doorstep. ",
+        "tagLine": "More than just food delivery...",
+        "profilePicture": "https://sessionize.com/image?f=24c810f92b624504f937ea424542170a,400,400,True,False,24-2465-4f19-8d92-f2a1700f3d9a.0d3610be-e29a-42ed-a609-13573949554d.jpg",
+        "sessions": [
+            {
+                "id": 134860,
+                "name": "Delivery Hero"
             }
         ],
         "isTopSpeaker": false,
@@ -1469,7 +2604,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/louis993546/",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@louis993546",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1507,7 +2653,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/manuelvicnt",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@manuelvicnt",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1526,7 +2683,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/maozt?lang=en",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/maoztamir/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.mobilefactory.co.il",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1545,7 +2718,38 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@marcinmoskala",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Github",
+                "url": "https://github.com/MarcinMoskala",
+                "linkType": "Other"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/marcinmoskala",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Personal website",
+                "url": "http://marcinmoskala.com/",
+                "linkType": "Other"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://marcinmoskala.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/marcin-moskala-6869a864/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1564,7 +2768,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/orbycius",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/marcosholgado/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.sky.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "http://marcosholgado.com",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1583,7 +2808,13 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Blog",
+                "url": "https://bubu1.eu",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1640,7 +2871,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/martinjeret",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://blog.codemagic.io/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://nevercode.io/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1659,7 +2906,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/zsmb13",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://zsmb.co",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://autsoft.hu/en",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1678,7 +2941,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/echorebel",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://mytaxi.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/mathias-paech",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1697,7 +2976,13 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@appmattus/",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1716,7 +3001,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/MiBLT",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://beltran.work",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://beltran.work",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1754,7 +3055,13 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/yenerm",
+                "linkType": "Twitter"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1773,7 +3080,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://www.soundcloud.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/nellyspageli",
+                "linkType": "Twitter"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1792,7 +3110,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/netomarin",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://developer.android.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "http://linkedin.com/in/netomarin",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1811,7 +3145,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://www.twitter.com/niamh__power",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.monzo.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/niamhpower93/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "http://medium.com/@niamhpower",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1830,7 +3185,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/crafty",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@crafty",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1849,7 +3215,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ricknout",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://ricknout.com",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://madewithover.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://linkedin.com/in/nicholasrout",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1872,7 +3259,33 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/cortinico",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://ncorti.com",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.yelp.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Github",
+                "url": "https://github.com/cortinico",
+                "linkType": "Other"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/cortinico/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1895,7 +3308,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/LadyNikoleta",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://developer.android.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1914,7 +3338,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/@vanniktech",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@vanniktech",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -1972,7 +3407,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/waterlink000",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://iwillteachyoukotlin.com/blog",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://iwillteachyoukotlin.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/oleksii-fedorov-b0b81186/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2022,7 +3478,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/owahltinez",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@owahltinez",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2041,7 +3508,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ptzinis",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/ptzinis/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://thexlab.io/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2060,7 +3543,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "https://august.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/parthpadg/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ParthDroid",
+                "linkType": "Twitter"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2087,7 +3586,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/passsy",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://pascal.page",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2106,7 +3616,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/pfmaggi",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://developer.android.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@pmaggi",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2144,7 +3670,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/ragunathjawahar",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://obvious.in/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@ragunathjawahar",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2163,7 +3705,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/remmies",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.disneystreaming.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "https://remcomokveld.nl",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2182,7 +3740,63 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/sueselbeck",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://developer.here.com/blog",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://developer.here.com",
+                "linkType": "Company_Website"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "efe29378-d0b0-416a-bd2c-7885efc83632",
+        "firstName": "Rik",
+        "lastName": "Haandrikman",
+        "fullName": "Rik Haandrikman",
+        "bio": "VP of Growth, adapt in BASIC for the C64. Ask me to code you a text-based adventure",
+        "tagLine": "Bitrise, VP of Growth",
+        "profilePicture": "https://sessionize.com/image?f=ecb29348a2976455bbbccc0eb28fae8f,400,400,True,False,2182e5c6-6eaa-473d-acd4-d7b81c0e83f8.jpg",
+        "sessions": [
+            {
+                "id": 134766,
+                "name": "Bitrise"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/bitrise",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://blog.bitrise.io/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.bitrise.io/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/company/bitrise/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2201,7 +3815,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/rjmarsan",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://instagram.com/rjmarsan",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.lyft.com/scooters",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2220,7 +3850,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "http://twitter.com/@rohantaneja_",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://medium.com/@rohantaneja",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.rohantaneja.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/rohantaneja/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2239,7 +3890,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/saekisaekisaeki",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "http://3jigen.net/",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2258,7 +3920,73 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/salihgueler",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/msalihguler/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@muhammedsalihguler",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://onefootball.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Github",
+                "url": "https://github.com/salihgueler",
+                "linkType": "Other"
+            },
+            {
+                "title": "SpeakerDeck",
+                "url": "https://speakerdeck.com/salihgueler",
+                "linkType": "Other"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "e493048b-fc46-45d9-82a6-98a7bba81719",
+        "firstName": "Sam",
+        "lastName": "Lisick",
+        "fullName": "Sam Lisick",
+        "bio": "I am Sam Lisik and I've been working as a Tech Recruiting Partner at N26 for over 2 years now. My focus is on mobile recruitment (Android and iOS) for our offices in Berlin, Barcelona, New York and Vienna.",
+        "tagLine": "Tech Recruiter",
+        "profilePicture": "https://sessionize.com/image?f=d334331ae70c400106d677f9446189c3,400,400,True,False,8b-fc46-45d9-82a6-98a7bba81719.d56354b5-3e3d-46de-9844-3f10ea5f023d.png",
+        "sessions": [
+            {
+                "id": 134878,
+                "name": "N26"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/N26Careers",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://n26.com/en-gb/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/company/3116425",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2277,7 +4005,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/objcode",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@objcode",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2338,7 +4077,43 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/LambdaCube",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.android.com/play-protect/",
+                "linkType": "Company_Website"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "4312b9d8-5b96-4aef-8334-ece0e6918547",
+        "firstName": "Sebastian",
+        "lastName": "Striebig",
+        "fullName": "Sebastian Striebig",
+        "bio": "Sebastian Striebig, Client Solution Lead\r\n\r\nSebastian Striebig ist zertifizierter Lean Six Sigma Project Specialist, ausgebildeter Mediator und Alumni der Philipps-Universität-Marburg (M. Sc.). Er verfügt über mehrjährige internationale Projekterfahrung. Nach beruflichen Stationen als selbstständiger Startup-Berater, sowie bei Konica Minolta IT Solutions und Sereene, ist Sebastian Striebig aktuell als Client Solution Lead beim Frankfurter Technologie-Start-up Embold Technologies GmbH (vormals Acellere) im Einsatz. ",
+        "tagLine": "Embold Technologies GmbH, Sebastian Striebig, Client Solution Lead",
+        "profilePicture": "https://sessionize.com/image?f=88270540260803800ebca7c813ca0232,400,400,True,False,d8-5b96-4aef-8334-ece0e6918547.af787518-e5e2-4d4f-abd0-8fcfd20fa0d4.jpg",
+        "sessions": [
+            {
+                "id": 134881,
+                "name": "Embold Technologies GmbH"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Company Website",
+                "url": "http://embold.io",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2357,7 +4132,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/@rotxed",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.blinkist.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/sebastianogottardo/",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@rotxed",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2376,7 +4172,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/Sourabh46792678",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://medium.com/@sourabhgupta_63169",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://play.google.com/store/apps/details?id=in.swiggy.android&hl=en_IN",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/namesourabh005/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2399,7 +4216,28 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/DoesitPew",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://stacydevino.com",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "http://www.s23nyc.com/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/stacy-devino/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2461,6 +4299,25 @@
         "categories": []
     },
     {
+        "id": "9f0715c6-7e48-4d2f-ba8c-db5387c75c42",
+        "firstName": "Thanos",
+        "lastName": "Karpouzis",
+        "fullName": "Thanos Karpouzis",
+        "bio": "Engineering manager @ Babbel",
+        "tagLine": "Engineering manager @ Babbel",
+        "profilePicture": "https://sessionize.com/image?f=f80a9f71f9660e93ba029d9b3ec7b7fd,400,400,True,False,0a8d782f-3ea3-4d8f-a01c-c1c21aa46a2a.jpg",
+        "sessions": [
+            {
+                "id": 134917,
+                "name": "Babbel"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
         "id": "0cb70036-ca3b-43a5-bcf9-aece31909def",
         "firstName": "Tim",
         "lastName": "Messerschmidt",
@@ -2488,6 +4345,41 @@
         "categories": []
     },
     {
+        "id": "5ff59c0b-8143-4ab7-848e-4d2f1ecf3f2c",
+        "firstName": "Torsten",
+        "lastName": "Schollmayer",
+        "fullName": "Torsten Schollmayer",
+        "bio": "Head of Innovation at Jobsens.ai and ready to answer any questions you might have. ",
+        "tagLine": "Jobsens.ai - Chief Operating Officer",
+        "profilePicture": "https://sessionize.com/image?f=6d05ac07df5443a8d5cf256dd58bec97,400,400,True,False,0b-8143-4ab7-848e-4d2f1ecf3f2c.deb703c4-e9f2-4390-9fac-8c23a0a97da6.JPG",
+        "sessions": [
+            {
+                "id": 134973,
+                "name": "Jobsens.ai"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/jobsensai",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.jobsens.ai/",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/company/jobsens-ai",
+                "linkType": "LinkedIn"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
         "id": "40ee2eed-e7c4-47fc-baf4-f31b50ff6d77",
         "firstName": "Vignesh",
         "lastName": "Ramachandra",
@@ -2502,7 +4394,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/_vigneshr",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/vignesh-ramachandra-78a62b77/",
+                "linkType": "LinkedIn"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2521,7 +4424,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/_vipuls",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/vipulshah123",
+                "linkType": "LinkedIn"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://backbase.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2540,7 +4459,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/vivienbarousse",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://vivien.barous.se/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://hubblehq.com/",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2559,7 +4494,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/objectbox_io",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Blog",
+                "url": "https://objectbox.io/blog/",
+                "linkType": "Blog"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://objectbox.io",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2582,7 +4533,23 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/vvsevolodovich",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "Https://epam.com",
+                "linkType": "Company_Website"
+            },
+            {
+                "title": "Blog",
+                "url": "Https://medium.com/@dzigorium",
+                "linkType": "Blog"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2601,7 +4568,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/devisnik",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.gradle.org",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },
@@ -2617,6 +4595,36 @@
             {
                 "id": 130255,
                 "name": "Play Store & App store policy experiences"
+            }
+        ],
+        "isTopSpeaker": false,
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/sweetiewill",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "LinkedIn",
+                "url": "https://www.linkedin.com/in/williamhoang",
+                "linkType": "LinkedIn"
+            }
+        ],
+        "questionAnswers": [],
+        "categories": []
+    },
+    {
+        "id": "0ce8aa5a-6089-433b-b655-8661150bd293",
+        "firstName": "Yasin",
+        "lastName": "Yildirim",
+        "fullName": "Yasin Yildirim",
+        "bio": "Android Team Lead",
+        "tagLine": "Android Team Lead",
+        "profilePicture": "https://sessionize.com/image?f=f394f7527d0eb4752baeec9a1725e604,400,400,True,False,5a-6089-433b-b655-8661150bd293.ce663ff8-910d-4ac3-9960-3d1f142be49c.jpg",
+        "sessions": [
+            {
+                "id": 134877,
+                "name": "eBay Tech"
             }
         ],
         "isTopSpeaker": false,
@@ -2639,7 +4647,18 @@
             }
         ],
         "isTopSpeaker": false,
-        "links": [],
+        "links": [
+            {
+                "title": "Twitter",
+                "url": "https://twitter.com/u5_dev",
+                "linkType": "Twitter"
+            },
+            {
+                "title": "Company Website",
+                "url": "https://www.yahoo.co.jp",
+                "linkType": "Company_Website"
+            }
+        ],
         "questionAnswers": [],
         "categories": []
     },

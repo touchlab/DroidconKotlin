@@ -21,6 +21,10 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:enabled="true"
+            android:textIsSelectable="true"
+            android:focusable="true"
+            android:longClickable="true"
             android:autoLink="web"
             tools:text="www.touchlab.co"
             tools:visibility="visible"/>

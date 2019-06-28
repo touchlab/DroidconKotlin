@@ -66,6 +66,11 @@
         "url": "https://www.bitrise.io/",
         "icon": "https://static.wixstatic.com/media/6e1ab2_28af3649186a40ccad35e0360199b1ab~mv2.png",
         "sponsorId": 134766
+      },
+      {
+        "name": "Touchlab",
+        "url": "https://touchlab.co/",
+        "icon": "https://static.wixstatic.com/media/26bcf1_7e164fa48a864abba5f63b2c749bd870~mv2.png"
       }
     ]
   },
