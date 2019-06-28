@@ -16,6 +16,8 @@ import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnable
 import android.os.RemoteException
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import co.touchlab.sessionize.api.notificationFeedbackId
+import co.touchlab.sessionize.api.notificationReminderId
 
 class NotificationsApiImpl : NotificationsApi {
 
@@ -31,10 +33,7 @@ class NotificationsApiImpl : NotificationsApi {
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setAutoCancel(true)
 
-
-        val intent = Intent(AndroidAppContext.app, MainActivity::class.java)
-        val activityIntent = PendingIntent.getActivity(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-        builder.setContentIntent(activityIntent)
+        builder.setContentIntent(contentIntent)
 
         // Building Intent wrapper
         val pendingIntent = createPendingIntent(notificationId, builder.build())
@@ -88,6 +87,7 @@ class NotificationsApiImpl : NotificationsApi {
     companion object{
         val TAG:String = NotificationsApiImpl::class.java.simpleName
 
+        val contentIntent = PendingIntent.getActivity(AndroidAppContext.app, 0, Intent(AndroidAppContext.app, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
 
         private fun createPendingIntent(id:Int, notification: Notification? = null): PendingIntent{
             // Building Intent wrapper
