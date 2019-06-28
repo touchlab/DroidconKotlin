@@ -2,6 +2,255 @@
     {
         "groupId": 22387,
         "groupName": "Sponsor",
-        "sessions": []
+        "sessions": [
+            {
+                "questionAnswers": [],
+                "id": "134766",
+                "title": "Bitrise",
+                "description": "Bitrise is Android CI/CD made easy. Fully featured, with over 200 integrations that'll work out of the box. Used to build some of the most downloaded apps on Google Play to automate workflows for teams of 1 to hundreds of developers. Also, we have awesome posters at our booth: Come grab one!",
+                "startsAt": "2019-07-01T08:00:00",
+                "endsAt": "2019-07-01T08:10:00",
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "efe29378-d0b0-416a-bd2c-7885efc83632",
+                        "name": "Rik Haandrikman"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 15466,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 22387,
+                                "name": "Sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": 5997,
+                "room": "Marshmallow"
+            },
+            {
+                "questionAnswers": [],
+                "id": "134878",
+                "title": "N26",
+                "description": "The Mobile Bank. N26 has more than 3.5 million customers in 24 markets across Europe. In just under a year, the N26 Android team exploded from 4 people to 21 and we're still growing. \r\nCome visit our team at booth 9 over the next days.\r\n\r\nOpen roles in 3 of our offices see below:\r\nBerlin: https://bit.ly/2YdC6Ut / https://bit.ly/2XcCJkK\r\nNew York: https://bit.ly/2ZRJOnY \r\nVienna: https://bit.ly/2KGnIRU / https://bit.ly/2IR1jPC \r\n",
+                "startsAt": "2019-07-01T08:10:00",
+                "endsAt": "2019-07-01T08:20:00",
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "e493048b-fc46-45d9-82a6-98a7bba81719",
+                        "name": "Sam Lisick"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 15466,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 22387,
+                                "name": "Sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": 5998,
+                "room": "Nougat"
+            },
+            {
+                "questionAnswers": [],
+                "id": "134882",
+                "title": "Zebra Technologies",
+                "description": "As a global leader in rugged Android Enterprise, Zebra Technologies empowers those on the front line of industry to achieve a performance edge — Learn more about Zebra and the work we do by joining our Developer Community: https://bit.ly/31Z1eB0",
+                "startsAt": "2019-07-01T08:10:00",
+                "endsAt": "2019-07-01T08:20:00",
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "517893ac-2bca-4bc6-bd23-0a8e6156dfa7",
+                        "name": "James Swinton-Bland"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 15466,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 22387,
+                                "name": "Sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": 5997,
+                "room": "Marshmallow"
+            },
+            {
+                "questionAnswers": [],
+                "id": "134901",
+                "title": "Gradle",
+                "description": "Gradle is the company behind the award-winning open source Gradle build tool and the commercial platform Gradle Enterprise. Stop by the DroidCon Berlin booth to learn about Gradle Enterprise, ask build tool questions, find out about our remote-friendly job postings, grab stickers, or pick up a Gradle t-shirt (limited supply of men’s and women’s sizes).",
+                "startsAt": "2019-07-01T08:20:00",
+                "endsAt": "2019-07-01T08:30:00",
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "7e4ef4e7-ba0e-4e3c-b8ea-141800e6dcb6",
+                        "name": "Jenn  Strater"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 15466,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 22387,
+                                "name": "Sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": 5998,
+                "room": "Nougat"
+            },
+            {
+                "questionAnswers": [],
+                "id": "134890",
+                "title": "HERE Technologies",
+                "description": "HERE, the Open Location Platform company, enables people, enterprises and cities to harness the power of location. By making sense of the world through the lens of location we empower our customers to achieve better outcomes – from helping a city manage its infrastructure or an enterprise optimize its assets to delivering drivers to their destination safely. To learn more about HERE, including our new generation of cloud-based location platform services, visit http://360.here.com",
+                "startsAt": "2019-07-01T08:20:00",
+                "endsAt": "2019-07-01T08:30:00",
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "2d173aad-2c37-4761-9f45-ca01aca62380",
+                        "name": "Daniela Bentrup"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 15466,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 22387,
+                                "name": "Sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": 5997,
+                "room": "Marshmallow"
+            },
+            {
+                "questionAnswers": [],
+                "id": "134877",
+                "title": "eBay Tech",
+                "description": "eBay Tech Berlin includes software developers, testers, data engineers & scientists as well as site operations teams from eBay Germany, eBay Kleinanzeigen, MOTOR-TALK, mobile.de & eBay Classifieds MoVe. We build leading online platforms using the latest technologies and methods.\r\n\r\nAndroid Tech Lead (f/m/d)\r\nhttp://tiny.cc/hf7v8y\r\n\r\nWorking Student - Mobile Test Engineer\r\nhttp://tiny.cc/3h7v8y",
+                "startsAt": "2019-07-01T08:30:00",
+                "endsAt": "2019-07-01T08:40:00",
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "0ce8aa5a-6089-433b-b655-8661150bd293",
+                        "name": "Yasin Yildirim"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 15466,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 22387,
+                                "name": "Sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": 5998,
+                "room": "Nougat"
+            },
+            {
+                "questionAnswers": [],
+                "id": "134881",
+                "title": "Embold Technologies GmbH",
+                "description": "With Gamma's multi-dimensional prioritization, from design to code metrics, get right into the DNA of your code. Understand the status and be able to build high quality software faster, and seamlessly integrate into your DevOps. Gamma brings static code analysis to the next level - all backed by AI.",
+                "startsAt": "2019-07-01T08:30:00",
+                "endsAt": "2019-07-01T08:40:00",
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "4312b9d8-5b96-4aef-8334-ece0e6918547",
+                        "name": "Sebastian Striebig"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 15466,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 22387,
+                                "name": "Sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": 5997,
+                "room": "Marshmallow"
+            },
+            {
+                "questionAnswers": [],
+                "id": "134860",
+                "title": "Delivery Hero",
+                "description": "Delivery Hero is building the next generation global on-demand delivery platform. Our open positions: https://bit.ly/2X7gkAG & https://bit.ly/2KF3Luu & https://bit.ly/31Z0cEP",
+                "startsAt": "2019-07-01T08:40:00",
+                "endsAt": "2019-07-01T08:50:00",
+                "isServiceSession": false,
+                "isPlenumSession": false,
+                "speakers": [
+                    {
+                        "id": "9c966124-2465-4f19-8d92-f2a1700f3d9a",
+                        "name": "Lisa Klostermann"
+                    }
+                ],
+                "categories": [
+                    {
+                        "id": 15466,
+                        "name": "Tags",
+                        "categoryItems": [
+                            {
+                                "id": 22387,
+                                "name": "Sponsor"
+                            }
+                        ],
+                        "sort": 1004
+                    }
+                ],
+                "roomId": 5997,
+                "room": "Marshmallow"
+            }
+        ]
     }
 ]

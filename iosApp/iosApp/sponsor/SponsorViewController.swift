@@ -73,6 +73,7 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let sponsorInfo = sponsorGroups![(indexPath as NSIndexPath).section].sponsors[indexPath.item]
+        SponsorModelKt.sponsorClicked(sponsor: sponsorInfo)
         if sponsorInfo.sponsorId != nil {
             performSegue(withIdentifier: "ShowSponsorDetail", sender: sponsorInfo)
         } else if let sponsorUrl = sponsorInfo.url {
