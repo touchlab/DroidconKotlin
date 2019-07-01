@@ -11,6 +11,8 @@ import lib
 
 class FeedbackManager: NSObject,FeedbackApi {
     
+    static let FeedbackDisabledNotificationName = "FeedbackDisabled"
+    
     var viewController:UIViewController?
     private var feedbackModel:FeedbackModel = FeedbackModel()
     
@@ -31,6 +33,7 @@ class FeedbackManager: NSObject,FeedbackApi {
     
     func disableFeedback(){
         NotificationsModel().setFeedbackEnabled(enabled: false)
+        NotificationCenter.default.post(name: Notification.Name(FeedbackDisabledNotificationName), object: nil)
     }
     
     func generateFeedbackDialog(session: MyPastSession) {
