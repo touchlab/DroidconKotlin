@@ -66,15 +66,15 @@ class MainActivity : AppCompatActivity(), NavigationHost, SnackHost {
         if(savedInstanceState == null) {
             navigateTo(ScheduleFragment.newInstance(true), false)
         }
-
-        feedbackManager.setFragmentManager(supportFragmentManager)
-        feedbackManager.showFeedbackForPastSessions()
     }
 
 
     override fun onResume() {
         super.onResume()
         NetworkRepo.refreshData()
+
+        feedbackManager.setFragmentManager(supportFragmentManager)
+        feedbackManager.showFeedbackForPastSessions()
     }
 
     override fun onDestroy() {
