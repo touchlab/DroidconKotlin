@@ -23,16 +23,18 @@ class NotificationPublisher : BroadcastReceiver() {
         val notification = intent.getParcelableExtra<Notification>(NOTIFICATION)
         val notificationId = intent.getIntExtra(NOTIFICATION_ID, 0)
 
-        with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-            // notificationId is a unique int for each notification that you must define
-            this.notify(notificationId, notification)
-            Log.i(TAG,"Showing Local Notification $notificationId")
-        }
-        if(notificationId == notificationReminderId) {
-            NotificationsModel.recreateReminderNotifications()
-        }
-        if(notificationId == notificationFeedbackId){
-            NotificationsModel.recreateFeedbackNotifications()
+        notification?.let {
+            with(NotificationManagerCompat.from(AndroidAppContext.app)) {
+                // notificationId is a unique int for each notification that you must define
+                this.notify(notificationId, it)
+                Log.i(TAG, "Showing Local Notification $notificationId")
+            }
+            if (notificationId == notificationReminderId) {
+                NotificationsModel.recreateReminderNotifications()
+            }
+            if (notificationId == notificationFeedbackId) {
+                NotificationsModel.recreateFeedbackNotifications()
+            }
         }
     }
 
