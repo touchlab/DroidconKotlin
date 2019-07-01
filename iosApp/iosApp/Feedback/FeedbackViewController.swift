@@ -67,6 +67,24 @@ override func viewDidLoad() {
         commentTextView.textColor = UIColor.lightGray
         commentTextView.delegate = self
         commentTextView.textContainerInset = UIEdgeInsetsMake(16, 8, 0, 8)
+    
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
+        setDoneOnKeyboard()
+    }
+    
+    func setDoneOnKeyboard() {
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        keyboardToolbar.items = [flexBarButton, doneBarButton]
+        self.commentTextView.inputAccessoryView = keyboardToolbar
+    }
+
+    
+    @objc func dismissKeyboard () {
+        commentTextView.resignFirstResponder()
     }
     
     public func setSessionInfo(sessionId: String?,sessionTitle:String){
