@@ -24,6 +24,21 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
         
         viewModel = SettingsViewModel()
         
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        let nib = UINib(nibName: "EventTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "eventCell")
+        
+        self.tableView.contentInset = UIEdgeInsets.zero
+        self.tableView.separatorStyle = .none
+        createTableData()
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(createTableData), name: Notification.Name(FeedbackManager.FeedbackDisabledNotificationName), object: nil)
+
+    }
+    
+    @objc func createTableData(){
         data = [
             SwitchDetail(title: "Enable Feedback",
                          image: UIImage.init(named: "icon_feedback")!,
@@ -40,18 +55,9 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
             ButtonDetail(title: "About",
                          image: UIImage.init(named: "ic_info_outline_white")!,
                          listener: {
-                self.performSegue(withIdentifier: "AboutSegue", sender: nil)
-                })
+                            self.performSegue(withIdentifier: "AboutSegue", sender: nil)
+            })
         ]
-        
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-        let nib = UINib(nibName: "EventTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "eventCell")
-        
-        self.tableView.contentInset = UIEdgeInsets.zero
-        self.tableView.separatorStyle = .none
         self.tableView.reloadData()
     }
 
@@ -146,5 +152,8 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
         
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
 }
