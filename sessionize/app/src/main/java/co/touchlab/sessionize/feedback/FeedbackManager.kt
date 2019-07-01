@@ -1,9 +1,13 @@
 package co.touchlab.sessionize.feedback
 
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.fragment.app.FragmentManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.FeedbackModel
 import co.touchlab.sessionize.api.FeedbackApi
+import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
 import co.touchlab.sessionize.platform.NotificationsModel.setFeedbackEnabled
 
@@ -30,6 +34,7 @@ class FeedbackManager : FeedbackApi {
 
     fun disableFeedback(){
         setFeedbackEnabled(false)
+        LocalBroadcastManager.getInstance(AndroidAppContext.app).sendBroadcast(Intent(FeedbackDisabledNotificationName))
     }
 
     override fun generateFeedbackDialog(session: MyPastSession){
@@ -43,5 +48,9 @@ class FeedbackManager : FeedbackApi {
 
     override fun onError(error: FeedbackApi.FeedBackError) {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    companion object{
+        const val FeedbackDisabledNotificationName = "FeedbackDisabled"
     }
 }

@@ -32,13 +32,13 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
         
         self.tableView.contentInset = UIEdgeInsets.zero
         self.tableView.separatorStyle = .none
-        createTableData()
+        updateContent()
         
-        NotificationCenter.default.addObserver(self, selector:#selector(createTableData), name: Notification.Name(FeedbackManager.FeedbackDisabledNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(updateContent), name: Notification.Name(FeedbackManager.FeedbackDisabledNotificationName), object: nil)
 
     }
     
-    @objc func createTableData(){
+    @objc func updateContent(){
         data = [
             SwitchDetail(title: "Enable Feedback",
                          image: UIImage.init(named: "icon_feedback")!,
