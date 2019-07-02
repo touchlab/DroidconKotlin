@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.FragmentAnimation
@@ -16,6 +17,13 @@ import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys.FEEDBACK_ENABLED
 import co.touchlab.sessionize.SettingsKeys.REMINDERS_ENABLED
 import co.touchlab.sessionize.about.AboutFragment
+import android.content.Intent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
+import co.touchlab.sessionize.feedback.FeedbackManager.Companion.FeedbackDisabledNotificationName
+import co.touchlab.sessionize.platform.AndroidAppContext
+
 
 class SettingsFragment : Fragment() {
 
@@ -28,6 +36,20 @@ class SettingsFragment : Fragment() {
         arguments?.let {
         }
         settingsViewModel = ViewModelProviders.of(this, SettingsViewModelFactory())[SettingsViewModel::class.java]
+
+        LocalBroadcastManager.getInstance(AndroidAppContext.app).registerReceiver(changedSettingReciever,
+                 IntentFilter (FeedbackDisabledNotificationName))
+    }
+
+    private val changedSettingReciever = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            updateContent()
+        }
+    }
+
+    override fun onDestroy() {
+        LocalBroadcastManager.getInstance(AndroidAppContext.app).unregisterReceiver(changedSettingReciever)
+        super.onDestroy()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +57,10 @@ class SettingsFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         recycler = view.findViewById(R.id.recycler)
+
+        val adapter = SettingsAdapter(activity!!)
+        recycler.adapter = adapter
+        updateContent()
 
         return view
     }
@@ -48,9 +74,10 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateContent() {
-        val adapter = SettingsAdapter(activity!!)
+        if(::recycler.isInitialized) {
+            val adapter = SettingsAdapter(activity!!)
 
-        //SettingsModel.loadSettingsInfo {
+            //SettingsModel.loadSettingsInfo {
             adapter.addSwitchRow("Enable Feedback",
                     R.drawable.baseline_feedback_24,
                     ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED, true),
@@ -65,7 +92,7 @@ class SettingsFragment : Fragment() {
                         settingsViewModel.settingsModel.setRemindersSettingEnabled(isChecked)
                     }
             )
-            adapter.addButtonRow("About",R.drawable.menu_info, View.OnClickListener {
+            adapter.addButtonRow("About", R.drawable.menu_info, View.OnClickListener {
                 (activity as NavigationHost).navigateTo(
                         AboutFragment.newInstance(),
                         true,
@@ -75,8 +102,9 @@ class SettingsFragment : Fragment() {
                                 R.anim.slide_to_right)
                 )
             })
-        //}
+            //}
 
-        recycler.adapter = adapter
+            recycler.adapter = adapter
+        }
     }
 }

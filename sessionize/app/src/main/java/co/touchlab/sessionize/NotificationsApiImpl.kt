@@ -106,11 +106,9 @@ class NotificationsApiImpl : NotificationsApi {
                 .setWhen(timeInMS)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                .setAutoCancel(true)
 
-
-        val intent = Intent(AndroidAppContext.app, MainActivity::class.java)
-        val activityIntent = PendingIntent.getActivity(AndroidAppContext.app, notificationId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-        builder.setContentIntent(activityIntent)
+        builder.setContentIntent(contentIntent)
 
         // Building Intent wrapper
         val pendingIntent = createPendingIntent(notificationId, notification = builder.build())
@@ -178,6 +176,8 @@ class NotificationsApiImpl : NotificationsApi {
             val format = SimpleDateFormat("MM/dd/YYYY, hh:mma")
             return format.format(calendar.time)
         }
+
+        val contentIntent = PendingIntent.getActivity(AndroidAppContext.app, 0, Intent(AndroidAppContext.app, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
 
         fun createPendingIntent(id:Int, actionId:Int? = null, notification: Notification? = null): PendingIntent{
             // Building Intent wrapper

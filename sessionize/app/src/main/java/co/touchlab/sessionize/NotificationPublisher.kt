@@ -26,19 +26,21 @@ class NotificationPublisher : BroadcastReceiver() {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if(notificationActionId == 0){
-            Log.i(TAG, "---OnReceive called, creating   ${NotificationsApiImpl.notificationIdToString(notificationId)} notification")
-            with(NotificationManagerCompat.from(AndroidAppContext.app)) {
-                this.notify(notificationId, notification)
-            }
+          notification?.let {
+              Log.i(TAG, "---OnReceive called, creating   ${NotificationsApiImpl.notificationIdToString(notificationId)} notification")
+              with(NotificationManagerCompat.from(AndroidAppContext.app)) {
+                  this.notify(notificationId, notification)
+              }
 
-            if(notificationId == notificationReminderId) {
-                NotificationsModel.recreateReminderNotifications()
+              if(notificationId == notificationReminderId) {
+                  NotificationsModel.recreateReminderNotifications()
 
-                val currentTime = Calendar.getInstance().time
-                dismissLocalNotification(notificationId, currentTime.time + (Durations.TEN_MINS_MILLIS*2))
-            }
-            if(notificationId == notificationFeedbackId){
-                NotificationsModel.recreateFeedbackNotifications()
+                  val currentTime = Calendar.getInstance().time
+                  dismissLocalNotification(notificationId, currentTime.time + (Durations.TEN_MINS_MILLIS*2))
+              }
+              if(notificationId == notificationFeedbackId){
+                  NotificationsModel.recreateFeedbackNotifications()
+              }
             }
         }
         else {

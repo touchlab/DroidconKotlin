@@ -41,10 +41,10 @@ class ApplicationScheme: NSObject {
     public let colorScheme: MDCColorScheming = {
         let scheme = MDCSemanticColorScheme(defaults: .material201804)
         
-        scheme.primaryColor = colorWithHexString(hexString: "0086EC")
-        scheme.primaryColorVariant = colorWithHexString(hexString: "00A5FB")
+        scheme.primaryColor = colorWithHexString(hexString: "#B34524")
+        scheme.primaryColorVariant = colorWithHexString(hexString: "f34e22")
         scheme.onPrimaryColor = colorWithHexString(hexString: "FFFFFF")
-        scheme.secondaryColor = colorWithHexString(hexString: "00A5FB")
+        scheme.secondaryColor = colorWithHexString(hexString: "f34e22")
         scheme.onSecondaryColor = colorWithHexString(hexString: "ffffff")
         scheme.surfaceColor = colorWithHexString(hexString: "ffffff")
         scheme.onSurfaceColor = colorWithHexString(hexString: "000000")
@@ -58,7 +58,7 @@ class ApplicationScheme: NSObject {
     public let menuColorScheme: MDCColorScheming = {
         let scheme = MDCSemanticColorScheme(defaults: .material201804)
         
-        scheme.primaryColor = colorWithHexString(hexString: "00A5FB")
+        scheme.primaryColor = colorWithHexString(hexString: "f34e22")
         scheme.primaryColorVariant = colorWithHexString(hexString: "1e2981")
         scheme.onPrimaryColor = colorWithHexString(hexString: "ffffff")
         scheme.secondaryColor = colorWithHexString(hexString: "ffffff")

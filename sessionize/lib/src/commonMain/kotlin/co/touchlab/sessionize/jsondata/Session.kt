@@ -38,7 +38,7 @@ data class Speaker(
         val fullName: String,
         val bio: String,
         val tagLine: String,
-        val profilePicture: String,
+        val profilePicture: String?,
         val links: List<SpeakerLink>
 )
 

@@ -1,24 +1,25 @@
 package co.touchlab.sessionize.sponsors
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.sessionize.R
-import com.nex3z.flowlayout.FlowLayout
-import com.squareup.picasso.Picasso
-import android.content.Intent
-import android.net.Uri
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.NavigationHost
+import co.touchlab.sessionize.R
 import co.touchlab.sessionize.db.SponsorGroupDbItem
+import co.touchlab.sessionize.sponsorClicked
+import com.nex3z.flowlayout.FlowLayout
+import com.squareup.picasso.Picasso
 
 
 class SponsorsFragment : Fragment() {
@@ -80,12 +81,25 @@ class SponsorsFragment : Fragment() {
             holder.groupName.text = sponsorGroup.groupName
             holder.flowGroup.removeAllViews()
             val layoutInflater = LayoutInflater.from(activity)
-            val itemLayout = if(sponsorGroup.groupName.contains("Gold")){R.layout.item_sponsor_pic}else{R.layout.item_sponsor_pic_small}
+
+            val itemLayout = if (
+                    sponsorGroup.groupName.contains("Gold") ||
+                    sponsorGroup.groupName.contains("Plat") ||
+                    sponsorGroup.groupName.contains("Iridium")
+            ) {
+                R.layout.item_sponsor_pic
+            } else {
+                R.layout.item_sponsor_pic_small
+            }
+
             for (sponsor in sponsorGroup.sponsors) {
                 val iv = layoutInflater.inflate(itemLayout, holder.flowGroup, false) as ImageView
                 Picasso.get().load(sponsor.icon).into(iv)
                 holder.flowGroup.addView(iv)
                 iv.setOnClickListener {
+
+                    sponsorClicked(sponsor)
+
                     if (sponsor.sponsorId.isNullOrBlank()) {
                         val i = Intent(Intent.ACTION_VIEW)
                         i.data = Uri.parse(sponsor.url)

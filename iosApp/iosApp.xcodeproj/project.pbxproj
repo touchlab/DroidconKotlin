@@ -54,6 +54,7 @@
 		6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424920FAD9B30049263B /* SpeakerTableViewCell.swift */; };
 		6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424A20FAD9B40049263B /* EventTableViewCell.swift */; };
 		6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372424B20FAD9B40049263B /* EventTableViewCell.xib */; };
+		63A4748E22C5227800D03CDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63A4748D22C5227800D03CDD /* GoogleService-Info.plist */; };
 		63A76ACD2129E8F80000515D /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */; };
 		63A76ACF2129E93F0000515D /* SponsorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACE2129E93F0000515D /* SponsorViewController.swift */; };
 		63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */; };
@@ -164,6 +165,7 @@
 		6372424A20FAD9B40049263B /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		6372424B20FAD9B40049263B /* EventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
 		637E510F227235890093DBF7 /* NotificationsApiImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsApiImpl.swift; sourceTree = "<group>"; };
+		63A4748D22C5227800D03CDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A76ACE2129E93F0000515D /* SponsorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorViewController.swift; sourceTree = "<group>"; };
 		63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorGroupCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 		6356313920DC58F600BCCDF9 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				63A4748D22C5227800D03CDD /* GoogleService-Info.plist */,
 				F147CF11228F1A77009F04E5 /* iosApp.entitlements */,
 				F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */,
 				F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */,
@@ -581,6 +584,7 @@
 			files = (
 				4560AA3822A6C743000719E1 /* sponsor_session.json in Resources */,
 				6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */,
+				63A4748E22C5227800D03CDD /* GoogleService-Info.plist in Resources */,
 				F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */,
 				6372423920F915EA0049263B /* schedule.json in Resources */,
 				6372424C20FAD9B40049263B /* SpeakerTableViewCell.xib in Resources */,
@@ -939,70 +943,20 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionAnimator\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionInterchange\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
-					"\"${PODS_ROOT}/Crashlytics/iOS\"",
-					"\"${PODS_ROOT}/Fabric/iOS\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
-					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
-					"/Users/kgalligan/devel_kmp/kotlin-native-latest/runtime/src/main/cpp",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"c++\"",
-					"-l\"z\"",
-					"-framework",
-					"\"Crashlytics\"",
-					"-framework",
-					"\"Fabric\"",
-					"-framework",
-					"\"Kingfisher\"",
-					"-framework",
-					"\"MDFInternationalization\"",
-					"-framework",
-					"\"MDFTextAccessibility\"",
-					"-framework",
-					"\"MaterialComponents\"",
-					"-framework",
-					"\"MotionAnimator\"",
-					"-framework",
-					"\"MotionInterchange\"",
-					"-framework",
-					"\"MotionTransitioning\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
-					"-framework",
-					"\"lib\"",
-					"-framework",
-					"\"lib_umbrella\"",
-					"-lsqlite3",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Debug;
 		};
@@ -1015,70 +969,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionAnimator\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionInterchange\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/MotionTransitioning\"",
-					"\"${PODS_ROOT}/Crashlytics/iOS\"",
-					"\"${PODS_ROOT}/Fabric/iOS\"",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
-					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
-					"/Users/kgalligan/devel_kmp/kotlin-native-latest/runtime/src/main/cpp",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"c++\"",
-					"-l\"z\"",
-					"-framework",
-					"\"Crashlytics\"",
-					"-framework",
-					"\"Fabric\"",
-					"-framework",
-					"\"Kingfisher\"",
-					"-framework",
-					"\"MDFInternationalization\"",
-					"-framework",
-					"\"MDFTextAccessibility\"",
-					"-framework",
-					"\"MaterialComponents\"",
-					"-framework",
-					"\"MotionAnimator\"",
-					"-framework",
-					"\"MotionInterchange\"",
-					"-framework",
-					"\"MotionTransitioning\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
-					"-framework",
-					"\"lib\"",
-					"-framework",
-					"\"lib_umbrella\"",
-					"-lsqlite3",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.base;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Release;
 		};

@@ -55,6 +55,9 @@ class EventFragment : Fragment() {
             }
         })
 
+        val adapter = EventDetailAdapter(activity!!)
+        recycler.adapter = adapter
+
         return view
     }
 
@@ -75,7 +78,7 @@ class EventFragment : Fragment() {
     }
 
     private fun updateFAB(event: SessionInfo) {
-        fab.rippleColor = ContextCompat.getColor(context!!, R.color.white)
+        fab.rippleColor = ContextCompat.getColor(context!!, R.color.black)
 
         if (event.isRsvped()) {
             fab.setImageDrawable(ContextCompat.getDrawable(activity!!, R.drawable.ic_check))
@@ -101,26 +104,28 @@ class EventFragment : Fragment() {
     }
 
     private fun updateContent(event: SessionInfo, formattedRoomTime:String) {
-        val adapter = EventDetailAdapter(activity!!)
+        if(::recycler.isInitialized) {
+            val adapter = EventDetailAdapter(activity!!)
 
-        eventTitle.text = event.session.title
-        eventRoomTime.text = formattedRoomTime
-        adapter.addHeader(event.session.title)
+            eventTitle.text = event.session.title
+            eventRoomTime.text = formattedRoomTime
+            adapter.addHeader(event.session.title)
 
-        when {
-            event.isNow() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_now) + "</b></i>")
-            event.isPast() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_past) + "</b></i>")
-            event.conflict -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_conflict) + "</b></i>")
+            when {
+                event.isNow() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_now) + "</b></i>")
+                event.isPast() -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_past) + "</b></i>")
+                event.conflict -> adapter.addInfo("<i><b>" + resources.getString(R.string.event_conflict) + "</b></i>")
+            }
+
+            if (!event.session.description.isBlank())
+                adapter.addBody(event.session.description)
+
+            for (item in event.speakers) {
+                adapter.addSpeaker(item)
+            }
+
+            recycler.adapter = adapter
         }
-
-        if (!event.session.description.isBlank())
-            adapter.addBody(event.session.description)
-
-        for (item in event.speakers) {
-            adapter.addSpeaker(item)
-        }
-
-        recycler.adapter = adapter
     }
 
 }

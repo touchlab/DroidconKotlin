@@ -6,24 +6,45 @@ def firebaseEnabled = file("./google-services.json").exists()
 if (firebaseEnabled) {
     apply plugin: 'io.fabric'
 }
+
+Properties properties = new Properties()
+try {
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
+catch(Exception e) {
+
+}
+
+def releasePassword = properties.getProperty('releasePassword')
+
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "co.touchlab.droidcon.base"
-        buildConfigField "String", "TIME_ZONE", "\"America/Los_Angeles\""
+        applicationId "co.touchlab.droidcon.berlin"
+        buildConfigField "String", "TIME_ZONE", "\"Europe/Berlin\""
         buildConfigField "boolean", "FIREBASE_ENABLED", "${firebaseEnabled}"
 
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10203
-        versionName "1.2.3"
+        versionCode 10206
+        versionName "1.2.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
+    signingConfigs {
+        release {
+            storeFile file("release.jks")
+            keyAlias "key0"
+            storePassword "$releasePassword"
+            keyPassword "$releasePassword"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
 
         //This is for MultiplatformSettings
@@ -32,11 +53,12 @@ android {
             matchingFallbacks = ['release']
         }
     }
+
     lintOptions {
         abortOnError false
     }
     packagingOptions {
-      exclude 'META-INF/*.kotlin_module'
+        exclude 'META-INF/*.kotlin_module'
     }
 }
 

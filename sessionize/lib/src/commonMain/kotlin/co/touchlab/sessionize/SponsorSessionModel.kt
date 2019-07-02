@@ -17,6 +17,7 @@ class SponsorSessionModel(val sponsorId: String, val groupName: String) : BaseQu
 
     init {
         ServiceRegistry.clLogCallback("init SponsorSessionModel($sponsorId)")
+        ServiceRegistry.analyticsApi.logEvent("sponsor_detail", mapOf(Pair("sponsorId", sponsorId), Pair("groupName", groupName)))
     }
 
     interface SponsorSessionView : View<SponsorSessionInfo>

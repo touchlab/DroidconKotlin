@@ -18,4 +18,10 @@ class SponsorModel : BaseQueryModelView<Sponsor, List<SponsorGroupDbItem>>(
     init {
         ServiceRegistry.clLogCallback("init SponsorModel()")
     }
+
+
+}
+
+fun sponsorClicked(sponsor: Sponsor){
+    ServiceRegistry.analyticsApi.logEvent("sponsor_clicked", mapOf(Pair("id", sponsor.id.toString()), Pair("name", sponsor.name)))
 }

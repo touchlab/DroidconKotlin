@@ -199,7 +199,7 @@
                                     <constraint firstAttribute="width" constant="48" id="Vyw-Sd-QEx"/>
                                     <constraint firstAttribute="height" constant="48" id="sxf-nC-r6H"/>
                                 </constraints>
-                                <color key="tintColor" red="0.0" green="0.25490196079999999" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.0" green="0.25490196079999999" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -884,7 +884,7 @@
                     <view key="view" contentMode="scaleToFill" id="3ND-Dm-xnJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.22745098039215686" green="0.27058823529411763" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.70196078431372544" green="0.27058823529411763" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <segue destination="hAB-Au-Rvm" kind="show" identifier="Schedule" id="G8c-Yr-iby"/>
@@ -1149,7 +1149,7 @@
         <image name="icon_sponsors" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xks-9m-eeO"/>
+        <segue reference="Jp1-M9-6W4"/>
         <segue reference="pVg-yj-H2O"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.25490196079999999" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

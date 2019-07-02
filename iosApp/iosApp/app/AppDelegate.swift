@@ -29,8 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.statusBarStyle = .lightContent
 
-        serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog)
-
+        serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog, softExceptionCallback: softExceptionCallback)
 
         let timeZone = Bundle.main.object(forInfoDictionaryKey: "TimeZone") as! String
         serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
@@ -45,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
 
+        NetworkRepo().sendFeedback()
         
         if(fileExists){
             FirebaseMessageHandler.initMessaging()
@@ -59,6 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return KotlinUnit()
     }*/
 
+    func softExceptionCallback(e:KotlinThrowable, message:String) -> KotlinUnit{
+        return KotlinUnit()
+    }
+    
     func csLog(s:String) -> KotlinUnit{
         CLSLogv(s, getVaList([]))
         return KotlinUnit()

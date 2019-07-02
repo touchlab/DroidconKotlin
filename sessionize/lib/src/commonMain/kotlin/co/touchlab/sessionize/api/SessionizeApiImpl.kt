@@ -5,13 +5,14 @@ import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.sessionize.platform.createUuid
-import co.touchlab.stately.freeze
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
 import io.ktor.client.request.request
 import io.ktor.client.response.HttpResponse
 import io.ktor.http.HttpMethod
+import io.ktor.http.Parameters
 import io.ktor.http.isSuccess
 import io.ktor.http.takeFrom
 import kotlinx.io.core.use
@@ -21,13 +22,14 @@ import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 object SessionizeApiImpl : SessionizeApi {
-    private val INSTANCE_ID = "4q6ac2c0"
+    private val INSTANCE_ID = "eh8k1018"
+    private val SPONSOR_INSTANCE_ID = "or4t8mzl"
     private val client = HttpClient {
         install(ExpectSuccess)
-    }.freeze()
+    }
 
     override suspend fun getSpeakersJson(): String = client.get<String> {
-        sessionize("/api/v2/$INSTANCE_ID/view/speakers")
+        sessionize("/api/v2/$SPONSOR_INSTANCE_ID/view/speakers")
     }
 
     override suspend fun getSessionsJson(): String = client.get<String> {
@@ -35,17 +37,26 @@ object SessionizeApiImpl : SessionizeApi {
     }
 
     override suspend fun getSponsorJson(): String = client.get<String> {
-        amazon("/droidconsponsers/sponsors-$INSTANCE_ID.json") // github = 404
+        amazon("/droidconsponsers/sponsors-$SPONSOR_INSTANCE_ID.json")
     }
 
     override suspend fun getSponsorSessionJson(): String = client.get<String> {
-        sessionize("/api/v2/$INSTANCE_ID/view/sessions")
+        sessionize("/api/v2/$SPONSOR_INSTANCE_ID/view/sessions")
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = client.request<HttpResponse> {
         droidcon("/dataTest/$methodName/$sessionId/${userUuid()}")
         method = HttpMethod.Post
         body = ""
+    }.use {
+        it.status.isSuccess()
+    }
+
+    override suspend fun sendFeedback(sessionId: String, rating: Int, comment: String?): Boolean = client.submitForm<HttpResponse>(formData = Parameters.build {
+        append("rating", rating.toString())
+        append("comment", comment.orEmpty())
+    }) {
+        droidcon("/dataTest/sessionizeFeedbackEvent/$sessionId/${userUuid()}")
     }.use {
         it.status.isSuccess()
     }
