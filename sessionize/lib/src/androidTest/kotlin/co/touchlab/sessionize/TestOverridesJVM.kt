@@ -1,6 +1,7 @@
 package co.touchlab.sessionize
 
 import android.content.Context
+import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import co.touchlab.sessionize.platform.AndroidAppContext
@@ -14,7 +15,9 @@ class StaticFileLoaderTestJVM : StaticFileLoaderTest() {
 
         ServiceRegistry.initLambdas({ name, type ->
             loadAsset("$name.$type")
-        }, { s: String -> Unit })
+        }, { s: String -> Unit }, {e:Throwable, message:String ->
+            Log.e("StaticFileLoaderTest", message, e)
+        })
 
         setUp()
 

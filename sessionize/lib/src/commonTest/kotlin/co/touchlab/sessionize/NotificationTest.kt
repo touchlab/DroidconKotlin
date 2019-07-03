@@ -42,7 +42,8 @@ abstract class NotificationTest {
                 "schedule" -> SCHEDULE
                 else -> SCHEDULE
             }
-        }, {s: String -> Unit})
+        }, {s: String -> Unit},{e:Throwable, message:String ->
+        })
 
 //        AppContext.initAppContext()
 
