@@ -109,6 +109,8 @@ buildscript {
         classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
         classpath "co.touchlab:kotlinxcodesync:${versions.xcode}"
         classpath "io.fabric.tools:gradle:${versions.fabric}"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0-alpha06"
+
     }
 }
 

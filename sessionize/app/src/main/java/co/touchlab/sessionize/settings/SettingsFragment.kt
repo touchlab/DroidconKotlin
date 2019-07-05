@@ -21,6 +21,7 @@ import android.content.Intent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.IntentFilter
+import androidx.navigation.findNavController
 import co.touchlab.sessionize.feedback.FeedbackManager.Companion.FeedbackDisabledNotificationName
 import co.touchlab.sessionize.platform.AndroidAppContext
 
@@ -33,8 +34,6 @@ class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
         settingsViewModel = ViewModelProviders.of(this, SettingsViewModelFactory())[SettingsViewModel::class.java]
 
         LocalBroadcastManager.getInstance(AndroidAppContext.app).registerReceiver(changedSettingReciever,
@@ -93,14 +92,8 @@ class SettingsFragment : Fragment() {
                     }
             )
             adapter.addButtonRow("About", R.drawable.menu_info, View.OnClickListener {
-                (activity as NavigationHost).navigateTo(
-                        AboutFragment.newInstance(),
-                        true,
-                        FragmentAnimation(R.anim.slide_from_right,
-                                R.anim.slide_to_left,
-                                R.anim.slide_from_left,
-                                R.anim.slide_to_right)
-                )
+                val direction = SettingsFragmentDirections.actionSettingsFragmentToAboutFragment()
+                view!!.findNavController().navigate(direction)
             })
             //}
 

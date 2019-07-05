@@ -1,15 +1,13 @@
 package co.touchlab.sessionize.schedule
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.FragmentAnimation
@@ -19,24 +17,18 @@ import co.touchlab.sessionize.display.DaySchedule
 import co.touchlab.sessionize.event.EventFragment
 import com.google.android.material.tabs.TabLayout
 
-class ScheduleFragment():Fragment() {
-    companion object {
-        val ALLEVENTS = "allevents"
-
-        fun newInstance(allEvents: Boolean): ScheduleFragment {
-            return ScheduleFragment().apply {
-                arguments = Bundle().apply {
-                    putBoolean(ALLEVENTS, allEvents)
-                }
-            }
-        }
-    }
+class ScheduleFragment:Fragment() {
 
     private val viewModel: ScheduleViewModel by lazy {
         ViewModelProviders.of(this, ScheduleViewModel.ScheduleViewModelFactory(allEvents))[ScheduleViewModel::class.java]
     }
 
-    val allEvents: Boolean by lazy { arguments!!.getBoolean(ScheduleFragment.ALLEVENTS, true) }
+    val allEvents: Boolean by lazy {
+        arguments?.let {
+            val scheduleArgs = ScheduleFragmentArgs.fromBundle(it)
+            scheduleArgs.allevents
+        } ?: true
+    }
     lateinit var dayChooser: TabLayout
     lateinit var eventList: RecyclerView
     lateinit var noDataText: TextView
@@ -60,7 +52,9 @@ class ScheduleFragment():Fragment() {
         eventList.layoutManager = LinearLayoutManager(activity)
 
         eventAdapter = EventAdapter(context!!, allEvents) {
-            navigateToSession(it.timeBlock.id)
+            val direction = ScheduleFragmentDirections.actionScheduleFragmentToEventFragment(it.timeBlock.id)
+            view.findNavController().navigate(direction)
+            //navigateToSession(it.timeBlock.id)
         }
 
         eventList.adapter = eventAdapter
@@ -86,17 +80,6 @@ class ScheduleFragment():Fragment() {
     override fun onDestroyView(){
         super.onDestroyView()
         viewModel.unregister()
-    }
-
-    fun navigateToSession(sessionId: String) {
-        (activity as NavigationHost).navigateTo(
-                EventFragment.newInstance(sessionId),
-                true,
-                FragmentAnimation(R.anim.slide_from_right,
-                        R.anim.slide_to_left,
-                        R.anim.slide_from_left,
-                        R.anim.slide_to_right)
-                )
     }
 
     fun updateTabs(days: List<DaySchedule>) {

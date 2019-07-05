@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.NavigationHost
@@ -102,7 +103,8 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
                 view.findViewById<TextView>(R.id.name).text = activity.getString(R.string.event_speaker_name).format(user.name, companyName)
 
                 view.setOnClickListener {
-                    (activity as NavigationHost).navigateTo(SpeakerFragment.newInstance(user.userId), true)
+                    val direction = EventFragmentDirections.actionEventFragmentToSpeakerFragment(user.userId)
+                    view.findNavController().navigate(direction)
                 }
                 if(user.bio == null)
                     view.findViewById<TextView>(R.id.bio).text =""
