@@ -15,7 +15,7 @@ catch(Exception e) {
 
 }
 
-def releasePassword = properties.getProperty('releasePassword')
+def releasePassword = properties.getProperty('releasePassword', '')
 
 android {
     compileSdkVersion 28
