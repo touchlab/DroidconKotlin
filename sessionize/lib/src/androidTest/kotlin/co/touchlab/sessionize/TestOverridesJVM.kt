@@ -14,7 +14,7 @@ class StaticFileLoaderTestJVM : StaticFileLoaderTest() {
 
         ServiceRegistry.initLambdas({ name, type ->
             loadAsset("$name.$type")
-        }, { s: String -> Unit })
+        }, { s: String -> Unit }, {e, s ->})
 
         setUp()
 

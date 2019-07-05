@@ -42,7 +42,7 @@ abstract class NotificationTest {
                 "schedule" -> SCHEDULE
                 else -> SCHEDULE
             }
-        }, {s: String -> Unit})
+        }, {s: String -> Unit}, {e, s -> })
 
 //        AppContext.initAppContext()
 
