@@ -2,22 +2,14 @@ package co.touchlab.sessionize
 
 import android.content.Context
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.feedback.FeedbackManager
-import co.touchlab.sessionize.schedule.ScheduleFragment
-import co.touchlab.sessionize.settings.SettingsFragment
-import co.touchlab.sessionize.sponsors.SponsorsFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -39,24 +31,31 @@ class MainActivity : AppCompatActivity(), SnackHost {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.addOnBackStackChangedListener {
-            val name = topFragmentName
-            if(name == "") {
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        setSupportActionBar(findViewById(R.id.app_bar))
+
+
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_schedule,
+                R.id.navigation_my_agenda,
+                R.id.navigation_sponsors,
+                R.id.navigation_settings)) // Destinations where the back arrow doesn't appear
+        val navController = findNavController(R.id.nav_host_fragment)
+        NavigationUI.setupActionBarWithNavController(this,navController, appBarConfiguration)
+        navigation.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            val name = destination.label
+            name?.let {
+                when {
+                    name.contains("Speaker") -> supportActionBar?.title = "Speaker"
+                    name.contains("Event") -> supportActionBar?.title = "Session"
+                    name.contains("SponsorSession") -> supportActionBar?.title = "Sponsor"
+                    name.contains("About") -> supportActionBar?.title = "About"
+                    else -> supportActionBar?.title = findApplicationName(this)
+                }
+            } ?: run {
                 supportActionBar?.title = findApplicationName(this)
-            }else{
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                if(name.contains("Speaker"))
-                    supportActionBar?.title = "Speaker"
-                else if(name.contains("Event"))
-                    supportActionBar?.title = "Session"
             }
         }
-
-            val navController = findNavController(R.id.nav_host_fragment)
-            navigation.setupWithNavController(navController)
-
-        //setSupportActionBar(findViewById(R.id.app_bar) as Toolbar)
     }
 
 
@@ -78,13 +77,7 @@ class MainActivity : AppCompatActivity(), SnackHost {
         return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
     }
 
-    private val topFragmentName:String
-    get() {
-        val index = supportFragmentManager.backStackEntryCount - 1
-        if(index < 0)
-            return ""
-        val backEntry = supportFragmentManager.getBackStackEntryAt(index)
-
-        return backEntry.name?:""
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.nav_host_fragment).navigateUp() || super.onSupportNavigateUp()
     }
 }
