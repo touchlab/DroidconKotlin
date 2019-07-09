@@ -3,6 +3,8 @@ apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlin-android-extensions'
 
 def firebaseEnabled = file("./google-services.json").exists()
+def releaseEnabled = file("./release.jks").exists()
+
 if (firebaseEnabled) {
     apply plugin: 'io.fabric'
 }
@@ -31,20 +33,24 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
-    signingConfigs {
-        release {
-            storeFile file("release.jks")
-            keyAlias "key0"
-            storePassword "$releasePassword"
-            keyPassword "$releasePassword"
+    if(releaseEnabled) {
+        signingConfigs {
+            release {
+                storeFile file("release.jks")
+                keyAlias "key0"
+                storePassword "$releasePassword"
+                keyPassword "$releasePassword"
+            }
         }
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+        if(releaseEnabled) {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
         }
 
         //This is for MultiplatformSettings
