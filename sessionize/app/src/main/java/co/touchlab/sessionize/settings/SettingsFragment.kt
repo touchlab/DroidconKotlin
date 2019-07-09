@@ -74,10 +74,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateContent() {
-        if(::recycler.isInitialized) {
-            val adapter = SettingsAdapter(activity!!)
+        val adapter = SettingsAdapter(activity!!)
 
-            //SettingsModel.loadSettingsInfo {
+        //SettingsModel.loadSettingsInfo {
             adapter.addSwitchRow("Enable Feedback",
                     R.drawable.baseline_feedback_24,
                     ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED, true),
@@ -92,7 +91,7 @@ class SettingsFragment : Fragment() {
                         settingsViewModel.settingsModel.setRemindersSettingEnabled(isChecked)
                     }
             )
-            adapter.addButtonRow("About", R.drawable.menu_info, View.OnClickListener {
+            adapter.addButtonRow("About",R.drawable.menu_info, View.OnClickListener {
                 (activity as NavigationHost).navigateTo(
                         AboutFragment.newInstance(),
                         true,
@@ -102,9 +101,8 @@ class SettingsFragment : Fragment() {
                                 R.anim.slide_to_right)
                 )
             })
-            //}
+        //}
 
-            recycler.adapter = adapter
-        }
+        recycler.adapter = adapter
     }
 }

@@ -17,7 +17,7 @@ catch(Exception e) {
 
 }
 
-def releasePassword = properties.getProperty('releasePassword')
+def releasePassword = properties.getProperty('releasePassword', '')
 
 android {
     compileSdkVersion 28
@@ -28,8 +28,8 @@ android {
 
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10206
-        versionName "1.2.6"
+        versionCode 10208
+        versionName "1.2.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
