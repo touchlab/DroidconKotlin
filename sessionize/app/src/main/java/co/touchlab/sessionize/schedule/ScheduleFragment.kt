@@ -10,11 +10,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.sessionize.FragmentAnimation
-import co.touchlab.sessionize.NavigationHost
+import co.touchlab.sessionize.MainActivity
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.display.DaySchedule
-import co.touchlab.sessionize.event.EventFragment
 import com.google.android.material.tabs.TabLayout
 
 class ScheduleFragment:Fragment() {
@@ -41,7 +39,21 @@ class ScheduleFragment:Fragment() {
         viewModel.registerForChanges {days:List<DaySchedule> ->
             conferenceDays = days
             updateTabs(days)
-            updateDisplay()
+
+
+            if(activity is MainActivity) {
+                val test = activity as MainActivity
+                if (allEvents) {
+                    dayChooser.getTabAt(test.scheduleTabPos)?.select()
+                    updateDisplay()
+                    eventList.layoutManager?.onRestoreInstanceState(test.scheduleRecyclerViewPos)
+
+                } else {
+                    dayChooser.getTabAt(test.agendaTabPos)?.select()
+                    updateDisplay()
+                    eventList.layoutManager?.onRestoreInstanceState(test.agendaRecyclerViewPos)
+                }
+            }
         }
 
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
@@ -75,6 +87,24 @@ class ScheduleFragment:Fragment() {
         })
 
         return view
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if(activity is MainActivity){
+            val test = activity as MainActivity
+            if(allEvents){
+                test.scheduleRecyclerViewPos = eventList.layoutManager?.onSaveInstanceState()
+                test.scheduleTabPos = dayChooser.selectedTabPosition
+
+            }
+            else{
+                test.agendaRecyclerViewPos = eventList.layoutManager?.onSaveInstanceState()
+                test.agendaTabPos = dayChooser.selectedTabPosition
+
+            }
+        }
     }
 
     override fun onDestroyView(){

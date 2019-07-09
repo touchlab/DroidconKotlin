@@ -2,6 +2,7 @@ package co.touchlab.sessionize
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -18,6 +19,13 @@ class MainActivity : AppCompatActivity(), SnackHost {
 
     private var feedbackManager = FeedbackManager()
     val firebaseMessageHandler = FirebaseMessageHandler()
+
+    var scheduleRecyclerViewPos: Parcelable? = null
+    var scheduleTabPos:Int = 0
+
+    var agendaRecyclerViewPos:Parcelable? = null
+    var agendaTabPos:Int = 0
+
 
     override fun showSnack(message: String, length: Int) {
         Snackbar.make(findViewById<View>(R.id.navigation), message, Snackbar.LENGTH_SHORT).show()
