@@ -11,6 +11,11 @@ pr:
 pool:
   vmImage: 'macos-10.14'
 
+
+variables:
+  system.debug: true
+  platform: x64
+
 steps:
       
   - task: Gradle@2
@@ -37,7 +42,7 @@ steps:
       sdk: 'iphonesimulator'
       configuration: 'Debug'
       workingDirectory: 'iosApp'
-      xcWorkspacePath: 'iosApp.xcworkspace'
+      xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
       xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
       displayName: 'Building For iOS'
 
