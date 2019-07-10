@@ -477,8 +477,8 @@
 			buildConfigurationList = 6356315420DC58F800BCCDF9 /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
 				81B84390B07E56A66415404A /* [CP] Check Pods Manifest.lock */,
-				6356313320DC58F600BCCDF9 /* Sources */,
 				6356313420DC58F600BCCDF9 /* Frameworks */,
+				6356313320DC58F600BCCDF9 /* Sources */,
 				6356313520DC58F600BCCDF9 /* Resources */,
 				0DCB78009BA7F3A64B6F74B5 /* [CP] Embed Pods Frameworks */,
 				6359EB922113CB2E00424B73 /* ShellScript */,
