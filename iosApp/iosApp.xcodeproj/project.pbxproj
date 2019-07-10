@@ -54,7 +54,6 @@
 		6372424D20FAD9B40049263B /* SpeakerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424920FAD9B30049263B /* SpeakerTableViewCell.swift */; };
 		6372424E20FAD9B40049263B /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372424A20FAD9B40049263B /* EventTableViewCell.swift */; };
 		6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6372424B20FAD9B40049263B /* EventTableViewCell.xib */; };
-		63A4748E22C5227800D03CDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63A4748D22C5227800D03CDD /* GoogleService-Info.plist */; };
 		63A76ACD2129E8F80000515D /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */; };
 		63A76ACF2129E93F0000515D /* SponsorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACE2129E93F0000515D /* SponsorViewController.swift */; };
 		63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */; };
@@ -165,7 +164,6 @@
 		6372424A20FAD9B40049263B /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		6372424B20FAD9B40049263B /* EventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
 		637E510F227235890093DBF7 /* NotificationsApiImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsApiImpl.swift; sourceTree = "<group>"; };
-		63A4748D22C5227800D03CDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A76ACE2129E93F0000515D /* SponsorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorViewController.swift; sourceTree = "<group>"; };
 		63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorGroupCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 		6356313920DC58F600BCCDF9 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				63A4748D22C5227800D03CDD /* GoogleService-Info.plist */,
 				F147CF11228F1A77009F04E5 /* iosApp.entitlements */,
 				F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */,
 				F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */,
@@ -584,7 +581,6 @@
 			files = (
 				4560AA3822A6C743000719E1 /* sponsor_session.json in Resources */,
 				6356314520DC58F700BCCDF9 /* LaunchScreen.storyboard in Resources */,
-				63A4748E22C5227800D03CDD /* GoogleService-Info.plist in Resources */,
 				F15E05BC2260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png in Resources */,
 				6372423920F915EA0049263B /* schedule.json in Resources */,
 				6372424C20FAD9B40049263B /* SpeakerTableViewCell.xib in Resources */,
