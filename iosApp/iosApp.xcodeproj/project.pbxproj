@@ -984,6 +984,7 @@
 		};
 		6356315820DC58F800BCCDF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 125AF9578465CC0A904D623C /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1018,6 +1019,7 @@
 		};
 		6356315920DC58F800BCCDF9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1052,6 +1054,7 @@
 		};
 		D46A4852224A80D200B1D60C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 125AF9578465CC0A904D623C /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test";
@@ -1074,6 +1077,7 @@
 		};
 		D46A4853224A80D200B1D60C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test";
