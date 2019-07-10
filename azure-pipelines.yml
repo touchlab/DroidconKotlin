@@ -30,6 +30,10 @@ steps:
       tasks: ':sessionize:lib:packForXCode'
       displayName: 'Pack For Xcode'
 
+  - script: /usr/local/bin/pod deintegrate
+    workingDirectory: 'iosApp'
+    displayName: 'pod deintegrate'
+    
   - script: /usr/local/bin/pod install
     workingDirectory: 'iosApp'
     displayName: 'pod install'
