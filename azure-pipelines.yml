@@ -38,7 +38,7 @@ steps:
       configuration: 'Debug'
       workingDirectory: 'iosApp'
       xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
-      xcodeVersion: '9' # Options: 8, 9, 10, default, specifyPath
+      xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
       displayName: 'Building For iOS'
 
   - task: Xcode@5
