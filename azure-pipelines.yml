@@ -27,6 +27,7 @@ steps:
       displayName: 'Pack For Xcode'
 
   - script: /usr/local/bin/pod install
+    workingDirectory: 'iosApp'
     displayName: 'pod install using a script'
 
   - task: Xcode@5
@@ -35,7 +36,7 @@ steps:
       scheme: 'iosApp'
       sdk: 'iphonesimulator'
       configuration: 'Release'
-      xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+      xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
       xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
       displayName: 'Building For iOS'
 
