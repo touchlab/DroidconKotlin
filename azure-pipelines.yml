@@ -14,13 +14,13 @@ pool:
 steps:
   - task: Gradle@2
   inputs:
-      workingDirectory: ''
-      gradleWrapperFile: 'gradlew'
-      gradleOptions: '-Xmx3072m'
-      publishJUnitResults: false
-      testResultsFiles: '**/TEST-*.xml'
-      tasks: 'assembleDebug'
-      displayName: 'Building For Android'
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: false
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'assembleDebug'
+    displayName: 'Building For Android'
 
   - task: Gradle@2
   inputs:
