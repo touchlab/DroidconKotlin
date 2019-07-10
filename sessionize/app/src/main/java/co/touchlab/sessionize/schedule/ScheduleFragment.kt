@@ -14,6 +14,9 @@ import co.touchlab.sessionize.MainActivity
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.display.DaySchedule
 import com.google.android.material.tabs.TabLayout
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ScheduleFragment:Fragment() {
 
@@ -138,8 +141,15 @@ class ScheduleFragment:Fragment() {
                 dayChooser.addTab(dayChooser.newTab().setText(day.dayString))
             }
 
-            if (current >= 0 && current < dayChooser.tabCount)
+            if (current >= 0 && current < dayChooser.tabCount) {
                 dayChooser.getTabAt(current)?.select()
+            } else {
+                val currentDayString = SimpleDateFormat("MMM dd", Locale.US).format(Date())
+                val tabIdx = conferenceDays.indexOfFirst { it.dayString == currentDayString }
+                if(tabIdx > -1){
+                    dayChooser.getTabAt(tabIdx)?.select()
+                }
+            }
         }
     }
 
