@@ -1,14 +1,11 @@
 package co.touchlab.sessionize.schedule
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +15,9 @@ import co.touchlab.sessionize.R
 import co.touchlab.sessionize.display.DaySchedule
 import co.touchlab.sessionize.event.EventFragment
 import com.google.android.material.tabs.TabLayout
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ScheduleFragment():Fragment() {
     companion object {
@@ -125,8 +125,15 @@ class ScheduleFragment():Fragment() {
                 dayChooser.addTab(dayChooser.newTab().setText(day.dayString))
             }
 
-            if (current >= 0 && current < dayChooser.tabCount)
+            if (current >= 0 && current < dayChooser.tabCount) {
                 dayChooser.getTabAt(current)?.select()
+            } else {
+                val currentDayString = SimpleDateFormat("MMM dd", Locale.US).format(Date())
+                val tabIdx = conferenceDays.indexOfFirst { it.dayString == currentDayString }
+                if(tabIdx > -1){
+                    dayChooser.getTabAt(tabIdx)?.select()
+                }
+            }
         }
     }
 
