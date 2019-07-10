@@ -99,7 +99,21 @@
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
             app:layout_constraintTop_toBottomOf="@id/submitButton"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/skipButton"/>
 
+    <Button
+            android:id="@+id/skipButton"
+            android:layout_width="0dp"
+            android:layout_height="48sp"
+            android:text="SKIP"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16sp"
+            android:textColor="#0086EC"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintEnd_toEndOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/closeButton"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 </co.touchlab.sessionize.feedback.FeedbackView>

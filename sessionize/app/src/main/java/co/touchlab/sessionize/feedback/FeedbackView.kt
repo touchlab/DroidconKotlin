@@ -52,6 +52,11 @@ class FeedbackView @JvmOverloads constructor(
         closeButton.setOnClickListener {
             feedbackViewListener?.closePressed()
         }
+        skipButton.setOnClickListener {
+            feedbackViewListener?.ratingSelected(FeedbackRating.None)
+            feedbackViewListener?.submitPressed("")
+
+        }
         resetRatingButtons()
     }
 
