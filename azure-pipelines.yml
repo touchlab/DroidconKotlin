@@ -22,6 +22,26 @@ steps:
       workingDirectory: ''
       gradleWrapperFile: 'gradlew'
       gradleOptions: '-Xmx3072m'
+      publishJUnitResults: false
+      testResultsFiles: '**/TEST-*.xml'
+      tasks: 'assembleDebug'
+      displayName: 'Building For Android'
+
+  - task: Gradle@2
+    inputs:
+      workingDirectory: ''
+      gradleWrapperFile: 'gradlew'
+      gradleOptions: '-Xmx3072m'
+      publishJUnitResults: true
+      testResultsFiles: '**/TEST-*.xml'
+      tasks: 'test'
+      displayName: 'Testing Android'
+
+  - task: Gradle@2
+    inputs:
+      workingDirectory: ''
+      gradleWrapperFile: 'gradlew'
+      gradleOptions: '-Xmx3072m'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
@@ -30,12 +50,29 @@ steps:
       tasks: ':sessionize:lib:packForXCode'
       displayName: 'Pack For Xcode'
 
-  - task: CopyFiles@2
+  - task: Xcode@5
     inputs:
-      contents: '$(Build.SourcesDirectory)/sessionize/lib/'
-      targetFolder: $(Build.ArtifactStagingDirectory)
+      actions: 'test'
+      scheme: 'iosApp'
+      sdk: 'iphonesimulator'
+      configuration: 'Debug'
+      xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
+      xcodeVersion: 'default' # Options: 8, 9, default, specifyPath
+      packageApp: false
+      destinationSimulators: 'iPhone 7'
+      destinationTypeOption: 'simulators'
+      destinationPlatformOption: 'iOS'
+      signingOption: "auto"
+      useXcpretty: true
+      publishJUnitResults: true
+      displayName: 'Running XCTest/XCUITest'
 
-  - task: PublishBuildArtifacts@1
+  - task: Xcode@5
     inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: MyBuildOutputs
+      actions: 'build'
+      scheme: 'iosApp'
+      sdk: 'iphonesimulator'
+      configuration: 'Release'
+      xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+      xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
+      displayName: 'Building For iOS'
