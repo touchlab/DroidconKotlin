@@ -30,6 +30,13 @@ steps:
       tasks: ':sessionize:lib:packForXCode'
       displayName: 'Pack For Xcode'
 
+  - powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/lib.framework
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: drop
+
   - script: /usr/local/bin/pod deintegrate
     workingDirectory: 'iosApp'
     displayName: 'pod deintegrate'
