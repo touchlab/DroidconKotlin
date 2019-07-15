@@ -30,10 +30,16 @@ steps:
       tasks: ':sessionize:lib:packForXCode'
       displayName: 'Pack For Xcode'
 
+  - task: CopyFiles@2
+    inputs:
+      contents: '/sessionize/lib/build/**'
+      targetFolder: $(Build.ArtifactStagingDirectory)
+
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: '/sessionize/lib/build/'
-      artifactName: drop
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: MyBuildOutputs
+
 
   - script: /usr/local/bin/pod deintegrate
     workingDirectory: 'iosApp'
