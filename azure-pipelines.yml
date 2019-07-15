@@ -45,7 +45,7 @@ steps:
       sdk: 'iphonesimulator'
       configuration: 'Debug'
       workingDirectory: 'iosApp'
-      xcWorkspacePath: 'ProjectName.xcworkspace'
+      xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
       xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
       displayName: 'Building For iOS'
 
@@ -56,7 +56,7 @@ steps:
       sdk: 'iphonesimulator'
       configuration: 'Debug'
       workingDirectory: 'iosApp'
-      xcWorkspacePath: 'ProjectName.xcworkspace'
+      xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
       xcodeVersion: 'default' # Options: 8, 9, default, specifyPath
       packageApp: false
       destinationSimulators: 'iPhone 7'
