@@ -32,48 +32,10 @@ steps:
 
   - task: CopyFiles@2
     inputs:
-      contents: '/sessionize/lib/build/**'
+      contents: '/sessionize/lib/**'
       targetFolder: $(Build.ArtifactStagingDirectory)
 
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)
       artifactName: MyBuildOutputs
-
-
-  - script: /usr/local/bin/pod deintegrate
-    workingDirectory: 'iosApp'
-    displayName: 'pod deintegrate'
-    
-  - script: /usr/local/bin/pod install
-    workingDirectory: 'iosApp'
-    displayName: 'pod install'
-
-  - task: Xcode@5
-    inputs:
-      actions: 'clean build'
-      scheme: 'iosApp'
-      sdk: 'iphonesimulator'
-      configuration: 'Debug'
-      workingDirectory: 'iosApp'
-      xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
-      xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
-      displayName: 'Building For iOS'
-
-  - task: Xcode@5
-    inputs:
-      actions: 'test'
-      scheme: 'iosApp'
-      sdk: 'iphonesimulator'
-      configuration: 'Debug'
-      workingDirectory: 'iosApp'
-      xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
-      xcodeVersion: 'default' # Options: 8, 9, default, specifyPath
-      packageApp: false
-      destinationSimulators: 'iPhone 7'
-      destinationTypeOption: 'simulators'
-      destinationPlatformOption: 'iOS'
-      signingOption: "auto"
-      useXcpretty: true
-      publishJUnitResults: true
-      displayName: 'Running XCTest/XCUITest'
