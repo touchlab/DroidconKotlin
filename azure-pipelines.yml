@@ -49,30 +49,3 @@ steps:
       testResultsFiles: '**/TEST-*.xml'
       tasks: ':sessionize:lib:packForXCode'
       displayName: 'Pack For Xcode'
-
-  - task: Xcode@5
-    inputs:
-      actions: 'test'
-      scheme: 'iosApp'
-      sdk: 'iphonesimulator'
-      configuration: 'Debug'
-      xcWorkspacePath: 'iosApp/iosApp.xcworkspace'
-      xcodeVersion: 'default' # Options: 8, 9, default, specifyPath
-      packageApp: false
-      destinationSimulators: 'iPhone 7'
-      destinationTypeOption: 'simulators'
-      destinationPlatformOption: 'iOS'
-      signingOption: "auto"
-      useXcpretty: true
-      publishJUnitResults: true
-      displayName: 'Running XCTest/XCUITest'
-
-  - task: Xcode@5
-    inputs:
-      actions: 'build'
-      scheme: 'iosApp'
-      sdk: 'iphonesimulator'
-      configuration: 'Release'
-      xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-      xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
-      displayName: 'Building For iOS'
