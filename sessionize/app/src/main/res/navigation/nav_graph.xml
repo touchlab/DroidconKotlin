@@ -4,40 +4,40 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph" app:startDestination="@id/navigation_schedule">
 
     <fragment android:id="@+id/navigation_schedule" android:name="co.touchlab.sessionize.schedule.ScheduleFragment"
-              android:label="ScheduleFragment">
+              android:label="Droidcon">
         <action android:id="@+id/action_scheduleFragment_to_eventFragment" app:destination="@id/eventFragment"
                 app:enterAnim="@anim/slide_from_right" app:exitAnim="@anim/slide_to_left"
                 app:popEnterAnim="@anim/slide_from_left" app:popExitAnim="@anim/slide_to_right"/>
         <argument android:name="ALLEVENTS" app:argType="boolean" android:defaultValue="true"/>
     </fragment>
     <fragment android:id="@+id/navigation_my_agenda" android:name="co.touchlab.sessionize.schedule.ScheduleFragment"
-              android:label="ScheduleFragment">
+              android:label="Droidcon">
         <action android:id="@+id/action_scheduleFragment_to_eventFragment" app:destination="@id/eventFragment"
                 app:enterAnim="@anim/slide_from_right" app:popExitAnim="@anim/slide_to_right"
                 app:popEnterAnim="@anim/slide_from_left" app:exitAnim="@anim/slide_to_left"/>
         <argument android:name="ALLEVENTS" app:argType="boolean" android:defaultValue="false"/>
     </fragment>
     <fragment android:id="@+id/aboutFragment" android:name="co.touchlab.sessionize.about.AboutFragment"
-              android:label="AboutFragment"/>
+              android:label="About"/>
     <fragment android:id="@+id/navigation_settings" android:name="co.touchlab.sessionize.settings.SettingsFragment"
-              android:label="SettingsFragment">
+              android:label="Droidcon">
         <action android:id="@+id/action_settingsFragment_to_aboutFragment" app:destination="@id/aboutFragment"
                 app:enterAnim="@anim/slide_from_right" app:exitAnim="@anim/slide_to_left"
                 app:popEnterAnim="@anim/slide_from_left" app:popExitAnim="@anim/slide_to_right"/>
     </fragment>
     <fragment android:id="@+id/eventFragment" android:name="co.touchlab.sessionize.event.EventFragment"
-              android:label="EventFragment">
+              android:label="Session">
         <action android:id="@+id/action_eventFragment_to_speakerFragment" app:destination="@id/speakerFragment"
                 app:enterAnim="@anim/slide_from_right" app:exitAnim="@anim/slide_to_left"
                 app:popEnterAnim="@anim/slide_from_left" app:popExitAnim="@anim/slide_to_right"/>
         <argument android:name="SESSION_ID" app:argType="string"/>
     </fragment>
     <fragment android:id="@+id/speakerFragment" android:name="co.touchlab.sessionize.speaker.SpeakerFragment"
-              android:label="SpeakerFragment">
+              android:label="Speaker">
         <argument android:name="USER_ID" app:argType="string"/>
     </fragment>
     <fragment android:id="@+id/navigation_sponsors" android:name="co.touchlab.sessionize.sponsors.SponsorsFragment"
-              android:label="SponsorsFragment">
+              android:label="Droidcon">
         <action android:id="@+id/action_sponsorsFragment_to_sponsorSessionFragment"
                 app:destination="@id/sponsorSessionFragment" app:enterAnim="@anim/slide_from_right"
                 app:exitAnim="@anim/slide_to_left" app:popEnterAnim="@anim/slide_from_left"
@@ -45,7 +45,7 @@
     </fragment>
     <fragment android:id="@+id/sponsorSessionFragment"
               android:name="co.touchlab.sessionize.sponsors.SponsorSessionFragment"
-              android:label="SponsorSessionFragment">
+              android:label="Sponsor">
         <argument android:name="SPONSOR_SESSION_ID" app:argType="string"/>
         <argument android:name="SPONSOR_GROUP_NAME" app:argType="string"/>
         <action android:id="@+id/action_sponsorSessionFragment_to_speakerFragment"

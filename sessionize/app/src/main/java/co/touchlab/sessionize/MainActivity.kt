@@ -49,21 +49,6 @@ class MainActivity : AppCompatActivity(), SnackHost {
         val navController = findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this,navController, appBarConfiguration)
         navigation.setupWithNavController(navController)
-
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            val name = destination.label
-            name?.let {
-                when {
-                    name.contains("Speaker") -> supportActionBar?.title = "Speaker"
-                    name.contains("Event") -> supportActionBar?.title = "Session"
-                    name.contains("SponsorSession") -> supportActionBar?.title = "Sponsor"
-                    name.contains("About") -> supportActionBar?.title = "About"
-                    else -> supportActionBar?.title = findApplicationName(this)
-                }
-            } ?: run {
-                supportActionBar?.title = findApplicationName(this)
-            }
-        }
     }
 
 
