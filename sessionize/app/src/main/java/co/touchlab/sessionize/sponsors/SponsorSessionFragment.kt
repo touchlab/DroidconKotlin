@@ -86,27 +86,25 @@ class SponsorSessionFragment : Fragment() {
     }
 
     private fun updateContent(sponsorInfo: SponsorSessionInfo) {
-        if(::recycler.isInitialized) {
-            val adapter = SponsorSessionAdapter(activity!!)
-            val sponsor = sponsorInfo.sponsor
+        val adapter = SponsorSessionAdapter(activity!!)
+        val sponsor = sponsorInfo.sponsor
 
-            sponsorSessionTitle.text = sponsor.name
-            sponsorGroupName.text = sponsor.groupName
-            adapter.addHeader(sponsor.name)
+        sponsorSessionTitle.text = sponsor.name
+        sponsorGroupName.text = sponsor.groupName
+        adapter.addHeader(sponsor.name)
 
-            sponsor.icon.let {
-                Picasso.get().load(it).into(sponsorImage)
-            }
-
-            sponsor.description?.let {
-                adapter.addBody(it)
-            }
-
-            for (item in sponsorInfo.speakers) {
-                adapter.addSpeaker(item)
-            }
-
-            recycler.adapter = adapter
+        sponsor.icon.let {
+            Picasso.get().load(it).into(sponsorImage)
         }
+
+        sponsor.description?.let {
+            adapter.addBody(it)
+        }
+
+        for (item in sponsorInfo.speakers) {
+            adapter.addSpeaker(item)
+        }
+
+        recycler.adapter = adapter
     }
 }

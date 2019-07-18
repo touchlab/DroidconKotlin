@@ -73,10 +73,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateContent() {
-        if(::recycler.isInitialized) {
-            val adapter = SettingsAdapter(activity!!)
+        val adapter = SettingsAdapter(activity!!)
 
-            //SettingsModel.loadSettingsInfo {
+        //SettingsModel.loadSettingsInfo {
             adapter.addSwitchRow("Enable Feedback",
                     R.drawable.baseline_feedback_24,
                     ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED, true),
@@ -95,9 +94,8 @@ class SettingsFragment : Fragment() {
                 val direction = SettingsFragmentDirections.actionSettingsFragmentToAboutFragment()
                 view!!.findNavController().navigate(direction)
             })
-            //}
+        //}
 
-            recycler.adapter = adapter
-        }
+        recycler.adapter = adapter
     }
 }
