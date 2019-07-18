@@ -17,19 +17,13 @@ import co.touchlab.sessionize.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class EventFragment : Fragment() {
-    companion object {
-        val SESSION_ID = "sessionId"
 
-        fun newInstance(sessionId: String): EventFragment {
-            return EventFragment().apply {
-                arguments = Bundle().apply {
-                    putString(SESSION_ID, sessionId)
-                }
-            }
-        }
+    val sessionId: String by lazy {
+        arguments?.let {
+            val eventArgs = EventFragmentArgs.fromBundle(it)
+            eventArgs.sessionid
+        } ?: ""
     }
-
-    val sessionId: String by lazy { arguments?.getString(SESSION_ID) ?: "" }
     lateinit var eventViewModel: EventViewModel
     lateinit var fab: FloatingActionButton
     lateinit var recycler: RecyclerView
