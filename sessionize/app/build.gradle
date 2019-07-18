@@ -3,6 +3,8 @@ apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlin-android-extensions'
 
 def firebaseEnabled = file("./google-services.json").exists()
+def releaseEnabled = file("./release.jks").exists()
+
 if (firebaseEnabled) {
     apply plugin: 'io.fabric'
 }
@@ -15,7 +17,7 @@ catch(Exception e) {
 
 }
 
-def releasePassword = properties.getProperty('releasePassword')
+def releasePassword = properties.getProperty('releasePassword', '')
 
 android {
     compileSdkVersion 28
@@ -26,25 +28,29 @@ android {
 
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10206
-        versionName "1.2.6"
+        versionCode 10208
+        versionName "1.2.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
-    signingConfigs {
-        release {
-            storeFile file("release.jks")
-            keyAlias "key0"
-            storePassword "$releasePassword"
-            keyPassword "$releasePassword"
+    if(releaseEnabled) {
+        signingConfigs {
+            release {
+                storeFile file("release.jks")
+                keyAlias "key0"
+                storePassword "$releasePassword"
+                keyPassword "$releasePassword"
+            }
         }
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+        if(releaseEnabled) {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
         }
 
         //This is for MultiplatformSettings

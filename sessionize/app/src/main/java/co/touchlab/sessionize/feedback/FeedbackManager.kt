@@ -1,14 +1,13 @@
 package co.touchlab.sessionize.feedback
 
 import android.content.Intent
-import android.content.IntentFilter
 import androidx.fragment.app.FragmentManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.FeedbackModel
+import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
 import co.touchlab.sessionize.platform.NotificationsModel.setFeedbackEnabled
 
 class FeedbackManager : FeedbackApi {
@@ -28,7 +27,11 @@ class FeedbackManager : FeedbackApi {
 
     fun close(){
         this.fragmentManager = null
-        feedbackDialog?.dismiss()
+        try {
+            feedbackDialog?.dismiss()
+        } catch (e: Exception) {
+            ServiceRegistry.softExceptionCallback(e, "Failed closing FeedbackManager")
+        }
         feedbackDialog = null
     }
 
@@ -39,7 +42,11 @@ class FeedbackManager : FeedbackApi {
 
     override fun generateFeedbackDialog(session: MyPastSession){
         feedbackDialog = FeedbackDialog.newInstance(sessionId = session.id, sessionTitle = session.title, feedbackManager = this)
-        feedbackDialog?.showNow(fragmentManager, "FeedbackDialog")
+        try {
+            feedbackDialog?.showNow(fragmentManager, "FeedbackDialog")
+        } catch (e: Exception) {
+            ServiceRegistry.softExceptionCallback(e, "Failed generating feedback dialog. Probably closing context.")
+        }
     }
 
     fun finishedFeedback(sessionId:String, rating:Int, comment: String) {
