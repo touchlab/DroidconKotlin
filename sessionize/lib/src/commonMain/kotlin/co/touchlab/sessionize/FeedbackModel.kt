@@ -6,7 +6,6 @@ import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.platform.NotificationsModel.cancelFeedbackNotifications
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.sessionize.platform.Date
-import co.touchlab.sessionize.platform.NotificationsModel.cancelFeedbackNotificationsForSession
 import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
 import co.touchlab.sessionize.platform.backgroundTask
 import co.touchlab.sessionize.platform.currentTimeMillis
