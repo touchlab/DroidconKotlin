@@ -24,19 +24,13 @@ import com.squareup.picasso.Picasso
 
 
 class SpeakerFragment : Fragment() {
-    companion object {
-        val USER_ID = "userId"
 
-        fun newInstance(userId: String): SpeakerFragment {
-            return SpeakerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(USER_ID, userId)
-                }
-            }
-        }
+    val userId: String by lazy {
+        arguments?.let {
+            val speakerArgs = SpeakerFragmentArgs.fromBundle(it)
+            speakerArgs.userid
+        } ?: ""
     }
-
-    val userId: String by lazy { arguments?.getString(USER_ID) ?: "" }
     lateinit var speakerViewModel:SpeakerViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -16,23 +16,19 @@ import co.touchlab.sessionize.SponsorSessionModel
 import com.squareup.picasso.Picasso
 
 class SponsorSessionFragment : Fragment() {
-    companion object {
-        val SPONSOR_SESSION_ID = "sponsorId"
-        val SPONSOR_GROUP_NAME = "groupName"
 
-
-        fun newInstance(sponsorId: String, groupName: String): SponsorSessionFragment {
-            return SponsorSessionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(SPONSOR_SESSION_ID, sponsorId)
-                    putString(SPONSOR_GROUP_NAME, groupName)
-                }
-            }
-        }
+    val sponsorId: String by lazy {
+        arguments?.let {
+            val scheduleArgs = SponsorSessionFragmentArgs.fromBundle(it)
+            scheduleArgs.sponsorsessionid
+        } ?: ""
     }
-
-    val sponsorId: String by lazy { arguments?.getString(SponsorSessionFragment.SPONSOR_SESSION_ID) ?: "" }
-    val groupName: String by lazy { arguments?.getString(SponsorSessionFragment.SPONSOR_GROUP_NAME) ?: "" }
+    val groupName: String by lazy {
+        arguments?.let {
+            val scheduleArgs = SponsorSessionFragmentArgs.fromBundle(it)
+            scheduleArgs.sponsorgroupname
+        } ?: ""
+    }
 
     lateinit var sponsorSessionViewModel: SponsorSessionViewModel
     lateinit var recycler: RecyclerView
