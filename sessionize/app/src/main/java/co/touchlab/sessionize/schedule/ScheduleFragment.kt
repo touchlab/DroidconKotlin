@@ -7,36 +7,29 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.sessionize.FragmentAnimation
-import co.touchlab.sessionize.NavigationHost
+import co.touchlab.sessionize.MainActivity
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.display.DaySchedule
-import co.touchlab.sessionize.event.EventFragment
 import com.google.android.material.tabs.TabLayout
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ScheduleFragment():Fragment() {
-    companion object {
-        val ALLEVENTS = "allevents"
-
-        fun newInstance(allEvents: Boolean): ScheduleFragment {
-            return ScheduleFragment().apply {
-                arguments = Bundle().apply {
-                    putBoolean(ALLEVENTS, allEvents)
-                }
-            }
-        }
-    }
+class ScheduleFragment:Fragment() {
 
     private val viewModel: ScheduleViewModel by lazy {
         ViewModelProviders.of(this, ScheduleViewModel.ScheduleViewModelFactory(allEvents))[ScheduleViewModel::class.java]
     }
 
-    val allEvents: Boolean by lazy { arguments!!.getBoolean(ScheduleFragment.ALLEVENTS, true) }
+    val allEvents: Boolean by lazy {
+        arguments?.let {
+            val scheduleArgs = ScheduleFragmentArgs.fromBundle(it)
+            scheduleArgs.allevents
+        } ?: true
+    }
     lateinit var dayChooser: TabLayout
     lateinit var eventList: RecyclerView
     lateinit var noDataText: TextView
@@ -49,7 +42,21 @@ class ScheduleFragment():Fragment() {
         viewModel.registerForChanges {days:List<DaySchedule> ->
             conferenceDays = days
             updateTabs(days)
-            updateDisplay()
+
+
+            if(activity is MainActivity) {
+                val test = activity as MainActivity
+                if (allEvents) {
+                    dayChooser.getTabAt(test.scheduleTabPos)?.select()
+                    updateDisplay()
+                    eventList.layoutManager?.onRestoreInstanceState(test.scheduleRecyclerViewPos)
+
+                } else {
+                    dayChooser.getTabAt(test.agendaTabPos)?.select()
+                    updateDisplay()
+                    eventList.layoutManager?.onRestoreInstanceState(test.agendaRecyclerViewPos)
+                }
+            }
         }
 
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
@@ -60,7 +67,9 @@ class ScheduleFragment():Fragment() {
         eventList.layoutManager = LinearLayoutManager(activity)
 
         eventAdapter = EventAdapter(context!!, allEvents) {
-            navigateToSession(it.timeBlock.id)
+            val direction = ScheduleFragmentDirections.actionScheduleFragmentToEventFragment(it.timeBlock.id)
+            view.findNavController().navigate(direction)
+            //navigateToSession(it.timeBlock.id)
         }
 
         eventList.adapter = eventAdapter
@@ -83,20 +92,27 @@ class ScheduleFragment():Fragment() {
         return view
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        if(activity is MainActivity){
+            val test = activity as MainActivity
+            if(allEvents){
+                test.scheduleRecyclerViewPos = eventList.layoutManager?.onSaveInstanceState()
+                test.scheduleTabPos = dayChooser.selectedTabPosition
+
+            }
+            else{
+                test.agendaRecyclerViewPos = eventList.layoutManager?.onSaveInstanceState()
+                test.agendaTabPos = dayChooser.selectedTabPosition
+
+            }
+        }
+    }
+
     override fun onDestroyView(){
         super.onDestroyView()
         viewModel.unregister()
-    }
-
-    fun navigateToSession(sessionId: String) {
-        (activity as NavigationHost).navigateTo(
-                EventFragment.newInstance(sessionId),
-                true,
-                FragmentAnimation(R.anim.slide_from_right,
-                        R.anim.slide_to_left,
-                        R.anim.slide_from_left,
-                        R.anim.slide_to_right)
-                )
     }
 
     fun updateTabs(days: List<DaySchedule>) {
