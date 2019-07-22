@@ -24,7 +24,7 @@ android {
         buildConfigField "String", "TIME_ZONE", "\"Europe/Berlin\""
         buildConfigField "boolean", "FIREBASE_ENABLED", "${firebaseEnabled}"
 
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 10208
         versionName "1.2.8"
@@ -59,6 +59,11 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/*.kotlin_module'
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
 }
 
