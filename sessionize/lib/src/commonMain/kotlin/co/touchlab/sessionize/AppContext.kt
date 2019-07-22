@@ -22,9 +22,9 @@ object AppContext {
         serviceRegistry.notificationsApi.initializeNotifications { success ->
             serviceRegistry.concurrent.backgroundTask({ success }, {
                 if (it) {
-                    notificationsModel.createNotificationsForSessions()
+                    notificationsModel.createNotifications()
                 } else {
-                    notificationsModel.cancelNotificationsForSessions()
+                    notificationsModel.cancelNotifications()
                 }
             })
         }

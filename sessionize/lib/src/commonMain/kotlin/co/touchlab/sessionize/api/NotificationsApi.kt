@@ -1,13 +1,17 @@
 package co.touchlab.sessionize.api
 
-const val notificationFeedbackId = 1
-const val notificationReminderId = 2
+import co.touchlab.droidcon.db.MySessions
+
 
 interface NotificationsApi {
 
-    fun createLocalNotification(title:String, message:String, timeInMS:Long, notificationId: Int)
+    fun scheduleReminderNotificationsForSessions(sessions:List<MySessions>)
 
-    fun cancelLocalNotification(notificationId: Int)
+    fun scheduleFeedbackNotificationsForSessions(sessions:List<MySessions>)
+
+    fun cancelReminderNotifications(andDismissals: Boolean)
+
+    fun cancelFeedbackNotifications()
 
     fun initializeNotifications(onSuccess: (Boolean) -> Unit)
 
