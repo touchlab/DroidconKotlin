@@ -52,7 +52,7 @@ object SessionizeApiImpl : SessionizeApi {
         it.status.isSuccess()
     }
 
-    override suspend fun sendFeedback(sessionId: String, rating: Int, comment: String?): Boolean = client.submitForm<HttpResponse>(formData = Parameters.build {
+    override suspend fun sendFeedback(sessionId: String, rating: Int, comment: String?): Boolean = client.submitForm<HttpResponse>(formParameters = Parameters.build {
         append("rating", rating.toString())
         append("comment", comment.orEmpty())
     }) {

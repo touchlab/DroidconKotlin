@@ -47,12 +47,11 @@ import MaterialComponents
         headerImage.backgroundColor = ApplicationScheme.shared.colorScheme.secondaryColor
     }
     
-    func updateUi(sessionInfo:SessionInfo, formattedRoomTime:String) -> KotlinUnit{
+    func updateUi(sessionInfo:SessionInfo, formattedRoomTime:String) {
         self.sessionInfo = sessionInfo
         self.formattedRoomTime = formattedRoomTime
         styleButton()
         updateAllUi()
-        return KotlinUnit()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -56,11 +56,10 @@ import MaterialComponents
         headerImage.backgroundColor = ApplicationScheme.shared.colorScheme.secondaryColor
     }
     
-    func updateUi(sponsor: SponsorSessionInfo) -> KotlinUnit {
+    func updateUi(sponsor: SponsorSessionInfo) {
         
         self.sponsorSessionInfo = sponsor
         updateAllUi()
-        return KotlinUnit()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

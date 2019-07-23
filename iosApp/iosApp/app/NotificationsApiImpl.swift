@@ -11,11 +11,11 @@ import lib
 import UserNotifications
 
 class NotificationsApiImpl : NSObject, NotificationsApi {
-    
+
     let reminderTag = "Reminder"
     let feedbackTag = "Feedback"
-    
-    
+
+
     func scheduleReminderNotificationsForSessions(sessions: [MySessions]) {
         let notificationModel = NotificationsModel()
         for session in sessions {
@@ -25,7 +25,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
             scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(session.id.hashValue), notificationTag: reminderTag)
         }
     }
-    
+
     func scheduleFeedbackNotificationsForSessions(sessions: [MySessions]) {
         let notificationModel = NotificationsModel()
         for session in sessions {
@@ -35,15 +35,15 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
             scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(session.id.hashValue), notificationTag: feedbackTag)
         }
     }
-    
+
     func cancelReminderNotifications(andDismissals: Bool) {
         cancelNotificationsWithTag(tag: reminderTag)
     }
-    
+
     func cancelFeedbackNotifications() {
         cancelNotificationsWithTag(tag: feedbackTag)
     }
-    
+
     private func cancelNotificationsWithTag(tag:String){
         let center = UNUserNotificationCenter.current()
         center.getPendingNotificationRequests(completionHandler: { (requests) in
@@ -54,7 +54,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
             }
         })
     }
-    
+
 
     // Needed to approve local notifications
     class LocalNotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
@@ -97,7 +97,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
         print("Cancelling Local Notification")
     }
     
-    func initializeNotifications(onSuccess: @escaping (KotlinBoolean) -> KotlinUnit) {
+    func initializeNotifications(onSuccess: @escaping (KotlinBoolean) -> Void) {
         let center = UNUserNotificationCenter.current()
         center.getNotificationSettings(completionHandler: { (settings) in
             if settings.authorizationStatus == .notDetermined {
