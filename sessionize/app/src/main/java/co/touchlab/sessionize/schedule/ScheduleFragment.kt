@@ -10,9 +10,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.MainActivity
+import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.display.DaySchedule
+import co.touchlab.sessionize.event.EventFragment
 import com.google.android.material.tabs.TabLayout
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,17 +47,19 @@ class ScheduleFragment:Fragment() {
             updateTabs(days)
 
 
-            if(activity is MainActivity) {
-                val test = activity as MainActivity
+            (activity as? MainActivity)?.let {
                 if (allEvents) {
-                    dayChooser.getTabAt(test.scheduleTabPos)?.select()
+                    dayChooser.getTabAt(it.scheduleTabPos)?.select()
                     updateDisplay()
-                    eventList.layoutManager?.onRestoreInstanceState(test.scheduleRecyclerViewPos)
-
+                    if (it.scheduleRecyclerViewPos == null) {
+                        defaultToCurrentDay()
+                    } else {
+                        eventList.layoutManager?.onRestoreInstanceState(it.scheduleRecyclerViewPos)
+                    }
                 } else {
-                    dayChooser.getTabAt(test.agendaTabPos)?.select()
+                    dayChooser.getTabAt(it.agendaTabPos)?.select()
                     updateDisplay()
-                    eventList.layoutManager?.onRestoreInstanceState(test.agendaRecyclerViewPos)
+                    eventList.layoutManager?.onRestoreInstanceState(it.agendaRecyclerViewPos)
                 }
             }
         }
@@ -92,6 +97,17 @@ class ScheduleFragment:Fragment() {
         return view
     }
 
+    private fun defaultToCurrentDay() {
+        val currentDayString = SimpleDateFormat("MMM dd", Locale.US).format(Date())
+        val dayStringList = conferenceDays.map { it.dayString }
+
+        dayStringList.forEachIndexed { index, dayString ->
+            if (dayString == currentDayString) {
+                dayChooser.getTabAt(index)?.select()
+            }
+        }
+    }
+
     override fun onPause() {
         super.onPause()
 
@@ -123,7 +139,6 @@ class ScheduleFragment:Fragment() {
         if(days.isNotEmpty() && dayChooser.tabCount == days.size)
             return
 
-        val current = dayChooser.selectedTabPosition
         dayChooser.removeAllTabs()
 
         if(days.size == 0)
@@ -139,16 +154,6 @@ class ScheduleFragment:Fragment() {
 
             for (day in days) {
                 dayChooser.addTab(dayChooser.newTab().setText(day.dayString))
-            }
-
-            if (current >= 0 && current < dayChooser.tabCount) {
-                dayChooser.getTabAt(current)?.select()
-            } else {
-                val currentDayString = SimpleDateFormat("MMM dd", Locale.US).format(Date())
-                val tabIdx = conferenceDays.indexOfFirst { it.dayString == currentDayString }
-                if(tabIdx > -1){
-                    dayChooser.getTabAt(tabIdx)?.select()
-                }
             }
         }
     }
