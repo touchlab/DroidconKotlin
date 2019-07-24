@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.FragmentAnimation
@@ -51,17 +52,6 @@ class SponsorsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         sponsorViewModel.unregister()
-    }
-
-    fun navigateToSponsor(sponsorId: String, groupName: String) {
-        (activity as NavigationHost).navigateTo(
-                SponsorSessionFragment.newInstance(sponsorId, groupName),
-                true,
-                FragmentAnimation(R.anim.slide_from_right,
-                        R.anim.slide_to_left,
-                        R.anim.slide_from_left,
-                        R.anim.slide_to_right)
-        )
     }
 
     inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
@@ -106,7 +96,8 @@ class SponsorsFragment : Fragment() {
                         startActivity(i)
                     } else {
                         sponsor.sponsorId?.let {
-                            navigateToSponsor(it, sponsor.groupName)
+                            val direction = SponsorsFragmentDirections.actionSponsorsFragmentToSponsorSessionFragment(it, sponsor.groupName)
+                            view!!.findNavController().navigate(direction)
                         }
                     }
                 }

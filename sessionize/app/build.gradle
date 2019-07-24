@@ -111,7 +111,13 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation deps.multiplatformSettings
+
+    implementation "androidx.navigation:navigation-fragment-ktx:2.1.0-alpha06"
+    implementation "androidx.navigation:navigation-ui-ktx:2.1.0-alpha06"
 }
+
+apply plugin: "androidx.navigation.safeargs"
+
 
 if (firebaseEnabled) {
     apply plugin: 'com.google.gms.google-services'
