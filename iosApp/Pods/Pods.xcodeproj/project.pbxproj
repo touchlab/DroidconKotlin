@@ -1282,7 +1282,7 @@
 		46EB2E0000BA90 /* SponsorModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00005250 /* SponsorModel.kt */; };
 		46EB2E0000BAA0 /* SponsorSessionModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00005260 /* SponsorSessionModel.kt */; };
 		46EB2E0000BAB0 /* EventModelTest.kt in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000052C0 /* EventModelTest.kt */; };
-		46EB2E0000BAC0 /* NotificationTest.kt in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000052D0 /* NotificationTest.kt */; };
+		46EB2E0000BAC0 /* SettingsModelTest.kt in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000052D0 /* SettingsModelTest.kt */; };
 		46EB2E0000BAD0 /* TestConcurrent.kt in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000052F0 /* TestConcurrent.kt */; };
 		46EB2E0000BAE0 /* StaticFileLoaderTest.kt in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00005300 /* StaticFileLoaderTest.kt */; };
 		46EB2E0000BAF0 /* StaticFiles.kt in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00005310 /* StaticFiles.kt */; };
@@ -2892,7 +2892,7 @@
 		46EB2E00005250 /* SponsorModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = SponsorModel.kt; sourceTree = "<group>"; };
 		46EB2E00005260 /* SponsorSessionModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = SponsorSessionModel.kt; sourceTree = "<group>"; };
 		46EB2E000052C0 /* EventModelTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = EventModelTest.kt; sourceTree = "<group>"; };
-		46EB2E000052D0 /* NotificationTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = NotificationTest.kt; sourceTree = "<group>"; };
+		46EB2E000052D0 /* SettingsModelTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = SettingsModelTest.kt; sourceTree = "<group>"; };
 		46EB2E000052F0 /* TestConcurrent.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = TestConcurrent.kt; sourceTree = "<group>"; };
 		46EB2E00005300 /* StaticFileLoaderTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = StaticFileLoaderTest.kt; sourceTree = "<group>"; };
 		46EB2E00005310 /* StaticFiles.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = StaticFiles.kt; sourceTree = "<group>"; };
@@ -6085,7 +6085,7 @@
 			isa = PBXGroup;
 			children = (
 				46EB2E000052C0 /* EventModelTest.kt */,
-				46EB2E000052D0 /* NotificationTest.kt */,
+				46EB2E000052D0 /* SettingsModelTest.kt */,
 				46EB2E00005300 /* StaticFileLoaderTest.kt */,
 				46EB2E00005310 /* StaticFiles.kt */,
 				46EB2E00005320 /* TestFunctions.kt */,
@@ -8990,7 +8990,7 @@
 				46EB2E0000B8A0 /* NetworkRepo.kt in Sources */,
 				46EB2E0000B8B0 /* NotificationsApi.kt in Sources */,
 				46EB2E0000BA40 /* NotificationsModel.kt in Sources */,
-				46EB2E0000BAC0 /* NotificationTest.kt in Sources */,
+				46EB2E0000BAC0 /* SettingsModelTest.kt in Sources */,
 				46EB2E0000B910 /* PubSub.kt in Sources */,
 				46EB2E0000B970 /* QueryPub.kt in Sources */,
 				46EB2E0000B9A0 /* ScheduleFormats.kt in Sources */,
