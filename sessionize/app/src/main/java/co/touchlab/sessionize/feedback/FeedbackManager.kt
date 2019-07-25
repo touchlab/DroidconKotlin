@@ -43,7 +43,9 @@ class FeedbackManager : FeedbackApi {
     override fun generateFeedbackDialog(session: MyPastSession){
         feedbackDialog = FeedbackDialog.newInstance(sessionId = session.id, sessionTitle = session.title, feedbackManager = this)
         try {
-            feedbackDialog?.showNow(fragmentManager, "FeedbackDialog")
+            fragmentManager?.let {
+                feedbackDialog?.showNow(it, "FeedbackDialog")
+            }
         } catch (e: Exception) {
             ServiceRegistry.softExceptionCallback(e, "Failed generating feedback dialog. Probably closing context.")
         }
