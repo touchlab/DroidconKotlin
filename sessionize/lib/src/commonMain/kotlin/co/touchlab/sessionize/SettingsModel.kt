@@ -1,35 +1,37 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.platform.NotificationsModel
-import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
-import co.touchlab.sessionize.platform.NotificationsModel.setFeedbackEnabled
-import co.touchlab.sessionize.platform.NotificationsModel.setRemindersEnabled
+import co.touchlab.sessionize.api.NotificationsApi
+import co.touchlab.sessionize.platform.INotificationsModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 
-class SettingsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
+class SettingsModel(
+        private val notificationsModel: INotificationsModel,
+        private val notificationsApi: NotificationsApi,
+        coroutineDispatcher: CoroutineDispatcher) : BaseModel(coroutineDispatcher) {
 
     fun setRemindersSettingEnabled(enabled:Boolean) = launch {
-        setRemindersEnabled(enabled)
+        notificationsModel.setRemindersEnabled(enabled)
 
-        if(enabled && !notificationsEnabled()){
-            ServiceRegistry.notificationsApi.initializeNotifications{success ->
-                NotificationsModel.recreateReminderNotifications()
+        if (enabled && !notificationsModel.notificationsEnabled()) {
+            notificationsApi.initializeNotifications {
+                notificationsModel.recreateReminderNotifications()
             }
         }else{
-            NotificationsModel.recreateReminderNotifications()
+            notificationsModel.recreateReminderNotifications()
         }
     }
 
     fun setFeedbackSettingEnabled(enabled:Boolean) = launch {
-        setFeedbackEnabled(enabled)
+        notificationsModel.setFeedbackEnabled(enabled)
 
-        if(enabled && !notificationsEnabled()){
-            ServiceRegistry.notificationsApi.initializeNotifications{success ->
-                NotificationsModel.recreateFeedbackNotifications()
+        if (enabled && !notificationsModel.notificationsEnabled()) {
+            notificationsApi.initializeNotifications {
+                notificationsModel.recreateFeedbackNotifications()
             }
         }else{
-            NotificationsModel.recreateFeedbackNotifications()
+            notificationsModel.recreateFeedbackNotifications()
         }
     }
 }

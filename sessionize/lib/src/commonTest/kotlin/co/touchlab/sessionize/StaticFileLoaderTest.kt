@@ -1,6 +1,7 @@
 package co.touchlab.sessionize
 
 
+import co.touchlab.sessionize.mocks.NotificationsApiMock
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
@@ -13,7 +14,7 @@ abstract class StaticFileLoaderTest {
 
     fun setUp() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock(),NotificationsApiMock(), "-0400")
+                Dispatchers.Main, TestSettings(), TestConcurrent, SessionizeApiMock(), AnalyticsApiMock(), NotificationsApiMock(), "-0400")
     }
 
     @AfterTest
