@@ -29,10 +29,9 @@ class AboutViewController: MaterialAppBarUIViewController, UITableViewDelegate, 
         AboutModel().loadAboutInfo(proc: updateUi)
     }
     
-    func updateUi(aboutInfoData:[AboutInfo]) -> KotlinUnit{
+    func updateUi(aboutInfoData:[AboutInfo]) {
         self.aboutInfoData = aboutInfoData
         tableView.reloadData()
-        return KotlinUnit()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

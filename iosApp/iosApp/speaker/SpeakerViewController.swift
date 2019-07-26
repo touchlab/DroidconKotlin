@@ -41,7 +41,7 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    func updateUi(speakerUiData:SpeakerUiData) -> KotlinUnit{
+    func updateUi(speakerUiData:SpeakerUiData) {
         self.speakerUiData = speakerUiData
         speakerName.text = speakerUiData.fullName
         speakerCompany.text = speakerUiData.company
@@ -54,7 +54,6 @@ class SpeakerViewController: MaterialAppBarUIViewController, UITableViewDelegate
         tableView.reloadData()
 //        styleButton()
 //        updateAllUi()
-        return KotlinUnit()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

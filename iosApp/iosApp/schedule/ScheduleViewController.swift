@@ -58,11 +58,10 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         dayChooserTab.topAnchor.constraint(equalTo: appBar.navigationBar.bottomAnchor).isActive = true
     }
     
-    func updateUi(conferenceDays:[DaySchedule]) -> KotlinUnit{
+    func updateUi(conferenceDays:[DaySchedule]){
         self.conferenceDays = conferenceDays
         updateTabs(conferenceDays: conferenceDays)
         eventList.reloadData()
-        return KotlinUnit()
     }
     
     func updateTabs(conferenceDays:[DaySchedule]) {

@@ -10,7 +10,7 @@ android {
     testOptions.unitTests.includeAndroidResources = true
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,11 @@ android {
             matchingFallbacks = ['release']
         }
     }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -43,22 +48,24 @@ version = "1.0"
 
 kotlin {
     targets {
-        fromPreset(presets.android, 'android')
-
-        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")   \
-                                ? presets.iosArm64 : presets.iosX64
-
-        fromPreset(iOSTarget, 'ios') {
-            compilations.main.outputKinds("FRAMEWORK")
-            compilations.test.outputKinds("FRAMEWORK")
+        android()
+//        iosArm64()
+        def onPhone = System.getenv('SDK_NAME')?.startsWith("iphoneos")
+        if(onPhone){
+            iosArm64("ios")
+        }else{
+            iosX64("ios")
         }
+
     }
+
 
     sourceSets {
 
         commonMain {
             dependencies {
                 implementation deps.stately.mpp
+                implementation deps.stately.collections
                 implementation deps.kotlin.stdlib.common
                 implementation deps.kotlin.coroutines.common
                 implementation deps.sqldelight.runtime
@@ -74,6 +81,7 @@ kotlin {
                 implementation deps.kotlin.test.common
                 implementation deps.kotlin.test.annotations
                 implementation deps.stately.mpp
+                implementation deps.stately.collections
                 implementation deps.kotlin.coroutines.common
                 implementation deps.multiplatformSettings
                 implementation deps.kotlin.coroutines.jdk
@@ -138,62 +146,4 @@ xcode {
     projectPath = "../../iosApp/iosApp.xcodeproj"
     target = "iosApp"
 }
-
-//tasks.preBuild.dependsOn("generateSqlDelightInterface")
-
-//noinspection GroovyAssignabilityCheck
-task packForXCode(type: Sync) {
-    final File frameworkDir = new File(buildDir, "xcode-frameworks")
-    final String mode = System.getenv('CONFIGURATION')?.toUpperCase() ?: 'DEBUG'
-
-    inputs.property "mode", mode
-    dependsOn kotlin.targets.ios.compilations.main.linkTaskName("FRAMEWORK", mode)
-
-    from { kotlin.targets.ios.compilations.main.getBinary("FRAMEWORK", mode).parentFile }
-    into frameworkDir
-
-    doLast {
-        new File(frameworkDir, 'gradlew').with {
-            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
-            setExecutable(true)
-        }
-    }
-}
-
-task packForXCodeTest(type: Sync) {
-    final File frameworkDir = new File(buildDir, "xcode-frameworks-test")
-    final String mode = System.getenv('CONFIGURATION')?.toUpperCase() ?: 'DEBUG'
-
-    inputs.property "mode", mode
-    dependsOn "linkTestDebugFrameworkIos"
-    dependsOn kotlin.targets.ios.compilations.test.linkTaskName("FRAMEWORK", mode)
-
-    from { kotlin.targets.ios.compilations.test.getBinary("FRAMEWORK", mode).parentFile }
-    into frameworkDir
-
-    doLast {
-        new File(frameworkDir, 'gradlew').with {
-            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
-            setExecutable(true)
-        }
-    }
-}
-
-task iosTest {
-    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone XR"
-    dependsOn 'linkTestDebugExecutableIos'
-    group = JavaBasePlugin.VERIFICATION_GROUP
-    description = "Runs tests for target 'ios' on an iOS simulator"
-
-    doLast {
-        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
-        exec {
-            commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
-        }
-    }
-}
-
-//This can maybe go away
-tasks.build.dependsOn packForXCode
-
 
