@@ -34,4 +34,4 @@ private fun loadAsset(name: String) = AndroidAppContext.app.assets
         .use { it.readText() }
 
 @RunWith(AndroidJUnit4::class)
-class NotificationTestJVM : NotificationTest()
+class SettingsModelTestJVM : SettingsModelTest()

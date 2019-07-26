@@ -59,13 +59,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return KotlinUnit()
     }*/
 
-    func softExceptionCallback(e:KotlinThrowable, message:String) -> KotlinUnit{
-        return KotlinUnit()
+    func softExceptionCallback(e:KotlinThrowable, message:String) {
     }
     
-    func csLog(s:String) -> KotlinUnit{
+    func csLog(s:String) {
         CLSLogv(s, getVaList([]))
-        return KotlinUnit()
     }
 
     func loadAsset(filePrefix:String, fileType:String) -> String?{
@@ -77,9 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func analyticsCallback(name:String, params:[String:Any]) -> KotlinUnit{
+    func analyticsCallback(name:String, params:[String:Any]) {
         Analytics.logEvent(name, parameters: params)
-        return KotlinUnit()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

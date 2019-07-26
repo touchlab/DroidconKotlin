@@ -26,10 +26,9 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         // Do any additional setup after loading the view.
     }
     
-    func sponsorResult(sponsorGroups:[SponsorGroupDbItem]) -> KotlinUnit {
+    func sponsorResult(sponsorGroups:[SponsorGroupDbItem]) {
         self.sponsorGroups = sponsorGroups
         sponsorsCollectionView.reloadData()
-        return KotlinUnit()
     }
 
     override func didReceiveMemoryWarning() {

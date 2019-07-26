@@ -9,7 +9,6 @@ Pod::Spec.new do |spec|
 
     spec.static_framework         = true
     spec.vendored_frameworks      = "build/cocoapods/framework/#{spec.name}.framework"
-    spec.source_files             = 'src/*/kotlin/**/*.kt'
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 

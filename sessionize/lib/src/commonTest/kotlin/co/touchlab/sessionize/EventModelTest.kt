@@ -4,12 +4,13 @@ import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.DateAdapter
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.mocks.FeedbackApiMock
+import co.touchlab.sessionize.mocks.NotificationsApiMock
 import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
-import kotlinx.coroutines.delay
 
 abstract class EventModelTest {
     private val sessionizeApiMock = SessionizeApiMock()
@@ -47,7 +48,7 @@ abstract class EventModelTest {
             eventModel.toggleRsvpSuspend(si)
             assertTrue { sessionizeApiMock.rsvpCalled }
             assertTrue { analyticsApiMock.logCalled }
-            assertTrue { notificationsApiMock.notificationCalled }
+            assertTrue { notificationsApiMock.reminderCalled }
         }
     }
 

@@ -1,14 +1,15 @@
 # Sessionize/Droidcon Mobile Clients
 
+
+[![Build Status](https://dev.azure.com/touchlabApps/DroidconApp/_apis/build/status/touchlab.DroidconKotlin?branchName=master)](https://dev.azure.com/touchlabApps/DroidconApp/_build/latest?definitionId=1&branchName=master)
+
 This project has a pair of native mobile applications backed by the Sessionize data api for use in 
 events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
 be forked and customized for anything run on Sessionize.
 
-## Kotlin 1.3.21 Updates!!
+## Kotlin 1.3.41 Updates!!
 
-With the release of Kotlin 1.3.20, the Jetbrains standard libraries support Gradle 4.10.2+. Now
-all libraries used in this app are their standard supported versions, and the app can be developed
-with Android Studio as well as Intellij.
+Library versions updated.
 
 ## Libraries
 
