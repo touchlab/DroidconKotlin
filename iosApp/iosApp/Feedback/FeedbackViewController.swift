@@ -24,6 +24,7 @@ class FeedbackViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var skipButton: UIButton!
     
     private var sessionId:String?
     private var sessionTitle:String?
@@ -99,9 +100,9 @@ override func viewDidLoad() {
     
     // MARK: - Interaction
     
-    private func finishAndClose(){
+    private func finishAndClose(fromSkip: Bool = false) {
         var comment = ""
-        if commentTextView.text != optionalText {
+        if commentTextView.text != optionalText && !fromSkip {
             comment = commentTextView.text
         }
         
@@ -144,6 +145,11 @@ override func viewDidLoad() {
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         finishAndClose()
+    }
+    
+    @IBAction func skipFeedbackButtonPressed(_ sender: Any) {
+        buttonPressed(rating: .none)
+        finishAndClose(fromSkip: true)
     }
     
     internal func feedbackSelected(rating:FeedbackRating){

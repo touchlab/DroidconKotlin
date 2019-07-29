@@ -70,18 +70,17 @@
             android:background="@drawable/rounded_border_edittext"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/goodButton"
-    />
+            app:layout_constraintTop_toBottomOf="@+id/goodButton"/>
 
     <Button
             android:id="@+id/submitButton"
             android:layout_width="0dp"
             android:layout_height="48sp"
             android:text="SUBMIT"
-            android:layout_marginTop="136sp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/rounded_blue_button"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/goodButton"
+            app:layout_constraintTop_toBottomOf="@id/commentEditText"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
             app:layout_constraintBottom_toTopOf="@+id/closeButton"/>
@@ -92,14 +91,27 @@
             android:layout_height="48sp"
             android:text="CLOSE AND DISABLE FEEDBACK"
             android:background="@android:color/transparent"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16sp"
+            android:layout_marginTop="18dp"
             android:textColor="#0086EC"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintEnd_toEndOf="@id/titleTextView"
             app:layout_constraintTop_toBottomOf="@id/submitButton"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/skipButton"/>
 
+    <Button
+            android:id="@+id/skipButton"
+            android:layout_width="0dp"
+            android:layout_height="48sp"
+            android:text="SKIP FEEDBACK"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="16sp"
+            android:textColor="#0086EC"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintEnd_toEndOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/closeButton"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 </co.touchlab.sessionize.feedback.FeedbackView>
