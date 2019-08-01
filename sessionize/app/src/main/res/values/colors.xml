@@ -17,6 +17,8 @@
     <color name="rsvpColor">#68d1fd</color>
     <color name="rsvpConflictColor">#f1582c</color>
 
+    <color name="pastEvent">#DEDEDE</color>
+
     <color name="profile_circle">#dcdcdc</color>
     <color name="card_bg_block">#fafafa</color>
 
