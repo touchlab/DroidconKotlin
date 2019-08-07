@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="tabBackground">#f34e22</color>
+    <color name="tabBackground">#3f4caf</color>
     <color name="textColor">#000</color>
     <color name="textColorLight">#333</color>
 
-    <color name="colorPrimary">#E6592E</color>
-    <color name="colorPrimaryDark">#B34524</color>
-    <color name="colorAccent">#FCC010</color>
-    <color name="colorMenu">#FFF</color>
-    <color name="colorMenuOff">#DEDEDE</color>
+    <color name="colorPrimary">#233096</color>
+    <color name="colorPrimaryDark">#1e2981</color>
+    <color name="colorAccent">#6bac89</color>
+    <color name="colorMenu">#e4e02f</color>
+    <color name="colorMenuOff">#aae4e02f</color>
 
     <color name="white">#FFF</color>
     <color name="black">#000</color>
 
-    <color name="rsvpColor">#ff7f5b</color>
+    <color name="rsvpColor">#68d1fd</color>
     <color name="rsvpConflictColor">#f1582c</color>
+
+    <color name="pastEvent">#DEDEDE</color>
 
     <color name="profile_circle">#dcdcdc</color>
     <color name="card_bg_block">#fafafa</color>
