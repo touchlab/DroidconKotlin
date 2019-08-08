@@ -1,5 +1,8 @@
 package co.touchlab.sessionize.api
 
+import co.touchlab.firebase.firestore.addSnapshotListener_
+import co.touchlab.firebase.firestore.collection
+import co.touchlab.firebase.firestore.getFirebaseInstance
 import co.touchlab.sessionize.BaseModel
 import co.touchlab.sessionize.Durations
 import co.touchlab.sessionize.ServiceRegistry
@@ -23,7 +26,11 @@ object NetworkRepo {
             val networkSpeakerJson = api.getSpeakersJson()
             val networkSessionJson = api.getSessionsJson()
             val networkSponsorJson = api.getSponsorJson()
+            val firestoreSponsors = getFirebaseInstance().collection("sponsors")
             val networkSponsorSessionJson =  api.getSponsorSessionJson()
+
+//            firestoreSponsors.addSnapshotListener_()
+            print("firestore sponsor json: ${firestoreSponsorJson}")
 
             backgroundSuspend {
                 SessionizeDbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson, networkSponsorSessionJson)

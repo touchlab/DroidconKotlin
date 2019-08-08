@@ -97,13 +97,14 @@ buildscript {
         jcenter()
         google()
         mavenCentral()
+        mavenLocal()
         gradlePluginPortal()
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-serialization:${versions.kotlin}"
         classpath 'com.google.gms:google-services:4.2.0'
@@ -120,6 +121,7 @@ allprojects {
         jcenter()
         google()
         mavenCentral()
+        mavenLocal()
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url "https://dl.bintray.com/russhwolf/multiplatform-settings" }
     }
