@@ -30,7 +30,7 @@ object NetworkRepo {
             val networkSponsorSessionJson =  api.getSponsorSessionJson()
 
 //            firestoreSponsors.addSnapshotListener_()
-            print("firestore sponsor json: ${firestoreSponsorJson}")
+            print("firestore sponsor json: ${firestoreSponsors}")
 
             backgroundSuspend {
                 SessionizeDbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson, networkSponsorSessionJson)
