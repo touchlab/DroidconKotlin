@@ -119,9 +119,9 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.1.0-alpha06"
     implementation "androidx.navigation:navigation-ui-ktx:2.1.0-alpha06"
-    implementation 'com.google.firebase:firebase-firestore:20.1.0'
-    implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation "co.touchlab:firestore:0.2.0"
+    implementation 'com.google.firebase:firebase-firestore:20.2.0'
+//    implementation 'com.google.firebase:firebase-core:17.0.0'
+//    implementation "co.touchlab:firestore:0.2.0"
 }
 
 apply plugin: "androidx.navigation.safeargs"
