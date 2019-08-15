@@ -91,17 +91,17 @@
             "room": "Track 🚀"
           },
           {
-            "id": "123700",
-            "title": "Good APIs don't need a tutorial",
-            "description": "Working in an enormous codebase is hard. You're new and you don't know where to start. There's a ton of tools available to you and you don't know which to pick.\r\n\r\nBuilding that codebase is just as hard - but there's a trick to making it fantastic. This talk is going to draw corollaries between API design and video game design, and we're all going to learn from the greatest game design in the game on how to be friendly to newcomers. It's simpler than you think, but doing it right is challenging. We'll use open source examples and talk about how we've used this strategy at CashApp to great effect.\r\n\r\nIt's super effective!",
+            "id": "132963",
+            "title": "Inhibiting the impostor",
+            "description": "Have you ever had an experience where a small voice in your head prevented you from acting on an idea, stopped you from sharing your knowledge or trying something new, or maybe even made you feel like your achievements were nothing special?\r\n\r\nThat voice is more common than you think!\r\n\r\nIn this talk we will go over the basic steps that will help you materialise, deconstruct and take control of that voice, helping you distinguish the useful bits of information that can help you grow from the overwhelming debris and clutter. You will learn how to notice the early signs of its onset and manage the situation to your benefit. Finally, you will learn to use simple tools that will help you recognise and acknowledge your achievements and help yourself and others fight the invisible menace.",
             "startsAt": "2019-08-26T11:25:00",
             "endsAt": "2019-08-26T12:05:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
-                "name": "Alec Strong"
+                "id": "0351a115-0e0d-4318-97a7-e11570176324",
+                "name": "Ana Baotić"
               }
             ],
             "categories": [],
@@ -174,17 +174,17 @@
             "room": "Track 🚀"
           },
           {
-            "id": "132963",
-            "title": "Inhibiting the impostor",
-            "description": "Have you ever had an experience where a small voice in your head prevented you from acting on an idea, stopped you from sharing your knowledge or trying something new, or maybe even made you feel like your achievements were nothing special?\r\n\r\nThat voice is more common than you think!\r\n\r\nIn this talk we will go over the basic steps that will help you materialise, deconstruct and take control of that voice, helping you distinguish the useful bits of information that can help you grow from the overwhelming debris and clutter. You will learn how to notice the early signs of its onset and manage the situation to your benefit. Finally, you will learn to use simple tools that will help you recognise and acknowledge your achievements and help yourself and others fight the invisible menace.",
+            "id": "132706",
+            "title": "Calm is key: A guide to a happier, more productive workplace",
+            "description": "Many of today's work environments are crazy — they run at a frenetic pace, full of interruptions and distractions. They leave us drained, overworked, and frustrated.\r\n\r\nAnd yet we do our best work in the opposite environment — when we're focused, clear headed, and have time to think. So let's try to shift the balance by talking about a better, calmer way.\r\n\r\nWe'll talk about a variety of ways we can all encourage greater calm at work. How do we maintain focus and prevent interruptions? What are some strategies to manage our time and responsibilities? What can we do both at work and home to keep me sharp mentally? And how do maintain real balance and boundaries between work and home?\r\n\r\nBy the end of the talk, I hope you'll have some new ideas and inspiration to work toward a calmer, more productive work environment for you and your team.",
             "startsAt": "2019-08-26T15:20:00",
             "endsAt": "2019-08-26T16:00:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "0351a115-0e0d-4318-97a7-e11570176324",
-                "name": "Ana Baotić"
+                "id": "36b53fcf-430a-4425-ac8c-d1a36263b612",
+                "name": "Dan Kim"
               }
             ],
             "categories": [],
@@ -192,17 +192,17 @@
             "room": "Track 🚀"
           },
           {
-            "id": "132706",
-            "title": "Calm is key: A guide to a happier, more productive workplace",
-            "description": "Many of today's work environments are crazy — they run at a frenetic pace, full of interruptions and distractions. They leave us drained, overworked, and frustrated.\r\n\r\nAnd yet we do our best work in the opposite environment — when we're focused, clear headed, and have time to think. So let's try to shift the balance by talking about a better, calmer way.\r\n\r\nWe'll talk about a variety of ways we can all encourage greater calm at work. How do we maintain focus and prevent interruptions? What are some strategies to manage our time and responsibilities? What can we do both at work and home to keep me sharp mentally? And how do maintain real balance and boundaries between work and home?\r\n\r\nBy the end of the talk, I hope you'll have some new ideas and inspiration to work toward a calmer, more productive work environment for you and your team.",
+            "id": "123700",
+            "title": "Good APIs don't need a tutorial",
+            "description": "Working in an enormous codebase is hard. You're new and you don't know where to start. There's a ton of tools available to you and you don't know which to pick.\r\n\r\nBuilding that codebase is just as hard - but there's a trick to making it fantastic. This talk is going to draw corollaries between API design and video game design, and we're all going to learn from the greatest game design in the game on how to be friendly to newcomers. It's simpler than you think, but doing it right is challenging. We'll use open source examples and talk about how we've used this strategy at CashApp to great effect.\r\n\r\nIt's super effective!",
             "startsAt": "2019-08-26T16:10:00",
             "endsAt": "2019-08-26T16:50:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "36b53fcf-430a-4425-ac8c-d1a36263b612",
-                "name": "Dan Kim"
+                "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
+                "name": "Alec Strong"
               }
             ],
             "categories": [],
@@ -223,6 +223,19 @@
                 "name": "Britt Barak"
               }
             ],
+            "categories": [],
+            "roomId": 7455,
+            "room": "Track 🚀"
+          },
+          {
+            "id": "5b1ecdf3-0d9e-4a51-bca7-2babde8b78f6",
+            "title": "General Party - Sponsored by Warner Bros. Digital Labs",
+            "description": null,
+            "startsAt": "2019-08-26T18:00:00",
+            "endsAt": "2019-08-26T19:30:00",
+            "isServiceSession": true,
+            "isPlenumSession": true,
+            "speakers": [],
             "categories": [],
             "roomId": 7455,
             "room": "Track 🚀"
@@ -373,7 +386,7 @@
             "title": "SwiftUI meets Kotlin Multiplatform!",
             "description": "This talk will outline exploration done to see how SwiftUI (new declarative UI framework announced at WWDC this year) could be used to create an iOS app that consumes shared Kotlin Multiplatform code, along with providing short overview of recent developments that have led us to point where something like this is now feasible (some more details in following post https://johnoreilly.dev/2019/06/08/swiftui-meetings-kotlin-multiplatform.html )",
             "startsAt": "2019-08-26T16:10:00",
-            "endsAt": "2019-08-26T16:50:00",
+            "endsAt": "2019-08-26T16:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
@@ -382,6 +395,19 @@
                 "name": "John O'Reilly"
               }
             ],
+            "categories": [],
+            "roomId": 7456,
+            "room": "Track 🎸"
+          },
+          {
+            "id": "1e7bbace-c9d7-45c8-8299-2f859a2dacd5",
+            "title": "Lightning Talk",
+            "description": null,
+            "startsAt": "2019-08-26T16:30:00",
+            "endsAt": "2019-08-26T16:50:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
             "categories": [],
             "roomId": 7456,
             "room": "Track 🎸"
@@ -412,17 +438,17 @@
         "name": "Track 🐶",
         "sessions": [
           {
-            "id": "133445",
-            "title": "Inside the Room",
-            "description": "Take a deep dive into how Google’s persistence library, Room, works with SQLite. In this talk we'll cover the 3 layers we use to persist to a local database, how they work and how they work with each other: SQLite, Android and AndroidX libraries, and Room. We'll cover locks and threads and how they're managed, how Room provides RxJava/ LiveData support, SQLite transactions and how they're created and managed by Room, and how Room supports paging and large queries.",
+            "id": "138954",
+            "title": "Does your Android app expose you to excess risk?",
+            "description": "Power and Risk of mobile. In this presentation, Verimatrix’s Product Manager, Neal Michie, discusses the best practises to develop a secure Android app. He looks at the unique challenges of the Android ecosystem and debunks the myth that Android is inherently insecure.\r\n\r\nTakeaways/learnings:\r\nStrengths and weakness of the Android ecosystem from an app security perspective.\r\nRisks of ignoring security when developing an app.\r\nBest practises for developing a secure Android app.",
             "startsAt": "2019-08-26T09:45:00",
             "endsAt": "2019-08-26T10:25:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "5085327b-78aa-414a-86fc-03cd276113db",
-                "name": "Effie Barak"
+                "id": "57035aef-074c-4bb8-abbd-8f628ba47d93",
+                "name": "Neal Michie"
               }
             ],
             "categories": [],
@@ -605,15 +631,33 @@
           {
             "id": "123265",
             "title": "Code Review for User Experience",
-            "description": "Code review is a useful tool in the engineering process. It can be useful in catching certain classes of errors and for providing feedback on code structure and design. With a few changes to standard practices, you can step up your code review to be consciousness of not just the code you are writing, but the experience you are building.",
-            "startsAt": "2019-08-26T11:25:00",
-            "endsAt": "2019-08-26T12:05:00",
+            "description": "Code review is a useful tool in the engineering process. It can be useful in catching certain classes of errors and for providing feedback on code structure and design. With a few changes to standard practices, you can step up your code review to be conscientious of not just the code you are writing, but the experience you are building.",
+            "startsAt": "2019-08-26T10:35:00",
+            "endsAt": "2019-08-26T11:15:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
                 "id": "ce1d1fe2-96af-47a8-a07e-57c8e9a75b18",
                 "name": "Stephen D'Amico"
+              }
+            ],
+            "categories": [],
+            "roomId": 7458,
+            "room": "Track 🏋️‍♀️"
+          },
+          {
+            "id": "125307",
+            "title": "🚀 Jetpacks for you and I 🚀",
+            "description": "Lifecycles, navigation, camera, database access… To name a few of the most complex APIs to work with Android.\r\n\r\nIn 2017 Google introduced Jetpack, a collection of Android components that make it easier for you to develop great apps, follow best practices and avoid performing complex tasks or writing boilerplate code.\r\n\r\nIt's also HUGE and with over 30 different components in the collection, getting started can be daunting if you don't know what is what.\r\n\r\nIn this talk, we will look at what you need to get started with some of the hottest Jetpack components that offer backwards compatibility and are updated more frequently than the Android platform.",
+            "startsAt": "2019-08-26T11:25:00",
+            "endsAt": "2019-08-26T12:05:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "15597a6f-8f73-4105-a0af-f45bbc96f09b",
+                "name": "Marcos Placona"
               }
             ],
             "categories": [],
@@ -1019,17 +1063,17 @@
             "id": 7457,
             "name": "Track 🐶",
             "session": {
-              "id": "133445",
-              "title": "Inside the Room",
-              "description": "Take a deep dive into how Google’s persistence library, Room, works with SQLite. In this talk we'll cover the 3 layers we use to persist to a local database, how they work and how they work with each other: SQLite, Android and AndroidX libraries, and Room. We'll cover locks and threads and how they're managed, how Room provides RxJava/ LiveData support, SQLite transactions and how they're created and managed by Room, and how Room supports paging and large queries.",
+              "id": "138954",
+              "title": "Does your Android app expose you to excess risk?",
+              "description": "Power and Risk of mobile. In this presentation, Verimatrix’s Product Manager, Neal Michie, discusses the best practises to develop a secure Android app. He looks at the unique challenges of the Android ecosystem and debunks the myth that Android is inherently insecure.\r\n\r\nTakeaways/learnings:\r\nStrengths and weakness of the Android ecosystem from an app security perspective.\r\nRisks of ignoring security when developing an app.\r\nBest practises for developing a secure Android app.",
               "startsAt": "2019-08-26T09:45:00",
               "endsAt": "2019-08-26T10:25:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "5085327b-78aa-414a-86fc-03cd276113db",
-                  "name": "Effie Barak"
+                  "id": "57035aef-074c-4bb8-abbd-8f628ba47d93",
+                  "name": "Neal Michie"
                 }
               ],
               "categories": [],
@@ -1159,6 +1203,29 @@
             "index": 2
           },
           {
+            "id": 7458,
+            "name": "Track 🏋️‍♀️",
+            "session": {
+              "id": "123265",
+              "title": "Code Review for User Experience",
+              "description": "Code review is a useful tool in the engineering process. It can be useful in catching certain classes of errors and for providing feedback on code structure and design. With a few changes to standard practices, you can step up your code review to be conscientious of not just the code you are writing, but the experience you are building.",
+              "startsAt": "2019-08-26T10:35:00",
+              "endsAt": "2019-08-26T11:15:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "ce1d1fe2-96af-47a8-a07e-57c8e9a75b18",
+                  "name": "Stephen D'Amico"
+                }
+              ],
+              "categories": [],
+              "roomId": 7458,
+              "room": "Track 🏋️‍♀️"
+            },
+            "index": 3
+          },
+          {
             "id": 7489,
             "name": "Workshop Room",
             "session": {
@@ -1190,17 +1257,17 @@
             "id": 7455,
             "name": "Track 🚀",
             "session": {
-              "id": "123700",
-              "title": "Good APIs don't need a tutorial",
-              "description": "Working in an enormous codebase is hard. You're new and you don't know where to start. There's a ton of tools available to you and you don't know which to pick.\r\n\r\nBuilding that codebase is just as hard - but there's a trick to making it fantastic. This talk is going to draw corollaries between API design and video game design, and we're all going to learn from the greatest game design in the game on how to be friendly to newcomers. It's simpler than you think, but doing it right is challenging. We'll use open source examples and talk about how we've used this strategy at CashApp to great effect.\r\n\r\nIt's super effective!",
+              "id": "132963",
+              "title": "Inhibiting the impostor",
+              "description": "Have you ever had an experience where a small voice in your head prevented you from acting on an idea, stopped you from sharing your knowledge or trying something new, or maybe even made you feel like your achievements were nothing special?\r\n\r\nThat voice is more common than you think!\r\n\r\nIn this talk we will go over the basic steps that will help you materialise, deconstruct and take control of that voice, helping you distinguish the useful bits of information that can help you grow from the overwhelming debris and clutter. You will learn how to notice the early signs of its onset and manage the situation to your benefit. Finally, you will learn to use simple tools that will help you recognise and acknowledge your achievements and help yourself and others fight the invisible menace.",
               "startsAt": "2019-08-26T11:25:00",
               "endsAt": "2019-08-26T12:05:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
-                  "name": "Alec Strong"
+                  "id": "0351a115-0e0d-4318-97a7-e11570176324",
+                  "name": "Ana Baotić"
                 }
               ],
               "categories": [],
@@ -1263,17 +1330,17 @@
             "id": 7458,
             "name": "Track 🏋️‍♀️",
             "session": {
-              "id": "123265",
-              "title": "Code Review for User Experience",
-              "description": "Code review is a useful tool in the engineering process. It can be useful in catching certain classes of errors and for providing feedback on code structure and design. With a few changes to standard practices, you can step up your code review to be consciousness of not just the code you are writing, but the experience you are building.",
+              "id": "125307",
+              "title": "🚀 Jetpacks for you and I 🚀",
+              "description": "Lifecycles, navigation, camera, database access… To name a few of the most complex APIs to work with Android.\r\n\r\nIn 2017 Google introduced Jetpack, a collection of Android components that make it easier for you to develop great apps, follow best practices and avoid performing complex tasks or writing boilerplate code.\r\n\r\nIt's also HUGE and with over 30 different components in the collection, getting started can be daunting if you don't know what is what.\r\n\r\nIn this talk, we will look at what you need to get started with some of the hottest Jetpack components that offer backwards compatibility and are updated more frequently than the Android platform.",
               "startsAt": "2019-08-26T11:25:00",
               "endsAt": "2019-08-26T12:05:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "ce1d1fe2-96af-47a8-a07e-57c8e9a75b18",
-                  "name": "Stephen D'Amico"
+                  "id": "15597a6f-8f73-4105-a0af-f45bbc96f09b",
+                  "name": "Marcos Placona"
                 }
               ],
               "categories": [],
@@ -1675,17 +1742,17 @@
             "id": 7455,
             "name": "Track 🚀",
             "session": {
-              "id": "132963",
-              "title": "Inhibiting the impostor",
-              "description": "Have you ever had an experience where a small voice in your head prevented you from acting on an idea, stopped you from sharing your knowledge or trying something new, or maybe even made you feel like your achievements were nothing special?\r\n\r\nThat voice is more common than you think!\r\n\r\nIn this talk we will go over the basic steps that will help you materialise, deconstruct and take control of that voice, helping you distinguish the useful bits of information that can help you grow from the overwhelming debris and clutter. You will learn how to notice the early signs of its onset and manage the situation to your benefit. Finally, you will learn to use simple tools that will help you recognise and acknowledge your achievements and help yourself and others fight the invisible menace.",
+              "id": "132706",
+              "title": "Calm is key: A guide to a happier, more productive workplace",
+              "description": "Many of today's work environments are crazy — they run at a frenetic pace, full of interruptions and distractions. They leave us drained, overworked, and frustrated.\r\n\r\nAnd yet we do our best work in the opposite environment — when we're focused, clear headed, and have time to think. So let's try to shift the balance by talking about a better, calmer way.\r\n\r\nWe'll talk about a variety of ways we can all encourage greater calm at work. How do we maintain focus and prevent interruptions? What are some strategies to manage our time and responsibilities? What can we do both at work and home to keep me sharp mentally? And how do maintain real balance and boundaries between work and home?\r\n\r\nBy the end of the talk, I hope you'll have some new ideas and inspiration to work toward a calmer, more productive work environment for you and your team.",
               "startsAt": "2019-08-26T15:20:00",
               "endsAt": "2019-08-26T16:00:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "0351a115-0e0d-4318-97a7-e11570176324",
-                  "name": "Ana Baotić"
+                  "id": "36b53fcf-430a-4425-ac8c-d1a36263b612",
+                  "name": "Dan Kim"
                 }
               ],
               "categories": [],
@@ -1795,17 +1862,17 @@
             "id": 7455,
             "name": "Track 🚀",
             "session": {
-              "id": "132706",
-              "title": "Calm is key: A guide to a happier, more productive workplace",
-              "description": "Many of today's work environments are crazy — they run at a frenetic pace, full of interruptions and distractions. They leave us drained, overworked, and frustrated.\r\n\r\nAnd yet we do our best work in the opposite environment — when we're focused, clear headed, and have time to think. So let's try to shift the balance by talking about a better, calmer way.\r\n\r\nWe'll talk about a variety of ways we can all encourage greater calm at work. How do we maintain focus and prevent interruptions? What are some strategies to manage our time and responsibilities? What can we do both at work and home to keep me sharp mentally? And how do maintain real balance and boundaries between work and home?\r\n\r\nBy the end of the talk, I hope you'll have some new ideas and inspiration to work toward a calmer, more productive work environment for you and your team.",
+              "id": "123700",
+              "title": "Good APIs don't need a tutorial",
+              "description": "Working in an enormous codebase is hard. You're new and you don't know where to start. There's a ton of tools available to you and you don't know which to pick.\r\n\r\nBuilding that codebase is just as hard - but there's a trick to making it fantastic. This talk is going to draw corollaries between API design and video game design, and we're all going to learn from the greatest game design in the game on how to be friendly to newcomers. It's simpler than you think, but doing it right is challenging. We'll use open source examples and talk about how we've used this strategy at CashApp to great effect.\r\n\r\nIt's super effective!",
               "startsAt": "2019-08-26T16:10:00",
               "endsAt": "2019-08-26T16:50:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "36b53fcf-430a-4425-ac8c-d1a36263b612",
-                  "name": "Dan Kim"
+                  "id": "6789439c-c425-4179-97b7-ccc21476ea6f",
+                  "name": "Alec Strong"
                 }
               ],
               "categories": [],
@@ -1822,7 +1889,7 @@
               "title": "SwiftUI meets Kotlin Multiplatform!",
               "description": "This talk will outline exploration done to see how SwiftUI (new declarative UI framework announced at WWDC this year) could be used to create an iOS app that consumes shared Kotlin Multiplatform code, along with providing short overview of recent developments that have led us to point where something like this is now feasible (some more details in following post https://johnoreilly.dev/2019/06/08/swiftui-meetings-kotlin-multiplatform.html )",
               "startsAt": "2019-08-26T16:10:00",
-              "endsAt": "2019-08-26T16:50:00",
+              "endsAt": "2019-08-26T16:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
@@ -1905,6 +1972,29 @@
               "room": "Workshop Room"
             },
             "index": 4
+          }
+        ]
+      },
+      {
+        "slotStart": "16:30:00",
+        "rooms": [
+          {
+            "id": 7456,
+            "name": "Track 🎸",
+            "session": {
+              "id": "1e7bbace-c9d7-45c8-8299-2f859a2dacd5",
+              "title": "Lightning Talk",
+              "description": null,
+              "startsAt": "2019-08-26T16:30:00",
+              "endsAt": "2019-08-26T16:50:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 7456,
+              "room": "Track 🎸"
+            },
+            "index": 1
           }
         ]
       },
@@ -2031,6 +2121,29 @@
             "index": 4
           }
         ]
+      },
+      {
+        "slotStart": "18:00:00",
+        "rooms": [
+          {
+            "id": 7455,
+            "name": "Track 🚀",
+            "session": {
+              "id": "5b1ecdf3-0d9e-4a51-bca7-2babde8b78f6",
+              "title": "General Party - Sponsored by Warner Bros. Digital Labs",
+              "description": null,
+              "startsAt": "2019-08-26T18:00:00",
+              "endsAt": "2019-08-26T19:30:00",
+              "isServiceSession": true,
+              "isPlenumSession": true,
+              "speakers": [],
+              "categories": [],
+              "roomId": 7455,
+              "room": "Track 🚀"
+            },
+            "index": 0
+          }
+        ]
       }
     ]
   },
@@ -2073,17 +2186,17 @@
             "room": "Track 🚀"
           },
           {
-            "id": "133447",
-            "title": "(Android) Transformers - bytecode in disguise!",
-            "description": "If you’ve used Firebase Performance Monitoring, you know that it automatically discovers and reports performance metrics for all the HTTP transactions in your app.  But have you ever wondered how it does that?  Android doesn’t provide any APIs to listen in on an arbitrary connection (that would be a security problem!), and Firebase supports URLConnection, Apache, and OKHTTP APIs.  The secret here is bytecode manipulation at build time using the Transform API provided by the Android build tools.  Join this session to find out how the Firebase Performance Monitoring Gradle plugin intercepts and measures HTTP transactions at runtime with some assistance from bytecode manipulation at build time.",
+            "id": "130793",
+            "title": "SELECT * FROM Kotlin",
+            "description": "Now that Kotlin is the preferred language of Android developers, what is the best library to work with SQLite databases using Kotlin? Room just released support for Kotlin Coroutines, and SqlDelight released support for Kotlin Multi-platform. Room has great documentation and hides a lot of implementation detail, while SqlDelight lets you write raw SQL statements with an Android Studio plugin and then generates type-safe code for you. In this session, you'll see a rundown of these two libraries, along with live coding demos to help you decide which library sounds right for you in this Kotlin world.",
             "startsAt": "2019-08-27T09:50:00",
             "endsAt": "2019-08-27T10:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
-                "name": "Doug Stevenson"
+                "id": "dd32d92b-40e8-4dcf-a29c-a66ec2473b6f",
+                "name": "Sam Edwards"
               }
             ],
             "categories": [],
@@ -2176,17 +2289,17 @@
             "room": "Track 🚀"
           },
           {
-            "id": "130793",
-            "title": "SELECT * FROM Kotlin",
-            "description": "Now that Kotlin is the preferred language of Android developers, what is the best library to work with SQLite databases using Kotlin? Room just released support for Kotlin Coroutines, and SqlDelight released support for Kotlin Multi-platform. Room has great documentation and hides a lot of implementation detail, while SqlDelight lets you write raw SQL statements with an Android Studio plugin and then generates type-safe code for you. In this session, you'll see a rundown of these two libraries, along with live coding demos to help you decide which library sounds right for you in this Kotlin world.",
+            "id": "133447",
+            "title": "(Android) Transformers - bytecode in disguise!",
+            "description": "If you’ve used Firebase Performance Monitoring, you know that it automatically discovers and reports performance metrics for all the HTTP transactions in your app.  But have you ever wondered how it does that?  Android doesn’t provide any APIs to listen in on an arbitrary connection (that would be a security problem!), and Firebase supports URLConnection, Apache, and OKHTTP APIs.  The secret here is bytecode manipulation at build time using the Transform API provided by the Android build tools.  Join this session to find out how the Firebase Performance Monitoring Gradle plugin intercepts and measures HTTP transactions at runtime with some assistance from bytecode manipulation at build time.",
             "startsAt": "2019-08-27T14:30:00",
             "endsAt": "2019-08-27T15:10:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "dd32d92b-40e8-4dcf-a29c-a66ec2473b6f",
-                "name": "Sam Edwards"
+                "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
+                "name": "Doug Stevenson"
               }
             ],
             "categories": [],
@@ -2610,24 +2723,6 @@
             "categories": [],
             "roomId": 7457,
             "room": "Track 🐶"
-          },
-          {
-            "id": "125307",
-            "title": "🚀 Jetpacks for you and I 🚀",
-            "description": "Lifecycles, navigation, camera, database access… To name a few of the most complex APIs to work with Android.\r\n\r\nIn 2017 Google introduced Jetpack, a collection of Android components that make it easier for you to develop great apps, follow best practices and avoid performing complex tasks or writing boilerplate code.\r\n\r\nIt's also HUGE and with over 30 different components in the collection, getting started can be daunting if you don't know what is what.\r\n\r\nIn this talk, we will look at what you need to get started with some of the hottest Jetpack components that offer backwards compatibility and are updated more frequently than the Android platform.",
-            "startsAt": "2019-08-27T17:00:00",
-            "endsAt": "2019-08-27T17:40:00",
-            "isServiceSession": false,
-            "isPlenumSession": false,
-            "speakers": [
-              {
-                "id": "15597a6f-8f73-4105-a0af-f45bbc96f09b",
-                "name": "Marcos Placona"
-              }
-            ],
-            "categories": [],
-            "roomId": 7457,
-            "room": "Track 🐶"
           }
         ],
         "hasOnlyPlenumSessions": false
@@ -2884,6 +2979,24 @@
             "categories": [],
             "roomId": 7489,
             "room": "Workshop Room"
+          },
+          {
+            "id": "130847",
+            "title": "Shielding Your Android App from Attackers",
+            "description": "Android apps run in an untrusted environment, and are therefore especially susceptible to reverse engineering, probing, and tampering. These attacks can result in your intellectual property being stolen, or in compromised versions of your app being distributed, compromising user data and causing reputational damage. In this talk, we'll examine ways in which an attacker might approach your application and countermeasures that you can take to make their job much more difficult. In particular, we'll discuss renaming elements of your code, employing control flow obfuscation, and using string encryption in order to make your code more difficult for an attacker to navigate. Additionally, we'll discuss using checks to verify the safety of the environment in which your app is running and react accordingly if it is running in an unsafe environment.\r\n",
+            "startsAt": "2019-08-27T15:20:00",
+            "endsAt": "2019-08-27T16:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "5271f836-dcd2-40e7-98e5-6f5eae87ae23",
+                "name": "Peter Tefft"
+              }
+            ],
+            "categories": [],
+            "roomId": 7489,
+            "room": "Workshop Room"
           }
         ],
         "hasOnlyPlenumSessions": false
@@ -3017,17 +3130,17 @@
             "id": 7455,
             "name": "Track 🚀",
             "session": {
-              "id": "133447",
-              "title": "(Android) Transformers - bytecode in disguise!",
-              "description": "If you’ve used Firebase Performance Monitoring, you know that it automatically discovers and reports performance metrics for all the HTTP transactions in your app.  But have you ever wondered how it does that?  Android doesn’t provide any APIs to listen in on an arbitrary connection (that would be a security problem!), and Firebase supports URLConnection, Apache, and OKHTTP APIs.  The secret here is bytecode manipulation at build time using the Transform API provided by the Android build tools.  Join this session to find out how the Firebase Performance Monitoring Gradle plugin intercepts and measures HTTP transactions at runtime with some assistance from bytecode manipulation at build time.",
+              "id": "130793",
+              "title": "SELECT * FROM Kotlin",
+              "description": "Now that Kotlin is the preferred language of Android developers, what is the best library to work with SQLite databases using Kotlin? Room just released support for Kotlin Coroutines, and SqlDelight released support for Kotlin Multi-platform. Room has great documentation and hides a lot of implementation detail, while SqlDelight lets you write raw SQL statements with an Android Studio plugin and then generates type-safe code for you. In this session, you'll see a rundown of these two libraries, along with live coding demos to help you decide which library sounds right for you in this Kotlin world.",
               "startsAt": "2019-08-27T09:50:00",
               "endsAt": "2019-08-27T10:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
-                  "name": "Doug Stevenson"
+                  "id": "dd32d92b-40e8-4dcf-a29c-a66ec2473b6f",
+                  "name": "Sam Edwards"
                 }
               ],
               "categories": [],
@@ -3602,17 +3715,17 @@
             "id": 7455,
             "name": "Track 🚀",
             "session": {
-              "id": "130793",
-              "title": "SELECT * FROM Kotlin",
-              "description": "Now that Kotlin is the preferred language of Android developers, what is the best library to work with SQLite databases using Kotlin? Room just released support for Kotlin Coroutines, and SqlDelight released support for Kotlin Multi-platform. Room has great documentation and hides a lot of implementation detail, while SqlDelight lets you write raw SQL statements with an Android Studio plugin and then generates type-safe code for you. In this session, you'll see a rundown of these two libraries, along with live coding demos to help you decide which library sounds right for you in this Kotlin world.",
+              "id": "133447",
+              "title": "(Android) Transformers - bytecode in disguise!",
+              "description": "If you’ve used Firebase Performance Monitoring, you know that it automatically discovers and reports performance metrics for all the HTTP transactions in your app.  But have you ever wondered how it does that?  Android doesn’t provide any APIs to listen in on an arbitrary connection (that would be a security problem!), and Firebase supports URLConnection, Apache, and OKHTTP APIs.  The secret here is bytecode manipulation at build time using the Transform API provided by the Android build tools.  Join this session to find out how the Firebase Performance Monitoring Gradle plugin intercepts and measures HTTP transactions at runtime with some assistance from bytecode manipulation at build time.",
               "startsAt": "2019-08-27T14:30:00",
               "endsAt": "2019-08-27T15:10:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "dd32d92b-40e8-4dcf-a29c-a66ec2473b6f",
-                  "name": "Sam Edwards"
+                  "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
+                  "name": "Doug Stevenson"
                 }
               ],
               "categories": [],
@@ -3790,6 +3903,29 @@
               "room": "Track 🏋️‍♀️"
             },
             "index": 3
+          },
+          {
+            "id": 7489,
+            "name": "Workshop Room",
+            "session": {
+              "id": "130847",
+              "title": "Shielding Your Android App from Attackers",
+              "description": "Android apps run in an untrusted environment, and are therefore especially susceptible to reverse engineering, probing, and tampering. These attacks can result in your intellectual property being stolen, or in compromised versions of your app being distributed, compromising user data and causing reputational damage. In this talk, we'll examine ways in which an attacker might approach your application and countermeasures that you can take to make their job much more difficult. In particular, we'll discuss renaming elements of your code, employing control flow obfuscation, and using string encryption in order to make your code more difficult for an attacker to navigate. Additionally, we'll discuss using checks to verify the safety of the environment in which your app is running and react accordingly if it is running in an unsafe environment.\r\n",
+              "startsAt": "2019-08-27T15:20:00",
+              "endsAt": "2019-08-27T16:00:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "5271f836-dcd2-40e7-98e5-6f5eae87ae23",
+                  "name": "Peter Tefft"
+                }
+              ],
+              "categories": [],
+              "roomId": 7489,
+              "room": "Workshop Room"
+            },
+            "index": 4
           }
         ]
       },
@@ -3942,29 +4078,6 @@
               "room": "Track 🎸"
             },
             "index": 1
-          },
-          {
-            "id": 7457,
-            "name": "Track 🐶",
-            "session": {
-              "id": "125307",
-              "title": "🚀 Jetpacks for you and I 🚀",
-              "description": "Lifecycles, navigation, camera, database access… To name a few of the most complex APIs to work with Android.\r\n\r\nIn 2017 Google introduced Jetpack, a collection of Android components that make it easier for you to develop great apps, follow best practices and avoid performing complex tasks or writing boilerplate code.\r\n\r\nIt's also HUGE and with over 30 different components in the collection, getting started can be daunting if you don't know what is what.\r\n\r\nIn this talk, we will look at what you need to get started with some of the hottest Jetpack components that offer backwards compatibility and are updated more frequently than the Android platform.",
-              "startsAt": "2019-08-27T17:00:00",
-              "endsAt": "2019-08-27T17:40:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "15597a6f-8f73-4105-a0af-f45bbc96f09b",
-                  "name": "Marcos Placona"
-                }
-              ],
-              "categories": [],
-              "roomId": 7457,
-              "room": "Track 🐶"
-            },
-            "index": 2
           },
           {
             "id": 7458,
