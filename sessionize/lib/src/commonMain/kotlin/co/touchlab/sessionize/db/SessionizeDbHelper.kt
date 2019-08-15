@@ -198,6 +198,9 @@ object SessionizeDbHelper {
         }
     }
 
+    /**
+     * I've had to look at this code several times to remember how it works.
+     */
     private fun primeSponsors(sponsorJson: String, sponsorSessionsJson: String) {
         println("sponsorJson: $sponsorJson")
         val sponsorGroups = Json.nonstrict.parse(SponsorGroup.serializer().list, sponsorJson)
