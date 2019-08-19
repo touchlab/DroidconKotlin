@@ -1,0 +1,18 @@
+CREATE TABLE sponsorSession(
+id TEXT NOT NULL PRIMARY KEY,
+description TEXT
+);
+
+insertUpdate:
+INSERT OR REPLACE INTO  sponsorSession(id, description)
+VALUES (?, ?)
+;
+
+selectAll:
+SELECT * FROM sponsorSession;
+
+sponsorSessionById:
+SELECT * FROM sponsorSession WHERE id = ? LIMIT 1;
+
+deleteAll:
+DELETE FROM sponsorSession;

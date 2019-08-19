@@ -18,6 +18,7 @@ import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.db.SponsorGroupDbItem
+import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.sponsorClicked
 import com.nex3z.flowlayout.FlowLayout
 import com.squareup.picasso.Picasso
@@ -30,15 +31,16 @@ class SponsorsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sponsorViewModel = ViewModelProviders.of(this, ViewModelProvider.NewInstanceFactory())[SponsorViewModel::class.java]
+        sponsorViewModel = SponsorViewModel()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sponsor, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
 
-        sponsorViewModel.registerForChanges {
-            adapter.sponsorGroupDbItems = it
+
+        sponsorViewModel.load {
+            adapter.sponsorGroupItems = it
             adapter.notifyDataSetChanged()
         }
 
@@ -49,13 +51,8 @@ class SponsorsFragment : Fragment() {
         return view
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        sponsorViewModel.unregister()
-    }
-
     inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
-        var sponsorGroupDbItems:List<SponsorGroupDbItem> = emptyList()
+        var sponsorGroupItems:List<SponsorGroup> = emptyList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SponsorGroupViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -64,10 +61,10 @@ class SponsorsFragment : Fragment() {
             return SponsorGroupViewHolder(view)
         }
 
-        override fun getItemCount(): Int = sponsorGroupDbItems.size
+        override fun getItemCount(): Int = sponsorGroupItems.size
 
         override fun onBindViewHolder(holder: SponsorGroupViewHolder, position: Int) {
-            val sponsorGroup = sponsorGroupDbItems.get(position)
+            val sponsorGroup = sponsorGroupItems.get(position)
             holder.groupName.text = sponsorGroup.groupName
             holder.flowGroup.removeAllViews()
             val layoutInflater = LayoutInflater.from(activity)

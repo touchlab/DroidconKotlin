@@ -22,11 +22,10 @@ object NetworkRepo {
             val api = ServiceRegistry.sessionizeApi
             val networkSpeakerJson = api.getSpeakersJson()
             val networkSessionJson = api.getSessionsJson()
-            val networkSponsorJson = api.getSponsorJson()
             val networkSponsorSessionJson =  api.getSponsorSessionJson()
 
             backgroundSuspend {
-                SessionizeDbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorJson, networkSponsorSessionJson)
+                SessionizeDbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorSessionJson)
                 ServiceRegistry.appSettings.putLong(SettingsKeys.KEY_LAST_LOAD, currentTimeMillis())
             }
 

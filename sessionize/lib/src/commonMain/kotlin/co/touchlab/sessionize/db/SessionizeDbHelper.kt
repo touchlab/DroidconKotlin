@@ -12,8 +12,6 @@ import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.SessionSpeaker
 import co.touchlab.sessionize.jsondata.Speaker
-import co.touchlab.sessionize.jsondata.SponsorGroup
-import co.touchlab.sessionize.jsondata.SponsorSession
 import co.touchlab.sessionize.jsondata.SponsorSessionGroup
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.logException
@@ -63,12 +61,12 @@ object SessionizeDbHelper {
         }
     }
 
-    fun primeAll(speakerJson: String, scheduleJson: String, sponsorJson: String, sponsorSessionJson: String) {
+    fun primeAll(speakerJson: String, scheduleJson: String, sponsorSessionJson: String) {
         instance.sessionQueries.transaction {
             try {
                 primeSpeakers(speakerJson)
                 primeSessions(scheduleJson)
-                primeSponsors(sponsorJson, sponsorSessionJson)
+                primeSponsorSessions(sponsorSessionJson)
             } catch (e: Exception) {
                 logException(e)
                 throw e
@@ -77,7 +75,7 @@ object SessionizeDbHelper {
     }
 
     private fun primeSpeakers(speakerJson: String) {
-        val speakers = Json.nonstrict.parse(Speaker.serializer().list, speakerJson)//DefaultData.parseSpeakers(speakerJson)
+        val speakers = Json.nonstrict.parse(Speaker.serializer().list, speakerJson)
 
         for (speaker in speakers) {
             var twitter: String? = null
@@ -198,43 +196,16 @@ object SessionizeDbHelper {
         }
     }
 
-    /**
-     * I've had to look at this code several times to remember how it works.
-     */
-    private fun primeSponsors(sponsorJson: String, sponsorSessionsJson: String) {
-        println("sponsorJson: $sponsorJson")
-        val sponsorGroups = Json.nonstrict.parse(SponsorGroup.serializer().list, sponsorJson)
-        val sponsorSessionGroups = Json.nonstrict.parse(SponsorSessionGroup.serializer().list, sponsorSessionsJson)
+    private fun primeSponsorSessions(sponsorSessionsJson: String) {
+        val sponsorSessionGroups = Json.nonstrict.parse(
+                SponsorSessionGroup.serializer().list,
+                sponsorSessionsJson
+        )
 
-        instance.sponsorQueries.deleteAll()
-
-        val sessionizeSponsors: MutableMap<String, SponsorSession> = mutableMapOf()
-        sponsorSessionGroups.forEach {
-            it.sessions.forEach {
-                sessionizeSponsors.put(it.id, it)
-            }
-        }
-
-        for(group in sponsorGroups) {
-            for(sponsor in group.sponsors) {
-                val sessionizeSession = if (!sponsor.sponsorId.isNullOrEmpty()) {
-                    sessionizeSponsors.get(sponsor.sponsorId)
-                } else {
-                    null
-                }
-
-                instance.sponsorQueries.insert(
-                        sponsor.name,
-                        sponsor.url,
-                        sponsor.icon,
-                        group.groupName,
-                        sponsor.sponsorId,
-                        sessionizeSession?.descriptionText
-                )
-
-                sessionizeSession?.let {
-                    insertSessionSpeakers(it.speakers, it.id)
-                }
+        for (sessionGroup in sponsorSessionGroups) {
+            for (session in sessionGroup.sessions) {
+                instance.sponsorSessionQueries.insertUpdate(session.id, session.descriptionText)
+                insertSessionSpeakers(session.speakers, session.id)
             }
         }
     }

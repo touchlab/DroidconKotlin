@@ -16,8 +16,7 @@ object ExpectSuccess : HttpClientFeature<Unit, ExpectSuccess> {
 
     override fun install(feature: ExpectSuccess, scope: HttpClient) {
         scope.responsePipeline.intercept(HttpResponsePipeline.Receive) {
-            val response = subject.response as HttpResponse
-            if (!response.status.isSuccess()) throw ApiException(response)
+            if (!context.response.status.isSuccess()) throw ApiException(context.response)
             proceedWith(subject)
         }
     }

@@ -19,15 +19,14 @@ buildscript {
             'sqldelight'            : '1.1.4',
             'stately'               : '0.9.2',
             'sqliter'               : '0.6.3',
-            'ktor'                  : '1.2.2',
+            'ktor'                  : '1.2.3',
             'serialization'         : '0.11.1',
             'xcode'                 : '0.1.5',
             'testhelp'              : '0.2.3',
-            'firebase'              : '16.0.9',
+            'firebase'              : '17.0.1',
             'fabric'                : '1.29.0',
             'crashlytics'           : '2.10.1'
     ]
-
     ext.deps = [
             'kotlin'               : [
                     'stdlib'    : [
@@ -86,27 +85,29 @@ buildscript {
             ,
             'firebase'              : [
                     'androidCore'       : "com.google.firebase:firebase-core:${versions.firebase}",
-                    'androidMessaging'       : "com.google.firebase:firebase-messaging:18.0.0",
+                    'androidMessaging'       : "com.google.firebase:firebase-messaging:19.0.1",
 
             ],
             'testhelp' : "co.touchlab:testhelp:${versions.testhelp}",
             'crashlytics' : "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}"
     ]
 
+
     repositories {
         jcenter()
         google()
         mavenCentral()
+        mavenLocal()
         gradlePluginPortal()
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-serialization:${versions.kotlin}"
-        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'com.google.gms:google-services:4.3.0'
         classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
         classpath "co.touchlab:kotlinxcodesync:${versions.xcode}"
         classpath "io.fabric.tools:gradle:${versions.fabric}"
@@ -120,6 +121,7 @@ allprojects {
         jcenter()
         google()
         mavenCentral()
+        mavenLocal()
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url "https://dl.bintray.com/russhwolf/multiplatform-settings" }
     }
