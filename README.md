@@ -7,9 +7,10 @@ This project has a pair of native mobile applications backed by the Sessionize d
 events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
 be forked and customized for anything run on Sessionize.
 
-## Kotlin 1.3.41 Updates!!
-
-Library versions updated.
+> ## **We're Hiring!**
+>
+> Touchlab is looking for Android-focused mobile engineers, experienced with Kotlin and 
+> looking to get involved with Kotlin Multiplatorm in the near future. [More info here](https://on.touchlab.co/2KNeYYN).
 
 ## Libraries
 
