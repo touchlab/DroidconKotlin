@@ -876,7 +876,7 @@
                         <constraints>
                             <constraint firstItem="igf-tg-kap" firstAttribute="leading" secondItem="vuf-yl-IJJ" secondAttribute="leadingMargin" id="YIr-Sa-0oM"/>
                             <constraint firstItem="igf-tg-kap" firstAttribute="top" secondItem="GGw-s2-OAY" secondAttribute="bottom" id="hzS-fU-vj2"/>
-                            <constraint firstItem="LjX-ra-3Z5" firstAttribute="top" secondItem="igf-tg-kap" secondAttribute="bottom" constant="30" id="y5E-Ou-eOc"/>
+                            <constraint firstItem="LjX-ra-3Z5" firstAttribute="top" secondItem="igf-tg-kap" secondAttribute="bottom" id="y5E-Ou-eOc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="igf-tg-kap" secondAttribute="trailing" id="zPB-f0-pDv"/>
                         </constraints>
                     </view>

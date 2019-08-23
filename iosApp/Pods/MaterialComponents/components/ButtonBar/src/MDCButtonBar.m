@@ -32,7 +32,7 @@ static NSString *const kEnabledSelector = @"enabled";
 @implementation MDCButtonBar {
   id _buttonItemsLock;
   NSArray<__kindof UIView *> *_buttonViews;
-
+  UIColor *_inkColor;
   MDCAppBarButtonBarBuilder *_defaultBuilder;
 }
 
@@ -173,12 +173,15 @@ static NSString *const kEnabledSelector = @"enabled";
 // horizontal padding may need to change
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
   [super traitCollectionDidChange:previousTraitCollection];
+
   const BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
-  if (!isPad ||
-      self.traitCollection.horizontalSizeClass == previousTraitCollection.horizontalSizeClass) {
-    return;
-  } else {
+  if (isPad &&
+      self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass) {
     [self reloadButtonViews];
+  }
+
+  if (self.traitCollectionDidChangeBlock) {
+    self.traitCollectionDidChangeBlock(self, previousTraitCollection);
   }
 }
 
@@ -507,12 +510,38 @@ static NSString *const kEnabledSelector = @"enabled";
   [self setNeedsLayout];
 }
 
+- (UIColor *)inkColor {
+  return _inkColor;
+}
+
 - (void)setInkColor:(UIColor *)inkColor {
   if (_inkColor == inkColor) {
     return;
   }
   _inkColor = inkColor;
   [self updateButtonsWithInkColor:_inkColor];
+}
+
+- (void)setRippleColor:(UIColor *)rippleColor {
+  if (_rippleColor == rippleColor || [_rippleColor isEqual:rippleColor]) {
+    return;
+  }
+  _rippleColor = rippleColor;
+  [self updateButtonsWithInkColor:_rippleColor];
+}
+
+- (void)setEnableRippleBehavior:(BOOL)enableRippleBehavior {
+  if (_enableRippleBehavior == enableRippleBehavior) {
+    return;
+  }
+  _enableRippleBehavior = enableRippleBehavior;
+
+  for (UIView *viewObj in _buttonViews) {
+    if ([viewObj isKindOfClass:[MDCButton class]]) {
+      MDCButton *buttonView = (MDCButton *)viewObj;
+      buttonView.enableRippleBehavior = enableRippleBehavior;
+    }
+  }
 }
 
 - (void)reloadButtonViews {

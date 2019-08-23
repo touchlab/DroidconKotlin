@@ -12,5 +12,6 @@ target 'iosApp' do
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
     pod 'Firebase/Analytics'
+    pod 'Firebase/Firestore'
     pod 'lib', :path => '../sessionize/lib'
 end

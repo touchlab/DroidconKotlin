@@ -1,43 +1,37 @@
 package co.touchlab.sessionize
 
 import co.touchlab.firebase.firestore.DocumentSnapshot
+import co.touchlab.firebase.firestore.QuerySnapshot
 import co.touchlab.firebase.firestore.Source
-import co.touchlab.firebase.firestore.addSuccessListener
+import co.touchlab.firebase.firestore.TaskData
 import co.touchlab.firebase.firestore.collection
 import co.touchlab.firebase.firestore.data_
 import co.touchlab.firebase.firestore.documents_
 import co.touchlab.firebase.firestore.getFirebaseInstance
 import co.touchlab.firebase.firestore.get_
 import co.touchlab.firebase.firestore.id
+import co.touchlab.firebase.firestore.orderBy
+import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import kotlin.native.concurrent.ThreadLocal
-import co.touchlab.sessionize.jsondata.Sponsor
 
 @ThreadLocal
 object SponsorsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
-    fun loadSponsorsFromCache(proc: (sponsors: List<SponsorGroup>) -> Unit) {
-        getFirebaseInstance()
-                .collection("sponsors")
-                .get_(Source.CACHE)
-                .addListeners(successListener = {
-                    if (it.documents_.isNullOrEmpty()) {
-                        loadSponsorsFromServer(proc)
-                    } else {
-                        proc(sponsorGroupsFrom(it.documents_))
-                    }
-                }, failureListener = {
-                    loadSponsorsFromServer(proc)
-                    println("Firestore cache exception: ${it.message}")
-                })
-    }
 
-    fun loadSponsorsFromServer(proc: (sponsors: List<SponsorGroup>) -> Unit) {
+    fun loadSponsors(
+            proc: (sponsors: List<SponsorGroup>) -> Unit,
+            error: (ex: Throwable) -> Unit
+    ) {
         getFirebaseInstance()
                 .collection("sponsors")
-                .get_(Source.SERVER)
-                .addSuccessListener {
+                .orderBy("displayOrder")
+                .get_()
+                .addListeners({
                     proc(sponsorGroupsFrom(it.documents_))
-                }
+                },{
+                    ServiceRegistry.softExceptionCallback(it, "loadSponsorsFromServer failed")
+                    error(it)
+                })
     }
 
     private fun sponsorGroupsFrom(documentSnapshots: List<DocumentSnapshot>): List<SponsorGroup> {
@@ -47,11 +41,11 @@ object SponsorsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     }
 
     private fun sponsorGroupFrom(documentSnapshot: DocumentSnapshot): SponsorGroup {
-        val groupName = documentSnapshot.id
+        val groupName = documentSnapshot.id.capitalize()
         val level = documentSnapshot.data_()
 
         @Suppress("UNCHECKED_CAST")
-        val sponsorsList = level?.get("sponsors") as ArrayList<Map<String, String>>
+        val sponsorsList = level?.get("sponsors") as List<Map<String, String>>
         val sponsors = sponsorsList.map {
             Sponsor(
                     name = it["name"] as String,

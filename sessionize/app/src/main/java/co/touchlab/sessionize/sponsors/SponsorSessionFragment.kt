@@ -1,6 +1,7 @@
 package co.touchlab.sessionize.sponsors
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,7 @@ class SponsorSessionFragment : Fragment() {
         super.onCreate(savedInstanceState)
         sponsorSessionViewModel = ViewModelProviders.of(
                 this,
-                SponsorSessionViewModelFactory(sponsorId, groupName)
+                SponsorSessionViewModelFactory()
         )[SponsorSessionViewModel::class.java]
     }
 
@@ -59,20 +60,14 @@ class SponsorSessionFragment : Fragment() {
         val adapter = SponsorSessionAdapter(activity!!)
         recycler.adapter = adapter
 
-        sponsorSessionViewModel
-                .sponsorSessionModel
-                .register(object : SponsorSessionModel.SponsorSessionView {
-            override suspend fun update(data: SponsorSessionInfo) {
-                dataRefresh(data)
-            }
-        })
+        sponsorSessionViewModel.sponsorSessionModel.loadSponsorDetail({
+            dataRefresh(it)
+        }){
+            Log.e("SponsorSessionFragment", it.message, it)
+            activity?.onBackPressed()
+        }
 
         return view
-    }
-
-    override fun onDestroyView(){
-        super.onDestroyView()
-        sponsorSessionViewModel.sponsorSessionModel.shutDown()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -88,6 +83,7 @@ class SponsorSessionFragment : Fragment() {
     private fun updateContent(sponsorInfo: SponsorSessionInfo) {
         val adapter = SponsorSessionAdapter(activity!!)
         val sponsor = sponsorInfo.sponsor
+        val sessionDetail = sponsorInfo.sessionDetail
 
         sponsorSessionTitle.text = sponsor.name
         sponsorGroupName.text = sponsor.groupName
@@ -97,9 +93,7 @@ class SponsorSessionFragment : Fragment() {
             Picasso.get().load(it).into(sponsorImage)
         }
 
-        sponsor.description?.let {
-            adapter.addBody(it)
-        }
+        adapter.addBody(sessionDetail)
 
         for (item in sponsorInfo.speakers) {
             adapter.addSpeaker(item)

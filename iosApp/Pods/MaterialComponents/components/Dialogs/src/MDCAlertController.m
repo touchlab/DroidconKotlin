@@ -20,6 +20,7 @@
 #import "MDCDialogPresentationController.h"
 #import "MDCDialogTransitionController.h"
 #import "MaterialButtons.h"
+#import "MaterialMath.h"
 #import "MaterialTypography.h"
 #import "UIViewController+MaterialDialogs.h"
 #import "private/MDCAlertActionManager.h"
@@ -93,6 +94,9 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
   BOOL _mdc_adjustsFontForContentSizeCategory;
 }
 
+@synthesize mdc_overrideBaseElevation = _mdc_overrideBaseElevation;
+@synthesize mdc_elevationDidChangeBlock = _mdc_elevationDidChangeBlock;
+
 + (instancetype)alertControllerWithTitle:(nullable NSString *)alertTitle
                                  message:(nullable NSString *)message {
   MDCAlertController *alertController = [[MDCAlertController alloc] initWithTitle:alertTitle
@@ -116,11 +120,20 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
     _titleAlignment = NSTextAlignmentNatural;
     _actionManager = [[MDCAlertActionManager alloc] init];
     _adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable = YES;
+    _shadowColor = UIColor.blackColor;
+    _mdc_overrideBaseElevation = -1;
 
     super.transitioningDelegate = _transitionController;
     super.modalPresentationStyle = UIModalPresentationCustom;
   }
   return self;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [super traitCollectionDidChange:previousTraitCollection];
+  if (self.traitCollectionDidChangeBlock) {
+    self.traitCollectionDidChangeBlock(self, previousTraitCollection);
+  }
 }
 
 /* Disable setter. Always use internal transition controller */
@@ -274,8 +287,22 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
 }
 
 - (void)setElevation:(MDCShadowElevation)elevation {
+  BOOL shouldNotifyChanges = !MDCCGFloatEqual(elevation, _elevation);
   _elevation = elevation;
   self.mdc_dialogPresentationController.dialogElevation = elevation;
+  if (shouldNotifyChanges) {
+    [self.view mdc_elevationDidChange];
+  }
+}
+
+- (CGFloat)mdc_currentElevation {
+  return self.elevation;
+}
+
+- (void)setShadowColor:(UIColor *)shadowColor {
+  UIColor *shadowColorCopy = [shadowColor copy];
+  _shadowColor = shadowColorCopy;
+  self.mdc_dialogPresentationController.dialogShadowColor = shadowColorCopy;
 }
 
 - (void)mdc_setAdjustsFontForContentSizeCategory:(BOOL)adjusts {
@@ -393,6 +420,7 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
   self.alertView.titleIcon = self.titleIcon;
   self.alertView.titleIconTintColor = self.titleIconTintColor;
   self.alertView.cornerRadius = self.cornerRadius;
+  self.alertView.enableRippleBehavior = self.enableRippleBehavior;
 
   // Create buttons for the actions (if not already created) and apply default styling
   for (MDCAlertAction *action in self.actions) {

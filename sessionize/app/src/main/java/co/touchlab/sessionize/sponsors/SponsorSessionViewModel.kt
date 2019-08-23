@@ -4,18 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.touchlab.sessionize.SponsorSessionModel
 
-class SponsorSessionViewModel(
-        sponsorId: String,
-        groupName: String): ViewModel(){
-
-    val sponsorSessionModel = SponsorSessionModel(sponsorId, groupName)
+class SponsorSessionViewModel(): ViewModel(){
+    val sponsorSessionModel = SponsorSessionModel
 }
 
-class SponsorSessionViewModelFactory(
-        private val sponsorId: String,
-        private val groupName: String) : ViewModelProvider.Factory {
-
+class SponsorSessionViewModelFactory() : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return SponsorSessionViewModel(sponsorId, groupName) as T
+        return SponsorSessionViewModel() as T
     }
 }

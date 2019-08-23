@@ -14,6 +14,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MaterialElevation.h"
 #import "MaterialShadowElevations.h"
 
 @protocol MDCBottomNavigationBarDelegate;
@@ -57,7 +58,7 @@ typedef NS_ENUM(NSInteger, MDCBottomNavigationBarAlignment) {
  can be selected at at time. The selected item's title text is displayed. Title text for unselected
  items are hidden.
  */
-@interface MDCBottomNavigationBar : UIView
+@interface MDCBottomNavigationBar : UIView <MDCElevatable, MDCElevationOverriding>
 
 /** The bottom navigation bar delegate. */
 @property(nonatomic, weak, nullable) id<MDCBottomNavigationBarDelegate> delegate;
@@ -152,17 +153,6 @@ typedef NS_ENUM(NSInteger, MDCBottomNavigationBarAlignment) {
 @property(nonatomic, assign) CGFloat itemsContentHorizontalMargin;
 
 /**
- Flag to allow clients to gradually correct the size/position of the Bottom Navigation bar relative
- to the safe area on iOS 11+.
-
- NOTE: In an upcoming release, this flag will be removed and the default behavior will be to exclude
- the safe area in size calculations.
-
- Defaults to @c YES.
- */
-@property(nonatomic, assign) BOOL sizeThatFitsIncludesSafeArea;
-
-/**
  NSLayoutAnchor for the bottom of the bar items.
 
  @note It is recommended that this anchor be constrained to the bottom of the safe area layout guide
@@ -184,6 +174,9 @@ typedef NS_ENUM(NSInteger, MDCBottomNavigationBarAlignment) {
  */
 @property(nonatomic, assign) MDCShadowElevation elevation;
 
+/** The color of the shadow of the bottom navigation bar. Defaults to black. */
+@property(nonatomic, copy, nonnull) UIColor *shadowColor;
+
 /**
  The number of lines used for item titles. It is possible that long titles may cause the text to
  extend beyond the safe area of the Bottom Navigation bar. It is recommended that short titles are
@@ -198,11 +191,48 @@ typedef NS_ENUM(NSInteger, MDCBottomNavigationBarAlignment) {
 @property(nonatomic, assign) NSInteger titlesNumberOfLines;
 
 /**
+ By setting this property to @c YES, the Ripple component will be used instead of Ink
+ to display visual feedback to the user.
+
+ @note This property will eventually be enabled by default, deprecated, and then deleted as part
+ of our migration to Ripple. Learn more at
+ https://github.com/material-components/material-components-ios/tree/develop/components/Ink#migration-guide-ink-to-ripple
+
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL enableRippleBehavior;
+
+/**
+A block that is invoked when the @c MDCBottomNavigationBar receives a call to @c
+traitCollectionDidChange:. The block is called after the call to the superclass.
+*/
+@property(nonatomic, copy, nullable) void (^traitCollectionDidChangeBlock)
+    (MDCBottomNavigationBar *_Nonnull bottomNavigationBar,
+     UITraitCollection *_Nullable previousTraitCollection);
+
+/**
  Returns the navigation bar subview associated with the specific item.
 
  @param item A UITabBarItem
  */
 - (nullable UIView *)viewForItem:(nonnull UITabBarItem *)item;
+
+@end
+
+/** APIs that are deprecated. No new code should rely on these APIs. */
+@interface MDCBottomNavigationBar (Deprecated)
+
+/**
+ Flag to allow clients to gradually correct the size/position of the Bottom Navigation bar relative
+ to the safe area on iOS 11+.
+
+ NOTE: In an upcoming release, this flag will be removed and the default behavior will be to exclude
+ the safe area in size calculations.
+
+ Defaults to @c NO.
+ */
+@property(nonatomic, assign) BOOL sizeThatFitsIncludesSafeArea __deprecated_msg(
+    "This was a migration API and is being removed.");
 
 @end
 

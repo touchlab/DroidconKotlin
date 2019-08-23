@@ -22,9 +22,7 @@ class SponsorTableViewCell: UITableViewCell {
         self.viewModel = viewModel
         self.sponsorSessionInfo = sponsorSessionInfo
         
-        if let description = sponsorSessionInfo.sponsor.description {
-            descriptionLabel.text = description.replacingOccurrences(of: "/n/n", with: "/n")
-        }
+        descriptionLabel.text = sponsorSessionInfo.sessionDetail.replacingOccurrences(of: "/n/n", with: "/n")
         
         descriptionLabel.sizeToFit()
     }

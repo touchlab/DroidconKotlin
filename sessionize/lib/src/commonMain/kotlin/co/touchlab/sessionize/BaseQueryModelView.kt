@@ -3,6 +3,7 @@ package co.touchlab.sessionize
 import co.touchlab.sessionize.architecture.MainThreadPubSub
 import co.touchlab.sessionize.architecture.Sub
 import co.touchlab.sessionize.db.QueryPub
+import co.touchlab.sessionize.platform.printThrowable
 import co.touchlab.stately.ensureNeverFrozen
 import com.squareup.sqldelight.Query
 import kotlinx.coroutines.launch
@@ -35,7 +36,7 @@ abstract class BaseQueryModelView<Q : Any, VT>(
             }
 
             override fun onError(t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                view?.let { it.error(t) }
             }
         })
     }
@@ -54,5 +55,9 @@ abstract class BaseQueryModelView<Q : Any, VT>(
 
     interface View<VT> {
         suspend fun update(data: VT)
+        fun error(t:Throwable){
+            printThrowable(t)
+            ServiceRegistry.softExceptionCallback(t, t.message?:"(Unknown View Error)")
+        }
     }
 }

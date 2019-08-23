@@ -28,8 +28,8 @@ android {
 
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 10208
-        versionName "1.2.8"
+        versionCode 10301
+        versionName "1.3.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -119,9 +119,7 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.1.0-alpha06"
     implementation "androidx.navigation:navigation-ui-ktx:2.1.0-alpha06"
-    implementation 'com.google.firebase:firebase-firestore:20.2.0'
-//    implementation 'com.google.firebase:firebase-core:17.0.0'
-//    implementation "co.touchlab:firestore:0.2.0"
+    implementation deps.firebase.firestoreAndroid
 }
 
 apply plugin: "androidx.navigation.safeargs"

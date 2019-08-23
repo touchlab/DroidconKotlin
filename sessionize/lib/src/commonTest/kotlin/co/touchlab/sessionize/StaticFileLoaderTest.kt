@@ -22,17 +22,6 @@ abstract class StaticFileLoaderTest {
     }
 
     @Test
-    fun testSponsors() {
-        val sponsors = ServiceRegistry.staticFileLoader("sponsors", "json")
-        sponsors?.let {
-            val sponsorsJson = Json.nonstrict.parseJson(it).jsonArray
-            assertNotEquals(sponsorsJson.size, 0, "empty sponsors.json or none found")
-            assertTrue(sponsorsJson[0].jsonObject.containsKey("groupName"))
-            assertTrue(sponsorsJson[0].jsonObject.containsKey("sponsors"))
-        }
-    }
-
-    @Test
     fun testAbout() {
         val about = ServiceRegistry.staticFileLoader("about", "json")
         about?.let {
