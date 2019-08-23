@@ -14,5 +14,6 @@ SELECT * FROM sponsorSession;
 sponsorSessionById:
 SELECT * FROM sponsorSession WHERE id = ? LIMIT 1;
 
+
 deleteAll:
 DELETE FROM sponsorSession;

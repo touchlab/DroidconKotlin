@@ -56,9 +56,7 @@ kotlin {
         }else{
             iosX64("ios")
         }
-
     }
-
 
     sourceSets {
 
@@ -73,7 +71,7 @@ kotlin {
                 implementation deps.ktor.commonCore
                 implementation deps.ktor.commonJson
                 implementation deps.serialization.commonRuntime
-                implementation "co.touchlab:firestore:0.2.1"
+                implementation deps.firebase.firestoreKmp
             }
         }
 
@@ -110,8 +108,7 @@ kotlin {
                 implementation deps.ktor.jvmCore
                 implementation deps.ktor.jvmJson
                 implementation deps.serialization.jvmRuntime
-                implementation 'com.google.firebase:firebase-firestore:20.2.0'
-//                implementation 'com.google.firebase:firebase-core:17.0.1'
+                implementation deps.firebase.firestoreAndroid
             }
         }
 

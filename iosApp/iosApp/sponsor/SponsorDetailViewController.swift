@@ -18,10 +18,6 @@ import MaterialComponents
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var sponsorImage: UIImageView!
     
-    // MARK: Properties
-    var sponsorId: String!
-    var groupName: String!
-    
     var viewModel: SponsorSessionViewModel!
     var sponsorSessionInfo: SponsorSessionInfo!
     
@@ -37,8 +33,8 @@ import MaterialComponents
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = SponsorSessionViewModel(sponsorId: sponsorId, groupName: groupName)
-        viewModel.registerForChanges(proc: updateUi)
+        viewModel = SponsorSessionViewModel()
+        viewModel.sponsorSessionModel.loadSponsorDetail(proc: updateUi, error: updateError)
         
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -62,16 +58,16 @@ import MaterialComponents
         updateAllUi()
     }
     
+    private func updateError(t: KotlinThrowable){
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowSpeakerDetailFromSponsor" {
             let detailViewController = segue.destination as! SpeakerViewController
             let speaker = sender as! UserAccount
             detailViewController.speakerId = speaker.id
         }
-    }
-    
-    deinit {
-        viewModel.unregister()
     }
     
     func reportError(with error: String){
@@ -81,12 +77,10 @@ import MaterialComponents
     }
     
     func updateAllUi() {
-        if let icon = sponsor.icon {
-            sponsorImage.kf.setImage(with: URL(string: icon))
-        }
-
+        sponsorImage.kf.setImage(with: URL(string: sponsor.icon))
+        
         sponsorName.text = sponsor.name
-        groupNameLabel.text = groupName
+        groupNameLabel.text = sponsor.groupName
         tableView.reloadData()
     }
     

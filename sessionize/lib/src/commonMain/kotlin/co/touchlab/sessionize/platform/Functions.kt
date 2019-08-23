@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.platform
 
+import co.touchlab.firebase.firestore.Query
 import co.touchlab.sessionize.ServiceRegistry
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
@@ -53,3 +54,5 @@ expect fun logException(t: Throwable)
  * Generates a unique string for use in tracking this user anonymously
  */
 expect fun createUuid(): String
+
+expect fun printThrowable(t:Throwable)

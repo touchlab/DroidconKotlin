@@ -19,6 +19,10 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Disable inclusion of safe area in size calculations.
+        bottomNavBar.sizeThatFitsIncludesSafeArea = false
+        
         bottomNavBar.items = tabBar.items!
         if(tabBar.selectedItem == nil){
             bottomNavBar.selectedItem = bottomNavBar.items[0]
@@ -78,10 +82,15 @@ class MaterialTabNavController: UITabBarController, MDCBottomNavigationBarDelega
 
     func layoutBottomNavBar() {
         let size = bottomNavBar.sizeThatFits(view.bounds.size)
-        let bottomNavBarFrame = CGRect(x: 0,
+        var bottomNavBarFrame = CGRect(x: 0,
                                        y: view.bounds.height - size.height,
                                        width: size.width,
                                        height: size.height)
+        // Extend the Bottom Navigation to the bottom of the screen.
+        if #available(iOS 11.0, *) {
+            bottomNavBarFrame.size.height += view.safeAreaInsets.bottom
+            bottomNavBarFrame.origin.y -= view.safeAreaInsets.bottom
+        }
         bottomNavBar.frame = bottomNavBarFrame
     }
 

@@ -6,7 +6,7 @@ import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SessionSpeakerQueries
 import co.touchlab.droidcon.db.SessionWithRoom
-import co.touchlab.droidcon.db.SponsorQueries
+import co.touchlab.droidcon.db.SponsorSessionQueries
 import co.touchlab.droidcon.db.UserAccountQueries
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
@@ -219,8 +219,8 @@ object SessionizeDbHelper {
     val roomQueries: RoomQueries
         get() = instance.roomQueries
 
-    val sponsorQueries: SponsorQueries
-        get() = instance.sponsorQueries
+    val sponsorSessionQueries: SponsorSessionQueries
+        get() = instance.sponsorSessionQueries
 
     val sessionSpeakerQueries: SessionSpeakerQueries
         get() = instance.sessionSpeakerQueries

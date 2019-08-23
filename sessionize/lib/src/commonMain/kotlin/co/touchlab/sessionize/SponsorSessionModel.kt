@@ -1,53 +1,78 @@
 package co.touchlab.sessionize
 
-import co.touchlab.droidcon.db.SessionSpeaker
-import co.touchlab.droidcon.db.Sponsor
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.db.SessionizeDbHelper.sessionSpeakerQueries
-import co.touchlab.sessionize.db.SessionizeDbHelper.sponsorQueries
+import co.touchlab.sessionize.db.SessionizeDbHelper.sponsorSessionQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
+import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.printThrowable
+import kotlinx.coroutines.launch
+import kotlin.native.concurrent.ThreadLocal
 
-class SponsorSessionModel(val sponsorId: String, val groupName: String) : BaseQueryModelView<Sponsor, SponsorSessionInfo>(sponsorQueries.sponsorById(sponsorId, groupName),
-        { q ->
-            collectSponsorInfo(sponsorId, groupName)
-        },
-        ServiceRegistry.coroutinesDispatcher) {
+@ThreadLocal
+object SponsorSessionModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 
-    init {
-        ServiceRegistry.clLogCallback("init SponsorSessionModel($sponsorId)")
-        ServiceRegistry.analyticsApi.logEvent("sponsor_detail", mapOf(Pair("sponsorId", sponsorId), Pair("groupName", groupName)))
+    //This is super ugly and I apologize, but the changes weren't finished in time and I need to release...
+    var sponsor: Sponsor? by FrozenDelegate()
+
+    /*init {
+        sponsor?.let {
+            ServiceRegistry.clLogCallback("init SponsorSessionModel(${it.sponsorId})")
+            ServiceRegistry.analyticsApi.logEvent("sponsor_detail", mapOf(Pair("sponsorId", it.sponsorId
+                    ?: ""), Pair("groupName", it.groupName)))
+        }
+    }*/
+
+    fun loadSponsorDetail(proc: (SponsorSessionInfo) -> Unit, error: (Throwable) -> Unit) {
+        val sponsorArg = sponsor
+        if (sponsorArg != null && sponsorArg.sponsorId != null) {
+            launch {
+                try {
+                    val dataPair = backgroundSuspend {
+                        Pair(
+                                sponsorSessionQueries.sponsorSessionById(sponsorArg.sponsorId).executeAsOne().description?:"",
+                                userAccountQueries.selectBySession(sponsorArg.sponsorId).executeAsList()
+                        )
+                    }
+
+                    proc(SponsorSessionInfo(sponsorArg, dataPair.first, dataPair.second))
+                } catch (e: Exception) {
+                    error(e)
+                }
+            }
+        } else {
+            error(IllegalStateException("Sponsor info not sound"))
+        }
     }
 
-    interface SponsorSessionView : View<SponsorSessionInfo>
-
-    private suspend fun sendAnalytics(sponsorId: String) {
+    private suspend fun sendAnalytics() {
 
         try {
-            val sponsor = backgroundSuspend {
-                sponsorQueries.sponsorById(sponsorId, groupName).executeAsOne()
+            sponsor?.let {
+                val params = HashMap<String, Any>()
+                params["sponsorId"] = it.sponsorId ?: ""
+                params["name"] = it.name
+
+                ServiceRegistry.analyticsApi.logEvent("SPONSOR_VIEWED", params)
             }
 
-            val params = HashMap<String, Any>()
-            params["sponsorId"] = sponsorId
-            params["name"] = sponsor.name
-
-            ServiceRegistry.analyticsApi.logEvent("SPONSOR_VIEWED", params)
         } catch (e: Exception) {
             logException(e)
         }
     }
-}
 
-fun collectSponsorInfo(sponsorId: String, groupName: String): SponsorSessionInfo {
-    val sponsor = sponsorQueries.sponsorById(sponsorId, groupName).executeAsOne()
-    val speakers = userAccountQueries.selectBySession(sponsorId).executeAsList()
-
-    return SponsorSessionInfo(sponsor, speakers)
+    interface View<VT> {
+        suspend fun update(data: VT)
+        fun error(t: Throwable) {
+            printThrowable(t)
+            ServiceRegistry.softExceptionCallback(t, t.message ?: "(Unknown View Error)")
+        }
+    }
 }
 
 data class SponsorSessionInfo(
         val sponsor: Sponsor,
+        val sessionDetail: String,
         val speakers: List<UserAccount>
 )

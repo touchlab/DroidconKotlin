@@ -8,16 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.sessionize.FragmentAnimation
-import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.db.SponsorGroupDbItem
+import co.touchlab.sessionize.SponsorSessionModel
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.sponsorClicked
 import com.nex3z.flowlayout.FlowLayout
@@ -39,9 +36,18 @@ class SponsorsFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
 
 
-        sponsorViewModel.load {
+        sponsorViewModel.load({
             adapter.sponsorGroupItems = it
             adapter.notifyDataSetChanged()
+        }) {
+            activity?.let {
+                Toast.makeText(
+                        it,
+                        "Network error. Try again Later.",
+                        Toast.LENGTH_LONG
+                ).show()
+            }
+
         }
 
         adapter = SponsorGroupAdapter()
@@ -93,6 +99,7 @@ class SponsorsFragment : Fragment() {
                         startActivity(i)
                     } else {
                         sponsor.sponsorId?.let {
+                            SponsorSessionModel.sponsor = sponsor
                             val direction = SponsorsFragmentDirections.actionSponsorsFragmentToSponsorSessionFragment(it, sponsor.groupName)
                             view!!.findNavController().navigate(direction)
                         }

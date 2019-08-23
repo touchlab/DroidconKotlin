@@ -11,7 +11,6 @@
   "summary": "Lots of Droidcon Stuff",
   "static_framework": true,
   "vendored_frameworks": "build/cocoapods/framework/lib.framework",
-  "source_files": "src/*/kotlin/**/*.kt",
   "libraries": "c++",
   "module_name": "lib_umbrella",
   "pod_target_xcconfig": {

@@ -1,6 +1,5 @@
 package co.touchlab.sessionize.jsondata
 
-import co.touchlab.droidcon.db.Sponsor
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

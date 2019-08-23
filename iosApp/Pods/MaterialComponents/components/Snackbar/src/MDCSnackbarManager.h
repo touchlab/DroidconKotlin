@@ -13,7 +13,10 @@
 // limitations under the License.
 
 #import <UIKit/UIKit.h>
+
 #import "MDCSnackbarAlignment.h"
+#import "MaterialElevation.h"
+#import "MaterialShadowElevations.h"
 
 @class MDCSnackbarMessage;
 @class MDCSnackbarMessageView;
@@ -45,7 +48,7 @@
  Snackbars prefer an application's main window is a subclass of @c MDCOverlayWindow. When a standard
  UIWindow is used an attempt is made to find the top-most view controller in the view hierarchy.
  */
-@interface MDCSnackbarManager : NSObject
+@interface MDCSnackbarManager : NSObject <MDCElevationOverriding>
 
 /**
  An instance of MDCSnackbarManager.
@@ -165,6 +168,9 @@
  */
 @property(nonatomic, strong, nullable) UIColor *snackbarMessageViewShadowColor;
 
+/** The elevation for the Snackbar message view. */
+@property(nonatomic, assign) MDCShadowElevation messageElevation;
+
 /**
  The color for the message text in the Snackbar message view.
  */
@@ -179,6 +185,21 @@
  The font for the button text in the Snackbar message view.
  */
 @property(nonatomic, strong, nullable) UIFont *buttonFont;
+
+/**
+ If true, converts button titles to uppercase. Defaults to MDCButton's default (YES).
+ */
+@property(nonatomic, assign) BOOL uppercaseButtonTitle;
+
+/**
+ Alpha of disabled buttons. Defaults to the MDCButton's default (0.12).
+ */
+@property(nonatomic) CGFloat disabledButtonAlpha;
+
+/**
+ The color for the ink view in the Snackbar message view's buttons.
+ */
+@property(nonatomic, strong, nullable) UIColor *buttonInkColor;
 
 /**
  If enabled, modifications of class styling properties will be applied immediately
@@ -234,6 +255,20 @@
  */
 @property(nonatomic, weak, nullable) id<MDCSnackbarManagerDelegate> delegate;
 
+/**
+ A block that is invoked when the manager's current snackbar's MDCSnackbarMessageView receives a
+ call to @c traitCollectionDidChange:.
+ */
+@property(nonatomic, copy, nullable) void (^traitCollectionDidChangeBlockForMessageView)
+    (MDCSnackbarMessageView *_Nonnull messageView,
+     UITraitCollection *_Nullable previousTraitCollection);
+
+/**
+ A block that is invoked when the manager's current snackbar's MDCSnackbarMessageView elevation
+ changes, and its mdc_elevationDidChangeBlock is called.
+ */
+@property(nonatomic, copy, nullable) void (^mdc_elevationDidChangeBlockForMessageView)
+    (id<MDCElevatable> _Nonnull object, CGFloat absoluteElevation);
 @end
 
 /**

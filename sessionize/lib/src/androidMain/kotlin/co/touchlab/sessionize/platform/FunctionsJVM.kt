@@ -3,6 +3,7 @@ package co.touchlab.sessionize.platform
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
+import co.touchlab.firebase.firestore.Query
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -79,3 +80,6 @@ actual fun logException(t: Throwable) {
 }
 
 actual fun createUuid(): String = UUID.randomUUID().toString()
+actual fun printThrowable(t: Throwable) {
+    t.printStackTrace()
+}

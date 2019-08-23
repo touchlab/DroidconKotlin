@@ -57,7 +57,6 @@
 		63A76ACD2129E8F80000515D /* SponsorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */; };
 		63A76ACF2129E93F0000515D /* SponsorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACE2129E93F0000515D /* SponsorViewController.swift */; };
 		63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */; };
-		63A76AD32129F1FB0000515D /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 63A76AD22129F1FB0000515D /* sponsors.json */; };
 		63CF388E218E165000BA0367 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CF388D218E165000BA0367 /* UI.swift */; };
 		67F253A5CA38DBB56818EE41 /* TestConcurrent.kt in Sources */ = {isa = PBXBuildFile; fileRef = 74194C8ABF96DA5A197F9966 /* TestConcurrent.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		692293BD85E332482FDBC4E9 /* ScheduleFormats.kt in Sources */ = {isa = PBXBuildFile; fileRef = 43CFCECCACAE038D1BCCC4AC /* ScheduleFormats.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -111,29 +110,47 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0093A2691B48CB8668F1177E /* EventViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/EventViewModel.kt; sourceTree = "<group>"; };
 		0230500DE2A801A811C854FA /* ExpectSuccess.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ExpectSuccess.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/ExpectSuccess.kt; sourceTree = "<group>"; };
+		02C7346B9A04BA23293C1C99 /* EventModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/EventModel.kt; sourceTree = "<group>"; };
 		037212D4434537622C53ECF0 /* SponsorViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/SponsorViewModel.kt; sourceTree = "<group>"; };
+		04DBD4E4E6442F3EED0955BA /* KotlinTestStarter.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = KotlinTestStarter.kt; path = ../sessionize/lib/src/iosTest/kotlin/co/touchlab/sessionize/KotlinTestStarter.kt; sourceTree = "<group>"; };
 		079877B9A5F7CBDE3EF45704 /* SponsorModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/SponsorModel.kt; sourceTree = "<group>"; };
+		08EB296E6C0E81287894C3F1 /* MainThreadPubSub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MainThreadPubSub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/architecture/MainThreadPubSub.kt; sourceTree = "<group>"; };
 		08F4E11C17B2120E4BC85DC8 /* TestFunctions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestFunctions.kt; path = ../sessionize/lib/src/androidTest/kotlin/co/touchlab/sessionize/TestFunctions.kt; sourceTree = "<group>"; };
 		0921D7C2F35438EE4CFBAAA3 /* ScheduleModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ScheduleModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/ScheduleModel.kt; sourceTree = "<group>"; };
-		125AF9578465CC0A904D623C /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
-		1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
+		122266A2E1A83E330DB01B8B /* SessionizeApiImpl.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SessionizeApiImpl.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/SessionizeApiImpl.kt; sourceTree = "<group>"; };
+		19004CF5FEA7A7E9D8B84480 /* DateAdapter.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateAdapter.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/DateAdapter.kt; sourceTree = "<group>"; };
 		2520222C14041C690436F852 /* AppContext.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AppContext.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/AppContext.kt; sourceTree = "<group>"; };
 		2584E6485FBEB4999A335565 /* QueryPub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QueryPub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/QueryPub.kt; sourceTree = "<group>"; };
+		2AD66CF2C8A0A87467556DD7 /* TestOverridesJVM.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestOverridesJVM.kt; path = ../sessionize/lib/src/androidTest/kotlin/co/touchlab/sessionize/TestOverridesJVM.kt; sourceTree = "<group>"; };
 		2CD6DA0EFBE561CD035FB9B2 /* NotificationsJVM.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationsJVM.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/NotificationsJVM.kt; sourceTree = "<group>"; };
 		2E8B86D35B531B08C191C76D /* Notifications.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Notifications.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/Notifications.kt; sourceTree = "<group>"; };
+		2ECEF036202F192922D2025E /* ExpectSuccess.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ExpectSuccess.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/ExpectSuccess.kt; sourceTree = "<group>"; };
 		39777FAE65B310A22CAD1D10 /* ScheduleViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ScheduleViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/ScheduleViewModel.kt; sourceTree = "<group>"; };
 		3BF88428C95993F5196D8BB2 /* Sponsor.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Sponsor.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/jsondata/Sponsor.kt; sourceTree = "<group>"; };
 		3D9CDB3FC1326761B377AA74 /* SessionizeApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SessionizeApi.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/SessionizeApi.kt; sourceTree = "<group>"; };
+		3DAC93BD5D8F8D7FA479D718 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
+		413E6915BE2E28D522E17369 /* Sponsor.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Sponsor.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/jsondata/Sponsor.kt; sourceTree = "<group>"; };
 		43CFCECCACAE038D1BCCC4AC /* ScheduleFormats.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ScheduleFormats.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/display/ScheduleFormats.kt; sourceTree = "<group>"; };
 		4505FF5622A5B9010035001A /* SponsorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorTableViewCell.swift; sourceTree = "<group>"; };
 		4505FF5822A5B91F0035001A /* SponsorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SponsorTableViewCell.xib; sourceTree = "<group>"; };
 		4560AA3722A6C743000719E1 /* sponsor_session.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sponsor_session.json; sourceTree = "<group>"; };
 		45F1EE5822A5A4FF00212D9C /* SponsorDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorDetailViewController.swift; sourceTree = "<group>"; };
+		46C5CD79569ADF14CA726B85 /* TestFunctions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestFunctions.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/TestFunctions.kt; sourceTree = "<group>"; };
 		4ACF72894BB6E48248D46247 /* EventViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/EventViewModel.kt; sourceTree = "<group>"; };
+		4B1CD72DA8A0F5B5F9869D35 /* MainConcurrent.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MainConcurrent.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/MainConcurrent.kt; sourceTree = "<group>"; };
+		4C0A01328766E37B826923F8 /* FeedbackModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FeedbackModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/FeedbackModel.kt; sourceTree = "<group>"; };
+		4ED9B67C5764B5E97EDE758C /* ServiceRegistry.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ServiceRegistry.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/ServiceRegistry.kt; sourceTree = "<group>"; };
+		50C16E0C561A5B606D43FD80 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
 		5441AE901CA6DD9C25CF47C4 /* StaticFiles.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = StaticFiles.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/StaticFiles.kt; sourceTree = "<group>"; };
 		54A477CAF63691B9D7FF26DE /* EventModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/EventModel.kt; sourceTree = "<group>"; };
+		559DB65CC1F9B14D9461BCDD /* ScheduleModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ScheduleModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/ScheduleModel.kt; sourceTree = "<group>"; };
+		56C3991A70816BDA9406D2E8 /* TestSettings.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestSettings.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/TestSettings.kt; sourceTree = "<group>"; };
 		577E294E998BF75EDD701F35 /* MainThreadPubSub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MainThreadPubSub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/architecture/MainThreadPubSub.kt; sourceTree = "<group>"; };
+		5859AF01B670550BA919DEB7 /* EventModelTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventModelTest.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/EventModelTest.kt; sourceTree = "<group>"; };
+		5E75FA9CD87FA517FB05C4D4 /* File.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = File.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/File.kt; sourceTree = "<group>"; };
+		607678F8BE405411B5704B7B /* ScheduleFormats.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ScheduleFormats.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/display/ScheduleFormats.kt; sourceTree = "<group>"; };
 		6356313720DC58F600BCCDF9 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6356313A20DC58F600BCCDF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6356314120DC58F700BCCDF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -167,38 +184,79 @@
 		63A76ACC2129E8F80000515D /* SponsorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A76ACE2129E93F0000515D /* SponsorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorViewController.swift; sourceTree = "<group>"; };
 		63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorGroupCollectionReusableView.swift; sourceTree = "<group>"; };
-		63A76AD22129F1FB0000515D /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sponsors.json; sourceTree = "<group>"; };
 		63CF388D218E165000BA0367 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
+		63D6ABAE137FD46D37C5E0BC /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/androidMain/kotlin/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		64FEE71709E0EFB6E2135781 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		6606AA52E5A814F0F286D046 /* Extensions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Extensions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/Extensions.kt; sourceTree = "<group>"; };
 		67E628C6476781BDD645A000 /* AboutModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AboutModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/AboutModel.kt; sourceTree = "<group>"; };
 		6817CD091AE278F0A1077385 /* Notifications.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Notifications.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Notifications.kt; sourceTree = "<group>"; };
 		6A7A5EED9346D2130AFCDC0A /* SponsorGroupDbItem.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorGroupDbItem.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/SponsorGroupDbItem.kt; sourceTree = "<group>"; };
+		6C50F4C77F7A1477A19D00EE /* Extensions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Extensions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/Extensions.kt; sourceTree = "<group>"; };
+		6D71F12CF17648F56372AF9C /* Session.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Session.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/jsondata/Session.kt; sourceTree = "<group>"; };
 		6E6D62691C49CBF3F75817DB /* SessionizeApiImpl.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SessionizeApiImpl.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/SessionizeApiImpl.kt; sourceTree = "<group>"; };
+		70986F5CDB241A9D3849BD32 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
+		7309EEFD797F9A09157EEA8E /* ScheduleViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ScheduleViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/ScheduleViewModel.kt; sourceTree = "<group>"; };
 		74194C8ABF96DA5A197F9966 /* TestConcurrent.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestConcurrent.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/platform/TestConcurrent.kt; sourceTree = "<group>"; };
+		749783B74D2990EF0657E553 /* TestFunctions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestFunctions.kt; path = ../sessionize/lib/src/androidTest/kotlin/co/touchlab/sessionize/TestFunctions.kt; sourceTree = "<group>"; };
+		799B0C3E08B0CADC30AD7901 /* TestConcurrent.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestConcurrent.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/platform/TestConcurrent.kt; sourceTree = "<group>"; };
+		7A679D718DE3E8004B90674B /* SessionizeDbHelper.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SessionizeDbHelper.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/SessionizeDbHelper.kt; sourceTree = "<group>"; };
+		7B7CF6077901CB461F1F7659 /* NotificationsApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationsApi.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/NotificationsApi.kt; sourceTree = "<group>"; };
 		7B8744B848463C09669197DD /* FunctionsJVM.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunctionsJVM.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/FunctionsJVM.kt; sourceTree = "<group>"; };
+		7F26EB79A4050928EF5CC3C1 /* Concurrent.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Concurrent.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Concurrent.kt; sourceTree = "<group>"; };
+		808FD88C9B2D937855D6FDEC /* SpeakerModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SpeakerModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/SpeakerModel.kt; sourceTree = "<group>"; };
 		8673736A19BE2116F72DE852 /* Concurrent.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Concurrent.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Concurrent.kt; sourceTree = "<group>"; };
+		893FB544A338900E152CF2D8 /* SponsorSessionViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorSessionViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/SponsorSessionViewModel.kt; sourceTree = "<group>"; };
+		89F8CCED370B74DA1A983F2A /* SessionizeApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SessionizeApi.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/SessionizeApi.kt; sourceTree = "<group>"; };
+		8A98B3DF5760E3D395E26AA8 /* Constants.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Constants.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/Constants.kt; sourceTree = "<group>"; };
 		8C40677B832A85589CF8C635 /* SpeakerViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SpeakerViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/SpeakerViewModel.kt; sourceTree = "<group>"; };
 		8D169D9E6F670E9EFFDDD9C0 /* Session.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Session.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/jsondata/Session.kt; sourceTree = "<group>"; };
 		8DC06B61C3AF3EA119D184ED /* EventModelTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EventModelTest.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/EventModelTest.kt; sourceTree = "<group>"; };
+		90CFE75EDFF0BD4731606607 /* NotificationsApiMock.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationsApiMock.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/mocks/NotificationsApiMock.kt; sourceTree = "<group>"; };
+		923278DB54ABA2CBAB437483 /* FunctionsJVM.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunctionsJVM.kt; path = ../sessionize/lib/src/androidMain/kotlin/co/touchlab/sessionize/platform/FunctionsJVM.kt; sourceTree = "<group>"; };
+		929DAC879775795D2C366045 /* QueryPub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QueryPub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/QueryPub.kt; sourceTree = "<group>"; };
+		94A09B54FA3515D11EA09496 /* NotificationsModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationsModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/NotificationsModel.kt; sourceTree = "<group>"; };
 		956D6B892731AA292E5B839A /* AnalyticsApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AnalyticsApi.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/AnalyticsApi.kt; sourceTree = "<group>"; };
+		95D3DAB5E1BFA7EC8A8BF068 /* BaseQueryModelView.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BaseQueryModelView.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/BaseQueryModelView.kt; sourceTree = "<group>"; };
 		981CF5B1DAE1FF4F11EC6A85 /* BaseQueryModelView.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BaseQueryModelView.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/BaseQueryModelView.kt; sourceTree = "<group>"; };
 		9C72F015F71FB210C0DABE20 /* TestFunctions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestFunctions.kt; path = ../sessionize/lib/src/iosTest/kotlin/co/touchlab/sessionize/TestFunctions.kt; sourceTree = "<group>"; };
+		A1D5D07D4977E2F94EE1458E /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
+		A31438DEF6FB7F2EEA16B241 /* FeedbackApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FeedbackApi.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/FeedbackApi.kt; sourceTree = "<group>"; };
+		A4FE045C959FDD015B725637 /* SponsorViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/SponsorViewModel.kt; sourceTree = "<group>"; };
 		A7E6E2DC821391803974368E /* SessionizeDbHelper.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SessionizeDbHelper.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/SessionizeDbHelper.kt; sourceTree = "<group>"; };
 		A80ECBEF2816C5E51A10BCD6 /* BaseModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BaseModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/BaseModel.kt; sourceTree = "<group>"; };
+		A931571F95BE55B5BBFE5CEB /* SponsorGroupDbItem.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorGroupDbItem.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/SponsorGroupDbItem.kt; sourceTree = "<group>"; };
 		A9AFAC7B607FAC746C536621 /* TestFunctions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestFunctions.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/TestFunctions.kt; sourceTree = "<group>"; };
 		AA8B1E691EF99D531191BC78 /* PubSub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PubSub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/architecture/PubSub.kt; sourceTree = "<group>"; };
+		AAF6753D066CAAFBAF37DA52 /* NetworkRepo.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NetworkRepo.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/NetworkRepo.kt; sourceTree = "<group>"; };
 		AC1E58A8A1E85420519CBD6F /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
+		AD98E59FB1873875B42921BB /* AnalyticsApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AnalyticsApi.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/api/AnalyticsApi.kt; sourceTree = "<group>"; };
+		B17A7E4FE34682BF204D9E65 /* FeedbackApiMock.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FeedbackApiMock.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/mocks/FeedbackApiMock.kt; sourceTree = "<group>"; };
 		B25E757FC7166B4499CF4E36 /* BasePub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BasePub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/architecture/BasePub.kt; sourceTree = "<group>"; };
+		B3DB0A4CE31208DDF0BF0947 /* SponsorSessionModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorSessionModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/SponsorSessionModel.kt; sourceTree = "<group>"; };
+		B50F2D1DC5C56CF2AEE3540C /* AppContext.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AppContext.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/AppContext.kt; sourceTree = "<group>"; };
+		B69EAB193743EC1D0C343D01 /* TestFunctions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestFunctions.kt; path = ../sessionize/lib/src/iosTest/kotlin/co/touchlab/sessionize/TestFunctions.kt; sourceTree = "<group>"; };
 		B7B9AFAC0164856080EFB18F /* SpeakerModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SpeakerModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/SpeakerModel.kt; sourceTree = "<group>"; };
 		B7FBB68DD89A5CA80DD37542 /* DateAdapter.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateAdapter.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/DateAdapter.kt; sourceTree = "<group>"; };
+		BB0193DC7CF31A8C2F690ABC /* SettingsModelTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SettingsModelTest.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/SettingsModelTest.kt; sourceTree = "<group>"; };
+		C01AB27D0E516970D920E64C /* StaticFiles.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = StaticFiles.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/StaticFiles.kt; sourceTree = "<group>"; };
+		C10792A323F0749C55F65B7A /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
+		C24A84E3CC144349E2A029C4 /* BaseModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BaseModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/BaseModel.kt; sourceTree = "<group>"; };
 		C351C93850E84268E8BCF7D3 /* File.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = File.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/File.kt; sourceTree = "<group>"; };
+		C65165CC132A828F7661A1C6 /* AboutModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AboutModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/AboutModel.kt; sourceTree = "<group>"; };
+		C9E2720346F6FDB9959CF583 /* SettingsViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SettingsViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/SettingsViewModel.kt; sourceTree = "<group>"; };
+		D2177D0B68563A7C91C43875 /* TestOverrides.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestOverrides.kt; path = ../sessionize/lib/src/iosTest/kotlin/co/touchlab/sessionize/TestOverrides.kt; sourceTree = "<group>"; };
+		D60148A22FE40DCEC5392D90 /* PubSub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PubSub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/architecture/PubSub.kt; sourceTree = "<group>"; };
+		D7984B131DCFD847BF4475DA /* FileRepo.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FileRepo.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/file/FileRepo.kt; sourceTree = "<group>"; };
 		D89833A54AB00BC23091E619 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
 		E04CC97704F132875703ACD3 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2C1C70469586CA24B48DF4B /* MainConcurrent.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MainConcurrent.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/MainConcurrent.kt; sourceTree = "<group>"; };
+		E2F33DCD8AB6DE027E610011 /* SponsorModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SponsorModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/SponsorModel.kt; sourceTree = "<group>"; };
+		E392993298837F1CB2E5C1A0 /* NotificationsModelMock.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationsModelMock.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/mocks/NotificationsModelMock.kt; sourceTree = "<group>"; };
 		E3BBF73ECE74E4DCB9CA323E /* ServiceRegistry.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ServiceRegistry.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/ServiceRegistry.kt; sourceTree = "<group>"; };
 		E9D0970290E8B09CD71F3AD6 /* Functions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Functions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/Functions.kt; sourceTree = "<group>"; };
 		EAC50DD7577BDBAECF2A4DB6 /* TestSettings.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestSettings.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/TestSettings.kt; sourceTree = "<group>"; };
+		ECE4BDC4103F17B53AB36014 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		F0F4A790EFA51785AAAFAFAB /* SpeakerViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SpeakerViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/SpeakerViewModel.kt; sourceTree = "<group>"; };
 		F1378D8B22834077009E70D3 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		F1378D8C22834077009E70D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F1378D8F228340AC009E70D3 /* FeedbackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackManager.swift; sourceTree = "<group>"; };
@@ -213,6 +271,9 @@
 		F1BCCFB0C3C0EB79A89C8115 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		F1E3105B22A5B238008F999F /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		F3268F03C19C8685393B8DDA /* Coroutines.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Coroutines.kt; path = ../sessionize/lib/src/main/java/co/touchlab/sessionize/platform/Coroutines.kt; sourceTree = "<group>"; };
+		F43108097C245D205CA9F4D7 /* BasePub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BasePub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/architecture/BasePub.kt; sourceTree = "<group>"; };
+		F617E0D7735E4A49710F5B7E /* StaticFileLoaderTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = StaticFileLoaderTest.kt; path = ../sessionize/lib/src/commonTest/kotlin/co/touchlab/sessionize/StaticFileLoaderTest.kt; sourceTree = "<group>"; };
+		FC27DFC3E7FF8FB1AE9879CD /* SettingsModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SettingsModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/SettingsModel.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,12 +302,267 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		002EDCE36EEA8654FEDBBF78 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				AD98E59FB1873875B42921BB /* AnalyticsApi.kt */,
+				2ECEF036202F192922D2025E /* ExpectSuccess.kt */,
+				A31438DEF6FB7F2EEA16B241 /* FeedbackApi.kt */,
+				AAF6753D066CAAFBAF37DA52 /* NetworkRepo.kt */,
+				7B7CF6077901CB461F1F7659 /* NotificationsApi.kt */,
+				89F8CCED370B74DA1A983F2A /* SessionizeApi.kt */,
+				122266A2E1A83E330DB01B8B /* SessionizeApiImpl.kt */,
+			);
+			name = api;
+			sourceTree = "<group>";
+		};
+		10DC8885163288594339F262 /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				50BC122EBA27DA75EA91AFA0 /* co */,
+			);
+			name = kotlin;
+			sourceTree = "<group>";
+		};
+		1AE7EB8D5E147A204B192D51 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				70986F5CDB241A9D3849BD32 /* DateHelpers.kt */,
+				5E75FA9CD87FA517FB05C4D4 /* File.kt */,
+				50C16E0C561A5B606D43FD80 /* Functions.kt */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		1C87D4E3E60CB00096614775 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				799B0C3E08B0CADC30AD7901 /* TestConcurrent.kt */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		1FCBF02A772B745B7CB5D0CF /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				9BE4100F9990F822EE7DB287 /* co */,
+			);
+			name = kotlin;
+			sourceTree = "<group>";
+		};
+		264F66B74B118EEF03911FA5 /* touchlab */ = {
+			isa = PBXGroup;
+			children = (
+				CBAB607DFC8D72223C532D53 /* sessionize */,
+			);
+			name = touchlab;
+			sourceTree = "<group>";
+		};
+		27889731B5EAB20B1A1DBA50 /* sessionize */ = {
+			isa = PBXGroup;
+			children = (
+				C65165CC132A828F7661A1C6 /* AboutModel.kt */,
+				B50F2D1DC5C56CF2AEE3540C /* AppContext.kt */,
+				C24A84E3CC144349E2A029C4 /* BaseModel.kt */,
+				95D3DAB5E1BFA7EC8A8BF068 /* BaseQueryModelView.kt */,
+				8A98B3DF5760E3D395E26AA8 /* Constants.kt */,
+				02C7346B9A04BA23293C1C99 /* EventModel.kt */,
+				4C0A01328766E37B826923F8 /* FeedbackModel.kt */,
+				559DB65CC1F9B14D9461BCDD /* ScheduleModel.kt */,
+				4ED9B67C5764B5E97EDE758C /* ServiceRegistry.kt */,
+				FC27DFC3E7FF8FB1AE9879CD /* SettingsModel.kt */,
+				808FD88C9B2D937855D6FDEC /* SpeakerModel.kt */,
+				E2F33DCD8AB6DE027E610011 /* SponsorModel.kt */,
+				B3DB0A4CE31208DDF0BF0947 /* SponsorSessionModel.kt */,
+				002EDCE36EEA8654FEDBBF78 /* api */,
+				C4BFD74E48BF8ACC2E9C49A9 /* architecture */,
+				5D0006DD5C9619EA543EF622 /* db */,
+				3644438FC8769C12C8ED5AFE /* display */,
+				31ACA0F842A6CC0A65616CDF /* file */,
+				4BA5B29B7916F145D01D1DEF /* jsondata */,
+				5CB5A3F8EF3CCBE277CF955A /* platform */,
+			);
+			name = sessionize;
+			sourceTree = "<group>";
+		};
+		2F52AC550A08B58828B41C81 /* drawable-xxxhdpi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "drawable-xxxhdpi";
+			sourceTree = "<group>";
+		};
+		31ACA0F842A6CC0A65616CDF /* file */ = {
+			isa = PBXGroup;
+			children = (
+				D7984B131DCFD847BF4475DA /* FileRepo.kt */,
+			);
+			name = file;
+			sourceTree = "<group>";
+		};
+		3644438FC8769C12C8ED5AFE /* display */ = {
+			isa = PBXGroup;
+			children = (
+				607678F8BE405411B5704B7B /* ScheduleFormats.kt */,
+			);
+			name = display;
+			sourceTree = "<group>";
+		};
+		36FEF3BE3946B969DB27DC0B /* co */ = {
+			isa = PBXGroup;
+			children = (
+				E215BA1B5A9F862F1BD2251E /* touchlab */,
+			);
+			name = co;
+			sourceTree = "<group>";
+		};
+		3EE983FAE574770F12C1FD2E /* drawable-mdpi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "drawable-mdpi";
+			sourceTree = "<group>";
+		};
+		41CA597C818893B364480EFA /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				EA8E29FC4F95478CBC964426 /* co */,
+			);
+			name = kotlin;
+			sourceTree = "<group>";
+		};
+		43DDDA9A8F55A591B724A37D /* main */ = {
+			isa = PBXGroup;
+			children = (
+				4AEDE359800B05B2C0F21327 /* res */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		442147B3779A997DC5CFE8A8 /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				D21147AAD14D6AB8EC63A0FA /* co */,
+			);
+			name = kotlin;
+			sourceTree = "<group>";
+		};
+		47A8CB6B82C2F38F462E8CDB /* commonTest */ = {
+			isa = PBXGroup;
+			children = (
+				1FCBF02A772B745B7CB5D0CF /* kotlin */,
+			);
+			name = commonTest;
+			sourceTree = "<group>";
+		};
+		4AEDE359800B05B2C0F21327 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				5826FFDCCE5A16E3877D20D3 /* drawable */,
+				527827E21746C2FF2AB7ABDB /* drawable-hdpi */,
+				3EE983FAE574770F12C1FD2E /* drawable-mdpi */,
+				BF48C9C41A78CF846F884EA6 /* drawable-xhdpi */,
+				A27DFD3107FC487A78FA248D /* drawable-xxhdpi */,
+				2F52AC550A08B58828B41C81 /* drawable-xxxhdpi */,
+				BED61D2EDA895AB856A0BCFE /* values */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
+		4BA5B29B7916F145D01D1DEF /* jsondata */ = {
+			isa = PBXGroup;
+			children = (
+				6D71F12CF17648F56372AF9C /* Session.kt */,
+				413E6915BE2E28D522E17369 /* Sponsor.kt */,
+			);
+			name = jsondata;
+			sourceTree = "<group>";
+		};
+		50BC122EBA27DA75EA91AFA0 /* co */ = {
+			isa = PBXGroup;
+			children = (
+				264F66B74B118EEF03911FA5 /* touchlab */,
+			);
+			name = co;
+			sourceTree = "<group>";
+		};
+		5189691031FDC835E9C23BFA /* droidcon */ = {
+			isa = PBXGroup;
+			children = (
+				76751FF1CB021D633646566E /* db */,
+			);
+			name = droidcon;
+			sourceTree = "<group>";
+		};
+		527827E21746C2FF2AB7ABDB /* drawable-hdpi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "drawable-hdpi";
+			sourceTree = "<group>";
+		};
 		54B4B9682B691272D8F8ED02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				E04CC97704F132875703ACD3 /* Pods_iosApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		57499F848E01A89F869D4428 /* touchlab */ = {
+			isa = PBXGroup;
+			children = (
+				F6E37B3487A0C7400C41F108 /* sessionize */,
+			);
+			name = touchlab;
+			sourceTree = "<group>";
+		};
+		5826FFDCCE5A16E3877D20D3 /* drawable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = drawable;
+			sourceTree = "<group>";
+		};
+		5CB5A3F8EF3CCBE277CF955A /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				7F26EB79A4050928EF5CC3C1 /* Concurrent.kt */,
+				A1D5D07D4977E2F94EE1458E /* DateHelpers.kt */,
+				C10792A323F0749C55F65B7A /* Functions.kt */,
+				4B1CD72DA8A0F5B5F9869D35 /* MainConcurrent.kt */,
+				94A09B54FA3515D11EA09496 /* NotificationsModel.kt */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		5D0006DD5C9619EA543EF622 /* db */ = {
+			isa = PBXGroup;
+			children = (
+				19004CF5FEA7A7E9D8B84480 /* DateAdapter.kt */,
+				6C50F4C77F7A1477A19D00EE /* Extensions.kt */,
+				929DAC879775795D2C366045 /* QueryPub.kt */,
+				7A679D718DE3E8004B90674B /* SessionizeDbHelper.kt */,
+				A931571F95BE55B5BBFE5CEB /* SponsorGroupDbItem.kt */,
+			);
+			name = db;
+			sourceTree = "<group>";
+		};
+		5DA4D8BE08AAC5BF4EB418BF /* commonMain */ = {
+			isa = PBXGroup;
+			children = (
+				41CA597C818893B364480EFA /* kotlin */,
+				751AECF1E10CDAABB8960FEC /* sqldelight */,
+			);
+			name = commonMain;
+			sourceTree = "<group>";
+		};
+		5E86DB70AE146A7FE6610BA6 /* co */ = {
+			isa = PBXGroup;
+			children = (
+				C1B7D268008293DCBA59A20F /* touchlab */,
+			);
+			name = co;
 			sourceTree = "<group>";
 		};
 		6356312E20DC58F600BCCDF9 = {
@@ -258,6 +574,7 @@
 				F51C475F4737FE9D915D4236 /* Pods */,
 				54B4B9682B691272D8F8ED02 /* Frameworks */,
 				F10A7CFF227B748500DED10F /* Recovered References */,
+				6B5DFA3602C979779CCF50C2 /* Kotlin */,
 			);
 			sourceTree = "<group>";
 		};
@@ -278,7 +595,6 @@
 				F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */,
 				F15E05B82260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png */,
 				F111E610225797A3000B3F3D /* Feedback */,
-				63A76AD22129F1FB0000515D /* sponsors.json */,
 				63A76ACB2129E8990000515D /* sponsor */,
 				63711D3D211146D10099FF25 /* about */,
 				63711D3A2110F9040099FF25 /* app */,
@@ -384,6 +700,236 @@
 			path = sponsor;
 			sourceTree = "<group>";
 		};
+		6B5DFA3602C979779CCF50C2 /* Kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				88A0316FB5CD7486214357BB /* androidMain */,
+				7DBECE21848C1478161341D2 /* androidTest */,
+				5DA4D8BE08AAC5BF4EB418BF /* commonMain */,
+				47A8CB6B82C2F38F462E8CDB /* commonTest */,
+				B03BA1919F7557FF02DCB3C3 /* iosMain */,
+				F70F905B7BF6AED9BC114E8B /* iosTest */,
+				43DDDA9A8F55A591B724A37D /* main */,
+				8BE6532487768E9B3E0E03A7 /* test */,
+			);
+			name = Kotlin;
+			sourceTree = "<group>";
+		};
+		6E636B6DA2E6CDD5CA142FB2 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = assets;
+			sourceTree = "<group>";
+		};
+		751AECF1E10CDAABB8960FEC /* sqldelight */ = {
+			isa = PBXGroup;
+			children = (
+				F3B7FF4F01E2194340E1DB23 /* co */,
+			);
+			name = sqldelight;
+			sourceTree = "<group>";
+		};
+		76751FF1CB021D633646566E /* db */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = db;
+			sourceTree = "<group>";
+		};
+		7DBECE21848C1478161341D2 /* androidTest */ = {
+			isa = PBXGroup;
+			children = (
+				9EB7F2A950E62E4B42CDF7BA /* kotlin */,
+			);
+			name = androidTest;
+			sourceTree = "<group>";
+		};
+		7DE5552134CADA4E0DE1B79F /* touchlab */ = {
+			isa = PBXGroup;
+			children = (
+				F5CD1928EFB1628EB3952193 /* sessionize */,
+			);
+			name = touchlab;
+			sourceTree = "<group>";
+		};
+		88A0316FB5CD7486214357BB /* androidMain */ = {
+			isa = PBXGroup;
+			children = (
+				10DC8885163288594339F262 /* kotlin */,
+			);
+			name = androidMain;
+			sourceTree = "<group>";
+		};
+		8BE6532487768E9B3E0E03A7 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				6E636B6DA2E6CDD5CA142FB2 /* assets */,
+			);
+			name = test;
+			sourceTree = "<group>";
+		};
+		8F733D607C3E10A224247597 /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				36FEF3BE3946B969DB27DC0B /* co */,
+			);
+			name = kotlin;
+			sourceTree = "<group>";
+		};
+		9BE4100F9990F822EE7DB287 /* co */ = {
+			isa = PBXGroup;
+			children = (
+				57499F848E01A89F869D4428 /* touchlab */,
+			);
+			name = co;
+			sourceTree = "<group>";
+		};
+		9CB2A755BBFE670DC28BE23F /* mocks */ = {
+			isa = PBXGroup;
+			children = (
+				B17A7E4FE34682BF204D9E65 /* FeedbackApiMock.kt */,
+				90CFE75EDFF0BD4731606607 /* NotificationsApiMock.kt */,
+				E392993298837F1CB2E5C1A0 /* NotificationsModelMock.kt */,
+			);
+			name = mocks;
+			sourceTree = "<group>";
+		};
+		9EB7F2A950E62E4B42CDF7BA /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				5E86DB70AE146A7FE6610BA6 /* co */,
+			);
+			name = kotlin;
+			sourceTree = "<group>";
+		};
+		9F886BD0B92B75816E43901A /* sessionize */ = {
+			isa = PBXGroup;
+			children = (
+				749783B74D2990EF0657E553 /* TestFunctions.kt */,
+				2AD66CF2C8A0A87467556DD7 /* TestOverridesJVM.kt */,
+			);
+			name = sessionize;
+			sourceTree = "<group>";
+		};
+		A27DFD3107FC487A78FA248D /* drawable-xxhdpi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "drawable-xxhdpi";
+			sourceTree = "<group>";
+		};
+		B03BA1919F7557FF02DCB3C3 /* iosMain */ = {
+			isa = PBXGroup;
+			children = (
+				8F733D607C3E10A224247597 /* kotlin */,
+			);
+			name = iosMain;
+			sourceTree = "<group>";
+		};
+		B8341987CDDE594B2ABC93A9 /* touchlab */ = {
+			isa = PBXGroup;
+			children = (
+				27889731B5EAB20B1A1DBA50 /* sessionize */,
+			);
+			name = touchlab;
+			sourceTree = "<group>";
+		};
+		BED61D2EDA895AB856A0BCFE /* values */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = values;
+			sourceTree = "<group>";
+		};
+		BF48C9C41A78CF846F884EA6 /* drawable-xhdpi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "drawable-xhdpi";
+			sourceTree = "<group>";
+		};
+		C1B7D268008293DCBA59A20F /* touchlab */ = {
+			isa = PBXGroup;
+			children = (
+				9F886BD0B92B75816E43901A /* sessionize */,
+			);
+			name = touchlab;
+			sourceTree = "<group>";
+		};
+		C4BFD74E48BF8ACC2E9C49A9 /* architecture */ = {
+			isa = PBXGroup;
+			children = (
+				F43108097C245D205CA9F4D7 /* BasePub.kt */,
+				08EB296E6C0E81287894C3F1 /* MainThreadPubSub.kt */,
+				D60148A22FE40DCEC5392D90 /* PubSub.kt */,
+			);
+			name = architecture;
+			sourceTree = "<group>";
+		};
+		CBAB607DFC8D72223C532D53 /* sessionize */ = {
+			isa = PBXGroup;
+			children = (
+				CE040C41DAC5ED6970813BCF /* platform */,
+			);
+			name = sessionize;
+			sourceTree = "<group>";
+		};
+		CE040C41DAC5ED6970813BCF /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				63D6ABAE137FD46D37C5E0BC /* DateHelpers.kt */,
+				923278DB54ABA2CBAB437483 /* FunctionsJVM.kt */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		D21147AAD14D6AB8EC63A0FA /* co */ = {
+			isa = PBXGroup;
+			children = (
+				7DE5552134CADA4E0DE1B79F /* touchlab */,
+			);
+			name = co;
+			sourceTree = "<group>";
+		};
+		E215BA1B5A9F862F1BD2251E /* touchlab */ = {
+			isa = PBXGroup;
+			children = (
+				EA686EF324C425D0F480D37F /* sessionize */,
+			);
+			name = touchlab;
+			sourceTree = "<group>";
+		};
+		EA686EF324C425D0F480D37F /* sessionize */ = {
+			isa = PBXGroup;
+			children = (
+				0093A2691B48CB8668F1177E /* EventViewModel.kt */,
+				7309EEFD797F9A09157EEA8E /* ScheduleViewModel.kt */,
+				C9E2720346F6FDB9959CF583 /* SettingsViewModel.kt */,
+				F0F4A790EFA51785AAAFAFAB /* SpeakerViewModel.kt */,
+				893FB544A338900E152CF2D8 /* SponsorSessionViewModel.kt */,
+				A4FE045C959FDD015B725637 /* SponsorViewModel.kt */,
+				1AE7EB8D5E147A204B192D51 /* platform */,
+			);
+			name = sessionize;
+			sourceTree = "<group>";
+		};
+		EA8E29FC4F95478CBC964426 /* co */ = {
+			isa = PBXGroup;
+			children = (
+				B8341987CDDE594B2ABC93A9 /* touchlab */,
+			);
+			name = co;
+			sourceTree = "<group>";
+		};
+		EB9776CBEBEF8F490DFED82B /* touchlab */ = {
+			isa = PBXGroup;
+			children = (
+				5189691031FDC835E9C23BFA /* droidcon */,
+			);
+			name = touchlab;
+			sourceTree = "<group>";
+		};
 		F10A7CFF227B748500DED10F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,13 +1006,54 @@
 			path = settings;
 			sourceTree = "<group>";
 		};
+		F3B7FF4F01E2194340E1DB23 /* co */ = {
+			isa = PBXGroup;
+			children = (
+				EB9776CBEBEF8F490DFED82B /* touchlab */,
+			);
+			name = co;
+			sourceTree = "<group>";
+		};
 		F51C475F4737FE9D915D4236 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				125AF9578465CC0A904D623C /* Pods-iosApp.debug.xcconfig */,
-				1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */,
+				ECE4BDC4103F17B53AB36014 /* Pods-iosApp.debug.xcconfig */,
+				3DAC93BD5D8F8D7FA479D718 /* Pods-iosApp.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F5CD1928EFB1628EB3952193 /* sessionize */ = {
+			isa = PBXGroup;
+			children = (
+				04DBD4E4E6442F3EED0955BA /* KotlinTestStarter.kt */,
+				B69EAB193743EC1D0C343D01 /* TestFunctions.kt */,
+				D2177D0B68563A7C91C43875 /* TestOverrides.kt */,
+			);
+			name = sessionize;
+			sourceTree = "<group>";
+		};
+		F6E37B3487A0C7400C41F108 /* sessionize */ = {
+			isa = PBXGroup;
+			children = (
+				5859AF01B670550BA919DEB7 /* EventModelTest.kt */,
+				BB0193DC7CF31A8C2F690ABC /* SettingsModelTest.kt */,
+				F617E0D7735E4A49710F5B7E /* StaticFileLoaderTest.kt */,
+				C01AB27D0E516970D920E64C /* StaticFiles.kt */,
+				46C5CD79569ADF14CA726B85 /* TestFunctions.kt */,
+				56C3991A70816BDA9406D2E8 /* TestSettings.kt */,
+				9CB2A755BBFE670DC28BE23F /* mocks */,
+				1C87D4E3E60CB00096614775 /* platform */,
+			);
+			name = sessionize;
+			sourceTree = "<group>";
+		};
+		F70F905B7BF6AED9BC114E8B /* iosTest */ = {
+			isa = PBXGroup;
+			children = (
+				442147B3779A997DC5CFE8A8 /* kotlin */,
+			);
+			name = iosTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -585,7 +1172,6 @@
 				6372423920F915EA0049263B /* schedule.json in Resources */,
 				6372424C20FAD9B40049263B /* SpeakerTableViewCell.xib in Resources */,
 				6356314220DC58F700BCCDF9 /* Assets.xcassets in Resources */,
-				63A76AD32129F1FB0000515D /* sponsors.json in Resources */,
 				6372424F20FAD9B40049263B /* EventTableViewCell.xib in Resources */,
 				F15E05BB2260F4EE0057C7D8 /* baseline_sentiment_very_dissatisfied_black_48dp.png in Resources */,
 				F15E05BA2260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png in Resources */,
@@ -931,10 +1517,11 @@
 		};
 		6356315520DC58F800BCCDF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 125AF9578465CC0A904D623C /* Pods-iosApp.debug.xcconfig */;
+			baseConfigurationReference = ECE4BDC4103F17B53AB36014 /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = iosApp/iosApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8UD86646U9;
@@ -950,6 +1537,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.nyc2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
@@ -958,10 +1546,11 @@
 		};
 		6356315620DC58F800BCCDF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */;
+			baseConfigurationReference = 3DAC93BD5D8F8D7FA479D718 /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = iosApp/iosApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
@@ -976,6 +1565,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.nyc2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 arm64e";
@@ -984,7 +1574,6 @@
 		};
 		6356315820DC58F800BCCDF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 125AF9578465CC0A904D623C /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1019,7 +1608,6 @@
 		};
 		6356315920DC58F800BCCDF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1054,7 +1642,6 @@
 		};
 		D46A4852224A80D200B1D60C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 125AF9578465CC0A904D623C /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test";
@@ -1077,7 +1664,6 @@
 		};
 		D46A4853224A80D200B1D60C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C285D8B24230973F8AA122B /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../sessionize/lib/build/xcode-frameworks-test";

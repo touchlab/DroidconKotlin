@@ -12,7 +12,7 @@ import lib
 class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var viewModel:SponsorViewModel!
-    var sponsorGroups: [SponsorGroupDbItem]?
+    var sponsorGroups: [SponsorGroup]?
     @IBOutlet weak var sponsorsCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -22,11 +22,31 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         sponsorsCollectionView.dataSource = self
         
         viewModel = SponsorViewModel()
-        viewModel.registerForChanges(proc: sponsorResult)
-        // Do any additional setup after loading the view.
     }
     
-    func sponsorResult(sponsorGroups:[SponsorGroupDbItem]) {
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.load(
+            proc: sponsorResult,
+            error: errorCallback
+        )
+    }
+    
+    private func errorCallback(ex: KotlinThrowable){
+        showNetworkError(message: "Network error. Try again later.")
+    }
+    
+    private func showNetworkError(message: String){
+        let alertController = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func sponsorResult(sponsorGroups:[SponsorGroup]) {
         self.sponsorGroups = sponsorGroups
         sponsorsCollectionView.reloadData()
     }
@@ -43,10 +63,9 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         if(sponsorGroups != nil)
         {
             let sponsorInfo = sponsorGroups![(indexPath as NSIndexPath).section].sponsors[indexPath.item]
-            if let icon = sponsorInfo.icon {
-                sponsorView.sponsorImageView.kf.setImage(with: URL(string: icon)!)
-                sponsorView.sponsorImageView.backgroundColor = UIColor.white
-            }
+            sponsorView.sponsorImageView.kf.setImage(with: URL(string: sponsorInfo.icon)!)
+            sponsorView.sponsorImageView.backgroundColor = UIColor.white
+            
         }
         
         return sponsorView
@@ -75,8 +94,8 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         SponsorModelKt.sponsorClicked(sponsor: sponsorInfo)
         if sponsorInfo.sponsorId != nil {
             performSegue(withIdentifier: "ShowSponsorDetail", sender: sponsorInfo)
-        } else if let sponsorUrl = sponsorInfo.url {
-            guard let url = URL(string: sponsorUrl) else {
+        } else {
+            guard let url = URL(string: sponsorInfo.url) else {
                 return //be safe
             }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -93,19 +112,12 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-            segue.identifier == "ShowSponsorDetail",
-            let sponsor = sender as? Sponsor,
-            let sponsorId = sponsor.sponsorId,
-            let detail = segue.destination as? SponsorDetailViewController
-            else { return }
-        
-        detail.sponsorId = sponsorId
-        detail.groupName = sponsor.groupName
-    }
-    
-    deinit {
-        viewModel.unregister()
+        if(segue.identifier == "ShowSponsorDetail"){
+            let sponsor = sender as? Sponsor
+            if(sponsor != nil){
+                SponsorSessionModel().sponsor = sponsor
+            }
+        }
     }
 
     /*

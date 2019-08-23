@@ -113,7 +113,7 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
 @implementation MDCNavigationBar {
   id _observedNavigationItemLock;
   UINavigationItem *_observedNavigationItem;
-
+  UIColor *_inkColor;
   UILabel *_titleLabel;
 
   MDCButtonBar *_leadingButtonBar;
@@ -127,6 +127,8 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
 @synthesize hidesBackButton = _hidesBackButton;
 @synthesize leadingItemsSupplementBackButton = _leadingItemsSupplementBackButton;
 @synthesize titleView = _titleView;
+@synthesize mdc_elevationDidChangeBlock = _mdc_elevationDidChangeBlock;
+@synthesize mdc_overrideBaseElevation = _mdc_overrideBaseElevation;
 
 - (void)dealloc {
   [self setObservedNavigationItem:nil];
@@ -153,6 +155,8 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
   [self addSubview:_titleLabel];
   [self addSubview:_leadingButtonBar];
   [self addSubview:_trailingButtonBar];
+
+  _mdc_overrideBaseElevation = -1;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -437,6 +441,16 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
   }
 }
 
+#pragma mark TraitCollection
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [super traitCollectionDidChange:previousTraitCollection];
+
+  if (self.traitCollectionDidChangeBlock) {
+    self.traitCollectionDidChangeBlock(self, previousTraitCollection);
+  }
+}
+
 #pragma mark Layout
 
 - (CGRect)mdc_frameAlignedVertically:(CGRect)frame
@@ -714,6 +728,10 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
   [self setNeedsLayout];
 }
 
+- (UIColor *)inkColor {
+  return _inkColor;
+}
+
 - (void)setInkColor:(UIColor *)inkColor {
   if (_inkColor == inkColor) {
     return;
@@ -721,6 +739,30 @@ static NSArray<NSString *> *MDCNavigationBarNavigationItemKVOPaths(void) {
   _inkColor = inkColor;
   _leadingButtonBar.inkColor = inkColor;
   _trailingButtonBar.inkColor = inkColor;
+}
+
+- (void)setRippleColor:(UIColor *)rippleColor {
+  if (_rippleColor == rippleColor || [_rippleColor isEqual:rippleColor]) {
+    return;
+  }
+  _rippleColor = rippleColor;
+
+  _leadingButtonBar.rippleColor = rippleColor;
+  _trailingButtonBar.rippleColor = rippleColor;
+}
+
+- (void)setEnableRippleBehavior:(BOOL)enableRippleBehavior {
+  if (_enableRippleBehavior == enableRippleBehavior) {
+    return;
+  }
+  _enableRippleBehavior = enableRippleBehavior;
+
+  _leadingButtonBar.enableRippleBehavior = enableRippleBehavior;
+  _trailingButtonBar.enableRippleBehavior = enableRippleBehavior;
+}
+
+- (CGFloat)mdc_currentElevation {
+  return 0;
 }
 
 - (void)setObservedNavigationItem:(UINavigationItem *)navigationItem {

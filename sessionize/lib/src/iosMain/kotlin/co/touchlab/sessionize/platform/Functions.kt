@@ -118,3 +118,6 @@ fun createAnalyticsApiImpl(analyticsCallback: (name: String, params: Map<String,
 }
 
 fun forceInclude() = listOf(CoroutineDispatcher::class)
+actual fun printThrowable(t: Throwable) {
+    t.printStackTrace()
+}
