@@ -22,7 +22,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
             let title = notificationModel.getReminderNotificationTitle(session: session)
             let message = notificationModel.getReminderNotificationMessage(session: session)
             let time = notificationModel.getReminderTimeFromSession(session: session)
-            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(session.id.hashValue), notificationTag: reminderTag)
+            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(truncatingIfNeeded: session.id.hashValue), notificationTag: reminderTag)
         }
     }
 
@@ -32,7 +32,7 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
             let title = notificationModel.getFeedbackNotificationTitle()
             let message = notificationModel.getFeedbackNotificationMessage()
             let time = notificationModel.getFeedbackTimeFromSession(session: session)
-            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(session.id.hashValue), notificationTag: feedbackTag)
+            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(truncatingIfNeeded: session.id.hashValue), notificationTag: feedbackTag)
         }
     }
 
