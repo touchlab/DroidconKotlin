@@ -22,8 +22,8 @@ import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 object SessionizeApiImpl : SessionizeApi {
-    private val INSTANCE_ID = "d9ujhigb"
-    private val SPONSOR_INSTANCE_ID = "1iqxj5ml"
+    private val INSTANCE_ID = "ntxgh3hk"
+    private val SPONSOR_INSTANCE_ID = "ntxgh3hk"
     private val client = HttpClient {
         install(ExpectSuccess)
     }
@@ -34,10 +34,6 @@ object SessionizeApiImpl : SessionizeApi {
 
     override suspend fun getSessionsJson(): String = client.get<String> {
         sessionize("/api/v2/$INSTANCE_ID/view/gridtable")
-    }
-
-    override suspend fun getSponsorJson(): String = client.get<String> {
-        amazon("/droidconsponsers/sponsors-$SPONSOR_INSTANCE_ID.json")
     }
 
     override suspend fun getSponsorSessionJson(): String = client.get<String> {
