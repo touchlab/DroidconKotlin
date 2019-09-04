@@ -7,12 +7,11 @@
 
     <color name="colorPrimary">#FF8A65</color>
     <color name="colorPrimaryDark">#ff6c3f</color>
-    <color name="colorAccent">#6bac89</color>
+    <color name="colorAccent">#FCC010</color>
     <color name="colorMenu">@color/white</color>
     <color name="colorMenuOff">@color/white</color>
 
     <color name="white">#FFF</color>
-    <color name="gray">#C5C5C5</color>
     <color name="black">#000</color>
 
     <color name="rsvpColor">#68d1fd</color>
