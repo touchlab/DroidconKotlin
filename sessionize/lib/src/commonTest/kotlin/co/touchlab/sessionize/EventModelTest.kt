@@ -98,10 +98,6 @@ class SessionizeApiMock : SessionizeApi {
         return ""
     }
 
-    override suspend fun getSponsorJson(): String {
-        return ""
-    }
-
     override suspend fun getSponsorSessionJson(): String {
         return ""
     }
