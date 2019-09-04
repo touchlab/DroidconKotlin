@@ -9,8 +9,8 @@
             style="@style/Widget.Sessionize.Toolbar"
             android:id="@+id/dayChooser"
             android:visibility="gone"
-            app:tabTextColor="@color/colorMenuOff"
-            app:tabSelectedTextColor="@color/colorMenu"
+            app:tabTextColor="#77ffffff"
+            app:tabSelectedTextColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

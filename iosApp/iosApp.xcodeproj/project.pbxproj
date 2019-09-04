@@ -1535,7 +1535,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.nyc2019;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.lisbon2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -1563,7 +1563,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.nyc2019;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.lisbon2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
