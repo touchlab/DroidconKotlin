@@ -1352,10 +1352,10 @@
           },
           {
             "id": "83e240e0-adcb-4766-a91b-5993a1b04f80",
-            "title": "Break",
+            "title": "Coffee Break",
             "description": null,
             "startsAt": "2019-09-10T10:30:00",
-            "endsAt": "2019-09-10T10:40:00",
+            "endsAt": "2019-09-10T10:50:00",
             "isServiceSession": true,
             "isPlenumSession": true,
             "speakers": [],
@@ -1367,8 +1367,8 @@
             "id": "130657",
             "title": "Roasting Google APIs on a Firebase to Create Uberritos",
             "description": "This talk will help developers learn how to create an Uber like app within hours and zero lines of backend code, leveraging the capabilities of Firebase – a realtime database in the cloud as a data provider and Google Maps, Places and Directions APIs as a case study for the sample app.",
-            "startsAt": "2019-09-10T10:40:00",
-            "endsAt": "2019-09-10T11:20:00",
+            "startsAt": "2019-09-10T10:50:00",
+            "endsAt": "2019-09-10T11:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
@@ -1383,9 +1383,9 @@
           },
           {
             "id": "70282a04-8dcb-4c99-82b5-4897e1a09d99",
-            "title": "Coffee Break",
+            "title": "Break",
             "description": null,
-            "startsAt": "2019-09-10T11:20:00",
+            "startsAt": "2019-09-10T11:30:00",
             "endsAt": "2019-09-10T11:40:00",
             "isServiceSession": true,
             "isPlenumSession": true,
@@ -1538,7 +1538,7 @@
           },
           {
             "id": "2c1daf56-a94f-4f99-8b5e-5eda2c3b406c",
-            "title": "Coffee Breck",
+            "title": "Coffee Break",
             "description": null,
             "startsAt": "2019-09-10T16:30:00",
             "endsAt": "2019-09-10T16:50:00",
@@ -1658,8 +1658,8 @@
             "id": "136502",
             "title": "App size reduction at Microsoft SwiftKey",
             "description": "We present our unofficial guide to Android app size and how to squeeze in as much useful functionality into your app in the smallest number of bytes. The SwiftKey team has managed to halve our download and install size by investigating the root causes of bloat as well as taking advantages of the latest developments in Android. We’ve done this whilst continuing to support over 350 languages, 200 themes, 200 keyboard layouts, handwriting recognition, translator, emoji prediction and loads more. ",
-            "startsAt": "2019-09-10T10:40:00",
-            "endsAt": "2019-09-10T11:20:00",
+            "startsAt": "2019-09-10T10:50:00",
+            "endsAt": "2019-09-10T11:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
@@ -1959,10 +1959,10 @@
             "name": "Oreo",
             "session": {
               "id": "83e240e0-adcb-4766-a91b-5993a1b04f80",
-              "title": "Break",
+              "title": "Coffee Break",
               "description": null,
               "startsAt": "2019-09-10T10:30:00",
-              "endsAt": "2019-09-10T10:40:00",
+              "endsAt": "2019-09-10T10:50:00",
               "isServiceSession": true,
               "isPlenumSession": true,
               "speakers": [],
@@ -1975,7 +1975,7 @@
         ]
       },
       {
-        "slotStart": "10:40:00",
+        "slotStart": "10:50:00",
         "rooms": [
           {
             "id": 5960,
@@ -1984,8 +1984,8 @@
               "id": "130657",
               "title": "Roasting Google APIs on a Firebase to Create Uberritos",
               "description": "This talk will help developers learn how to create an Uber like app within hours and zero lines of backend code, leveraging the capabilities of Firebase – a realtime database in the cloud as a data provider and Google Maps, Places and Directions APIs as a case study for the sample app.",
-              "startsAt": "2019-09-10T10:40:00",
-              "endsAt": "2019-09-10T11:20:00",
+              "startsAt": "2019-09-10T10:50:00",
+              "endsAt": "2019-09-10T11:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
@@ -2007,8 +2007,8 @@
               "id": "136502",
               "title": "App size reduction at Microsoft SwiftKey",
               "description": "We present our unofficial guide to Android app size and how to squeeze in as much useful functionality into your app in the smallest number of bytes. The SwiftKey team has managed to halve our download and install size by investigating the root causes of bloat as well as taking advantages of the latest developments in Android. We’ve done this whilst continuing to support over 350 languages, 200 themes, 200 keyboard layouts, handwriting recognition, translator, emoji prediction and loads more. ",
-              "startsAt": "2019-09-10T10:40:00",
-              "endsAt": "2019-09-10T11:20:00",
+              "startsAt": "2019-09-10T10:50:00",
+              "endsAt": "2019-09-10T11:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
@@ -2026,16 +2026,16 @@
         ]
       },
       {
-        "slotStart": "11:20:00",
+        "slotStart": "11:30:00",
         "rooms": [
           {
             "id": 5960,
             "name": "Oreo",
             "session": {
               "id": "70282a04-8dcb-4c99-82b5-4897e1a09d99",
-              "title": "Coffee Break",
+              "title": "Break",
               "description": null,
-              "startsAt": "2019-09-10T11:20:00",
+              "startsAt": "2019-09-10T11:30:00",
               "endsAt": "2019-09-10T11:40:00",
               "isServiceSession": true,
               "isPlenumSession": true,
@@ -2403,7 +2403,7 @@
             "name": "Oreo",
             "session": {
               "id": "2c1daf56-a94f-4f99-8b5e-5eda2c3b406c",
-              "title": "Coffee Breck",
+              "title": "Coffee Break",
               "description": null,
               "startsAt": "2019-09-10T16:30:00",
               "endsAt": "2019-09-10T16:50:00",
