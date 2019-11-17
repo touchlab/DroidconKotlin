@@ -8,21 +8,24 @@ import kotlin.coroutines.CoroutineContext
 
 open class BaseModel(
         private val mainContext: CoroutineContext
-) : CoroutineScope {
+) {
+    internal val mainScope = MainScope(mainContext)
 
-    private val job = Job()
+    open fun onDestroy() {
+        mainScope.job.cancel()
+    }
+}
+
+internal class MainScope(private val mainContext: CoroutineContext): CoroutineScope{
+    override val coroutineContext: CoroutineContext
+        get() = mainContext + job + exceptionHandler
+
+    internal val job = Job()
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         showError(throwable)
     }
 
-    open fun showError(t: Throwable) {
+    fun showError(t: Throwable) {
         logException(t)
-    }
-
-    override val coroutineContext: CoroutineContext
-        get() = mainContext + job + exceptionHandler
-
-    open fun onDestroy() {
-        job.cancel()
     }
 }

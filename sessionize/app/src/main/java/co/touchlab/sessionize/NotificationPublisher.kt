@@ -13,11 +13,14 @@ import co.touchlab.sessionize.NotificationsApiImpl.Companion.notificationFeedbac
 import co.touchlab.sessionize.NotificationsApiImpl.Companion.notificationReminderId
 import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.NotificationsModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 
 class NotificationPublisher : BroadcastReceiver() {
 
+    private val mainScope = MainScope()
     override fun onReceive(context: Context, intent: Intent) {
         val notification = intent.getParcelableExtra<Notification>(NOTIFICATION)
         val notificationId = intent.getIntExtra(NOTIFICATION_ID, 0)
@@ -32,14 +35,16 @@ class NotificationPublisher : BroadcastReceiver() {
                   this.notify(notificationId, notification)
               }
 
-              if(notificationId == notificationReminderId) {
-                  NotificationsModel.recreateReminderNotifications()
+              mainScope.launch {
+                  if (notificationId == notificationReminderId) {
+                      NotificationsModel.recreateReminderNotifications()
 
-                  val currentTime = Calendar.getInstance().time
-                  dismissLocalNotification(notificationId, currentTime.time + (Durations.TEN_MINS_MILLIS*2))
-              }
-              if(notificationId == notificationFeedbackId){
-                  NotificationsModel.recreateFeedbackNotifications()
+                      val currentTime = Calendar.getInstance().time
+                      dismissLocalNotification(notificationId, currentTime.time + (Durations.TEN_MINS_MILLIS * 2))
+                  }
+                  if (notificationId == notificationFeedbackId) {
+                      NotificationsModel.recreateFeedbackNotifications()
+                  }
               }
             }
         }

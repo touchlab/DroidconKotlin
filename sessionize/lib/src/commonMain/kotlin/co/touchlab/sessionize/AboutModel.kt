@@ -2,8 +2,8 @@ package co.touchlab.sessionize
 
 import co.touchlab.sessionize.ServiceRegistry.clLogCallback
 import co.touchlab.sessionize.ServiceRegistry.staticFileLoader
-import co.touchlab.sessionize.platform.backgroundSuspend
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
@@ -11,9 +11,13 @@ import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 object AboutModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
-    fun loadAboutInfo(proc: (aboutInfo: List<AboutInfo>) -> Unit) = launch {
+    fun loadAboutInfo(proc: (aboutInfo: List<AboutInfo>) -> Unit) = mainScope.launch {
         clLogCallback("loadAboutInfo AboutModel()")
-        proc(backgroundSuspend { AboutProc.parseAbout() })
+        proc(aboutLoad())
+    }
+
+    private suspend fun aboutLoad() = withContext(AppContext.backgroundContext){
+        AboutProc.parseAbout()
     }
 }
 

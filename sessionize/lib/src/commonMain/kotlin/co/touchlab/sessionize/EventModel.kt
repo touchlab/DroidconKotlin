@@ -8,10 +8,10 @@ import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.NotificationsModel
-import co.touchlab.sessionize.platform.backgroundSuspend
 import co.touchlab.sessionize.platform.currentTimeMillis
 import co.touchlab.sessionize.platform.logException
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.max
 
 class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInfo>(
@@ -28,7 +28,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
 
     interface EventView : View<SessionInfo>
 
-    fun toggleRsvp(event: SessionInfo) = launch {
+    fun toggleRsvp(event: SessionInfo) = mainScope.launch {
         toggleRsvpSuspend(event)
     }
 
@@ -36,13 +36,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         val rsvp = !event.isRsvped()
         val localSessionId = sessionId
 
-        backgroundSuspend {
-            sessionQueries.updateRsvp(if (rsvp) {
-                1
-            } else {
-                0
-            }, localSessionId)
-        }
+        callUpdateRsvp(rsvp, localSessionId)
 
         val methodName = if (rsvp) {
             "sessionizeRsvpEvent"
@@ -57,16 +51,19 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
 
             sendAnalytics(localSessionId, rsvp)
         }
-
     }
 
-    private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) {
+    internal suspend fun callUpdateRsvp(rsvp: Boolean, localSessionId: String) = withContext(ServiceRegistry.backgroundDispatcher){
+        sessionQueries.updateRsvp(if (rsvp) {
+            1
+        } else {
+            0
+        }, localSessionId)
+    }
 
+    private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) = withContext(ServiceRegistry.backgroundDispatcher) {
         try {
-            val session = backgroundSuspend {
-                sessionQueries.sessionById(sessionId).executeAsOne()
-            }
-
+            val session = sessionQueries.sessionById(sessionId).executeAsOne()
             val params = HashMap<String, Any>()
             val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
             params["slot"] = analyticsDateFormat.formatConferenceTZ(session.startsAt)

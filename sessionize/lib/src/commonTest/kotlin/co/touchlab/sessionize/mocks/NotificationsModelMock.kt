@@ -38,7 +38,7 @@ class NotificationsModelMock : INotificationsModel {
         else calledFeedbackDisabled = true
     }
 
-    override fun createNotifications() {
+    override suspend fun createNotifications() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -54,11 +54,11 @@ class NotificationsModelMock : INotificationsModel {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun recreateReminderNotifications() {
+    override suspend fun recreateReminderNotifications() {
         calledRecreateReminder = true
     }
 
-    override fun recreateFeedbackNotifications() {
+    override suspend fun recreateFeedbackNotifications() {
         calledRecreateFeedback = true
     }
 

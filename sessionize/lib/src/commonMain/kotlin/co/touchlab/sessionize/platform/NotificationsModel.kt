@@ -8,6 +8,7 @@ import co.touchlab.sessionize.SettingsKeys.LOCAL_NOTIFICATIONS_ENABLED
 import co.touchlab.sessionize.SettingsKeys.REMINDERS_ENABLED
 import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
 import com.russhwolf.settings.set
+import kotlinx.coroutines.withContext
 import kotlin.native.concurrent.ThreadLocal
 
 interface INotificationsModel {
@@ -17,12 +18,12 @@ interface INotificationsModel {
     fun setNotificationsEnabled(enabled: Boolean)
     fun setRemindersEnabled(enabled: Boolean)
     fun setFeedbackEnabled(enabled: Boolean)
-    fun createNotifications()
+    suspend fun createNotifications()
     fun cancelNotifications()
     fun cancelFeedbackNotifications()
     fun cancelReminderNotifications(andDismissals: Boolean)
-    fun recreateReminderNotifications()
-    fun recreateFeedbackNotifications()
+    suspend fun recreateReminderNotifications()
+    suspend fun recreateFeedbackNotifications()
     fun getReminderTimeFromSession(session: MySessions): Long
     fun getReminderNotificationTitle(session: MySessions): String
     fun getReminderNotificationMessage(session: MySessions): String
@@ -61,8 +62,7 @@ object NotificationsModel : INotificationsModel {
         ServiceRegistry.appSettings[FEEDBACK_ENABLED] = enabled
     }
 
-
-    override fun createNotifications() {
+    override suspend fun createNotifications() {
         if(notificationsEnabled()) {
             recreateReminderNotifications()
             recreateFeedbackNotifications()
@@ -77,28 +77,29 @@ object NotificationsModel : INotificationsModel {
     override fun cancelFeedbackNotifications() = ServiceRegistry.notificationsApi.cancelFeedbackNotifications()
     override fun cancelReminderNotifications(andDismissals: Boolean) = ServiceRegistry.notificationsApi.cancelReminderNotifications(andDismissals)
 
-    override fun recreateReminderNotifications() {
+    override suspend fun recreateReminderNotifications() {
         cancelReminderNotifications(false)
         if (remindersEnabled()){
-            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                if(mySessions.isNotEmpty()) {
-                    ServiceRegistry.notificationsApi.scheduleReminderNotificationsForSessions(mySessions)
-                }
+            val mySessions = mySessions()
+            if(mySessions.isNotEmpty()) {
+                ServiceRegistry.notificationsApi.scheduleReminderNotificationsForSessions(mySessions)
             }
         }
     }
 
-    override fun recreateFeedbackNotifications() {
+    override suspend fun recreateFeedbackNotifications() {
         cancelFeedbackNotifications()
         if (feedbackEnabled()){
-            backgroundTask({ sessionQueries.mySessions().executeAsList() }) { mySessions ->
-                if(mySessions.isNotEmpty()) {
-                    ServiceRegistry.notificationsApi.scheduleFeedbackNotificationsForSessions(mySessions)
-                }
+            val mySessions = mySessions()
+            if(mySessions.isNotEmpty()) {
+                ServiceRegistry.notificationsApi.scheduleFeedbackNotificationsForSessions(mySessions)
             }
         }
     }
 
+    private suspend fun mySessions():List<MySessions> = withContext(ServiceRegistry.backgroundDispatcher){
+        sessionQueries.mySessions().executeAsList()
+    }
 
     override fun getReminderTimeFromSession(session: MySessions): Long = session.startsAt.toLongMillis() - Durations.TEN_MINS_MILLIS
     override fun getReminderNotificationTitle(session: MySessions) = "Upcoming Event in ${session.roomName}"

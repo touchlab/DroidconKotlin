@@ -35,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
                                                 coroutineDispatcher: UI(),
                                                 settings: FunctionsKt.defaultSettings(),
-                                                concurrent: MainConcurrent(),
                                                 sessionizeApi: SessionizeApiImpl(),
                                                 analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
                                                 notificationsApi: NotificationsApiImpl(),

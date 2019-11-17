@@ -12,7 +12,6 @@ import co.touchlab.sessionize.platform.NotificationsModel.setFeedbackEnabled
 
 class FeedbackManager : FeedbackApi {
 
-
     private var fragmentManager:FragmentManager? = null
     private var feedbackModel:FeedbackModel = FeedbackModel()
     private var feedbackDialog:FeedbackDialog? = null

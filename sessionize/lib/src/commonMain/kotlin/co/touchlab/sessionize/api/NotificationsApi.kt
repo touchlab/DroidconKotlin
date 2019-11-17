@@ -13,7 +13,7 @@ interface NotificationsApi {
 
     fun cancelFeedbackNotifications()
 
-    fun initializeNotifications(onSuccess: (Boolean) -> Unit)
+    suspend fun initializeNotifications(onSuccess: suspend (Boolean) -> Unit)
 
     fun deinitializeNotifications()
 

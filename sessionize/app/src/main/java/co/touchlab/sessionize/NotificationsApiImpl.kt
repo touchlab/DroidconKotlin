@@ -127,7 +127,7 @@ class NotificationsApiImpl : NotificationsApi {
         }
     }
 
-    override fun initializeNotifications(onSuccess: (Boolean) -> Unit)
+    override suspend fun initializeNotifications(onSuccess: suspend (Boolean) -> Unit)
     {
         createNotificationChannel()
         setNotificationsEnabled(true)

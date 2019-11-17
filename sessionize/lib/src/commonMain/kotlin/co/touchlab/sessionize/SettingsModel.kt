@@ -5,13 +5,12 @@ import co.touchlab.sessionize.platform.INotificationsModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
-
 class SettingsModel(
         private val notificationsModel: INotificationsModel,
         private val notificationsApi: NotificationsApi,
         coroutineDispatcher: CoroutineDispatcher) : BaseModel(coroutineDispatcher) {
 
-    fun setRemindersSettingEnabled(enabled:Boolean) = launch {
+    fun setRemindersSettingEnabled(enabled:Boolean) = mainScope.launch {
         notificationsModel.setRemindersEnabled(enabled)
 
         if (enabled && !notificationsModel.notificationsEnabled()) {
@@ -23,7 +22,7 @@ class SettingsModel(
         }
     }
 
-    fun setFeedbackSettingEnabled(enabled:Boolean) = launch {
+    fun setFeedbackSettingEnabled(enabled:Boolean) = mainScope.launch {
         notificationsModel.setFeedbackEnabled(enabled)
 
         if (enabled && !notificationsModel.notificationsEnabled()) {

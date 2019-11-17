@@ -1,11 +1,14 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.architecture.MainThreadPubSub
-import co.touchlab.sessionize.architecture.Sub
-import co.touchlab.sessionize.db.QueryPub
+import co.touchlab.sessionize.platform.assertNotMainThread
 import co.touchlab.sessionize.platform.printThrowable
 import co.touchlab.stately.ensureNeverFrozen
 import com.squareup.sqldelight.Query
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -15,42 +18,38 @@ import kotlin.coroutines.CoroutineContext
  * generically defined to take data extracted from the Query, and manage
  * registering and shutting down.
  */
+@UseExperimental(InternalCoroutinesApi::class)
 abstract class BaseQueryModelView<Q : Any, VT>(
         query: Query<Q>,
         extractData: (Query<Q>) -> VT,
         mainContext: CoroutineContext) : BaseModel(mainContext) {
 
-    private val queryPub = QueryPub(query, extractData)
-
     init {
         ensureNeverFrozen()
-        val mainPub = MainThreadPubSub<VT>()
-        queryPub.addSub(mainPub)
-        mainPub.addSub(object : Sub<VT> {
-            override fun onNext(next: VT) {
-                view?.let {
-                    launch {
-                        it.update(next)
+        mainScope.launch {
+            query.asFlow()
+                    .map {
+                        assertNotMainThread()
+                        extractData(it)
                     }
-                }
-            }
+                    .flowOn(ServiceRegistry.backgroundDispatcher)
+                    .collect { vt ->
+                        view?.let {
+                            it.update(vt)
+                        }
+                    }
 
-            override fun onError(t: Throwable) {
-                view?.let { it.error(t) }
-            }
-        })
+        }
     }
 
     private var view: View<VT>? = null
 
     fun register(view: View<VT>) {
         this.view = view
-        queryPub.refresh()
     }
 
     fun shutDown() {
         view = null
-        queryPub.destroy()
     }
 
     interface View<VT> {

@@ -6,7 +6,6 @@ import co.touchlab.sessionize.db.DateAdapter
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.mocks.FeedbackApiMock
 import co.touchlab.sessionize.mocks.NotificationsApiMock
-import co.touchlab.sessionize.platform.TestConcurrent
 import kotlinx.coroutines.Dispatchers
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -23,7 +22,7 @@ abstract class EventModelTest {
     @BeforeTest
     fun setup() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), TestConcurrent, sessionizeApiMock, analyticsApiMock, notificationsApiMock, timeZone)
+                Dispatchers.Main, TestSettings(), sessionizeApiMock, analyticsApiMock, notificationsApiMock, timeZone)
 
         ServiceRegistry.initLambdas({ filePrefix, fileType ->
             when (filePrefix) {

@@ -7,7 +7,6 @@ import co.touchlab.droidcon.db.DroidconDb
 import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.MainConcurrent
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
@@ -25,7 +24,6 @@ class MainApp : Application() {
                 AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb"),
                 Dispatchers.Main,
                 AndroidSettings.Factory(this).create("DROIDCON_SETTINGS"),
-                MainConcurrent,
                 SessionizeApiImpl,
                 AnalyticsApiImpl(FirebaseAnalytics.getInstance(this)),
                 NotificationsApiImpl(),
