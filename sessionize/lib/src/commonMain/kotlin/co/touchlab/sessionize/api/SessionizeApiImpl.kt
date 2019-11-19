@@ -22,8 +22,8 @@ import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 object SessionizeApiImpl : SessionizeApi {
-    private val INSTANCE_ID = "ntxgh3hk"
-    private val SPONSOR_INSTANCE_ID = "mlolop4o"
+    private val INSTANCE_ID = "jmuc9diq"
+    private val SPONSOR_INSTANCE_ID = "lhiyghwr"
     private val client = HttpClient {
         install(ExpectSuccess)
     }

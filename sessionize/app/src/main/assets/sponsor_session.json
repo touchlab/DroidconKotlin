@@ -1,7 +1,1460 @@
 [
   {
-    "groupId": 27118,
-    "groupName": "sponsor",
-    "sessions": []
+    "groupId": null,
+    "groupName": "All",
+    "sessions": [
+      {
+        "questionAnswers": [],
+        "id": "156488",
+        "title": "Opening Keynote: Android Then & Now",
+        "description": "Android development has come a long way since 1.0. How did we get here? And now that we're here, what do we do next?\r\nThis talk will go over the landscape of Android development through the years and the releases, and talk about what Android platform priorities are now, and what that means for developers.",
+        "startsAt": "2019-11-25T09:20:00",
+        "endsAt": "2019-11-25T10:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": true,
+        "speakers": [
+          {
+            "id": "152f613f-841b-407d-9a65-3703ec2dfae2",
+            "name": "Romain Guy"
+          },
+          {
+            "id": "c3756b79-3d7f-426f-ba3d-9ecbd467a421",
+            "name": "Chet Haase"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "147547",
+        "title": "Learn to think like a hacker",
+        "description": "When your Android app is published it leaves the safety of your development environment and goes out into the wild. To understand the risks it will be exposed to, it is important to Think Like a Hacker. In this presentation, Verimatrix’s Product Manager, Neal Michie, demonstrates how an attacker will reverse engineer your app and the best practises to defend against them.",
+        "startsAt": "2019-11-25T10:10:00",
+        "endsAt": "2019-11-25T10:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "57035aef-074c-4bb8-abbd-8f628ba47d93",
+            "name": "Neal Michie"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148845",
+        "title": "MVVM & Nested Fragments/Views - ViewModel Contracts",
+        "description": "As smartphones get more and more powerful and with bigger screens, the complexity of tasks that people want to be able to do with them follow the same growth. Google has become very opinionated about how to do architecture and best practices, but examples are often overly simplified and not very dynamic.\r\n \r\nFragments are making a comeback, combined with LiveData and ViewModels. As we adopt these architecture components into our apps, how can we build support for complex use cases with multiple fragments on screen? Should each fragment have a ViewModel? What about custom views?\r\n\r\nViewModel Contracts propose the idea of having fragments (and potentially custom views) declare a ViewModel & LiveData via interface to abstract out all of the communication details between nested fragments and their parents. In this talk, we explain in detail how to implement them, how architecture components deal with ViewModels, ViewModelFactories and how we can reuse them.",
+        "startsAt": "2019-11-25T10:10:00",
+        "endsAt": "2019-11-25T10:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "bf2d5f77-1bd0-4cc9-b35e-ca6d82ee782c",
+            "name": "Marcos Paulo Damasceno"
+          },
+          {
+            "id": "fa00f336-76fe-46c3-b007-3393baf27ec4",
+            "name": "Bret Erickson"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148847",
+        "title": "Performance in a Kotlin world",
+        "description": "Users expect apps to be snappy, responsive, and jank-free. As developers, we want to use new language features and libraries. How do you make sure these new features deliver the performance users expect? In this talk, you'll learn how to make your app shine with practical performance patterns. After this talk you'll know how to use Android Studio profilers and the new Jetpack Benchmarking library to find and fix jank and keep it from coming back.",
+        "startsAt": "2019-11-25T10:10:00",
+        "endsAt": "2019-11-25T10:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "5a675a84-672d-4e59-bd7e-3c162c2e97bf",
+            "name": "Sean McQuillan"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148192",
+        "title": "State-machine Driven Payment Flow",
+        "description": "As the world's top-grossing mobile app, payment processing is a crucial part of Tinder. Scaling the payment system is very challenging with a legacy, untestable code base. To resolve the problem, we've recently made the decision to build a state-machine-based, pluggable solution to represent a universal purchase flow, which is agnostic of any specific payment methods. It's powered by our own open source library: https://github.com/Tinder/StateMachine.\r\n\r\nIn this talk, we will share how our state machine / DSL approach ensures the flow is deterministic, self-documented and easily testable and how its plug-in system guarantees flexibility by allowing dynamic custom rules to be run along the state transitions.\r\n",
+        "startsAt": "2019-11-25T10:10:00",
+        "endsAt": "2019-11-25T10:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "ddf50a99-bd8e-4b6e-9035-f12475b65e77",
+            "name": "Yisong Wu"
+          },
+          {
+            "id": "84bb04ac-57d1-48af-b730-2fe91dfad423",
+            "name": "Fernando Pereira"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "147021",
+        "title": "Android at scale @Square",
+        "description": "Codebases naturally grow over time by adding new features, abstractions and migrating code to new architectures. We introduce layers to hide implementation details and separate concerns. Good modularization brings many benefits such as better reusability, shorter build times and code isolation.\r\n\r\nSquare builds payment, software and hardware systems that help businesses of any type. The Android Point of Sale repository faces challenges similar to other large codebases. This talk gives an overview of how the repository evolved over the years, the difficulties we encountered in the recent months and how we addressed them with clear structures and common patterns to keep up with the ongoing growth.",
+        "startsAt": "2019-11-25T11:00:00",
+        "endsAt": "2019-11-25T11:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "646237bf-ccc5-43fa-a659-0b361b08d651",
+            "name": "Ralf Wondratschek"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148360",
+        "title": "Creating Augmented Reality Solutions in Enterprise Verticals",
+        "description": "Smatphone AR frameworks have brought AR creation within every developer's reach.  The consumer AR app space is saturated with games, novelty, furniture placement and measure apps. Meanwhile, almost every mobile workflow in the Enterprise vertical can benefit from AR -- by delivering instructions and directions at the real world point of interaction to the user.  This talk takes you through building on the smartphone AR frameworks to surmount the hard obstacles that face an Enterprise AR solution:  Global Persistence, consistency and robustness and perhaps the most important need: hiding the geekiness of AR from the user!  We illustrate with live app examples of enterprise AR apps developed for Retail, Warehouse, Transportation and Logistics use cases.  \r\nHere is a short warehouse picking video illustrating just one of the many use cases addressed in this talk:  \r\n\r\nhttps://photos.app.goo.gl/tvCxY4uNugYLAL9z6\r\n",
+        "startsAt": "2019-11-25T11:00:00",
+        "endsAt": "2019-11-25T11:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "d911ecc3-2c17-4c8d-85de-0923f38a1e1c",
+            "name": "Pat Narendra"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148609",
+        "title": "Easy, scalable backends for Android developers",
+        "description": "In the past, engineering teams typically split “frontend” and “backend” responsibilities.  As an Android developer, you almost certainly slotted into the “frontend” category, with no responsibility on the backend.  And if you do want to work on the backend for an app, it can be taxing to learn new tools and languages, while being responsible for managing and scaling a server farm.\r\n\r\nToday, with “serverless” backends becoming popular, server management and scaling is being fully automated, and you can use many of the same tools and languages you use for Android development.  Do you want to write Kotlin everywhere?  There’s a solution for you!  Join this talk to survey some serverless options provided by Google, see some demos, and figure out which options are right for you.\r\n",
+        "startsAt": "2019-11-25T11:00:00",
+        "endsAt": "2019-11-25T11:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "918a46f2-7e34-41b6-8337-56703cb18e82",
+            "name": "Doug Stevenson"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149346",
+        "title": "Kotlin Multiplatform Library Development",
+        "description": "One of the most important parts of any software ecosystem is the community support and library development. Kotlin as a platform is certainly no exception. For developers looking to get involved in the open-source world, this is a great time to jump in. While simple libraries are fairly straightforward, there are many details involved in implementing significant libraries. Where to use expect/actual? How to wrap existing libraries? How do handle testing, CI, publishing, etc. There's a lot you need to know, and the platform is changing fast.",
+        "startsAt": "2019-11-25T11:00:00",
+        "endsAt": "2019-11-25T11:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "1bdf0b7f-2a71-4d40-a3e1-cb481f328361",
+            "name": "Kevin Galligan"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148517",
+        "title": "The device is running on it's own! Full-stack automation of UI testing on a custom android firmware.",
+        "description": "Working on a custom android firmware has it’s own challenges, especially if you have a suite of system applications which needs UI testing. Manually, you’d need to flash your device with the custom ROM, run UI tests on it, check results. If you have a high-cadence delivery cycle, this can get troublesome, real fast.\r\nIn this talk, we walk you through how we automated UI testing of our custom firmware at Hammerhead and integrated it with our CI/CD pipeline. To give a brief, with this setup, our custom hardware downloads the custom ROM, run’s tests across applications and uploads the results to the CI server - all without any human intervention.",
+        "startsAt": "2019-11-25T11:50:00",
+        "endsAt": "2019-11-25T12:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "3b462b83-5395-4ce7-8261-f641d6101bd2",
+            "name": "Faraz M.R."
+          },
+          {
+            "id": "f70b5921-f847-4849-927b-2c43c8620c6b",
+            "name": "Bharath MG"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148410",
+        "title": "The Facebook mobile performance tooling ecosystem: an overview",
+        "description": "Keeping the Facebook family of apps performant is a company-level priority, and we've developed an extensive ecosystem of performance tooling and developer workflows to achieve this. This talk will cover how Facebook thinks about mobile app performance, how and why we developed our performance tools and workflows, and how the tools work together to streamline the developer experience.",
+        "startsAt": "2019-11-25T11:50:00",
+        "endsAt": "2019-11-25T12:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "99b0745a-3f48-4638-bb18-636b2029f34b",
+            "name": "Tim Mellor"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149067",
+        "title": "The Journey From Legacy Code to Idiomatic Kotlin",
+        "description": "We are often faced with large legacy codebases in Java that need to be converted to Kotlin.\r\n\r\nSure, you can let Android Studio do the conversion, but then you end up with a bunch of !!s and inefficient Kotlin code. So where do you begin?\r\n\r\nThis talk walks you through key steps in converting your Java codebase to efficient, idiomatic Kotlin. After working with multiple clients on legacy projects, I have learned lessons on doing this conversion efficiently, and ensuring that you are taking full advantage of Kotlin. We will walk through the process, along with tips on major components that generally require attention. After all, shouldn't every developer's goal be to leave the codebase better than you found it?",
+        "startsAt": "2019-11-25T11:50:00",
+        "endsAt": "2019-11-25T12:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "5581babf-ca6d-46c8-b065-e65e05d08586",
+            "name": "Seetha Annamraju"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "137153",
+        "title": "Buy a Plunger Before You Need a Plunger: Scalable, Flexible, Modular, Preventative Architecture",
+        "description": "It sucks to be stuck with a toilet that needs plunging yet no way to plunge, it usually leads to having a mess everywhere. The same goes with your codebase. We never want to face issues that we can prevent and we always want to prepare for the next task at hand. Having a flexible and modular architecture allows for easy scaling pivoting with whatever product managers throw our way. We will discuss some principles, practices and things to avoid to make sure the architecture you are building is always at a good and agile place.",
+        "startsAt": "2019-11-25T13:20:00",
+        "endsAt": "2019-11-25T14:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "dd6914b4-51ed-4d50-bedc-efc8e8a83b74",
+            "name": "Josh Williams"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148413",
+        "title": "Coroutines zero to hero",
+        "description": "I will cover what are coroutines. How it works works in Kotlin, Including the principal methods like launch, withContext, async. What are CorutinesContext and how to properly use then. The diferences and pitfalls to synchronise your code using coroutines instead of threads. And finally how to use Coroutines to implement back-pressure to a stream of events. ",
+        "startsAt": "2019-11-25T13:20:00",
+        "endsAt": "2019-11-25T14:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "f99fb91c-712a-4d64-bed8-19e0c6a855bb",
+            "name": "Paulo Sato"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "138196",
+        "title": "Kotlin beyond Android",
+        "description": "Are you an Android developer? You tried Kotlin the day it was announced as supported, and you loved it? Feeling a bit more comfortable with the language, you wonder \"what else could I do?\". \r\n\r\nThe answer is, many, many new and exciting things!\r\n\r\nJoin me on the story of how I used Kotlin to open up and broaden my horizon. It started taking the vertical path towards server with Ktor as my companion. Later on, I took the frontend route with KotlinJS and React bindings paving the way. Do I dare to take the Konan challenge and conquer the iOS ecosystem?\r\n\r\nThere is only one way to know...\r\n",
+        "startsAt": "2019-11-25T13:20:00",
+        "endsAt": "2019-11-25T14:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "395ab28d-560f-4362-ac52-e8131b691ef0",
+            "name": "Guillermo Orellana"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148689",
+        "title": "MotionLayout & Motion Editor",
+        "description": "MotionLayout is a new class in ConstraintLayout 2.0 dramatically simplifying the creation of animations, particularly related to handling motion and touch events. This session will cover what the library is capable of, where it makes sense to use it, and how to take advantage of the upcoming Motion Editor in Android Studio to quickly add motion to your application!",
+        "startsAt": "2019-11-25T13:20:00",
+        "endsAt": "2019-11-25T14:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "ed1e4545-4547-4697-9515-28f4174f09dd",
+            "name": "Nicolas Roard"
+          },
+          {
+            "id": "a7d0fcec-49dd-4e65-bcb7-ad3d1901928c",
+            "name": "John Hoford"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "145995",
+        "title": "Hands on MvRx: Building Real Apps",
+        "description": "MvRx is an Android architecture library built at Airbnb on top of  Jetpack. MvRx is used in hundreds of feature across many companies and exists to make your life as an Android engineer better.\r\n\r\nIn this talk, I'll introduce MvRx and then show its true practical power by building two separate apps live! Come see how MvRx can make the life of you and your coworkers better every day.",
+        "startsAt": "2019-11-25T14:10:00",
+        "endsAt": "2019-11-25T14:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "5d93a033-2cbe-4286-acc8-1b928e616210",
+            "name": "Gabriel Peal"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149230",
+        "title": "Reactive approach to delegation in Kotlin",
+        "description": "This talk about delegation and delegated properties in Kotlin and how to incorporate them into your custom views and to make them react immediately to new data. It showcases the usage of delegated properties in custom views and also enhances the mvi pattern when dynamically adding different views based on multiple user interactions",
+        "startsAt": "2019-11-25T14:10:00",
+        "endsAt": "2019-11-25T14:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "72c63733-5d76-4159-bdb3-969aea5c1147",
+            "name": "Aida Issayeva"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "138201",
+        "title": "Results of Scanning the top 45 Android Mobile Banking Apps",
+        "description": "This session provides details on development best practices, data leakage risk and security exposure for 45 Android mobile apps from the top US banks and mobile payment providers. The research displays vulnerabilities in consumer mobile banking apps and the correlating risk they introduce for banks and mobile users. Several of the mobile banking applications score low on application development best practices, use of shared or outdated code and overuse of third-party services or SDKs. The knowledge gained here will enable developers and mobile banking channel owners insight on the exact items needed to build more secure banking apps and to reduce banking fraud via the mobile channel.",
+        "startsAt": "2019-11-25T14:10:00",
+        "endsAt": "2019-11-25T14:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "a3793180-ee47-4062-9dd1-e24f27339a88",
+            "name": "Scott King"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148194",
+        "title": "TP3 & KTP: Simple, fast, and boilerplate-free DI for Kotlin",
+        "description": "When you want to use Dependency Injection in Kotlin you need to make a decision: either you sacrifice your coding style by using a Java library (lateinit var...) or go with a Kotlin one where you need to write everything yourself (Koin, Kodein, ...)  >__<\r\n\r\nWell… you will not have to make that choice anymore!\r\n\r\nTP3/KTP is a Kotlin first DI framework that provides a simple and powerful API. It is boilerplate-free as all the code is generated at compile time using the fastest incremental annotation processing mode. Moreover, it still offers the runtime performances of Dagger2: it is very fast.\r\n\r\nFurthermore, TP3 is full of possibilities: 100% interoperable with Java, lifecycle and ViewModel support, fluent scope API, enhanced memory management, custom scopes, scope verification, powerful testing support and more.\r\n\r\nDuring this talk for intermediate developers, we will introduce TP3 & KTP and its main features.",
+        "startsAt": "2019-11-25T14:10:00",
+        "endsAt": "2019-11-25T14:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "41fb4807-f2da-43d0-b6e7-5746c71a4877",
+            "name": "Daniel Molinero Reguera"
+          },
+          {
+            "id": "eb1a2a18-6b45-46a8-b58e-78dba26ddd74",
+            "name": "Stéphane NICOLAS"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148662",
+        "title": "Architecture Agnostic UI Development",
+        "description": "Over the course of the last few years, we have seen a host of different architectures being used & recommended in our ecosystem. With each iteration of these recommended patterns, we often end up spending valuable development cycles in migrating our apps to the latest and greatest. Wouldn’t it be great if you could make your UI agnostic of who’s driving it without having it attached to any kind of architecture?\r\n\r\nIn this talk we will go through how we can leverage UI objects, sealed classes and state machine to make your UI easier to write, much more testable and predictable, where you can easily switch architectures and even UI frameworks (Jetpack Compose anyone?)  without changing much of the core implementation of you UI code.\r\n",
+        "startsAt": "2019-11-25T15:00:00",
+        "endsAt": "2019-11-25T15:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "0cdb0d8a-a6ae-49d5-8871-eec72234922c",
+            "name": "Vinay Gaba"
+          },
+          {
+            "id": "bf2d5f77-1bd0-4cc9-b35e-ca6d82ee782c",
+            "name": "Marcos Paulo Damasceno"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "138300",
+        "title": "Breaking Down Modularization",
+        "description": "Modularizing your repository can take extra effort; however, once done, you’ll be able to more easily develop in parallel, reduce cohesion between components, improve your build times, and support dynamic feature delivery.  This talk will be about the structure we designed for building a modular repository as well as some patterns we designed along the way.",
+        "startsAt": "2019-11-25T15:00:00",
+        "endsAt": "2019-11-25T15:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "c504704b-bb96-4891-8316-ce65b8c6ef34",
+            "name": "Zach Sweigart"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "135468",
+        "title": "Dagger Reflect - The circle from runtime to compile time and back to runtime",
+        "description": "Back in the day Java dependency injection frameworks were purely runtime based like Spring and Guava. Dagger 1 introduced a compile time component as well as compile time safety and Dagger 2 took the concept even further. Now we're going back to runtime with Dagger Reflect in an effort to improve local developer build speeds.\r\n\r\nThis talk will cover the reasons for building Dagger Feflect, how it works under the hood, how to use it in your project as well as how it is developed.\r\n\r\nWe're also open sourcing Delect - the Gradle Plugin for Dagger Reflect. It is the easiest way to integrate Dagger Reflect with your existing Gradle project.",
+        "startsAt": "2019-11-25T15:00:00",
+        "endsAt": "2019-11-25T15:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "89694c9d-5de0-4f39-a50a-ed48d6eb56ca",
+            "name": "Nelson Osacky"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149225",
+        "title": "Deep Learning: a practical introduction from an Android dev perspective",
+        "description": "Are you an Android dev interested in building your own Deep learning models, but don't know where to start?\r\n\r\nThat was me a few months ago! \r\n\r\nI went through all the trouble of figuring things out from an Android developer perspective with no prior experience, just so you don't have to! I want to share what I've learned, and introduce Deep Learning in a very practical way, with no intimidating equations, just code.\r\n\r\nIn this talk I will walk you through how to build your own models, understand the vocabulary and core concepts, setting up an environment, messing up with python, transforming data and finally getting it all to work in an Android app.\r\n\r\n",
+        "startsAt": "2019-11-25T15:00:00",
+        "endsAt": "2019-11-25T15:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "da0d0b74-71cf-4ac6-941b-94626dd92bf0",
+            "name": "Joaquim Verges"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "136297",
+        "title": "Pitfalls of Mixing Kotlin & Java",
+        "description": "I've been involved with my fair share of android projects being transposed to Kotlin from Java. I'd like to share my best tips and common pitfalls when doing this transition and how I would go about it if I'd do it today.",
+        "startsAt": "2019-11-25T15:50:00",
+        "endsAt": "2019-11-25T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "bbcf99f4-d0a2-4081-afe8-114e09f54a86",
+            "name": "Bob Dahlberg"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "135582",
+        "title": "Structured unit testing with Spek",
+        "description": "Are you tired of decrypting the JUnit test that you wrote a few weeks back? \r\nDo you want to write nice, readable & structured tests that are actually fun to write and joy to read?\r\n\r\nIf you have answered yes to at least one of the questions above, I have a solution for you. Join this talk and fall again in love with unit testing.\r\n\r\nWe will cover:\r\n- Describe how Spek works\r\n- Comparison with JUnit \r\n- Sample tests for a project following a clean architecture pattern (data, domain & view layer)",
+        "startsAt": "2019-11-25T15:50:00",
+        "endsAt": "2019-11-25T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "fbc78fae-5d8a-4758-9cf1-dd497029ff32",
+            "name": "Martin Petrulak"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "146780",
+        "title": "Voyager: Navigation and DI for Flutter",
+        "description": "Voyager is the widget router for Flutter. It combines YAML configuration map, custom plugins architecture and dependency injection into one comprehensive system that allows you to define readable requirements as code and turn them into flutter components.\r\n\r\nIf you have ever thought HOW MIGHT WE:\r\n\r\n- make deep links easy\r\n- make requirements trackable across git history and different branches\r\n- A/B test different navigation flows without code pollution\r\n\r\nI might have some answers for you.",
+        "startsAt": "2019-11-25T15:50:00",
+        "endsAt": "2019-11-25T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "b705611a-2f7c-4bc0-9838-fadf368eed64",
+            "name": "Łukasz Wiśniewski"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "135972",
+        "title": "Your Strengths Include: Work/Life Balance",
+        "description": "As developers, many of us are fortunate to be passionate about our work. However, “passion” often ends up being coded language for “working extra hours”! Things like personal projects, maintaining a portfolio website, or even keeping up-to-date on new libraries and best practices takes time and effort that we might prefer to spend in other areas.\r\nIn the end, we all only have 24 hours in a day, 168 hours in a week. Between our family, career, health, and happiness, what should we prioritize?\r\n\r\nWe’ll discuss tips for setting boundaries while maintaining career progression, all the while emphasizing making intentional, empowered decisions about your happiness.\r\n\r\nWork+life balance? Why not both!",
+        "startsAt": "2019-11-25T15:50:00",
+        "endsAt": "2019-11-25T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "7a816772-cc23-42e7-818e-4fd5153f7283",
+            "name": "Parth Padgaonkar"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148781",
+        "title": "Growing at Work with Community-Oriented Development",
+        "description": "Professional development stagnation is a common problem in any industry.  Let's consider some not-so-obvious solutions to reinvigorate learning and growth in the workplace.  \r\n\r\nIn this talk, you'll learn how to create opportunities to help you and others in your community grow through starting Android tech talks, roundtable discussions, workgroups, and other initiatives.  These are all things we have implemented at our growing team at Wayfair to great effect.",
+        "startsAt": "2019-11-25T16:40:00",
+        "endsAt": "2019-11-25T17:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "603911a5-7070-4b63-badd-d83001716824",
+            "name": "John Li"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "154966",
+        "title": "Jetpack Security Extension Overview, data-at-rest, and in-transit",
+        "description": "Strategies for data encryption on Android using Jetpack Security, key takeaways: learn to encrypt data safely on device and use the AndroidKeyStore.\r\n\r\n1. Outline the challenges with data-at-rest encryption.\r\n2. Best practices for data encryption and key management.\r\n3. Deep dive into why and how Jetpack Security library was built.",
+        "startsAt": "2019-11-25T16:40:00",
+        "endsAt": "2019-11-25T17:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "d1d3a2be-a29f-4a2c-8a00-cf1e7bbfc567",
+            "name": "Nicole Borrelli"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "146475",
+        "title": "Let's Build a Dependency Injection Framework [Live Coding]",
+        "description": "Gain a deep understanding of dependency injection as we live code a DI framework from scratch.\r\n\r\nDependency injection frameworks are often viewed as magical black boxes. This session will help you build a fundamental understanding of what dependency injection is, why it's important, and how it's implemented. With this understanding, dependency injection and dependency injection frameworks become less scary and more intuitive.",
+        "startsAt": "2019-11-25T16:40:00",
+        "endsAt": "2019-11-25T17:20:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "b645bd7a-0c51-4791-8fbb-04770c1571b0",
+            "name": "Leland Takamine"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "157899",
+        "title": "We gave a Mouse an NDK: Non Android Developers' Experience with NDK",
+        "description": "A story of a rabbit hole full of unexpected puzzles when tasked with debugging native code on Android in production builds through the lense of developers who were previously not exposed to the world of Android.",
+        "startsAt": "2019-11-25T16:40:00",
+        "endsAt": "2019-11-25T17:20:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "f5c4e11c-7dc0-493d-93ac-1991b023f1a9",
+            "name": "Armin Ronacher"
+          },
+          {
+            "id": "cbf0ba89-726c-4682-8be0-21e519b32991",
+            "name": "Bruno Garcia"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148688",
+        "title": "ConstraintLayout 2.0 and MotionLayout workshop",
+        "description": "In this workshop, we will go via a series of examples through some of the new concepts and features of ConstraintLayout 2.0 dedicated to layout, and how to best take advantage of them, simplifying UI creation and maintainability. We will also cover in depth the new MotionLayout class, how to integrate it in your applications and leverage it to build great motion-enabled applications.",
+        "startsAt": "2019-11-25T17:10:00",
+        "endsAt": "2019-11-25T18:20:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "ed1e4545-4547-4697-9515-28f4174f09dd",
+            "name": "Nicolas Roard"
+          },
+          {
+            "id": "a7d0fcec-49dd-4e65-bcb7-ad3d1901928c",
+            "name": "John Hoford"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148456",
+        "title": "PokeLeaks: Gotta Catch 'Em All 🐤🔍",
+        "description": "Bring your laptops and your investigative skills, we're going on a memory leak hunt!\r\n\r\nWe'll check out the repository of an app that contains hidden memory leaks, add LeakCanary, and start finding leaks. You have one job: fix all the leaks!\r\n\r\nThe goal of this session is to learn how to use LeakCanary and investigate its analysis reports. If we have extra time we can also look into tricky leaks in your own app.",
+        "startsAt": "2019-11-25T17:10:00",
+        "endsAt": "2019-11-25T18:20:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "a733fc42-dcb9-4107-9675-70335f2889e9",
+            "name": "🍷Pierre-Yves Ricau"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "135340",
+        "title": "Inside the Room",
+        "description": "Take a deep dive into how Google’s persistence library, Room, works with SQLite. In this talk we'll cover the 3 layers we use to persist to a local database, how they work and how they work with each other: SQLite, Android and AndroidX libraries, and Room. We'll cover locks and threads and how they're managed, how Room provides RxJava/ LiveData support, SQLite transactions and how they're created and managed by Room, and how Room supports paging and large queries.",
+        "startsAt": "2019-11-25T17:30:00",
+        "endsAt": "2019-11-25T18:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "5085327b-78aa-414a-86fc-03cd276113db",
+            "name": "Effie Barak"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "135957",
+        "title": "Kotlin Internal DSL - Create your own Language!",
+        "description": "Want to make your code eloquent? artistic? expressive? remove boilerplate? Lets make your code begin to read like English :).\r\n\r\nDSL (Domain specific language) though around for quite some time, it has gained more momentum in the recent times with Kotlin - which provides some powerful language features giving us the advantage of building internal DSLs. This talk introduces and highlights custom DSLs with Kotlin features.\r\n\r\nYou will learn,\r\n- Our use cases with custom Kotlin DSL’s at Freshworks.\r\n- DSL and its benefits.\r\n- Why Internal DSL?\r\n- Key differences and why Kotlin makes a great DSL host language. \r\n       - Kotlin Building Blocks(Features) to create DSLs.\r\n- Live Coding\r\n       -- Multiple nifty DSL usage and example use cases(Let's build it together).\r\n       -- Using Kotlin DSL in Android apps. \r\n- What next?(Advanced)\r\n- Disadvantages.\r\n",
+        "startsAt": "2019-11-25T17:30:00",
+        "endsAt": "2019-11-25T18:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "712c5914-cbc3-4b26-a637-0238f5fd4e92",
+            "name": "Vignesh Ramakrishnan"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "143995",
+        "title": "ARCore: Visualizing the Invisible",
+        "description": "In this session, participants will learn about a National Science Foundation-funded project to develop a smartphone app to visualize magnetic fields with AR. The developers will discuss the opportunities and challenges of working with ARCore and provide visual examples from their recently-developed project, Physics Toolbox AR. They will share their experience of using ARCore in an educational research setting to help learners make sense of fields in 3-D space. Participants will be welcomed to explore the app during an interactive portion of the session. Learn more about this project at https://www.vieyrasoftware.net/physics-toolbox-ar",
+        "startsAt": "2019-11-26T09:20:00",
+        "endsAt": "2019-11-26T10:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "84335047-a7cd-437e-986f-1d6b6df31072",
+            "name": "Chrystian Vieyra"
+          },
+          {
+            "id": "4ec1fdae-ef82-49b5-b60f-b8d18e1c5b2b",
+            "name": "Rebecca Vieyra"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "135575",
+        "title": "Coroutines and Rx: A battle towards asynchronicity",
+        "description": "Coroutines have already changed the way that we all thought of doing asynchronous programming. The transition from the traditional way of doing asynchronous programming to coroutines is also not very easy. Especially, when you have to leave something like RxJava. This talk will make you realize how the Rx things will look like in Coroutines world. \r\nWe will witness a battle shaping up between the two by judging their skills in different battle rounds.\r\nAbstract: \r\n1. A brief introduction to what Coroutines bring to the table and an interactive way to understand the coroutines magic.\r\n2. Introducing the players in the ring with their special powers: Rx and Coroutines. We will get to know about the different power each player has and will provide a rating to them.\r\n3. Starting the battle between the two by giving different situations and declaring a winner in each case. Here we will also get to know how the two worlds will look in contrast:\r\n  * Zipping different API calls and having results.\r\n  * A chain of responsibility for picking up your data\r\n  * Transforming the native callbacks to the coroutines vs \r\n     transforming in observables.\r\n  * Exception handling\r\n  * and much more\r\n4. Conclusion",
+        "startsAt": "2019-11-26T09:20:00",
+        "endsAt": "2019-11-26T10:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "f2760927-d514-46b7-ab6c-89d52278c314",
+            "name": "Amanjeet Singh"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148790",
+        "title": "JUnit 5 Testing: Android Unidirectional Data Flow with LiveData",
+        "description": "Beginning to test the Coinverse app from scratch was daunting at first. Where do I begin between testing the UI and business logic? How do I handle components that work with the network responses, databases, and analytics? After modularizing the app using Android's Unidirectional Data Flow (UDF) and LiveData, writing local unit tests for the business logic became simpler. This talk covers how to use the UDF pattern with LiveData in Kotlin in order to write Junit 5 tests with MockK.\r\n\r\nSample Code - github.com/AdamSHurwitz/Coinverse\r\nGoogle Play - play.google.com/store/apps/details?id=app.coinverse",
+        "startsAt": "2019-11-26T09:20:00",
+        "endsAt": "2019-11-26T10:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "0fe7f484-731d-4c68-935a-d4a51675ae8a",
+            "name": "Adam Hurwitz"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "156221",
+        "title": "A Day in the Life of a Mobile Malware Reverse Engineer",
+        "description": "Android applications are a powerful vehicle to deliver content and new experiences to the users of mobile devices. Unfortunately, bad actors can also use this type of applications to steal information, user credentials and commit fraud.\r\n\r\nThis talk will describe how the members of the Android malware research team identify malicious applications on a daily basis, from detecting spyware to finding and responding to phishing campaigns. We will introduce some of the most severe malware categories, static and dynamic analysis considerations that reverse engineers need to have in mind when studying Android apps, and common obfuscation challenges that need to be resolved in order to produce evidence that an app's behavior is affecting users and violating Google application safety policies.",
+        "startsAt": "2019-11-26T10:10:00",
+        "endsAt": "2019-11-26T10:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "b5a2a74f-86b8-403c-b97f-7cb2ca16337c",
+            "name": "Salvador Mandujano"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "147468",
+        "title": "Intro to app modularization",
+        "description": "In this session, I will go over a meaningful introduction of what the current state of Modularization on Android is.\r\n\r\nCovering the following topics:\r\nWhat is modularization?\r\nWhy should I modularize my app?\r\nWhen should I modularize my app?\r\nHow to modularize? (different approaches + advantages & disadvantages of each one).\r\nOverall modules overview (app, feature modules, shared modules, base modules).\r\nTypes of modules in Android (application, android library, kotlin library & dynamic features).\r\nLoading & Unloading Modules during your day to day development.\r\nReducing build time further with a Test launcher app module (to only launch your feature and the modules that depend on it).\r\nAvoiding a single base module.\r\nGradle dependency management with multiple build.gradle files.",
+        "startsAt": "2019-11-26T10:10:00",
+        "endsAt": "2019-11-26T10:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "9716808b-53fa-4c0e-ae11-02725a7653c6",
+            "name": "Mario Sanoguera"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "147590",
+        "title": "Next generation Android UI with Jetpack Compose",
+        "description": "Android Widgets have been in existence since the very first version of Android. Since Android 1.0 and now, mobile UI paradigms and application needs have changed dramatically. There have been great solutions that leverage the existing UI widgets and improve them, such as Jetpack (Support Libraries) for backwards compatible support and Data Binding for bringing state and UI closer together. Though they served us well, the new Kotlin-first approach by Google allow us to imagine what a modern UI framework would look like. Idiomatic, Kotlin-first, with retro-compatibility from the get go and support for live-previews, Jetpack Compose is Google's new experimental way of tackling Android's UI, built from the ground up without any dependence on pre-existing Android Widgets. This talk will offer a hand-on approach on building a material looking application with Jetpack Compose, by using its existing components.",
+        "startsAt": "2019-11-26T10:10:00",
+        "endsAt": "2019-11-26T10:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "2cd6dc19-2854-411d-9caa-cb35f9eed802",
+            "name": "Pedro Veloso"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "135337",
+        "title": "Working With Alternative Build Systems",
+        "description": "As a mobile codebase grows, there are new types of challenges developers must tackle. One of the common challenges is the scalability of build systems like Gradle. Uber, Google & Facebook use Buck and Bazel to work with large codebases. In this talk you will learn how these alternative build systems impact both the developer experience and the performance of builds. You will also learn if, when and how you should switch to them for your own codebase.",
+        "startsAt": "2019-11-26T10:10:00",
+        "endsAt": "2019-11-26T10:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "355899b3-60c9-43ec-9b86-514d5ae81cb3",
+            "name": "Kurt Nelson"
+          },
+          {
+            "id": "833790eb-c1a5-47f9-ab5d-576e30943b62",
+            "name": "Gautam Korlam"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149417",
+        "title": "Advanced & Practical MotionLayout",
+        "description": "ConstraintLayout 2.0 has been steadily releasing new features that give Android developers far better animation tools than we've ever had before. In 2019 we can no longer avoid designing and developing applications that have beautiful motion, that should be a standard experience that users expect.\r\n\r\nWe will cover how to practically use MotionLayout to deliver on complex design asks. This will cover reusing Constraints between multiple Transitions, how to apply multiple effects at different points in a Transition, switching between Transitions programmatically or automatically, how to link the progress of MotionLayout to other widgets, and especially how complex interactions with a RecyclerView can be straightforward.\r\n\r\nWhether you're a senior UI developer who knows the intricacies of Animators or someone who has shied away from animation on Android, this talk should give you working knowledge of how MotionLayout can make a difference in your app and team.",
+        "startsAt": "2019-11-26T10:55:00",
+        "endsAt": "2019-11-26T11:35:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "96e519b2-b0e1-4232-a71c-21bf3145cb13",
+            "name": "Jason Pearson"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149414",
+        "title": "Conscious Leadership in Engineering",
+        "description": "Conscious Leadership is a popular framework for growing in self-awareness, used by companies like Coinbase, Asana, Front and many others. The framework challenges our facts vs stories and how to wrestle with our own emotions before talking directly with others. In this session I'll talk through conflicts with other engineers, in particular stepping into the \"Drama Triangle\" about an engineer who implemented Fragments into the Android codebase without a design doc. \r\n\r\nThe facts are: This large architecture change has reduced our crash-free rate and delayed multiple dependent projects. A pull request was open for 1 month without a description or written out plan for implementation. The engineer said there would be no dependencies or blockers for my team. \r\n\r\nThe stories running in my head are much more extreme: This engineer doesn't care about bringing the rest of the team along in the change. This engineer doesn't know how to make big architecture changes effectively. This engineer doesn't value my input in his architecture. This engineer doesn't care that his project is delaying mine.\r\n\r\nIn this workshop, we will work through separately our facts from stories and using the tools of this framework to understand our own context before we deal with content. This will be a very interactive workshop where we will work with participants real problems in a group settings.\r\n\r\nSimilar to reading or listening to a talk about yoga, Conscious Leadership is a hands-on practice. It requires some openness and vulnerability to work through tough issues so come with an open mind and questions!",
+        "startsAt": "2019-11-26T10:55:00",
+        "endsAt": "2019-11-26T11:35:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "3276e5fe-f020-4ee8-af54-a54d96a4f969",
+            "name": "Amy Yin"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "143437",
+        "title": "Machine Learning on Android Demystified",
+        "description": "Ever wondered what it takes to implement machine learning in your app? Look no further! In this talk I will suggest different ways to approach this. I am going to compare cloud-based services with local (on-device) machine learning, focusing mostly on the latter. On-device predictions are happening strictly on a mobile device, giving us the benefit of keeping the user’s data private and not depending on the network connection. Features like Google Lens Suggestions, Call Screening, Live Caption are all leveraging on-device ML. However, the ML models should be prepared and optimized for efficiency and performance on mobile – I’m going to talk about that as well. \r\nFor actual implementation, we will look into how to use TensorFlow Lite SDK for pose estimation as an example. Then we will move on to Firebase MLKit Base APIs and using custom models with MLKit. Code examples will be in Kotlin. \r\nAfter attending this talk you will understand the capabilities and limitations of each of these frameworks. You will have a good idea of where to start, what is necessary to implement your ML  idea  in your app, and what are the potential issues to be aware of.",
+        "startsAt": "2019-11-26T10:55:00",
+        "endsAt": "2019-11-26T11:35:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "83baf5d7-31ed-4621-ad77-be79699a86fb",
+            "name": "Tatyana Casino"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "140837",
+        "title": "UI Testing at Pinterest",
+        "description": "At Pinterest, UI testing is a core process of ensuring our Android app does not have any problems.  We have a substantial UI testing suite that we run at scale on every commit.  We will share our real-world experience on how we maintain the often challenging infrastructure of UI testing and the tools we've built to allow our developers to move faster.",
+        "startsAt": "2019-11-26T10:55:00",
+        "endsAt": "2019-11-26T11:35:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "0fa4903a-c1e8-4147-b9d1-668ec508269f",
+            "name": "Ryan Cooke"
+          },
+          {
+            "id": "64d73dd3-fae4-4911-84d7-3bb4b06eadc0",
+            "name": "Freddy Montano"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "150676",
+        "title": "Consistent Design w/ Custom Lint Checks",
+        "description": "Android Lint is an extremely useful tool that scans your app for hundreds of potential bugs and common issues. But Lint can do much more for advanced users. In this talk I'll show how we use custom lint checks at Lyft to promote best practices and encourage consistent design across our apps, and will also show you how to write them from scratch.",
+        "startsAt": "2019-11-26T11:50:00",
+        "endsAt": "2019-11-26T12:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "c103302b-07e5-44df-8af5-619f87e624df",
+            "name": "Alex Lockwood"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149424",
+        "title": "Level up your extension game",
+        "description": "In this talk I'll go over some good and bad practices about using extensions in Kotlin, as well as use cases for the Kotlin's standard and Android KTX extension functions. ",
+        "startsAt": "2019-11-26T11:50:00",
+        "endsAt": "2019-11-26T12:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "72c63733-5d76-4159-bdb3-969aea5c1147",
+            "name": "Aida Issayeva"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "157793",
+        "title": "Linux & Android Development on Chrome OS",
+        "description": "Chromebooks can run Android apps, but they can also be used to develop them! This short talk takes a look at the current state of Linux on Chrome OS and how you can use your device for development.",
+        "startsAt": "2019-11-26T11:50:00",
+        "endsAt": "2019-11-26T12:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "68c0d8c6-e087-4885-b18c-491dae05a331",
+            "name": "Emilie Roberts"
+          },
+          {
+            "id": "47a10350-1c3a-49ff-ba15-86f9f8073689",
+            "name": "Adriana Jara"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "150315",
+        "title": "Powering Modularization at Airbnb: Plugin Architecture",
+        "description": "At Airbnb we prize modularization for helping us to drive code ownership and decrease build times. Unfortunately, these benefits also bring increased complexity and boilerplate. Our Plugin architecture which, using an annotation processor and Dagger's multibindings, allows us to reduce those costs and capture some additional benefits. Some of these are: a single source of truth for a plugin/plugin point; abstracting away Dagger gotchas; adding our own compile-time enforcements; and getting some additional value out of the IDE (eg find usages for all plugins contributing to a plugin point).\r\n\r\nWe introduced the architecture in our 2018 vision and implemented it this year, 2019. This talk will go over the benefits, listed above, and how the tooling works.",
+        "startsAt": "2019-11-26T11:50:00",
+        "endsAt": "2019-11-26T12:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "cd9754fb-82d5-4c3f-b6e9-39803aba7ee1",
+            "name": "Adell Hanson-Kahn"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149053",
+        "title": "Box Enterprise Security",
+        "description": "An introductory talk about implementing an enterprise grade Android application. We will explain how we built a secure and scalable Android Enterprise and third party MDM (Mobile Device Management) integrations. We will cover different Google tools we use along with our server side access management.",
+        "startsAt": "2019-11-26T13:20:00",
+        "endsAt": "2019-11-26T14:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "bdef99f9-efd0-4ebe-8654-119cc19bf261",
+            "name": "Nyjal Augustine"
+          },
+          {
+            "id": "1f2cf738-d2c1-42ed-bd2d-76bbfd120be6",
+            "name": "Sudeep Bhowmick"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "147800",
+        "title": "Dagger 2, 2 Years Later",
+        "description": "A few years ago, we started using Dagger 2 in our applications. We saw some quick wins and were able to do some neat things like mock mode for testing and better support our white-labelling process. However, as time went on, several members of our team developed an aversion to working on the Dagger code, and I must admit that even I occasionally found it frustrating to work with.\r\n\r\nI want to say a little about why folks were frustrated and how I think we might have avoided that frustration. I still think using Dagger is a good idea, but there are some things I might have differently in how we adopted Dagger if we were starting today.\r\n\r\nThis talk expands on a blog post I wrote (featured in Android Weekly): https://www.philosophicalhacker.com/post/dagger-2-years-later/",
+        "startsAt": "2019-11-26T13:20:00",
+        "endsAt": "2019-11-26T14:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "11c0b0ef-1efc-46cb-b1fe-f76d970676da",
+            "name": "Matt Dupree"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "141660",
+        "title": "E2E2U: Slack’s journey to developer-driven end-to-end testing",
+        "description": "Two years ago we presented on an approach that makes authoring reliable Android UI tests easier. To date, Slack android developers have written 637 UI tests and all of them run as part of a merge-blocking (and, most importantly, reliable) pull-request check. Having conquered this level, we set our sights on the top of our test pyramid - automated e2e tests. This test suite was still being maintained by a single hero developer, who, through sheer grit and determination, didn’t let this important part of our release process die. Armed with experience in functional UI testing, we embarked on an adventure to make our end-to-end test suite a shared responsibility of the entire team. Our journey has taken us through the fields of dagger, the bog of espresso IdlingResources, the inferno of proguard and, perhaps the most challenging of them all, cultural aspects of quality assurance. We look forward to sharing where we are in our never-ending testing story.",
+        "startsAt": "2019-11-26T13:20:00",
+        "endsAt": "2019-11-26T14:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "ca887d91-53e4-4d13-8e94-fbd235e958e0",
+            "name": "Valera Zakharov"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "142214",
+        "title": "From Pandora's Box to a Bento Box: Using the Bento framework to upgrade legacy apps",
+        "description": "At Yelp we have used Bento to progressively modularize our UI, transitioning from a Pandora's box of nested adapters, ListViews and minimal test coverage to a Bento box of modular UI components that can be reused across screens, extensive unit and integration test coverage, clear component ownership, and even RecyclerViews! We did this all without having to rethink our entire application architecture and with minimal compile-time overhead.\r\n\r\nIn this talk you'll learn how Bento works and how it can be incorporated into an existing app to make feature development easier for you and your team.",
+        "startsAt": "2019-11-26T13:20:00",
+        "endsAt": "2019-11-26T14:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "9d0728e1-2102-4329-bfd4-43df2018cc75",
+            "name": "Tyler Argo"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148763",
+        "title": "Attributed Everything: Ensuring quality for large apps",
+        "description": "Engineers from Snapchat’s module infrastructure team will talk about various strategies that Snapchat uses to ensure quality for its new Android application, which has hundreds of active contributors across dozens of individual teams. The talk will show how proper attribution of application resources (from CPU & app size to frame rate) can be an effective tool for monitoring app performance and preventing regressions.",
+        "startsAt": "2019-11-26T14:10:00",
+        "endsAt": "2019-11-26T14:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "247ff7fe-eae2-469d-ba47-b8bdc100defd",
+            "name": "Anton Lopyrev"
+          },
+          {
+            "id": "1b22bbf7-f70f-4598-af3e-37cbc5210d43",
+            "name": "Youming Li"
+          },
+          {
+            "id": "175163cc-3612-47ba-84e0-d662b3e7de91",
+            "name": "Ben Romano"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148787",
+        "title": "Going With the Flow -- Using Coroutines 1.3.x",
+        "description": "Let’s talk reactive coroutines.  The coroutines 1.3.0 release graduated Flow to stable, and introduced breaking changes to the Channel api.\r\n\r\nWhen do we use Channels, and when do we use Flows?  How do we maintain structured concurrency in our code, and how do we test it?  Do we need to re-write our apps into MVFlow?\r\n\r\nIn this talk, we’ll evaluate the options for reactive programming with coroutines.  We’ll go over Android-specific problems and how to fit their solutions into any existing architecture.",
+        "startsAt": "2019-11-26T14:10:00",
+        "endsAt": "2019-11-26T14:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "8e84df8b-57d6-4ca3-8bb6-bf6a5cb2f04c",
+            "name": "Rick Busarow"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "147411",
+        "title": "Implementing a Design System",
+        "description": "Design systems can help teams move fast and create coherent products. On paper they are productivity nirvana. In practice they are hard to get right. The efficiency of reusing resources and setting thoughtful constraints often clashes with creative requirements.\r\n\r\nIn this talk we’ll explore how Airbnb’s Design Language System (DLS) is implemented on Android. We'll take a look at component libraries, scaling, testing, and internal tools that Airbnb's Android engineers use every day.",
+        "startsAt": "2019-11-26T14:10:00",
+        "endsAt": "2019-11-26T14:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "338c2bc5-ff3c-4fe0-8dbc-eed7b7ea7187",
+            "name": "Nathanael Silverman"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "143357",
+        "title": "The (not so) hidden cost of sharing code between iOS and Android",
+        "description": "Until very recently, Dropbox had a technical strategy on mobile of sharing code between iOS and Android via C++. The idea behind this strategy was simple—write the code once in C++ instead of twice in Java and Objective C (Swift and Kotlin weren't around yet when we adopted this strategy).\r\n\r\nWe have now backed off from this strategy in favor of using each platforms’ native languages. This decision was due to the (not so) hidden cost associated with code sharing. \r\n\r\nCome with me on a journey of how dropbox set about to share code via C++. What went well, what went wrong, what are the main lessons we learned and what this means for how we write code going forward.\r\n\r\nBased on https://blogs.dropbox.com/tech/2019/08/the-not-so-hidden-cost-of-sharing-code-between-ios-and-android.",
+        "startsAt": "2019-11-26T14:10:00",
+        "endsAt": "2019-11-26T14:50:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "cc70b21e-3036-42d3-aa85-cf7499f439f9",
+            "name": "Eyal Guthmann"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148839",
+        "title": "Android Canvas: Building one of the worlds largest Interactive Data Visualization experiences",
+        "description": "Have you wondered what would it be like to translate a traditional Android app experience to an 80-inch touch surface? In the process of making my data visualization tool VizInteract to work with large displays, I managed to find great insights and answers to the former question. Due to the need for vanilla AOSP to send a video stream and read sequential multi-touch events, a traditional Android Tablet with HDMI display out cannot serve the purpose. To solve this problem, we decided to use the Android-x86 project and an external Infrared touch screen overlay to run Oreo on a large display and support 12 touch points. \r\n\r\nIn this talk, I will share how I modified the Android-x86 kernel to add driver support for an IR touch overlay. I will share my learnings from building multi-touch experiences on unnaturally large surfaces and how that poses interesting challenges, especially for a data visualization tool. Most notably, what are the key changes in the UX of affording dragging, rotation, pinch to zoom and scale gestures on an 80-inch tablet vs a regular android tablet. Finally, I will explore the constraints of working with Canvas API and a large amount of numerical data processing. ",
+        "startsAt": "2019-11-26T15:00:00",
+        "endsAt": "2019-11-26T15:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "ce43dd73-98b2-4585-9daf-abf966eed216",
+            "name": "Supratim Chakraborty"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "149072",
+        "title": "Killing XML with Contour",
+        "description": "XML is this weird thing that was invented over 20 years ago as an early web solution for encoding data. It is now 2019 and we are still building apps using this archaic format! How did we get here? Why are we still doing this? And why should we change now? In this session I will cover the benefits of abandoning  XML defined UIs, and how Contour - a recently open-sourced Cash App library - is a good alternative.\r\n",
+        "startsAt": "2019-11-26T15:00:00",
+        "endsAt": "2019-11-26T15:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "1576afba-9c81-4358-bd2a-e2009bcf1e28",
+            "name": "Adam Erb"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "143445",
+        "title": "Navigating Android like a Pro",
+        "description": "Ever since Google introduced Jetpack Navigation, there has been mixed reception on how to get it to work on the project we have or the projects we start. Navigation library had a lot of changes in recent times and it is almost stable and caters to most of our needs.\r\n\r\nIn this talk, you would learn how to get it working for your apps from someone who tried it when it was first introduced and reverted back. You will learn what new features are introduced in the Navigation 2.1 alpha and how to use them effectively in your apps. You will also learn about designing a single activity app and how to use Nested graphs. \r\n\r\nOn the whole, when you leave the session, you will start loving fragments again and be ready to navigate your app like a Pro!",
+        "startsAt": "2019-11-26T15:00:00",
+        "endsAt": "2019-11-26T15:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "f40903e1-4bdb-431c-b691-f9b033c39f2b",
+            "name": "Vivek Chanddru"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "147876",
+        "title": "Powering Worldwide Learning with Kotlin Multiplatform",
+        "description": "Learn how Quizlet uses Kotlin Multiplatform to build iOS, Android, and web learning experiences for over 50 million users per month.\r\n\r\nBy pinpointing the best areas of our codebase to share (and skipping over many others), Quizlet was able to use Kotlin Multiplatform to share the “secret sauce” of our product. We did this without forcing our Android, iOS, and Web clients to follow a rigid, predetermined architecture.\r\n\r\nYou'll hear Quizlet's journey getting Kotlin Multiplatform into production, how it compares to other approaches of sharing code, and (most importantly) lessons about shared code that we learned along the way.",
+        "startsAt": "2019-11-26T15:00:00",
+        "endsAt": "2019-11-26T15:40:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "7f6de3eb-58b3-4d24-ac60-79adecf877ca",
+            "name": "Ankush Gupta"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148428",
+        "title": "Adding Flutter to your Android app",
+        "description": "Flutter is a UI toolkit for building beautiful and performant apps across multiple platforms. While many independent app developers have chosen to rewrite their apps with Flutter, for most companies and developers, an app rewrite is logistically impossible. Most apps need to integrate Flutter piece by piece. This talk shows you how to add Flutter to your existing Android app. In addition to outlining the high-level options for adding Flutter to your Android app, this talk also pulls back the curtain on the technical details to show you exactly how Flutter integrates with Android. You will leave this talk empowered to make important technical decisions about where, when, and how your team integrates Flutter with your existing Android app.",
+        "startsAt": "2019-11-26T15:50:00",
+        "endsAt": "2019-11-26T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "f5e746cc-590a-41ef-b972-4b2b8ee3646f",
+            "name": "Matt Carroll"
+          }
+        ],
+        "categories": [],
+        "roomId": 9742,
+        "room": "Fisher West"
+      },
+      {
+        "questionAnswers": [],
+        "id": "140548",
+        "title": "Android Internals",
+        "description": "The topics I would be covering are Android bootup process ,an overview of zygote , systemserver and how package manager works . I will also discuss about how an application is started when you click on the application icon on your home screen. This talk will be extremely helpful to foster understanding among new android developers about Android Internals as well as everybody else who desires a general understanding of the internal working of Android powered devices.",
+        "startsAt": "2019-11-26T15:50:00",
+        "endsAt": "2019-11-26T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "e856182e-fafa-4ed5-95c4-ae3736cda8f6",
+            "name": "Rajesh Khetan"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "156217",
+        "title": "MUwS, PHA, vulnerabilities: A walk through on what not to do",
+        "description": "Mobile unwanted software, potentially harmful applications, and vulnerabilities are three important threats that may impact the security and privacy of Android users if applications are not properly designed and implemented. As an Android developer, it is important to understand the practical risks that buggy code, untrusted SDKs and limited disclosure to users represent in order to anticipate and prevent incidents with their apps.\r\n\r\nThis session by the Google Play Protect reverse engineering team will analyze specific examples of application behaviors and code issues that may cause problems to users and developers in the three areas above, from data collection and dynamic code loading, to the abuse of SMS functionality to commit fraud. The audience will learn  how to prevent their Google Play or off-market application from being flagged as malicious by Google Play Protect, and how to make design choices that enhance the privacy of the user and the security of the data the application handles. ",
+        "startsAt": "2019-11-26T15:50:00",
+        "endsAt": "2019-11-26T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "b5a2a74f-86b8-403c-b97f-7cb2ca16337c",
+            "name": "Salvador Mandujano"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "140557",
+        "title": "Playing Videos on Android? ExoPlayer2 at your service!",
+        "description": "Playing videos might be easy at first but this can get very tricky when you have to support multiple video/audio formats or offline medias. But no worries ExoPlayer2 is there for you!\r\n\r\nThis session will cover the basics of the ExoPlayer such as how to play a video thanks to the library and its core features. We'll go through its architecture, how to set it up and what video format ExoPlayer supports from classic MP4 to adaptive streams like HLS or DASH with protected content. A large overview of its capabilities will be done through this talk.\r\n\r\nThen we will have a look at some interesting extensions and features such as the download manager or the ffmpeg extension for more audio formats support, building playlists or even managing you own DataSource for playing content on SMB servers.",
+        "startsAt": "2019-11-26T15:50:00",
+        "endsAt": "2019-11-26T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "462e6b97-01f9-44b1-864c-9d85bedf911b",
+            "name": "Julien Salvi"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "154601",
+        "title": "Get your app to work at work",
+        "description": "Delivering the best experience for Android apps running in the enterprise",
+        "startsAt": "2019-11-26T16:40:00",
+        "endsAt": "2019-11-26T17:00:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "ee6314f7-2b34-4dc0-a666-8e61d41b8395",
+            "name": "Aser Samak"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "158329",
+        "title": "Leveling Up",
+        "description": "A panel on Android leadership.",
+        "startsAt": "2019-11-26T16:40:00",
+        "endsAt": "2019-11-26T18:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "5083ea78-4bf8-4f97-b4db-70920378930e",
+            "name": "Sha Sha Chu"
+          },
+          {
+            "id": "7a682388-8ea8-45e6-b869-17275d21102e",
+            "name": "Lien Mamitsuka"
+          },
+          {
+            "id": "6a3de662-ef86-4c62-bb68-2f7ebe607f76",
+            "name": "Ty Smith"
+          },
+          {
+            "id": "152f613f-841b-407d-9a65-3703ec2dfae2",
+            "name": "Romain Guy"
+          },
+          {
+            "id": "da0d0b74-71cf-4ac6-941b-94626dd92bf0",
+            "name": "Joaquim Verges"
+          },
+          {
+            "id": "5d93a033-2cbe-4286-acc8-1b928e616210",
+            "name": "Gabriel Peal"
+          }
+        ],
+        "categories": [],
+        "roomId": 9739,
+        "room": "Robertson A"
+      },
+      {
+        "questionAnswers": [],
+        "id": "147723",
+        "title": "Magic of ADB",
+        "description": "Android Debug Bridge is a powerful tool that many of us use everyday but never took a closer look at. In this session I will dive deep into the internals of ADB and reveal it's true potential.",
+        "startsAt": "2019-11-26T16:40:00",
+        "endsAt": "2019-11-26T17:20:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "372bc1b0-d760-4a40-b752-1ff4e0403ed0",
+            "name": "Wojciech Sadurski"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      },
+      {
+        "questionAnswers": [],
+        "id": "139294",
+        "title": "Native, React Native, Flutter and More",
+        "description": "How does each solution stack up and which should you use? We will talk the highs and lows of each solution.",
+        "startsAt": "2019-11-26T17:00:00",
+        "endsAt": "2019-11-26T17:20:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "7798f4a9-116e-4c5c-a6e6-28a1f091ecff",
+            "name": "Barlow Tucker"
+          }
+        ],
+        "categories": [],
+        "roomId": 9741,
+        "room": "Fisher East"
+      },
+      {
+        "questionAnswers": [],
+        "id": "148618",
+        "title": "Performance by Construction",
+        "description": "For several years WhatsApp has been one of the most popular Android apps in the world and a lot of this success stems from how performant and reliable it has been, especially in older phones.\r\nThis session describes the philosophy of \"Performance by Construction\" and our efforts to keep the application and codebase simple, small and reliable. We'll discuss choices and tradeoffs that we've made at the architectural level to prevent regressions, ways that we found to optimize efficiency and make our apps work at the scale of billions of active users.",
+        "startsAt": "2019-11-26T17:30:00",
+        "endsAt": "2019-11-26T18:10:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "b17a4977-8420-48b8-94f4-339618441a62",
+            "name": "Miguel Azevedo"
+          }
+        ],
+        "categories": [],
+        "roomId": 9740,
+        "room": "Robertson B"
+      }
+    ]
   }
 ]

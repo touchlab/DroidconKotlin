@@ -22,14 +22,14 @@ def releasePassword = properties.getProperty('releasePassword', '')
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "co.touchlab.droidcon.lisbon2019"
-        buildConfigField "String", "TIME_ZONE", "\"Europe/Lisbon\""
+        applicationId "co.touchlab.droidconsf2018"
+        buildConfigField "String", "TIME_ZONE", "\"America/Los_Angeles\""
         buildConfigField "boolean", "FIREBASE_ENABLED", "${firebaseEnabled}"
 
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 10003
-        versionName "1.0.3"
+        versionCode 20000
+        versionName "2.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }

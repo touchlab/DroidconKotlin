@@ -22,9 +22,9 @@ class MainApp : Application() {
         })
 
         ServiceRegistry.initServiceRegistry(
-                AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb"),
+                AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb2"),
                 Dispatchers.Main,
-                AndroidSettings.Factory(this).create("DROIDCON_SETTINGS"),
+                AndroidSettings.Factory(this).create("DROIDCON_SETTINGS2"),
                 MainConcurrent,
                 SessionizeApiImpl,
                 AnalyticsApiImpl(FirebaseAnalytics.getInstance(this)),

@@ -58,6 +58,7 @@
 		63A76ACF2129E93F0000515D /* SponsorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76ACE2129E93F0000515D /* SponsorViewController.swift */; };
 		63A76AD12129EFE30000515D /* SponsorGroupCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */; };
 		63CF388E218E165000BA0367 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CF388D218E165000BA0367 /* UI.swift */; };
+		63D6A29F238479BF00CE0DDC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63D6A29E238479BF00CE0DDC /* GoogleService-Info.plist */; };
 		67F253A5CA38DBB56818EE41 /* TestConcurrent.kt in Sources */ = {isa = PBXBuildFile; fileRef = 74194C8ABF96DA5A197F9966 /* TestConcurrent.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		692293BD85E332482FDBC4E9 /* ScheduleFormats.kt in Sources */ = {isa = PBXBuildFile; fileRef = 43CFCECCACAE038D1BCCC4AC /* ScheduleFormats.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
 		71FCC78DC8DA714D63FE18FB /* Coroutines.kt in Sources */ = {isa = PBXBuildFile; fileRef = F3268F03C19C8685393B8DDA /* Coroutines.kt */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -185,6 +186,7 @@
 		63A76ACE2129E93F0000515D /* SponsorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorViewController.swift; sourceTree = "<group>"; };
 		63A76AD02129EFE30000515D /* SponsorGroupCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorGroupCollectionReusableView.swift; sourceTree = "<group>"; };
 		63CF388D218E165000BA0367 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
+		63D6A29E238479BF00CE0DDC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63D6ABAE137FD46D37C5E0BC /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/androidMain/kotlin/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		64FEE71709E0EFB6E2135781 /* DateHelpers.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DateHelpers.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/platform/DateHelpers.kt; sourceTree = "<group>"; };
 		6606AA52E5A814F0F286D046 /* Extensions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Extensions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/Extensions.kt; sourceTree = "<group>"; };
@@ -590,6 +592,7 @@
 		6356313920DC58F600BCCDF9 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				63D6A29E238479BF00CE0DDC /* GoogleService-Info.plist */,
 				F147CF11228F1A77009F04E5 /* iosApp.entitlements */,
 				F15E05B92260F4EE0057C7D8 /* baseline_sentiment_satisfied_alt_black_48dp.png */,
 				F15E05B72260F4EE0057C7D8 /* baseline_sentiment_satisfied_black_48dp.png */,
@@ -1179,6 +1182,7 @@
 				63711D3C211143390099FF25 /* about.json in Resources */,
 				6372423C20F973370049263B /* Main.storyboard in Resources */,
 				6372423720F914D60049263B /* speakers.json in Resources */,
+				63D6A29F238479BF00CE0DDC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1523,6 +1527,7 @@
 				CODE_SIGN_ENTITLEMENTS = iosApp/iosApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 30404;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
@@ -1534,8 +1539,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.4.4;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.lisbon2019;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.sf2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -1552,6 +1558,7 @@
 				CODE_SIGN_ENTITLEMENTS = iosApp/iosApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 30404;
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1562,8 +1569,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.4.4;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.lisbon2019;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.sf2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
