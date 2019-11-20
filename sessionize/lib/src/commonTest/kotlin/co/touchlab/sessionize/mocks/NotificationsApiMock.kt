@@ -26,7 +26,6 @@ class NotificationsApiMock : NotificationsApi {
         feedbackCancelled = true
     }
 
-
     override suspend fun initializeNotifications(onSuccess: suspend (Boolean) -> Unit) {
         initializeCalled = true
         onSuccess(true)

@@ -22,10 +22,6 @@ actual fun currentTimeMillis(): Long = (NSDate().timeIntervalSince1970 * 1000).t
 internal actual val mainThread: Boolean
     get() = NSThread.isMainThread
 
-actual fun logException(t: Throwable) {
-    t.printStackTrace()
-}
-
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
 

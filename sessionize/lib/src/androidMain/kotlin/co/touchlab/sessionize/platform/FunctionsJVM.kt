@@ -64,10 +64,6 @@ object AndroidAppContext {
 
 }
 
-actual fun logException(t: Throwable) {
-    t.printStackTrace()
-}
-
 actual fun createUuid(): String = UUID.randomUUID().toString()
 actual fun printThrowable(t: Throwable) {
     t.printStackTrace()

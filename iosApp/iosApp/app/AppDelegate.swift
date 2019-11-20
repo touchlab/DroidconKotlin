@@ -33,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let timeZone = Bundle.main.object(forInfoDictionaryKey: "TimeZone") as! String
         serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
-                                                coroutineDispatcher: UI(),
                                                 settings: FunctionsKt.defaultSettings(),
                                                 sessionizeApi: SessionizeApiImpl(),
                                                 analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),

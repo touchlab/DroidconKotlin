@@ -10,6 +10,7 @@ import co.touchlab.stately.freeze
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlin.reflect.KProperty
 
 object ServiceRegistry {
@@ -28,12 +29,11 @@ object ServiceRegistry {
     var softExceptionCallback: ((e:Throwable, message:String) ->Unit) by FrozenDelegate()
 
     fun initServiceRegistry(sqlDriver: SqlDriver,
-                            coroutineDispatcher: CoroutineDispatcher,
                             settings: Settings,
                             sessionizeApi: SessionizeApi, analyticsApi: AnalyticsApi,
                             notificationsApi: NotificationsApi, timeZone: String) {
         ServiceRegistry.dbDriver = sqlDriver
-        ServiceRegistry.coroutinesDispatcher = coroutineDispatcher
+        ServiceRegistry.coroutinesDispatcher = Dispatchers.Main
         ServiceRegistry.backgroundDispatcher = backgroundDispatcher()
         ServiceRegistry.appSettings = settings
         ServiceRegistry.sessionizeApi = sessionizeApi

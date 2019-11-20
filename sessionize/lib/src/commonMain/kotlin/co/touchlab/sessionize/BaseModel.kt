@@ -1,13 +1,13 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.printThrowable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
 open class BaseModel(
-        private val mainContext: CoroutineContext
+        mainContext: CoroutineContext
 ) {
     internal val mainScope = MainScope(mainContext)
 
@@ -26,6 +26,6 @@ internal class MainScope(private val mainContext: CoroutineContext): CoroutineSc
     }
 
     fun showError(t: Throwable) {
-        logException(t)
+        printThrowable(t)
     }
 }

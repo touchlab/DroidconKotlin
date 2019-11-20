@@ -5,8 +5,8 @@ import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.file.FileRepo
 import co.touchlab.sessionize.platform.NotificationsModel
-import co.touchlab.sessionize.platform.logException
 import co.touchlab.sessionize.platform.backgroundDispatcher
+import co.touchlab.sessionize.platform.printThrowable
 import kotlinx.serialization.json.Json
 import kotlinx.coroutines.*
 
@@ -42,7 +42,7 @@ object AppContext {
                 updateFirstRun(serviceRegistry)
             }
         } catch (e: Exception) {
-            logException(e)
+            printThrowable(e)
         }
     }
 

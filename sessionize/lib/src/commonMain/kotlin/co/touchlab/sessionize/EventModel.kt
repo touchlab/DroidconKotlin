@@ -9,7 +9,7 @@ import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.NotificationsModel
 import co.touchlab.sessionize.platform.currentTimeMillis
-import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.printThrowable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.max
@@ -75,7 +75,7 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             }
             ServiceRegistry.analyticsApi.logEvent("RSVP_EVENT", params)
         } catch (e: Exception) {
-            logException(e)
+            printThrowable(e)
         }
     }
 }

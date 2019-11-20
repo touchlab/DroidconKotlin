@@ -1,36 +1,35 @@
 package co.touchlab.sessionize
 
 import co.touchlab.sessionize.api.NotificationsApi
-import co.touchlab.sessionize.platform.INotificationsModel
+import co.touchlab.sessionize.platform.NotificationsModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class SettingsModel(
-        private val notificationsModel: INotificationsModel,
         private val notificationsApi: NotificationsApi,
         coroutineDispatcher: CoroutineDispatcher) : BaseModel(coroutineDispatcher) {
 
     fun setRemindersSettingEnabled(enabled:Boolean) = mainScope.launch {
-        notificationsModel.setRemindersEnabled(enabled)
+        NotificationsModel.remindersEnabled = enabled
 
-        if (enabled && !notificationsModel.notificationsEnabled()) {
+        if (enabled && !NotificationsModel.notificationsEnabled) {
             notificationsApi.initializeNotifications {
-                notificationsModel.recreateReminderNotifications()
+                NotificationsModel.recreateReminderNotifications()
             }
         }else{
-            notificationsModel.recreateReminderNotifications()
+            NotificationsModel.recreateReminderNotifications()
         }
     }
 
     fun setFeedbackSettingEnabled(enabled:Boolean) = mainScope.launch {
-        notificationsModel.setFeedbackEnabled(enabled)
+        NotificationsModel.feedbackEnabled = enabled
 
-        if (enabled && !notificationsModel.notificationsEnabled()) {
+        if (enabled && !NotificationsModel.notificationsEnabled) {
             notificationsApi.initializeNotifications {
-                notificationsModel.recreateFeedbackNotifications()
+                NotificationsModel.recreateFeedbackNotifications()
             }
         }else{
-            notificationsModel.recreateFeedbackNotifications()
+            NotificationsModel.recreateFeedbackNotifications()
         }
     }
 }

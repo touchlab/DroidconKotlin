@@ -4,7 +4,6 @@ import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.db.SessionizeDbHelper.sponsorSessionQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.jsondata.Sponsor
-import co.touchlab.sessionize.platform.logException
 import co.touchlab.sessionize.platform.printThrowable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,7 +60,7 @@ object SponsorSessionModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
             }
 
         } catch (e: Exception) {
-            logException(e)
+            printThrowable(e)
         }
     }
 

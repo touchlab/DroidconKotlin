@@ -13,19 +13,19 @@ buildscript {
 
     ext.versions = [
             'supportLibrary'       : '28.0.0',
-            'kotlin'               : '1.3.60-eap-143',
-            'kotlinCoroutines'     : '1.3.2-native-mt-SNAPSHOT',
-            'multiplatformSettings': '0.4',
-            'sqldelight'           : '1.2.0',
-            'stately'              : '0.9.4-SNAPSHOT',
-            'sqliter'              : '0.6.5-SNAPSHOT',
+            'kotlin'               : '1.3.60',
+            'kotlinCoroutines'     : '1.3.2-native-mt-1',
+            'multiplatformSettings': '0.4.1',
+            'sqldelight'           : '1.3.0-mt2-SNAPSHOT',
+            'stately'              : '0.9.4',
+            'sqliter'              : '0.6.5',
 //            'ktor'                 : '1.3.0-beta-2-SNAPSHOT',
-            'serialization'        : '0.14.0-1.3.60-eap-76',
+            'serialization'        : '0.14.0',
             'xcode'                : '0.1.5',
-            'testhelp'             : '0.2.8-SNAPSHOT',
+            'testhelp'             : '0.2.8',
             'firebase'             : '17.0.1',
             'firestoreAndroid'     : '20.2.0',
-            'firestoreKmp'         : '0.2.4-SNAPSHOT',
+            'firestoreKmp'         : '0.2.6-mt-SNAPSHOT',
             'fabric'               : '1.29.0',
             'crashlytics'          : '2.10.1'
     ]
@@ -52,11 +52,11 @@ buildscript {
             'multiplatformSettings': "com.russhwolf:multiplatform-settings:${versions.multiplatformSettings}"
             ,
             'sqldelight'           : [
-                    'runtime'      : "com.squareup.sqldelight:runtime:${versions.sqldelight}",
-                    'runtimeJdk'   : "com.squareup.sqldelight:runtime-jvm:${versions.sqldelight}",
-                    'driverIos'    : "com.squareup.sqldelight:ios-driver:${versions.sqldelight}",
-                    'driverAndroid': "com.squareup.sqldelight:android-driver:${versions.sqldelight}",
-                    'driverSqlite' : "com.squareup.sqldelight:sqlite-driver:${versions.sqldelight}",
+                    'runtime'      : "co.touchlab.sqldelight:runtime:${versions.sqldelight}",
+                    'runtimeJdk'   : "co.touchlab.sqldelight:runtime-jvm:${versions.sqldelight}",
+                    'driverIos'    : "co.touchlab.sqldelight:ios-driver:${versions.sqldelight}",
+                    'driverAndroid': "co.touchlab.sqldelight:android-driver:${versions.sqldelight}",
+                    'driverSqlite' : "co.touchlab.sqldelight:sqlite-driver:${versions.sqldelight}",
             ]
             ,
             'sqliter'              : [
@@ -93,15 +93,18 @@ buildscript {
 
 
     repositories {
-        mavenLocal()
+//        mavenLocal()
         jcenter()
         google()
         mavenCentral()
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
         gradlePluginPortal()
         maven { url "https://kotlin.bintray.com/kotlinx" }
-        maven { url "https://dl.bintray.com/icerockdev/kotlin-libs" }
+//        maven { url "https://dl.bintray.com/icerockdev/kotlin-libs" }
         maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
     }
 
     dependencies {
@@ -109,7 +112,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-serialization:${versions.kotlin}"
         classpath 'com.google.gms:google-services:4.3.0'
-        classpath "com.squareup.sqldelight:gradle-plugin:${versions.sqldelight}"
+        classpath "co.touchlab.sqldelight:gradle-plugin:${versions.sqldelight}"
         classpath "co.touchlab:kotlinxcodesync:${versions.xcode}"
         classpath "io.fabric.tools:gradle:${versions.fabric}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0-alpha06"
@@ -119,13 +122,16 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenLocal()
+//        mavenLocal()
         jcenter()
         google()
         mavenCentral()
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
         maven { url "https://kotlin.bintray.com/kotlinx" }
-        maven { url "https://dl.bintray.com/icerockdev/kotlin-libs" }
+//        maven { url "https://dl.bintray.com/icerockdev/kotlin-libs" }
         maven { url "https://dl.bintray.com/russhwolf/multiplatform-settings" }
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
     }
 }

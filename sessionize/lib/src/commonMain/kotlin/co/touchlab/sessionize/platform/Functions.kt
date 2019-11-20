@@ -19,8 +19,6 @@ internal fun assertNotMainThread() {
  */
 expect fun currentTimeMillis(): Long
 
-expect fun logException(t: Throwable)
-
 /**
  * Generates a unique string for use in tracking this user anonymously
  */

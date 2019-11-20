@@ -22,7 +22,7 @@ abstract class EventModelTest {
     @BeforeTest
     fun setup() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), sessionizeApiMock, analyticsApiMock, notificationsApiMock, timeZone)
+                TestSettings(), sessionizeApiMock, analyticsApiMock, notificationsApiMock, timeZone)
 
         ServiceRegistry.initLambdas({ filePrefix, fileType ->
             when (filePrefix) {

@@ -13,7 +13,7 @@ abstract class StaticFileLoaderTest {
 
     fun setUp() {
         ServiceRegistry.initServiceRegistry(testDbConnection(),
-                Dispatchers.Main, TestSettings(), SessionizeApiMock(), AnalyticsApiMock(), NotificationsApiMock(), "-0400")
+                TestSettings(), SessionizeApiMock(), AnalyticsApiMock(), NotificationsApiMock(), "-0400")
     }
 
     @AfterTest

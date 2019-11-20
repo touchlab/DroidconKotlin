@@ -72,7 +72,7 @@ kotlin {
                 implementation deps.serialization.commonRuntime
                 implementation deps.firebase.firestoreKmp
                 implementation deps.kotlin.coroutines.common
-                implementation "com.squareup.sqldelight:coroutines-extensions:${versions.sqldelight}"
+                implementation "co.touchlab.sqldelight:coroutines-extensions:${versions.sqldelight}"
             }
         }
 

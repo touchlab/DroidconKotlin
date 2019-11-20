@@ -13,7 +13,7 @@ import co.touchlab.sessionize.api.parseSessionsFromDays
 import co.touchlab.sessionize.jsondata.SessionSpeaker
 import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.jsondata.SponsorSessionGroup
-import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.printThrowable
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.value
 import co.touchlab.stately.freeze
@@ -72,7 +72,7 @@ object SessionizeDbHelper {
                 primeSessions(scheduleJson)
                 primeSponsorSessions(sponsorSessionJson)
             } catch (e: Exception) {
-                logException(e)
+                printThrowable(e)
                 throw e
             }
         }

@@ -33,5 +33,5 @@ private fun loadAsset(name: String) = AndroidAppContext.app.assets
         .bufferedReader()
         .use { it.readText() }
 
-@RunWith(AndroidJUnit4::class)
-class SettingsModelTestJVM : SettingsModelTest()
+//@RunWith(AndroidJUnit4::class)
+//class SettingsModelTestJVM : SettingsModelTest()

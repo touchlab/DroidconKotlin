@@ -105,18 +105,21 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
                 center.requestAuthorization(options: options) {
                     (granted, error) in
                     DispatchQueue.main.async {
-                        NotificationsModel().setNotificationsEnabled(enabled: granted)
+                        NotificationsModel().notificationsEnabled = granted
+//                        NotificationsModel().setNotificationsEnabled(enabled: granted)
                         _ = onSuccess(KotlinBoolean.init(bool: granted))
                     }
                 }
             } else if settings.authorizationStatus == .denied {
                 DispatchQueue.main.async {
-                    NotificationsModel().setNotificationsEnabled(enabled: false)
+                    NotificationsModel().notificationsEnabled = false
+//                    NotificationsModel().setNotificationsEnabled(enabled: false)
                     _ = onSuccess(false)
                 }
             } else if settings.authorizationStatus == .authorized {
                 DispatchQueue.main.async {
-                    NotificationsModel().setNotificationsEnabled(enabled: true)
+                    NotificationsModel().notificationsEnabled = true
+//                    NotificationsModel().setNotificationsEnabled(enabled: true)
                     _ = onSuccess(true)
                 }
             }

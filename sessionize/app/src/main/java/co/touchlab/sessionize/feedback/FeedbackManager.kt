@@ -8,7 +8,7 @@ import co.touchlab.sessionize.FeedbackModel
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.NotificationsModel.setFeedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
 
 class FeedbackManager : FeedbackApi {
 
@@ -35,7 +35,7 @@ class FeedbackManager : FeedbackApi {
     }
 
     fun disableFeedback(){
-        setFeedbackEnabled(false)
+        feedbackEnabled = false
         LocalBroadcastManager.getInstance(AndroidAppContext.app).sendBroadcast(Intent(FeedbackDisabledNotificationName))
     }
 

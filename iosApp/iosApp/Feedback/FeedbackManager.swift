@@ -21,7 +21,7 @@ class FeedbackManager: NSObject,FeedbackApi {
     }
     
     func showFeedbackForPastSessions(){
-        if(NotificationsModel().feedbackEnabled()) {
+        if(NotificationsModel().feedbackEnabled) {
             feedbackModel.showFeedbackForPastSessions(listener: self)
         }
     }
@@ -32,7 +32,7 @@ class FeedbackManager: NSObject,FeedbackApi {
     }
     
     func disableFeedback(){
-        NotificationsModel().setFeedbackEnabled(enabled: false)
+        NotificationsModel().feedbackEnabled = false
         NotificationCenter.default.post(name: Notification.Name(FeedbackManager.FeedbackDisabledNotificationName), object: nil)
     }
     

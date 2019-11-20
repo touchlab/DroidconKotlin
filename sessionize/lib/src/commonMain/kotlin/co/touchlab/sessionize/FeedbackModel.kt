@@ -14,7 +14,7 @@ class FeedbackModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     private var feedbackListener: FeedbackApi? = null
 
     fun showFeedbackForPastSessions(listener: FeedbackApi){
-        if(feedbackEnabled()) {
+        if(feedbackEnabled) {
             feedbackListener = listener
             requestNextFeedback()
         }
@@ -29,7 +29,7 @@ class FeedbackModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     }
 
     private suspend fun loadPastSessions():List<MyPastSession>? = withContext(ServiceRegistry.backgroundDispatcher) {
-        if(feedbackEnabled()) {
+        if(feedbackEnabled) {
             SessionizeDbHelper.sessionQueries.myPastSession().executeAsList()
         } else
             null
