@@ -23,7 +23,7 @@ object SponsorsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
             error: (ex: Throwable) -> Unit
     ) {
         getFirebaseInstance()
-                .collection("sponsors-lisbon-2019")
+                .collection("sponsors-sf-2019")
                 .orderBy("displayOrder")
                 .get_()
                 .addListeners({

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="tabBackground">#FF8A65</color>
+    <color name="tabBackground">#14A1B6</color>
     <color name="textColor">#000</color>
     <color name="textColorLight">#333</color>
 
-    <color name="colorPrimary">#FF8A65</color>
-    <color name="colorPrimaryDark">#ff6c3f</color>
-    <color name="colorAccent">#6bac89</color>
+    <color name="colorPrimary">#14A1B6</color>
+    <color name="colorPrimaryDark">#0E65B1</color>
+    <color name="colorAccent">#FED050</color>
     <color name="colorMenu">@color/white</color>
     <color name="colorMenuOff">@color/white</color>
 
     <color name="white">#FFF</color>
-    <color name="gray">#C5C5C5</color>
     <color name="black">#000</color>
 
     <color name="rsvpColor">#68d1fd</color>

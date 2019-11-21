@@ -21,8 +21,8 @@ class MainApp : Application() {
         })
 
         ServiceRegistry.initServiceRegistry(
-                AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb"),
-                AndroidSettings.Factory(this).create("DROIDCON_SETTINGS"),
+                AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb2"),
+                AndroidSettings.Factory(this).create("DROIDCON_SETTINGS2"),
                 SessionizeApiImpl,
                 AnalyticsApiImpl(FirebaseAnalytics.getInstance(this)),
                 NotificationsApiImpl(),
