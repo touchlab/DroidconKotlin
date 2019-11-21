@@ -14,7 +14,7 @@ class FeedbackManager: NSObject,FeedbackApi {
     static let FeedbackDisabledNotificationName = "FeedbackDisabled"
     
     var viewController:UIViewController?
-    private var feedbackModel:FeedbackModel = FeedbackModel()
+    private lazy var feedbackModel:FeedbackModel = FeedbackModel()
     
     func setViewController(_ vc: UIViewController){
         viewController = vc
