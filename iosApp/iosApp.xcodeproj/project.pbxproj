@@ -242,6 +242,7 @@
 		C351C93850E84268E8BCF7D3 /* File.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = File.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/platform/File.kt; sourceTree = "<group>"; };
 		C65165CC132A828F7661A1C6 /* AboutModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AboutModel.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/AboutModel.kt; sourceTree = "<group>"; };
 		C9E2720346F6FDB9959CF583 /* SettingsViewModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SettingsViewModel.kt; path = ../sessionize/lib/src/iosMain/kotlin/co/touchlab/sessionize/SettingsViewModel.kt; sourceTree = "<group>"; };
+		CE55B9B82790710346B2B078 /* FlowExtensions.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = FlowExtensions.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/db/coroutines/FlowExtensions.kt; sourceTree = "<group>"; };
 		D2177D0B68563A7C91C43875 /* TestOverrides.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TestOverrides.kt; path = ../sessionize/lib/src/iosTest/kotlin/co/touchlab/sessionize/TestOverrides.kt; sourceTree = "<group>"; };
 		D60148A22FE40DCEC5392D90 /* PubSub.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PubSub.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/architecture/PubSub.kt; sourceTree = "<group>"; };
 		D7984B131DCFD847BF4475DA /* FileRepo.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FileRepo.kt; path = ../sessionize/lib/src/commonMain/kotlin/co/touchlab/sessionize/file/FileRepo.kt; sourceTree = "<group>"; };
@@ -312,6 +313,14 @@
 				122266A2E1A83E330DB01B8B /* SessionizeApiImpl.kt */,
 			);
 			name = api;
+			sourceTree = "<group>";
+		};
+		0618B448D62409DB731FA044 /* coroutines */ = {
+			isa = PBXGroup;
+			children = (
+				CE55B9B82790710346B2B078 /* FlowExtensions.kt */,
+			);
+			name = coroutines;
 			sourceTree = "<group>";
 		};
 		10DC8885163288594339F262 /* kotlin */ = {
@@ -542,6 +551,7 @@
 				929DAC879775795D2C366045 /* QueryPub.kt */,
 				7A679D718DE3E8004B90674B /* SessionizeDbHelper.kt */,
 				A931571F95BE55B5BBFE5CEB /* SponsorGroupDbItem.kt */,
+				0618B448D62409DB731FA044 /* coroutines */,
 			);
 			name = db;
 			sourceTree = "<group>";

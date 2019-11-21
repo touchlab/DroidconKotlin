@@ -50,13 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    /*func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
-        DispatchQueue.main.async {
-            block.run()
-        }
-        return KotlinUnit()
-    }*/
-
     func softExceptionCallback(e:KotlinThrowable, message:String) {
     }
     

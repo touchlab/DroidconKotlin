@@ -14,7 +14,9 @@ class SettingsModel(
 
         if (enabled && !NotificationsModel.notificationsEnabled) {
             notificationsApi.initializeNotifications {
-                NotificationsModel.recreateReminderNotifications()
+                mainScope.launch {
+                    NotificationsModel.recreateReminderNotifications()
+                }
             }
         }else{
             NotificationsModel.recreateReminderNotifications()
@@ -26,7 +28,9 @@ class SettingsModel(
 
         if (enabled && !NotificationsModel.notificationsEnabled) {
             notificationsApi.initializeNotifications {
-                NotificationsModel.recreateFeedbackNotifications()
+                mainScope.launch {
+                    NotificationsModel.recreateFeedbackNotifications()
+                }
             }
         }else{
             NotificationsModel.recreateFeedbackNotifications()

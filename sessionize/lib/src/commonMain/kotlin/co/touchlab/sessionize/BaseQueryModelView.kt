@@ -50,6 +50,7 @@ abstract class BaseQueryModelView<Q : Any, VT>(
 
     fun shutDown() {
         view = null
+        onDestroy()
     }
 
     interface View<VT> {

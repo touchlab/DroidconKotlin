@@ -22,14 +22,17 @@ object AppContext {
                        notificationsModel: NotificationsModel = NotificationsModel) {
         dbHelper.initDatabase(serviceRegistry.dbDriver)
 
-        mainScope.launch {
-            /*serviceRegistry.notificationsApi.initializeNotifications { success ->
-                if (success) {
+        serviceRegistry.notificationsApi.initializeNotifications { success ->
+            if (success) {
+                mainScope.launch {
                     notificationsModel.createNotifications()
-                } else {
-                    notificationsModel.cancelNotifications()
                 }
-            }*/
+            } else {
+                notificationsModel.cancelNotifications()
+            }
+        }
+
+        mainScope.launch {
             maybeLoadSeedData(fileRepo, serviceRegistry)
             networkRepo.refreshData()
         }

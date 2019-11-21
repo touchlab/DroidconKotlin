@@ -30,7 +30,10 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
         allEvents = self.tabBarController?.selectedIndex == 0
         
         viewModel = ScheduleViewModel(allEvents: allEvents)
-        viewModel.registerForChanges(proc: updateUi)
+        viewModel.registerForChanges { [weak self] conferenceDays in
+            guard let self = self else { return }
+            self.updateUi(conferenceDays: conferenceDays)
+        }
         
         eventList.delegate = self
         eventList.dataSource = self
@@ -99,7 +102,7 @@ class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelega
     }
     
     deinit {
-        viewModel.unregister()
+        viewModel?.unregister()
     }
     
     // MARK: Data refresh
