@@ -5,6 +5,9 @@ import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.sessionize.platform.createUuid
+import co.touchlab.sessionize.platform.networkDispatcher
+import co.touchlab.sessionize.platform.simpleGet
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.native.concurrent.ThreadLocal
@@ -17,17 +20,16 @@ object SessionizeApiImpl : SessionizeApi {
 //        install(ExpectSuccess)
 //    }
 
-
-    override suspend fun getSpeakersJson(): String {
-        TODO("Removed Ktor")
+    override suspend fun getSpeakersJson(): String = withContext(networkDispatcher()) {
+        simpleGet("https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/speakers")
     }
 
-    override suspend fun getSessionsJson(): String{
-        TODO("Removed Ktor")
+    override suspend fun getSessionsJson(): String = withContext(networkDispatcher()) {
+        simpleGet("https://sessionize.com/api/v2/$INSTANCE_ID/view/gridtable")
     }
 
-    override suspend fun getSponsorSessionJson(): String {
-        TODO("Removed Ktor")
+    override suspend fun getSponsorSessionJson(): String = withContext(networkDispatcher()) {
+        simpleGet("https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/sessions")
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = true/* = client.request<HttpResponse> {
