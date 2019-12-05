@@ -3,6 +3,21 @@
 
 [![Build Status](https://dev.azure.com/touchlabApps/DroidconApp/_apis/build/status/touchlab.DroidconKotlin?branchName=master)](https://dev.azure.com/touchlabApps/DroidconApp/_build/latest?definitionId=1&branchName=master)
 
+## Multithreaded Coroutines Sample
+
+This branch is specific to multithreaded coroutines preview. First you need to build and deploy
+the special branch of kotlinx.coroutines:
+
+```
+git clone -b native-mt https://github.com/Kotlin/kotlinx.coroutines.git
+cd kotlinx.coroutines/
+./gradlew build publishToMavenLocal
+```
+
+If that works, you should be able to build this branch.
+
+## General Info
+
 This project has a pair of native mobile applications backed by the Sessionize data api for use in 
 events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
 be forked and customized for anything run on Sessionize.
