@@ -51,13 +51,13 @@ abstract class EventModelTest {
         }
     }
 
-    @Test
+    /*@Test
     fun testFeedbackModel() = runTest {
         val fbModel = feedbackApiMock.getFeedbackModel()
         fbModel.showFeedbackForPastSessions(feedbackApiMock)
 
         assertTrue { feedbackApiMock.feedbackError != null }
-    }
+    }*/
 
     @Test
     fun testPSTTimeZoneCorrect(){

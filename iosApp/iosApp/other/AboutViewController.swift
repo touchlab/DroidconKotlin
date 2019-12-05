@@ -27,6 +27,7 @@ class AboutViewController: MaterialAppBarUIViewController, UITableViewDelegate, 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
         AboutModel().loadAboutInfo(proc: updateUi)
+         FunctionsKt.forceCrash()
     }
     
     func updateUi(aboutInfoData:[AboutInfo]) {

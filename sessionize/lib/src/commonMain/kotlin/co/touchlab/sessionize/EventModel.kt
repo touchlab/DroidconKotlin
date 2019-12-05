@@ -34,9 +34,8 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
 
     internal suspend fun toggleRsvpSuspend(event: SessionInfo) {
         val rsvp = !event.isRsvped()
-        val localSessionId = sessionId
 
-        callUpdateRsvp(rsvp, localSessionId)
+        callUpdateRsvp(rsvp, sessionId)
 
         val methodName = if (rsvp) {
             "sessionizeRsvpEvent"
@@ -47,9 +46,9 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
         NotificationsModel.recreateReminderNotifications()
         NotificationsModel.recreateFeedbackNotifications()
         if (rsvp) {
-            ServiceRegistry.sessionizeApi.recordRsvp(methodName, localSessionId)
+            ServiceRegistry.sessionizeApi.recordRsvp(methodName, sessionId)
 
-            sendAnalytics(localSessionId, rsvp)
+            sendAnalytics(sessionId, rsvp)
         }
     }
 
