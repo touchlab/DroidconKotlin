@@ -1,10 +1,10 @@
 package co.touchlab.sessionize
 
+import co.touchlab.sessionize.db.coroutines.asFlow
 import co.touchlab.sessionize.platform.assertNotMainThread
 import co.touchlab.sessionize.platform.printThrowable
 import co.touchlab.stately.ensureNeverFrozen
 import com.squareup.sqldelight.Query
-import com.squareup.sqldelight.runtime.coroutines.asFlow
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
