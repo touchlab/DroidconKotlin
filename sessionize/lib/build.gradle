@@ -67,8 +67,8 @@ kotlin {
 
                 implementation deps.sqldelight.runtime
                 implementation deps.multiplatformSettings
-//                implementation deps.ktor.commonCore
-//                implementation deps.ktor.commonJson
+                implementation (deps.ktor.commonCore)
+                implementation (deps.ktor.commonJson)
                 implementation deps.serialization.commonRuntime
                 implementation deps.firebase.firestoreKmp
                 implementation deps.kotlin.coroutines.common
@@ -94,9 +94,16 @@ kotlin {
 //                implementation deps.kotlin.coroutines.native
                 implementation deps.sqldelight.driverIos
                 implementation deps.sqliter.ios
-//                implementation deps.ktor.ios
-//                implementation deps.ktor.iosCore
-//                implementation deps.ktor.iosJson
+                implementation (deps.ktor.ios){
+                    exclude group: 'org.jetbrains.kotlinx', module: 'kotlinx-coroutines-core-native'
+                }
+                implementation (deps.ktor.iosCore) {
+                    exclude group: 'org.jetbrains.kotlinx', module: 'kotlinx-coroutines-core-native'
+                }
+                implementation (deps.ktor.iosJson){
+                    exclude group: 'org.jetbrains.kotlinx', module: 'kotlinx-coroutines-core-native'
+                }
+
                 implementation deps.serialization.iosRuntime
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.3.2-native-mt-SNAPSHOT"
             }
@@ -107,8 +114,8 @@ kotlin {
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
                 implementation deps.sqldelight.driverAndroid
-//                implementation deps.ktor.jvmCore
-//                implementation deps.ktor.jvmJson
+                implementation deps.ktor.jvmCore
+                implementation deps.ktor.jvmJson
                 implementation deps.serialization.jvmRuntime
                 implementation deps.firebase.firestoreAndroid
             }

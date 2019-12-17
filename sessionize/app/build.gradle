@@ -107,7 +107,7 @@ dependencies {
     implementation deps.sqldelight.driverAndroid
     implementation deps.kotlin.coroutines.jdk
     implementation deps.kotlin.coroutines.android
-//    implementation deps.ktor.androidCore
+    implementation deps.ktor.androidCore
     implementation deps.firebase.androidCore
     implementation deps.firebase.androidMessaging
     implementation deps.crashlytics

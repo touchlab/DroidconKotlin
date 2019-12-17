@@ -70,21 +70,3 @@ actual fun printThrowable(t: Throwable) {
 
 actual fun backgroundDispatcher():CoroutineDispatcher = newSingleThreadContext("arst")
 
-actual fun simpleGet(url: String): String {
-    val urlObj = NSURL(string = url)
-    var resultString: String? = null
-    val request = NSURLRequest.requestWithURL(urlObj)
-    val data = NSURLConnection.sendSynchronousRequest(request, null, null)
-    if (data != null) {
-        val decoded = NSString.create(data = data, encoding = NSUTF8StringEncoding)
-        if (decoded != null)
-            resultString = decoded as String
-    }
-
-    if (resultString == null)
-        throw NullPointerException("No network response")
-    else
-        return resultString!!
-}
-
-actual fun networkDispatcher(): CoroutineDispatcher = newSingleThreadContext("network")
