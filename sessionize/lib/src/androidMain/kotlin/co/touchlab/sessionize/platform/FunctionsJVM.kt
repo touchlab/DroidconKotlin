@@ -72,6 +72,3 @@ actual fun printThrowable(t: Throwable) {
 }
 
 actual fun backgroundDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
-actual fun simpleGet(url: String): String = URL(url).readText()
-actual fun networkDispatcher(): CoroutineDispatcher = newSingleThreadContext("network")
