@@ -6,12 +6,12 @@ apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'co.touchlab.kotlinxcodesync'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     testOptions.unitTests.includeAndroidResources = true
 
     defaultConfig {
         minSdkVersion 24
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -61,7 +61,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation "co.touchlab:stately:${versions.stately}"
+                implementation "co.touchlab:stately-common:${versions.stately}"
+                implementation "co.touchlab:stately-concurrency:${versions.stately}"
                 implementation "co.touchlab:stately-collections:${versions.stately}"
                 implementation "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.kotlin}"
 
@@ -80,7 +81,8 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.common
                 implementation deps.kotlin.test.annotations
-                implementation "co.touchlab:stately:${versions.stately}"
+                implementation "co.touchlab:stately-common:${versions.stately}"
+                implementation "co.touchlab:stately-concurrency:${versions.stately}"
                 implementation "co.touchlab:stately-collections:${versions.stately}"
                 implementation deps.multiplatformSettings
                 implementation deps.kotlin.coroutines.jdk

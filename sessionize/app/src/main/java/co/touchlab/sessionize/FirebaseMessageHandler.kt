@@ -7,7 +7,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 class FirebaseMessageHandler : FirebaseMessagingService() {
-
+/*
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         Log.d(TAG, "From: ${remoteMessage?.from}")
 
@@ -32,5 +32,5 @@ class FirebaseMessageHandler : FirebaseMessagingService() {
                 }
             }
         }
-    }
+    }*/
 }

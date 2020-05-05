@@ -5,6 +5,7 @@ import co.touchlab.sessionize.ServiceRegistry.staticFileLoader
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.native.concurrent.ThreadLocal

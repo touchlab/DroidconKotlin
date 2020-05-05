@@ -1,16 +1,5 @@
 package co.touchlab.sessionize
 
-import co.touchlab.firebase.firestore.DocumentSnapshot
-import co.touchlab.firebase.firestore.QuerySnapshot
-import co.touchlab.firebase.firestore.Source
-import co.touchlab.firebase.firestore.TaskData
-import co.touchlab.firebase.firestore.collection
-import co.touchlab.firebase.firestore.data_
-import co.touchlab.firebase.firestore.documents_
-import co.touchlab.firebase.firestore.getFirebaseInstance
-import co.touchlab.firebase.firestore.get_
-import co.touchlab.firebase.firestore.id
-import co.touchlab.firebase.firestore.orderBy
 import co.touchlab.sessionize.jsondata.Sponsor
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import kotlin.native.concurrent.ThreadLocal
@@ -22,6 +11,7 @@ object SponsorsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
             proc: (sponsors: List<SponsorGroup>) -> Unit,
             error: (ex: Throwable) -> Unit
     ) {
+        /*
         getFirebaseInstance()
                 .collection("sponsors-sf-2019")
                 .orderBy("displayOrder")
@@ -31,15 +21,16 @@ object SponsorsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
                 },{
                     ServiceRegistry.softExceptionCallback(it, "loadSponsorsFromServer failed")
                     error(it)
-                })
+                })*/
     }
-
+    /*
     private fun sponsorGroupsFrom(documentSnapshots: List<DocumentSnapshot>): List<SponsorGroup> {
         return documentSnapshots.map {
             sponsorGroupFrom(it)
         }
     }
-
+    */
+    /*
     private fun sponsorGroupFrom(documentSnapshot: DocumentSnapshot): SponsorGroup {
         val groupName = documentSnapshot.id.capitalize()
         val level = documentSnapshot.data_()
@@ -57,9 +48,9 @@ object SponsorsModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
         }
 
         return SponsorGroup(groupName, sponsors)
-    }
+    }*/
 }
 
 fun sponsorClicked(sponsor: Sponsor){
-    ServiceRegistry.analyticsApi.logEvent("sponsor_clicked", mapOf(Pair("id", sponsor.sponsorId.toString()), Pair("name", sponsor.name)))
+    //ServiceRegistry.analyticsApi.logEvent("sponsor_clicked", mapOf(Pair("id", sponsor.sponsorId.toString()), Pair("name", sponsor.name)))
 }

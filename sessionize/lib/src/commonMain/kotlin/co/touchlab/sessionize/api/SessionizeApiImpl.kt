@@ -8,6 +8,7 @@ import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.networkDispatcher
 import co.touchlab.sessionize.platform.simpleGet
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.native.concurrent.ThreadLocal
