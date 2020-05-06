@@ -15,7 +15,7 @@ abstract class EventModelTest {
     private val sessionizeApiMock = SessionizeApiMock()
     private val analyticsApiMock = AnalyticsApiMock()
     private val notificationsApiMock = NotificationsApiMock()
-    private val feedbackApiMock = FeedbackApiMock()
+    //private val feedbackApiMock = FeedbackApiMock()
 
     private val timeZone = "-0800"
 
