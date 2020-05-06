@@ -3,8 +3,11 @@ package co.touchlab.sessionize
 import com.russhwolf.settings.Settings
 import co.touchlab.stately.collections.frozenHashMap
 
-class TestSettings:Settings {
+class TestSettings() :Settings {
     private val map = frozenHashMap<String, Any?>()
+
+    override val keys: Set<String> = map.keys
+    override val size: Int = map.size
 
     override fun clear() {
         map.clear()

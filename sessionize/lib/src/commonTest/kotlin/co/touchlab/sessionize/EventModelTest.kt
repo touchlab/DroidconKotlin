@@ -47,7 +47,7 @@ abstract class EventModelTest {
             eventModel.toggleRsvpSuspend(si)
             assertTrue { sessionizeApiMock.rsvpCalled }
             assertTrue { analyticsApiMock.logCalled }
-            assertTrue { notificationsApiMock.reminderCalled }
+            assertTrue { notificationsApiMock.reminderCalled.value }
         }
     }
 
