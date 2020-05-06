@@ -21,7 +21,6 @@ abstract class EventModelTest {
 
     @BeforeTest
     fun setup() {
-        /*
         ServiceRegistry.initServiceRegistry(testDbConnection(),
                 TestSettings(), sessionizeApiMock, analyticsApiMock, notificationsApiMock, timeZone)
 
@@ -35,23 +34,21 @@ abstract class EventModelTest {
         }, { s: String -> Unit }, {e:Throwable, message:String -> println(message)})
 
         AppContext.initAppContext()
-*/
+
     }
 
     @Test
     fun testRsvpAndAnalytics() = runTest {
-        /*
         val eventModel = EventModel("67316")
         val sessions = SessionizeDbHelper.sessionQueries.allSessions().executeAsList()
         if(sessions.isNotEmpty()) {
-
             val session = sessions.first()
             val si = collectSessionInfo(session)
             eventModel.toggleRsvpSuspend(si)
             assertTrue { sessionizeApiMock.rsvpCalled }
             assertTrue { analyticsApiMock.logCalled }
             assertTrue { notificationsApiMock.reminderCalled.value }
-        }*/
+        }
     }
 
     /*@Test
@@ -64,19 +61,16 @@ abstract class EventModelTest {
 
     @Test
     fun testPSTTimeZoneCorrect(){
-        /*
         val timeStr = "2019-04-12T08:00:00"
         val correctMillis = 1555084800000
 
         val timeStrWithZone = timeStr + timeZone
-
 
         val dateAdapter = DateAdapter()
         val timeDate = dateAdapter.decode(timeStrWithZone)
         val newTimeStr = dateAdapter.encode(timeDate)
 
         assertTrue { newTimeStr == timeStr }
-         */
         //assertTrue { timeDate.toLongMillis() == correctMillis }
     }
 }
