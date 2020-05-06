@@ -9,4 +9,4 @@ class StaticFileLoaderTestDarwin : StaticFileLoaderTest() {
     }
 }
 
-class EventModelTestJVM: EventModelTest()
+//class EventModelTestJVM: EventModelTest()
