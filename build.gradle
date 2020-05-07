@@ -25,7 +25,7 @@ buildscript {
             'testhelp'             : '0.2.8',
             'firebase'             : '17.4.0',
             'firestoreAndroid'     : '21.4.3',
-            'firestoreKmp'         : '0.2.6',
+            'firestoreKmp'         : '0.2.8-mt',
             'fabric'               : '1.31.2',
             'crashlytics'          : '2.10.1'
     ]
