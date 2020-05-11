@@ -5,12 +5,15 @@ import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.file.FileRepo
 import co.touchlab.sessionize.platform.NotificationsModel
-import co.touchlab.sessionize.platform.logException
+import co.touchlab.sessionize.platform.backgroundDispatcher
+import co.touchlab.sessionize.platform.printThrowable
 import kotlinx.serialization.json.Json
+import kotlinx.coroutines.*
 
 object AppContext {
     //Workaround for https://github.com/Kotlin/kotlinx.serialization/issues/441
     private val primeJson = Json.nonstrict
+    private val mainScope = MainScope()
 
     fun initAppContext(networkRepo: NetworkRepo = NetworkRepo,
                        fileRepo: FileRepo = FileRepo,
@@ -20,28 +23,29 @@ object AppContext {
         dbHelper.initDatabase(serviceRegistry.dbDriver)
 
         serviceRegistry.notificationsApi.initializeNotifications { success ->
-            serviceRegistry.concurrent.backgroundTask({ success }, {
-                if (it) {
+            if (success) {
+                mainScope.launch {
                     notificationsModel.createNotifications()
-                } else {
-                    notificationsModel.cancelNotifications()
                 }
-            })
+            } else {
+                notificationsModel.cancelNotifications()
+            }
         }
 
-        serviceRegistry.concurrent.backgroundTask({ maybeLoadSeedData(fileRepo, serviceRegistry) }) {
+        mainScope.launch {
+            maybeLoadSeedData(fileRepo, serviceRegistry)
             networkRepo.refreshData()
         }
     }
 
-    private fun maybeLoadSeedData(fileRepo: FileRepo, serviceRegistry: ServiceRegistry) {
+    private suspend fun maybeLoadSeedData(fileRepo: FileRepo, serviceRegistry: ServiceRegistry) = withContext(ServiceRegistry.backgroundDispatcher){
         try {
             if (firstRun(serviceRegistry)) {
                 fileRepo.seedFileLoad()
                 updateFirstRun(serviceRegistry)
             }
         } catch (e: Exception) {
-            logException(e)
+            printThrowable(e)
         }
     }
 
@@ -50,4 +54,6 @@ object AppContext {
     private fun updateFirstRun(serviceRegistry: ServiceRegistry) {
         serviceRegistry.appSettings.putBoolean(KEY_FIRST_RUN, false)
     }
+
+    val backgroundContext = backgroundDispatcher()
 }

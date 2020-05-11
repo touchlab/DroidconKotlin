@@ -4,10 +4,9 @@ import co.touchlab.droidcon.db.UserAccount
 import co.touchlab.sessionize.db.SessionizeDbHelper.sponsorSessionQueries
 import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
 import co.touchlab.sessionize.jsondata.Sponsor
-import co.touchlab.sessionize.platform.backgroundSuspend
-import co.touchlab.sessionize.platform.logException
 import co.touchlab.sessionize.platform.printThrowable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
@@ -26,15 +25,10 @@ object SponsorSessionModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
 
     fun loadSponsorDetail(proc: (SponsorSessionInfo) -> Unit, error: (Throwable) -> Unit) {
         val sponsorArg = sponsor
-        if (sponsorArg != null && sponsorArg.sponsorId != null) {
-            launch {
+        if (sponsorArg?.sponsorId != null) {
+            mainScope.launch {
                 try {
-                    val dataPair = backgroundSuspend {
-                        Pair(
-                                sponsorSessionQueries.sponsorSessionById(sponsorArg.sponsorId).executeAsOne().description?:"",
-                                userAccountQueries.selectBySession(sponsorArg.sponsorId).executeAsList()
-                        )
-                    }
+                    val dataPair = loadSponsorDetailData(sponsorArg)
 
                     proc(SponsorSessionInfo(sponsorArg, dataPair.first, dataPair.second))
                 } catch (e: Exception) {
@@ -44,6 +38,14 @@ object SponsorSessionModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
         } else {
             error(IllegalStateException("Sponsor info not sound"))
         }
+    }
+
+    internal suspend fun loadSponsorDetailData(sponsor: Sponsor): Pair<String, List<UserAccount>> = withContext(ServiceRegistry.backgroundDispatcher){
+        val id = sponsor.sponsorId!!
+        Pair(
+                sponsorSessionQueries.sponsorSessionById(id).executeAsOne().description?:"",
+                userAccountQueries.selectBySession(id).executeAsList()
+        )
     }
 
     private suspend fun sendAnalytics() {
@@ -58,7 +60,7 @@ object SponsorSessionModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
             }
 
         } catch (e: Exception) {
-            logException(e)
+            printThrowable(e)
         }
     }
 

@@ -7,7 +7,6 @@ import co.touchlab.sessionize.db.isRsvp
 import co.touchlab.sessionize.display.DaySchedule
 import co.touchlab.sessionize.display.convertMapToDaySchedule
 import co.touchlab.sessionize.display.formatHourBlocks
-import co.touchlab.stately.ensureNeverFrozen
 import co.touchlab.stately.freeze
 
 /**
@@ -24,14 +23,12 @@ class ScheduleModel(private val allEvents: Boolean) : BaseQueryModelView<Session
             }
 
             val hourBlocks = formatHourBlocks(sessions)
-            convertMapToDaySchedule(hourBlocks).freeze() //TODO: This shouldn't need to be frozen
-            //Spent several full days trying to debug why, but haven't sorted it out.
+            convertMapToDaySchedule(hourBlocks)
         },
         ServiceRegistry.coroutinesDispatcher) {
 
     init {
         ServiceRegistry.clLogCallback("init ScheduleModel()")
-        ensureNeverFrozen()
     }
 
     fun register(view: ScheduleView) {

@@ -5,16 +5,10 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
-import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import co.touchlab.sessionize.R
 import kotlinx.android.synthetic.main.feedback_view.view.*
-import androidx.appcompat.view.ContextThemeWrapper
 
 
 enum class FeedbackRating(val value: Int) {

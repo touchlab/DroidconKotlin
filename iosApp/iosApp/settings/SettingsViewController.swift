@@ -97,7 +97,7 @@ class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        NotificationsModel().setNotificationsEnabled(enabled: true)
+        NotificationsModel().notificationsEnabled = true
         
         let row = (indexPath as NSIndexPath).row
 

@@ -3,7 +3,10 @@ package co.touchlab.sessionize.platform
 import android.app.Application
 import android.os.Handler
 import android.os.Looper
-import co.touchlab.firebase.firestore.Query
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.newSingleThreadContext
+import java.net.URL
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -12,20 +15,7 @@ import java.util.concurrent.atomic.AtomicReference
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
-internal actual fun <B> backgroundTaskPlatform(backJob: () -> B, mainJob: (B) -> Unit) {
-    AndroidAppContext.backgroundTask(backJob, mainJob)
-}
-
 private val btfHandler:Handler? = try{Handler(Looper.getMainLooper())}catch (e:Throwable){null}
-
-internal actual fun <B> backToFront(b: () -> B, job: (B) -> Unit) {
-    val h = btfHandler
-    if(h == null){
-        job(b())
-    }else{
-        h.post { job(b()) }
-    }
-}
 
 internal actual val mainThread: Boolean
     get() = Looper.getMainLooper() === Looper.myLooper()
@@ -75,11 +65,12 @@ object AndroidAppContext {
 
 }
 
-actual fun logException(t: Throwable) {
-    t.printStackTrace()
-}
-
 actual fun createUuid(): String = UUID.randomUUID().toString()
 actual fun printThrowable(t: Throwable) {
     t.printStackTrace()
 }
+
+actual fun backgroundDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+actual fun simpleGet(url: String): String = URL(url).readText()
+actual fun networkDispatcher(): CoroutineDispatcher = newSingleThreadContext("network")

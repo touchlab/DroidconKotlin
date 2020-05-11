@@ -3,6 +3,8 @@
 
 [![Build Status](https://dev.azure.com/touchlabApps/DroidconApp/_apis/build/status/touchlab.DroidconKotlin?branchName=master)](https://dev.azure.com/touchlabApps/DroidconApp/_build/latest?definitionId=1&branchName=master)
 
+## General Info
+
 This project has a pair of native mobile applications backed by the Sessionize data api for use in 
 events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
 be forked and customized for anything run on Sessionize.

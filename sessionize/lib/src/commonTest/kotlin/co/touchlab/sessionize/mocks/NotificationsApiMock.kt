@@ -2,33 +2,33 @@ package co.touchlab.sessionize.mocks
 
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.sessionize.api.NotificationsApi
+import co.touchlab.stately.concurrency.AtomicBoolean
 
 class NotificationsApiMock : NotificationsApi {
-    var initializeCalled = false
-    var reminderCalled = false
-    var feedbackCalled = false
-    var reminderCancelled = false
-    var feedbackCancelled = false
+    private var initializeCalled:AtomicBoolean = AtomicBoolean(false)
+    var reminderCalled:AtomicBoolean = AtomicBoolean( false)
+    private var feedbackCalled:AtomicBoolean = AtomicBoolean( false)
+    private var reminderCancelled:AtomicBoolean = AtomicBoolean(false)
+    private var feedbackCancelled:AtomicBoolean = AtomicBoolean(false)
 
     override fun scheduleReminderNotificationsForSessions(sessions: List<MySessions>) {
-        reminderCalled = true
+        reminderCalled.value = true
     }
 
     override fun scheduleFeedbackNotificationsForSessions(sessions: List<MySessions>) {
-        feedbackCalled = true
+        feedbackCalled.value = true
     }
 
     override fun cancelReminderNotifications(andDismissals: Boolean) {
-        reminderCancelled = true
+        reminderCancelled.value = true
     }
 
     override fun cancelFeedbackNotifications() {
-        feedbackCancelled = true
+        feedbackCancelled.value = true
     }
 
-
     override fun initializeNotifications(onSuccess: (Boolean) -> Unit) {
-        initializeCalled = true
+        initializeCalled.value = true
         onSuccess(true)
     }
 

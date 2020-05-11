@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.event
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -71,6 +72,7 @@ class EventFragment : Fragment() {
         updateContent(eventInfo, formattedRoomTime)
     }
 
+    @SuppressLint("RestrictedApi")
     private fun updateFAB(event: SessionInfo) {
         fab.rippleColor = ContextCompat.getColor(context!!, R.color.black)
 

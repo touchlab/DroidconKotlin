@@ -7,7 +7,6 @@ import co.touchlab.droidcon.db.DroidconDb
 import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.api.SessionizeApiImpl
 import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.MainConcurrent
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
@@ -23,9 +22,7 @@ class MainApp : Application() {
 
         ServiceRegistry.initServiceRegistry(
                 AndroidSqliteDriver(DroidconDb.Schema, this, "droidcondb2"),
-                Dispatchers.Main,
                 AndroidSettings.Factory(this).create("DROIDCON_SETTINGS2"),
-                MainConcurrent,
                 SessionizeApiImpl,
                 AnalyticsApiImpl(FirebaseAnalytics.getInstance(this)),
                 NotificationsApiImpl(),
@@ -38,7 +35,7 @@ class MainApp : Application() {
 
         @Suppress("ConstantConditionIf")
         if(BuildConfig.FIREBASE_ENABLED) {
-            FirebaseMessageHandler.init()
+            //FirebaseMessageHandler.init()
         }else{
             Log.d("MainApp","Firebase json not found: Firebased Not Enabled")
         }

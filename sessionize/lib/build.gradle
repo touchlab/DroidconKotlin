@@ -6,12 +6,12 @@ apply plugin: 'com.squareup.sqldelight'
 apply plugin: 'co.touchlab.kotlinxcodesync'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     testOptions.unitTests.includeAndroidResources = true
 
     defaultConfig {
         minSdkVersion 24
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -59,19 +59,21 @@ kotlin {
     }
 
     sourceSets {
-
         commonMain {
             dependencies {
-                implementation deps.stately.mpp
-                implementation deps.stately.collections
-                implementation deps.kotlin.stdlib.common
-                implementation deps.kotlin.coroutines.common
+                implementation "co.touchlab:stately-common:${versions.stately}"
+                implementation "co.touchlab:stately-concurrency:${versions.stately}"
+                implementation "co.touchlab:stately-collections:${versions.stately}"
+                implementation "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.kotlin}"
+
                 implementation deps.sqldelight.runtime
                 implementation deps.multiplatformSettings
-                implementation deps.ktor.commonCore
-                implementation deps.ktor.commonJson
+//                implementation deps.ktor.commonCore
+//                implementation deps.ktor.commonJson
                 implementation deps.serialization.commonRuntime
                 implementation deps.firebase.firestoreKmp
+                implementation deps.kotlin.coroutines.common
+//                implementation "co.touchlab.sqldelight:coroutines-extensions:${versions.sqldelight}"
             }
         }
 
@@ -79,24 +81,26 @@ kotlin {
             dependencies {
                 implementation deps.kotlin.test.common
                 implementation deps.kotlin.test.annotations
-                implementation deps.stately.mpp
-                implementation deps.stately.collections
-                implementation deps.kotlin.coroutines.common
+                implementation "co.touchlab:stately-common:${versions.stately}"
+                implementation "co.touchlab:stately-concurrency:${versions.stately}"
+                implementation "co.touchlab:stately-collections:${versions.stately}"
                 implementation deps.multiplatformSettings
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.testhelp
+                implementation deps.kotlin.coroutines.common
             }
         }
 
         iosMain {
             dependencies {
-                implementation deps.kotlin.coroutines.native
+//                implementation deps.kotlin.coroutines.native
                 implementation deps.sqldelight.driverIos
                 implementation deps.sqliter.ios
-                implementation deps.ktor.ios
-                implementation deps.ktor.iosCore
-                implementation deps.ktor.iosJson
+//                implementation deps.ktor.ios
+//                implementation deps.ktor.iosCore
+//                implementation deps.ktor.iosJson
                 implementation deps.serialization.iosRuntime
+                implementation deps.kotlin.coroutines.native
             }
         }
 
@@ -105,8 +109,8 @@ kotlin {
                 implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
                 implementation deps.sqldelight.driverAndroid
-                implementation deps.ktor.jvmCore
-                implementation deps.ktor.jvmJson
+//                implementation deps.ktor.jvmCore
+//                implementation deps.ktor.jvmJson
                 implementation deps.serialization.jvmRuntime
                 implementation deps.firebase.firestoreAndroid
             }

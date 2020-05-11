@@ -12,7 +12,6 @@ import android.os.Build
 import app.sessionize.touchlab.lib.R
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.NotificationsModel.setNotificationsEnabled
 import android.os.RemoteException
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -23,6 +22,7 @@ import co.touchlab.sessionize.platform.NotificationsModel.getFeedbackTimeFromSes
 import co.touchlab.sessionize.platform.NotificationsModel.getReminderNotificationMessage
 import co.touchlab.sessionize.platform.NotificationsModel.getReminderNotificationTitle
 import co.touchlab.sessionize.platform.NotificationsModel.getReminderTimeFromSession
+import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
 import co.touchlab.sessionize.platform.currentTimeMillis
 import java.text.SimpleDateFormat
 import java.util.*
@@ -130,7 +130,7 @@ class NotificationsApiImpl : NotificationsApi {
     override fun initializeNotifications(onSuccess: (Boolean) -> Unit)
     {
         createNotificationChannel()
-        setNotificationsEnabled(true)
+        notificationsEnabled = true
         onSuccess(true)
     }
 

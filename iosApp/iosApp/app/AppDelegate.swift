@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let fileExists = FileManager.default.fileExists(atPath: path)
         if(fileExists){
             FirebaseApp.configure()
+//            FunctionsKt.crashInit(handler: CrashlyticsCrashHandler())
         }else{
             print("Firebase plist not found: Firebased Not Enabled")
         }
@@ -33,9 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let timeZone = Bundle.main.object(forInfoDictionaryKey: "TimeZone") as! String
         serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
-                                                coroutineDispatcher: UI(),
                                                 settings: FunctionsKt.defaultSettings(),
-                                                concurrent: MainConcurrent(),
                                                 sessionizeApi: SessionizeApiImpl(),
                                                 analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
                                                 notificationsApi: NotificationsApiImpl(),
@@ -51,13 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-
-    /*func dispatch(context: KotlinCoroutineContext, block: Kotlinx_coroutines_core_nativeRunnable) -> KotlinUnit {
-        DispatchQueue.main.async {
-            block.run()
-        }
-        return KotlinUnit()
-    }*/
 
     func softExceptionCallback(e:KotlinThrowable, message:String) {
     }
@@ -102,3 +94,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         serviceRegistry.notificationsApi.deinitializeNotifications()
     }
 }
+
+//class CrashlyticsCrashHandler: CrashkiosCrashHandler {
+//    override func crashParts(
+//        addresses: [KotlinLong],
+//        exceptionType: String,
+//        message: String) {
+//        let clsStackTrace = addresses.map {
+//            CLSStackFrame(address: UInt(truncating: $0))
+//        }
+//
+//        Crashlytics.sharedInstance().recordCustomExceptionName(
+//            exceptionType,
+//            reason: message,
+//            frameArray: clsStackTrace
+//        )
+//    }
+//}

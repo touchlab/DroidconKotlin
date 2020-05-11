@@ -29,8 +29,12 @@ import MaterialComponents
         super.viewDidLoad()
 
         viewModel = EventViewModel(sessionId: sessionId)
-        viewModel.registerForChanges(proc: updateUi)
-
+        viewModel.registerForChanges(proc: { [weak self] sessionInfo, formattedRoomTime in
+            guard let self = self else { return }
+            self.updateUi(sessionInfo: sessionInfo, formattedRoomTime: formattedRoomTime)
+        }
+        )
+        
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         
