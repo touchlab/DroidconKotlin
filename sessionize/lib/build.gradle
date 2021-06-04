@@ -71,7 +71,7 @@ kotlin {
 //                implementation deps.ktor.commonCore
 //                implementation deps.ktor.commonJson
                 implementation deps.serialization.commonRuntime
-                implementation deps.firebase.firestoreKmp
+                implementation deps.firebase.firestore
                 implementation deps.kotlin.coroutines.common
 //                implementation "co.touchlab.sqldelight:coroutines-extensions:${versions.sqldelight}"
             }

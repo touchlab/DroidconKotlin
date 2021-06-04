@@ -26,6 +26,7 @@ buildscript {
             'firebase'             : '17.4.0',
             'firestoreAndroid'     : '21.4.3',
             'firestoreKmp'         : '0.2.8-mt',
+            'gitlive'              : '1.3.1',
             'fabric'               : '1.31.2',
             'crashlytics'          : '2.10.1'
     ]
@@ -85,7 +86,7 @@ buildscript {
                     'androidMessaging': "com.google.firebase:firebase-messaging:20.1.+",
                     'firestoreAndroid': "com.google.firebase:firebase-firestore:${versions.firestoreAndroid}",
                     'firestoreKmp'    : "co.touchlab:firestore:${versions.firestoreKmp}",
-
+                    'firestore'       : "dev.gitlive:firebase-firestore:${versions.gitlive}",
             ],
             'testhelp'             : "co.touchlab:testhelp:${versions.testhelp}",
             'crashlytics'          : "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}"
