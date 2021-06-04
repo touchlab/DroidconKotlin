@@ -85,7 +85,7 @@ kotlin {
                 implementation "co.touchlab:stately-concurrency:${versions.stately}"
                 implementation "co.touchlab:stately-collections:${versions.stately}"
                 implementation deps.multiplatformSettings
-                implementation deps.kotlin.coroutines.jdk
+//                implementation deps.kotlin.coroutines.jdk
                 implementation deps.testhelp
                 implementation deps.kotlin.coroutines.common
             }
@@ -99,19 +99,19 @@ kotlin {
 //                implementation deps.ktor.ios
 //                implementation deps.ktor.iosCore
 //                implementation deps.ktor.iosJson
-                implementation deps.serialization.iosRuntime
-                implementation deps.kotlin.coroutines.native
+//                implementation deps.serialization.iosRuntime
+//                implementation deps.kotlin.coroutines.native
             }
         }
 
         androidMain {
             dependencies {
-                implementation deps.kotlin.coroutines.jdk
-                implementation deps.kotlin.coroutines.android
+//                implementation deps.kotlin.coroutines.jdk
+//                implementation deps.kotlin.coroutines.android
                 implementation deps.sqldelight.driverAndroid
 //                implementation deps.ktor.jvmCore
 //                implementation deps.ktor.jvmJson
-                implementation deps.serialization.jvmRuntime
+//                implementation deps.serialization.jvmRuntime
                 implementation deps.firebase.firestoreAndroid
             }
         }
@@ -121,9 +121,9 @@ kotlin {
                 implementation deps.kotlin.test.jvm
                 implementation deps.kotlin.test.junit
                 implementation deps.sqldelight.driverAndroid
-                implementation deps.kotlin.coroutines.jdk
+//                implementation deps.kotlin.coroutines.jdk
                 implementation deps.kotlin.coroutines.android
-                implementation deps.serialization.jvmRuntime
+//                implementation deps.serialization.jvmRuntime
                 implementation 'junit:junit:4.12'
                 implementation "androidx.test:core:1.1.0"
                 implementation "androidx.test.ext:junit:1.1.0"

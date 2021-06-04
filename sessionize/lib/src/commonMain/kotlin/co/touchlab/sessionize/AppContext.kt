@@ -7,12 +7,9 @@ import co.touchlab.sessionize.file.FileRepo
 import co.touchlab.sessionize.platform.NotificationsModel
 import co.touchlab.sessionize.platform.backgroundDispatcher
 import co.touchlab.sessionize.platform.printThrowable
-import kotlinx.serialization.json.Json
 import kotlinx.coroutines.*
 
 object AppContext {
-    //Workaround for https://github.com/Kotlin/kotlinx.serialization/issues/441
-    private val primeJson = Json.nonstrict
     private val mainScope = MainScope()
 
     fun initAppContext(networkRepo: NetworkRepo = NetworkRepo,
