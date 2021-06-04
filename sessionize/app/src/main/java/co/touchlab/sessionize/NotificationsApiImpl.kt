@@ -39,7 +39,7 @@ class NotificationsApiImpl : NotificationsApi {
             scheduleReminderForSessionGroup(sessionGroup)
 
         } catch (e: NoSuchElementException) {
-            Log.i(TAG,e.message)
+            Log.i(TAG, e.message ?: "")
         }
     }
 
@@ -78,7 +78,7 @@ class NotificationsApiImpl : NotificationsApi {
                     notificationFeedbackId)
 
         } catch (e: NoSuchElementException) {
-            Log.e(TAG,e.message)
+            Log.e(TAG, e.message ?: "")
         }
     }
 
