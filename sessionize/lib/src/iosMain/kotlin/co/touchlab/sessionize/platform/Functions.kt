@@ -7,7 +7,7 @@ import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.Dispatchers
 import platform.Foundation.NSApplicationSupportDirectory
 import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
@@ -68,7 +68,7 @@ actual fun printThrowable(t: Throwable) {
     t.printStackTrace()
 }
 
-actual fun backgroundDispatcher():CoroutineDispatcher = newSingleThreadContext("arst")
+actual fun backgroundDispatcher():CoroutineDispatcher = Dispatchers.Default //newFixedThreadPoolContext(1, "arst")
 
 actual fun simpleGet(url: String): String {
     val urlObj = NSURL(string = url)
@@ -87,4 +87,4 @@ actual fun simpleGet(url: String): String {
         return resultString!!
 }
 
-actual fun networkDispatcher(): CoroutineDispatcher = newSingleThreadContext("network")
+actual fun networkDispatcher(): CoroutineDispatcher = Dispatchers.Default //newSingleThreadContext("network")
