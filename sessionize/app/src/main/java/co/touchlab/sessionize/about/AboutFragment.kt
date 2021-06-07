@@ -1,35 +1,37 @@
 package co.touchlab.sessionize.about
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.AboutInfo
 import co.touchlab.sessionize.AboutModel
-
-import co.touchlab.sessionize.R
+import co.touchlab.sessionize.databinding.FragmentAboutBinding
+import co.touchlab.sessionize.databinding.ItemAboutInfoBinding
 import co.touchlab.sessionize.speaker.finDrawableId
+import co.touchlab.sessionize.util.viewBindingLifecycle
 
 class AboutFragment : Fragment() {
 
-    lateinit var recycler:RecyclerView
+    private var binding by viewBindingLifecycle<FragmentAboutBinding>()
+
     lateinit var adapter:AboutInfoAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_about, container, false)
-        recycler = view.findViewById(R.id.recycler)
-        adapter = AboutInfoAdapter()
-        recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(activity)
+        binding = FragmentAboutBinding.inflate(inflater, container, false)
+        binding.recycler.apply {
+            adapter = AboutInfoAdapter()
+            adapter = adapter
+            layoutManager = LinearLayoutManager(requireActivity())
+        }
+
         AboutModel.loadAboutInfo {
             adapter.updateDate(it)
         }
-        return view
+        return binding.root
     }
 
     inner class AboutInfoAdapter : RecyclerView.Adapter<AboutInfoViewHolder>() {
@@ -42,37 +44,31 @@ class AboutFragment : Fragment() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AboutInfoViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_about_info, parent, false)
-
-            return AboutInfoViewHolder(view)
+            val binding = ItemAboutInfoBinding
+                    .inflate(LayoutInflater.from(parent.context), parent, false)
+            return AboutInfoViewHolder(binding)
         }
 
         override fun getItemCount(): Int = infoList.size
 
         override fun onBindViewHolder(holder: AboutInfoViewHolder, position: Int) {
-            val aboutInfo = infoList.get(position)
-            holder.aboutTextBody.visibility = View.VISIBLE
-            holder.aboutBinkyBody.visibility = View.GONE
-            holder.header.text = aboutInfo.title
-            holder.body.text = aboutInfo.detail
-            if(!aboutInfo.icon.isNullOrBlank()) {
-                holder.logo.setImageResource(finDrawableId(requireContext(), aboutInfo.icon))
-                holder.logo.visibility = View.VISIBLE
-            }else{
-                holder.logo.visibility = View.GONE
+            holder.binding.run {
+                val aboutInfo = infoList[position]
+                aboutTextBody.visibility = View.VISIBLE
+                aboutBinkyBody.visibility = View.GONE
+                header.text = aboutInfo.title
+                body.text = aboutInfo.detail
+                if(!aboutInfo.icon.isNullOrBlank()) {
+                    logo.setImageResource(finDrawableId(requireContext(), aboutInfo.icon))
+                    logo.visibility = View.VISIBLE
+                }else{
+                    logo.visibility = View.GONE
+                }
             }
-
         }
 
     }
 
-    class AboutInfoViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-        val aboutTextBody:ViewGroup = itemView.findViewById(R.id.aboutTextBody)
-        val aboutBinkyBody:View = itemView.findViewById(R.id.aboutBinkyBody)
-        val header = itemView.findViewById<TextView>(R.id.header)
-        val body = itemView.findViewById<TextView>(R.id.body)
-        val logo = itemView.findViewById<ImageView>(R.id.logo)
-    }
+    class AboutInfoViewHolder(val binding: ItemAboutInfoBinding):RecyclerView.ViewHolder(binding.root)
 }
 

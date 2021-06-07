@@ -5,19 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import co.touchlab.sessionize.databinding.FragmentEventBinding
+import co.touchlab.sessionize.util.viewBindingLifecycle
 
 class EventFragment : Fragment() {
+
+    private var binding by viewBindingLifecycle<FragmentEventBinding>()
 
     val sessionId: String by lazy {
         arguments?.let {
@@ -25,35 +24,22 @@ class EventFragment : Fragment() {
             eventArgs.sessionid
         } ?: ""
     }
-    lateinit var eventViewModel: EventViewModel
-    lateinit var fab: FloatingActionButton
-    lateinit var recycler: RecyclerView
-    lateinit var eventTitle: TextView
-    lateinit var eventRoomTime: TextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        eventViewModel = ViewModelProviders.of(this, EventViewModelFactory(sessionId))[EventViewModel::class.java]
-    }
+    private val eventViewModel: EventViewModel by viewModels(factoryProducer = {
+        EventViewModelFactory(sessionId)
+    })
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_event, container, false)
+        binding = FragmentEventBinding.inflate(inflater, container, false).apply {
+            eventViewModel.eventModel.register(object : EventModel.EventView {
+                override suspend fun update(data: SessionInfo) {
+                    dataRefresh(data, data.session.formattedRoomTime())
+                }
+            })
 
-        fab = view.findViewById(R.id.fab)
-        eventTitle = view.findViewById(R.id.eventTitle)
-        eventRoomTime = view.findViewById(R.id.eventRoomTime)
-        recycler = view.findViewById(R.id.recycler)
-
-        eventViewModel.eventModel.register(object : EventModel.EventView {
-            override suspend fun update(data: SessionInfo) {
-                dataRefresh(data, data.session.formattedRoomTime())
-            }
-        })
-
-        val adapter = EventDetailAdapter(activity!!)
-        recycler.adapter = adapter
-
-        return view
+            val adapter = EventDetailAdapter(activity!!)
+            recycler.adapter = adapter
+        }
+        return binding.root
     }
 
     override fun onDestroyView(){
@@ -63,8 +49,7 @@ class EventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recycler = view.findViewById<RecyclerView>(R.id.recycler)
-        recycler.layoutManager = LinearLayoutManager(getActivity())
+        binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
     }
 
     private fun dataRefresh(eventInfo: SessionInfo, formattedRoomTime: String) {
@@ -74,36 +59,38 @@ class EventFragment : Fragment() {
 
     @SuppressLint("RestrictedApi")
     private fun updateFAB(event: SessionInfo) {
-        fab.rippleColor = ContextCompat.getColor(context!!, R.color.black)
+        binding.run {
+            fab.rippleColor = ContextCompat.getColor(requireContext(), R.color.black)
 
-        if (event.isRsvped()) {
-            fab.setImageDrawable(ContextCompat.getDrawable(activity!!, R.drawable.ic_check))
-            fab.isActivated = true
-        } else {
-            fab.setImageDrawable(ContextCompat.getDrawable(activity!!, R.drawable.ic_plus))
-            fab.isActivated = false
-        }
-
-        val layoutParams = fab.layoutParams as CoordinatorLayout.LayoutParams
-        if (event.isPast()) {
-            fab.layoutParams = layoutParams
-            fab.visibility = View.GONE
-        } else {
-            fab.setOnClickListener {
-
-                eventViewModel.eventModel.toggleRsvp(event)
+            if (event.isRsvped()) {
+                fab.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_check))
+                fab.isActivated = true
+            } else {
+                fab.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_plus))
+                fab.isActivated = false
             }
 
-            fab.layoutParams = layoutParams
-            fab.visibility = View.VISIBLE
+            val layoutParams = fab.layoutParams as CoordinatorLayout.LayoutParams
+            if (event.isPast()) {
+                fab.layoutParams = layoutParams
+                fab.visibility = View.GONE
+            } else {
+                fab.setOnClickListener {
+
+                    eventViewModel.eventModel.toggleRsvp(event)
+                }
+
+                fab.layoutParams = layoutParams
+                fab.visibility = View.VISIBLE
+            }
         }
     }
 
     private fun updateContent(event: SessionInfo, formattedRoomTime:String) {
-        val adapter = EventDetailAdapter(activity!!)
+        val adapter = EventDetailAdapter(requireActivity())
 
-        eventTitle.text = event.session.title
-        eventRoomTime.text = formattedRoomTime
+        binding.eventTitle.text = event.session.title
+        binding.eventRoomTime.text = formattedRoomTime
         adapter.addHeader(event.session.title)
 
         when {
@@ -119,7 +106,7 @@ class EventFragment : Fragment() {
             adapter.addSpeaker(item)
         }
 
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
     }
 
 }

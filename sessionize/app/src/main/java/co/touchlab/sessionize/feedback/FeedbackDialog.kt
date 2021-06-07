@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import co.touchlab.sessionize.R
-import kotlinx.android.synthetic.main.feedback_view.view.*
 
 
 enum class FeedbackRating(val value: Int) {
@@ -23,17 +22,17 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
     lateinit var sessionId: String
     lateinit var sessionTitle: String
     private var feedbackManager: FeedbackManager? = null
-    private var feedbackView:FeedbackView? = null
+    private var feedbackView: FeedbackView? = null
 
-    private var rating:FeedbackRating = FeedbackRating.None
-    private var comments:String = ""
+    private var rating: FeedbackRating = FeedbackRating.None
+    private var comments: String = ""
 
 
     companion object {
         private const val sessionIdName = "sessionId"
         private const val sessionTitleName = "sessionTitle"
 
-        fun newInstance(sessionId: String, sessionTitle: String, feedbackManager: FeedbackManager) : FeedbackDialog{
+        fun newInstance(sessionId: String, sessionTitle: String, feedbackManager: FeedbackManager): FeedbackDialog {
             val bundle = Bundle()
             bundle.putString(sessionIdName, sessionId)
             bundle.putString(sessionTitleName, sessionTitle)
@@ -63,7 +62,7 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    private fun createFeedbackView(inflater: LayoutInflater):FeedbackView{
+    private fun createFeedbackView(inflater: LayoutInflater): FeedbackView {
         val view = inflater.inflate(R.layout.feedback_view, null) as FeedbackView
         view.setFeedbackViewListener(this)
         view.createButtonListeners()
@@ -73,7 +72,7 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
         return view
     }
 
-    fun setFeedbackManager(fbManager: FeedbackManager){
+    fun setFeedbackManager(fbManager: FeedbackManager) {
         this.feedbackManager = fbManager
     }
 
@@ -82,15 +81,16 @@ class FeedbackDialog : DialogFragment(), FeedbackView.FeedbackViewListener {
         dismiss()
     }
 
-    override fun ratingSelected(rating: FeedbackRating){
+    override fun ratingSelected(rating: FeedbackRating) {
         this.rating = rating
     }
 
-    override fun submitPressed(comment: String?){
+    override fun submitPressed(comment: String?) {
         this.comments = comment ?: ""
         finishAndClose()
     }
-    override fun closePressed(){
+
+    override fun closePressed() {
         feedbackManager?.disableFeedback()
         dismiss()
     }

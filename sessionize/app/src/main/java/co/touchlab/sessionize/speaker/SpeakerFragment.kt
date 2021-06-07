@@ -5,25 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SpeakerInfo
 import co.touchlab.sessionize.SpeakerModel
 import co.touchlab.sessionize.SpeakerUiData
+import co.touchlab.sessionize.databinding.FragmentSpeakerBinding
+import co.touchlab.sessionize.databinding.ItemSpeakerInfoBinding
+import co.touchlab.sessionize.util.viewBindingLifecycle
 import com.squareup.picasso.Picasso
 
 
 class SpeakerFragment : Fragment() {
+
+    private var binding by viewBindingLifecycle<FragmentSpeakerBinding>()
 
     val userId: String by lazy {
         arguments?.let {
@@ -31,30 +31,27 @@ class SpeakerFragment : Fragment() {
             speakerArgs.userid
         } ?: ""
     }
-    lateinit var speakerViewModel:SpeakerViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        speakerViewModel = ViewModelProviders.of(this, SpeakerViewModelFactory(userId))[SpeakerViewModel::class.java]
+    private val speakerViewModel: SpeakerViewModel by viewModels(factoryProducer = {
+        SpeakerViewModelFactory(userId)
+    })
 
-    }
-
-    lateinit var mainView : View
+    lateinit var mainView: View
     lateinit var speakerInfoAdapter: SpeakerInfoAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mainView = inflater.inflate(R.layout.fragment_speaker, container, false)
+        binding = FragmentSpeakerBinding.inflate(inflater, container, false)
         speakerViewModel.speakerModel.register(object : SpeakerModel.SpeakerView {
             override suspend fun update(data: UserAccount) {
                 updateDisplay(speakerViewModel.speakerModel.speakerUiData(data))
             }
         })
-        val list = mainView.findViewById<RecyclerView>(R.id.speakerInfoList)
-        list.layoutManager = LinearLayoutManager(activity)
-        speakerInfoAdapter = SpeakerInfoAdapter()
-        list.adapter = speakerInfoAdapter
-
-        return mainView
+        binding.speakerInfoList.apply {
+            layoutManager = LinearLayoutManager(activity)
+            speakerInfoAdapter = SpeakerInfoAdapter()
+            adapter = speakerInfoAdapter
+        }
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -63,17 +60,16 @@ class SpeakerFragment : Fragment() {
     }
 
     private fun updateDisplay(speakerUiData: SpeakerUiData) {
-        mainView.findViewById<TextView>(R.id.name).text = speakerUiData.fullName
-        val companyView = mainView.findViewById<TextView>(R.id.company)
-        if(speakerUiData.company.isNullOrBlank()) {
-            companyView.visibility = View.GONE
+        binding.name.text = speakerUiData.fullName
+
+        if (speakerUiData.company.isNullOrBlank()) {
+            binding.company.visibility = View.GONE
+        } else {
+            binding.company.visibility = View.VISIBLE
+            binding.company.text = speakerUiData.company
         }
-        else{
-            companyView.visibility = View.VISIBLE
-            companyView.text = speakerUiData.company
-        }
-        if(speakerUiData.profilePicture != null){
-            Picasso.get().load(speakerUiData.profilePicture).into(mainView.findViewById<ImageView>(R.id.profile_image))
+        if (speakerUiData.profilePicture != null) {
+            Picasso.get().load(speakerUiData.profilePicture).into(binding.profileImage)
         }
         speakerInfoAdapter.updateDate(speakerUiData.infoRows)
         speakerUiData.sessions.forEach {
@@ -83,42 +79,38 @@ class SpeakerFragment : Fragment() {
 
     inner class SpeakerInfoAdapter : RecyclerView.Adapter<SpeakerInfoViewHolder>() {
 
-        var infoList:List<SpeakerInfo> = emptyList()
+        var infoList: List<SpeakerInfo> = emptyList()
 
-        fun updateDate(data:List<SpeakerInfo>){
+        fun updateDate(data: List<SpeakerInfo>) {
             infoList = data
             notifyDataSetChanged()
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpeakerInfoViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_speaker_info, parent, false)
-
-            return SpeakerInfoViewHolder(view)
+            val binding = ItemSpeakerInfoBinding
+                    .inflate(LayoutInflater.from(parent.context), parent, false)
+            return SpeakerInfoViewHolder(binding)
         }
 
         override fun getItemCount(): Int = infoList.size
 
         override fun onBindViewHolder(holder: SpeakerInfoViewHolder, position: Int) {
-            val speakerInfo = infoList.get(position)
-            holder.infoTextView.text = speakerInfo.info
-            holder.infoIconView.setImageResource(finDrawableId(requireContext(), speakerInfo.type.icon))
+            val speakerInfo = infoList[position]
+            holder.binding.infoTextView.text = speakerInfo.info
+            holder.binding.infoIconView.setImageResource(finDrawableId(requireContext(), speakerInfo.type.icon))
         }
     }
 
-    class SpeakerInfoViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-        val infoTextView = itemView.findViewById<TextView>(R.id.infoTextView)
-        val infoIconView = itemView.findViewById<ImageView>(R.id.infoIconView)
-    }
+    class SpeakerInfoViewHolder(val binding: ItemSpeakerInfoBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
-fun finDrawableId(ctx: Context, str: String): Int = ctx.getResources().getIdentifier(str, "drawable", ctx.getPackageName())
+fun finDrawableId(ctx: Context, str: String): Int = ctx.resources.getIdentifier(str, "drawable", ctx.packageName)
 
-class SpeakerViewModel(userId:String):ViewModel(){
+class SpeakerViewModel(userId: String) : ViewModel() {
     val speakerModel = SpeakerModel(userId)
 }
 
-class SpeakerViewModelFactory(private val userId:String) : ViewModelProvider.NewInstanceFactory() {
+class SpeakerViewModelFactory(private val userId: String) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return SpeakerViewModel(userId) as T
     }

@@ -10,12 +10,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import co.touchlab.sessionize.api.NetworkRepo
+import co.touchlab.sessionize.databinding.ActivityMainBinding
 import co.touchlab.sessionize.feedback.FeedbackManager
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), SnackHost {
+
+    private lateinit var binding: ActivityMainBinding
 
     private var feedbackManager = FeedbackManager()
     val firebaseMessageHandler = FirebaseMessageHandler()
@@ -28,18 +30,19 @@ class MainActivity : AppCompatActivity(), SnackHost {
 
 
     override fun showSnack(message: String, length: Int) {
-        Snackbar.make(findViewById<View>(R.id.navigation), message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.navigation, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun showSnack(message: Int, length: Int) {
-        Snackbar.make(findViewById<View>(R.id.navigation), message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.navigation, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(findViewById(R.id.app_bar))
+        setSupportActionBar(binding.appBar)
 
 
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_schedule,
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity(), SnackHost {
                 R.id.navigation_settings)) // Destinations where the back arrow doesn't appear
         val navController = findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this,navController, appBarConfiguration)
-        navigation.setupWithNavController(navController)
+        binding.navigation.setupWithNavController(navController)
     }
 
 
