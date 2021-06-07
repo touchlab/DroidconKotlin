@@ -7,13 +7,15 @@ plugins {
     id("androidx.navigation.safeargs")
 }
 
+val firebaseEnabled = project.isFirebaseEnabled()
+
 android {
     compileSdk = BuildConfig.compileSdk
 
     defaultConfig {
         applicationId = "co.touchlab.droidconsf2018"
         buildConfigField("String", "TIME_ZONE", "\"America/Los_Angeles\"")
-        buildConfigField("boolean", "FIREBASE_ENABLED", /*"${firebaseEnabled}"*/"false")
+        buildConfigField("boolean", "FIREBASE_ENABLED", "$firebaseEnabled")
 
         minSdk = BuildConfig.minSdk
         targetSdk = BuildConfig.targetSdk
@@ -24,13 +26,13 @@ android {
 
     val releaseEnabled = project.isReleaseEnabled()
     if (releaseEnabled) {
-        val releasePassord = project.signingKeyPassword()
+        val releasePassword = project.signingKeyPassword()
         signingConfigs {
             getByName("release") {
                 storeFile = file("release.jks")
                 keyAlias = "key0"
-                storePassword = releasePassord
-                keyPassword = releasePassord
+                storePassword = releasePassword
+                keyPassword = releasePassword
             }
         }
     }
@@ -40,7 +42,7 @@ android {
             release {
                 isMinifyEnabled = false
                 proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-//                signingConfig = signingConfigs.release
+                signingConfig = signingConfigs.getByName("release")
             }
         }
 
@@ -55,11 +57,8 @@ android {
         isAbortOnError = false
     }
 
-    packagingOptions {
-        resources.excludes.add("META-INF/*.kotlin_module")
-    }
-
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -67,6 +66,7 @@ android {
     tasks.withType(KotlinCompile::class.java).all {
         kotlinOptions {
             jvmTarget = "11"
+            useIR = true
         }
     }
 }
@@ -76,15 +76,17 @@ kotlin {
 
     sourceSets {
         commonMain {
-            dependencies {
-                implementation(project(":sessionize:lib"))
-            }
+            dependencies {}
         }
     }
 }
 
 dependencies {
+    coreLibraryDesugaring(Deps.Desugar.desugar_libs)
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+    implementation(project(":sessionize:lib"))
 
     implementation(Deps.Android.flow_layout)
     implementation(Deps.Android.Lifecycle.extensions)
@@ -116,7 +118,7 @@ dependencies {
     implementation(Deps.Firebase.firestoreAndroid)
 }
 
-if (project.isFirebaseEnabled()) {
+if (firebaseEnabled) {
     apply(mapOf(
             "plugin" to "com.google.gms.google-services",
             "plugin" to "io.fabric"

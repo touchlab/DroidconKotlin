@@ -46,6 +46,11 @@ object Deps {
         }
     }
 
+    object Desugar {
+        private const val version = "1.1.5"
+        const val desugar_libs = "com.android.tools:desugar_jdk_libs:$version"
+    }
+
     const val fabric_plugin = "io.fabric.tools:gradle:1.31.2"
 
     object Kotlin {
