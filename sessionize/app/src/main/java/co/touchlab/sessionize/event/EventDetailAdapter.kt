@@ -3,18 +3,17 @@ package co.touchlab.sessionize.event
 import android.app.Activity
 import android.text.Html
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.speaker.SpeakerFragment
+import co.touchlab.sessionize.databinding.ItemEventHeaderBinding
+import co.touchlab.sessionize.databinding.ItemEventInfoBinding
+import co.touchlab.sessionize.databinding.ItemEventTextBinding
+import co.touchlab.sessionize.databinding.ItemSpeakerSummaryBinding
 import com.squareup.picasso.Picasso
-import java.util.ArrayList
+import java.util.*
 
 class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -44,20 +43,20 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (EntryType.values()[viewType]) {
             EntryType.TYPE_HEADER -> {
-                val view = LayoutInflater.from(activity).inflate(R.layout.item_event_header, parent, false)
-                HeaderVH(view)
+                HeaderVH(ItemEventHeaderBinding
+                        .inflate(LayoutInflater.from(parent.context), parent, false))
             }
             EntryType.TYPE_BODY -> {
-                val view = LayoutInflater.from(activity).inflate(R.layout.item_event_text, parent, false)
-                TextVH(view)
+                TextVH(ItemEventTextBinding
+                        .inflate(LayoutInflater.from(parent.context), parent, false))
             }
             EntryType.TYPE_INFO -> {
-                val view = LayoutInflater.from(activity).inflate(R.layout.item_event_info, parent, false)
-                InfoVH(view)
+                InfoVH(ItemEventInfoBinding
+                        .inflate(LayoutInflater.from(parent.context), parent, false))
             }
             EntryType.TYPE_SPEAKER -> {
-                val view = LayoutInflater.from(activity).inflate(R.layout.item_speaker_summary, parent, false)
-                SpeakerVH(view)
+                SpeakerVH(ItemSpeakerSummaryBinding
+                        .inflate(LayoutInflater.from(parent.context), parent, false))
             }
         }
     }
@@ -73,22 +72,22 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (EntryType.values()[holder.itemViewType]) {
             EntryType.TYPE_HEADER -> {
-                val view = (holder as HeaderVH).itemView
-                view.findViewById<TextView>(R.id.title).text = (data[position] as HeaderDetail).title
+                val binding = (holder as HeaderVH).binding
+                binding.title.text = (data[position] as HeaderDetail).title
             }
 
             EntryType.TYPE_INFO -> {
-                val view = (holder as InfoVH).itemView
-                view.findViewById<TextView>(R.id.info).text = Html.fromHtml((data[position] as TextDetail).text.trim())
+                val binding = (holder as InfoVH).binding
+                binding.info.text = Html.fromHtml((data[position] as TextDetail).text.trim())
             }
 
             EntryType.TYPE_BODY -> {
-                val view = (holder as TextVH).itemView
-                view.findViewById<TextView>(R.id.body).text = Html.fromHtml((data[position] as TextDetail).text.trim())
+                val binding = (holder as TextVH).binding
+                binding.body.text = Html.fromHtml((data[position] as TextDetail).text.trim())
             }
 
             EntryType.TYPE_SPEAKER -> {
-                val view = (holder as SpeakerVH).itemView
+                val binding = (holder as SpeakerVH).binding
                 val user = data[position] as SpeakerDetail
 
                 if (!user.avatar.isNullOrBlank()) {
@@ -96,20 +95,20 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
                             .load(user.avatar)
                             .noFade()
                             .placeholder(R.drawable.circle_profile_placeholder)
-                            .into(view.findViewById<ImageView>(R.id.profile_image))
+                            .into(binding.profileImage)
                 }
 
                 val companyName = if (user.company.isNullOrEmpty()) "" else user.company
-                view.findViewById<TextView>(R.id.name).text = activity.getString(R.string.event_speaker_name).format(user.name, companyName)
+                binding.name.text = activity.getString(R.string.event_speaker_name).format(user.name, companyName)
 
-                view.setOnClickListener {
+                binding.root.setOnClickListener {
                     val direction = EventFragmentDirections.actionEventFragmentToSpeakerFragment(user.userId)
-                    view.findNavController().navigate(direction)
+                    binding.root.findNavController().navigate(direction)
                 }
                 if(user.bio == null)
-                    view.findViewById<TextView>(R.id.bio).text =""
+                    binding.bio.text =""
                 else
-                    view.findViewById<TextView>(R.id.bio).text = Html.fromHtml(user.bio.trim())
+                    binding.bio.text = Html.fromHtml(user.bio.trim())
             }
         }
     }
@@ -133,11 +132,11 @@ class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<
 
     inner class SpeakerDetail(type: EntryType, val avatar: String?, val name: String, val company: String?, val bio: String?, val userId: String) : Detail(type)
 
-    inner class HeaderVH(val item: View) : RecyclerView.ViewHolder(item)
+    inner class HeaderVH(val binding: ItemEventHeaderBinding) : RecyclerView.ViewHolder(binding.root)
 
-    inner class InfoVH(val item: View) : RecyclerView.ViewHolder(item)
+    inner class InfoVH(val binding: ItemEventInfoBinding) : RecyclerView.ViewHolder(binding.root)
 
-    inner class TextVH(val item: View) : RecyclerView.ViewHolder(item)
+    inner class TextVH(val binding: ItemEventTextBinding) : RecyclerView.ViewHolder(binding.root)
 
-    inner class SpeakerVH(val item: View) : RecyclerView.ViewHolder(item)
+    inner class SpeakerVH(val binding: ItemSpeakerSummaryBinding) : RecyclerView.ViewHolder(binding.root)
 }

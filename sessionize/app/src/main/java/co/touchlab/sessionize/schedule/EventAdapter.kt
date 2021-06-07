@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
+import co.touchlab.sessionize.databinding.ItemEventBinding
 import co.touchlab.sessionize.db.isBlock
 import co.touchlab.sessionize.display.HourBlock
 import co.touchlab.sessionize.display.RsvpState
@@ -29,8 +29,8 @@ class EventAdapter(private val context: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val v = LayoutInflater.from(context).inflate(R.layout.item_event, parent, false)
-        return ScheduleBlockViewHolder(v)
+        return ScheduleBlockViewHolder(ItemEventBinding
+                .inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -46,20 +46,13 @@ class EventAdapter(private val context: Context,
         updateData()
     }
 
-    inner class ScheduleBlockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val title = itemView.findViewById<TextView>(R.id.title)
-        private val time = itemView.findViewById<TextView>(R.id.time)
-        private val speaker = itemView.findViewById<TextView>(R.id.speaker)
-        private val description = itemView.findViewById<TextView>(R.id.event_description)
-        private val rsvp = itemView.findViewById<ImageView>(R.id.rsvpIndicator)
-        private val card = itemView.findViewById<CardView>(R.id.card)
+    inner class ScheduleBlockViewHolder(val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(scheduleBlockHour: HourBlock) {
-            time.text = scheduleBlockHour.hourStringDisplay
-            title.text = scheduleBlockHour.timeBlock.title
-            speaker.text = scheduleBlockHour.speakerText
-            description.text = scheduleBlockHour.timeBlock.description
+            binding.time.text = scheduleBlockHour.hourStringDisplay
+            binding.title.text = scheduleBlockHour.timeBlock.title
+            binding.speaker.text = scheduleBlockHour.speakerText
+            binding.eventDescription.text = scheduleBlockHour.timeBlock.description
             setRsvpState(scheduleBlockHour.getRsvpState(allEvents, dataSet))
             setPast(scheduleBlockHour.isPast())
             setTimeGap(scheduleBlockHour.timeGap)
@@ -72,19 +65,19 @@ class EventAdapter(private val context: Context,
         }
 
         private fun setRsvpState(state: RsvpState) {
-            rsvp.visibility = View.VISIBLE
+            binding.rsvpIndicator.visibility = View.VISIBLE
             when (state) {
                 RsvpState.None -> {
-                    rsvp.visibility = View.INVISIBLE
+                    binding.rsvpIndicator.visibility = View.INVISIBLE
                 }
                 RsvpState.Rsvp -> {
-                    rsvp.setImageResource(R.drawable.rsvp_vector)
+                    binding.rsvpIndicator.setImageResource(R.drawable.rsvp_vector)
                 }
                 RsvpState.Conflict -> {
-                    rsvp.setImageResource(R.drawable.rsvp_conflict_vector)
+                    binding.rsvpIndicator.setImageResource(R.drawable.rsvp_conflict_vector)
                 }
                 RsvpState.RsvpPast -> {
-                    rsvp.setImageResource(R.drawable.rsvp_past_vector)
+                    binding.rsvpIndicator.setImageResource(R.drawable.rsvp_past_vector)
                 }
             }
         }
@@ -111,7 +104,7 @@ class EventAdapter(private val context: Context,
         }
 
         private fun setOnClickListener(listener: () -> Unit) {
-            card.setOnClickListener { listener() }
+            binding.card.setOnClickListener { listener() }
         }
     }
 }

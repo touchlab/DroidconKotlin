@@ -4,15 +4,10 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CompoundButton
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.sessionize.R
-import kotlinx.android.synthetic.main.item_about_info.view.*
-import kotlinx.android.synthetic.main.item_setting_switch.view.*
+import co.touchlab.sessionize.databinding.ItemSettingSwitchBinding
+import co.touchlab.sessionize.databinding.ItemSettingTextBinding
 
 
 class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,31 +15,28 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
     private var data = ArrayList<Detail>()
 
 
-    fun addTextRow(description: String, icon:Int) {
+    fun addTextRow(description: String, icon: Int) {
         data.add(TextDetail(EntryType.TYPE_BODY, description, icon))
     }
 
-    fun addSwitchRow(description: String, icon:Int, isChecked: Boolean, listener: CompoundButton.OnCheckedChangeListener) {
+    fun addSwitchRow(description: String, icon: Int, isChecked: Boolean, listener: CompoundButton.OnCheckedChangeListener) {
         data.add(SwitchDetail(EntryType.TYPE_SWITCH, description, icon, isChecked, listener))
     }
 
-    fun addButtonRow(description: String, icon:Int, listener: View.OnClickListener) {
+    fun addButtonRow(description: String, icon: Int, listener: View.OnClickListener) {
         data.add(ButtonDetail(EntryType.TYPE_BUTTON, description, icon, listener))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (EntryType.values()[viewType]) {
             EntryType.TYPE_BODY -> {
-                val view = LayoutInflater.from(activity).inflate(R.layout.item_setting_text, parent, false)
-                TextVH(view)
+                TextVH(ItemSettingTextBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             }
             EntryType.TYPE_SWITCH -> {
-                val view = LayoutInflater.from(activity).inflate(R.layout.item_setting_switch, parent, false)
-                SwitchVH(view)
+                SwitchVH(ItemSettingSwitchBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             }
             EntryType.TYPE_BUTTON -> {
-                val view = LayoutInflater.from(activity).inflate(R.layout.item_setting_text, parent, false)
-                ButtonVH(view)
+                ButtonVH(ItemSettingTextBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             }
         }
     }
@@ -62,29 +54,35 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
             EntryType.TYPE_SWITCH -> {
                 val view = (holder as SwitchVH)
                 val detail = (data[position] as SwitchDetail)
-                view.switch.text = detail.text.trim()
-                view.switch.isChecked = detail.isChecked
-                view.image.setImageResource(detail.icon)
-                view.switch.setOnCheckedChangeListener(detail.listener)
+                view.binding.run {
+                    settingSwitch.text = detail.text.trim()
+                    settingSwitch.isChecked = detail.isChecked
+                    image.setImageResource(detail.icon)
+                    settingSwitch.setOnCheckedChangeListener(detail.listener)
+                }
             }
 
             EntryType.TYPE_BODY -> {
                 val view = (holder as TextVH)
                 val detail = (data[position] as TextDetail)
-                view.body.text = detail.text.trim()
-                view.image.setImageResource(detail.icon)
+                view.binding.run {
+                    body.text = detail.text.trim()
+                    image.setImageResource(detail.icon)
+                }
             }
             EntryType.TYPE_BUTTON -> {
                 val view = (holder as ButtonVH)
                 val detail = (data[position] as ButtonDetail)
-                view.body.text = detail.text.trim()
-                view.image.setImageResource(detail.icon)
-                view.itemView.setOnClickListener(detail.listener)
+                view.binding.run {
+                    body.text = detail.text.trim()
+                    image.setImageResource(detail.icon)
+                    view.itemView.setOnClickListener(detail.listener)
+                }
             }
         }
     }
 
-    enum class EntryType{
+    enum class EntryType {
         TYPE_BODY,
         TYPE_SWITCH,
         TYPE_BUTTON
@@ -98,19 +96,10 @@ class SettingsAdapter(private val activity: Activity) : RecyclerView.Adapter<Rec
 
     inner class TextDetail(type: EntryType, val text: String, val icon: Int) : Detail(type)
     inner class ButtonDetail(type: EntryType, val text: String, val icon: Int, val listener: View.OnClickListener) : Detail(type)
-    inner class SwitchDetail(type: EntryType, val text: String, val icon: Int, var isChecked: Boolean, var listener:CompoundButton.OnCheckedChangeListener) : Detail(type)
+    inner class SwitchDetail(type: EntryType, val text: String, val icon: Int, var isChecked: Boolean, var listener: CompoundButton.OnCheckedChangeListener) : Detail(type)
 
-    inner class SwitchVH(val item: View) : RecyclerView.ViewHolder(item){
-        val switch = item.settingSwitch!!
-        val image = item.image!!
-    }
-    inner class ButtonVH(val item: View) : RecyclerView.ViewHolder(item){
-        val body = item.body!!
-        val image = item.image!!
-    }
-    inner class TextVH(val item: View) : RecyclerView.ViewHolder(item){
-        val body = item.body!!
-        val image = item.image!!
-    }
+    inner class SwitchVH(val binding: ItemSettingSwitchBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ButtonVH(val binding: ItemSettingTextBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class TextVH(val binding: ItemSettingTextBinding) : RecyclerView.ViewHolder(binding.root)
 
 }

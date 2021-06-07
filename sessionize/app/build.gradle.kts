@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.android.application")
-    kotlin("multiplatform")
-    kotlin("android.extensions")
+    kotlin("android")
+    id("kotlin-parcelize")
     id("androidx.navigation.safeargs")
 }
 
@@ -53,6 +53,10 @@ android {
         }
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     lint {
         isAbortOnError = false
     }
@@ -67,16 +71,6 @@ android {
         kotlinOptions {
             jvmTarget = "11"
             useIR = true
-        }
-    }
-}
-
-kotlin {
-    android()
-
-    sourceSets {
-        commonMain {
-            dependencies {}
         }
     }
 }

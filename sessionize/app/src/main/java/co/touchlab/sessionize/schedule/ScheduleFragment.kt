@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.MainActivity
-import co.touchlab.sessionize.NavigationHost
-import co.touchlab.sessionize.R
+import co.touchlab.sessionize.databinding.FragmentScheduleBinding
 import co.touchlab.sessionize.display.DaySchedule
-import co.touchlab.sessionize.event.EventFragment
+import co.touchlab.sessionize.util.viewBindingLifecycle
 import com.google.android.material.tabs.TabLayout
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,9 +19,11 @@ import kotlin.collections.ArrayList
 
 class ScheduleFragment:Fragment() {
 
-    private val viewModel: ScheduleViewModel by lazy {
-        ViewModelProviders.of(this, ScheduleViewModel.ScheduleViewModelFactory(allEvents))[ScheduleViewModel::class.java]
-    }
+    private var binding by viewBindingLifecycle<FragmentScheduleBinding>()
+
+    private val viewModel: ScheduleViewModel by viewModels(factoryProducer = {
+        ScheduleViewModel.ScheduleViewModelFactory(allEvents)
+    })
 
     val allEvents: Boolean by lazy {
         arguments?.let {
@@ -33,14 +31,12 @@ class ScheduleFragment:Fragment() {
             scheduleArgs.allevents
         } ?: true
     }
-    lateinit var dayChooser: TabLayout
-    lateinit var eventList: RecyclerView
-    lateinit var noDataText: TextView
     lateinit var eventAdapter: EventAdapter
 
     var conferenceDays: List<DaySchedule> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentScheduleBinding.inflate(inflater, container, false)
 
         viewModel.registerForChanges {days:List<DaySchedule> ->
             conferenceDays = days
@@ -49,37 +45,32 @@ class ScheduleFragment:Fragment() {
 
             (activity as? MainActivity)?.let {
                 if (allEvents) {
-                    dayChooser.getTabAt(it.scheduleTabPos)?.select()
+                    binding.dayChooser.getTabAt(it.scheduleTabPos)?.select()
                     updateDisplay()
                     if (it.scheduleRecyclerViewPos == null) {
                         defaultToCurrentDay()
                     } else {
-                        eventList.layoutManager?.onRestoreInstanceState(it.scheduleRecyclerViewPos)
+                        binding.eventList.layoutManager?.onRestoreInstanceState(it.scheduleRecyclerViewPos)
                     }
                 } else {
-                    dayChooser.getTabAt(it.agendaTabPos)?.select()
+                    binding.dayChooser.getTabAt(it.agendaTabPos)?.select()
                     updateDisplay()
-                    eventList.layoutManager?.onRestoreInstanceState(it.agendaRecyclerViewPos)
+                    binding.eventList.layoutManager?.onRestoreInstanceState(it.agendaRecyclerViewPos)
                 }
             }
         }
 
-        val view = inflater.inflate(R.layout.fragment_schedule, container, false)
-        dayChooser = view.findViewById(R.id.dayChooser)
-        eventList = view.findViewById(R.id.eventList)
-        noDataText = view.findViewById(R.id.noData)
+        binding.eventList.layoutManager = LinearLayoutManager(activity)
 
-        eventList.layoutManager = LinearLayoutManager(activity)
-
-        eventAdapter = EventAdapter(context!!, allEvents) {
+        eventAdapter = EventAdapter(requireContext(), allEvents) {
             val direction = ScheduleFragmentDirections.actionScheduleFragmentToEventFragment(it.timeBlock.id)
-            view.findNavController().navigate(direction)
+            binding.root.findNavController().navigate(direction)
             //navigateToSession(it.timeBlock.id)
         }
 
-        eventList.adapter = eventAdapter
+        binding.eventList.adapter = eventAdapter
 
-        dayChooser.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        binding.dayChooser.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabReselected(p0: TabLayout.Tab?) {
 
             }
@@ -89,12 +80,12 @@ class ScheduleFragment:Fragment() {
             }
 
             override fun onTabSelected(p0: TabLayout.Tab?) {
-                eventList.scrollToPosition(0)
+                binding.eventList.scrollToPosition(0)
                 updateDisplay()
             }
         })
 
-        return view
+        return binding.root
     }
 
     private fun defaultToCurrentDay() {
@@ -103,7 +94,7 @@ class ScheduleFragment:Fragment() {
 
         dayStringList.forEachIndexed { index, dayString ->
             if (dayString == currentDayString) {
-                dayChooser.getTabAt(index)?.select()
+                binding.dayChooser.getTabAt(index)?.select()
             }
         }
     }
@@ -114,13 +105,13 @@ class ScheduleFragment:Fragment() {
         if(activity is MainActivity){
             val test = activity as MainActivity
             if(allEvents){
-                test.scheduleRecyclerViewPos = eventList.layoutManager?.onSaveInstanceState()
-                test.scheduleTabPos = dayChooser.selectedTabPosition
+                test.scheduleRecyclerViewPos = binding.eventList.layoutManager?.onSaveInstanceState()
+                test.scheduleTabPos = binding.dayChooser.selectedTabPosition
 
             }
             else{
-                test.agendaRecyclerViewPos = eventList.layoutManager?.onSaveInstanceState()
-                test.agendaTabPos = dayChooser.selectedTabPosition
+                test.agendaRecyclerViewPos = binding.eventList.layoutManager?.onSaveInstanceState()
+                test.agendaTabPos = binding.dayChooser.selectedTabPosition
 
             }
         }
@@ -136,32 +127,32 @@ class ScheduleFragment:Fragment() {
         //We're doing a slightly lazy compare here. If you change the days of your conference,
         //but do not change the number of days, if the user is on screen when it happens, the
         //dates won't refresh right away. Assume we can live with it.
-        if(days.isNotEmpty() && dayChooser.tabCount == days.size)
+        if(days.isNotEmpty() && binding.dayChooser.tabCount == days.size)
             return
 
-        dayChooser.removeAllTabs()
+        binding.dayChooser.removeAllTabs()
 
         if(days.size == 0)
         {
-            dayChooser.visibility = View.GONE
-            eventList.visibility = View.GONE
-            noDataText.visibility = View.VISIBLE
+            binding.dayChooser.visibility = View.GONE
+            binding.eventList.visibility = View.GONE
+            binding.noData.visibility = View.VISIBLE
         }
         else {
-            dayChooser.visibility = View.VISIBLE
-            eventList.visibility = View.VISIBLE
-            noDataText.visibility = View.GONE
+            binding.dayChooser.visibility = View.VISIBLE
+            binding.eventList.visibility = View.VISIBLE
+            binding.noData.visibility = View.GONE
 
             for (day in days) {
-                dayChooser.addTab(dayChooser.newTab().setText(day.dayString))
+                binding.dayChooser.addTab(binding.dayChooser.newTab().setText(day.dayString))
             }
         }
     }
 
     fun updateDisplay()
     {
-        if(dayChooser.selectedTabPosition >= 0 && dayChooser.tabCount > dayChooser.selectedTabPosition) {
-            eventAdapter.updateEvents(conferenceDays[dayChooser.selectedTabPosition].hourBlock)
+        if(binding.dayChooser.selectedTabPosition >= 0 && binding.dayChooser.tabCount > binding.dayChooser.selectedTabPosition) {
+            eventAdapter.updateEvents(conferenceDays[binding.dayChooser.selectedTabPosition].hourBlock)
         }
     }
 }

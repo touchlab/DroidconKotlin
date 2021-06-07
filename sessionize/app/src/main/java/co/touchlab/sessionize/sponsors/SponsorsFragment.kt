@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -15,13 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SponsorSessionModel
+import co.touchlab.sessionize.databinding.FragmentSponsorBinding
+import co.touchlab.sessionize.databinding.ItemSponsorGroupBinding
 import co.touchlab.sessionize.jsondata.SponsorGroup
 import co.touchlab.sessionize.sponsorClicked
-import com.nex3z.flowlayout.FlowLayout
+import co.touchlab.sessionize.util.viewBindingLifecycle
 import com.squareup.picasso.Picasso
 
 
 class SponsorsFragment : Fragment() {
+
+    private var binding by viewBindingLifecycle<FragmentSponsorBinding>()
 
     lateinit var adapter: SponsorGroupAdapter
     lateinit var sponsorViewModel:SponsorViewModel
@@ -32,9 +35,7 @@ class SponsorsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_sponsor, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
-
+        binding = FragmentSponsorBinding.inflate(inflater, container, false)
 
         sponsorViewModel.load({
             adapter.sponsorGroupItems = it
@@ -51,28 +52,26 @@ class SponsorsFragment : Fragment() {
         }
 
         adapter = SponsorGroupAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recycler.adapter = adapter
+        binding.recycler.layoutManager = LinearLayoutManager(activity)
 
-        return view
+        return binding.root
     }
 
-    inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
-        var sponsorGroupItems:List<SponsorGroup> = emptyList()
+    inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>() {
+        var sponsorGroupItems: List<SponsorGroup> = emptyList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SponsorGroupViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_sponsor_group, parent, false)
-
-            return SponsorGroupViewHolder(view)
+            return SponsorGroupViewHolder(ItemSponsorGroupBinding
+                    .inflate(LayoutInflater.from(parent.context), parent, false))
         }
 
         override fun getItemCount(): Int = sponsorGroupItems.size
 
         override fun onBindViewHolder(holder: SponsorGroupViewHolder, position: Int) {
-            val sponsorGroup = sponsorGroupItems.get(position)
-            holder.groupName.text = sponsorGroup.groupName
-            holder.flowGroup.removeAllViews()
+            val sponsorGroup = sponsorGroupItems[position]
+            holder.binding.groupName.text = sponsorGroup.groupName
+            holder.binding.flowGroup.removeAllViews()
             val layoutInflater = LayoutInflater.from(activity)
 
             val itemLayout = if (
@@ -86,9 +85,9 @@ class SponsorsFragment : Fragment() {
             }
 
             for (sponsor in sponsorGroup.sponsors) {
-                val iv = layoutInflater.inflate(itemLayout, holder.flowGroup, false) as ImageView
+                val iv = layoutInflater.inflate(itemLayout, holder.binding.flowGroup, false) as ImageView
                 Picasso.get().load(sponsor.icon).into(iv)
-                holder.flowGroup.addView(iv)
+                holder.binding.flowGroup.addView(iv)
                 iv.setOnClickListener {
 
                     sponsorClicked(sponsor)
@@ -109,8 +108,5 @@ class SponsorsFragment : Fragment() {
         }
     }
 
-    class SponsorGroupViewHolder(view:View):RecyclerView.ViewHolder(view){
-        val groupName = view.findViewById<TextView>(R.id.groupName)
-        val flowGroup = view.findViewById<FlowLayout>(R.id.flowGroup)
-    }
+    class SponsorGroupViewHolder(val binding: ItemSponsorGroupBinding) : RecyclerView.ViewHolder(binding.root)
 }
