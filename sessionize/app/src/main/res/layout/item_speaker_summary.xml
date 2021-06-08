@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:layout_marginBottom="@dimen/padding_small"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/padding_small"
-    android:layout_height="wrap_content">
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginBottom="@dimen/padding_small">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
@@ -16,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/padding_medium"
         android:layout_marginRight="@dimen/padding_medium"
-        tools:src="@drawable/circle_profile_placeholder"/>
+        tools:src="@drawable/circle_profile_placeholder" />
 
     <TextView
         android:id="@+id/name"
@@ -24,20 +23,20 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/profile_image"
         android:layout_toEndOf="@id/profile_image"
-        android:paddingBottom="@dimen/padding_wedge"
         android:paddingTop="@dimen/padding_wedge"
+        android:paddingBottom="@dimen/padding_wedge"
         android:textSize="@dimen/text_small"
-        tools:text="Liam Spradlin, touchlab"/>
+        tools:text="Liam Spradlin, touchlab" />
 
     <TextView
         android:id="@+id/bio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/name"
         android:layout_below="@id/name"
+        android:layout_alignStart="@id/name"
         android:autoLink="web"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="@dimen/text_small"
-        tools:text="@string/lorem_short"/>
+        tools:text="@string/lorem_short" />
 
 </RelativeLayout>

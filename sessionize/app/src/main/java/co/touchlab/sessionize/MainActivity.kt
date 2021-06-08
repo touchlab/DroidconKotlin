@@ -43,8 +43,7 @@ class MainActivity : AppCompatActivity(), SnackHost {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBar)
-
-
+        
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_schedule,
                 R.id.navigation_my_agenda,
                 R.id.navigation_sponsors,

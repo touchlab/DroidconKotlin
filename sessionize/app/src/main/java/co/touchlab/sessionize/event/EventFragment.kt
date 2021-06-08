@@ -60,7 +60,7 @@ class EventFragment : Fragment() {
     @SuppressLint("RestrictedApi")
     private fun updateFAB(event: SessionInfo) {
         binding.run {
-            fab.rippleColor = ContextCompat.getColor(requireContext(), R.color.black)
+            fab.rippleColor = ContextCompat.getColor(requireContext(), android.R.color.black)
 
             if (event.isRsvped()) {
                 fab.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_check))
