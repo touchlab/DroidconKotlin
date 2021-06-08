@@ -16,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            style="@style/Widget.Sessionize.Toolbar"
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

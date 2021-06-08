@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), SnackHost {
                 R.id.navigation_sponsors,
                 R.id.navigation_settings)) // Destinations where the back arrow doesn't appear
         val navController = findNavController(R.id.nav_host_fragment)
-        NavigationUI.setupActionBarWithNavController(this,navController, appBarConfiguration)
+        binding.appBar.setupWithNavController(navController, appBarConfiguration)
         binding.navigation.setupWithNavController(navController)
     }
 
