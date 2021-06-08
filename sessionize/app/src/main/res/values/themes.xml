@@ -19,11 +19,12 @@
         <item name="textAppearanceOverline">@style/TextAppearance.Sessionize.Overline</item>
 
         <item name="appBarLayoutStyle">@style/Widget.Sessionize.AppBarLayout.PrimarySurface</item>
-        <item name="toolbarStyle">@style/Widget.Sessionize.Toolbar</item>
         <item name="bottomNavigationStyle">@style/Widget.Sessionize.BottomNavigationView.PrimarySurface</item>
     </style>
 
     <style name="Theme.Sessionize" parent="@style/Theme.Base.Sessionize">
+        <item name="toolbarStyle">@style/Widget.Sessionize.Toolbar.PrimarySurface</item>
+
         <item name="colorPrimary">@color/lightBlue</item>
         <item name="colorOnPrimary">@android:color/white</item>
         <item name="colorPrimaryVariant">@color/darkBlue</item>

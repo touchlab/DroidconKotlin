@@ -4,8 +4,9 @@
         <item name="android:background">?attr/colorPrimaryVariant</item>
     </style>
 
-    <style name="Widget.Sessionize.Toolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface">
+    <style name="Widget.Sessionize.Toolbar.PrimarySurface" parent="Widget.MaterialComponents.Toolbar.PrimarySurface">
         <item name="android:background">?attr/colorPrimaryVariant</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary</item>
     </style>
 
     <style name="Widget.Sessionize.BottomNavigationView.PrimarySurface" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface"/>
