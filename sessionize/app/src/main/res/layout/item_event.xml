@@ -1,104 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="@dimen/item_event_layout_width"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/item_event_padding_bottom"
-        android:paddingTop="@dimen/item_event_padding_top">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/item_event_layout_width"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/padding_medium"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/item_event_padding_top"
+    android:paddingBottom="@dimen/item_event_padding_bottom">
 
     <TextView
-            android:id="@+id/time"
-            android:layout_width="@dimen/conflict_text_width"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:paddingEnd="@dimen/padding_small"
-            android:paddingStart="0dp"
-            android:paddingTop="@dimen/padding_small"
-            tools:text="9:00am"/>
+        android:id="@+id/time"
+        android:layout_width="@dimen/conflict_text_width"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:paddingStart="0dp"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingEnd="@dimen/padding_small"
+        tools:text="9:00am" />
 
     <ImageView
-            android:id="@+id/rsvpIndicator"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/item_event_rsvp_margin_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_xmicro"
-            android:src="@drawable/rsvp_vector"
-            />
+        android:id="@+id/rsvpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/item_event_rsvp_margin_start"
+        android:paddingBottom="@dimen/padding_xmicro"
+        android:src="@drawable/rsvp_vector" />
 
-    <androidx.cardview.widget.CardView
-            android:id="@+id/card"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/padding_xmicro"
-            android:layout_marginStart="@dimen/item_event_card_margin_start"
-            card_view:cardCornerRadius="0dp">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/item_event_card_margin_start"
+        android:layout_marginEnd="@dimen/padding_xmicro"
+        app:cardCornerRadius="0dp">
 
         <ImageView
-                android:id="@+id/live"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="end|bottom"
-                android:layout_marginBottom="@dimen/live_icon_margin"
-                android:layout_marginEnd="@dimen/live_icon_margin"
-                android:contentDescription="@string/cd_live_now"
-                android:src="@drawable/ic_play_24dp"
-                android:visibility="invisible"
-                tools:visibility="visible"/>
+            android:id="@+id/live"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="@dimen/live_icon_margin"
+            android:layout_marginBottom="@dimen/live_icon_margin"
+            android:contentDescription="@string/cd_live_now"
+            android:src="@drawable/ic_play_24dp"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="@dimen/padding_large"
+                tools:text="This is a title" />
 
             <TextView
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="@dimen/padding_large"
-                    tools:text="This is a title"/>
-
-            <TextView
-                    android:id="@+id/speaker"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/location_time_margin_bottom"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/padding_tiny"
-                    android:layout_marginEnd="@dimen/padding_large"
-                    tools:text="Keanu Reeves"/>
+                android:id="@+id/speaker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="@dimen/padding_tiny"
+                android:layout_marginEnd="@dimen/padding_large"
+                android:layout_marginBottom="@dimen/location_time_margin_bottom"
+                tools:text="Keanu Reeves" />
 
             <View
-                    android:id="@+id/event_divider"
-                    android:layout_width="@dimen/event_divider_width"
-                    android:layout_height="@dimen/event_divider_height"
-                    android:background="#e5e5e5"/>
+                android:id="@+id/event_divider"
+                android:layout_width="@dimen/event_divider_width"
+                android:layout_height="@dimen/event_divider_height"
+                android:background="#e5e5e5" />
 
             <TextView
-                    android:id="@+id/event_description"
-                    android:layout_width="@dimen/event_description_width"
-                    android:layout_height="@dimen/event_description_height"
-                    android:layout_marginBottom="@dimen/event_description_margin_bottom"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="@dimen/padding_large"
-                    android:layout_marginTop="@dimen/event_description_margin_top"
-                    android:ellipsize="end"
-                    android:maxLines="4"
-                    android:minLines="4"
-                    tools:text="@string/lorem_long"/>
+                android:id="@+id/event_description"
+                android:layout_width="@dimen/event_description_width"
+                android:layout_height="@dimen/event_description_height"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/event_description_margin_top"
+                android:layout_marginEnd="@dimen/padding_large"
+                android:layout_marginBottom="@dimen/event_description_margin_bottom"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:minLines="4"
+                tools:text="@string/lorem_long" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

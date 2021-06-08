@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Sessionize" parent="@style/Theme.Base.Sessionize">
+        <item name="colorPrimary">@color/lightBlue</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorPrimaryVariant">@color/darkBlue</item>
+        <item name="colorSecondary">@color/yellow</item>
+        <item name="colorOnSecondary">@android:color/black</item>
+        <item name="colorSecondaryVariant">@color/yellow</item>
+    </style>
+
+</resources>

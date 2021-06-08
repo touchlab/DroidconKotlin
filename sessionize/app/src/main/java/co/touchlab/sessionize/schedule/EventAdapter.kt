@@ -83,7 +83,7 @@ class EventAdapter(private val context: Context,
         }
 
         private fun setPast(b: Boolean) {
-            val color = if (b) R.color.pastEvent else R.color.white
+            val color = if (b) R.color.pastEvent else android.R.color.white
             val cardView = itemView.findViewById<CardView>(R.id.card)
                cardView.setCardBackgroundColor(
                     ContextCompat.getColor(context, color))

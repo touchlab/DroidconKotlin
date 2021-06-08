@@ -4,14 +4,28 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="sessionize/app/src/main/res/drawable/ic_check.xml" value="0.1" />
+        <entry key="sessionize/app/src/main/res/drawable/ic_plus.xml" value="0.1" />
         <entry key="sessionize/app/src/main/res/drawable/rounded_blue_button.xml" value="0.15729166666666666" />
+        <entry key="sessionize/app/src/main/res/drawable/rsvp_conflict_vector.xml" value="0.1" />
+        <entry key="sessionize/app/src/main/res/drawable/rsvp_past_vector.xml" value="0.1" />
+        <entry key="sessionize/app/src/main/res/drawable/rsvp_vector.xml" value="0.1" />
         <entry key="sessionize/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="sessionize/app/src/main/res/layout/fragment_event.xml" value="0.1" />
         <entry key="sessionize/app/src/main/res/layout/fragment_speaker.xml" value="0.14447463768115942" />
         <entry key="sessionize/app/src/main/res/layout/fragment_sponsor.xml" value="0.14447463768115942" />
         <entry key="sessionize/app/src/main/res/layout/fragment_sponsor_session.xml" value="0.14447463768115942" />
         <entry key="sessionize/app/src/main/res/layout/item_about_info.xml" value="0.14447463768115942" />
+        <entry key="sessionize/app/src/main/res/layout/item_event_header.xml" value="0.11820652173913043" />
+        <entry key="sessionize/app/src/main/res/layout/item_event_info.xml" value="0.11820652173913043" />
+        <entry key="sessionize/app/src/main/res/layout/item_event_text.xml" value="0.11820652173913043" />
         <entry key="sessionize/app/src/main/res/layout/item_setting_switch.xml" value="0.1381340579710145" />
         <entry key="sessionize/app/src/main/res/layout/item_setting_text.xml" value="0.1381340579710145" />
+        <entry key="sessionize/app/src/main/res/layout/item_speaker_info.xml" value="0.11820652173913043" />
+        <entry key="sessionize/app/src/main/res/layout/item_sponsor_group.xml" value="0.11820652173913043" />
+        <entry key="sessionize/app/src/main/res/layout/item_sponsor_pic.xml" value="0.11820652173913043" />
+        <entry key="sessionize/app/src/main/res/layout/item_sponsor_pic_small.xml" value="0.11820652173913043" />
+        <entry key="sessionize/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
   </component>

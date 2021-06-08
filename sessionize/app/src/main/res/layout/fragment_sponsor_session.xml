@@ -1,64 +1,63 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        xmlns:tools="http://schemas.android.com/tools">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="139dp"
-            android:fitsSystemWindows="true">
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="139dp"
+        android:fitsSystemWindows="true">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:statusBarScrim="@android:color/transparent">
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="@android:color/transparent">
 
             <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
 
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/padding_medium"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/sponsorSessionTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="@dimen/padding_medium"
-                        android:layout_marginStart="@dimen/padding_medium"
-                        android:orientation="vertical">
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/text_xxlarge"
+                        tools:text="John Doe" />
 
                     <TextView
-                            android:id="@+id/sponsorSessionTitle"
-                            android:ellipsize="end"
-                            android:singleLine="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text_xxlarge"
-                            tools:text="John Doe"/>
-
-                    <TextView
-                            android:id="@+id/sponsorGroupName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            tools:text="Company"
-                            tools:visibility="visible"/>
+                        android:id="@+id/sponsorGroupName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnPrimary"
+                        tools:text="Company"
+                        tools:visibility="visible" />
                 </LinearLayout>
 
 
                 <ImageView
-                        android:id="@+id/sponsorImage"
-                        android:layout_width="@dimen/wrap_content"
-                        android:layout_height="@dimen/match_parent"
-                        android:layout_margin="@dimen/padding_medium"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"/>
+                    android:id="@+id/sponsorImage"
+                    android:layout_width="@dimen/wrap_content"
+                    android:layout_height="@dimen/match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/padding_medium" />
             </RelativeLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -66,10 +65,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

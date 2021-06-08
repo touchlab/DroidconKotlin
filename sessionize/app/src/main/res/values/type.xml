@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Sessionize.Headline1" parent="TextAppearance.MaterialComponents.Headline1"/>
+
+    <style name="TextAppearance.Sessionize.Headline2" parent="TextAppearance.MaterialComponents.Headline2"/>
+
+    <style name="TextAppearance.Sessionize.Headline3" parent="TextAppearance.MaterialComponents.Headline3"/>
+
+    <style name="TextAppearance.Sessionize.Headline4" parent="TextAppearance.MaterialComponents.Headline4"/>
+
+    <style name="TextAppearance.Sessionize.Headline5" parent="TextAppearance.MaterialComponents.Headline5"/>
+
+    <style name="TextAppearance.Sessionize.Headline6" parent="TextAppearance.MaterialComponents.Headline6"/>
+
+    <style name="TextAppearance.Sessionize.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1"/>
+
+    <style name="TextAppearance.Sessionize.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2"/>
+
+    <style name="TextAppearance.Sessionize.Body1" parent="TextAppearance.MaterialComponents.Body1"/>
+
+    <style name="TextAppearance.Sessionize.Body2" parent="TextAppearance.MaterialComponents.Body2"/>
+
+    <style name="TextAppearance.Sessionize.Button" parent="TextAppearance.MaterialComponents.Button"/>
+
+    <style name="TextAppearance.Sessionize.Caption" parent="TextAppearance.MaterialComponents.Caption"/>
+
+    <style name="TextAppearance.Sessionize.Overline" parent="TextAppearance.MaterialComponents.Overline"/>
+
+    <style name="TextAppearance.Sessionize.Tab" parent="TextAppearance.MaterialComponents.Button"/>
+
+</resources>

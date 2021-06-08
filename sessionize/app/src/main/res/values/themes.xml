@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Base theme, all common styling here-->
+    <style name="Theme.Base.Sessionize" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--Material type attributes-->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Sessionize.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Sessionize.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Sessionize.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Sessionize.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Sessionize.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Sessionize.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Sessionize.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Sessionize.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Sessionize.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Sessionize.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Sessionize.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Sessionize.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Sessionize.Overline</item>
+
+        <item name="appBarLayoutStyle">@style/Widget.Sessionize.AppBarLayout.PrimarySurface</item>
+        <item name="toolbarStyle">@style/Widget.Sessionize.Toolbar</item>
+        <item name="bottomNavigationStyle">@style/Widget.Sessionize.BottomNavigationView.PrimarySurface</item>
+    </style>
+
+    <style name="Theme.Sessionize" parent="@style/Theme.Base.Sessionize">
+        <item name="colorPrimary">@color/lightBlue</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorPrimaryVariant">@color/darkBlue</item>
+        <item name="colorSecondary">@color/yellow</item>
+        <item name="colorOnSecondary">@android:color/black</item>
+        <item name="colorSecondaryVariant">@color/yellow</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
+
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="Widget.Sessionize.AppBarLayout.PrimarySurface" parent="Widget.MaterialComponents.AppBarLayout.PrimarySurface"/>
+
+    <style name="Widget.Sessionize.Toolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface"/>
+
+</resources>

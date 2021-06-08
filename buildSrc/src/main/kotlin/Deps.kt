@@ -1,7 +1,7 @@
 object Deps {
 
     object Android {
-        const val plugin = "com.android.tools.build:gradle:7.1.0-alpha01"
+        const val plugin = "com.android.tools.build:gradle:7.1.0-alpha02"
         const val google_services = "com.google.gms:google-services:4.3.8"
 
         const val flow_layout = "com.nex3z:flow-layout:1.2.2"
