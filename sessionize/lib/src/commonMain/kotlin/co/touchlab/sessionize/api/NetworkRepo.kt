@@ -22,7 +22,7 @@ object NetworkRepo {
             val api = ServiceRegistry.sessionizeApi
             val networkSpeakerJson = api.getSpeakersJson()
             val networkSessionJson = api.getSessionsJson()
-            val networkSponsorSessionJson =  api.getSponsorSessionJson()
+            val networkSponsorSessionJson = api.getSponsorSessionJson()
 
             callPrimeAll(networkSpeakerJson, networkSessionJson, networkSponsorSessionJson)
 
@@ -36,11 +36,16 @@ object NetworkRepo {
         }
     }
 
-    internal suspend fun callPrimeAll(networkSpeakerJson:String,
-                                      networkSessionJson:String,
-                                      networkSponsorSessionJson:String
-                                      ) = withContext(ServiceRegistry.backgroundDispatcher){
-        SessionizeDbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorSessionJson)
+    internal suspend fun callPrimeAll(
+        networkSpeakerJson: String,
+        networkSessionJson: String,
+        networkSponsorSessionJson: String
+    ) = withContext(ServiceRegistry.backgroundDispatcher) {
+        SessionizeDbHelper.primeAll(
+            networkSpeakerJson,
+            networkSessionJson,
+            networkSponsorSessionJson
+        )
         ServiceRegistry.appSettings.putLong(SettingsKeys.KEY_LAST_LOAD, currentTimeMillis())
     }
 

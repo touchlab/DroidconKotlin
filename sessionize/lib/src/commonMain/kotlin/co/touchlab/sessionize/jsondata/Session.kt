@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class Days(val date: String, val rooms: List<Room>)
 
 @Serializable
-data class Room(val id: String, val name: String, val sessions: List<Session>)
+data class Room(val id: Int, val name: String, val sessions: List<Session>)
 
 @Serializable
 data class Session(

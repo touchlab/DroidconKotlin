@@ -5,9 +5,11 @@ import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.sessionize.platform.createUuid
-import co.touchlab.sessionize.platform.networkDispatcher
-import co.touchlab.sessionize.platform.simpleGet
-import kotlinx.coroutines.withContext
+import io.ktor.client.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
+import io.ktor.client.request.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlin.native.concurrent.ThreadLocal
@@ -16,21 +18,31 @@ import kotlin.native.concurrent.ThreadLocal
 object SessionizeApiImpl : SessionizeApi {
     private val INSTANCE_ID = "jmuc9diq"
     private val SPONSOR_INSTANCE_ID = "lhiyghwr"
-//    private val client = HttpClient {
-//        install(ExpectSuccess)
-//    }
 
-    override suspend fun getSpeakersJson(): String = withContext(networkDispatcher()) {
-        simpleGet("https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/speakers")
+    private val client by lazy {
+        HttpClient {
+            install(JsonFeature) {
+                serializer = KotlinxSerializer()
+            }
+
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.ALL
+            }
+        }
     }
 
-    override suspend fun getSessionsJson(): String = withContext(networkDispatcher()) {
-        simpleGet("https://sessionize.com/api/v2/$INSTANCE_ID/view/gridtable")
-    }
+    override suspend fun getSpeakersJson(): String = client.get(
+        urlString = "https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/speakers"
+    )
 
-    override suspend fun getSponsorSessionJson(): String = withContext(networkDispatcher()) {
-        simpleGet("https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/sessions")
-    }
+    override suspend fun getSessionsJson(): String = client.get(
+        urlString = "https://sessionize.com/api/v2/$INSTANCE_ID/view/gridtable"
+    )
+
+    override suspend fun getSponsorSessionJson(): String = client.get(
+        urlString = "https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/sessions"
+    )
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = true/* = client.request<HttpResponse> {
         droidcon("/dataTest/$methodName/$sessionId/${userUuid()}")
@@ -60,7 +72,11 @@ internal fun userUuid(): String {
 }
 
 internal fun parseSessionsFromDays(scheduleJson: String): List<Session> {
-    val days = Json.decodeFromString<List<Days>>(scheduleJson)
+    val days = Json {
+        allowStructuredMapKeys = true
+        ignoreUnknownKeys = true
+    }.decodeFromString<List<Days>>(scheduleJson)
+
     val sessions = mutableListOf<Session>()
 
     days.forEach { day ->

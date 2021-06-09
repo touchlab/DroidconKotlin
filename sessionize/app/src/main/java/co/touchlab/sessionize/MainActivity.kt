@@ -23,10 +23,10 @@ class MainActivity : AppCompatActivity(), SnackHost {
     val firebaseMessageHandler = FirebaseMessageHandler()
 
     var scheduleRecyclerViewPos: Parcelable? = null
-    var scheduleTabPos:Int = 0
+    var scheduleTabPos: Int = 0
 
-    var agendaRecyclerViewPos:Parcelable? = null
-    var agendaTabPos:Int = 0
+    var agendaRecyclerViewPos: Parcelable? = null
+    var agendaTabPos: Int = 0
 
 
     override fun showSnack(message: String, length: Int) {
@@ -43,11 +43,15 @@ class MainActivity : AppCompatActivity(), SnackHost {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBar)
-        
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_schedule,
+
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_schedule,
                 R.id.navigation_my_agenda,
                 R.id.navigation_sponsors,
-                R.id.navigation_settings)) // Destinations where the back arrow doesn't appear
+                R.id.navigation_settings
+            )
+        ) // Destinations where the back arrow doesn't appear
         val navController = findNavController(R.id.nav_host_fragment)
         binding.appBar.setupWithNavController(navController, appBarConfiguration)
         binding.navigation.setupWithNavController(navController)
@@ -66,10 +70,13 @@ class MainActivity : AppCompatActivity(), SnackHost {
         super.onDestroy()
         feedbackManager.close()
     }
+
     private fun findApplicationName(context: Context): String {
         val applicationInfo = context.applicationInfo
         val stringId = applicationInfo.labelRes
-        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
+        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(
+            stringId
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {

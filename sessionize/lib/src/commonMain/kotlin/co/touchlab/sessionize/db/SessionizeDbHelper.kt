@@ -79,7 +79,10 @@ object SessionizeDbHelper {
     }
 
     private fun primeSpeakers(speakerJson: String) {
-        val speakers = Json.decodeFromString<List<Speaker>>(speakerJson)
+        val speakers = Json {
+            allowStructuredMapKeys = true
+            ignoreUnknownKeys = true
+        }.decodeFromString<List<Speaker>>(speakerJson)
 
         for (speaker in speakers) {
             var twitter: String? = null
@@ -201,7 +204,10 @@ object SessionizeDbHelper {
     }
 
     private fun primeSponsorSessions(sponsorSessionsJson: String) {
-        val sponsorSessionGroups = Json.decodeFromString<List<SponsorSessionGroup>>(sponsorSessionsJson)
+        val sponsorSessionGroups = Json {
+            allowStructuredMapKeys = true
+            ignoreUnknownKeys = true
+        }.decodeFromString<List<SponsorSessionGroup>>(sponsorSessionsJson)
 
         for (sessionGroup in sponsorSessionGroups) {
             for (session in sessionGroup.sessions) {

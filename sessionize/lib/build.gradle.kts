@@ -73,6 +73,11 @@ kotlin {
                 implementation(Deps.Serialization.commonRuntime)
                 implementation(Deps.Firebase.GitLive.firestore)
                 implementation(Deps.Kotlin.Coroutines.common)
+
+                implementation(Deps.Ktor.commonCore)
+                implementation(Deps.Ktor.commonJson)
+                implementation(Deps.Ktor.serialization)
+                implementation(Deps.Ktor.commonLogging)
             }
         }
 
@@ -93,6 +98,9 @@ kotlin {
             dependencies {
                 implementation(Deps.SqlDelight.driverIos)
                 implementation(Deps.SqLiter.ios)
+
+                implementation(Deps.Ktor.ios)
+                implementation(Deps.Ktor.native_logging)
             }
         }
 
@@ -100,6 +108,9 @@ kotlin {
             dependencies {
                 implementation(Deps.SqlDelight.driverAndroid)
                 implementation(Deps.Firebase.firestoreAndroid)
+
+                implementation(Deps.Ktor.androidCore)
+                implementation(Deps.Ktor.logback)
             }
         }
 

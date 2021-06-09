@@ -27,8 +27,3 @@ expect fun createUuid(): String
 expect fun printThrowable(t:Throwable)
 
 expect fun backgroundDispatcher():CoroutineDispatcher
-
-//This stuff is just till ktor catches up
-expect fun simpleGet(url:String):String
-
-expect fun networkDispatcher():CoroutineDispatcher
