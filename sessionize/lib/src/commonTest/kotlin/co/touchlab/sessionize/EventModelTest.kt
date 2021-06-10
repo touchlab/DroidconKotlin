@@ -4,6 +4,9 @@ import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.db.DateAdapter
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.jsondata.Days
+import co.touchlab.sessionize.jsondata.Speaker
+import co.touchlab.sessionize.jsondata.SponsorSessionGroup
 import co.touchlab.sessionize.mocks.FeedbackApiMock
 import co.touchlab.sessionize.mocks.NotificationsApiMock
 import kotlinx.coroutines.Dispatchers
@@ -89,16 +92,16 @@ class SessionizeApiMock : SessionizeApi {
     }
 
     var rsvpCalled = false
-    override suspend fun getSpeakers(): String {
-        return ""
+    override suspend fun getSpeakers(): List<Speaker> {
+        return emptyList()
     }
 
-    override suspend fun getSessions(): String {
-        return ""
+    override suspend fun getSessions(): List<Days> {
+        return emptyList()
     }
 
-    override suspend fun getSponsorSession(): String {
-        return ""
+    override suspend fun getSponsorSession(): List<SponsorSessionGroup> {
+        return emptyList()
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean {
