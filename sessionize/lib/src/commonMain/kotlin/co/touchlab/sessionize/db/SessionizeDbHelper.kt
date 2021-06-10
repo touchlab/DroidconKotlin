@@ -1,15 +1,9 @@
 package co.touchlab.sessionize.db
 
-import co.touchlab.droidcon.db.DroidconDb
-import co.touchlab.droidcon.db.RoomQueries
-import co.touchlab.droidcon.db.Session
-import co.touchlab.droidcon.db.SessionQueries
-import co.touchlab.droidcon.db.SessionSpeakerQueries
-import co.touchlab.droidcon.db.SessionWithRoom
-import co.touchlab.droidcon.db.SponsorSessionQueries
-import co.touchlab.droidcon.db.UserAccountQueries
+import co.touchlab.droidcon.db.*
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.api.parseSessionsFromDays
+import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.SessionSpeaker
 import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.jsondata.SponsorSessionGroup
@@ -20,8 +14,6 @@ import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 
 object SessionizeDbHelper {
 
@@ -65,12 +57,12 @@ object SessionizeDbHelper {
         instance.sessionQueries.sessionFeedbackToSend().executeAsList()
     }
 
-    fun primeAll(speakerJson: String, scheduleJson: String, sponsorSessionJson: String) {
+    fun primeAll(speakers: List<Speaker>, schedules: List<Days>, sponsorSessions: List<SponsorSessionGroup>) {
         instance.sessionQueries.transaction {
             try {
-                primeSpeakers(speakerJson)
-                primeSessions(scheduleJson)
-                primeSponsorSessions(sponsorSessionJson)
+                primeSpeakers(speakers)
+                primeSessions(schedules)
+                primeSponsorSessions(sponsorSessions)
             } catch (e: Exception) {
                 printThrowable(e)
                 throw e
@@ -78,12 +70,7 @@ object SessionizeDbHelper {
         }
     }
 
-    private fun primeSpeakers(speakerJson: String) {
-        val speakers = Json {
-            allowStructuredMapKeys = true
-            ignoreUnknownKeys = true
-        }.decodeFromString<List<Speaker>>(speakerJson)
-
+    private fun primeSpeakers(speakers: List<Speaker>) {
         for (speaker in speakers) {
             var twitter: String? = null
             var linkedIn: String? = null
@@ -127,8 +114,8 @@ object SessionizeDbHelper {
         }
     }
 
-    private fun primeSessions(scheduleJson: String) {
-        val sessions = parseSessionsFromDays(scheduleJson)
+    private fun primeSessions(schedules: List<Days>) {
+        val sessions = parseSessionsFromDays(schedules)
 
         instance.sessionSpeakerQueries.deleteAll()
         val allSessions = instance.sessionQueries.allSessions().executeAsList()
@@ -159,7 +146,7 @@ object SessionizeDbHelper {
                             1
                         } else {
                             0
-                        }, session.roomId!!.toLong()
+                        }, session.roomId.toLong()
                 )
             } else {
                 instance.sessionQueries.update(
@@ -203,13 +190,8 @@ object SessionizeDbHelper {
         }
     }
 
-    private fun primeSponsorSessions(sponsorSessionsJson: String) {
-        val sponsorSessionGroups = Json {
-            allowStructuredMapKeys = true
-            ignoreUnknownKeys = true
-        }.decodeFromString<List<SponsorSessionGroup>>(sponsorSessionsJson)
-
-        for (sessionGroup in sponsorSessionGroups) {
+    private fun primeSponsorSessions(sponsorSessions: List<SponsorSessionGroup>) {
+        for (sessionGroup in sponsorSessions) {
             for (session in sessionGroup.sessions) {
                 instance.sponsorSessionQueries.insertUpdate(session.id, session.descriptionText)
                 insertSessionSpeakers(session.speakers, session.id)

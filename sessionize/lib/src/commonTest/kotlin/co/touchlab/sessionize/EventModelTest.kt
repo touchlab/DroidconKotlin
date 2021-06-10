@@ -89,15 +89,15 @@ class SessionizeApiMock : SessionizeApi {
     }
 
     var rsvpCalled = false
-    override suspend fun getSpeakersJson(): String {
+    override suspend fun getSpeakers(): String {
         return ""
     }
 
-    override suspend fun getSessionsJson(): String {
+    override suspend fun getSessions(): String {
         return ""
     }
 
-    override suspend fun getSponsorSessionJson(): String {
+    override suspend fun getSponsorSession(): String {
         return ""
     }
 

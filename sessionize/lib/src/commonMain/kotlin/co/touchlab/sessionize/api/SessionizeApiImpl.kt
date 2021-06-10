@@ -4,6 +4,8 @@ import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
+import co.touchlab.sessionize.jsondata.Speaker
+import co.touchlab.sessionize.jsondata.SponsorSessionGroup
 import co.touchlab.sessionize.platform.createUuid
 import io.ktor.client.*
 import io.ktor.client.features.json.*
@@ -32,15 +34,15 @@ object SessionizeApiImpl : SessionizeApi {
         }
     }
 
-    override suspend fun getSpeakersJson(): String = client.get(
+    override suspend fun getSpeakers(): List<Speaker> = client.get(
         urlString = "https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/speakers"
     )
 
-    override suspend fun getSessionsJson(): String = client.get(
+    override suspend fun getSessions(): List<Days> = client.get(
         urlString = "https://sessionize.com/api/v2/$INSTANCE_ID/view/gridtable"
     )
 
-    override suspend fun getSponsorSessionJson(): String = client.get(
+    override suspend fun getSponsorSession(): List<SponsorSessionGroup> = client.get(
         urlString = "https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/sessions"
     )
 
@@ -71,12 +73,7 @@ internal fun userUuid(): String {
     return ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID)
 }
 
-internal fun parseSessionsFromDays(scheduleJson: String): List<Session> {
-    val days = Json {
-        allowStructuredMapKeys = true
-        ignoreUnknownKeys = true
-    }.decodeFromString<List<Days>>(scheduleJson)
-
+internal fun parseSessionsFromDays(days: List<Days>): List<Session> {
     val sessions = mutableListOf<Session>()
 
     days.forEach { day ->

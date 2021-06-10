@@ -5,6 +5,9 @@ import co.touchlab.sessionize.Durations
 import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.jsondata.Days
+import co.touchlab.sessionize.jsondata.Speaker
+import co.touchlab.sessionize.jsondata.SponsorSessionGroup
 import co.touchlab.sessionize.platform.NotificationsModel.createNotifications
 import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
 import co.touchlab.sessionize.platform.currentTimeMillis
@@ -20,11 +23,11 @@ object NetworkRepo {
     fun dataCalls() = CoroutineScope(ServiceRegistry.coroutinesDispatcher).mainScope.launch {
         try {
             val api = ServiceRegistry.sessionizeApi
-            val networkSpeakerJson = api.getSpeakersJson()
-            val networkSessionJson = api.getSessionsJson()
-            val networkSponsorSessionJson = api.getSponsorSessionJson()
+            val networkSpeakers = api.getSpeakers()
+            val networkSessions = api.getSessions()
+            val networkSponsorSessions = api.getSponsorSession()
 
-            callPrimeAll(networkSpeakerJson, networkSessionJson, networkSponsorSessionJson)
+            callPrimeAll(networkSpeakers, networkSessions, networkSponsorSessions)
 
             //If we do some kind of data re-load after a user logs in, we'll need to update this.
             //We assume for now that when the app first starts, you have nothing rsvp'd
@@ -37,14 +40,14 @@ object NetworkRepo {
     }
 
     internal suspend fun callPrimeAll(
-        networkSpeakerJson: String,
-        networkSessionJson: String,
-        networkSponsorSessionJson: String
+        speakers: List<Speaker>,
+        schedules: List<Days>,
+        sponsorSessions: List<SponsorSessionGroup>
     ) = withContext(ServiceRegistry.backgroundDispatcher) {
         SessionizeDbHelper.primeAll(
-            networkSpeakerJson,
-            networkSessionJson,
-            networkSponsorSessionJson
+            speakers,
+            schedules,
+            sponsorSessions
         )
         ServiceRegistry.appSettings.putLong(SettingsKeys.KEY_LAST_LOAD, currentTimeMillis())
     }
