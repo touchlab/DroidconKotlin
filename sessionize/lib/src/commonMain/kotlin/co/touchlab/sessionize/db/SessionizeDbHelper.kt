@@ -20,9 +20,8 @@ import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.builtins.list
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.list
 
 object SessionizeDbHelper {
 
@@ -79,8 +78,14 @@ object SessionizeDbHelper {
         }
     }
 
+    private val json = Json {
+        prettyPrint = true
+        ignoreUnknownKeys = true
+        isLenient = true
+    }
+
     private fun primeSpeakers(speakerJson: String) {
-        val speakers = Json.nonstrict.parse(Speaker.serializer().list, speakerJson)
+        val speakers = json.decodeFromString(ListSerializer(Speaker.serializer()), speakerJson)
 
         for (speaker in speakers) {
             var twitter: String? = null
@@ -202,8 +207,8 @@ object SessionizeDbHelper {
     }
 
     private fun primeSponsorSessions(sponsorSessionsJson: String) {
-        val sponsorSessionGroups = Json.nonstrict.parse(
-                SponsorSessionGroup.serializer().list,
+        val sponsorSessionGroups = json.decodeFromString(
+                ListSerializer(SponsorSessionGroup.serializer()),
                 sponsorSessionsJson
         )
 

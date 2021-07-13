@@ -12,7 +12,11 @@ import kotlinx.coroutines.*
 
 object AppContext {
     //Workaround for https://github.com/Kotlin/kotlinx.serialization/issues/441
-    private val primeJson = Json.nonstrict
+    private val primeJson = Json {
+        prettyPrint = true
+        ignoreUnknownKeys = true
+        isLenient = true
+    }
     private val mainScope = MainScope()
 
     fun initAppContext(networkRepo: NetworkRepo = NetworkRepo,

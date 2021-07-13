@@ -7,6 +7,6 @@ class SponsorViewModel {
             proc: (List<SponsorGroup>) -> Unit,
             error: (ex: Throwable) -> Unit
     ) {
-        SponsorsModel.loadSponsors(proc, error)
+//        SponsorsModel.loadSponsors(proc, error)
     }
 }

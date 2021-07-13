@@ -8,9 +8,8 @@ import co.touchlab.sessionize.platform.createUuid
 import co.touchlab.sessionize.platform.networkDispatcher
 import co.touchlab.sessionize.platform.simpleGet
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.builtins.list
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.list
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
@@ -60,8 +59,14 @@ internal fun userUuid(): String {
     return ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID)
 }
 
+private val json = Json {
+    prettyPrint = true
+    ignoreUnknownKeys = true
+    isLenient = true
+}
+
 internal fun parseSessionsFromDays(scheduleJson: String): List<Session> {
-    val days = Json.nonstrict.parse(Days.serializer().list, scheduleJson)
+    val days = json.decodeFromString(ListSerializer(Days.serializer()), scheduleJson)
     val sessions = mutableListOf<Session>()
 
     days.forEach { day ->

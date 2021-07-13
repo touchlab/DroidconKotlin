@@ -8,15 +8,21 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'Lots of Droidcon Stuff'
 
     spec.static_framework         = true
-    spec.vendored_frameworks      = "build/cocoapods/framework/#{spec.name}.framework"
+    spec.vendored_frameworks      = "build/cocoapods/framework/lib.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
-            
+                
+
+                
 
     spec.pod_target_xcconfig = {
         'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64',
         'KOTLIN_TARGET[sdk=iphoneos*]' => 'ios_arm',
+        'KOTLIN_TARGET[sdk=watchsimulator*]' => 'watchos_x64',
+        'KOTLIN_TARGET[sdk=watchos*]' => 'watchos_arm',
+        'KOTLIN_TARGET[sdk=appletvsimulator*]' => 'tvos_x64',
+        'KOTLIN_TARGET[sdk=appletvos*]' => 'tvos_arm64',
         'KOTLIN_TARGET[sdk=macosx*]' => 'macos_x64'
     }
 

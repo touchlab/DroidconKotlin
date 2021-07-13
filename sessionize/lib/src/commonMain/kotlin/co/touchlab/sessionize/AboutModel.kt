@@ -5,9 +5,8 @@ import co.touchlab.sessionize.ServiceRegistry.staticFileLoader
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.list
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.list
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
@@ -22,10 +21,16 @@ object AboutModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     }
 }
 
+private val json = Json {
+    prettyPrint = true
+    ignoreUnknownKeys = true
+    isLenient = true
+}
+
 internal object AboutProc {
     fun parseAbout(): List<AboutInfo> {
         val aboutJsonString = staticFileLoader("about", "json")!!
-        return Json.nonstrict.parse(AboutInfo.serializer().list, aboutJsonString)
+        return json.decodeFromString(ListSerializer(AboutInfo.serializer()), aboutJsonString)
     }
 }
 

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlin-android-extensions'
 
-def firebaseEnabled = file("./google-services.json").exists()
+def firebaseEnabled = false//file("./google-services.json").exists()
 def releaseEnabled = file("./release.jks").exists()
 
 if (firebaseEnabled) {
@@ -89,7 +89,7 @@ kotlin {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
 
     implementation 'com.nex3z:flow-layout:1.2.2'
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
@@ -103,11 +103,11 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    implementation deps.sqldelight.runtimeJdk
-    implementation deps.sqldelight.driverAndroid
-    implementation deps.kotlin.coroutines.jdk
-    implementation deps.kotlin.coroutines.android
-//    implementation deps.ktor.androidCore
+    implementation Deps.SqlDelight.runtimeJdk
+    implementation Deps.SqlDelight.driverAndroid
+    implementation Deps.Coroutines.jvm
+//    implementation deps.kotlin.coroutines.android
+
     implementation deps.firebase.androidCore
     implementation deps.firebase.androidMessaging
     implementation deps.crashlytics
@@ -117,8 +117,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation deps.multiplatformSettings
 
-    implementation "androidx.navigation:navigation-fragment-ktx:2.1.0-alpha06"
-    implementation "androidx.navigation:navigation-ui-ktx:2.1.0-alpha06"
+    implementation Deps.Navigation.fragment_ktx //"androidx.navigation:navigation-fragment-ktx:2.1.0-alpha06"
+    implementation Deps.Navigation.ui_ktx //"androidx.navigation:navigation-ui-ktx:2.1.0-alpha06"
+
     implementation deps.firebase.firestoreAndroid
 }
 

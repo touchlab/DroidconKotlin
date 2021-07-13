@@ -3,7 +3,6 @@ apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.android.library'
 apply plugin: 'com.squareup.sqldelight'
-apply plugin: 'co.touchlab.kotlinxcodesync'
 
 android {
     compileSdkVersion 29
@@ -143,10 +142,5 @@ sqldelight {
     DroidconDb {
         packageName = "co.touchlab.droidcon.db"
     }
-}
-
-xcode {
-    projectPath = "../../iosApp/iosApp.xcodeproj"
-    target = "iosApp"
 }
 
