@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-android-extensions")
 }
 
 android {
@@ -13,6 +14,8 @@ android {
         versionCode = 30000
         versionName = "3.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "TIME_ZONE", "\"America/Los_Angeles\"")
+        buildConfigField("boolean", "FIREBASE_ENABLED", "${false}")
     }
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
@@ -67,6 +70,7 @@ dependencies {
 
 //            implementation(deps.firebase.androidCore)
     implementation(platform("com.google.firebase:firebase-bom:28.2.1"))
+            implementation("com.google.firebase:firebase-analytics-ktx")
             implementation(Deps.Firebase.androidMessaging)
             implementation(Deps.crashlytics)
 
