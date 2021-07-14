@@ -18,13 +18,9 @@
 
 #import "MDCTextInput.h"
 #import "MDCTextInputBorderView.h"
-#import "MDCTextInputController.h"
-#import "MDCTextInputControllerBase.h"
-#import "MDCTextInputControllerFloatingPlaceholder.h"
 #import "MDCTextInputUnderlineView.h"
 #import "private/MDCTextInputControllerBase+Subclassing.h"
 
-#import "MaterialMath.h"
 
 #pragma mark - Class Properties
 
@@ -136,24 +132,24 @@ static UIRectCorner _roundedCornersDefault = UIRectCornerAllCorners;
 
  placeholderEstimatedHeight                                           // Height of placeholder
  MDCTextInputOutlinedTextFieldFullPadding                             // Padding
- MDCCeil(MAX(self.textInput.font.lineHeight,                          // Text field or placeholder
+ ceil(MAX(self.textInput.font.lineHeight,                          // Text field or placeholder
              self.textInput.placeholderLabel.font.lineHeight))
  MDCTextInputControllerBaseDefaultPadding                             // Padding to bottom of border rect
  underlineLabelsOffset                                                // From super class.
  */
 // clang-format on
-- (UIEdgeInsets)textInsets:(UIEdgeInsets)defaultInsets {
-  UIEdgeInsets textInsets = [super textInsets:defaultInsets];
+- (UIEdgeInsets)textInsets:(UIEdgeInsets)defaultInsets
+    withSizeThatFitsWidthHint:(CGFloat)widthHint {
+  defaultInsets.left = MDCTextInputOutlinedTextFieldFullPadding;
+  defaultInsets.right = MDCTextInputOutlinedTextFieldFullPadding;
+  UIEdgeInsets textInsets = [super textInsets:defaultInsets withSizeThatFitsWidthHint:widthHint];
   CGFloat textVerticalOffset = self.textInput.placeholderLabel.font.lineHeight * (CGFloat)0.5;
 
   CGFloat scale = UIScreen.mainScreen.scale;
   CGFloat placeholderEstimatedHeight =
-      MDCCeil(self.textInput.placeholderLabel.font.lineHeight * scale) / scale;
+      ceil(self.textInput.placeholderLabel.font.lineHeight * scale) / scale;
   textInsets.top = [self borderHeight] - MDCTextInputOutlinedTextFieldFullPadding -
                    placeholderEstimatedHeight + textVerticalOffset;
-
-  textInsets.left = MDCTextInputOutlinedTextFieldFullPadding;
-  textInsets.right = MDCTextInputOutlinedTextFieldFullPadding;
 
   return textInsets;
 }
@@ -191,15 +187,15 @@ static UIRectCorner _roundedCornersDefault = UIRectCornerAllCorners;
                        leadingOffset:MDCTextInputOutlinedTextFieldFullPadding -
                                      MDCTextInputOutlinedTextFieldFloatingPlaceholderPadding / 2];
   } else {
-    CGSize cornerRadius = CGSizeMake(MDCTextInputControllerBaseDefaultBorderRadius,
-                                     MDCTextInputControllerBaseDefaultBorderRadius);
+    CGSize cornerRadius = CGSizeMake(self.borderRadius, self.borderRadius);
     path = [UIBezierPath bezierPathWithRoundedRect:[self borderRect]
                                  byRoundingCorners:self.roundedCorners
                                        cornerRadii:cornerRadius];
   }
   self.textInput.borderPath = path;
 
-  UIColor *borderColor = self.textInput.isEditing ? self.activeColor : self.normalColor;
+  UIColor *borderColor =
+      self.textInput.isEditing ? self.activeColor : (self.borderStrokeColor ?: self.normalColor);
   if (!self.textInput.isEnabled) {
     borderColor = self.disabledColor;
   }
@@ -225,7 +221,7 @@ static UIRectCorner _roundedCornersDefault = UIRectCornerAllCorners;
                         withTextSpace:(CGFloat)textSpace
                         leadingOffset:(CGFloat)offset {
   UIBezierPath *path = [[UIBezierPath alloc] init];
-  CGFloat radius = MDCTextInputControllerBaseDefaultBorderRadius;
+  CGFloat radius = self.borderRadius;
   CGFloat yOffset = f.origin.y;
   CGFloat xOffset = f.origin.x;
 
@@ -275,7 +271,7 @@ static UIRectCorner _roundedCornersDefault = UIRectCornerAllCorners;
 
   CGFloat scale = UIScreen.mainScreen.scale;
   CGFloat placeholderEstimatedHeight =
-      MDCCeil(self.textInput.placeholderLabel.font.lineHeight * scale) / scale;
+      ceil(self.textInput.placeholderLabel.font.lineHeight * scale) / scale;
   CGFloat placeholderConstant = ([self borderHeight] / 2) - (placeholderEstimatedHeight / 2) +
                                 self.textInput.placeholderLabel.font.lineHeight * (CGFloat)0.5;
   if (!self.placeholderCenterY) {
@@ -322,7 +318,7 @@ static UIRectCorner _roundedCornersDefault = UIRectCornerAllCorners;
 - (CGFloat)borderHeight {
   CGFloat scale = UIScreen.mainScreen.scale;
   CGFloat placeholderEstimatedHeight =
-      MDCCeil(self.textInput.placeholderLabel.font.lineHeight * scale) / scale;
+      ceil(self.textInput.placeholderLabel.font.lineHeight * scale) / scale;
   return MDCTextInputOutlinedTextFieldNormalPlaceholderPadding + placeholderEstimatedHeight +
          MDCTextInputOutlinedTextFieldNormalPlaceholderPadding;
 }

@@ -14,6 +14,9 @@
 
 #import "MDCDraggableView.h"
 
+#import "MDCDraggableViewDelegate.h"
+#import "MDCKeyboardWatcher.h"
+
 static void CancelGestureRecognizer(UIGestureRecognizer *gesture) {
   if (gesture.enabled) {
     // Setting enabled to NO while a gesture recognizer is currently recognizing a gesture will
@@ -26,6 +29,7 @@ static void CancelGestureRecognizer(UIGestureRecognizer *gesture) {
 @interface MDCDraggableView () <UIGestureRecognizerDelegate>
 @property(nonatomic) UIPanGestureRecognizer *dragRecognizer;
 @property(nonatomic, strong) UIScrollView *scrollView;
+@property(nonatomic, assign) CGFloat mostRecentMinY;
 @end
 
 @implementation MDCDraggableView
@@ -48,29 +52,38 @@ static void CancelGestureRecognizer(UIGestureRecognizer *gesture) {
 #pragma mark - Gesture handling
 
 - (void)didPan:(UIPanGestureRecognizer *)recognizer {
-  CGPoint point = [recognizer translationInView:self.superview];
-
-  // Ensure that dragging the sheet past the maximum height results in an exponential decay on the
-  // translation. This gives the same effect as when you overscroll a scrollview.
-  CGFloat newHeight = CGRectGetMaxY(self.superview.bounds) - CGRectGetMinY(self.frame);
-  if (newHeight > [self.delegate maximumHeightForDraggableView:self]) {
-    point.y -= point.y / (CGFloat)1.2;
+  if (recognizer.state == UIGestureRecognizerStateBegan) {
+    self.mostRecentMinY = CGRectGetMinY(self.frame);
+    [self.delegate draggableViewBeganDragging:self];
+    return;
   }
-
-  self.center = CGPointMake(self.center.x, self.center.y + point.y);
-  [recognizer setTranslation:CGPointZero inView:self.superview];
 
   CGPoint velocity = [recognizer velocityInView:self.superview];
   velocity.x = 0;
+  CGPoint translation = [recognizer translationInView:self.superview];
+  CGFloat maxHeight = [self.delegate maximumHeightForDraggableView:self];
+  CGFloat minimumStableMinY = CGRectGetHeight(self.superview.bounds) - maxHeight -
+                              [MDCKeyboardWatcher sharedKeyboardWatcher].visibleKeyboardHeight;
+  CGFloat newMinY = self.mostRecentMinY + translation.y;
 
-  if (recognizer.state == UIGestureRecognizerStateBegan) {
-    [self.delegate draggableViewBeganDragging:self];
+  if (newMinY < minimumStableMinY) {
+    if ((self.scrollView == nil) && !self.simulateScrollViewBounce) {
+      velocity = CGPointZero;
+      newMinY = minimumStableMinY;
+    } else {
+      // Ensure that dragging the sheet past the maximum height results in an exponential decay on
+      // the translation. This gives the same effect as when you overscroll a scrollview.
+      newMinY = minimumStableMinY + (translation.y - (translation.y / 1.2f));
+    }
+  }
+  CGRect newFrame = CGRectMake(CGRectGetMinX(self.frame), newMinY, CGRectGetWidth(self.frame),
+                               CGRectGetHeight(self.frame));
+
+  if (recognizer.state == UIGestureRecognizerStateChanged) {
+    self.frame = newFrame;
+    [self.delegate draggableView:self didPanToOffset:CGRectGetMinY(self.frame)];
   } else if (recognizer.state == UIGestureRecognizerStateEnded) {
     [self.delegate draggableView:self draggingEndedWithVelocity:velocity];
-  }
-  if (recognizer.state == UIGestureRecognizerStateBegan ||
-      recognizer.state == UIGestureRecognizerStateChanged) {
-    [self.delegate draggableView:self didPanToOffset:CGRectGetMinY(self.frame)];
   }
 }
 
@@ -104,6 +117,15 @@ static void CancelGestureRecognizer(UIGestureRecognizer *gesture) {
     return YES;
   }
   return NO;
+}
+
+// Disable pan gesture on UIControl
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+       shouldReceiveTouch:(UITouch *)touch {
+  if ([touch.view isKindOfClass:[UIControl class]]) {
+    return NO;
+  }
+  return YES;
 }
 
 @end

@@ -1,4 +1,0 @@
-include ':sessionize:lib'
-include ':sessionize:app'
-
-enableFeaturePreview('GRADLE_METADATA')

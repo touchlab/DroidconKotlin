@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SponsorSessionModel
 import co.touchlab.sessionize.jsondata.SponsorGroup
-import co.touchlab.sessionize.sponsorClicked
 import com.nex3z.flowlayout.FlowLayout
 import com.squareup.picasso.Picasso
 
@@ -90,9 +89,6 @@ class SponsorsFragment : Fragment() {
                 Picasso.get().load(sponsor.icon).into(iv)
                 holder.flowGroup.addView(iv)
                 iv.setOnClickListener {
-
-                    sponsorClicked(sponsor)
-
                     if (sponsor.sponsorId.isNullOrBlank()) {
                         val i = Intent(Intent.ACTION_VIEW)
                         i.data = Uri.parse(sponsor.url)

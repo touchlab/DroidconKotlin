@@ -24,6 +24,15 @@ typedef NS_ENUM(NSInteger, MDCProgressViewBackwardAnimationMode) {
   MDCProgressViewBackwardAnimationModeAnimate
 };
 
+/** The mode the progress bar is in. */
+typedef NS_ENUM(NSInteger, MDCProgressViewMode) {
+  /** Display the progress in a determinate way. */
+  MDCProgressViewModeDeterminate,
+
+  /** Display the progress in an indeterminate way. */
+  MDCProgressViewModeIndeterminate
+};
+
 /**
  A Material linear determinate progress view.
 
@@ -35,16 +44,39 @@ IB_DESIGNABLE
 /**
  The color shown for the portion of the progress view that is filled.
 
- The default is a blue color. When changed, the trackTintColor is reset.
+ The default is a blue color.
  */
-@property(nonatomic, strong, null_resettable) UIColor *progressTintColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong, nullable) UIColor *progressTintColor UI_APPEARANCE_SELECTOR;
+
+/**
+ An array of CGColorRef objects used to defining the color of each gradient stop.
+ All colors are spread uniformly across the range.
+
+ Setting @c progressTintColor resets this property to @c nil.
+
+ The default is nil.
+*/
+@property(nonatomic, copy, nullable) NSArray *progressTintColors;
 
 /**
  The color shown for the portion of the progress view that is not filled.
 
- The default is a light version of the current progressTintColor.
+ The default is a light blue color.
  */
-@property(nonatomic, strong, null_resettable) UIColor *trackTintColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong, nullable) UIColor *trackTintColor UI_APPEARANCE_SELECTOR;
+
+/**
+ The corner radius for both the portion of the progress view that is filled and the track.
+
+ This is not equivalent to configuring self.layer.cornerRadius; it instead configures the progress
+ and track views directly.
+
+ Under @c MDCProgressViewModeIndeterminate mode, the progress view is fully rounded if this value
+ is larger than 0.
+
+ The default is 0.
+ */
+@property(nonatomic) CGFloat cornerRadius;
 
 /**
  The current progress.
@@ -55,6 +87,20 @@ IB_DESIGNABLE
  To animate progress changes, use -setProgress:animated:completion:.
  */
 @property(nonatomic, assign) float progress;
+
+/**
+ If the progress view shows a constant loading animation (MDCProgressViewModeIndeterminate) or is
+ based on the progress property (MDCProgressViewModeDeterminate).
+ The default value is MDCProgressViewModeDeterminate.
+ */
+@property(nonatomic, assign) MDCProgressViewMode mode;
+
+/**
+ Indicates if the progress view is animating when @c mode is @MDCProgressViewModeIndeterminate.
+
+ The default value is NO.
+ */
+@property(nonatomic, assign, getter=isAnimating) BOOL animating;
 
 /**
  The backward progress animation mode.
@@ -85,6 +131,16 @@ IB_DESIGNABLE
 - (void)setHidden:(BOOL)hidden
          animated:(BOOL)animated
        completion:(void (^__nullable)(BOOL finished))completion;
+
+/**
+ Start the progress bar's indeterminate animation.
+ */
+- (void)startAnimating;
+
+/**
+ Stop the progress bar's indeterminate animation.
+ */
+- (void)stopAnimating;
 
 /**
  A block that is invoked when the @c MDCProgressView receives a call to @c

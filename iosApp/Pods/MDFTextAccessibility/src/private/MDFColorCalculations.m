@@ -123,8 +123,7 @@ CGFloat MDFRelativeLuminanceOfRGBComponents(const CGFloat *components) {
   return 0.2126f * linearRGB[0] + 0.7152f * linearRGB[1] + 0.0722f * linearRGB[2];
 }
 
-CGFloat MDFMinAlphaOfColorOnBackgroundColor(UIColor *color,
-                                            UIColor *backgroundColor,
+CGFloat MDFMinAlphaOfColorOnBackgroundColor(UIColor *color, UIColor *backgroundColor,
                                             CGFloat minContrastRatio) {
   CGFloat colorComponents[4];
   CGFloat backgroundColorComponents[4];

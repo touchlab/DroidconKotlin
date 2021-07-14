@@ -14,7 +14,22 @@
 
 #import "MDCBottomNavigationBar.h"
 
+#ifdef __IPHONE_13_4
+@interface MDCBottomNavigationBar (PointerInteraction) <UIPointerInteractionDelegate>
+@end
+#endif
+
 @interface MDCBottomNavigationBar ()
+
+/**
+ A collection of MDCShadow instances each assigned an elevation (in dp).
+
+ To create your own MDCShadowsCollection, please use the provided MDCShadowsCollectionBuilder and
+ populate it with MDCShadow instances using the provided MDCShadowBuilder.
+
+ Defaults to MDCShadowsCollectionDefault().
+ */
+@property(nonatomic, strong, null_resettable) MDCShadowsCollection *shadowsCollection;
 
 /**
  * Returns the tab bar item whose corresponding view contains the given point.

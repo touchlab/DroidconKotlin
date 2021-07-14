@@ -14,21 +14,20 @@
 
 #import "MDCButton+MaterialTheming.h"
 
-#import <MaterialComponents/MaterialButtons+ColorThemer.h>
+#import "MaterialButtons.h"
 #import <MaterialComponents/MaterialButtons+ShapeThemer.h>
 #import <MaterialComponents/MaterialShadowElevations.h>
+#import "MaterialColorScheme.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialTypographyScheme+Scheming.h"
 
 @implementation MDCButton (MaterialTheming)
 
 #pragma mark - Contained Button Themers
 
 - (void)applyContainedThemeWithScheme:(nonnull id<MDCContainerScheming>)scheme {
-  id<MDCColorScheming> colorScheme = scheme.colorScheme;
-  if (!colorScheme) {
-    colorScheme =
-        [[MDCSemanticColorScheme alloc] initWithDefaults:MDCColorSchemeDefaultsMaterial201804];
-  }
-  [self applyContainedThemeWithColorScheme:colorScheme];
+  [self applyContainedThemeWithColorScheme:scheme.colorScheme];
+  [self applyContainedThemeWithTypographyScheme:scheme.typographyScheme];
 
   id<MDCShapeScheming> shapeScheme = scheme.shapeScheme;
   if (shapeScheme) {
@@ -37,13 +36,6 @@
     self.layer.cornerRadius = (CGFloat)4;
   }
 
-  id<MDCTypographyScheming> typographyScheme = scheme.typographyScheme;
-  if (!typographyScheme) {
-    typographyScheme =
-        [[MDCTypographyScheme alloc] initWithDefaults:MDCTypographySchemeDefaultsMaterial201804];
-  }
-  [self applyContainedThemeWithTypographyScheme:typographyScheme];
-
   [self setElevation:MDCShadowElevationRaisedButtonResting forState:UIControlStateNormal];
   [self setElevation:MDCShadowElevationRaisedButtonPressed forState:UIControlStateHighlighted];
   [self setElevation:MDCShadowElevationNone forState:UIControlStateDisabled];
@@ -51,12 +43,28 @@
 }
 
 - (void)applyContainedThemeWithColorScheme:(id<MDCColorScheming>)colorScheme {
-  [MDCContainedButtonColorThemer applySemanticColorScheme:colorScheme toButton:self];
+  [self resetButtonColorsForAllStates];
+
+  [self setBackgroundColor:colorScheme.primaryColor forState:UIControlStateNormal];
+  [self setBackgroundColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.12]
+                  forState:UIControlStateDisabled];
+  [self setTitleColor:colorScheme.onPrimaryColor forState:UIControlStateNormal];
+  [self setTitleColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
+             forState:UIControlStateDisabled];
+  [self setImageTintColor:colorScheme.onPrimaryColor forState:UIControlStateNormal];
+  [self setImageTintColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
+                 forState:UIControlStateDisabled];
+  self.disabledAlpha = 1;
+  self.inkColor = [colorScheme.onPrimaryColor colorWithAlphaComponent:(CGFloat)0.32];
 }
 
 - (void)applyContainedThemeWithTypographyScheme:(id<MDCTypographyScheming>)typographyScheme {
-  [self resetTitleFontForAllStates];
-  [self setTitleFont:typographyScheme.button forState:UIControlStateNormal];
+  if (self.enableTitleFontForState) {
+    [self resetTitleFontForAllStates];
+    [self setTitleFont:typographyScheme.button forState:UIControlStateNormal];
+  } else {
+    self.titleLabel.font = typographyScheme.button;
+  }
 }
 
 - (void)applyContainedThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
@@ -66,12 +74,8 @@
 #pragma mark - Outlined Button Themers
 
 - (void)applyOutlinedThemeWithScheme:(nonnull id<MDCContainerScheming>)scheme {
-  id<MDCColorScheming> colorScheme = scheme.colorScheme;
-  if (!colorScheme) {
-    colorScheme =
-        [[MDCSemanticColorScheme alloc] initWithDefaults:MDCColorSchemeDefaultsMaterial201804];
-  }
-  [self applyOutlinedThemeWithColorScheme:colorScheme];
+  [self applyOutlinedThemeWithColorScheme:scheme.colorScheme];
+  [self applyOutlinedThemeWithTypographyScheme:scheme.typographyScheme];
 
   id<MDCShapeScheming> shapeScheme = scheme.shapeScheme;
   if (shapeScheme) {
@@ -79,13 +83,6 @@
   } else {
     self.layer.cornerRadius = (CGFloat)4;
   }
-
-  id<MDCTypographyScheming> typographyScheme = scheme.typographyScheme;
-  if (!typographyScheme) {
-    typographyScheme =
-        [[MDCTypographyScheme alloc] initWithDefaults:MDCTypographySchemeDefaultsMaterial201804];
-  }
-  [self applyOutlinedThemeWithTypographyScheme:typographyScheme];
 
   self.minimumSize = CGSizeMake(0, 36);
   NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
@@ -112,8 +109,12 @@
 }
 
 - (void)applyOutlinedThemeWithTypographyScheme:(id<MDCTypographyScheming>)typographyScheme {
-  [self resetTitleFontForAllStates];
-  [self setTitleFont:typographyScheme.button forState:UIControlStateNormal];
+  if (self.enableTitleFontForState) {
+    [self resetTitleFontForAllStates];
+    [self setTitleFont:typographyScheme.button forState:UIControlStateNormal];
+  } else {
+    self.titleLabel.font = typographyScheme.button;
+  }
 }
 
 - (void)applyOutlinedThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
@@ -123,19 +124,8 @@
 #pragma mark - Text Button Themers
 
 - (void)applyTextThemeWithScheme:(nonnull id<MDCContainerScheming>)scheme {
-  id<MDCColorScheming> colorScheme = scheme.colorScheme;
-  if (!colorScheme) {
-    colorScheme =
-        [[MDCSemanticColorScheme alloc] initWithDefaults:MDCColorSchemeDefaultsMaterial201804];
-  }
-  [self applyTextThemeWithColorScheme:colorScheme];
-
-  id<MDCTypographyScheming> typographyScheme = scheme.typographyScheme;
-  if (!typographyScheme) {
-    typographyScheme =
-        [[MDCTypographyScheme alloc] initWithDefaults:MDCTypographySchemeDefaultsMaterial201804];
-  }
-  [self applyTextThemeWithTypographyScheme:typographyScheme];
+  [self applyTextThemeWithColorScheme:scheme.colorScheme];
+  [self applyTextThemeWithTypographyScheme:scheme.typographyScheme];
 
   id<MDCShapeScheming> shapeScheme = scheme.shapeScheme;
   if (shapeScheme) {
@@ -153,12 +143,27 @@
 }
 
 - (void)applyTextThemeWithColorScheme:(id<MDCColorScheming>)colorScheme {
-  [MDCTextButtonColorThemer applySemanticColorScheme:colorScheme toButton:self];
+  [self resetUIControlStatesForButtonTheming];
+
+  [self setBackgroundColor:UIColor.clearColor forState:UIControlStateNormal];
+  [self setBackgroundColor:UIColor.clearColor forState:UIControlStateDisabled];
+  [self setTitleColor:colorScheme.primaryColor forState:UIControlStateNormal];
+  [self setTitleColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
+             forState:UIControlStateDisabled];
+  [self setImageTintColor:colorScheme.primaryColor forState:UIControlStateNormal];
+  [self setImageTintColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
+                 forState:UIControlStateDisabled];
+  self.disabledAlpha = 1;
+  self.inkColor = [colorScheme.primaryColor colorWithAlphaComponent:(CGFloat)0.16];
 }
 
 - (void)applyTextThemeWithTypographyScheme:(id<MDCTypographyScheming>)typographyScheme {
-  [self resetTitleFontForAllStates];
-  [self setTitleFont:typographyScheme.button forState:UIControlStateNormal];
+  if (self.enableTitleFontForState) {
+    [self resetTitleFontForAllStates];
+    [self setTitleFont:typographyScheme.button forState:UIControlStateNormal];
+  } else {
+    self.titleLabel.font = typographyScheme.button;
+  }
 }
 
 - (void)applyTextThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
@@ -183,6 +188,15 @@
     [self setTitleColor:nil forState:state];
     [self setImageTintColor:nil forState:state];
     [self setBorderColor:nil forState:state];
+  }
+}
+
+- (void)resetUIControlStatesForButtonTheming {
+  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
+                                 UIControlStateHighlighted | UIControlStateDisabled;
+  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
+    [self setBackgroundColor:nil forState:state];
+    [self setTitleColor:nil forState:state];
   }
 }
 

@@ -15,6 +15,10 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCFlexibleHeaderMinMaxHeightDelegate.h"
+
 @class MDCFlexibleHeaderTopSafeArea;
 @protocol MDCFlexibleHeaderMinMaxHeightDelegate;
 
@@ -106,9 +110,7 @@ __attribute__((objc_subclassing_restricted)) @interface MDCFlexibleHeaderMinMaxH
 
 @end
 
-#pragma mark APIs that will be deprecated
-
-@interface MDCFlexibleHeaderMinMaxHeight ()
+@interface MDCFlexibleHeaderMinMaxHeight (ToBeDeprecated)
 
 /**
  See MDCFlexibleHeaderView.h for complete documentation of this property.
@@ -117,31 +119,17 @@ __attribute__((objc_subclassing_restricted)) @interface MDCFlexibleHeaderMinMaxH
  */
 @property(nonatomic) BOOL minMaxHeightIncludesSafeArea;
 
+@end
+
+@interface MDCFlexibleHeaderMinMaxHeight (Deprecated)
+
 /**
  Informs the receiver that it should update the minimumHeight and maximumHeight.
 
  Does nothing if minMaxHeightIncludesSafeArea is disabled.
  This property can be removed once minMaxHeightIncludesSafeArea is removed.
  */
-- (void)recalculateMinMaxHeight;
-
-@end
-
-/**
- The delegate protocol through which MDCFlexibleHeaderMinMaxHeight communicates changes in the
- minimum and maximum height.
- */
-@protocol MDCFlexibleHeaderMinMaxHeightDelegate <NSObject>
-@required
-
-/**
- Informs the receiver that the maximum height has changed.
- */
-- (void)flexibleHeaderMaximumHeightDidChange:(nonnull MDCFlexibleHeaderMinMaxHeight *)safeAreas;
-
-/**
- Informs the receiver that either the minimum or maximum height have changed.
- */
-- (void)flexibleHeaderMinMaxHeightDidChange:(nonnull MDCFlexibleHeaderMinMaxHeight *)safeAreas;
+- (void)recalculateMinMaxHeight __deprecated_msg(
+    "Set minMaxHeightIncludesSafeArea to NO and use minimumHeight and maximumHeight instead.");
 
 @end

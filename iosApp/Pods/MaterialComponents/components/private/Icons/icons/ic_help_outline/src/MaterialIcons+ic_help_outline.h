@@ -1,4 +1,4 @@
-// Copyright 2018-present the Material Components for iOS authors. All Rights Reserved.
+// Copyright 2016-present the Material Components for iOS authors. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,12 +20,6 @@
 // Do not modify directly.
 
 @interface MDCIcons (ic_help_outline)
-
-/*
- Returns the path for the ic_help_outline image contained in
- MaterialIcons_ic_help_outline.bundle.
- */
-+ (nonnull NSString *)pathFor_ic_help_outline;
 
 /*
  Returns the image for the ic_help_outline image contained in

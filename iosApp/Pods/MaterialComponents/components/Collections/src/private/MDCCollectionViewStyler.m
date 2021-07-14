@@ -14,9 +14,10 @@
 
 #import "MDCCollectionViewStyler.h"
 
-#import "MDCCollectionViewStylingDelegate.h"
 #import "MaterialCollectionLayoutAttributes.h"
+#import "MDCCollectionViewStylingDelegate.h"
 #import "MaterialPalettes.h"
+#import "MaterialColor.h"
 
 #include <tgmath.h>
 
@@ -491,8 +492,10 @@ NS_INLINE CGRect RectShift(CGRect rect, CGFloat dx, CGFloat dy) {
       [attr.representedElementKind isEqualToString:UICollectionElementKindSectionFooter];
   BOOL isDecorationView =
       attr.representedElementCategory == UICollectionElementCategoryDecorationView;
-  BOOL isTop = attr.sectionOrdinalPosition & MDCCollectionViewOrdinalPositionVerticalTop;
-  BOOL isBottom = attr.sectionOrdinalPosition & MDCCollectionViewOrdinalPositionVerticalBottom;
+  BOOL isTop =
+      (attr.sectionOrdinalPosition & MDCCollectionViewOrdinalPositionVerticalTop) ? YES : NO;
+  BOOL isBottom =
+      (attr.sectionOrdinalPosition & MDCCollectionViewOrdinalPositionVerticalBottom) ? YES : NO;
 
   MDCCollectionViewCellStyle cellStyle = [self cellStyleAtSectionIndex:attr.indexPath.section];
   BOOL isCardStyle = cellStyle == MDCCollectionViewCellStyleCard;
@@ -565,7 +568,8 @@ NS_INLINE CGRect RectShift(CGRect rect, CGFloat dx, CGFloat dy) {
     UIColor *customBackgroundColor = [_delegate collectionView:_collectionView
                                 cellBackgroundColorAtIndexPath:attr.indexPath];
     if (customBackgroundColor) {
-      backgroundColor = customBackgroundColor;
+      backgroundColor = [customBackgroundColor
+          mdc_resolvedColorWithTraitCollection:self.collectionView.traitCollection];
     }
   }
 

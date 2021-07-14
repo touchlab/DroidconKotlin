@@ -14,14 +14,35 @@
 
 #import "MDCRippleTouchController.h"
 
+#import "MDCRippleTouchControllerDelegate.h"
+
 @implementation MDCRippleTouchController {
   BOOL _tapWentOutsideOfBounds;
+  BOOL _deferred;
+
+  struct {
+    unsigned int rippleTouchControllerShouldProcessRippleTouchesAtTouchLocation : 1;
+    unsigned int rippleTouchControllerDidProcessRippleViewAtTouchLocation : 1;
+    unsigned int rippleTouchControllerInsertRippleViewIntoView : 1;
+    unsigned int rippleTouchControllerRippleViewAtTouchLocation : 1;
+  } _delegateFlags;
 }
 
+@synthesize rippleView = _rippleView;
+
 - (instancetype)initWithView:(UIView *)view {
+  return [self initWithView:view deferred:NO];
+}
+
+- (nonnull instancetype)initWithView:(nonnull UIView *)view deferred:(BOOL)deferred {
   self = [self init];
   if (self) {
-    [self configureRippleWithView:view];
+    _deferred = deferred;
+    if (deferred) {
+      [self attachGestureRecognizerToView:view];
+    } else {
+      [self configureRippleWithView:view];
+    }
   }
   return self;
 }
@@ -38,26 +59,8 @@
     _gestureRecognizer.delaysTouchesEnded = NO;
 
     _shouldProcessRippleWithScrollViewGestures = YES;
-    _rippleView = [[MDCRippleView alloc] init];
   }
   return self;
-}
-
-- (void)addRippleToView:(UIView *)view {
-  [self configureRippleWithView:view];
-}
-
-- (void)configureRippleWithView:(UIView *)view {
-  [_view removeGestureRecognizer:_gestureRecognizer];
-  _view = view;
-  [_view addGestureRecognizer:_gestureRecognizer];
-  _rippleView.frame = view.bounds;
-
-  if ([_delegate respondsToSelector:@selector(rippleTouchController:insertRippleView:intoView:)]) {
-    [_delegate rippleTouchController:self insertRippleView:_rippleView intoView:_view];
-  } else {
-    [_view addSubview:_rippleView];
-  }
 }
 
 - (void)dealloc {
@@ -65,14 +68,81 @@
   _gestureRecognizer.delegate = nil;
 }
 
+- (MDCRippleView *)rippleView {
+  if (_rippleView == nil) {
+    _rippleView = [[MDCRippleView alloc] init];
+  }
+  return _rippleView;
+}
+
+- (void)setDelegate:(id<MDCRippleTouchControllerDelegate>)delegate {
+  _delegate = delegate;
+
+  // The delegate's behavior - in terms of which optional methods are deemed to be
+  // implemented - is cached at assignment rather than inspected on each invocation.
+  _delegateFlags.rippleTouchControllerShouldProcessRippleTouchesAtTouchLocation =
+      [_delegate respondsToSelector:@selector(rippleTouchController:
+                                        shouldProcessRippleTouchesAtTouchLocation:)];
+  _delegateFlags.rippleTouchControllerDidProcessRippleViewAtTouchLocation = [_delegate
+      respondsToSelector:@selector(rippleTouchController:didProcessRippleView:atTouchLocation:)];
+  _delegateFlags.rippleTouchControllerInsertRippleViewIntoView =
+      [delegate respondsToSelector:@selector(rippleTouchController:insertRippleView:intoView:)];
+  _delegateFlags.rippleTouchControllerRippleViewAtTouchLocation =
+      [_delegate respondsToSelector:@selector(rippleTouchController:rippleViewAtTouchLocation:)];
+}
+
+- (void)addRippleToView:(UIView *)view {
+  [self configureRippleWithView:view];
+}
+
+- (void)configureRippleWithView:(UIView *)view {
+  [self attachGestureRecognizerToView:view];
+  [self insertRippleViewIntoView:view];
+}
+
+- (void)attachGestureRecognizerToView:(UIView *)view {
+  [_view removeGestureRecognizer:_gestureRecognizer];
+  _view = view;
+  [_view addGestureRecognizer:_gestureRecognizer];
+}
+
+- (void)insertRippleViewIntoView:(UIView *)view {
+  if (!_delegateFlags.rippleTouchControllerRippleViewAtTouchLocation) {
+    // Insert the rippleView to the _view
+    MDCRippleView *rippleView = self.rippleView;
+    if (_delegateFlags.rippleTouchControllerInsertRippleViewIntoView) {
+      [_delegate rippleTouchController:self insertRippleView:rippleView intoView:view];
+    } else {
+      [_view addSubview:rippleView];
+    }
+    rippleView.frame = view.bounds;
+  }
+}
+
 - (void)handleRippleGesture:(UILongPressGestureRecognizer *)recognizer {
   CGPoint touchLocation = [recognizer locationInView:_view];
 
   switch (recognizer.state) {
     case UIGestureRecognizerStateBegan: {
-      [self.rippleView beginRippleTouchDownAtPoint:touchLocation animated:YES completion:nil];
-      if ([_delegate respondsToSelector:@selector(rippleTouchController:
-                                                   didProcessRippleView:atTouchLocation:)]) {
+      if (_delegateFlags.rippleTouchControllerRippleViewAtTouchLocation) {
+        _rippleView = [_delegate rippleTouchController:self
+                             rippleViewAtTouchLocation:touchLocation];
+        if (!_rippleView) {
+          // If we find that a return isn't enough here, we may need to disable and then
+          // re-enable the recognizer so there are no side effects.
+          return;
+        }
+      } else {
+        MDCRippleView *rippleView = self.rippleView;
+        if (_deferred && rippleView.superview != _view) {
+          [self insertRippleViewIntoView:_view];
+        }
+      }
+
+      [_rippleView beginRippleTouchDownAtPoint:[recognizer locationInView:self.rippleView]
+                                      animated:YES
+                                    completion:nil];
+      if (_delegateFlags.rippleTouchControllerDidProcessRippleViewAtTouchLocation) {
         [_delegate rippleTouchController:self
                     didProcessRippleView:_rippleView
                          atTouchLocation:touchLocation];
@@ -82,25 +152,29 @@
     case UIGestureRecognizerStatePossible:  // Ignored
       break;
     case UIGestureRecognizerStateChanged: {
-      BOOL pointContainedinBounds = CGRectContainsPoint(self.view.bounds, touchLocation);
+      BOOL pointContainedinBounds = CGRectContainsPoint(_view.bounds, touchLocation);
       if (pointContainedinBounds && _tapWentOutsideOfBounds) {
         _tapWentOutsideOfBounds = NO;
-        [self.rippleView fadeInRippleAnimated:YES completion:nil];
+        [_rippleView fadeInRippleAnimated:YES completion:nil];
       } else if (!pointContainedinBounds && !_tapWentOutsideOfBounds) {
         _tapWentOutsideOfBounds = YES;
-        [self.rippleView fadeOutRippleAnimated:YES completion:nil];
+        [_rippleView fadeOutRippleAnimated:YES completion:nil];
       }
       break;
     }
-    case UIGestureRecognizerStateEnded:
-      [self.rippleView beginRippleTouchUpAnimated:YES completion:nil];
+    case UIGestureRecognizerStateEnded: {
+      [_rippleView beginRippleTouchUpAnimated:YES completion:nil];
       break;
+    }
     case UIGestureRecognizerStateCancelled:
-    case UIGestureRecognizerStateFailed:
-      [self.rippleView cancelAllRipplesAnimated:YES completion:nil];
+    case UIGestureRecognizerStateFailed: {
+      [_rippleView cancelAllRipplesAnimated:YES completion:nil];
       break;
+    }
   }
 }
+
+#pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
     shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
@@ -113,8 +187,6 @@
   return NO;
 }
 
-#pragma mark - UIGestureRecognizerDelegate
-
 - (BOOL)gestureRecognizer:(__unused UIGestureRecognizer *)gestureRecognizer
     shouldRecognizeSimultaneouslyWithGestureRecognizer:(__unused UIGestureRecognizer *)other {
   // Subclasses can override this to prioritize another recognizer.
@@ -122,8 +194,7 @@
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-  if ([_delegate respondsToSelector:@selector(rippleTouchController:
-                                        shouldProcessRippleTouchesAtTouchLocation:)]) {
+  if (_delegateFlags.rippleTouchControllerShouldProcessRippleTouchesAtTouchLocation) {
     CGPoint touchLocation = [gestureRecognizer locationInView:_view];
     return [_delegate rippleTouchController:self
         shouldProcessRippleTouchesAtTouchLocation:touchLocation];

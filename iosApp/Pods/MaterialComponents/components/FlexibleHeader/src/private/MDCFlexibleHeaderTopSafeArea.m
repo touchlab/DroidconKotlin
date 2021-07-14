@@ -16,7 +16,7 @@
 
 #import "MDCFlexibleHeaderTopSafeArea.h"
 
-#import "MDCFlexibleHeaderView.h"
+#import "MDCFlexibleHeaderTopSafeAreaDelegate.h"
 
 // The default status bar height for non-X devices.
 static const CGFloat kNonXStatusBarHeight = 20;
@@ -35,6 +35,14 @@ static const CGFloat kNonXStatusBarHeight = 20;
 
 - (void)setTopSafeAreaSourceViewController:(UIViewController *)topSafeAreaSourceViewController {
   _topSafeAreaSourceViewController = topSafeAreaSourceViewController;
+
+  if (self.inferTopSafeAreaInsetFromViewController) {
+    [self extractTopSafeAreaInset];
+  }
+}
+
+- (void)setSubtractsAdditionalSafeAreaInsets:(BOOL)subtractsAdditionalSafeAreaInsets {
+  _subtractsAdditionalSafeAreaInsets = subtractsAdditionalSafeAreaInsets;
 
   if (self.inferTopSafeAreaInsetFromViewController) {
     [self extractTopSafeAreaInset];
@@ -125,7 +133,11 @@ static const CGFloat kNonXStatusBarHeight = 20;
   }
 
   if (@available(iOS 11.0, *)) {
-    self.extractedTopSafeAreaInset = viewController.view.safeAreaInsets.top;
+    CGFloat safeAreaTop = viewController.view.safeAreaInsets.top;
+    if (self.subtractsAdditionalSafeAreaInsets) {
+      safeAreaTop -= viewController.additionalSafeAreaInsets.top;
+    }
+    self.extractedTopSafeAreaInset = safeAreaTop;
   } else {
     self.extractedTopSafeAreaInset = viewController.topLayoutGuide.length;
   }

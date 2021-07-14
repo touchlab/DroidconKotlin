@@ -17,6 +17,9 @@
 #import "MDCShapeGenerating.h"
 #import "MaterialColor.h"
 
+// An epsilon for use with width/height values.
+static const CGFloat kDimensionalEpsilon = 0.001;
+
 @implementation MDCShapedShadowLayer
 
 - (instancetype)init {
@@ -61,19 +64,19 @@
 }
 
 - (void)layoutSublayers {
-  // We have to set the path before calling [super layoutSublayers] because we need the shadowPath
-  // to be correctly set before MDCShadowLayer performs layoutSublayers.
-  if (self.shapeGenerator) {
-    CGRect standardizedBounds = CGRectStandardize(self.bounds);
-    self.path = [self.shapeGenerator pathForSize:standardizedBounds.size];
-  }
-
   [super layoutSublayers];
 
   CGRect bounds = self.bounds;
   CGPoint center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds));
   _colorLayer.position = center;
   _colorLayer.bounds = bounds;
+}
+
+- (void)prepareShadowPath {
+  if (self.shapeGenerator) {
+    CGRect standardizedBounds = CGRectStandardize(self.bounds);
+    self.path = [self.shapeGenerator pathForSize:standardizedBounds.size];
+  }
 }
 
 - (void)setShapeGenerator:(id<MDCShapeGenerating>)shapeGenerator {
@@ -104,7 +107,66 @@
     _colorLayer.fillColor = self.shapedBackgroundColor.CGColor;
     _colorLayer.strokeColor = self.shapedBorderColor.CGColor;
     _colorLayer.lineWidth = self.shapedBorderWidth;
+    [self generateColorPathGivenLineWidth];
   }
+}
+
+- (void)generateColorPathGivenLineWidth {
+  if (CGPathIsEmpty(self.path) || _colorLayer.lineWidth <= 0) {
+    _colorLayer.path = self.shadowPath;
+    _shapeLayer.path = self.shadowPath;
+    return;
+  }
+  CGFloat halfOfBorderWidth = self.shapedBorderWidth / 2.f;
+  CGAffineTransform colorLayerTransform = [self generateTransformInsetByValue:halfOfBorderWidth];
+  CGPathRef colorLayerPath =
+      CGPathCreateCopyByTransformingPath(self.shadowPath, &colorLayerTransform);
+  _colorLayer.path = colorLayerPath;
+  CGPathRelease(colorLayerPath);
+  // The shape layer is used to provide the user a mask for their content, which means also
+  // show the full border. Because the border is shown half outside and half inside
+  // the color layer path, we must inset the shape layer by the full border width.
+  CGAffineTransform shapeLayerTransform =
+      [self generateTransformInsetByValue:self.shapedBorderWidth];
+  CGPathRef shapeLayerPath =
+      CGPathCreateCopyByTransformingPath(self.shadowPath, &shapeLayerTransform);
+  _shapeLayer.path = shapeLayerPath;
+  CGPathRelease(shapeLayerPath);
+}
+
+- (CGAffineTransform)generateTransformInsetByValue:(CGFloat)value {
+  // Use the identitfy transfrom when inset is less than Epsilon.
+  if (value < kDimensionalEpsilon) {
+    return CGAffineTransformIdentity;
+  }
+
+  // Use the path's boundingBox to get the proportion of inset value,
+  // because this tranform is expected to be applied on a CGPath.
+  CGRect pathBoundingBox = CGPathGetPathBoundingBox(self.shadowPath);
+  CGRect pathStandardizedBounds = CGRectStandardize(pathBoundingBox);
+
+  if (CGRectGetWidth(pathStandardizedBounds) < kDimensionalEpsilon ||
+      CGRectGetHeight(pathStandardizedBounds) < kDimensionalEpsilon) {
+    return CGAffineTransformIdentity;
+  }
+
+  CGRect insetBounds = CGRectInset(pathStandardizedBounds, value, value);
+  CGFloat width = CGRectGetWidth(pathStandardizedBounds);
+  CGFloat height = CGRectGetHeight(pathStandardizedBounds);
+  CGFloat pathCenterX = CGRectGetMidX(pathStandardizedBounds);
+  CGFloat pathCenterY = CGRectGetMidY(pathStandardizedBounds);
+  // Calculate the shifted center and re-center it by applying a translation transform.
+  // value * 2 represents the accumulated borderWidth on each side, value * 2 / width
+  // represents the proportion of accumulated borderWidth in path bounds, which is also
+  // the value used for scale transform.
+  // The shiftWidth represents the shifted length horizontally on the center.
+  CGFloat shiftWidth = value * 2 / width * pathCenterX;
+  // Same calculation for height.
+  CGFloat shiftHeight = value * 2 / height * pathCenterY;
+  CGAffineTransform transform = CGAffineTransformMakeTranslation(shiftWidth, shiftHeight);
+  transform = CGAffineTransformScale(transform, CGRectGetWidth(insetBounds) / width,
+                                     CGRectGetHeight(insetBounds) / height);
+  return transform;
 }
 
 - (CGPathRef)path {
@@ -113,6 +175,12 @@
 
 - (void)setShapedBackgroundColor:(UIColor *)shapedBackgroundColor {
   _shapedBackgroundColor = shapedBackgroundColor;
+
+  if ([self.delegate isKindOfClass:[UIView class]]) {
+    UIView *view = (UIView *)self.delegate;
+    _shapedBackgroundColor =
+        [_shapedBackgroundColor mdc_resolvedColorWithTraitCollection:view.traitCollection];
+  }
 
   if (CGPathIsEmpty(self.path)) {
     self.backgroundColor = _shapedBackgroundColor.CGColor;
@@ -149,6 +217,7 @@
   } else {
     self.borderWidth = 0;
     _colorLayer.lineWidth = _shapedBorderWidth;
+    [self generateColorPathGivenLineWidth];
   }
 }
 

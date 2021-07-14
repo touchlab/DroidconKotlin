@@ -1,0 +1,146 @@
+apply plugin: 'kotlin-multiplatform'
+apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'com.android.library'
+apply plugin: 'com.squareup.sqldelight'
+
+android {
+    compileSdkVersion 29
+    testOptions.unitTests.includeAndroidResources = true
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        //This is for MultiplatformSettings
+        debug {
+            // MPP libraries don't currently get this resolution automatically
+            matchingFallbacks = ['release']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.core:core:1.0.0"
+}
+
+version = "1.0"
+
+kotlin {
+    targets {
+        android()
+//        iosArm64()
+        def onPhone = System.getenv('SDK_NAME')?.startsWith("iphoneos")
+        if(onPhone){
+            iosArm64("ios")
+        }else{
+            iosX64("ios")
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation "co.touchlab:stately-common:${versions.stately}"
+                implementation "co.touchlab:stately-concurrency:${versions.stately}"
+                implementation "co.touchlab:stately-collections:${versions.stately}"
+                implementation "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.kotlin}"
+
+                implementation deps.sqldelight.runtime
+                implementation deps.multiplatformSettings
+//                implementation deps.ktor.commonCore
+//                implementation deps.ktor.commonJson
+                implementation deps.serialization.commonRuntime
+                implementation deps.firebase.firestoreKmp
+                implementation deps.kotlin.coroutines.common
+//                implementation "co.touchlab.sqldelight:coroutines-extensions:${versions.sqldelight}"
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation deps.kotlin.test.common
+                implementation deps.kotlin.test.annotations
+                implementation "co.touchlab:stately-common:${versions.stately}"
+                implementation "co.touchlab:stately-concurrency:${versions.stately}"
+                implementation "co.touchlab:stately-collections:${versions.stately}"
+                implementation deps.multiplatformSettings
+                implementation deps.kotlin.coroutines.jdk
+                implementation deps.testhelp
+                implementation deps.kotlin.coroutines.common
+            }
+        }
+
+        iosMain {
+            dependencies {
+//                implementation deps.kotlin.coroutines.native
+                implementation deps.sqldelight.driverIos
+                implementation deps.sqliter.ios
+//                implementation deps.ktor.ios
+//                implementation deps.ktor.iosCore
+//                implementation deps.ktor.iosJson
+                implementation deps.serialization.iosRuntime
+                implementation deps.kotlin.coroutines.native
+            }
+        }
+
+        androidMain {
+            dependencies {
+                implementation deps.kotlin.coroutines.jdk
+                implementation deps.kotlin.coroutines.android
+                implementation deps.sqldelight.driverAndroid
+//                implementation deps.ktor.jvmCore
+//                implementation deps.ktor.jvmJson
+                implementation deps.serialization.jvmRuntime
+                implementation deps.firebase.firestoreAndroid
+            }
+        }
+
+        androidTest {
+            dependencies {
+                implementation deps.kotlin.test.jvm
+                implementation deps.kotlin.test.junit
+                implementation deps.sqldelight.driverAndroid
+                implementation deps.kotlin.coroutines.jdk
+                implementation deps.kotlin.coroutines.android
+                implementation deps.serialization.jvmRuntime
+                implementation 'junit:junit:4.12'
+                implementation "androidx.test:core:1.1.0"
+                implementation "androidx.test.ext:junit:1.1.0"
+                implementation "org.robolectric:robolectric:4.0"
+            }
+        }
+    }
+
+    cocoapods {
+        // Configure fields required by CocoaPods.
+        summary = "Lots of Droidcon Stuff"
+        homepage = "https://github.com/touchlab/DroidconKotlin"
+    }
+}
+
+sqldelight {
+    DroidconDb {
+        packageName = "co.touchlab.droidcon.db"
+    }
+}
+

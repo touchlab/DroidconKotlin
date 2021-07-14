@@ -13,4 +13,6 @@
 // limitations under the License.
 
 #import "MDCBaseCell.h"
+#import "MDCSelfSizingLayoutAttributes.h"
 #import "MDCSelfSizingStereoCell.h"
+#import "MDCSelfSizingStereoCellImageViewVerticalPosition.h"

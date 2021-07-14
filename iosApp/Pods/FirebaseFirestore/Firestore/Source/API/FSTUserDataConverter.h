@@ -18,18 +18,11 @@
 
 #include <vector>
 
-#include "Firestore/core/include/firebase/firestore/timestamp.h"
-#include "Firestore/core/src/firebase/firestore/core/user_data.h"
-#include "Firestore/core/src/firebase/firestore/model/database_id.h"
-#include "Firestore/core/src/firebase/firestore/model/document_key.h"
-#include "Firestore/core/src/firebase/firestore/model/field_mask.h"
-#include "Firestore/core/src/firebase/firestore/model/field_transform.h"
-#include "Firestore/core/src/firebase/firestore/model/field_value.h"
-#include "Firestore/core/src/firebase/firestore/model/precondition.h"
+#include "Firestore/core/src/core/core_fwd.h"
+#include "Firestore/core/src/model/database_id.h"
+#include "Firestore/core/src/model/model_fwd.h"
 
 @class FIRTimestamp;
-@class FSTObjectValue;
-@class FSTMutation;
 
 namespace core = firebase::firestore::core;
 namespace model = firebase::firestore::model;
@@ -83,6 +76,14 @@ typedef id _Nullable (^FSTPreConverterBlock)(id _Nullable);
 
 /** Parse a "query value" (e.g. value in a where filter or a value in a cursor bound). */
 - (model::FieldValue)parsedQueryValue:(id)input;
+
+/**
+ * Parse a "query value" (e.g. value in a where filter or a value in a cursor bound).
+ *
+ * @param allowArrays Whether the query value is an array that may directly contain additional
+ * arrays (e.g.) the operand of an `in` query).
+ */
+- (model::FieldValue)parsedQueryValue:(id)input allowArrays:(bool)allowArrays;
 
 @end
 

@@ -14,7 +14,7 @@
 
 #import "MDCRoundedCornerTreatment.h"
 
-#import "MaterialMath.h"
+#import "MaterialShapes.h"
 
 @implementation MDCRoundedCornerTreatment
 
@@ -47,7 +47,7 @@
 - (MDCPathGenerator *)pathGeneratorForCornerWithAngle:(CGFloat)angle andRadius:(CGFloat)radius {
   MDCPathGenerator *path = [MDCPathGenerator pathGeneratorWithStartPoint:CGPointMake(0, radius)];
   [path addArcWithTangentPoint:CGPointZero
-                       toPoint:CGPointMake(MDCSin(angle) * radius, MDCCos(angle) * radius)
+                       toPoint:CGPointMake(sin(angle) * radius, cos(angle) * radius)
                         radius:radius];
   return path;
 }

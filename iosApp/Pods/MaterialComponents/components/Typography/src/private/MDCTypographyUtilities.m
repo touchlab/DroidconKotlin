@@ -14,19 +14,12 @@
 
 #import "MDCTypographyUtilities.h"
 
-#import "UIApplication+AppExtensions.h"
+#import "MaterialApplication.h"
 
 /**
  @return Device's current UIContentSizeCategory or UIContentSizeCategoryLarge
  if we are unable to query the device due to being in an extension.
  */
 UIContentSizeCategory GetCurrentSizeCategory(void) {
-  UIContentSizeCategory sizeCategory = UIContentSizeCategoryLarge;
-  if (@available(iOS 10.0, *)) {
-    sizeCategory = UIScreen.mainScreen.traitCollection.preferredContentSizeCategory;
-  } else if ([UIApplication mdc_safeSharedApplication]) {
-    sizeCategory = [UIApplication mdc_safeSharedApplication].preferredContentSizeCategory;
-  }
-
-  return sizeCategory;
+  return UIScreen.mainScreen.traitCollection.preferredContentSizeCategory;
 }

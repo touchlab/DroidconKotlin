@@ -17,7 +17,7 @@
 #import "MDCPillShapeGenerator.h"
 
 #import "MDCRoundedCornerTreatment.h"
-#import "MaterialMath.h"
+#import "MaterialShapes.h"
 
 @implementation MDCPillShapeGenerator {
   MDCRectangleShapeGenerator *_rectangleGenerator;
@@ -42,7 +42,7 @@
 }
 
 - (CGPathRef)pathForSize:(CGSize)size {
-  CGFloat radius = (CGFloat)0.5 * MIN(MDCFabs(size.width), MDCFabs(size.height));
+  CGFloat radius = (CGFloat)0.5 * MIN(fabs(size.width), fabs(size.height));
   if (radius > 0) {
     [_rectangleGenerator setCorners:[[MDCRoundedCornerTreatment alloc] initWithRadius:radius]];
   }

@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "GULAppEnvironmentUtil.h"
+#import "GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h"
 
 #import <Foundation/Foundation.h>
 #import <dlfcn.h>
 #import <mach-o/dyld.h>
 #import <sys/utsname.h>
+#import <objc/runtime.h>
 
 #if TARGET_OS_IOS
 #import <UIKit/UIKit.h>
@@ -129,7 +130,7 @@ static BOOL IsAppEncrypted() {
 }
 
 static BOOL HasSCInfoFolder() {
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
   NSString *bundlePath = [NSBundle mainBundle].bundlePath;
   NSString *scInfoPath = [bundlePath stringByAppendingPathComponent:@"SC_Info"];
   return [[NSFileManager defaultManager] fileExistsAtPath:scInfoPath];
@@ -139,7 +140,7 @@ static BOOL HasSCInfoFolder() {
 }
 
 static BOOL HasEmbeddedMobileProvision() {
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
   return [[NSBundle mainBundle] pathForResource:@"embedded" ofType:@"mobileprovision"].length > 0;
 #elif TARGET_OS_OSX
   return NO;
@@ -187,26 +188,24 @@ static BOOL HasEmbeddedMobileProvision() {
       ![enableSandboxCheck boolValue]) {
     return NO;
   }
-// The #else is for pre Xcode 9 where @available is not yet implemented.
-#if __has_builtin(__builtin_available)
-  if (@available(iOS 7.0, *)) {
-#else
-  if ([[UIDevice currentDevice].systemVersion integerValue] >= 7) {
-#endif
-    NSURL *appStoreReceiptURL = [NSBundle mainBundle].appStoreReceiptURL;
-    NSString *appStoreReceiptFileName = appStoreReceiptURL.lastPathComponent;
-    return [appStoreReceiptFileName isEqualToString:kFIRAIdentitySandboxReceiptFileName];
-  }
-  return NO;
+
+  NSURL *appStoreReceiptURL = [NSBundle mainBundle].appStoreReceiptURL;
+  NSString *appStoreReceiptFileName = appStoreReceiptURL.lastPathComponent;
+  return [appStoreReceiptFileName isEqualToString:kFIRAIdentitySandboxReceiptFileName];
 }
 
 + (BOOL)isSimulator {
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_SIMULATOR
+  return YES;
+#elif TARGET_OS_MACCATALYST
+  return NO;
+#elif TARGET_OS_IOS || TARGET_OS_TV
   NSString *platform = [GULAppEnvironmentUtil deviceModel];
   return [platform isEqual:@"x86_64"] || [platform isEqual:@"i386"];
 #elif TARGET_OS_OSX
   return NO;
 #endif
+  return NO;
 }
 
 + (NSString *)deviceModel {
@@ -225,7 +224,7 @@ static BOOL HasEmbeddedMobileProvision() {
 + (NSString *)systemVersion {
 #if TARGET_OS_IOS
   return [UIDevice currentDevice].systemVersion;
-#elif TARGET_OS_OSX || TARGET_OS_TV
+#elif TARGET_OS_OSX || TARGET_OS_TV || TARGET_OS_WATCH
   // Assemble the systemVersion, excluding the patch version if it's 0.
   NSOperatingSystemVersion osVersion = [NSProcessInfo processInfo].operatingSystemVersion;
   NSMutableString *versionString = [[NSMutableString alloc]
@@ -238,7 +237,7 @@ static BOOL HasEmbeddedMobileProvision() {
 }
 
 + (BOOL)isAppExtension {
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
   // Documented by <a href="https://goo.gl/RRB2Up">Apple</a>
   BOOL appExtension = [[[NSBundle mainBundle] bundlePath] hasSuffix:@".appex"];
   return appExtension;
@@ -248,15 +247,66 @@ static BOOL HasEmbeddedMobileProvision() {
 }
 
 + (BOOL)isIOS7OrHigher {
-#if __has_builtin(__builtin_available)
-  if (@available(iOS 7.0, *)) {
-#else
-  if ([[UIDevice currentDevice].systemVersion integerValue] >= 7) {
-#endif
-      return YES;
-    }
+  return YES;
+}
 
-    return NO;
++ (BOOL)hasSwiftRuntime {
+  // The class
+  // [Swift._SwiftObject](https://github.com/apple/swift/blob/5eac3e2818eb340b11232aff83edfbd1c307fa03/stdlib/public/runtime/SwiftObject.h#L35)
+  // is a part of Swift runtime, so it should be present if Swift runtime is available.
+
+  BOOL hasSwiftRuntime =
+      objc_lookUpClass("Swift._SwiftObject") != nil ||
+      // Swift object class name before
+      // https://github.com/apple/swift/commit/9637b4a6e11ddca72f5f6dbe528efc7c92f14d01
+      objc_getClass("_TtCs12_SwiftObject") != nil;
+
+  return hasSwiftRuntime;
+}
+
++ (NSString *)applePlatform {
+  NSString *applePlatform = @"unknown";
+
+  // When a Catalyst app is run on macOS then both `TARGET_OS_MACCATALYST` and `TARGET_OS_IOS` are
+  // `true`, which means the condition list is order-sensitive.
+#if TARGET_OS_MACCATALYST
+  applePlatform = @"maccatalyst";
+#elif TARGET_OS_IOS
+#if defined(__IPHONE_14_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 140000
+  if (@available(iOS 14.0, *)) {
+    // Early iOS 14 betas do not include isiOSAppOnMac (#6969)
+    applePlatform = ([[NSProcessInfo processInfo] respondsToSelector:@selector(isiOSAppOnMac)] &&
+                      [NSProcessInfo processInfo].isiOSAppOnMac) ? @"ios_on_mac" : @"ios";
+  } else {
+    applePlatform = @"ios";
+  }
+#else // defined(__IPHONE_14_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 140000
+  applePlatform = @"ios";
+#endif // defined(__IPHONE_14_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 140000
+
+#elif TARGET_OS_TV
+  applePlatform = @"tvos";
+#elif TARGET_OS_OSX
+  applePlatform = @"macos";
+#elif TARGET_OS_WATCH
+  applePlatform = @"watchos";
+#endif // TARGET_OS_MACCATALYST
+
+  return applePlatform;
+}
+
++ (NSString *)deploymentType {
+#if SWIFT_PACKAGE
+  NSString *deploymentType = @"swiftpm";
+#elif FIREBASE_BUILD_CARTHAGE
+  NSString *deploymentType = @"carthage";
+#elif FIREBASE_BUILD_ZIP_FILE
+  NSString *deploymentType = @"zip";
+#else
+  NSString *deploymentType = @"cocoapods";
+#endif
+
+  return deploymentType;
 }
 
 @end

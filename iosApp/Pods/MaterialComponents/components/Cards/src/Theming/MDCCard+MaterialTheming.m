@@ -14,12 +14,17 @@
 
 #import "MDCCard+MaterialTheming.h"
 
-#import "MaterialCards+ColorThemer.h"
-#import "MaterialCards+ShapeThemer.h"
+#import "MaterialCards.h"
+#import "MaterialShadowElevations.h"
+#import "MaterialShapes.h"
+#import "MaterialColorScheme.h"
+#import "MaterialContainerScheme.h"
+#import "MaterialShapeScheme.h"
 
 static const MDCShadowElevation kNormalElevation = 1;
 static const MDCShadowElevation kHighlightedElevation = 1;
 static const CGFloat kBorderWidth = 1;
+static const CGFloat kOutlinedVariantBorderOpacity = (CGFloat)0.37;
 
 @implementation MDCCard (MaterialTheming)
 
@@ -31,13 +36,13 @@ static const CGFloat kBorderWidth = 1;
     colorScheme =
         [[MDCSemanticColorScheme alloc] initWithDefaults:MDCColorSchemeDefaultsMaterial201804];
   }
-  [self applyThemeWithColorScheme:colorScheme];
+  self.backgroundColor = colorScheme.surfaceColor;
 
   id<MDCShapeScheming> shapeScheme = scheme.shapeScheme;
   if (shapeScheme) {
     [self applyThemeWithShapeScheme:shapeScheme];
   } else {
-    self.layer.cornerRadius = (CGFloat)4;
+    self.layer.cornerRadius = 4;
   }
 
   [self setShadowElevation:kNormalElevation forState:UIControlStateNormal];
@@ -45,12 +50,13 @@ static const CGFloat kBorderWidth = 1;
   self.interactable = YES;  // To achieve baseline themed, the card should be interactable.
 }
 
-- (void)applyThemeWithColorScheme:(id<MDCColorScheming>)colorScheme {
-  [MDCCardsColorThemer applySemanticColorScheme:colorScheme toCard:self];
-}
-
 - (void)applyThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
-  [MDCCardsShapeThemer applyShapeScheme:shapeScheme toCard:self];
+  MDCRectangleShapeGenerator *rectangleShape = [[MDCRectangleShapeGenerator alloc] init];
+  rectangleShape.topLeftCorner = shapeScheme.mediumComponentShape.topLeftCorner;
+  rectangleShape.topRightCorner = shapeScheme.mediumComponentShape.topRightCorner;
+  rectangleShape.bottomLeftCorner = shapeScheme.mediumComponentShape.bottomLeftCorner;
+  rectangleShape.bottomRightCorner = shapeScheme.mediumComponentShape.bottomRightCorner;
+  self.shapeGenerator = rectangleShape;
 }
 
 #pragma mark - Outlined Card
@@ -67,7 +73,7 @@ static const CGFloat kBorderWidth = 1;
   if (shapeScheme) {
     [self applyThemeWithShapeScheme:shapeScheme];
   } else {
-    self.layer.cornerRadius = (CGFloat)4;
+    self.layer.cornerRadius = 4;
   }
 
   NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
@@ -79,7 +85,16 @@ static const CGFloat kBorderWidth = 1;
 }
 
 - (void)applyOutlinedThemeWithColorScheme:(id<MDCColorScheming>)colorScheme {
-  [MDCCardsColorThemer applyOutlinedVariantWithColorScheme:colorScheme toCard:self];
+  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
+                                 UIControlStateHighlighted | UIControlStateDisabled;
+  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
+    [self setBorderColor:nil forState:state];
+  }
+
+  self.backgroundColor = colorScheme.surfaceColor;
+  UIColor *borderColor =
+      [colorScheme.onSurfaceColor colorWithAlphaComponent:kOutlinedVariantBorderOpacity];
+  [self setBorderColor:borderColor forState:UIControlStateNormal];
 }
 
 @end

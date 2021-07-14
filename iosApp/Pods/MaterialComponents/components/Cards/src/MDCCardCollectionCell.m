@@ -14,9 +14,14 @@
 
 #import "MDCCardCollectionCell.h"
 
+#import "MaterialElevation.h"
+#import "MaterialInk.h"
+#import "MaterialRipple.h"
+#import "MaterialShadowElevations.h"
+#import "MaterialShadowLayer.h"
+#import "MaterialShapes.h"
 #import "MaterialIcons+ic_check_circle.h"
 #import "MaterialMath.h"
-#import "MaterialShapes.h"
 
 static const CGFloat MDCCardCellCornerRadiusDefault = 4;
 static const CGFloat MDCCardCellSelectedImagePadding = 8;
@@ -77,7 +82,10 @@ static const BOOL MDCCardCellIsInteractableDefault = YES;
   _mdc_overrideBaseElevation = -1;
 
   if (_inkView == nil) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     _inkView = [[MDCInkView alloc] initWithFrame:self.bounds];
+#pragma clang diagnostic pop
     _inkView.autoresizingMask =
         (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     _inkView.usesLegacyInkRipple = NO;
@@ -533,7 +541,7 @@ static const BOOL MDCCardCellIsInteractableDefault = YES;
 - (void)updateInkForShape {
   CGRect boundingBox = CGPathGetBoundingBox(self.layer.shapeLayer.path);
   self.inkView.maxRippleRadius =
-      (CGFloat)(MDCHypot(CGRectGetHeight(boundingBox), CGRectGetWidth(boundingBox)) / 2 + 10);
+      (CGFloat)(hypot(CGRectGetHeight(boundingBox), CGRectGetWidth(boundingBox)) / 2 + 10);
   self.inkView.layer.masksToBounds = NO;
 }
 

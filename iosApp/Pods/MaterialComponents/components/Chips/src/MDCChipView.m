@@ -12,19 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#import "MDCChipView.h"
 #import "private/MDCChipView+Private.h"
 
+#import "MaterialElevation.h"
 #import <MDFInternationalization/MDFInternationalization.h>
 
 #import "MaterialInk.h"
-#import "MaterialMath.h"
 #import "MaterialRipple.h"
 #import "MaterialShadowElevations.h"
-#import "MaterialShadowLayer.h"
+#import "MaterialShapeLibrary.h"
 #import "MaterialShapes.h"
 #import "MaterialTypography.h"
+#import "MaterialMath.h"
 
 static const MDCFontTextStyle kTitleTextStyle = MDCFontTextStyleBody2;
+
+// KVO context
+static char *const kKVOContextMDCChipView = "kKVOContextMDCChipView";
 
 static const CGSize kMDCChipMinimumSizeDefault = (CGSize){(CGFloat)0, (CGFloat)32};
 
@@ -58,7 +63,6 @@ static const CGFloat MDCChipSelectedDarkenPercent = (CGFloat)0.16;
 static const CGFloat MDCChipDisabledLightenPercent = (CGFloat)0.38;
 static const CGFloat MDCChipTitleColorWhite = (CGFloat)0.13;
 static const CGFloat MDCChipTitleColorDisabledLightenPercent = (CGFloat)0.38;
-static const CGFloat MDCChipViewRippleDefaultOpacity = (CGFloat)0.12;
 
 static const UIEdgeInsets MDCChipContentPadding = {4, 4, 4, 4};
 static const UIEdgeInsets MDCChipImagePadding = {0, 0, 0, 0};
@@ -71,13 +75,14 @@ static CGRect CGRectVerticallyCentered(CGRect rect,
                                        CGFloat pixelScale) {
   CGFloat viewHeight = CGRectGetHeight(rect) + padding.top + padding.bottom;
   CGFloat yValue = (height - viewHeight) / 2;
-  yValue = MDCRound(yValue * pixelScale) / pixelScale;
+  yValue = round(yValue * pixelScale) / pixelScale;
   return CGRectOffset(rect, 0, yValue);
 }
 
 static inline CGRect MDCChipBuildFrame(
-    UIEdgeInsets insets, CGSize size, CGFloat xOffset, CGFloat chipHeight, CGFloat pixelScale) {
-  CGRect frame = CGRectMake(xOffset + insets.left, insets.top, size.width, size.height);
+    UIEdgeInsets insets, CGSize size, CGPoint originPoint, CGFloat chipHeight, CGFloat pixelScale) {
+  CGRect frame =
+      CGRectMake(originPoint.x + insets.left, originPoint.y + insets.top, size.width, size.height);
   return CGRectVerticallyCentered(frame, insets, chipHeight, pixelScale);
 }
 
@@ -105,9 +110,19 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 @property(nonatomic, readonly) BOOL showImageView;
 @property(nonatomic, readonly) BOOL showSelectedImageView;
 @property(nonatomic, readonly) BOOL showAccessoryView;
+@property(nonatomic, assign) BOOL shouldFullyRoundCorner;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 @property(nonatomic, strong) MDCInkView *inkView;
-@property(nonatomic, strong) MDCStatefulRippleView *rippleView;
+#pragma clang diagnostic pop
+@property(nonatomic, strong) MDCRippleView *rippleView;
+@property(nonatomic, strong, nonnull) NSMutableDictionary<NSNumber *, UIColor *> *rippleColors;
 @property(nonatomic, readonly) CGFloat pixelScale;
+@property(nonatomic, assign) BOOL enableRippleBehavior;
+@property(nonatomic, assign) BOOL adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable;
+@property(nonatomic, assign) UIEdgeInsets visibleAreaInsets;
+@property(nonatomic, assign) UIEdgeInsets currentVisibleAreaInsets;
+@property(nonatomic, assign) CGFloat currentCornerRadius;
 @end
 
 @implementation MDCChipView {
@@ -127,6 +142,8 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 
 @synthesize mdc_overrideBaseElevation = _mdc_overrideBaseElevation;
 @synthesize mdc_elevationDidChangeBlock = _mdc_elevationDidChangeBlock;
+@synthesize cornerRadius = _cornerRadius;
+@synthesize visibleAreaInsets = _visibleAreaInsets;
 
 @dynamic layer;
 
@@ -136,10 +153,11 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 
 - (void)commonMDCChipViewInit {
   _minimumSize = kMDCChipMinimumSizeDefault;
-  self.rippleAllowsSelection = YES;
   self.isAccessibilityElement = YES;
+  self.accessibilityTraits = UIAccessibilityTraitButton;
   _mdc_overrideBaseElevation = -1;
   _adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable = YES;
+  [self addObservers];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -175,12 +193,17 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
     _shadowColors = [NSMutableDictionary dictionary];
     _shadowColors[@(UIControlStateNormal)] = [UIColor blackColor];
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     _inkView = [[MDCInkView alloc] initWithFrame:self.bounds];
+#pragma clang diagnostic pop
     _inkView.usesLegacyInkRipple = NO;
     _inkView.inkColor = [self inkColorForState:UIControlStateNormal];
     [self addSubview:_inkView];
 
-    _rippleView = [[MDCStatefulRippleView alloc] initWithFrame:self.bounds];
+    _rippleView = [[MDCRippleView alloc] initWithFrame:self.bounds];
+    _rippleView.rippleColor = [self rippleColorForState:UIControlStateNormal];
+    _rippleColors = [NSMutableDictionary dictionary];
 
     _imageView = [[UIImageView alloc] init];
     [self addSubview:_imageView];
@@ -204,19 +227,14 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
     _imagePadding = MDCChipImagePadding;
     _titlePadding = MDCChipTitlePadding;
     _accessoryPadding = MDCChipAccessoryPadding;
-
-    // UIControl has a drag enter/exit boundary that is outside of the frame of the button itself.
-    // Because this is not exposed externally, we can't use -touchesMoved: to calculate when to
-    // change ink state. So instead we fall back on adding target/actions for these specific events.
-    [self addTarget:self
-                  action:@selector(touchDragEnter:forEvent:)
-        forControlEvents:UIControlEventTouchDragEnter];
-    [self addTarget:self
-                  action:@selector(touchDragExit:forEvent:)
-        forControlEvents:UIControlEventTouchDragExit];
+    _currentVisibleAreaInsets = UIEdgeInsetsZero;
+    _currentCornerRadius = 0.0f;
+    _centerVisibleArea = NO;
 
     self.layer.elevation = [self elevationForState:UIControlStateNormal];
     self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+
+    self.shouldFullyRoundCorner = YES;
 
     [self updateBackgroundColor];
 
@@ -233,11 +251,8 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 }
 
 - (void)dealloc {
+  [self removeObservers];
   [self removeTarget:self action:NULL forControlEvents:UIControlEventAllEvents];
-
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:UIContentSizeCategoryDidChangeNotification
-                                                object:nil];
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
@@ -248,17 +263,27 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 }
 
 - (void)setShapeGenerator:(id<MDCShapeGenerating>)shapeGenerator {
+  if (!UIEdgeInsetsEqualToEdgeInsets(self.visibleAreaInsets, UIEdgeInsetsZero)) {
+    // When visibleAreaInsets is not UIEdgeInsetsZero, the custom shapeGenerater should not be set
+    // through setter.
+    return;
+  }
+
+  [self configureLayerWithShapeGenerator:shapeGenerator];
+
+  if (!shapeGenerator && !self.shouldFullyRoundCorner) {
+    [self configureLayerWithCornerRadius:self.cornerRadius];
+  }
+  [self setNeedsLayout];
+}
+
+- (void)configureLayerWithShapeGenerator:(id<MDCShapeGenerating>)shapeGenerator {
+  self.layer.shapeGenerator = shapeGenerator;
+
   if (shapeGenerator) {
     self.layer.cornerRadius = 0;
     self.layer.shadowPath = nil;
-  } else {
-    CGFloat cornerRadius = MIN(CGRectGetHeight(self.frame), CGRectGetWidth(self.frame)) / 2;
-    self.layer.cornerRadius = cornerRadius;
-    self.layer.shadowPath =
-        [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:cornerRadius].CGPath;
   }
-
-  self.layer.shapeGenerator = shapeGenerator;
 
   [self updateBackgroundColor];
 }
@@ -267,12 +292,55 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
   return self.layer.shapeGenerator;
 }
 
-- (void)setInkColor:(UIColor *)inkColor {
-  [self setInkColor:inkColor forState:UIControlStateNormal];
+- (void)configureLayerWithCornerRadius:(CGFloat)cornerRadius {
+  if (!self.shapeGenerator &&
+      UIEdgeInsetsEqualToEdgeInsets(self.visibleAreaInsets, UIEdgeInsetsZero)) {
+    self.layer.cornerRadius = cornerRadius;
+    self.layer.shadowPath =
+        [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:cornerRadius].CGPath;
+  } else if (!UIEdgeInsetsEqualToEdgeInsets(self.visibleAreaInsets, UIEdgeInsetsZero)) {
+    [self configureLayerWithVisibleAreaInsets:self.visibleAreaInsets cornerRadius:cornerRadius];
+  }
 }
 
-- (UIColor *)inkColor {
-  return [self inkColorForState:UIControlStateNormal];
+- (void)configureLayerWithVisibleAreaInsets:(UIEdgeInsets)visibleAreaInsets
+                               cornerRadius:(CGFloat)cornerRadius {
+  if (UIEdgeInsetsEqualToEdgeInsets(visibleAreaInsets, self.currentVisibleAreaInsets) &&
+      MDCCGFloatEqual(self.currentCornerRadius, cornerRadius)) {
+    return;
+  }
+
+  self.currentVisibleAreaInsets = visibleAreaInsets;
+  self.currentCornerRadius = cornerRadius;
+
+  MDCRectangleShapeGenerator *shapeGenerator = [[MDCRectangleShapeGenerator alloc] init];
+  MDCCornerTreatment *cornerTreatment =
+      [[MDCRoundedCornerTreatment alloc] initWithRadius:cornerRadius];
+  [shapeGenerator setCorners:cornerTreatment];
+  shapeGenerator.topLeftCornerOffset = CGPointMake(visibleAreaInsets.left, visibleAreaInsets.top);
+  shapeGenerator.topRightCornerOffset =
+      CGPointMake(-visibleAreaInsets.right, visibleAreaInsets.top);
+  shapeGenerator.bottomLeftCornerOffset =
+      CGPointMake(visibleAreaInsets.left, -visibleAreaInsets.bottom);
+  shapeGenerator.bottomRightCornerOffset =
+      CGPointMake(-visibleAreaInsets.right, -visibleAreaInsets.bottom);
+
+  [self configureLayerWithShapeGenerator:shapeGenerator];
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+  _cornerRadius = cornerRadius;
+  // When cornerRadius is set to a custom value, corner is not forced to be fully rounded.
+  self.shouldFullyRoundCorner = NO;
+
+  [self configureLayerWithCornerRadius:cornerRadius];
+}
+
+- (CGFloat)cornerRadius {
+  if (!self.shouldFullyRoundCorner) {
+    return _cornerRadius;
+  }
+  return self.layer.cornerRadius;
 }
 
 - (void)setEnableRippleBehavior:(BOOL)enableRippleBehavior {
@@ -286,14 +354,6 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
     [self.rippleView removeFromSuperview];
     [self insertSubview:self.inkView belowSubview:self.imageView];
   }
-}
-
-- (BOOL)rippleAllowsSelection {
-  return self.rippleView.allowsSelection;
-}
-
-- (void)setRippleAllowsSelection:(BOOL)allowsSelection {
-  self.rippleView.allowsSelection = allowsSelection;
 }
 
 #pragma mark - Dynamic Type Support
@@ -317,14 +377,6 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
   }
 
   [self updateTitleFont];
-}
-
-- (void)mdc_setLegacyFontScaling:(BOOL)legacyScaling {
-  _adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable = legacyScaling;
-}
-
-- (BOOL)mdc_legacyFontScaling {
-  return _adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable;
 }
 
 - (void)contentSizeCategoryDidChange:(__unused NSNotification *)notification {
@@ -446,13 +498,10 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 - (void)setInkColor:(UIColor *)inkColor forState:(UIControlState)state {
   _inkColors[@(state)] = inkColor;
 
-  NSNumber *rippleState = [self rippleStateForControlState:state];
-  if (rippleState) {
-    [self.rippleView setRippleColor:inkColor forState:rippleState.integerValue];
-  }
-
   [self updateInkColor];
-  [self updateRippleColor];
+
+  // Set Ripple color as well when using the Ink API.
+  [self setRippleColor:inkColor forState:state];
 }
 
 - (void)updateInkColor {
@@ -460,32 +509,23 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
   self.inkView.inkColor = inkColor ?: self.inkView.defaultInkColor;
 }
 
-- (void)updateRippleColor {
-  UIColor *rippleColor = [self inkColorForState:self.state];
-  // MDCStatefulRippleView sets the ripple color internally when its state changes.
-  // If that specific state isn't supported by the stateful ripple, then we directly set the
-  // ripple view's color to the requested color.
-  if (![self rippleStateForControlState:self.state]) {
-    self.rippleView.rippleColor =
-        rippleColor ?: [UIColor colorWithWhite:1 alpha:MDCChipViewRippleDefaultOpacity];
+- (UIColor *)rippleColorForState:(UIControlState)state {
+  UIColor *rippleColor = self.rippleColors[@(state)];
+  if (!rippleColor && state != UIControlStateNormal) {
+    rippleColor = self.rippleColors[@(UIControlStateNormal)];
   }
+  return rippleColor;
 }
 
-- (NSNumber *)rippleStateForControlState:(UIControlState)state {
-  // We check to see if MDCRippleState conforms to a UIControlState and return it, otherwise
-  // we return nil for non-supported ripple states.
-  switch (state) {
-    case UIControlStateNormal:
-      return [NSNumber numberWithInteger:MDCRippleStateNormal];
-    case UIControlStateHighlighted:
-      return [NSNumber numberWithInteger:MDCRippleStateHighlighted];
-    case UIControlStateSelected:
-      return [NSNumber numberWithInteger:MDCRippleStateSelected];
-    case (UIControlStateHighlighted | UIControlStateSelected):
-      return [NSNumber numberWithInteger:(MDCRippleStateHighlighted | MDCRippleStateSelected)];
-    default:
-      return nil;
-  }
+- (void)setRippleColor:(UIColor *)rippleColor forState:(UIControlState)state {
+  _rippleColors[@(state)] = rippleColor;
+
+  [self updateRippleColor];
+}
+
+- (void)updateRippleColor {
+  UIColor *rippleColor = [self rippleColorForState:self.state];
+  self.rippleView.rippleColor = rippleColor ?: self.inkView.defaultInkColor;
 }
 
 - (nullable UIColor *)shadowColorForState:(UIControlState)state {
@@ -542,7 +582,7 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 
   // If we are automatically adjusting for Dynamic Type resize the font based on the text style
   if (self.mdc_adjustsFontForContentSizeCategory) {
-    if (titleFont.mdc_scalingCurve && !self.mdc_legacyFontScaling) {
+    if (titleFont.mdc_scalingCurve) {
       titleFont = [titleFont mdc_scaledFontForTraitEnvironment:self];
     } else if (self.adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable) {
       titleFont =
@@ -606,11 +646,123 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
   [self updateAccessibility];
 }
 
+#pragma mark - Key-value observing
+
+- (void)addObservers {
+  for (NSString *keyPath in [self titleLabelKVOKeyPaths]) {
+    [self.titleLabel addObserver:self
+                      forKeyPath:keyPath
+                         options:NSKeyValueObservingOptionNew
+                         context:kKVOContextMDCChipView];
+  }
+  [self.imageView addObserver:self
+                   forKeyPath:NSStringFromSelector(@selector(image))
+                      options:NSKeyValueObservingOptionNew
+                      context:kKVOContextMDCChipView];
+}
+
+- (void)removeObservers {
+  for (NSString *keyPath in [self titleLabelKVOKeyPaths]) {
+    [self.titleLabel removeObserver:self forKeyPath:keyPath context:kKVOContextMDCChipView];
+  }
+  [self.imageView removeObserver:self
+                      forKeyPath:NSStringFromSelector(@selector(image))
+                         context:kKVOContextMDCChipView];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey, id> *)change
+                       context:(void *)context {
+  if (context == kKVOContextMDCChipView) {
+    if (!object) {
+      return;
+    }
+
+    id newValue = [object valueForKey:keyPath];
+    if (newValue == [NSNull null]) {
+      newValue = nil;
+    }
+
+    NSArray<NSString *> *titleLabelKeyPaths = [self titleLabelKVOKeyPaths];
+    for (NSString *titleLabelKeyPath in titleLabelKeyPaths) {
+      if ([titleLabelKeyPath isEqualToString:keyPath]) {
+        [self invalidateIntrinsicContentSize];
+      }
+    }
+
+    if ([keyPath isEqualToString:NSStringFromSelector(@selector(image))]) {
+      [self invalidateIntrinsicContentSize];
+    }
+  }
+}
+
+- (NSArray<NSString *> *)titleLabelKVOKeyPaths {
+  return @[
+    NSStringFromSelector(@selector(text)),
+    NSStringFromSelector(@selector(font)),
+  ];
+}
+
 #pragma mark - Custom touch handling
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(__unused UIEvent *)event {
   CGRect hitAreaRect = UIEdgeInsetsInsetRect(CGRectStandardize(self.bounds), self.hitAreaInsets);
   return CGRectContainsPoint(hitAreaRect, point);
+}
+
+#pragma mark - Visible area
+
+- (void)setVisibleAreaInsets:(UIEdgeInsets)visibleAreaInsets {
+  if (UIEdgeInsetsEqualToEdgeInsets(visibleAreaInsets, _visibleAreaInsets)) {
+    return;
+  }
+
+  _visibleAreaInsets = visibleAreaInsets;
+
+  if (UIEdgeInsetsEqualToEdgeInsets(visibleAreaInsets, UIEdgeInsetsZero)) {
+    self.shapeGenerator = nil;
+  } else {
+    MDCRectangleShapeGenerator *shapeGenerator = [[MDCRectangleShapeGenerator alloc] init];
+    CGRect visibleFrame = UIEdgeInsetsInsetRect(self.frame, visibleAreaInsets);
+    CGFloat cornerRadius =
+        self.shouldFullyRoundCorner
+            ? MIN(CGRectGetHeight(visibleFrame), CGRectGetWidth(visibleFrame)) / 2
+            : self.cornerRadius;
+    ;
+    MDCCornerTreatment *cornerTreatment =
+        [[MDCRoundedCornerTreatment alloc] initWithRadius:cornerRadius];
+    [shapeGenerator setCorners:cornerTreatment];
+    shapeGenerator.topLeftCornerOffset = CGPointMake(visibleAreaInsets.left, visibleAreaInsets.top);
+    shapeGenerator.topRightCornerOffset =
+        CGPointMake(-visibleAreaInsets.right, visibleAreaInsets.top);
+    shapeGenerator.bottomLeftCornerOffset =
+        CGPointMake(visibleAreaInsets.left, -visibleAreaInsets.bottom);
+    shapeGenerator.bottomRightCornerOffset =
+        CGPointMake(-visibleAreaInsets.right, -visibleAreaInsets.bottom);
+    [self configureLayerWithShapeGenerator:shapeGenerator];
+  }
+}
+
+- (UIEdgeInsets)visibleAreaInsets {
+  if (!UIEdgeInsetsEqualToEdgeInsets(_visibleAreaInsets, UIEdgeInsetsZero)) {
+    // Use custom visibleAreaInsets value when users sets it.
+    return _visibleAreaInsets;
+  }
+
+  UIEdgeInsets visibleAreaInsets = UIEdgeInsetsZero;
+  if (self.centerVisibleArea) {
+    CGSize visibleAreaSize = [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)];
+    CGFloat additionalRequiredHeight =
+        MAX(0, CGRectGetHeight(self.bounds) - visibleAreaSize.height);
+    CGFloat additionalRequiredWidth = MAX(0, CGRectGetWidth(self.bounds) - visibleAreaSize.width);
+    visibleAreaInsets.top = ceil(additionalRequiredHeight * 0.5f);
+    visibleAreaInsets.bottom = additionalRequiredHeight - visibleAreaInsets.top;
+    visibleAreaInsets.left = ceil(additionalRequiredWidth * 0.5f);
+    visibleAreaInsets.right = additionalRequiredWidth - visibleAreaInsets.left;
+  }
+
+  return visibleAreaInsets;
 }
 
 #pragma mark - Control
@@ -624,14 +776,12 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 - (void)setHighlighted:(BOOL)highlighted {
   [super setHighlighted:highlighted];
 
-  self.rippleView.rippleHighlighted = highlighted;
   [self updateState];
 }
 
 - (void)setSelected:(BOOL)selected {
   [super setSelected:selected];
 
-  self.rippleView.selected = selected;
   [self updateState];
   [self setNeedsLayout];
 }
@@ -649,12 +799,12 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 
   _selectedImageView.alpha = self.showSelectedImageView ? 1 : 0;
 
-  if (!self.layer.shapeGenerator) {
-    CGFloat cornerRadius = MIN(CGRectGetHeight(self.frame), CGRectGetWidth(self.frame)) / 2;
-    self.layer.cornerRadius = cornerRadius;
-    self.layer.shadowPath =
-        [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:cornerRadius].CGPath;
+  CGFloat cornerRadius = self.cornerRadius;
+  if (self.shouldFullyRoundCorner) {
+    CGRect visibleFrame = UIEdgeInsetsInsetRect(self.frame, self.visibleAreaInsets);
+    cornerRadius = MIN(CGRectGetHeight(visibleFrame), CGRectGetWidth(visibleFrame)) / 2;
   }
+  [self configureLayerWithCornerRadius:cornerRadius];
 
   // Handle RTL
   if (self.mdf_effectiveUserInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft) {
@@ -670,7 +820,8 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 }
 
 - (CGRect)contentRect {
-  CGRect contentRect = UIEdgeInsetsInsetRect(self.bounds, self.contentPadding);
+  CGRect contentRect = UIEdgeInsetsInsetRect(self.bounds, self.visibleAreaInsets);
+  contentRect = UIEdgeInsetsInsetRect(contentRect, self.contentPadding);
   UIControlContentHorizontalAlignment alignment = self.contentHorizontalAlignment;
   if (alignment != UIControlContentHorizontalAlignmentCenter) {
     return contentRect;
@@ -723,11 +874,13 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 }
 
 - (CGRect)frameForImageView:(UIImageView *)imageView visible:(BOOL)visible {
-  CGRect frame = CGRectMake(CGRectGetMinX(self.contentRect), CGRectGetMidY(self.contentRect), 0, 0);
+  CGRect contentRect = self.contentRect;
+  CGRect frame = CGRectMake(CGRectGetMinX(contentRect), CGRectGetMidY(contentRect), 0, 0);
   if (visible) {
-    CGSize selectedSize = [self sizeForImageView:imageView maxSize:self.contentRect.size];
-    frame = MDCChipBuildFrame(_imagePadding, selectedSize, CGRectGetMinX(self.contentRect),
-                              CGRectGetHeight(self.frame), self.pixelScale);
+    CGSize selectedSize = [self sizeForImageView:imageView maxSize:contentRect.size];
+    frame = MDCChipBuildFrame(_imagePadding, selectedSize,
+                              CGPointMake(CGRectGetMinX(contentRect), CGRectGetMinY(contentRect)),
+                              CGRectGetHeight(contentRect), self.pixelScale);
   }
   return frame;
 }
@@ -739,11 +892,14 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 
 - (CGRect)accessoryViewFrame {
   CGSize size = CGSizeZero;
+  CGRect contentRect = self.contentRect;
   if (self.showAccessoryView) {
-    size = [self sizeForAccessoryViewWithMaxSize:self.contentRect.size];
+    size = [self sizeForAccessoryViewWithMaxSize:contentRect.size];
   }
-  CGFloat xOffset = CGRectGetMaxX(self.contentRect) - size.width - _accessoryPadding.right;
-  return MDCChipBuildFrame(_accessoryPadding, size, xOffset, CGRectGetHeight(self.frame),
+  CGFloat xOffset =
+      CGRectGetMaxX(self.contentRect) - size.width - UIEdgeInsetsHorizontal(_accessoryPadding);
+  CGPoint frameOrigin = CGPointMake(xOffset, CGRectGetMinY(contentRect));
+  return MDCChipBuildFrame(_accessoryPadding, size, frameOrigin, CGRectGetHeight(contentRect),
                            self.pixelScale);
 }
 
@@ -753,27 +909,43 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 }
 
 - (CGRect)titleLabelFrame {
-  CGRect imageFrame = CGRectUnion(_imageView.frame, _selectedImageView.frame);
-  CGFloat maximumTitleWidth = CGRectGetWidth(self.contentRect) - CGRectGetWidth(imageFrame) -
-                              UIEdgeInsetsHorizontal(_titlePadding) +
-                              UIEdgeInsetsHorizontal(_imagePadding);
+  // Default to the unselected image, but account for the selected image if it's shown.
+  CGRect imageFrame = _imageView.frame;
+  if (self.showSelectedImageView) {
+    // Both images are present, take the union of their frames.
+    if (self.showImageView) {
+      imageFrame = CGRectUnion(_imageView.frame, _selectedImageView.frame);
+    } else {
+      imageFrame = _selectedImageView.frame;
+    }
+  }
+  CGRect contentRect = self.contentRect;
+  CGFloat maximumTitleWidth = CGRectGetWidth(contentRect) - CGRectGetWidth(imageFrame) -
+                              UIEdgeInsetsHorizontal(_titlePadding);
+  if (self.showImageView || self.showSelectedImageView) {
+    maximumTitleWidth -= UIEdgeInsetsHorizontal(_imagePadding);
+  }
   if (self.showAccessoryView) {
     maximumTitleWidth -=
         CGRectGetWidth(_accessoryView.frame) + UIEdgeInsetsHorizontal(_accessoryPadding);
   }
-  CGFloat maximumTitleHeight =
-      CGRectGetHeight(self.contentRect) - UIEdgeInsetsVertical(_titlePadding);
+  CGFloat maximumTitleHeight = CGRectGetHeight(contentRect) - UIEdgeInsetsVertical(_titlePadding);
   CGSize maximumSize = CGSizeMake(maximumTitleWidth, maximumTitleHeight);
   CGSize titleSize = [_titleLabel sizeThatFits:maximumSize];
   titleSize.width = MAX(0, maximumTitleWidth);
 
-  CGFloat imageRightEdge = CGRectGetMaxX(imageFrame) + _imagePadding.right;
-  return MDCChipBuildFrame(_titlePadding, titleSize, imageRightEdge, CGRectGetHeight(self.frame),
+  CGFloat imageRightEdge = CGRectGetMinX(contentRect);
+  if (self.showImageView || self.showSelectedImageView) {
+    imageRightEdge = CGRectGetMaxX(imageFrame) + _imagePadding.right;
+  }
+  CGPoint frameOrigin = CGPointMake(imageRightEdge, CGRectGetMinY(contentRect));
+  return MDCChipBuildFrame(_titlePadding, titleSize, frameOrigin, CGRectGetHeight(contentRect),
                            self.pixelScale);
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-  CGSize contentPaddedSize = CGSizeShrinkWithInsets(size, self.contentPadding);
+  CGSize visibleAreaSize = CGSizeShrinkWithInsets(size, _visibleAreaInsets);
+  CGSize contentPaddedSize = CGSizeShrinkWithInsets(visibleAreaSize, self.contentPadding);
   CGSize imagePaddedSize = CGSizeShrinkWithInsets(contentPaddedSize, self.imagePadding);
   CGSize titlePaddedSize = CGSizeShrinkWithInsets(contentPaddedSize, self.titlePadding);
   CGSize accessoryPaddedSize = CGSizeShrinkWithInsets(contentPaddedSize, self.accessoryPadding);
@@ -811,6 +983,7 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
   if (self.minimumSize.height > 0) {
     chipSize.height = MAX(self.minimumSize.height, chipSize.height);
   }
+  chipSize = CGSizeExpandWithInsets(chipSize, _visibleAreaInsets);
   return MDCSizeCeilWithScale(chipSize, self.pixelScale);
 }
 
@@ -843,63 +1016,21 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
 #pragma mark - Ink Touches
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-  if (self.enableRippleBehavior) {
-    // This method needs to be invoked before the super.
-    // Please see the `MDCStatefulRippleView` class header for more details.
-    [self rippleViewTouchesBegan:touches withEvent:event];
-  }
   [super touchesBegan:touches withEvent:event];
 
-  if (!self.enableRippleBehavior) {
-    [self startTouchBeganAnimationAtPoint:[self locationFromTouches:touches]];
-  }
+  [self startTouchBeganAnimationAtPoint:[self locationFromTouches:touches]];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-  if (self.enableRippleBehavior) {
-    // This method needs to be invoked before the super.
-    // Please see the `MDCStatefulRippleView` class header for more details.
-    [self rippleViewTouchesEnded:touches withEvent:event];
-  }
   [super touchesEnded:touches withEvent:event];
 
-  if (!self.enableRippleBehavior) {
-    [self startTouchEndedAnimationAtPoint:[self locationFromTouches:touches]];
-  }
+  [self startTouchEndedAnimationAtPoint:[self locationFromTouches:touches]];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-  if (self.enableRippleBehavior) {
-    // This method needs to be invoked before the super.
-    // Please see the `MDCStatefulRippleView` class header for more details.
-    [self rippleViewTouchesCancelled:touches withEvent:event];
-  }
   [super touchesCancelled:touches withEvent:event];
 
-  if (!self.enableRippleBehavior) {
-    [self startTouchEndedAnimationAtPoint:[self locationFromTouches:touches]];
-  }
-}
-
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  if (self.enableRippleBehavior) {
-    // This method needs to be invoked before the super.
-    // Please see the `MDCStatefulRippleView` class header for more details.
-    [self rippleViewTouchesMoved:touches withEvent:event];
-  }
-  [super touchesMoved:touches withEvent:event];
-}
-
-- (void)touchDragEnter:(__unused MDCChipView *)button forEvent:(UIEvent *)event {
-  if (!self.enableRippleBehavior) {
-    [self startTouchBeganAnimationAtPoint:[self locationFromTouches:event.allTouches]];
-  }
-}
-
-- (void)touchDragExit:(__unused MDCChipView *)button forEvent:(UIEvent *)event {
-  if (!self.enableRippleBehavior) {
-    [self startTouchEndedAnimationAtPoint:[self locationFromTouches:event.allTouches]];
-  }
+  [self startTouchEndedAnimationAtPoint:[self locationFromTouches:touches]];
 }
 
 - (CGPoint)locationFromTouches:(NSSet *)touches {
@@ -917,17 +1048,23 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
   }
   CGSize size = [self sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)];
   CGFloat widthDiff = 24;  // Difference between unselected and selected frame widths.
-  _inkView.maxRippleRadius =
-      (CGFloat)(MDCHypot(size.height, size.width + widthDiff) / 2 + 10 + widthDiff / 2);
-
-  [_inkView startTouchBeganAnimationAtPoint:point completion:nil];
+  CGFloat maxRadius =
+      (CGFloat)(hypot(size.height, size.width + widthDiff) / 2 + 10 + widthDiff / 2);
+  if (self.enableRippleBehavior) {
+    _rippleView.maximumRadius = maxRadius;
+    [_rippleView beginRippleTouchDownAtPoint:point animated:YES completion:nil];
+  } else {
+    _inkView.maxRippleRadius = maxRadius;
+    [_inkView startTouchBeganAnimationAtPoint:point completion:nil];
+  }
 }
 
 - (void)startTouchEndedAnimationAtPoint:(CGPoint)point {
-  if (!self.enabled) {
-    return;
+  if (self.enableRippleBehavior) {
+    [_rippleView beginRippleTouchUpAnimated:YES completion:nil];
+  } else {
+    [_inkView startTouchEndedAnimationAtPoint:point completion:nil];
   }
-  [_inkView startTouchEndedAnimationAtPoint:point completion:nil];
 }
 
 - (BOOL)willChangeSizeWithSelectedValue:(BOOL)selected {
@@ -938,22 +1075,6 @@ static inline CGSize CGSizeShrinkWithInsets(CGSize size, UIEdgeInsets edgeInsets
   BOOL hasSelectedImage = self.selectedImageView.image != nil;
 
   return !hasImage && hasSelectedImage;
-}
-
-- (void)rippleViewTouchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  [self.rippleView touchesBegan:touches withEvent:event];
-}
-
-- (void)rippleViewTouchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  [self.rippleView touchesEnded:touches withEvent:event];
-}
-
-- (void)rippleViewTouchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  [self.rippleView touchesMoved:touches withEvent:event];
-}
-
-- (void)rippleViewTouchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  [self.rippleView touchesCancelled:touches withEvent:event];
 }
 
 @end

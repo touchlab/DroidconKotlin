@@ -14,8 +14,10 @@
 
 #import "MDCFloatingButton.h"
 
+#import "private/MDCFloatingButtonModeAnimator.h"
+#import "private/MDCFloatingButtonModeAnimatorDelegate.h"
+#import "MDCButton.h"
 #import "MaterialShadowElevations.h"
-#import "private/MDCButton+Subclassing.h"
 
 #import <MDFInternationalization/MDFInternationalization.h>
 
@@ -24,7 +26,7 @@ static const CGFloat MDCFloatingButtonMiniDimension = 40;
 static const CGFloat MDCFloatingButtonDefaultImageTitleSpace = 8;
 static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
 
-@interface MDCFloatingButton ()
+@interface MDCFloatingButton () <MDCFloatingButtonModeAnimatorDelegate>
 
 @property(nonatomic, readonly)
     NSMutableDictionary<NSNumber *, NSMutableDictionary<NSNumber *, NSValue *> *>
@@ -42,10 +44,18 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
     NSMutableDictionary<NSNumber *, NSMutableDictionary<NSNumber *, NSValue *> *>
         *shapeToModeToHitAreaInsets;
 
+@property(nonatomic, readonly)
+    NSMutableDictionary<NSNumber *, NSMutableDictionary<NSNumber *, NSNumber *> *>
+        *shapeToModeToCenterVisibleArea;
+
 @end
 
 @implementation MDCFloatingButton {
   MDCFloatingButtonShape _shape;
+
+  MDCFloatingButtonModeAnimator *_modeAnimator;
+  // Allows us to perform masking effects during mode animations.
+  UIView *_titleLabelContainerView;
 }
 
 + (void)initialize {
@@ -109,6 +119,16 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
 - (void)commonMDCFloatingButtonInit {
   _imageTitleSpace = MDCFloatingButtonDefaultImageTitleSpace;
 
+  // Create a container view for titleLabel and add the titelLabel to it. This will enable us to
+  // mask the titleLabel mode animations if desired, while acting effectively as a pass-through for
+  // the superview layout logic.
+  _titleLabelContainerView = [[UIView alloc] initWithFrame:self.bounds];
+  _titleLabelContainerView.autoresizingMask =
+      UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  [self insertSubview:_titleLabelContainerView belowSubview:self.titleLabel];
+  _titleLabelContainerView.userInteractionEnabled = NO;
+  [_titleLabelContainerView addSubview:self.titleLabel];
+
   const CGSize miniNormalSize =
       CGSizeMake(MDCFloatingButtonMiniDimension, MDCFloatingButtonMiniDimension);
   const CGSize defaultNormalSize =
@@ -158,6 +178,8 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
   _shapeToModeToHitAreaInsets = [@{
     @(MDCFloatingButtonShapeMini) : miniShapeHitAreaInsetsDictionary,
   } mutableCopy];
+
+  _shapeToModeToCenterVisibleArea = [[NSMutableDictionary alloc] init];
 }
 
 #pragma mark - UIView
@@ -210,6 +232,7 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
   if (self.maximumSize.width > 0) {
     contentSize.width = MIN(self.maximumSize.width, contentSize.width);
   }
+
   return contentSize;
 }
 
@@ -228,7 +251,8 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
  */
 - (void)layoutSubviews {
   // We have to set cornerRadius before laying out subviews so that the boundingPath is correct.
-  self.layer.cornerRadius = CGRectGetHeight(self.bounds) / 2;
+  CGRect visibleBounds = UIEdgeInsetsInsetRect(self.bounds, self.visibleAreaInsets);
+  self.layer.cornerRadius = CGRectGetHeight(visibleBounds) / 2;
   [super layoutSubviews];
 
   if (self.mode == MDCFloatingButtonModeNormal) {
@@ -252,12 +276,7 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
   // The diagram above assumes an LTR user interface orientation
   // and a .leadingIcon imageLocation for this button.
 
-  BOOL isLeadingIcon = self.imageLocation == MDCFloatingButtonImageLocationLeading;
-  UIEdgeInsets adjustedLayoutInsets =
-      isLeadingIcon ? internalLayoutInsets : MDFInsetsFlippedHorizontally(internalLayoutInsets);
-
-  const CGRect insetBounds = UIEdgeInsetsInsetRect(
-      UIEdgeInsetsInsetRect(self.bounds, adjustedLayoutInsets), self.contentEdgeInsets);
+  const CGRect insetBounds = [self insetBoundsForBounds:self.bounds];
 
   const CGFloat imageViewWidth = CGRectGetWidth(self.imageView.bounds);
   const CGFloat boundsCenterY = CGRectGetMidY(insetBounds);
@@ -276,6 +295,7 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
   CGPoint imageCenter;
   BOOL isLTR =
       self.mdf_effectiveUserInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight;
+  BOOL isLeadingIcon = self.imageLocation == MDCFloatingButtonImageLocationLeading;
 
   // If we are LTR with a leading image, the image goes on the left.
   // If we are RTL with a trailing image, the image goes on the left.
@@ -304,14 +324,72 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
   self.titleLabel.frame = UIEdgeInsetsInsetRect(self.titleLabel.frame, self.titleEdgeInsets);
 }
 
+- (CGRect)insetBoundsForBounds:(CGRect)bounds {
+  BOOL isLeadingIcon = self.imageLocation == MDCFloatingButtonImageLocationLeading;
+  UIEdgeInsets adjustedLayoutInsets =
+      (isLeadingIcon ? internalLayoutInsets : MDFInsetsFlippedHorizontally(internalLayoutInsets));
+  return UIEdgeInsetsInsetRect(UIEdgeInsetsInsetRect(bounds, adjustedLayoutInsets),
+                               self.contentEdgeInsets);
+}
+
+#pragma mark - Mode animator
+
+- (MDCFloatingButtonModeAnimator *)modeAnimator {
+  if (!_modeAnimator) {
+    _modeAnimator =
+        [[MDCFloatingButtonModeAnimator alloc] initWithTitleLabel:self.titleLabel
+                                          titleLabelContainerView:_titleLabelContainerView];
+    _modeAnimator.delegate = self;
+  }
+  return _modeAnimator;
+}
+
+#pragma mark MDCFloatingButtonModeAnimatorDelegate
+
+- (void)floatingButtonModeAnimatorCommitLayoutChanges:(MDCFloatingButtonModeAnimator *)modeAnimator
+                                                 mode:(MDCFloatingButtonMode)mode {
+  [self sizeToFit];
+}
+
 #pragma mark - Property Setters/Getters
 
-- (void)setMode:(MDCFloatingButtonMode)mode {
-  BOOL needsShapeUpdate = self.mode != mode;
-  _mode = mode;
-  if (needsShapeUpdate) {
-    [self updateShapeAndAllowResize:YES];
+- (void)setShape:(MDCFloatingButtonShape)shape {
+  if (_shape == shape) {
+    return;
   }
+  _shape = shape;
+  [self updateShapeAndAllowResize:YES];
+}
+
+- (void)setMode:(MDCFloatingButtonMode)mode {
+  [self setMode:mode animated:NO animateAlongside:nil completion:nil];
+}
+
+- (void)setMode:(MDCFloatingButtonMode)mode animated:(BOOL)animated {
+  [self setMode:mode animated:animated animateAlongside:nil completion:nil];
+}
+
+- (void)setMode:(MDCFloatingButtonMode)mode
+            animated:(BOOL)animated
+    animateAlongside:(void (^)(void))animateAlongside
+          completion:(void (^)(BOOL finished))completion {
+  if (_mode == mode) {
+    if (animateAlongside) {
+      animateAlongside();
+    }
+    if (completion) {
+      completion(YES);
+    }
+    return;
+  }
+  _mode = mode;
+
+  [self updateShapeAndAllowResize:YES];
+
+  [[self modeAnimator] modeDidChange:mode
+                            animated:animated
+                    animateAlongside:animateAlongside
+                          completion:completion];
 }
 
 - (void)setMinimumSize:(CGSize)size
@@ -452,22 +530,44 @@ static const UIEdgeInsets internalLayoutInsets = (UIEdgeInsets){0, 16, 0, 24};
   super.hitAreaInsets = [self hitAreaInsetsForMode:self.mode];
 }
 
+- (void)setCenterVisibleArea:(BOOL)centerVisibleArea
+                    forShape:(MDCFloatingButtonShape)shape
+                      inMode:(MDCFloatingButtonMode)mode {
+  NSMutableDictionary *modeToCenterVisibleArea = self.shapeToModeToCenterVisibleArea[@(shape)];
+  if (!modeToCenterVisibleArea) {
+    modeToCenterVisibleArea = [@{} mutableCopy];
+    self.shapeToModeToCenterVisibleArea[@(shape)] = modeToCenterVisibleArea;
+  }
+  modeToCenterVisibleArea[@(mode)] = @(centerVisibleArea);
+  if (shape == _shape && mode == self.mode) {
+    [self updateShapeAndAllowResize:NO];
+  }
+}
+
+- (BOOL)centerVisibleAreaForMode:(MDCFloatingButtonMode)mode {
+  NSMutableDictionary *modeToCenterVisibleArea = self.shapeToModeToCenterVisibleArea[@(_shape)];
+  if (!modeToCenterVisibleArea) {
+    return NO;
+  }
+
+  return [modeToCenterVisibleArea[@(mode)] boolValue];
+}
+
+- (void)updateCenterVisibleArea {
+  super.centerVisibleArea = [self centerVisibleAreaForMode:self.mode];
+}
+
 - (void)updateShapeAndAllowResize:(BOOL)allowsResize {
   BOOL minimumSizeChanged = [self updateMinimumSize];
   BOOL maximumSizeChanged = [self updateMaximumSize];
   [self updateContentEdgeInsets];
   [self updateHitAreaInsets];
+  [self updateCenterVisibleArea];
 
   if (allowsResize && (minimumSizeChanged || maximumSizeChanged)) {
     [self invalidateIntrinsicContentSize];
     [self setNeedsLayout];
   }
-}
-
-#pragma mark - Deprecations
-
-+ (instancetype)buttonWithShape:(MDCFloatingButtonShape)shape {
-  return [[self class] floatingButtonWithShape:shape];
 }
 
 @end

@@ -19,7 +19,10 @@
 @interface MDCButton (Subclassing)
 
 /** Access to the ink view layer. Mainly used for subclasses to override ink properties. */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 @property(nonatomic, readonly, strong, nonnull) MDCInkView *inkView;
+#pragma clang diagnostic pop
 
 /** Whether the background color should be opaque. */
 - (BOOL)shouldHaveOpaqueBackground;
@@ -37,13 +40,18 @@
 /** The bounding path of the button. The shadow will follow that path. */
 - (nonnull UIBezierPath *)boundingPath;
 
-/**
- Previously used to set the corner radius of the button. This has been deprecated and the layer's
- |cornerRadius| property should be set directly.
- */
-- (CGFloat)cornerRadius __deprecated_msg("Set layer.cornerRadius explicitly");
+@end
 
-/** The default content edge insets of the button. They are set at initialization time. */
-- (UIEdgeInsets)defaultContentEdgeInsets;
+@interface MDCButton ()
+
+/**
+ A collection of MDCShadow instances each assigned an elevation (in dp).
+
+ To create your own MDCShadowsCollection, please use the provided MDCShadowsCollectionBuilder and
+ populate it with MDCShadow instances using the provided MDCShadowBuilder.
+
+ Defaults to MDCShadowsCollectionDefault().
+ */
+@property(nonatomic, strong, null_resettable) MDCShadowsCollection *shadowsCollection;
 
 @end

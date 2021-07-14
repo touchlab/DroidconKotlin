@@ -13,6 +13,8 @@
 // limitations under the License.
 
 #import "MDCAlertActionManager.h"
+#import "MaterialButtons.h"
+#import "MaterialDialogs.h"
 
 @interface MDCAlertActionManager ()
 
@@ -30,8 +32,9 @@
   self = [super init];
   if (self) {
     _actions = [[NSMutableArray alloc] init];
-    _actionButtons = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory
-                                           valueOptions:NSMapTableStrongMemory];
+    _actionButtons = [NSMapTable
+        mapTableWithKeyOptions:(NSMapTableObjectPointerPersonality | NSMapTableWeakMemory)
+                  valueOptions:NSMapTableStrongMemory];
   }
   return self;
 }
@@ -55,7 +58,7 @@
 }
 
 - (BOOL)hasAction:(nonnull MDCAlertAction *)action {
-  return [_actions indexOfObject:action] != NSNotFound;
+  return [_actions indexOfObjectIdenticalTo:action] != NSNotFound;
 }
 
 - (nullable MDCButton *)buttonForAction:(nonnull MDCAlertAction *)action {
@@ -91,6 +94,13 @@
   MDCButton *button = [[MDCButton alloc] initWithFrame:CGRectZero];
   [button setTitle:action.title forState:UIControlStateNormal];
   button.accessibilityIdentifier = action.accessibilityIdentifier;
+#ifdef __IPHONE_13_4
+  if (@available(iOS 13.4, *)) {
+    if ([button respondsToSelector:@selector(setPointerInteractionEnabled:)]) {
+      button.pointerInteractionEnabled = YES;
+    }
+  }
+#endif
   [button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
   return button;
 }

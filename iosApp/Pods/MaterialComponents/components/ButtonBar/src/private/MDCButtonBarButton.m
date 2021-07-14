@@ -15,10 +15,23 @@
 #import <UIKit/UIKit.h>
 
 #import "MDCButtonBarButton.h"
+#import "MaterialButtons.h"
+#import "MaterialInk.h"
 
 static const CGFloat kMinimumItemWidth = 36;
 
 @implementation MDCButtonBarButton
+
+- (void)setContentEdgeInsets:(UIEdgeInsets)contentEdgeInsets {
+  // Center the button's inkView around the content
+  // This is here because MDCAppBarButtonBarBuilder adjusts the content insets of the button based
+  // on where in the trailing/leading order the button is, and we want to center the ripple effect
+  // around this button's content.
+  CGFloat horizontalDifference = contentEdgeInsets.left - contentEdgeInsets.right;
+  CGFloat verticalDifference = contentEdgeInsets.top - contentEdgeInsets.bottom;
+  self.inkViewOffset = CGSizeMake(horizontalDifference / 2.f, verticalDifference / 2.f);
+  [super setContentEdgeInsets:contentEdgeInsets];
+}
 
 - (CGSize)sizeThatFits:(CGSize)size {
   CGSize fitSize = [super sizeThatFits:size];
@@ -44,6 +57,37 @@ static const CGFloat kMinimumItemWidth = 36;
 // re-define in our implementation. Therefore, this method just calls [super].
 - (void)setTitleFont:(nullable UIFont *)font forState:(UIControlState)state {
   [super setTitleFont:font forState:state];
+}
+
+#pragma mark - UILargeContentViewerItem
+
+- (BOOL)showsLargeContentViewer {
+  return YES;
+}
+
+- (NSString *)largeContentTitle {
+  if (_largeContentTitle) {
+    return _largeContentTitle;
+  }
+
+  NSString *title = [self titleForState:UIControlStateNormal];
+  if (!title && self.largeContentImage) {
+    return self.accessibilityLabel;
+  }
+
+  return title;
+}
+
+- (UIImage *)largeContentImage {
+  if (_largeContentImage) {
+    return _largeContentImage;
+  }
+
+  return [self imageForState:UIControlStateNormal];
+}
+
+- (BOOL)scalesLargeContentImage {
+  return _largeContentImage == nil;
 }
 
 @end

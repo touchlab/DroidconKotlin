@@ -1,4 +1,4 @@
-// Copyright 2018-present the Material Components for iOS authors. All Rights Reserved.
+// Copyright 2016-present the Material Components for iOS authors. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@
 
 #import "MaterialIcons+ic_settings.h"
 
-#import "MaterialIcons.h"
-
 static NSString *const kBundleName = @"MaterialIcons_ic_settings";
 static NSString *const kIconName = @"ic_settings";
 
@@ -26,10 +24,6 @@ static NSString *const kIconName = @"ic_settings";
 __attribute__((visibility("default"))) char MDCIconsExportToSuppressLibToolWarning_ic_settings = 0;
 
 @implementation MDCIcons (ic_settings)
-
-+ (nonnull NSString *)pathFor_ic_settings {
-  return [self pathForIconName:kIconName withBundleName:kBundleName];
-}
 
 + (nullable UIImage *)imageFor_ic_settings {
   NSBundle *bundle = [self bundleNamed:kBundleName];

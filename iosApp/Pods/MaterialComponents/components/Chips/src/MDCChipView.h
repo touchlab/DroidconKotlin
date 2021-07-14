@@ -112,35 +112,18 @@
 @property(nonatomic, strong, nullable) UIFont *titleFont UI_APPEARANCE_SELECTOR;
 
 /*
- This property determines if an @c MDCChipView should use the @c MDCRippleView behavior or not.
- By setting this property to @c YES, @c MDCStatefulRippleView is used to provide the user visual
- touch feedback, instead of the legacy @c MDCInkView.
- @note Defaults to @c NO.
- */
-@property(nonatomic, assign) BOOL enableRippleBehavior;
-
-/**
- Enabling the selection of the Chip on tap (when RippleBehavior is enabled).
- When rippleAllowsSelection is enabled, tapping a chip automatically toggles the chip's selected
- state (after a short ripple animation). When disabled, tapping a chip creates a momentary ripple
- animation while the chip remains unselected.
-
- @note: This property is ignored when RippleBehavior is disabled.
-
- Defaults to: Yes.
- */
-@property(nonatomic) BOOL rippleAllowsSelection;
-
-/*
- The color of the ink ripple.
- */
-@property(nonatomic, strong, null_resettable)
-    UIColor *inkColor UI_APPEARANCE_SELECTOR __deprecated_msg("Use setInkColor:forState:");
-
-/*
  The shape generator used to define the chip's shape.
  */
 @property(nullable, nonatomic, strong) id<MDCShapeGenerating> shapeGenerator UI_APPEARANCE_SELECTOR;
+
+/**
+ The corner radius for the chip.
+
+ Use this property to configure corner radius instead of @c self.layer.cornerRadius.
+
+ By default, it is set to keep the chip fully rounded.
+ */
+@property(nonatomic) CGFloat cornerRadius;
 
 /*
  Indicates whether the chip should automatically update its font when the device’s
@@ -157,31 +140,6 @@
     BOOL mdc_adjustsFontForContentSizeCategory UI_APPEARANCE_SELECTOR;
 
 /**
- Enable legacy font scaling curves for Dynamic Type.
-
- Legacy font scaling uses the older [UIFont mdc_fontSizedForMaterialTextStyle:scaledForDynamicType:
- category instead of the MDCFontScaler API.
-
- Default value is YES.
- */
-@property(nonatomic, readwrite, setter=mdc_setLegacyFontScaling:)
-    BOOL mdc_legacyFontScaling __deprecated;
-
-/**
- Affects the fallback behavior for when a scaled font is not provided.
-
- If enabled, the font size will adjust even if a scaled font has not been provided for
- a given UIFont property on this component.
-
- If disabled, the font size will only be adjusted if a scaled font has been provided.
- This behavior most closely matches UIKit's.
-
- Default value is YES, but this flag will eventually default to NO and then be deprecated
- and deleted.
- */
-@property(nonatomic, assign) BOOL adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable;
-
-/**
  The minimum dimensions of the Chip. A non-positive value for either height or width is equivalent
  to no minimum for that dimension.
 
@@ -193,7 +151,26 @@
  Custom insets to use when computing touch targets. A positive inset value will shrink the hit
  area for the Chip.
  */
-@property(nonatomic, assign) UIEdgeInsets hitAreaInsets;
+@property(nonatomic, assign)
+    UIEdgeInsets hitAreaInsets __deprecated_msg("Use centerVisibleArea instead.");
+
+/**
+ A Boolean value that determines whether the visible area is centered in the bounds of the view.
+
+ If set to YES, the visible area is centered in the bounds of the view, which is often used to
+ configure invisible tappable area. If set to NO, the visible area fills its bounds. This property
+ doesn't affect the result of @c sizeThatFits:.
+
+ The default value is @c NO.
+*/
+@property(nonatomic, assign) BOOL centerVisibleArea;
+
+/**
+The calculated inset or outset margins for the rectangle surrounding all of the chip’s visible area.
+
+When @c centerVisibleArea is @c NO, this value is @c UIEdgeInsetsZero.
+*/
+@property(nonatomic, readonly) UIEdgeInsets visibleAreaInsets;
 
 /**
  A block that is invoked when the MDCChipView receives a call to @c
@@ -304,6 +281,27 @@
            forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 
 /*
+ Returns the ripple color associated with the specified state.
+
+ The ripple color for the specified state. If no ripple color has been set for the specific state,
+ this method returns the title associated with the @c UIControlStateNormal state.
+
+ @note Defaults to @c nil. When @c nil transparent black is used.
+
+ @param state The state that uses the ripple color.
+ @return The ripple color for the requested state.
+ */
+- (nullable UIColor *)rippleColorForState:(UIControlState)state;
+
+/*
+ Sets the ripple color for a particular control state.
+
+ @param rippleColor The ripple color to use for the specified state.
+ @param state The state that uses the specified ripple color.
+ */
+- (void)setRippleColor:(nullable UIColor *)rippleColor forState:(UIControlState)state;
+
+/*
  Returns the shadow color for a particular control state.
 
  If no shadow color has been set for a given state, the returned value will fall back to the value
@@ -342,5 +340,31 @@
  */
 - (void)setTitleColor:(nullable UIColor *)titleColor
              forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+
+@end
+
+@interface MDCChipView (ToBeDeprecated)
+
+/*
+ This property determines if an @c MDCChipView should use the @c MDCRippleView behavior or not.
+ By setting this property to @c YES, @c MDCStatefulRippleView is used to provide the user visual
+ touch feedback, instead of the legacy @c MDCInkView.
+ @note Defaults to @c NO.
+ */
+@property(nonatomic, assign) BOOL enableRippleBehavior;
+
+/**
+ Affects the fallback behavior for when a scaled font is not provided.
+
+ If enabled, the font size will adjust even if a scaled font has not been provided for
+ a given UIFont property on this component.
+
+ If disabled, the font size will only be adjusted if a scaled font has been provided.
+ This behavior most closely matches UIKit's.
+
+ Default value is YES, but this flag will eventually default to NO and then be deprecated
+ and deleted.
+ */
+@property(nonatomic, assign) BOOL adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable;
 
 @end

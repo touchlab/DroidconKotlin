@@ -112,6 +112,22 @@
     BOOL mdc_adjustsFontForContentSizeCategory UI_APPEARANCE_SELECTOR;
 
 /**
+ Affects the fallback behavior for when a scaled font is not provided.
+
+ If enabled, the font size will adjust even if a scaled font has not been provided for
+ a given UIFont property on this component.
+
+ If disabled, the font size will only be adjusted if a scaled font has been provided.
+ This behavior most closely matches UIKit's.
+
+ Default value is YES.
+ */
+@property(nonatomic, assign)
+    BOOL adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable __deprecated_msg(
+        "Use UIFontMetrics and UIContentSizeCategoryAdjusting on iOS 11+ or MDCFontScaler on "
+        "earlier versions");
+
+/**
  A block that is invoked when the MDCSnackbarMessageView receives a call to @c
  traitCollectionDidChange:. The block is called after the call to the superclass.
  */
@@ -120,13 +136,3 @@
      UITraitCollection *_Nullable previousTraitCollection);
 
 @end
-
-// clang-format off
-@interface MDCSnackbarMessageView ()
-
-/** @see messsageTextColor */
-@property(nonatomic, strong, nullable) UIColor *snackbarMessageViewTextColor UI_APPEARANCE_SELECTOR
-__deprecated_msg("Use messsageTextColor instead.");
-
-@end
-// clang-format on

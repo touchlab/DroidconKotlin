@@ -14,11 +14,15 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "MaterialButtons.h"
+#import "MaterialElevation.h"
+#import "MaterialShadowElevations.h"
 #import "MDCSnackbarManager.h"
 #import "MDCSnackbarMessage.h"
 #import "MDCSnackbarMessageView.h"
 
 #import "MaterialAnimationTiming.h"
+#import "MaterialAvailability.h"
 #import "MaterialMath.h"
 #import "MaterialShadowLayer.h"
 #import "MaterialTypography.h"
@@ -40,6 +44,17 @@ static inline UIColor *MDCRGBAColor(uint8_t r, uint8_t g, uint8_t b, float a) {
                          alpha:(a)];
 }
 
+/** Test whether any of the accessibility elements of a view is focused */
+static BOOL UIViewHasFocusedAccessibilityElement(UIView *view) {
+  for (NSInteger i = 0; i < [view accessibilityElementCount]; i++) {
+    id accessibilityElement = [view accessibilityElementAtIndex:i];
+    if ([accessibilityElement accessibilityElementIsFocused]) {
+      return YES;
+    }
+  }
+  return NO;
+};
+
 /**
  The thickness of the Snackbar border.
  */
@@ -54,8 +69,9 @@ static const CGFloat kLegacyCornerRadius = 0;
 /**
  Padding between the edges of the Snackbar and any content.
  */
-static UIEdgeInsets kContentMargin = (UIEdgeInsets){16.0, 16.0, 16.0, 8.0};
-static UIEdgeInsets kLegacyContentMargin = (UIEdgeInsets){18.0, 24.0, 18.0, 24.0};
+static const UIEdgeInsets kContentMarginSingleLineText = (UIEdgeInsets){6.0, 16.0, 6.0, 8.0};
+static const UIEdgeInsets kContentMarginMutliLineText = (UIEdgeInsets){16.0, 16.0, 16.0, 8.0};
+static const UIEdgeInsets kLegacyContentMargin = (UIEdgeInsets){18.0, 24.0, 18.0, 24.0};
 
 /**
  Padding between the image and the main title.
@@ -74,11 +90,6 @@ static const CGFloat kLegacyButtonPadding = 5;
 static const CGFloat kButtonPadding = 8;
 
 /**
- Minimum padding for the vertical padding of the buttons to the Snackbar
- */
-static const CGFloat kMinVerticalButtonPadding = 6;
-
-/**
  The width of the Snackbar.
  */
 static const CGFloat kMinimumViewWidth_iPad = 288;
@@ -92,6 +103,11 @@ static const CGFloat kMaximumViewWidth_iPhone = 320;
 static const CGFloat kMinimumHeight = 48;
 
 /**
+ The minimum height of a multiline Snackbar.
+ */
+static const CGFloat kMinimumHeightMultiline = 68;
+
+/**
  Each button will have a tag indexed starting from this value.
  */
 static const NSInteger kButtonTagStart = 20000;
@@ -99,10 +115,10 @@ static const NSInteger kButtonTagStart = 20000;
 static const MDCFontTextStyle kMessageTextStyle = MDCFontTextStyleBody1;
 static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 
-#if defined(__IPHONE_10_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0)
+#if MDC_AVAILABLE_SDK_IOS(10_0)
 @interface MDCSnackbarMessageView () <CAAnimationDelegate>
 @end
-#endif
+#endif  // MDC_AVAILABLE_SDK_IOS(10_0)
 
 @interface MDCSnackbarMessageView ()
 
@@ -142,6 +158,12 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 @property(nonatomic, strong) UIView *contentView;
 
 /**
+ An invisible hit target to ensure that tapping the horizontal area between the button and the edge
+ of the screen triggers a button tap instead of dismissing the snackbar.
+ */
+@property(nonatomic, strong) UIControl *buttonGutterTapTarget;
+
+/**
  Holds onto the dismissal handler, called when the Snackbar should dismiss due to user interaction.
  */
 @property(nonatomic, copy) MDCSnackbarMessageDismissHandler dismissalHandler;
@@ -169,7 +191,8 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
     self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.contentEdgeInsets = UIEdgeInsetsMake(buttonContentPadding, buttonContentPadding,
                                               buttonContentPadding, buttonContentPadding);
-
+    // Minimum touch target size (44, 44).
+    self.minimumSize = CGSizeMake(44, 44);
     // Make sure the button doesn't get too compressed.
     [self setContentCompressionResistancePriority:UILayoutPriorityRequired
                                           forAxis:UILayoutConstraintAxisHorizontal];
@@ -191,6 +214,10 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
   NSMutableDictionary<NSNumber *, UIColor *> *_buttonTitleColors;
 
   BOOL _mdc_adjustsFontForContentSizeCategory;
+
+  BOOL _shouldDismissOnOverlayTap;
+
+  BOOL _isMultilineText;
 }
 
 @synthesize mdc_overrideBaseElevation = _mdc_overrideBaseElevation;
@@ -219,9 +246,15 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
     _buttonTitleColors[@(UIControlStateHighlighted)] =
         [manager buttonTitleColorForState:UIControlStateHighlighted] ?: UIColor.whiteColor;
     _mdc_adjustsFontForContentSizeCategory = manager.mdc_adjustsFontForContentSizeCategory;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    _adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable =
+        manager.adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable;
+#pragma clang diagnostic pop
     _messageFont = manager.messageFont;
     _buttonFont = manager.buttonFont;
     _message = message;
+    _shouldDismissOnOverlayTap = message.shouldDismissOnOverlayTap;
     _dismissalHandler = [handler copy];
     _mdc_overrideBaseElevation = manager.mdc_overrideBaseElevation;
     _traitCollectionDidChangeBlock = manager.traitCollectionDidChangeBlockForMessageView;
@@ -253,6 +286,13 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
     [_containerView addTarget:self
                        action:@selector(handleBackgroundTapped:)
              forControlEvents:UIControlEventTouchUpInside];
+
+    _buttonGutterTapTarget = [[UIControl alloc] init];
+    _buttonGutterTapTarget.translatesAutoresizingMaskIntoConstraints = NO;
+    [_buttonGutterTapTarget addTarget:self
+                               action:@selector(handleButtonGutterTapped:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_buttonGutterTapTarget];
 
     if (MDCSnackbarMessage.usesLegacySnackbar) {
       UISwipeGestureRecognizer *swipeRightGesture =
@@ -403,6 +443,16 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
   if (self.dismissalHandler) {
     self.dismissalHandler(userInitiated, action);
 
+    // Change focus only if the focus is on this view.
+    if (self.message.elementToFocusOnDismiss) {
+      BOOL hasVoiceOverFocus =
+          UIAccessibilityIsVoiceOverRunning() && UIViewHasFocusedAccessibilityElement(self);
+      if (hasVoiceOverFocus) {
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
+                                        self.message.elementToFocusOnDismiss);
+      }
+    }
+
     // In case our dismissal handler has a reference to us, release the block.
     self.dismissalHandler = nil;
   }
@@ -427,6 +477,17 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
   if (self.traitCollectionDidChangeBlock) {
     self.traitCollectionDidChangeBlock(self, previousTraitCollection);
   }
+}
+
+- (NSString *)description {
+  NSString *messageString = self.message.description;
+  NSMutableString *description = [[NSMutableString alloc] init];
+  [description appendFormat:@"%@ {\n", [super description]];
+  [description appendFormat:@"  message: %@;\n",
+                            [messageString stringByReplacingOccurrencesOfString:@"\n"
+                                                                     withString:@"\n  "]];
+  [description appendString:@"}"];
+  return [description copy];
 }
 
 #pragma mark - Subclass overrides
@@ -455,14 +516,6 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 - (void)setSnackbarShadowColor:(UIColor *)snackbarMessageViewShadowColor {
   _snackbarMessageViewShadowColor = snackbarMessageViewShadowColor;
   self.layer.shadowColor = snackbarMessageViewShadowColor.CGColor;
-}
-
-- (void)setSnackbarMessageViewTextColor:(UIColor *)snackbarMessageViewTextColor {
-  self.messageTextColor = snackbarMessageViewTextColor;
-}
-
-- (UIColor *)snackbarMessageViewTextColor {
-  return self.messageTextColor;
 }
 
 - (void)setMessageTextColor:(UIColor *)messageTextColor {
@@ -525,9 +578,13 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
   if (_messageFont) {
     // If we are automatically adjusting for Dynamic Type resize the font based on the text style
     if (_mdc_adjustsFontForContentSizeCategory) {
-      _label.font =
-          [_messageFont mdc_fontSizedForMaterialTextStyle:kMessageTextStyle
-                                     scaledForDynamicType:_mdc_adjustsFontForContentSizeCategory];
+      if (_messageFont.mdc_scalingCurve) {
+        _label.font = [_messageFont mdc_scaledFontForTraitEnvironment:self];
+      } else if (_adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable) {
+        _label.font =
+            [_messageFont mdc_fontSizedForMaterialTextStyle:kMessageTextStyle
+                                       scaledForDynamicType:_mdc_adjustsFontForContentSizeCategory];
+      }
     } else {
       _label.font = _messageFont;
     }
@@ -576,13 +633,16 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
   // If we have a custom font apply it to the label.
   // If not, fall back to the Material specified font.
   if (_buttonFont) {
+    finalButtonFont = _buttonFont;
     // If we are automatically adjusting for Dynamic Type resize the font based on the text style
     if (_mdc_adjustsFontForContentSizeCategory) {
-      finalButtonFont =
-          [_buttonFont mdc_fontSizedForMaterialTextStyle:kButtonTextStyle
-                                    scaledForDynamicType:_mdc_adjustsFontForContentSizeCategory];
-    } else {
-      finalButtonFont = _buttonFont;
+      if (_buttonFont.mdc_scalingCurve) {
+        finalButtonFont = [_buttonFont mdc_scaledFontForTraitEnvironment:self];
+      } else if (_adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable) {
+        finalButtonFont =
+            [_buttonFont mdc_fontSizedForMaterialTextStyle:kButtonTextStyle
+                                      scaledForDynamicType:_mdc_adjustsFontForContentSizeCategory];
+      }
     }
   } else {
     // TODO(#2709): Migrate to a single source of truth for fonts
@@ -625,21 +685,30 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 
 #pragma mark - Constraints and layout
 
+- (NSInteger)numberOfLines {
+  CGSize maxLabelSize = self.label.intrinsicContentSize;
+  CGFloat lineHeight = self.label.font.lineHeight;
+  return (NSInteger)round(maxLabelSize.height / lineHeight);
+}
+
+- (void)resetConstraints {
+  [self removeConstraints:self.viewConstraints];
+  self.viewConstraints = nil;
+  [self setNeedsUpdateConstraints];
+}
+
 - (void)setAnchoredToScreenBottom:(BOOL)anchoredToScreenBottom {
   _anchoredToScreenBottom = anchoredToScreenBottom;
   [self invalidateIntrinsicContentSize];
 
   if (self.viewConstraints) {
-    [self removeConstraints:self.viewConstraints];
-    self.viewConstraints = nil;
-    [self updateConstraints];
+    [self resetConstraints];
   }
 }
 
 - (void)updateConstraints {
-  [super updateConstraints];
-
   if (self.viewConstraints) {
+    [super updateConstraints];
     return;
   }
 
@@ -651,6 +720,8 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 
   [self addConstraints:constraints];
   self.viewConstraints = constraints;
+
+  [super updateConstraints];
 }
 
 /**
@@ -658,21 +729,22 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
  @c kBorderWidth. Also positions the content view and button view inside of the container view.
  */
 - (NSArray *)containerViewConstraints {
+  UIEdgeInsets safeContentMargin = self.safeContentMargin;
   NSDictionary *metrics = @{
     @"kBorderMargin" : @(kBorderWidth),
-    @"kBottomMargin" : @(self.safeContentMargin.bottom),
-    @"kLeftMargin" : @(self.safeContentMargin.left),
-    @"kRightMargin" : @(self.safeContentMargin.right),
+    @"kBottomMargin" : @(safeContentMargin.bottom),
+    @"kLeftMargin" : @(safeContentMargin.left),
+    @"kRightMargin" : @(safeContentMargin.right),
     @"kTitleImagePadding" : @(kTitleImagePadding),
-    @"kTopMargin" : @(self.safeContentMargin.top),
+    @"kTopMargin" : @(safeContentMargin.top),
     @"kTitleButtonPadding" : @(kTitleButtonPadding),
     @"kContentSafeBottomInset" : @(kBorderWidth + self.contentSafeBottomInset),
-    @"kMinVerticalButtonPadding" : @(kMinVerticalButtonPadding),
   };
   NSDictionary *views = @{
     @"container" : self.containerView,
     @"content" : self.contentView,
     @"buttons" : self.buttonView,
+    @"buttonGutter" : self.buttonGutterTapTarget,
   };
 
   BOOL hasButtons = (self.buttons.count > 0);
@@ -731,23 +803,39 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
                                                                              metrics:metrics
                                                                                views:views]];
   } else {  // This is a horizontal layout, and there are buttons present.
-    // Align the content and buttons horizontally.
-    formatString = @"H:[content]-(==kTitleButtonPadding)-[buttons]-(==kRightMargin)-|";
-    [constraints addObjectsFromArray:[NSLayoutConstraint
-                                         constraintsWithVisualFormat:formatString
-                                                             options:NSLayoutFormatAlignAllCenterY
-                                                             metrics:metrics
-                                                               views:views]];
-
     if (MDCSnackbarMessage.usesLegacySnackbar) {
+      // Align the content and buttons horizontally.
+      formatString =
+          @"H:[content]-(==kTitleButtonPadding)-[buttons][buttonGutter(==kRightMargin)]|";
+      [constraints addObjectsFromArray:[NSLayoutConstraint
+                                           constraintsWithVisualFormat:formatString
+                                                               options:NSLayoutFormatAlignAllCenterY
+                                                               metrics:metrics
+                                                                 views:views]];
+
       // The buttons should take up the entire height of the container view.
       formatString = @"V:|[buttons]|";
       [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:formatString
                                                                                options:0
                                                                                metrics:metrics
                                                                                  views:views]];
+
+      // The button gutter tap target should take up the entire height of the container view.
+      formatString = @"V:|[buttonGutter]|";
+      [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:formatString
+                                                                               options:0
+                                                                               metrics:metrics
+                                                                                 views:views]];
     } else {
-      formatString = @"V:|-(>=kMinVerticalButtonPadding)-[buttons]-(>=kMinVerticalButtonPadding)-|";
+      // Align the content and buttons horizontally.
+      formatString = @"H:[content]-(==kTitleButtonPadding)-[buttons]-(==kRightMargin)-|";
+      [constraints addObjectsFromArray:[NSLayoutConstraint
+                                           constraintsWithVisualFormat:formatString
+                                                               options:NSLayoutFormatAlignAllCenterY
+                                                               metrics:metrics
+                                                                 views:views]];
+
+      formatString = @"V:|[buttons]|";
       [constraints addObjectsFromArray:[NSLayoutConstraint
                                            constraintsWithVisualFormat:formatString
                                                                options:NSLayoutFormatAlignAllCenterY
@@ -770,12 +858,13 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
  Provides constraints for the image view and label within the content view.
  */
 - (NSArray *)contentViewConstraints {
+  UIEdgeInsets safeContentMargin = self.safeContentMargin;
   NSDictionary *metrics = @{
-    @"kBottomMargin" : @(self.safeContentMargin.bottom),
-    @"kLeftMargin" : @(self.safeContentMargin.left),
-    @"kRightMargin" : @(self.safeContentMargin.right),
+    @"kBottomMargin" : @(safeContentMargin.bottom),
+    @"kLeftMargin" : @(safeContentMargin.left),
+    @"kRightMargin" : @(safeContentMargin.right),
     @"kTitleImagePadding" : @(kTitleImagePadding),
-    @"kTopMargin" : @(self.safeContentMargin.top),
+    @"kTopMargin" : @(safeContentMargin.top),
   };
 
   NSMutableDictionary *views = [NSMutableDictionary dictionary];
@@ -841,12 +930,12 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
  */
 - (NSArray *)horizontalButtonLayoutConstraints {
   NSMutableArray *constraints = [NSMutableArray array];
-
+  UIEdgeInsets safeContentMargin = self.safeContentMargin;
   NSDictionary *metrics = @{
-    @"kLeftMargin" : @(self.safeContentMargin.left),
-    @"kRightMargin" : @(self.safeContentMargin.right),
-    @"kTopMargin" : @(self.safeContentMargin.top),
-    @"kBottomMargin" : @(self.safeContentMargin.bottom),
+    @"kLeftMargin" : @(safeContentMargin.left),
+    @"kRightMargin" : @(safeContentMargin.right),
+    @"kTopMargin" : @(safeContentMargin.top),
+    @"kBottomMargin" : @(safeContentMargin.bottom),
     @"kTitleImagePadding" : @(kTitleImagePadding),
     @"kBorderMargin" : @(kBorderWidth),
     @"kTitleButtonPadding" : @(kTitleButtonPadding),
@@ -855,11 +944,13 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
   };
 
   __block UIView *previousButton = nil;
-  [self.buttons enumerateObjectsUsingBlock:^(UIView *button, NSUInteger idx, __unused BOOL *stop) {
+  [self.buttons enumerateObjectsUsingBlock:^(UIView *buttonContainer, NSUInteger idx,
+                                             __unused BOOL *stop) {
     // Convenience dictionary of views.
     NSMutableDictionary *views = [NSMutableDictionary dictionary];
-    views[@"buttonContainer"] = button;
-    views[@"button"] = [button viewWithTag:kButtonTagStart + idx];
+    views[@"buttonContainer"] = buttonContainer;
+    MDCButton *currentButton = [buttonContainer viewWithTag:kButtonTagStart + idx];
+    views[@"button"] = currentButton;
     if (previousButton) {
       views[@"previousButton"] = previousButton;
     }
@@ -871,11 +962,16 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
                                                                     metrics:metrics
                                                                       views:views]];
 
-    // Pin the button to the height of its container.
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[button]|"
-                                                                             options:0
-                                                                             metrics:metrics
-                                                                               views:views]];
+    // Ensure that the button is vertically centered in its container view
+    NSLayoutConstraint *verticallyCenterConstraint =
+        [NSLayoutConstraint constraintWithItem:currentButton
+                                     attribute:NSLayoutAttributeCenterY
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:buttonContainer
+                                     attribute:NSLayoutAttributeCenterY
+                                    multiplier:1.0
+                                      constant:0];
+    [constraints addObject:verticallyCenterConstraint];
 
     // Pin the button to the width of its container.
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[button]|"
@@ -917,6 +1013,12 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 - (void)layoutSubviews {
   [super layoutSubviews];
 
+  BOOL isMultilineText = [self numberOfLines] > 1;
+  if (_isMultilineText != isMultilineText) {
+    _isMultilineText = isMultilineText;
+    [self resetConstraints];
+  }
+
   // As our layout changes, make sure that the shadow path is kept up-to-date.
   UIBezierPath *path = [UIBezierPath
       bezierPathWithRoundedRect:self.bounds
@@ -924,6 +1026,7 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
                                                                       : kCornerRadius];
   self.layer.shadowPath = path.CGPath;
   self.layer.shadowColor = self.snackbarMessageViewShadowColor.CGColor;
+  [self invalidateIntrinsicContentSize];
 }
 
 #pragma mark - Sizing
@@ -939,7 +1042,8 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
   height += self.safeContentMargin.top + self.safeContentMargin.bottom;
 
   // Make sure that the height of the image and text is larger than the minimum height;
-  height = MAX(kMinimumHeight, height) + self.contentSafeBottomInset;
+  height = MAX(_isMultilineText ? kMinimumHeightMultiline : kMinimumHeight, height) +
+           self.contentSafeBottomInset;
 
   return CGSizeMake(UIViewNoIntrinsicMetric, height);
 }
@@ -958,8 +1062,12 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 }
 
 - (UIEdgeInsets)safeContentMargin {
-  UIEdgeInsets contentMargin =
-      MDCSnackbarMessage.usesLegacySnackbar ? kLegacyContentMargin : kContentMargin;
+  UIEdgeInsets contentMargin = UIEdgeInsetsZero;
+  if (MDCSnackbarMessage.usesLegacySnackbar) {
+    contentMargin = kLegacyContentMargin;
+  } else {
+    contentMargin = _isMultilineText ? kContentMarginMutliLineText : kContentMarginSingleLineText;
+  }
 
   UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
   if (@available(iOS 11.0, *)) {
@@ -1004,6 +1112,10 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 
 - (void)handleBackgroundTapped:(__unused UIButton *)sender {
   [self dismissWithAction:nil userInitiated:YES];
+}
+
+- (void)handleButtonGutterTapped:(__unused UIControl *)sender {
+  [self handleButtonTapped:nil];
 }
 
 - (void)handleButtonTapped:(__unused UIButton *)sender {
@@ -1133,6 +1245,16 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
 
 - (CGFloat)mdc_currentElevation {
   return self.elevation;
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+  BOOL result = [super pointInside:point withEvent:event];
+  BOOL accessibilityEnabled =
+      UIAccessibilityIsVoiceOverRunning() || UIAccessibilityIsSwitchControlRunning();
+  if (!result && !accessibilityEnabled && _shouldDismissOnOverlayTap) {
+    [self dismissWithAction:nil userInitiated:YES];
+  }
+  return result;
 }
 
 @end

@@ -18,11 +18,14 @@
 
 #import <Foundation/Foundation.h>
 
-#include "Firestore/core/src/firebase/firestore/api/settings.h"
+#include "Firestore/core/src/api/settings.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FIRFirestoreSettings (Internal)
+
+/** Returns whether or not the host has been set to a non-default value. */
+@property(nonatomic, readonly) BOOL isUsingDefaultHost;
 
 /** Converts this FIRFirestoreSettings instance into an api::Settings object. */
 - (firebase::firestore::api::Settings)internalSettings;

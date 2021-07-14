@@ -23,7 +23,10 @@
 @property(nonatomic, assign) BOOL titleBelowIcon;
 @property(nonatomic, assign) BOOL selected;
 @property(nonatomic, assign) MDCBottomNavigationBarTitleVisibility titleVisibility;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 @property(nonatomic, strong, nonnull) MDCInkView *inkView;
+#pragma clang diagnostic pop
 @property(nonatomic, strong, nonnull) MDCRippleTouchController *rippleTouchController;
 @property(nonatomic, assign) UIOffset titlePositionAdjustment;
 
@@ -45,6 +48,7 @@
 @property(nonatomic, strong, nullable) UIImage *selectedImage;
 
 @property(nonatomic, strong, nullable) UIColor *badgeColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic, copy, nullable) UIColor *badgeTextColor;
 @property(nonatomic, strong, nullable) UIColor *selectedItemTintColor UI_APPEARANCE_SELECTOR;
 @property(nonatomic, strong, nullable) UIColor *unselectedItemTintColor UI_APPEARANCE_SELECTOR;
 @property(nonatomic, strong, nullable) UIColor *selectedItemTitleColor;
@@ -55,5 +59,29 @@
 @property(nonatomic, copy, nullable) NSString *accessibilityElementIdentifier;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
+
+/**
+ Returns a rect that is the union of all visible content views, inset by
+ kMDCButtonNavigationItemViewPointerEffectHoverRectInset. This rect will never be larger than the
+ view's bounds.
+
+ This is intended to be used by a @c UIPointerInteractionDelegate when creating a @c UIPointerShape
+ for a @c UIPointerStyle.
+ */
+- (CGRect)pointerEffectHighlightRect;
+
+#pragma mark - UILargeContentViewerItem
+
+/**
+ The title to display in the large content viewer. If set to nil, this property will return
+ @c title.
+ */
+@property(nonatomic, copy, nullable) NSString *largeContentTitle NS_AVAILABLE_IOS(13_0);
+
+/**
+ The image to display in the large content viwer.  If set to nil, the property will return
+ @c image . If set to nil (or not set) @c scalesLargeContentImage will return YES otherwise NO.
+ */
+@property(nonatomic, nullable) UIImage *largeContentImage NS_AVAILABLE_IOS(13_0);
 
 @end

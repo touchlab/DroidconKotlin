@@ -15,11 +15,18 @@
 #import <UIKit/UIKit.h>
 
 @class MDCSnackbarMessageAction;
+@class MDCSnackbarMessageView;
 
 /**
  Called when a message is finished displaying, regardless of whether or not buttons were tapped.
  */
 typedef void (^MDCSnackbarMessageCompletionHandler)(BOOL userInitiated);
+
+/**
+ Called when a message is finished displaying, regardless of whether or not buttons were tapped.
+ */
+typedef void (^MDCSnackbarMessageCompletionHandlerWithError)(BOOL userInitiated,
+                                                             NSError *_Nullable error);
 
 /**
  Called when the button in the Snackbar is tapped.
@@ -70,7 +77,7 @@ extern NSString *__nonnull const MDCSnackbarMessageBoldAttributeName;
 + (nonnull instancetype)messageWithAttributedText:(nonnull NSAttributedString *)attributedText;
 
 /**
- Use the older legacy version of Snackbar. Default is YES.
+ Use the older legacy version of Snackbar. Default is NO.
  */
 @property(class, nonatomic, assign) BOOL usesLegacySnackbar;
 
@@ -123,6 +130,15 @@ extern NSString *__nonnull const MDCSnackbarMessageBoldAttributeName;
 @property(nonatomic, copy, nullable) MDCSnackbarMessageCompletionHandler completionHandler;
 
 /**
+ Called when a message is finished displaying.
+
+ The message completion handler is called regardless of whether or not buttons were tapped and is
+ always called on the main thread.
+ */
+@property(nonatomic, copy, nullable)
+    MDCSnackbarMessageCompletionHandlerWithError completionHandlerWithError;
+
+/**
  The category of messages to which a message belongs.
 
  Default is nil. If set, only the last message of this category will be shown, any currently
@@ -157,6 +173,67 @@ extern NSString *__nonnull const MDCSnackbarMessageBoldAttributeName;
  Defaults to NO.
  */
 @property(nonatomic, assign) BOOL enableRippleBehavior;
+
+/**
+ Whether to focus on the Snackbar message when VoiceOver is enabled.
+ The message is announced but not focused when set to NO.
+
+ Note: Setting this to YES will ensure the entire snackbar message is read during VoiceOver, and
+ that the message persists until an action is made on the message.
+
+ Defaults to NO.
+ */
+@property(nonatomic) BOOL focusOnShow;
+
+/**
+ Element to focus on snackbar message dismiss. Focuses the first element on screen
+ after dismiss by default. The focus will change to the element only if the focus is on the snackbar
+ message.
+
+ Defaults to nil.
+ */
+@property(nonatomic, weak, nullable) UIView *elementToFocusOnDismiss;
+
+/**
+ A block that is invoked when the corresponding @c MDCSnackbarMessageView of the @c
+ MDCSnackbarMessage instance will be presented. Use this to customize @c MDCSnackbarMessageView
+ before presentation.
+ */
+@property(nonatomic, copy, nullable) void (^snackbarMessageWillPresentBlock)
+    (MDCSnackbarMessage *_Nonnull message, MDCSnackbarMessageView *_Nonnull messageView);
+
+/**
+ Whether the Snackbar message is transient and automatically dismisses after the provided @c
+ duration time or is not transient and will not dismiss automatically.
+
+ @note: If VoiceOver is turned on, a snackbar will not automatically dismiss if the snackbar has an
+ action, regardless of this property.
+
+ Defaults to YES.
+ */
+@property(nonatomic) BOOL automaticallyDismisses;
+
+/**
+ MDCSnackbarManager.defaultManager will display the snackbar message in this view.
+
+ Call this method to choose where in the view hierarchy this specific snackbar message will be
+ presented. This method should be called only in cases where the default behavior is unable to find
+ the correct view to place the snackbar message in. Furthermore, please set this property only if
+ this message is a special case and needs to be presented on a view different than the other
+ messages of this specific snackbar manager. Otherwise, please set the presentation host view by
+ using MDCSnackbarManager's @c setPresentationHostView.
+ */
+@property(nonatomic, weak, nullable) UIView *presentationHostViewOverride;
+
+/**
+ If true, the snackbar is dismissed when the user taps anywhere on the overlay.
+
+ @note: If VoiceOver is turned on, this value will be ignored and the snackbar will behave as if it
+ were set to NO.
+
+ Defaults to NO.
+ */
+@property(nonatomic) BOOL shouldDismissOnOverlayTap;
 
 @end
 

@@ -13,16 +13,19 @@
 // limitations under the License.
 
 #import <UIKit/UIKit.h>
+#import "MaterialElevation.h"
 #import "MDCBottomDrawerPresentationController.h"
 #import "MDCBottomDrawerState.h"
-#import "MaterialElevation.h"
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCBottomDrawerViewControllerDelegate.h"
 #import "MaterialShadowElevations.h"
 
 @protocol MDCBottomDrawerHeader;
 @protocol MDCBottomDrawerViewControllerDelegate;
 
 /**
- View controller for containing a Google Material bottom drawer.
+ View controller for containing a Material bottom drawer.
  */
 @interface MDCBottomDrawerViewController
     : UIViewController <MDCBottomDrawerPresentationControllerDelegate,
@@ -42,6 +45,11 @@
 @property(nonatomic, nullable) UIViewController<MDCBottomDrawerHeader> *headerViewController;
 
 /**
+ A scroll view contained within the contentViewController.
+
+ If the contentViewController contains a UIScrollView or UIScrollView subclass it is recommended to
+ set that scroll view as the tracking scroll view.
+
  Setting the tracking scroll view allows the drawer scroll the content seamlessly as part of
  the drawer movement. This allows the provided scroll view to load the visible
  content as the drawer moves, and therefore not load all the content at once
@@ -87,12 +95,76 @@
 @property(nonatomic, assign) CGFloat maximumInitialDrawerHeight;
 
 /**
+ The absolute height in points to which the drawer may expand when a user scrolls.
+
+ Defaults to 0, indicating no value has been set and it should use the default behavior of 100% of
+ the screen's height.
+
+ Once the maximumDrawerHeight is reached the drawer state will return @c
+ MDCBottomDrawerStateExpanded.
+
+ If the value is larger than the container's height, this will allow the drawer to be scrolled to
+ the full height of the container.
+ */
+@property(nonatomic, assign) CGFloat maximumDrawerHeight;
+
+/**
+ A flag allowing clients to opt-out of the drawer closing when the user taps outside the content.
+
+ @default YES The drawer should dismiss on tap.
+ */
+@property(nonatomic, assign) BOOL dismissOnBackgroundTap;
+
+/**
+ A flag allowing clients to opt-out of the drawer closing when user uses accessibility escape
+ gesture. If set to NO, you can alternatively set an accessibility escape action by implementing the
+ @c accessibilityPerformEscape method in your provided contentViewController.
+
+ @default YES The drawer dismisses on z-gesture.
+ */
+@property(nonatomic, assign) BOOL shouldDismissOnAccessibilityPerformEscape;
+
+/**
+ A flag allowing clients to opt-in to handling background touch events.
+
+ @default NO The drawer will not forward touch events.
+
+ @discussion If set to YES and the delegate is an instance of @UIResponder, then the touch events
+ that are not handled by the drawer content (aka touches on the background view) will be forwarded
+ along to the delegate.
+
+ Note: @dismissOnBackgroundTap should also be set to NO so that the events will propagate properly
+ from the background tap through to the delegate. Setting @shouldForwardBackgroundTouchEvents to YES
+ will also set @dismissOnBackgroundTap to NO.
+ */
+@property(nonatomic, assign) BOOL shouldForwardBackgroundTouchEvents;
+
+/**
  A flag allowing clients to opt-in to the drawer adding additional height to the content to include
  the bottom safe area inset. This will remove the need for clients to calculate their content size
  with the bottom safe area when setting the preferredContentSize of the contentViewController.
  Defaults to NO.
  */
 @property(nonatomic, assign) BOOL shouldIncludeSafeAreaInContentHeight;
+
+/**
+ A flag allowing clients to opt-in to adding additional height to the initial presentation of the
+ drawer to include the bottom safe area inset. This will remove the need for clients to calculate
+ their desired maximum height with the bottom safe area when setting the maximumInitialDrawerHeight.
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL shouldIncludeSafeAreaInInitialDrawerHeight;
+
+/**
+ This flag allows clients to have the drawer content scroll below the status bar when no header is
+ provided.
+
+ Note: This flag is only applicable when @c headerViewController is nil. If @c headerViewController
+ is non-nil, setting this flag to YES will have no effect.
+
+ Defaults to NO.
+*/
+@property(nonatomic, assign) BOOL shouldUseStickyStatusBar;
 
 /**
  The drawer's top shadow color. Defaults to black with 20% opacity.
@@ -108,6 +180,42 @@
  The bottom drawer delegate.
  */
 @property(nonatomic, weak, nullable) id<MDCBottomDrawerViewControllerDelegate> delegate;
+
+/**
+ Determines if the header should always expand as it approaches the top of the screen.
+ If the content height is smaller than the screen height then the header will not expand unless this
+ flag is enabled.
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL shouldAlwaysExpandHeader;
+
+/**
+ Determines the behavior of the drawer when the content size changes.
+ If enabled, the drawer will automatically adjust the visible height as needed, otherwise the
+ visible height will not be changed to reflect the updated content height.
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL shouldAdjustOnContentSizeChange;
+
+/**
+ Whether layout adjustments should be made to support iPad Slide Over.
+
+ Defaults to NO to maintain the same behavior that existed before this property
+ was added and to allow apps to migrate on their own schedule.
+ */
+@property(nonatomic) BOOL adjustLayoutForIPadSlideOver;
+
+/**
+ Whether to display mobile landscape view as fullscreen.
+
+ When enabled, the drawer will fill the screen in landscape on mobile devices.
+
+ Defaults to YES.
+*/
+@property(nonatomic) BOOL shouldDisplayMobileLandscapeFullscreen;
+
+/** Whether the drawer allows the user to drag it or not. */
+@property(nonatomic) BOOL userDraggingEnabled;
 
 /**
  Sets the top corners radius for an MDCBottomDrawerState drawerState
@@ -160,24 +268,5 @@
 @property(nonatomic, copy, nullable) void (^traitCollectionDidChangeBlock)
     (MDCBottomDrawerViewController *_Nonnull bottomDrawer,
      UITraitCollection *_Nullable previousTraitCollection);
-
-@end
-
-/**
- Delegate for MDCBottomDrawerViewController.
- */
-@protocol MDCBottomDrawerViewControllerDelegate <NSObject>
-
-/**
- Called when the top inset of the drawer changes due to size changes when moving into full screen
- to cover the status bar and safe area inset. Also if there is a top handle, the top inset will
- take into regards the handle height. The top inset indicates where the content can be safely
- laid out without it being clipped.
-
- @param controller The MDCBottomDrawerViewController.
- @param topInset The top inset in which the content should take into regards when being laid out.
- */
-- (void)bottomDrawerControllerDidChangeTopInset:(nonnull MDCBottomDrawerViewController *)controller
-                                       topInset:(CGFloat)topInset;
 
 @end

@@ -24,6 +24,13 @@
 @property(nonatomic, strong, readonly, nullable) UIScrollView *scrollView;
 
 /**
+ When @c scrollView is @c nil , the draggable view simulates the @c UIScrollView bouncing effect.
+ When this property is set to @c NO, the simulated bouncing effect is turned off.  When  @c
+ scrollView is not @c nil, this property doesn't do anything.
+ */
+@property(nonatomic, assign) BOOL simulateScrollViewBounce;
+
+/**
  * Delegate for handling drag events.
  */
 @property(nonatomic, weak, nullable) id<MDCDraggableViewDelegate> delegate;
@@ -40,45 +47,5 @@
 
 - (nonnull instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 - (nullable instancetype)initWithCoder:(nullable NSCoder *)aDecoder NS_UNAVAILABLE;
-
-@end
-
-/**
- * Delegate protocol to control when dragging should be allowed and to respond to dragging events.
- */
-@protocol MDCDraggableViewDelegate <NSObject>
-
-/**
- * Allows the delegate to specify a maximum threshold height that the view cannot be dragged above.
- * @param view The draggable view.
- * @return The maximum height this view can be dragged to be.
- */
-- (CGFloat)maximumHeightForDraggableView:(nonnull MDCDraggableView *)view;
-
-/**
- * Called when an attempt is made to drag the view up or down.
- * @return NO to prevent a new drag from starting.
- * @param view The draggable view.
- * @param velocity The current velocity of the drag gesture. This only contains a vertical
- *   component.
- */
-- (BOOL)draggableView:(nonnull MDCDraggableView *)view
-    shouldBeginDraggingWithVelocity:(CGPoint)velocity;
-
-/**
- * Called when a new drag starts.
- * @param view The draggable view.
- */
-- (void)draggableViewBeganDragging:(nonnull MDCDraggableView *)view;
-
-/**
- * Called when a drag ends.
- * @param view The draggable view.
- * @param velocity The current velocity of the drag gesture. This only contains a vertical
- *   component.
- */
-- (void)draggableView:(nonnull MDCDraggableView *)view draggingEndedWithVelocity:(CGPoint)velocity;
-
-- (void)draggableView:(nonnull MDCDraggableView *)view didPanToOffset:(CGFloat)offset;
 
 @end

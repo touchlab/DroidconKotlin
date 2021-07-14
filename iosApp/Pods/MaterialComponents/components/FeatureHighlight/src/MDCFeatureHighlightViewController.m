@@ -14,15 +14,9 @@
 
 #import "MDCFeatureHighlightViewController.h"
 
-#import <MDFTextAccessibility/MDFTextAccessibility.h>
-#import "MaterialFeatureHighlightStrings.h"
-#import "MaterialFeatureHighlightStrings_table.h"
-#import "MaterialTypography.h"
 #import "private/MDCFeatureHighlightAnimationController.h"
 #import "private/MDCFeatureHighlightView+Private.h"
-
-// The Bundle for string resources.
-static NSString *const kMaterialFeatureHighlightBundle = @"MaterialFeatureHighlight.bundle";
+#import "MDCFeatureHighlightView.h"
 
 static const CGFloat kMDCFeatureHighlightLineSpacing = 1;
 static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
@@ -34,11 +28,13 @@ static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
 @implementation MDCFeatureHighlightViewController {
   MDCFeatureHighlightAnimationController *_animationController;
   MDCFeatureHighlightCompletion _completion;
-  NSString *_viewAccessiblityHint;
+  NSString *_viewAccessibilityHint;
   NSTimer *_pulseTimer;
   UIView *_displayedView;
   UIView *_highlightedView;
 }
+
+@synthesize adjustsFontForContentSizeCategory = _adjustsFontForContentSizeCategory;
 
 - (nonnull instancetype)initWithHighlightedView:(nonnull UIView *)highlightedView
                                     andShowView:(nonnull UIView *)displayedView
@@ -55,8 +51,6 @@ static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
 
     _displayedView.accessibilityTraits = UIAccessibilityTraitButton;
 
-    _viewAccessiblityHint = [[self class] dismissAccessibilityHint];
-
     super.transitioningDelegate = self;
     super.modalPresentationStyle = UIModalPresentationCustom;
   }
@@ -71,6 +65,7 @@ static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
       UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   self.featureHighlightView.mdc_adjustsFontForContentSizeCategory =
       _mdc_adjustsFontForContentSizeCategory;
+  self.featureHighlightView.adjustsFontForContentSizeCategory = _adjustsFontForContentSizeCategory;
   self.featureHighlightView.mdc_legacyFontScaling = _mdc_legacyFontScaling;
 
   __weak MDCFeatureHighlightViewController *weakSelf = self;
@@ -82,14 +77,16 @@ static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
   UIGestureRecognizer *tapGestureRecognizer =
       [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(acceptFeature)];
   [_displayedView addGestureRecognizer:tapGestureRecognizer];
-
+  [self.featureHighlightView.accessibilityDismissView addTarget:self
+                                                         action:@selector(rejectFeature)
+                                               forControlEvents:UIControlEventTouchUpInside];
   self.featureHighlightView.outerHighlightColor = _outerHighlightColor;
   self.featureHighlightView.innerHighlightColor = _innerHighlightColor;
   self.featureHighlightView.titleColor = _titleColor;
   self.featureHighlightView.bodyColor = _bodyColor;
   self.featureHighlightView.titleFont = _titleFont;
   self.featureHighlightView.bodyFont = _bodyFont;
-  self.featureHighlightView.accessibilityHint = _viewAccessiblityHint;
+  self.featureHighlightView.accessibilityHint = _viewAccessibilityHint;
 }
 
 /* Disable setter. Always use internal transition controller */
@@ -131,9 +128,13 @@ static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
 
 - (void)viewWillLayoutSubviews {
   self.featureHighlightView.titleLabel.attributedText =
-      [self attributedStringForString:self.titleText lineSpacing:kMDCFeatureHighlightLineSpacing];
+      [self attributedStringForString:self.titleText
+                          lineSpacing:kMDCFeatureHighlightLineSpacing
+                                 font:_titleFont];
   self.featureHighlightView.bodyLabel.attributedText =
-      [self attributedStringForString:self.bodyText lineSpacing:kMDCFeatureHighlightLineSpacing];
+      [self attributedStringForString:self.bodyText
+                          lineSpacing:kMDCFeatureHighlightLineSpacing
+                                 font:_bodyFont];
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
@@ -235,6 +236,13 @@ static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
   }
 }
 
+- (void)setAdjustsFontForContentSizeCategory:(BOOL)adjustsFontForContentSizeCategory {
+  _adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+  if (self.isViewLoaded) {
+    self.featureHighlightView.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+  }
+}
+
 - (void)acceptFeature {
   [self dismiss:YES];
 }
@@ -325,58 +333,35 @@ static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
 #pragma mark - UIAccessibility
 
 - (void)setAccessibilityHint:(NSString *)accessibilityHint {
-  _viewAccessiblityHint = accessibilityHint;
+  _viewAccessibilityHint = accessibilityHint;
   if (self.isViewLoaded) {
     self.featureHighlightView.accessibilityHint = accessibilityHint;
   }
 }
 
 - (NSString *)accessibilityHint {
-  return _viewAccessiblityHint;
-}
-
-+ (NSString *)dismissAccessibilityHint {
-  NSString *key =
-      kMaterialFeatureHighlightStringTable[kStr_MaterialFeatureHighlightDismissAccessibilityHint];
-  NSString *localizedString = NSLocalizedStringFromTableInBundle(
-      key, kMaterialFeatureHighlightStringsTableName, [self bundle], @"Double-tap to dismiss.");
-  return localizedString;
+  return _viewAccessibilityHint;
 }
 
 #pragma mark - Private
 
 - (NSAttributedString *)attributedStringForString:(NSString *)string
-                                      lineSpacing:(CGFloat)lineSpacing {
+                                      lineSpacing:(CGFloat)lineSpacing
+                                             font:(UIFont *)font {
   if (!string) {
     return nil;
   }
   NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
   paragraphStyle.lineSpacing = lineSpacing;
 
-  NSDictionary *attrs = @{NSParagraphStyleAttributeName : paragraphStyle};
+  NSMutableDictionary *attrs = [[NSMutableDictionary alloc]
+      initWithDictionary:@{NSParagraphStyleAttributeName : paragraphStyle}];
+
+  if (font) {
+    [attrs setObject:font forKey:NSFontAttributeName];
+  }
 
   return [[NSAttributedString alloc] initWithString:string attributes:attrs];
-}
-
-#pragma mark - Resource bundle
-
-+ (NSBundle *)bundle {
-  static NSBundle *bundle = nil;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    bundle = [NSBundle bundleWithPath:[self bundlePathWithName:kMaterialFeatureHighlightBundle]];
-  });
-
-  return bundle;
-}
-
-+ (NSString *)bundlePathWithName:(NSString *)bundleName {
-  // In iOS 8+, we could be included by way of a dynamic framework, and our resource bundles may
-  // not be in the main .app bundle, but rather in a nested framework, so figure out where we live
-  // and use that as the search location.
-  NSBundle *bundle = [NSBundle bundleForClass:[MDCFeatureHighlightView class]];
-  NSString *resourcePath = [(nil == bundle ? [NSBundle mainBundle] : bundle) resourcePath];
-  return [resourcePath stringByAppendingPathComponent:bundleName];
 }
 
 @end

@@ -13,22 +13,12 @@
 // limitations under the License.
 
 #import "MDCLegacyInkLayer.h"
-
-NS_ASSUME_NONNULL_BEGIN
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCLegacyInkLayerRippleDelegate.h"
 
 @class MDCLegacyInkLayerRipple;
-
-@protocol MDCLegacyInkLayerRippleDelegate <MDCLegacyInkLayerDelegate>
-
-/// Called if MDCLegacyInkLayerRipple did start animating.
-- (void)animationDidStart:(MDCLegacyInkLayerRipple *)layerRipple;
-
-/// Called for every MDCLegacyInkLayerRipple if an animation did end.
-- (void)animationDidStop:(nullable CAAnimation *)anim
-              shapeLayer:(nullable CAShapeLayer *)layerRipple
-                finished:(BOOL)finished;
-
-@end
+@protocol MDCLegacyInkLayerRippleDelegate;
 
 @interface MDCLegacyInkLayer () <MDCLegacyInkLayerRippleDelegate>
 
@@ -54,5 +44,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)exit:(BOOL)animated;
 
 @end
-
-NS_ASSUME_NONNULL_END

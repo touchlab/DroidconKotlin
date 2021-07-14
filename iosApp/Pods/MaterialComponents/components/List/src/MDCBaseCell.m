@@ -13,16 +13,23 @@
 // limitations under the License.
 
 #import "MDCBaseCell.h"
+#import "MDCSelfSizingLayoutAttributes.h"
 
+#import "MaterialElevation.h"
 #import "MaterialInk.h"
 #import "MaterialRipple.h"
+#import "MaterialShadowElevations.h"
 #import "MaterialShadowLayer.h"
 
 @interface MDCBaseCell ()
 
 @property(nonatomic, assign) CGPoint lastTouch;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 @property(strong, nonatomic, nonnull) MDCInkView *inkView;
+#pragma clang diagnostic pop
 @property(strong, nonatomic, nonnull) MDCRippleView *rippleView;
+@property(strong, nonatomic, nonnull) UIColor *initialRippleViewRippleColor;
 
 @end
 
@@ -53,12 +60,16 @@
 
 - (void)commonMDCBaseCellInit {
   if (!self.inkView) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     self.inkView = [[MDCInkView alloc] initWithFrame:self.bounds];
+#pragma clang diagnostic pop
   }
   _inkView.usesLegacyInkRipple = NO;
   [self addSubview:_inkView];
   if (!self.rippleView) {
     self.rippleView = [[MDCRippleView alloc] initWithFrame:self.bounds];
+    _initialRippleViewRippleColor = self.rippleView.rippleColor;
   }
   _mdc_overrideBaseElevation = -1;
 }
@@ -130,8 +141,35 @@
 - (void)prepareForReuse {
   [super prepareForReuse];
   self.elevation = 0;
+  self.rippleColor = nil;
   [self.inkView cancelAllAnimationsAnimated:NO];
   [self.rippleView cancelAllRipplesAnimated:NO completion:nil];
+}
+
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:
+    (UICollectionViewLayoutAttributes *)layoutAttributes {
+  if (![layoutAttributes conformsToProtocol:@protocol(MDCSelfSizingLayoutAttributes)]) {
+    return [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
+  }
+  UICollectionViewLayoutAttributes<MDCSelfSizingLayoutAttributes> *attr = (id)layoutAttributes;
+  BOOL isFixedWidth = [attr respondsToSelector:@selector(isFixedWidth)] ? attr.isFixedWidth : NO;
+  BOOL isFixedHeight = [attr respondsToSelector:@selector(isFixedHeight)] ? attr.isFixedHeight : NO;
+  NSLayoutConstraint *constraint;
+  if (isFixedWidth && isFixedHeight) {
+    return layoutAttributes;
+  } else if (isFixedWidth) {
+    constraint = [self.contentView.widthAnchor constraintEqualToConstant:attr.size.width];
+  } else if (isFixedHeight) {
+    constraint = [self.contentView.heightAnchor constraintEqualToConstant:attr.size.height];
+  } else {
+    return [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
+  }
+  constraint.active = YES;
+  [self layoutIfNeeded];
+  UICollectionViewLayoutAttributes *preferredAttributes =
+      [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
+  constraint.active = NO;
+  return preferredAttributes;
 }
 
 #pragma mark Accessors
@@ -161,10 +199,10 @@
 }
 
 - (void)setRippleColor:(UIColor *)rippleColor {
-  if ([self.rippleColor isEqual:rippleColor]) {
+  if (CGColorEqualToColor(self.rippleView.rippleColor.CGColor, rippleColor.CGColor)) {
     return;
   }
-  self.rippleView.rippleColor = rippleColor;
+  self.rippleView.rippleColor = rippleColor ?: self.initialRippleViewRippleColor;
 }
 
 - (UIColor *)rippleColor {
@@ -172,7 +210,7 @@
 }
 
 - (MDCShadowLayer *)shadowLayer {
-  if ([self.layer isMemberOfClass:[MDCShadowLayer class]]) {
+  if ([self.layer isKindOfClass:[MDCShadowLayer class]]) {
     return (MDCShadowLayer *)self.layer;
   }
   return nil;

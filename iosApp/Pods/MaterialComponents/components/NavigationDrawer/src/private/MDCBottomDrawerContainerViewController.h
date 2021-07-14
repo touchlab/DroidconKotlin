@@ -14,6 +14,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MDCBottomDrawerState.h"
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCBottomDrawerContainerViewControllerDelegate.h"
 #import "MaterialShadowElevations.h"
 
 @class MDCBottomDrawerContainerViewController;
@@ -21,40 +24,7 @@
 @protocol MDCBottomDrawerContainerViewControllerDelegate;
 
 /**
- Delegate for MDCBottomDrawerContainerViewController.
- */
-@protocol MDCBottomDrawerContainerViewControllerDelegate <NSObject>
-/**
- This method is called when the bottom drawer will change its presented state to one of the
- MDCBottomDrawerState states.
-
- @param containerViewController the container view controller of the bottom drawer.
- @param drawerState the drawer's state.
- */
-- (void)bottomDrawerContainerViewControllerWillChangeState:
-            (nonnull MDCBottomDrawerContainerViewController *)containerViewController
-                                               drawerState:(MDCBottomDrawerState)drawerState;
-
-/**
- This method is called when the drawer is scrolled/dragged and provides a transition ratio value
- between 0-100% (0-1) that indicates the percentage in which the drawer is close to reaching the end
- of its scrolling. If the drawer is about to reach fullscreen, its percentage moves between 0-100%
- as it starts covering the safe area and status bar. If the drawer doesn't reach full screen, it
- moves between 0-100% as it reaches 20 points away from being fully expanded.
- - 1 or 100% indicates the drawer has reached the end of its scrolling upwards to reveal content.
- - 0 or 0% indicates that there is more scrolling to be done for the drawer to either present
- more content or to transition to full screen.
-
- @param containerViewController the container view controller of the bottom drawer.
- @param transitionRatio The transition ratio betwen 0-100% (0-1).
- */
-- (void)bottomDrawerContainerViewControllerTopTransitionRatio:
-            (nonnull MDCBottomDrawerContainerViewController *)containerViewController
-                                              transitionRatio:(CGFloat)transitionRatio;
-@end
-
-/**
- View controller for containing a Google Material bottom drawer. Used internally only.
+ View controller for containing a Material bottom drawer. Used internally only.
  */
 @interface MDCBottomDrawerContainerViewController : UIViewController <UIGestureRecognizerDelegate>
 
@@ -115,6 +85,8 @@
 // Whether the drawer is currently animating its presentation.
 @property(nonatomic) BOOL animatingPresentation;
 
+// Whether the drawer is currently animating its dismissal.
+@property(nonatomic) BOOL animatingDismissal;
 /**
  Delegate to tell the presentation controller when the drawer will change state.
  */
@@ -147,12 +119,78 @@
 @property(nonatomic, assign) CGFloat maximumInitialDrawerHeight;
 
 /**
+ The absolute height in points to which the drawer may expand when a user scrolls.
+
+ Defaults to 0, indicating no value has been set and it should use the default behavior of 100% of
+ the screen's height.
+
+ If the value is larger than the container's height, this will allow the drawer to be scrolled to
+ the full height of the container.
+ */
+@property(nonatomic, assign) CGFloat maximumDrawerHeight;
+
+/**
  A flag allowing clients to opt-in to the drawer adding additional height to the content to include
  the bottom safe area inset. This will remove the need for clients to calculate their content size
  with the bottom safe area when setting the preferredContentSize of the contentViewController.
  Defaults to NO.
  */
 @property(nonatomic, assign) BOOL shouldIncludeSafeAreaInContentHeight;
+
+/**
+ A flag allowing clients to opt-in to adding additional height to the initial presentation of the
+ drawer to include the bottom safe area inset. This will remove the need for clients to calculate
+ their desired maximum height with the bottom safe area when setting the maximumInitialDrawerHeight.
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL shouldIncludeSafeAreaInInitialDrawerHeight;
+
+/**
+ This flag allows clients to have the drawer content scroll below the status bar when no header is
+ provided.
+
+ Note: This flag is only applicable when @c headerViewController` is nil. If @c headerViewController
+ is non-nil, setting this flag to YES will have no effect.
+
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL shouldUseStickyStatusBar;
+
+/**
+ Determines if the header should always expand as it approaches the top of the screen.
+ If the content height is smaller than the screen height then the header will not expand unless this
+ flag is enabled.
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL shouldAlwaysExpandHeader;
+
+/**
+ Determines the behavior of the drawer when the content size changes.
+ If enabled, the drawer will automatically adjust the visible height as needed, otherwise the
+ visible height will not be changed to reflect the updated content height.
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL shouldAdjustOnContentSizeChange;
+
+/**
+ Whether layout adjustments should be made to support iPad Slide Over.
+
+ Defaults to NO to maintain the same behavior that existed before this property
+ was added and to allow apps to migrate on their own schedule.
+ */
+@property(nonatomic) BOOL adjustLayoutForIPadSlideOver;
+
+/**
+ Whether to display mobile landscape view as fullscreen.
+
+ When enabled, the drawer will fill the screen in landscape on mobile devices.
+
+ Defaults to YES.
+*/
+@property(nonatomic, assign) BOOL shouldDisplayMobileLandscapeFullscreen;
+
+/** Whether the drawer allows the user to drag it or not. */
+@property(nonatomic) BOOL userDraggingEnabled;
 
 /**
  Sets the content offset Y of the drawer's content. If contentOffsetY is set to 0, the

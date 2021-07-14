@@ -18,6 +18,9 @@
 #import "MDCTabBarItemAppearance.h"
 #import "MDCTabBarTextTransform.h"
 #import "MaterialElevation.h"
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCTabBarDelegate.h"
 
 @class MDCTabBarItem;
 @protocol MDCTabBarDelegate;
@@ -31,6 +34,9 @@ typedef NS_ENUM(NSInteger, MDCTabBarItemState) {
 };
 
 /**
+ @note MDCTabBar is deprecated. Please use MDCTabBarView instead. See
+ go/material-ios-tabbar-migration for more details.
+
  A material tab bar for switching between views of grouped content.
 
  Clients are responsible for responding to changes to the selected tab and updating the selected
@@ -40,8 +46,10 @@ typedef NS_ENUM(NSInteger, MDCTabBarItemState) {
 
  @see https://material.io/go/design-tabs
  */
-IB_DESIGNABLE
-@interface MDCTabBar : UIView <UIBarPositioning, MDCElevatable, MDCElevationOverriding>
+__deprecated_msg(
+    "Use MDCTabBarView instead. See go/material-ios-tabbar-migration for more details.")
+    IB_DESIGNABLE @interface MDCTabBar
+    : UIView<UIBarPositioning, MDCElevatable, MDCElevationOverriding>
 
 /** The default height for the tab bar with a given position and item appearance. */
 + (CGFloat)defaultHeightForBarPosition:(UIBarPosition)position
@@ -236,36 +244,7 @@ IB_DESIGNABLE
 
 #pragma mark -
 
-/**
- Delegate protocol for MDCTabBar. Clients may implement this protocol to receive notifications of
- selection changes in the tab bar or to determine the bar's position.
- */
-@protocol MDCTabBarDelegate <UIBarPositioningDelegate>
-
-@optional
-
-/**
- Called before the selected item changes by user action. This method is not called for programmatic
- changes to the tab bar's selected item. Return YES to allow the selection.
- If you don't implement all items changes are allowed.
- */
-- (BOOL)tabBar:(nonnull MDCTabBar *)tabBar shouldSelectItem:(nonnull UITabBarItem *)item;
-
-/**
- Called before the selected item changes by user action. This method is not called for programmatic
- changes to the tab bar's selected item.  NOTE: Will be deprecated. Use tabBar:shouldSelectItem:.
- */
-- (void)tabBar:(nonnull MDCTabBar *)tabBar willSelectItem:(nonnull UITabBarItem *)item;
-
-/**
- Called when the selected item changes by user action. This method is not called for programmatic
- changes to the tab bar's selected item.
- */
-- (void)tabBar:(nonnull MDCTabBar *)tabBar didSelectItem:(nonnull UITabBarItem *)item;
-
-@end
-
-@interface MDCTabBar (ToBeDeprecated)
+@interface MDCTabBar (Deprecated)
 
 /**
  Ink color for taps on tab bar items. Default: Semi-transparent white.

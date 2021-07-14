@@ -16,15 +16,16 @@
 
 #import <MDFInternationalization/MDFInternationalization.h>
 
-#import "MDCItemBarCell.h"
-#import "MDCItemBarStyle.h"
+#import "MaterialAnimationTiming.h"
 #import "MDCTabBarDisplayDelegate.h"
 #import "MDCTabBarIndicatorAttributes.h"
 #import "MDCTabBarIndicatorTemplate.h"
+#import "MDCTabBarSizeClassDelegate.h"
+#import "MDCItemBarCell.h"
+#import "MDCItemBarDelegate.h"
+#import "MDCItemBarStyle.h"
 #import "MDCTabBarIndicatorView.h"
 #import "MDCTabBarPrivateIndicatorContext.h"
-#import "MDCTabBarSizeClassDelegate.h"
-#import "MaterialAnimationTiming.h"
 
 /// Cell reuse identifier for item bar cells.
 static NSString *const kItemReuseID = @"MDCItem";
@@ -58,6 +59,11 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 @end
 
 #pragma mark -
+
+#ifdef __IPHONE_13_4
+@interface MDCItemBar (PointerInteraction) <UIPointerInteractionDelegate>
+@end
+#endif
 
 @interface MDCItemBar () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 // Current style properties.
@@ -228,6 +234,10 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 }
 
 #pragma mark - Accessibility
+
+- (UIAccessibilityTraits)accessibilityTraits {
+  return [super accessibilityTraits] | UIAccessibilityTraitTabBar;
+}
 
 - (id)accessibilityElementForItem:(UITabBarItem *)item {
   NSUInteger index = [_items indexOfObject:item];
@@ -423,6 +433,9 @@ static void *kItemPropertyContext = &kItemPropertyContext;
   UITabBarItem *item = [self itemAtIndexPath:indexPath];
   if (item) {
     [self.tabBar.displayDelegate tabBar:self.tabBar willDisplayItem:item];
+    if ([cell isKindOfClass:[MDCItemBarCell class]]) {
+      cell.selected = (item == self.selectedItem);
+    }
   }
 }
 
@@ -490,9 +503,11 @@ static void *kItemPropertyContext = &kItemPropertyContext;
     s_keys = @[
       NSStringFromSelector(@selector(title)),
       NSStringFromSelector(@selector(image)),
+      NSStringFromSelector(@selector(selectedImage)),
       NSStringFromSelector(@selector(badgeValue)),
       NSStringFromSelector(@selector(badgeColor)),
-      NSStringFromSelector(@selector(accessibilityIdentifier))
+      NSStringFromSelector(@selector(accessibilityIdentifier)),
+      NSStringFromSelector(@selector(accessibilityLabel))
     ];
   });
   // clang-format on
@@ -561,6 +576,18 @@ static void *kItemPropertyContext = &kItemPropertyContext;
   return [NSIndexPath indexPathForItem:index inSection:0];
 }
 
+- (void)invalidateItemCellPointerInteractions {
+#ifdef __IPHONE_13_4
+  if (@available(iOS 13.4, *)) {
+    for (MDCItemBarCell *cell in self.collectionView.visibleCells) {
+      for (UIPointerInteraction *interaction in cell.interactions) {
+        [interaction invalidate];
+      }
+    }
+  }
+#endif
+}
+
 - (void)reload {
   [_collectionView reloadData];
   [self updateAlignmentAnimated:NO];
@@ -585,6 +612,10 @@ static void *kItemPropertyContext = &kItemPropertyContext;
     [self->_selectionIndicator layoutIfNeeded];
   };
 
+  void (^completionBlock)(void) = ^{
+    [self invalidateItemCellPointerInteractions];
+  };
+
   if (animate) {
     CAMediaTimingFunction *easeInOutFunction =
         [CAMediaTimingFunction mdc_functionWithType:MDCAnimationTimingFunctionEaseInOut];
@@ -592,6 +623,7 @@ static void *kItemPropertyContext = &kItemPropertyContext;
     [CATransaction begin];
     [CATransaction setAnimationDuration:kDefaultAnimationDuration];
     [CATransaction setAnimationTimingFunction:easeInOutFunction];
+    [CATransaction setCompletionBlock:completionBlock];
     [UIView animateWithDuration:kDefaultAnimationDuration
                           delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState
@@ -601,6 +633,7 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 
   } else {
     animationBlock();
+    completionBlock();
   }
 }
 
@@ -817,6 +850,21 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 - (void)configureCell:(MDCItemBarCell *)cell {
   // Configure content style
   [cell applyStyle:_style];
+
+#ifdef __IPHONE_13_4
+  if (@available(iOS 13.4, *)) {
+    // Add a pointer interaction if necessary
+    if (cell.interactions.count == 0) {
+      // Because some iOS 13 betas did not have the UIPointerInteraction class, we need to verify
+      // that it exists before attempting to use it.
+      if (NSClassFromString(@"UIPointerInteraction")) {
+        UIPointerInteraction *pointerInteraction =
+            [[UIPointerInteraction alloc] initWithDelegate:self];
+        [cell addInteraction:pointerInteraction];
+      }
+    }
+  }
+#endif
 }
 
 - (void)configureVisibleCells {
@@ -843,6 +891,21 @@ static void *kItemPropertyContext = &kItemPropertyContext;
 - (void)updateSelectionIndicatorVisibility {
   _selectionIndicator.hidden = !_style.shouldDisplaySelectionIndicator;
 }
+
+#pragma mark - UIPointerInteractionDelegate
+
+#ifdef __IPHONE_13_4
+- (UIPointerStyle *)pointerInteraction:(UIPointerInteraction *)interaction
+                        styleForRegion:(UIPointerRegion *)region API_AVAILABLE(ios(13.4)) {
+  UIPointerStyle *pointerStyle = nil;
+  if (interaction.view) {
+    UITargetedPreview *targetedPreview = [[UITargetedPreview alloc] initWithView:interaction.view];
+    UIPointerEffect *highlightEffect = [UIPointerHighlightEffect effectWithPreview:targetedPreview];
+    pointerStyle = [UIPointerStyle styleWithEffect:highlightEffect shape:nil];
+  }
+  return pointerStyle;
+}
+#endif
 
 @end
 
