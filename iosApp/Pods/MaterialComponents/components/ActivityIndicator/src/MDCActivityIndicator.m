@@ -18,12 +18,13 @@
 #import <MotionAnimator/MotionAnimator.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "MaterialApplication.h"
-#import "MaterialPalettes.h"
 #import "private/MDCActivityIndicator+Private.h"
 #import "private/MDCActivityIndicatorMotionSpec.h"
 #import "private/MaterialActivityIndicatorStrings.h"
 #import "private/MaterialActivityIndicatorStrings_table.h"
+#import "MDCActivityIndicatorDelegate.h"
+#import "MaterialPalettes.h"
+#import "MaterialApplication.h"
 
 static const NSInteger kTotalDetentCount = 5;
 static const NSTimeInterval kAnimateOutDuration = 0.1;
@@ -31,6 +32,7 @@ static const CGFloat kCycleRotation = (CGFloat)(3.0 / 2);
 static const CGFloat kOuterRotationIncrement = (CGFloat)(1.0 / kTotalDetentCount) * (CGFloat)M_PI;
 static const CGFloat kSpinnerRadius = 12;
 static const CGFloat kStrokeLength = (CGFloat)0.75;
+static const CGFloat kStrokeWidth = (CGFloat)2.5;
 
 #ifndef CGFLOAT_EPSILON
 #if CGFLOAT_IS_DOUBLE
@@ -130,10 +132,6 @@ static const CGFloat kSingleCycleRotation =
   return self;
 }
 
-- (void)dealloc {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)layoutSubviews {
   [super layoutSubviews];
 
@@ -174,7 +172,7 @@ static const CGFloat kSingleCycleRotation =
 
   // Property defaults.
   _radius = kSpinnerRadius;
-  _strokeWidth = 2;
+  _strokeWidth = kStrokeWidth;
 
   // Colors.
   _cycleColorsIndex = 0;
@@ -424,7 +422,7 @@ static const CGFloat kSingleCycleRotation =
 }
 
 - (void)setRadius:(CGFloat)radius {
-  _radius = MIN(MAX(radius, 5), 72);
+  _radius = MAX(radius, 5);
 
   [self updateStrokePath];
 }

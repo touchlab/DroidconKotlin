@@ -20,17 +20,46 @@
 @interface MDCAlertControllerView ()
 
 @property(nonatomic, nonnull, strong) UILabel *titleLabel;
-@property(nonatomic, nonnull, strong) UILabel *messageLabel;
+@property(nonatomic, nonnull, strong) UITextView *messageTextView;
 
-@property(nonatomic, nullable, strong) UIImageView *titleIconImageView;
+/** An optional custom UIView that is displaed under the alert message. */
+@property(nonatomic, nullable, strong) UIView *accessoryView;
+
+/** An optional custom view above the title of the alert. */
+@property(nonatomic, strong, nullable) UIView *titleIconView;
 
 @property(nonatomic, nullable, weak) MDCAlertActionManager *actionManager;
 
-/** The scroll view that holds both the @c titleLabel and @c messageLabel. */
+/** The scroll view that holds the @c titleLabel. */
+@property(nonatomic, nonnull, strong) UIScrollView *titleScrollView;
+
+/** The scroll view that holds the @c messageTextView and @c accessoryView. */
 @property(nonatomic, nonnull, strong) UIScrollView *contentScrollView;
 
 /** The scroll view that holds all of the buttons created for each action. */
 @property(nonatomic, nonnull, strong) UIScrollView *actionsScrollView;
+
+/** The backing image view of @c titleIcon. */
+@property(nonatomic, nullable, strong) UIImageView *titleIconImageView;
+
+/** The horizontal alignment of @c titleIcon. */
+@property(nonatomic, assign) NSTextAlignment titleIconAlignment;
+
+/** The horizontal alignment of @c title. */
+@property(nonatomic, assign) NSTextAlignment titleAlignment;
+
+/** The horizontal alignment of @c message. */
+@property(nonatomic, assign) NSTextAlignment messageAlignment;
+
+/** The alert actions alignment in horizontal layout. */
+@property(nonatomic, assign) MDCContentHorizontalAlignment actionsHorizontalAlignment;
+
+/** The horizontal alignment of the alert's actions when in vertical layout. */
+@property(nonatomic, assign)
+    MDCContentHorizontalAlignment actionsHorizontalAlignmentInVerticalLayout;
+
+/** Enables ordering actions by emphasis when they are vertically aligned. */
+@property(nonatomic, assign) BOOL orderVerticalActionsByEmphasis;
 
 - (void)addActionButton:(nonnull MDCButton *)button;
 + (void)styleAsTextButton:(nonnull MDCButton *)button;

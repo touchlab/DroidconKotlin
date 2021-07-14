@@ -14,6 +14,7 @@
 
 #import "MDCStatusBarShifter.h"
 
+#import "MDCStatusBarShifterDelegate.h"
 #import "MaterialApplication.h"
 
 static NSTimeInterval kStatusBarBecomesInvalidAnimationDuration = 0.2;
@@ -62,7 +63,6 @@ typedef NS_ENUM(NSInteger, MDCStatusBarShifterState) {
 
 - (void)dealloc {
   [_replicaInvalidatorTimer invalidate];
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (instancetype)init {

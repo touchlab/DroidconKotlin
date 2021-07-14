@@ -45,8 +45,10 @@ UIColor *MDFAverageColorOfOpaqueImage(UIImage *image, CGRect region) {
 
   CGFloat alpha = argb[0] / (CGFloat)255;
   CGFloat scale = alpha > 0 ? 1 / (alpha * 255) : 0;
-  UIColor *color =
-      [UIColor colorWithRed:scale * argb[1] green:scale * argb[2] blue:scale * argb[3] alpha:alpha];
+  UIColor *color = [UIColor colorWithRed:scale * argb[1]
+                                   green:scale * argb[2]
+                                    blue:scale * argb[3]
+                                   alpha:alpha];
   UIGraphicsEndImageContext();
   return color;
 }

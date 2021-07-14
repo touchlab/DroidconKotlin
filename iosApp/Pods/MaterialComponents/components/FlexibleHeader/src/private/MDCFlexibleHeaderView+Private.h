@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#import "MDCFlexibleHeaderView.h"
+
 @interface MDCFlexibleHeaderView ()
 
 /*
@@ -21,6 +23,13 @@
  controller.
  */
 @property(nonatomic, weak, nullable) UIViewController *topSafeAreaSourceViewController;
+
+/*
+ Whether to subtract additionalSafeAreaInsets from the extracted safeAreaInsets.
+
+ Ignored if topSafeAreaSourceViewController is nil.
+ */
+@property(nonatomic) BOOL subtractsAdditionalSafeAreaInsets;
 
 /*
  A behavioral flag affecting whether the flexible header view should extract top safe area insets

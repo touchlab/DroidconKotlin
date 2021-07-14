@@ -13,6 +13,9 @@
 // limitations under the License.
 
 #import <UIKit/UIKit.h>
+// TODO(b/151929968): Delete import of MDCBottomSheetControllerDelegate.h when client code has been
+// migrated to no longer import MDCBottomSheetControllerDelegate as a transitive dependency.
+#import "MDCBottomSheetControllerDelegate.h"
 #import "MDCSheetState.h"
 #import "MaterialElevation.h"
 #import "MaterialShadowElevations.h"
@@ -59,6 +62,21 @@
  When set to false, the bottom sheet controller can't be dismissed by tapping outside of sheet area.
  */
 @property(nonatomic, assign) BOOL dismissOnBackgroundTap;
+
+/**
+ When set to false, the bottom sheet controller can't be dismissed by dragging the sheet down.
+
+ Defaults to @c YES.
+ */
+@property(nonatomic, assign) BOOL dismissOnDraggingDownSheet;
+
+/**
+ A Boolean value that controls whether the height of the keyboard should affect
+ the bottom sheet's frame when the keyboard shows on the screen.
+
+ The default value is @c NO.
+ */
+@property(nonatomic) BOOL ignoreKeyboardHeight;
 
 /**
  The color applied to the sheet's background when presented by MDCBottomSheetPresentationController.
@@ -112,6 +130,16 @@
 @property(nonatomic, assign) MDCShadowElevation elevation;
 
 /**
+ Whether or not the height of the bottom sheet should adjust to include extra height for any bottom
+ safe area insets. If, for example, this is set to @c YES, and the preferred content size height is
+ 100 and the screen has a bottom safe area inset of 10, the total height of the displayed bottom
+ sheet height would be 110. If set to @c NO, the height would be 100.
+
+ Defaults to @c YES.
+ */
+@property(nonatomic, assign) BOOL adjustHeightForSafeAreaInsets;
+
+/**
  Bottom sheet controllers must be created with @c initWithContentViewController:.
  */
 - (nonnull instancetype)init NS_UNAVAILABLE;
@@ -156,40 +184,4 @@
     (MDCBottomSheetController *_Nonnull bottomSheetController,
      UITraitCollection *_Nullable previousTraitCollection);
 
-@end
-
-/**
- Delegate for MDCBottomSheetController.
- */
-@protocol MDCBottomSheetControllerDelegate <NSObject>
-@optional
-/**
- Called when the user taps the dimmed background or swipes the bottom sheet off to dismiss the
- bottom sheet. Also called with accessibility escape "two finger Z" gestures.
-
- This method is not called if the bottom sheet is dismissed programatically.
-
- @param controller The MDCBottomSheetController that was dismissed.
- */
-- (void)bottomSheetControllerDidDismissBottomSheet:(nonnull MDCBottomSheetController *)controller;
-
-/**
- Called when the state of the bottom sheet changes.
-
- Note: See what states the sheet can transition to by looking at MDCSheetState.
-
- @param controller The MDCBottomSheetController that its state changed.
- @param state The state the sheet changed to.
- */
-- (void)bottomSheetControllerStateChanged:(nonnull MDCBottomSheetController *)controller
-                                    state:(MDCSheetState)state;
-
-/**
- Called when the Y offset of the sheet's changes in relation to the top of the screen.
-
- @param controller The MDCBottomSheetController that its Y offset changed.
- @param yOffset The Y offset the bottom sheet changed to.
- */
-- (void)bottomSheetControllerDidChangeYOffset:(nonnull MDCBottomSheetController *)controller
-                                      yOffset:(CGFloat)yOffset;
 @end

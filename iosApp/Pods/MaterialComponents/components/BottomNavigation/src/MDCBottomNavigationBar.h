@@ -14,7 +14,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MaterialAvailability.h"
+// TODO(b/151929968): Delete import of MDCBottomNavigationBarDelegate.h when client code has been
+// migrated to no longer import MDCBottomNavigationBarDelegate as a transitive dependency.
+#import "MDCBottomNavigationBarDelegate.h"
 #import "MaterialElevation.h"
+#import "MaterialShadow.h"
 #import "MaterialShadowElevations.h"
 
 @protocol MDCBottomNavigationBarDelegate;
@@ -96,6 +101,17 @@ typedef NS_ENUM(NSInteger, MDCBottomNavigationBarAlignment) {
 @property(nonatomic, strong, nonnull) UIFont *itemTitleFont UI_APPEARANCE_SELECTOR;
 
 /**
+ Background color for badges. Default is a red color. Only applies if the @c UITabBarItem
+ @c badgeColor is `nil`.
+ */
+@property(nonatomic, copy, nullable) UIColor *itemBadgeBackgroundColor;
+
+/**
+ Text color for badges. Default is white.
+ */
+@property(nonatomic, copy, nullable) UIColor *itemBadgeTextColor;
+
+/**
  Color of selected item. Applies color to items' icons and text. If set also sets
  selectedItemTitleColor. Default color is black.
  */
@@ -153,6 +169,13 @@ typedef NS_ENUM(NSInteger, MDCBottomNavigationBarAlignment) {
 @property(nonatomic, assign) CGFloat itemsContentHorizontalMargin;
 
 /**
+ The amount of horizontal padding on the leading/trailing edges of each bar item. Defaults to 0.
+
+ @note: The amount of horizontal space between the bar items will be double this value.
+ */
+@property(nonatomic, assign) CGFloat itemsHorizontalPadding;
+
+/**
  NSLayoutAnchor for the bottom of the bar items.
 
  @note It is recommended that this anchor be constrained to the bottom of the safe area layout guide
@@ -191,6 +214,40 @@ typedef NS_ENUM(NSInteger, MDCBottomNavigationBarAlignment) {
 @property(nonatomic, assign) NSInteger titlesNumberOfLines;
 
 /**
+A block that is invoked when the @c MDCBottomNavigationBar receives a call to @c
+traitCollectionDidChange:. The block is called after the call to the superclass.
+*/
+@property(nonatomic, copy, nullable) void (^traitCollectionDidChangeBlock)
+    (MDCBottomNavigationBar *_Nonnull bottomNavigationBar,
+     UITraitCollection *_Nullable previousTraitCollection);
+
+/**
+ Sets the height of the navigation bar.
+
+ Note: If set to a value smaller or equal to zero (<= 0), the bar will default to a height of 56 in
+ the normal case, and to 40 if alignment is set to
+ MDCBottomNavigationBarAlignmentJustifiedAdjacentTitles and horizontalSizeClass is set to
+ UIUserInterfaceSizeClassRegular.
+
+ If value is bigger than 0 ( > 0), then the intrinsic height will match the provided barHeight.
+
+ Defaults to 0.
+ */
+@property(nonatomic, assign) CGFloat barHeight;
+
+/**
+ Returns the navigation bar subview associated with the specific item.
+
+ @param item A UITabBarItem
+ */
+- (nullable UIView *)viewForItem:(nonnull UITabBarItem *)item;
+
+@end
+
+/** APIs that are ToBeDeprecated. */
+@interface MDCBottomNavigationBar (ToBeDeprecated)
+
+/**
  By setting this property to @c YES, the Ripple component will be used instead of Ink
  to display visual feedback to the user.
 
@@ -202,61 +259,26 @@ typedef NS_ENUM(NSInteger, MDCBottomNavigationBarAlignment) {
  */
 @property(nonatomic, assign) BOOL enableRippleBehavior;
 
-/**
-A block that is invoked when the @c MDCBottomNavigationBar receives a call to @c
-traitCollectionDidChange:. The block is called after the call to the superclass.
-*/
-@property(nonatomic, copy, nullable) void (^traitCollectionDidChangeBlock)
-    (MDCBottomNavigationBar *_Nonnull bottomNavigationBar,
-     UITraitCollection *_Nullable previousTraitCollection);
-
-/**
- Returns the navigation bar subview associated with the specific item.
-
- @param item A UITabBarItem
- */
-- (nullable UIView *)viewForItem:(nonnull UITabBarItem *)item;
-
 @end
 
-/** APIs that are deprecated. No new code should rely on these APIs. */
-@interface MDCBottomNavigationBar (Deprecated)
-
+#if MDC_AVAILABLE_SDK_IOS(13_0) && !TARGET_OS_TV
 /**
- Flag to allow clients to gradually correct the size/position of the Bottom Navigation bar relative
- to the safe area on iOS 11+.
+ This component supports UIKit's Large Content Viewer. It is recommended that images associated with
+ each tab bar item be backed with a PDF image with "preserve vector data" enabled within the assets
+ entry in the catalog. This ensures that the image is scaled appropriately in the content viewer.
 
- NOTE: In an upcoming release, this flag will be removed and the default behavior will be to exclude
- the safe area in size calculations.
+ Alternatively specify an image to use for the large content viewer using UITabBarItem's property
+ @c largeContentSizeImage . If an image is specified, the given image is used as-is for the large
+ content viewer and will not be scaled.
 
- Defaults to @c NO.
+ If the image is not backed by PDF and a @c largeContentSizeImage is not specified, the given
+ @c image will be scaled and may be blurry.
+
+ For more details on the Large Content Viewer see:
+ https://developer.apple.com/videos/play/wwdc2019/261/
  */
-@property(nonatomic, assign) BOOL sizeThatFitsIncludesSafeArea __deprecated_msg(
-    "This was a migration API and is being removed.");
-
+API_UNAVAILABLE(tvos, watchos)
+@interface MDCBottomNavigationBar (UILargeContentViewerInteractionDelegate) <
+    UILargeContentViewerInteractionDelegate>
 @end
-
-#pragma mark - MDCBottomNavigationBarDelegate
-
-/**
- Delegate protocol for MDCBottomNavigationBar. Clients may implement this protocol to receive
- notifications of selection changes by user action in the bottom navigation bar.
- */
-@protocol MDCBottomNavigationBarDelegate <UINavigationBarDelegate>
-
-@optional
-
-/**
- Called before the selected item changes by user action. Return YES to allow the selection. If not
- implemented all items changes are allowed.
- */
-- (BOOL)bottomNavigationBar:(nonnull MDCBottomNavigationBar *)bottomNavigationBar
-           shouldSelectItem:(nonnull UITabBarItem *)item;
-
-/**
- Called when the selected item changes by user action.
- */
-- (void)bottomNavigationBar:(nonnull MDCBottomNavigationBar *)bottomNavigationBar
-              didSelectItem:(nonnull UITabBarItem *)item;
-
-@end
+#endif  // MDC_AVAILABLE_SDK_IOS(13_0)

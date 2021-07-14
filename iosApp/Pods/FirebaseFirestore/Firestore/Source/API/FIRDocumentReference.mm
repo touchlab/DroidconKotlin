@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Google
+ * Copyright 2017 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,40 +27,41 @@
 #import "Firestore/Source/API/FIRFirestoreSource+Internal.h"
 #import "Firestore/Source/API/FIRListenerRegistration+Internal.h"
 #import "Firestore/Source/API/FSTUserDataConverter.h"
-#import "Firestore/Source/Core/FSTQuery.h"
 
-#include "Firestore/core/src/firebase/firestore/api/document_reference.h"
-#include "Firestore/core/src/firebase/firestore/api/document_snapshot.h"
-#include "Firestore/core/src/firebase/firestore/api/input_validation.h"
-#include "Firestore/core/src/firebase/firestore/api/source.h"
-#include "Firestore/core/src/firebase/firestore/core/event_listener.h"
-#include "Firestore/core/src/firebase/firestore/model/document_key.h"
-#include "Firestore/core/src/firebase/firestore/model/document_set.h"
-#include "Firestore/core/src/firebase/firestore/model/resource_path.h"
-#include "Firestore/core/src/firebase/firestore/util/error_apple.h"
-#include "Firestore/core/src/firebase/firestore/util/status.h"
-#include "Firestore/core/src/firebase/firestore/util/statusor.h"
-#include "Firestore/core/src/firebase/firestore/util/statusor_callback.h"
-#include "Firestore/core/src/firebase/firestore/util/string_apple.h"
+#include "Firestore/core/src/api/collection_reference.h"
+#include "Firestore/core/src/api/document_reference.h"
+#include "Firestore/core/src/api/document_snapshot.h"
+#include "Firestore/core/src/api/source.h"
+#include "Firestore/core/src/core/event_listener.h"
+#include "Firestore/core/src/core/listen_options.h"
+#include "Firestore/core/src/core/user_data.h"
+#include "Firestore/core/src/model/document_key.h"
+#include "Firestore/core/src/model/document_set.h"
+#include "Firestore/core/src/model/resource_path.h"
+#include "Firestore/core/src/util/error_apple.h"
+#include "Firestore/core/src/util/exception.h"
+#include "Firestore/core/src/util/status.h"
+#include "Firestore/core/src/util/statusor.h"
+#include "Firestore/core/src/util/string_apple.h"
 
 namespace util = firebase::firestore::util;
 using firebase::firestore::api::CollectionReference;
 using firebase::firestore::api::DocumentReference;
 using firebase::firestore::api::DocumentSnapshot;
+using firebase::firestore::api::DocumentSnapshotListener;
 using firebase::firestore::api::Firestore;
 using firebase::firestore::api::ListenerRegistration;
 using firebase::firestore::api::Source;
 using firebase::firestore::api::MakeSource;
-using firebase::firestore::api::ThrowInvalidArgument;
 using firebase::firestore::core::EventListener;
 using firebase::firestore::core::ListenOptions;
 using firebase::firestore::core::ParsedSetData;
 using firebase::firestore::core::ParsedUpdateData;
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::ResourcePath;
-using firebase::firestore::util::Status;
 using firebase::firestore::util::StatusOr;
 using firebase::firestore::util::StatusOrCallback;
+using firebase::firestore::util::ThrowInvalidArgument;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -127,6 +128,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (FIRCollectionReference *)collectionWithPath:(NSString *)collectionPath {
   if (!collectionPath) {
     ThrowInvalidArgument("Collection path cannot be nil.");
+  }
+  if (!collectionPath.length) {
+    ThrowInvalidArgument("Collection path cannot be empty.");
   }
 
   CollectionReference child =
@@ -210,12 +214,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<FIRListenerRegistration>)addSnapshotListenerInternalWithOptions:(ListenOptions)internalOptions
                                                              listener:(FIRDocumentSnapshotBlock)
                                                                           listener {
-  ListenerRegistration result = _documentReference.AddSnapshotListener(
+  std::unique_ptr<ListenerRegistration> result = _documentReference.AddSnapshotListener(
       std::move(internalOptions), [self wrapDocumentSnapshotBlock:listener]);
   return [[FSTListenerRegistration alloc] initWithRegistration:std::move(result)];
 }
 
-- (DocumentSnapshot::Listener)wrapDocumentSnapshotBlock:(FIRDocumentSnapshotBlock)block {
+- (DocumentSnapshotListener)wrapDocumentSnapshotBlock:(FIRDocumentSnapshotBlock)block {
   class Converter : public EventListener<DocumentSnapshot> {
    public:
     explicit Converter(FIRDocumentSnapshotBlock block) : block_(block) {

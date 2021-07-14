@@ -19,10 +19,9 @@
 #import "MDCTextField.h"
 #import "MDCTextInput.h"
 #import "MDCTextInputCharacterCounter.h"
+#import "MDCTextInputController.h"
 #import "MDCTextInputUnderlineView.h"
 
-#import "MaterialAnimationTiming.h"
-#import "MaterialMath.h"
 #import "MaterialPalettes.h"
 #import "MaterialTypography.h"
 
@@ -911,7 +910,7 @@ static UIFont *_trailingUnderlineLabelFontDefault;
 
     CGFloat scale = UIScreen.mainScreen.scale;
     CGFloat characterCountHeightConstant =
-        MDCCeil(((MDCMultilineTextField *)self.textInput).textView.font.lineHeight * scale) / scale;
+        ceil(((MDCMultilineTextField *)self.textInput).textView.font.lineHeight * scale) / scale;
     if (!self.multilineCharacterCountHeight) {
       self.multilineCharacterCountHeight =
           [NSLayoutConstraint constraintWithItem:self.textInput.trailingUnderlineLabel
@@ -976,12 +975,13 @@ static UIFont *_trailingUnderlineLabelFontDefault;
 
  The vertical layout is, simply:
  MDCTextInputControllerFullWidthVerticalPadding                       // Top padding
- MDCRint(MAX(self.textInput.font.lineHeight,                          // Text field or placeholder
+ rint(MAX(self.textInput.font.lineHeight,                          // Text field or placeholder
              self.textInput.placeholderLabel.font.lineHeight))
  MDCTextInputControllerFullWidthVerticalPadding                       // Bottom padding
  */
 // clang-format on
-- (UIEdgeInsets)textInsets:(__unused UIEdgeInsets)defaultInsets {
+- (UIEdgeInsets)textInsets:(__unused UIEdgeInsets)defaultInsets
+    withSizeThatFitsWidthHint:(CGFloat)widthHint {
   // NOTE: UITextFields have a centerY based layout. But you can change EITHER the height or the Y.
   // Not both. Don't know why. So, we have to leave the text rect as big as the bounds and move it
   // to a Y that works. In other words, no bottom inset will make a difference here for UITextFields
@@ -995,14 +995,14 @@ static UIFont *_trailingUnderlineLabelFontDefault;
   // The trailing label gets in the way. If it has a frame, it's used. But if not, an
   // estimate is made of the size the text will be.
   if (CGRectGetWidth(self.textInput.trailingUnderlineLabel.frame) > 1) {
-    textInsets.right += MDCCeil(CGRectGetWidth(self.textInput.trailingUnderlineLabel.frame));
+    textInsets.right += ceil(CGRectGetWidth(self.textInput.trailingUnderlineLabel.frame));
   } else if (self.characterCountMax) {
     CGRect charCountRect = [[self characterCountText]
         boundingRectWithSize:self.textInput.bounds.size
                      options:NSStringDrawingUsesLineFragmentOrigin
                   attributes:@{NSFontAttributeName : self.textInput.trailingUnderlineLabel.font}
                      context:nil];
-    textInsets.right += MDCCeil(CGRectGetWidth(charCountRect));
+    textInsets.right += ceil(CGRectGetWidth(charCountRect));
   }
 
   return textInsets;
@@ -1038,6 +1038,10 @@ static UIFont *_trailingUnderlineLabelFontDefault;
   return editingRect;
 }
 
+- (UIEdgeInsets)textInsets:(UIEdgeInsets)defaultInsets {
+  return [self textInsets:defaultInsets withSizeThatFitsWidthHint:0];
+}
+
 #pragma mark - UITextField & UITextView Notification Observation
 
 - (void)textInputDidBeginEditing:(__unused NSNotification *)note {
@@ -1062,11 +1066,11 @@ static UIFont *_trailingUnderlineLabelFontDefault;
   if (self.textInput.isEditing && self.characterCountMax > 0) {
     NSString *announcementString;
     if (!announcementString.length) {
-      announcementString = [NSString
-          stringWithFormat:@"%lu characters remaining",
-                           (unsigned long)(self.characterCountMax -
-                                           [self.characterCounter
-                                               characterCountForTextInput:self.textInput])];
+      announcementString =
+          [NSString stringWithFormat:@"%lu of %lu characters",
+                                     (unsigned long)[self.characterCounter
+                                         characterCountForTextInput:self.textInput],
+                                     (unsigned long)self.characterCountMax];
     }
 
     // Simply sending a layout change notification does not seem to

@@ -128,7 +128,13 @@ IB_DESIGNABLE
  right-to-left the titleInset.left will be used for the right side and the titleInset.right will be
  used for the left side.
 
- Defaults to UIEdgeInsets(0, 16, 0, 16).
+ If titleAlignment is center, defaults to UIEdgeInsets(0, 16, 0, 16).
+ If titleAlignment is leading and there are no items, defaults to UIEdgeInsets(0, 16, 0, 16).
+ If titleAlignment is leading and there are leading & trailing items, defaults to UIEdgeInsetsZero.
+ If titleAlignment is leading and there are only trailing items, defaults to
+ UIEdgeInsets(0, 16, 0, 0).
+ If titleAlignment is leading and there are only leading items, defaults to
+ UIEdgeInsets(0, 0, 0, 16).
  */
 @property(nonatomic, assign) UIEdgeInsets titleInsets;
 
@@ -351,25 +357,6 @@ IB_DESIGNABLE
 /* Equivalent to leadingItemsSupplementBackButton. */
 @property(nonatomic) BOOL leftItemsSupplementBackButton;
 
-#pragma mark - To be deprecated
-
-/**
- Display attributes for the titleView's title text.
-
- Font attribute will take precedence over titleFont property.
- Setting this property will render an NSAttributedString with the assigned attributes across the
- entire text.
-
- Note: this property will be deprecated in future, please use titleFont and titleTextColor instead.
- */
-@property(nonatomic, copy, nullable)
-    NSDictionary<NSAttributedStringKey, id> *titleTextAttributes UI_APPEARANCE_SELECTOR;
-
-#pragma mark - Deprecated
-
-/** The text alignment of the navigation bar title. Defaults to NSTextAlignmentLeft. */
-@property(nonatomic) NSTextAlignment textAlignment __deprecated_msg("Use titleAlignment instead.");
-
 @end
 
 @interface MDCNavigationBar (ToBeDeprecated)
@@ -383,5 +370,17 @@ IB_DESIGNABLE
  https://github.com/material-components/material-components-ios/tree/develop/components/Ink#migration-guide-ink-to-ripple
  */
 @property(nonatomic, strong, nullable) UIColor *inkColor;
+
+/**
+ Display attributes for the titleView's title text.
+
+ Font attribute will take precedence over titleFont property.
+ Setting this property will render an NSAttributedString with the assigned attributes across the
+ entire text.
+
+ Note: this property will be deprecated in future, please use titleFont and titleTextColor instead.
+ */
+@property(nonatomic, copy, nullable)
+    NSDictionary<NSAttributedStringKey, id> *titleTextAttributes UI_APPEARANCE_SELECTOR;
 
 @end

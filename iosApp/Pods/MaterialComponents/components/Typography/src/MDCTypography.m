@@ -13,7 +13,9 @@
 // limitations under the License.
 
 #import "MDCTypography.h"
+
 #import "private/UIFont+MaterialTypographyPrivate.h"
+#import <MDFTextAccessibility/MDFTextAccessibility.h>
 
 static id<MDCTypographyFontLoading> gFontLoader = nil;
 const CGFloat MDCTypographyStandardOpacity = (CGFloat)0.87;
@@ -144,11 +146,7 @@ const CGFloat MDCTypographySecondaryOpacity = (CGFloat)0.54;
     return [fontLoader isLargeForContrastRatios:font];
   }
 
-  // Copied from [MDFTextAccessibility isLargeForContrastRatios:]
-  UIFontDescriptor *fontDescriptor = font.fontDescriptor;
-  BOOL isBold =
-      (fontDescriptor.symbolicTraits & UIFontDescriptorTraitBold) == UIFontDescriptorTraitBold;
-  return font.pointSize >= 18 || (isBold && font.pointSize >= 14);
+  return [MDFTextAccessibility isLargeForContrastRatios:font];
 }
 
 + (UIFont *)italicFontFromFont:(UIFont *)font {
@@ -219,14 +217,7 @@ const CGFloat MDCTypographySecondaryOpacity = (CGFloat)0.54;
     return font;
   }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-  if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
-    font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightLight];
-  } else {
-    font = [UIFont fontWithName:@"HelveticaNeue-Light" size:fontSize];
-  }
-#pragma clang diagnostic pop
+  font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightLight];
   if (font) {
     [self.fontCache setObject:font forKey:cacheKey];
   }
@@ -240,15 +231,7 @@ const CGFloat MDCTypographySecondaryOpacity = (CGFloat)0.54;
     return font;
   }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-  if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
-    font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightRegular];
-  } else {
-    font = [UIFont systemFontOfSize:fontSize];
-  }
-#pragma clang diagnostic pop
-
+  font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightRegular];
   [self.fontCache setObject:font forKey:cacheKey];
 
   return (UIFont *)font;
@@ -261,15 +244,7 @@ const CGFloat MDCTypographySecondaryOpacity = (CGFloat)0.54;
     return font;
   }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-  if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
-    font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightMedium];
-  } else {
-    font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:fontSize];
-  }
-#pragma clang diagnostic pop
-
+  font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightMedium];
   if (font) {
     [self.fontCache setObject:font forKey:cacheKey];
   }
@@ -283,14 +258,7 @@ const CGFloat MDCTypographySecondaryOpacity = (CGFloat)0.54;
     return font;
   }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpartial-availability"
-  if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
-    font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightSemibold];
-  } else {
-    font = [UIFont boldSystemFontOfSize:fontSize];
-  }
-#pragma clang diagnostic pop
+  font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightSemibold];
 
   [self.fontCache setObject:font forKey:cacheKey];
 

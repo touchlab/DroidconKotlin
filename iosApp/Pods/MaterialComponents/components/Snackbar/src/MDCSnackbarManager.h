@@ -17,25 +17,14 @@
 #import "MDCSnackbarAlignment.h"
 #import "MaterialElevation.h"
 #import "MaterialShadowElevations.h"
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCSnackbarManagerDelegate.h"
 
 @class MDCSnackbarMessage;
 @class MDCSnackbarMessageView;
+@protocol MDCSnackbarManagerDelegate;
 @protocol MDCSnackbarSuspensionToken;
-
-/**
- Delegate protocol for the MDCSnackbarManager.
- */
-@protocol MDCSnackbarManagerDelegate <NSObject>
-
-/**
- This method is called after the MDCSnackbarMessageView instance is initialized and right before
- The view is presented on the screen.
-
- @param messageView The messageView of the snackbar that will be presented.
- */
-- (void)willPresentSnackbarWithMessageView:(nullable MDCSnackbarMessageView *)messageView;
-
-@end
 
 /**
  Provides a means of displaying an unobtrusive message to the user.
@@ -43,7 +32,7 @@
  The style and location of the message can vary depending on the configuration of the message to be
  shown. This class will queue repeated calls to @c showMessage: and show them at the appropriate
  time, once previous messages have been dismissed. This class is thread-safe as long as the messages
- given to MDCSnackbarManager are not mutated after being passed to @c showMessage:
+ given to MDCSnackbarManager.defaultManager are not mutated after being passed to @c showMessage:
 
  Snackbars prefer an application's main window is a subclass of @c MDCOverlayWindow. When a standard
  UIWindow is used an attempt is made to find the top-most view controller in the view hierarchy.
@@ -78,15 +67,15 @@
 - (void)showMessage:(nullable MDCSnackbarMessage *)message;
 
 /**
- MDCSnackbarManager will display the messages in this view.
+ MDCSnackbarManager.defaultManager will display the messages in this view.
 
  Call this method to choose where in the view hierarchy Snackbar messages will be presented. It is
  only necessary to provide a host view if the default behavior is unable to find one on it's own,
- most commonly when using MDCSnackbarManager inside an application extension. By default, if you use
- MDCSnackbarManager without calling @c setPresentationHostView, the manager will attempt to find a
- suitable view by stepping through the application windows. Explicitly providing a host view is only
- required if you need to manually manage the view hierarchy, or are inside a UIApplication
- extension.
+ most commonly when using MDCSnackbarManager.defaultManager inside an application extension. By
+ default, if you use MDCSnackbarManager.defaultManager without calling @c setPresentationHostView,
+ the manager will attempt to find a suitable view by stepping through the application windows.
+ Explicitly providing a host view is only required if you need to manually manage the view
+ hierarchy, or are inside a UIApplication extension.
 
  @note This method must be called from the main thread.
  @note Calling setPresentationHostView will not change the parent of the currently visible message.
@@ -172,14 +161,14 @@
 @property(nonatomic, assign) MDCShadowElevation messageElevation;
 
 /**
- The color for the message text in the Snackbar message view.
- */
-@property(nonatomic, strong, nullable) UIColor *messageTextColor;
-
-/**
  The font for the message text in the Snackbar message view.
  */
 @property(nonatomic, strong, nullable) UIFont *messageFont;
+
+/**
+ The color for the message text in the Snackbar message view.
+ */
+@property(nonatomic, strong, nullable) UIColor *messageTextColor;
 
 /**
  The font for the button text in the Snackbar message view.
@@ -208,6 +197,13 @@
  Default is set to NO.
  */
 @property(nonatomic, assign) BOOL shouldApplyStyleChangesToVisibleSnackbars;
+
+/**
+ This accessibility notification posted when a Snackbar changes the focus of VoiceOver.
+
+ Default is set to UIAccessibilityLayoutChangedNotification.
+ */
+@property(nonatomic, assign) UIAccessibilityNotifications focusAccessibilityNotification;
 
 /**
  Returns the button title color for a particular control state.
@@ -241,6 +237,21 @@
     BOOL mdc_adjustsFontForContentSizeCategory;
 
 /**
+ Affects the fallback behavior for when a scaled font is not provided.
+
+ If enabled, the font size will adjust even if a scaled font has not been provided for
+ a given UIFont property on this component.
+
+ If disabled, the font size will only be adjusted if a scaled font has been provided.
+ This behavior most closely matches UIKit's.
+
+ Default value is YES.
+ */
+@property(nonatomic, assign)
+    BOOL adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable __deprecated_msg(
+        "Use UIFontMetrics and UIContentSizeCategoryAdjusting on iOS 11+ or MDCFontScaler on "
+        "earlier versions");
+/**
  If enabled, accessibilityViewIsModal will be enabled for all non-transient snackbar views by
  default. If accessibilityViewIsModal needs to be set for specific snackbar views,
  -willPresentSnackbarWithMessageView: in MDCSnackbarManagerDelegate can be used to access
@@ -251,7 +262,8 @@
 @property(nonatomic, assign) BOOL shouldEnableAccessibilityViewIsModal;
 
 /**
- The delegate for MDCSnackbarManager through which it may inform of snackbar presentation updates.
+ The delegate for MDCSnackbarManager.defaultManager through which it may inform of snackbar
+ presentation updates.
  */
 @property(nonatomic, weak, nullable) id<MDCSnackbarManagerDelegate> delegate;
 
@@ -279,107 +291,4 @@
  @c resumeMessagesWithToken.
  */
 @protocol MDCSnackbarSuspensionToken <NSObject>
-@end
-
-#pragma mark - To be deprecated
-
-@interface MDCSnackbarManager (LegacyAPI)
-
-/**
- The @c alignment property of the @c defaultManager instance.
- */
-@property(class, nonatomic, assign) MDCSnackbarAlignment alignment;
-
-/**
- Calls @c -showMessage: on the @c defaultManager instance.
- */
-+ (void)showMessage:(nullable MDCSnackbarMessage *)message;
-
-/**
- Calls @c -setPresentationHostView: on the @c defaultManager instance.
- */
-+ (void)setPresentationHostView:(nullable UIView *)hostView;
-
-/**
- Calls @c -hasMessagesShowingORQueued on the @c defaultManager instance.
- */
-+ (BOOL)hasMessagesShowingOrQueued;
-
-/**
- Calls @c -dismissAndCallCompletionBlocksWithCategory: on the @c defaultManager instance.
- */
-+ (void)dismissAndCallCompletionBlocksWithCategory:(nullable NSString *)category;
-
-/**
- Calls -setBottomOffset: on the @c defaultManager instance.
- */
-+ (void)setBottomOffset:(CGFloat)offset;
-
-/**
- Calls @c -suspendAllMessages on the @c defaultManager instance.
- */
-+ (nullable id<MDCSnackbarSuspensionToken>)suspendAllMessages;
-
-/**
- Calls @c -suspendMessagesWithCategory: on the @c defaultManager instance.
- */
-+ (nullable id<MDCSnackbarSuspensionToken>)suspendMessagesWithCategory:
-    (nullable NSString *)category;
-
-/**
- Calls @c -resumeMessagesWithToken: on the @c defaultManager instance.
- */
-+ (void)resumeMessagesWithToken:(nullable id<MDCSnackbarSuspensionToken>)token;
-
-/**
- Bound to @c snackbarMessageViewBackgroundColor on the @c defaultManager instance.
- */
-@property(class, nonatomic, strong, nullable) UIColor *snackbarMessageViewBackgroundColor;
-
-/**
- Bound to @c snackbarMessageViewShadowColor on the @c defaultManager instance.
- */
-@property(class, nonatomic, strong, nullable) UIColor *snackbarMessageViewShadowColor;
-
-/**
- Bound to @c messageTextColor on the @c defaultManager instance.
- */
-@property(class, nonatomic, strong, nullable) UIColor *messageTextColor;
-
-/**
- Bound to @c messageFont on the @c defaultManager instance.
- */
-@property(class, nonatomic, strong, nullable) UIFont *messageFont;
-
-/**
- Bound to @c buttonFont on the @c defaultManager instance.
- */
-@property(class, nonatomic, strong, nullable) UIFont *buttonFont;
-
-/**
- Bound to @c shouldApplyStyleChangesToVisibleSnackbars on the @c defaultManager instance.
- */
-@property(class, nonatomic, assign) BOOL shouldApplyStyleChangesToVisibleSnackbars;
-
-/**
- Calls @c -buttonTitleColorForState: on the @c defaultManager instance.
- */
-+ (nullable UIColor *)buttonTitleColorForState:(UIControlState)state;
-
-/**
- Calls @c -setButtonTitleColor:forState: on the @c defaultManager instance.
- */
-+ (void)setButtonTitleColor:(nullable UIColor *)titleColor forState:(UIControlState)state;
-
-/**
- Bound to @c mdc_adjustsFontForContentSizeCategory on the @c defaultManager instance.
- */
-@property(class, nonatomic, readwrite, setter=mdc_setAdjustsFontForContentSizeCategory:)
-    BOOL mdc_adjustsFontForContentSizeCategory;
-
-/**
- Bound to @c delegate on the @c defaultManager instance.
- */
-@property(class, nonatomic, weak, nullable) id<MDCSnackbarManagerDelegate> delegate;
-
 @end

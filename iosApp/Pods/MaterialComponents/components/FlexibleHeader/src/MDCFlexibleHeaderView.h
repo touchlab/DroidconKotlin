@@ -15,6 +15,10 @@
 #import <UIKit/UIKit.h>
 
 #import "MaterialElevation.h"
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCFlexibleHeaderViewAnimationDelegate.h"
+#import "MDCFlexibleHeaderViewDelegate.h"
 #import "MaterialShadowElevations.h"
 
 typedef void (^MDCFlexibleHeaderChangeContentInsetsBlock)(void);
@@ -46,6 +50,7 @@ typedef NS_ENUM(NSInteger, MDCFlexibleHeaderScrollPhase) {
   MDCFlexibleHeaderScrollPhaseOverExtending,
 };
 
+@protocol MDCFlexibleHeaderViewAnimationDelegate;
 @protocol MDCFlexibleHeaderViewDelegate;
 
 /**
@@ -119,31 +124,6 @@ IB_DESIGNABLE
  */
 @property(nonatomic, readonly) BOOL prefersStatusBarHidden;
 
-// Pre-iOS 8 Interface Orientation APIs
-
-/**
- Informs the receiver that the interface orientation is about to change.
-
- Must be called from UIViewController::willRotateToInterfaceOrientation:duration:.
- */
-- (void)interfaceOrientationWillChange;
-
-/**
- Informs the receiver that the interface orientation is in the process of changing.
-
- Must be called from UIViewController::willAnimateRotationToInterfaceOrientation:duration:.
- */
-- (void)interfaceOrientationIsChanging;
-
-/**
- Informs the receiver that the interface orientation has changed.
-
- Must be called from UIViewController::didRotateFromInterfaceOrientation:.
- */
-- (void)interfaceOrientationDidChange;
-
-// iOS 8 Interface Orientation APIs
-
 /**
  Informs the receiver that the owning view controller's size will change.
 
@@ -168,6 +148,24 @@ IB_DESIGNABLE
  to the new content insets.
  */
 - (void)changeContentInsets:(nonnull MDCFlexibleHeaderChangeContentInsetsBlock)block;
+
+#pragma mark - Animating changes to the header
+
+/**
+ Animates any changes resulting from executing the @c animations block.
+
+ Use this method to animate changes alongside animations to the flexible header.
+
+ The following occurs when this method is invoked:
+
+ 1. The provided @c animations block is invoked within a @code [UIView animate...:] @endcode block.
+ 2. Within that same animation block and after invoking @c animations, the flexible header updates
+    any relevant aspects of its layout including its height, offset, and shadow layer frames.
+ 3. Upon completion of the resulting animation, the provided completion block is invoked if one was
+    provided.
+ */
+- (void)animateWithAnimations:(void (^_Nonnull)(void))animations
+                   completion:(void (^_Nullable)(BOOL))completion;
 
 #pragma mark Forwarding Touch Events
 
@@ -246,28 +244,6 @@ IB_DESIGNABLE
 @property(nonatomic) CGFloat maximumHeight;
 
 /**
- When this is enabled, the flexible header will assume that minimumHeight and maximumHeight both
- include the Safe Area top inset. For example, a header whose maximum content height should be 200
- might set 220 (200 + 20) as the maximumHeight. Notice that if this is enabled and you're setting
- minimumHeight and or maximumHeight, the flexible header won't automatically adjust its size to
- account for changes to the Safe Area, as the values provided already include a hardcoded inset.
-
- When this is disabled, the flexible header will assume that the provided minimumHeight and
- maximumHeight do not include the Safe Area top inset. For example, a header whose maximum content
- height should be 200 would set 200 as the maximumHeight, and the flexible header will take care
- of adjusting itself to account for Safe Area changes internally.
-
- Clients are recommended to set this to NO, and set the min and max heights to values that don't
- include the status bar or Safe Area insets.
-
- @warning This API will soon be disabled by default and then deprecated. Learn more at
- https://github.com/material-components/material-components-ios/blob/develop/components/FlexibleHeader/docs/migration-guide-minMaxHeightIncludesSafeArea.md
-
- Default is YES.
- */
-@property(nonatomic) BOOL minMaxHeightIncludesSafeArea;
-
-/**
  A layout guide that equates to the top safe area inset of the flexible header view.
 
  Use this layout guide to position subviews in the flexible header in relation to the top safe area
@@ -275,7 +251,7 @@ IB_DESIGNABLE
 
  This object is intended to be used as a constraint item.
  */
-@property(nonatomic, nonnull, readonly) id topSafeAreaGuide;
+@property(nonatomic, nonnull, readonly) UIView *topSafeAreaGuide;
 
 #pragma mark Behaviors
 
@@ -288,18 +264,6 @@ IB_DESIGNABLE
 @property(nonatomic) BOOL canOverExtend;
 
 @property(nonatomic) float visibleShadowOpacity;  ///< The visible shadow opacity. Default: 0.4
-
-/**
- * Whether or not shadow opacity (if using the default shadow layer) should be reset to 0 when
- * trackingScrollView is set to nil. If the flexible header view is created without ever setting
- * trackingScrollView, it always has 0 opacity for the default shadow layer regardless of the value
- * of this flag. If trackingScrollView is ever set, then this flag enables resetting the shadow
- * opacity back to 0 when trackingScrollView is set to nil.
- *
- * Default: NO, but we are planning to change it to YES very soon, so all clients should set this
- * property to YES.
- */
-@property(nonatomic) BOOL resetShadowAfterTrackingScrollViewIsReset;
 
 #pragma mark Scroll View Tracking
 
@@ -376,10 +340,13 @@ IB_DESIGNABLE
     BOOL disableContentInsetAdjustmentWhenContentInsetAdjustmentBehaviorIsNever API_AVAILABLE(
         ios(11.0), tvos(11.0));
 
-#pragma mark Header View Delegate
+#pragma mark Delegation
 
 /** The delegate for this header view. */
 @property(nonatomic, weak, nullable) id<MDCFlexibleHeaderViewDelegate> delegate;
+
+/** The animation delegate will be notified of any animations to the flexible header view. */
+@property(nonatomic, weak, nullable) id<MDCFlexibleHeaderViewAnimationDelegate> animationDelegate;
 
 /**
  A block that is invoked when the FlexibleHeaderView receives a call to @c
@@ -396,29 +363,84 @@ IB_DESIGNABLE
 
 @end
 
-/**
- The MDCFlexibleHeaderViewDelegate protocol allows a delegate to respond to changes in the header
- view's state.
+@interface MDCFlexibleHeaderView (ToBeDeprecated)
 
- The delegate is typically the UIViewController that owns this flexible header view.
- */
-@protocol MDCFlexibleHeaderViewDelegate <NSObject>
-@required
 
 /**
- Informs the receiver that the flexible header view's preferred status bar visibility has changed.
+ When this is enabled, the flexible header will assume that minimumHeight and maximumHeight both
+ include the Safe Area top inset. For example, a header whose maximum content height should be 200
+ might set 220 (200 + 20) as the maximumHeight. Notice that if this is enabled and you're setting
+ minimumHeight and or maximumHeight, the flexible header won't automatically adjust its size to
+ account for changes to the Safe Area, as the values provided already include a hardcoded inset.
+
+ When this is disabled, the flexible header will assume that the provided minimumHeight and
+ maximumHeight do not include the Safe Area top inset. For example, a header whose maximum content
+ height should be 200 would set 200 as the maximumHeight, and the flexible header will take care
+ of adjusting itself to account for Safe Area changes internally.
+
+ Clients are recommended to set this to NO, and set the min and max heights to values that don't
+ include the status bar or Safe Area insets.
+
+ @warning This API will soon be disabled by default and then deprecated. Learn more at
+ https://github.com/material-components/material-components-ios/blob/develop/components/FlexibleHeader/docs/migration-guide-minMaxHeightIncludesSafeArea.md
+
+ Default is YES.
  */
-- (void)flexibleHeaderViewNeedsStatusBarAppearanceUpdate:
-    (nonnull MDCFlexibleHeaderView *)headerView;
+@property(nonatomic) BOOL minMaxHeightIncludesSafeArea;
 
 /**
- Informs the receiver that the flexible header view's frame has changed.
-
- The frame may change in response to scroll events of the tracking scroll view. The receiver
- should use the MDCFlexibleHeaderView scrollPhase APIs to determine which phase the header's frame
- is in.
+ * Whether or not shadow opacity (if using the default shadow layer) should be reset to 0 when
+ * trackingScrollView is set to nil. If the flexible header view is created without ever setting
+ * trackingScrollView, it always has 0 opacity for the default shadow layer regardless of the value
+ * of this flag. If trackingScrollView is ever set, then this flag enables resetting the shadow
+ * opacity back to 0 when trackingScrollView is set to nil.
+ *
+ * Default: NO, but we are planning to change it to YES very soon, so all clients should set this
+ * property to YES.
  */
-- (void)flexibleHeaderViewFrameDidChange:(nonnull MDCFlexibleHeaderView *)headerView;
+@property(nonatomic) BOOL resetShadowAfterTrackingScrollViewIsReset;
+
+/**
+ Whether to allow shadow frame animations when animating changes to the tracking scroll view.
+
+ Enabling this property allows layoutSubviews to animate the shadow frames as part of the animation
+ that occurs when changing tracking scroll views.
+
+ This property will eventually be enabled by default and then deleted.
+
+ Default is NO.
+ */
+@property(nonatomic, assign) BOOL allowShadowLayerFrameAnimationsWhenChangingTrackingScrollView;
+
+@end
+
+@interface MDCFlexibleHeaderView (Deprecated)
+
+// Pre-iOS 8 Interface Orientation APIs
+
+/**
+ Informs the receiver that the interface orientation is about to change.
+
+ Must be called from UIViewController::willRotateToInterfaceOrientation:duration:.
+ */
+- (void)interfaceOrientationWillChange __deprecated_msg(
+    "Use viewWillTransitionToSize:withTransitionCoordinator: instead.");
+
+/**
+ Informs the receiver that the interface orientation is in the process of changing.
+
+ Must be called from UIViewController::willAnimateRotationToInterfaceOrientation:duration:.
+ */
+- (void)interfaceOrientationIsChanging __deprecated_msg(
+    "Use viewWillTransitionToSize:withTransitionCoordinator: instead.");
+
+/**
+ Informs the receiver that the interface orientation has changed.
+
+ Must be called from UIViewController::didRotateFromInterfaceOrientation:.
+ */
+- (void)interfaceOrientationDidChange __deprecated_msg(
+    "Use viewWillTransitionToSize:withTransitionCoordinator: instead.");
 
 @end
 

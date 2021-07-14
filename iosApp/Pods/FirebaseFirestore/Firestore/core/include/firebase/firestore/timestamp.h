@@ -212,6 +212,15 @@ inline bool operator==(const Timestamp& lhs, const Timestamp& rhs) {
 }
 
 #if !defined(_STLPORT_VERSION)
+
+// Make sure the header compiles even when included after `<windows.h>` without
+// `NOMINMAX` defined. `push/pop_macro` pragmas are supported by Visual Studio
+// as well as Clang and GCC.
+#pragma push_macro("min")
+#pragma push_macro("max")
+#undef min
+#undef max
+
 template <typename Clock, typename Duration>
 std::chrono::time_point<Clock, Duration> Timestamp::ToTimePoint() const {
   namespace chr = std::chrono;
@@ -232,22 +241,12 @@ std::chrono::time_point<Clock, Duration> Timestamp::ToTimePoint() const {
       chr::duration_cast<Duration>(chr::nanoseconds(nanoseconds_));
   return TimePoint{seconds + nanoseconds};
 }
+
+#pragma pop_macro("max")
+#pragma pop_macro("min")
+
 #endif  // !defined(_STLPORT_VERSION)
 
 }  // namespace firebase
-
-namespace std {
-/** Convenience-only specialization of `std::hash`. */
-template <>
-struct hash<firebase::Timestamp> {
-  /**
-   * Hashes the given `timestamp`.
-   *
-   * @note: specialization of `std::hash` is provided for convenience only. The
-   * implementation is subject to change.
-   */
-  size_t operator()(const firebase::Timestamp& timestamp) const;
-};
-}  // namespace std
 
 #endif  // FIRESTORE_CORE_INCLUDE_FIREBASE_FIRESTORE_TIMESTAMP_H_

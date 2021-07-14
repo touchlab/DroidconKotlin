@@ -1,4 +1,4 @@
-// Copyright 2018-present the Material Components for iOS authors. All Rights Reserved.
+// Copyright 2016-present the Material Components for iOS authors. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@
 
 #import "MaterialIcons+ic_color_lens.h"
 
-#import "MaterialIcons.h"
-
 static NSString *const kBundleName = @"MaterialIcons_ic_color_lens";
 static NSString *const kIconName = @"ic_color_lens";
 
@@ -27,10 +25,6 @@ __attribute__((visibility("default"))) char MDCIconsExportToSuppressLibToolWarni
     0;
 
 @implementation MDCIcons (ic_color_lens)
-
-+ (nonnull NSString *)pathFor_ic_color_lens {
-  return [self pathForIconName:kIconName withBundleName:kBundleName];
-}
 
 + (nullable UIImage *)imageFor_ic_color_lens {
   NSBundle *bundle = [self bundleNamed:kBundleName];

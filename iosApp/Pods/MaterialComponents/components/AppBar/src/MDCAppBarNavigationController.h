@@ -14,15 +14,23 @@
 
 #import <UIKit/UIKit.h>
 
+// TODO(b/151929968): Delete import of MDCAppBarNavigationControllerToBeDeprecatedDelegate.h when
+// client code has been migrated to no longer import
+// MDCAppBarNavigationControllerToBeDeprecatedDelegate as a transitive dependency.
+#import "MDCAppBarNavigationControllerToBeDeprecatedDelegate.h"
+
 @class MDCAppBar;
 @class MDCAppBarViewController;
 @class MDCAppBarNavigationController;
 @class MDCFlexibleHeaderViewController;
+@protocol MDCAppBarNavigationControllerToBeDeprecatedDelegate;
 
 /**
  Defines the events that an MDCAppBarNavigationController may send to a delegate.
  */
-@protocol MDCAppBarNavigationControllerDelegate <UINavigationControllerDelegate>
+@protocol
+    MDCAppBarNavigationControllerDelegate <UINavigationControllerDelegate,
+                                           MDCAppBarNavigationControllerToBeDeprecatedDelegate>
 @optional
 
 /**
@@ -73,30 +81,6 @@
                   trackingScrollViewForViewController:(nonnull UIViewController *)viewController
                           suggestedTrackingScrollView:(nullable UIScrollView *)scrollView;
 
-#pragma mark - Will be deprecated
-
-/**
- Informs the receiver that the given App Bar will be added as a child of the given view controller.
-
- This event is primarily intended to allow any configuration or theming of the App Bar to occur
- before it becomes part of the view controller hierarchy.
-
- By the time this event has fired, the navigation controller will already have attempted to infer
- the tracking scroll view from the provided view controller.
-
- @note This method will only be invoked if a new App Bar instance is about to be added to the view
- controller. If a flexible header is already present in the view controller, this method will not
- be invoked.
-
- @warning This method will soon be deprecated. Please use
- -appBarNavigationController:willAddAppBarViewController:asChildOfViewController: instead. Learn
- more at
- https://github.com/material-components/material-components-ios/blob/develop/components/AppBar/docs/migration-guide-appbar-appbarviewcontroller.md
- */
-- (void)appBarNavigationController:(nonnull MDCAppBarNavigationController *)navigationController
-                     willAddAppBar:(nonnull MDCAppBar *)appBar
-           asChildOfViewController:(nonnull UIViewController *)viewController;
-
 @end
 
 /**
@@ -116,12 +100,61 @@
 __attribute__((objc_subclassing_restricted)) @interface MDCAppBarNavigationController
     : UINavigationController
 
+#pragma mark - Changing app bar visibility
+
+/**
+ This property's getter and setter behavior are defined by the value of
+ @c shouldSetNavigationBarHiddenHideAppBar.
+
+ ## Getter behavior
+
+ When @c shouldSetNavigationBarHiddenHideAppBar is enabled, this property will return the visibility
+ of the current view controller's injected app bar, if one exists. Otherwise it will always return
+ YES.
+
+ When @c shouldSetNavigationBarHiddenHideAppBar is disabled, this property will return the
+ visibility of the UINavigationBar.
+
+ ## Setter behavior
+
+ When @c shouldSetNavigationBarHiddenHideAppBar is enabled, invocations of this method will change
+ the visibility of the currently visible view controller's App Bar. This only affects visibility of
+ injected App Bar view controllers.
+
+ When @c shouldSetNavigationBarHiddenHideAppBar is disabled, invocations of this method
+ will always result in the UIKit navigation bar being hidden, regardless of the provided value of @c
+ hidden, and the currently visible view controller's App Bar visibility will not be affected.
+ Attempting to set this property to @c YES will result in a runtime assertion.
+ */
+@property(nonatomic, getter=isNavigationBarHidden) BOOL navigationBarHidden;
+
 #pragma mark - Reacting to state changes
 
 /**
  An extension of the UINavigationController's delegate.
  */
 @property(nonatomic, weak, nullable) id<MDCAppBarNavigationControllerDelegate> delegate;
+
+#pragma mark - Behavioral flags
+
+/**
+ Controls whether the @c setNavigationBarHidden: and @c setNavigationBarHidden:animated: methods
+ will toggle visiblity of the currently visible injected App Bar.
+
+ When enabled, invocations to @c setNavigationBarHidden: and @c setNavigationBarHidden:animated:
+ will change the visibility of the currently visible view controller's App Bar. This only affects
+ visibility of injected App Bar view controllers.
+
+ When disabled, invocations to @c setNavigationBarHidden: and @c setNavigationBarHidden:animated:
+ will always result in the UIKit navigation bar being hidden, regardless of the provided value of @c
+ hidden, and the currently visible view controller's App Bar visibility will not be affected.
+
+ The result of changing this property after app bars have already been presented and/or hidden is
+ undefined.
+
+ Default value is NO.
+ */
+@property(nonatomic, assign) BOOL shouldSetNavigationBarHiddenHideAppBar;
 
 #pragma mark - Getting App Bar view controller instances
 
@@ -143,7 +176,7 @@ __attribute__((objc_subclassing_restricted)) @interface MDCAppBarNavigationContr
 
 @end
 
-@interface MDCAppBarNavigationController (ToBeDeprecated)
+@interface MDCAppBarNavigationController (Deprecated)
 
 /**
  Returns the injected App Bar for a given view controller, if an App Bar was injected.
@@ -152,6 +185,7 @@ __attribute__((objc_subclassing_restricted)) @interface MDCAppBarNavigationContr
  instead. Learn more at
  https://github.com/material-components/material-components-ios/blob/develop/components/AppBar/docs/migration-guide-appbar-appbarviewcontroller.md
  */
-- (nullable MDCAppBar *)appBarForViewController:(nonnull UIViewController *)viewController;
+- (nullable MDCAppBar *)appBarForViewController:(nonnull UIViewController *)viewController
+    __deprecated_msg("Use -appBarViewControllerForViewController: instead.");
 
 @end

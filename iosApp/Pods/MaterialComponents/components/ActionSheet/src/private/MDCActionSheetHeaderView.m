@@ -25,6 +25,8 @@ static const CGFloat kTopStandardPadding = 16;
 static const CGFloat kTrailingPadding = 0;
 static const CGFloat kTitleOnlyPadding = 18;
 static const CGFloat kMiddlePadding = 8;
+/** The minimum height a header can be. */
+static const CGFloat kMinimumHeaderHeight = 8;
 
 @interface MDCActionSheetHeaderView ()
 @property(nonatomic, strong) UILabel *titleLabel;
@@ -45,6 +47,7 @@ static const CGFloat kMiddlePadding = 8;
     _titleLabel.font = [UIFont mdc_standardFontForMaterialTextStyle:MDCFontTextStyleSubheadline];
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
+    _titleLabel.accessibilityTraits |= UIAccessibilityTraitHeader;
 
     [self addSubview:_messageLabel];
     _messageLabel.font = [UIFont mdc_standardFontForMaterialTextStyle:MDCFontTextStyleBody1];
@@ -53,10 +56,6 @@ static const CGFloat kMiddlePadding = 8;
     _messageLabel.textColor = [UIColor.blackColor colorWithAlphaComponent:kMessageLabelAlpha];
   }
   return self;
-}
-
-- (void)dealloc {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)layoutSubviews {
@@ -93,11 +92,11 @@ static const CGFloat kMiddlePadding = 8;
   } else if (titleExist) {
     contentHeight = titleSize.height + (kTitleOnlyPadding * 2);
   } else {
-    contentHeight = 0;
+    contentHeight = kMinimumHeaderHeight;
   }
   CGSize contentSize;
-  contentSize.width = MDCCeil(size.width);
-  contentSize.height = MDCCeil(contentHeight);
+  contentSize.width = ceil(size.width);
+  contentSize.height = ceil(contentHeight);
   return contentSize;
 }
 

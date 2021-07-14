@@ -17,6 +17,7 @@
 #import "MDCChipCollectionViewCell.h"
 
 #import "private/MDCChipView+Private.h"
+#import "MDCChipView.h"
 
 @implementation MDCChipCollectionViewCell
 
@@ -99,52 +100,28 @@
   return view;
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+  CGRect hitAreaRect =
+      UIEdgeInsetsInsetRect(CGRectStandardize(self.bounds), _chipView.hitAreaInsets);
+  return CGRectContainsPoint(hitAreaRect, point);
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  if (self.chipView.enableRippleBehavior) {
-    // This method needs to be invoked before the super.
-    // Please see the `MDCStatefulRippleView` class header for more details.
-    [_chipView rippleViewTouchesBegan:touches withEvent:event];
-  }
   [super touchesBegan:touches withEvent:event];
 
-  if (!self.chipView.enableRippleBehavior) {
-    [_chipView startTouchBeganAnimationAtPoint:[self locationFromTouches:touches]];
-  }
+  [_chipView startTouchBeganAnimationAtPoint:[self locationFromTouches:touches]];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  if (self.chipView.enableRippleBehavior) {
-    // This method needs to be invoked before the super.
-    // Please see the `MDCStatefulRippleView` class header for more details.
-    [_chipView rippleViewTouchesEnded:touches withEvent:event];
-  }
   [super touchesEnded:touches withEvent:event];
 
-  if (!self.chipView.enableRippleBehavior) {
-    [_chipView startTouchEndedAnimationAtPoint:[self locationFromTouches:touches]];
-  }
+  [_chipView startTouchEndedAnimationAtPoint:[self locationFromTouches:touches]];
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  if (self.chipView.enableRippleBehavior) {
-    // This method needs to be invoked before the super.
-    // Please see the `MDCStatefulRippleView` class header for more details.
-    [_chipView rippleViewTouchesCancelled:touches withEvent:event];
-  }
   [super touchesCancelled:touches withEvent:event];
 
-  if (!self.chipView.enableRippleBehavior) {
-    [_chipView startTouchEndedAnimationAtPoint:[self locationFromTouches:touches]];
-  }
-}
-
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-  if (self.chipView.enableRippleBehavior) {
-    // This method needs to be invoked before the super.
-    // Please see the `MDCStatefulRippleView` class header for more details.
-    [_chipView rippleViewTouchesMoved:touches withEvent:event];
-  }
-  [super touchesMoved:touches withEvent:event];
+  [_chipView startTouchEndedAnimationAtPoint:[self locationFromTouches:touches]];
 }
 
 - (CGPoint)locationFromTouches:(NSSet<UITouch *> *)touches {

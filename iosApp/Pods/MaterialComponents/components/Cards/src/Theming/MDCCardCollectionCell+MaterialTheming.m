@@ -14,13 +14,23 @@
 
 #import "MDCCardCollectionCell+MaterialTheming.h"
 
-#import "MaterialCards+ColorThemer.h"
-#import "MaterialCards+ShapeThemer.h"
+#import "MaterialCards.h"
+
+#import "MaterialShadowElevations.h"
+
+#import "MaterialShapes.h"
+
+#import "MaterialColorScheme.h"
+
+#import "MaterialContainerScheme.h"
+
+#import "MaterialShapeScheme.h"
 
 static const MDCShadowElevation kNormalElevation = 1;
 static const MDCShadowElevation kHighlightedElevation = 1;
 static const MDCShadowElevation kSelectedElevation = 1;
 static const CGFloat kBorderWidth = 1;
+static const CGFloat kStrokeVariantBorderOpacity = (CGFloat)0.37;
 
 @implementation MDCCardCollectionCell (MaterialTheming)
 
@@ -48,11 +58,17 @@ static const CGFloat kBorderWidth = 1;
 }
 
 - (void)applyThemeWithColorScheme:(id<MDCColorScheming>)colorScheme {
-  [MDCCardsColorThemer applySemanticColorScheme:colorScheme toCardCell:self];
+  self.backgroundColor = colorScheme.surfaceColor;
+  [self setImageTintColor:colorScheme.primaryColor forState:MDCCardCellStateNormal];
 }
 
 - (void)applyThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
-  [MDCCardsShapeThemer applyShapeScheme:shapeScheme toCardCell:self];
+  MDCRectangleShapeGenerator *rectangleShape = [[MDCRectangleShapeGenerator alloc] init];
+  rectangleShape.topLeftCorner = shapeScheme.mediumComponentShape.topLeftCorner;
+  rectangleShape.topRightCorner = shapeScheme.mediumComponentShape.topRightCorner;
+  rectangleShape.bottomLeftCorner = shapeScheme.mediumComponentShape.bottomLeftCorner;
+  rectangleShape.bottomRightCorner = shapeScheme.mediumComponentShape.bottomRightCorner;
+  self.shapeGenerator = rectangleShape;
 }
 
 #pragma mark - Outlined Card
@@ -80,7 +96,16 @@ static const CGFloat kBorderWidth = 1;
 }
 
 - (void)applyOutlinedThemeWithColorScheme:(id<MDCColorScheming>)colorScheme {
-  [MDCCardsColorThemer applyOutlinedVariantWithColorScheme:colorScheme toCardCell:self];
+  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
+                                 UIControlStateHighlighted | UIControlStateDisabled;
+  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
+    [self setBorderColor:nil forState:state];
+  }
+
+  self.backgroundColor = colorScheme.surfaceColor;
+  UIColor *borderColor =
+      [colorScheme.onSurfaceColor colorWithAlphaComponent:kStrokeVariantBorderOpacity];
+  [self setBorderColor:borderColor forState:MDCCardCellStateNormal];
 }
 
 @end

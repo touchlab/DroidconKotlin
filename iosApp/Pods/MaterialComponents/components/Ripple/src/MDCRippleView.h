@@ -14,6 +14,10 @@
 
 #import <UIKit/UIKit.h>
 
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCRippleViewDelegate.h"
+
 @protocol MDCRippleViewDelegate;
 
 /**
@@ -74,6 +78,25 @@ typedef NS_ENUM(NSInteger, MDCRippleStyle) {
 @property(nonatomic, strong, nonnull) UIColor *activeRippleColor;
 
 /**
+ When rippleStyle is MDCRippleStyleBounded, this flag affects whether the layer's mask will use
+ the super view's layer.shadowPath as the mask path.
+
+ @note This behavior only takes effect if the ripple view's parent view has a non-nil shadowPath.
+
+ @note This behavioral flag will eventually become NO by default and then be deleted. The YES
+ behavior is undesired because it assumes that the frame of the ripple view always matches the
+ bounds of the superview. When this assumption is false, such as when the ripple's origin is
+ non-zero, the ripple's mask tends to be bigger than it should be resulting in an incorrectly
+ clipped ripple effect. Consider disabling this behavior and explicitly setting a layer mask
+ instead.
+
+ Changing this value to NO does not clear the mask if it was already set.
+
+ Default value is YES.
+ */
+@property(nonatomic, assign) BOOL usesSuperviewShadowLayerAsMask;
+
+/**
  A block that is invoked when the @c MDCRippleView receives a call to @c
  traitCollectionDidChange:. The block is called after the call to the superclass.
  */
@@ -129,42 +152,19 @@ typedef NS_ENUM(NSInteger, MDCRippleStyle) {
 - (void)beginRippleTouchUpAnimated:(BOOL)animated
                         completion:(nullable MDCRippleCompletionBlock)completion;
 
-@end
-
 /**
- The ripple view delegate protocol. Clients may implement this protocol to receive updates on
- the ripple's animation lifecycle.
+ Enumerates the given view's subviews for an instance of MDCRippleView and returns it if found, or
+ creates and adds a new instance of MDCRippleView if not.
+
+ This method is a convenience method for adding ripple to an arbitrary view without needing to
+ subclass the target view. Use this method in situations where you expect there to be many distinct
+ ripple views in existence for a single ripple touch controller. Example scenarios include:
+
+ - Adding ripple to individual collection view/table view cells
+
+ This method can be used in your MDCRippleTouchController delegate's
+ -rippleTouchController:rippleViewAtTouchLocation: implementation.
  */
-@protocol MDCRippleViewDelegate <NSObject>
-
-@optional
-
-/**
- Called when the ripple view began its touch down animation.
-
- @param rippleView The MDCRippleView.
- */
-- (void)rippleTouchDownAnimationDidBegin:(nonnull MDCRippleView *)rippleView;
-
-/**
- Called when the ripple view ended its touch down animation.
-
- @param rippleView The MDCRippleView.
- */
-- (void)rippleTouchDownAnimationDidEnd:(nonnull MDCRippleView *)rippleView;
-
-/**
- Called when the ripple view began its touch up animation.
-
- @param rippleView The MDCRippleView.
- */
-- (void)rippleTouchUpAnimationDidBegin:(nonnull MDCRippleView *)rippleView;
-
-/**
- Called when the ripple view ended its touch up animation.
-
- @param rippleView The MDCRippleView.
- */
-- (void)rippleTouchUpAnimationDidEnd:(nonnull MDCRippleView *)rippleView;
++ (nonnull MDCRippleView *)injectedRippleViewForView:(nonnull UIView *)view;
 
 @end

@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "Private/GULLogger.h"
+#import "GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h"
 
 #include <asl.h>
 
-#import <GoogleUtilities/GULAppEnvironmentUtil.h>
-#import <GoogleUtilities/GULLoggerLevel.h>
+#import "GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h"
+#import "GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h"
 
 /// ASL client facility name used by GULLogger.
 const char *kGULLoggerASLClientFacilityName = "com.google.utilities.logger";
@@ -33,7 +33,7 @@ static BOOL sGULLoggerDebugMode;
 static GULLoggerLevel sGULLoggerMaximumLevel;
 
 // Allow clients to register a version to include in the log.
-static const char *sVersion = "";
+static NSString *sVersion = @"";
 
 static GULLoggerService kGULLoggerLogger = @"[GULLogger]";
 
@@ -121,24 +121,25 @@ __attribute__((no_sanitize("thread"))) BOOL GULIsLoggableLevel(GULLoggerLevel lo
 }
 
 #ifdef DEBUG
-void GULResetLogger() {
+void GULResetLogger(void) {
   sGULLoggerOnceToken = 0;
+  sGULLoggerDebugMode = NO;
 }
 
-aslclient getGULLoggerClient() {
+aslclient getGULLoggerClient(void) {
   return sGULLoggerClient;
 }
 
-dispatch_queue_t getGULClientQueue() {
+dispatch_queue_t getGULClientQueue(void) {
   return sGULClientQueue;
 }
 
-BOOL getGULLoggerDebugMode() {
+BOOL getGULLoggerDebugMode(void) {
   return sGULLoggerDebugMode;
 }
 #endif
 
-void GULLoggerRegisterVersion(const char *version) {
+void GULLoggerRegisterVersion(NSString *version) {
   sVersion = version;
 }
 
@@ -161,8 +162,13 @@ void GULLogBasic(GULLoggerLevel level,
                                                                     range:messageCodeRange];
   NSCAssert(numberOfMatches == 1, @"Incorrect message code format.");
 #endif
-  NSString *logMsg = [[NSString alloc] initWithFormat:message arguments:args_ptr];
-  logMsg = [NSString stringWithFormat:@"%s - %@[%@] %@", sVersion, service, messageCode, logMsg];
+  NSString *logMsg;
+  if (args_ptr == NULL) {
+    logMsg = message;
+  } else {
+    logMsg = [[NSString alloc] initWithFormat:message arguments:args_ptr];
+  }
+  logMsg = [NSString stringWithFormat:@"%@ - %@[%@] %@", sVersion, service, messageCode, logMsg];
   dispatch_async(sGULClientQueue, ^{
     asl_log(sGULLoggerClient, NULL, (int)level, "%s", logMsg.UTF8String);
   });
@@ -172,10 +178,10 @@ void GULLogBasic(GULLoggerLevel level,
 /**
  * Generates the logging functions using macros.
  *
- * Calling GULLogError(kGULLoggerCore, @"I-COR000001", @"Configure %@ failed.", @"blah") shows:
- * yyyy-mm-dd hh:mm:ss.SSS sender[PID] <Error> [{service}][I-COR000001] Configure blah failed.
- * Calling GULLogDebug(kGULLoggerCore, @"I-COR000001", @"Configure succeed.") shows:
- * yyyy-mm-dd hh:mm:ss.SSS sender[PID] <Debug> [{service}][I-COR000001] Configure succeed.
+ * Calling GULLogError({service}, @"I-XYZ000001", @"Configure %@ failed.", @"blah") shows:
+ * yyyy-mm-dd hh:mm:ss.SSS sender[PID] <Error> [{service}][I-XYZ000001] Configure blah failed.
+ * Calling GULLogDebug({service}, @"I-XYZ000001", @"Configure succeed.") shows:
+ * yyyy-mm-dd hh:mm:ss.SSS sender[PID] <Debug> [{service}][I-XYZ000001] Configure succeed.
  */
 #define GUL_LOGGING_FUNCTION(level)                                                     \
   void GULLog##level(GULLoggerService service, BOOL force, NSString *messageCode,       \

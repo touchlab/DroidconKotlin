@@ -14,6 +14,10 @@
 
 #import <UIKit/UIKit.h>
 
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MDCInkViewDelegate.h"
+
 @protocol MDCInkViewDelegate;
 
 /** Completion block signature for all ink animations. */
@@ -46,7 +50,7 @@ typedef NS_ENUM(NSInteger, MDCInkStyle) {
  bounded ink isn't just clipped unbounded ink. Whether the ink is bounded or not depends on the kind
  of UI element the user is interacting with.
  */
-@interface MDCInkView : UIView
+__deprecated_msg("Please use MDCRippleView instead.") @interface MDCInkView : UIView
 
 /**
  Ink view animation delegate. Clients set this delegate to receive updates when ink animations
@@ -62,16 +66,15 @@ typedef NS_ENUM(NSInteger, MDCInkStyle) {
 @property(nonatomic, assign) MDCInkStyle inkStyle;
 
 /** The foreground color of the ink. The default value is defaultInkColor. */
-@property(nonatomic, strong, nonnull) UIColor *inkColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic, strong, null_resettable) UIColor *inkColor UI_APPEARANCE_SELECTOR;
 
 /** Default color used for ink if no color is specified. */
 @property(nonatomic, strong, readonly, nonnull) UIColor *defaultInkColor;
 
 /**
  Maximum radius of the ink. If the radius <= 0 then half the length of the diagonal of self.bounds
- is used. This value is ignored if @c inkStyle is set to |MDCInkStyleBounded|.
-
- Ignored if updated ink is used.
+ is used. This value is ignored if @c inkStyle is set to MDCInkStyleBounded and @c
+ usesLegacyInkLayer is set to NO.
  */
 @property(nonatomic, assign) CGFloat maxRippleRadius;
 
@@ -173,29 +176,5 @@ typedef NS_ENUM(NSInteger, MDCInkStyle) {
  -inkTouchController:inkViewAtTouchLocation; implementation.
  */
 + (nonnull MDCInkView *)injectedInkViewForView:(nonnull UIView *)view;
-
-@end
-
-/**
- Delegate protocol for MDCInkView. Clients may implement this protocol to receive updates when ink
- layer start and end.
- */
-@protocol MDCInkViewDelegate <NSObject>
-
-@optional
-
-/**
- Called when the ink ripple animation begins.
-
- @param inkView The MDCInkView that starts animating.
- */
-- (void)inkAnimationDidStart:(nonnull MDCInkView *)inkView;
-
-/**
- Called when the ink ripple animation ends.
-
- @param inkView The MDCInkView that ends animating.
- */
-- (void)inkAnimationDidEnd:(nonnull MDCInkView *)inkView;
 
 @end

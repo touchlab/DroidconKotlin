@@ -17,16 +17,18 @@
 #import "MaterialNavigationBar.h"
 
 @class MDCAppBarViewController;
+@protocol MDCAppBarViewControllerAccessibilityPerformEscapeDelegate;
 
 /**
  MDCAppBarViewController is a flexible header view controller that manages a navigation bar and
  header stack view in order to provide the Material Top App Bar user interface.
  */
+API_UNAVAILABLE(tvos, watchos)
 @interface MDCAppBarViewController : MDCFlexibleHeaderViewController
 
 /**
  The navigation bar often represents the information stored in a view controller's navigationItem
- propoerty, but it can also be directly configured.
+ property, but it can also be directly configured.
  */
 @property(nonatomic, strong, nonnull) MDCNavigationBar *navigationBar;
 
@@ -36,8 +38,32 @@
  */
 @property(nonatomic, strong, nonnull) MDCHeaderStackView *headerStackView;
 
-@end
+/**
+ When this flag is set to YES, the height of the app bar will be automatically adjusted to the sum
+ of the top bar height and the bottom bar height.
 
+ Enabling this property will disable `minMaxHeightIncludesSafeArea` on the flexible header view.
+
+ Defaults to NO.
+*/
+@property(nonatomic) BOOL shouldAdjustHeightBasedOnHeaderStackView;
+
+/**
+ Defines a downward shift distance for `headerStackView`.
+ */
+@property(nonatomic) CGFloat headerStackViewOffset;
+
+/**
+ A delegate that, if provided, allows for customization of the default behavior of
+ @c accessibilityPerformEscape.
+
+ If nil, then the default behavior will attempt to dismiss the MDCAppBarViewController's parent
+ view controller and @c accessibilityPerformEscape will return @c YES.
+ */
+@property(nonatomic, weak, nullable) id<MDCAppBarViewControllerAccessibilityPerformEscapeDelegate>
+    accessibilityPerformEscapeDelegate;
+
+@end
 #pragma mark - To be deprecated
 
 /**
@@ -58,6 +84,7 @@
  @warning This API will be deprecated in favor of MDCAppBarViewController. Learn more at
  https://github.com/material-components/material-components-ios/blob/develop/components/AppBar/docs/migration-guide-appbar-appbarviewcontroller.md
  */
+API_UNAVAILABLE(tvos, watchos)
 @interface MDCAppBar : NSObject
 
 /**

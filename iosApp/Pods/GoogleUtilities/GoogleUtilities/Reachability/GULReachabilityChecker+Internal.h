@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-#import <GoogleUtilities/GULReachabilityChecker.h>
+#import "GoogleUtilities/Reachability/Public/GoogleUtilities/GULReachabilityChecker.h"
 
+#if !TARGET_OS_WATCH
 typedef SCNetworkReachabilityRef (*GULReachabilityCreateWithNameFn)(CFAllocatorRef allocator,
                                                                     const char *host);
 
@@ -38,7 +39,7 @@ struct GULReachabilityApi {
   GULReachabilityUnscheduleFromRunLoopFn unscheduleFromRunLoopFn;
   GULReachabilityReleaseFn releaseFn;
 };
-
+#endif
 @interface GULReachabilityChecker (Internal)
 
 - (const struct GULReachabilityApi *)reachabilityApi;

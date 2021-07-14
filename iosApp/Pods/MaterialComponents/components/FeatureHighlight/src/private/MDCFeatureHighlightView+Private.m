@@ -18,13 +18,12 @@
 #import "MDCFeatureHighlightDismissGestureRecognizer.h"
 #import "MDCFeatureHighlightLayer.h"
 
-#import "MaterialFeatureHighlightStrings.h"
-#import "MaterialFeatureHighlightStrings_table.h"
+#import "MaterialAvailability.h"
 #import "MaterialMath.h"
 #import "MaterialTypography.h"
 
 static inline CGFloat CGPointDistanceToPoint(CGPoint a, CGPoint b) {
-  return MDCHypot(a.x - b.x, a.y - b.y);
+  return hypot(a.x - b.x, a.y - b.y);
 }
 
 const CGFloat kMDCFeatureHighlightMinimumInnerRadius = 44;
@@ -75,6 +74,7 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
   MDCFeatureHighlightLayer *_pulseLayer;
   MDCFeatureHighlightLayer *_innerLayer;
   MDCFeatureHighlightLayer *_displayMaskLayer;
+  UIButton *_accessibilityView;
 
   BOOL _mdc_adjustsFontForContentSizeCategory;
 
@@ -86,6 +86,7 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
 }
 
 @synthesize highlightRadius = _outerRadius;
+@synthesize adjustsFontForContentSizeCategory = _adjustsFontForContentSizeCategory;
 
 - (instancetype)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
@@ -106,6 +107,15 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
 
     _displayMaskLayer = [[MDCFeatureHighlightLayer alloc] init];
     _displayMaskLayer.fillColor = [UIColor whiteColor].CGColor;
+
+    // Tiny frame just inside the bounds so that non-accessibility interactions aren't affected.
+    _accessibilityView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+    _accessibilityView.autoresizingMask = UIViewAutoresizingNone;
+    _accessibilityView.accessibilityLabel = @"Dismiss";
+    // Note: The following is not strictly required, but is expected in unit tests.
+    _accessibilityView.isAccessibilityElement = YES;
+    [self addSubview:_accessibilityView];
+    [self sendSubviewToBack:_accessibilityView];
 
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _titleLabel.textAlignment = NSTextAlignmentNatural;
@@ -196,6 +206,12 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
     _titleLabel.font = _titleFont;
   }
 
+  if (_titleLabel.attributedText) {
+    NSMutableAttributedString *attributedString = [_titleLabel.attributedText mutableCopy];
+    [self setFont:_titleFont forAttributedString:attributedString];
+    _titleLabel.attributedText = attributedString;
+  }
+
   [self setNeedsLayout];
 }
 
@@ -227,6 +243,12 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
     }
   } else {
     _bodyLabel.font = _bodyFont;
+  }
+
+  if (_bodyLabel.attributedText) {
+    NSMutableAttributedString *attributedString = [_bodyLabel.attributedText mutableCopy];
+    [self setFont:_bodyFont forAttributedString:attributedString];
+    _bodyLabel.attributedText = attributedString;
   }
 
   [self setNeedsLayout];
@@ -295,6 +317,13 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
   _displayedView = displayedView;
   [self addSubview:_displayedView];
   _displayedView.layer.mask = _displayMaskLayer;
+}
+
+- (NSArray *)accessibilityElements {
+  if (_displayedView) {
+    return @[ _titleLabel, _bodyLabel, _displayedView, _accessibilityView ];
+  }
+  return @[ _titleLabel, _bodyLabel, _accessibilityView ];
 }
 
 - (void)setHighlightPoint:(CGPoint)highlightPoint {
@@ -406,6 +435,8 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
   _pulseLayer.fillColor = _innerHighlightColor.CGColor;
   _innerLayer.fillColor = _innerHighlightColor.CGColor;
   _outerLayer.fillColor = _outerHighlightColor.CGColor;
+
+  _accessibilityView.accessibilityFrame = self.bounds;
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
@@ -537,7 +568,7 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
   NSArray *keyTimes = @[ @0, @0.5, @1 ];
   __block id pulseColorStart;
   __block id pulseColorEnd;
-#if defined(__IPHONE_13_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0)
+#if MDC_AVAILABLE_SDK_IOS(13_0)
   if (@available(iOS 13.0, *)) {
     [self.traitCollection performAsCurrentTraitCollection:^{
       pulseColorStart =
@@ -559,7 +590,7 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
           [_innerHighlightColor colorWithAlphaComponent:kMDCFeatureHighlightPulseStartAlpha]
               .CGColor;
   pulseColorEnd = (__bridge id)[_innerHighlightColor colorWithAlphaComponent:0].CGColor;
-#endif
+#endif  // MDC_AVAILABLE_SDK_IOS(13_0)
 
   CGFloat radius = _innerRadius;
 
@@ -632,6 +663,10 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
   }
 }
 
+- (UIButton *)accessibilityDismissView {
+  return _accessibilityView;
+}
+
 #pragma mark - Dynamic Type Support
 
 - (BOOL)mdc_adjustsFontForContentSizeCategory {
@@ -656,10 +691,24 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
   [self updateBodyFont];
 }
 
+- (void)setAdjustsFontForContentSizeCategory:(BOOL)adjustsFontForContentSizeCategory {
+  _adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+  self.titleLabel.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+  self.bodyLabel.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+}
+
 // Handles UIContentSizeCategoryDidChangeNotifications
 - (void)contentSizeCategoryDidChange:(__unused NSNotification *)notification {
   [self updateTitleFont];
   [self updateBodyFont];
+}
+
+- (void)setFont:(UIFont *)font forAttributedString:(NSMutableAttributedString *)attributedString {
+  [attributedString beginEditing];
+  NSRange range = NSMakeRange(0, attributedString.length);
+  [attributedString removeAttribute:NSFontAttributeName range:range];
+  [attributedString addAttribute:NSFontAttributeName value:font range:range];
+  [attributedString endEditing];
 }
 
 #pragma mark - UIGestureRecognizerDelegate (Tap)
@@ -673,11 +722,11 @@ static inline CGPoint CGPointAddedToPoint(CGPoint a, CGPoint b) {
 #pragma mark - UIAccessibility
 
 - (void)setAccessibilityHint:(NSString *)accessibilityHint {
-  _titleLabel.accessibilityHint = accessibilityHint;
+  _accessibilityView.accessibilityHint = accessibilityHint;
 }
 
 - (NSString *)accessibilityHint {
-  return _titleLabel.accessibilityHint;
+  return _accessibilityView.accessibilityHint;
 }
 
 @end

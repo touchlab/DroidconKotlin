@@ -14,9 +14,7 @@
 
 #import "MDCNumericValueLabel.h"
 
-#import "MaterialTypography.h"
-
-static const CGFloat kAnchorPointY = (CGFloat)1.15;
+static const CGFloat kAnchorPointY = (CGFloat)1.0;
 static const CGFloat kBezierSmoothingFactor = (CGFloat)0.0625;
 static const CGFloat kLabelInsetSize = 6;
 
@@ -41,7 +39,6 @@ static const CGFloat kLabelInsetSize = 6;
     _label = [[UILabel alloc] init];
     _label.textAlignment = NSTextAlignmentCenter;
     _label.textColor = [UIColor whiteColor];  // Default text color, override by setting textColor
-    _label.font = [MDCTypography body1Font];  // Default font size, override by setting fontSize
     _label.adjustsFontSizeToFitWidth = YES;
     _label.minimumScaleFactor = (CGFloat)0.7;
     [self addSubview:_label];
@@ -113,6 +110,11 @@ static const CGFloat kLabelInsetSize = 6;
   _label.frame = CGRectInset(CGRectMake(0, 0, width, width), kLabelInsetSize, kLabelInsetSize);
 }
 
+- (CGSize)sizeThatFits:(CGSize)size {
+  CGSize labelSize = [_label sizeThatFits:size];
+  return CGSizeMake(labelSize.width + kLabelInsetSize, labelSize.height + kLabelInsetSize);
+}
+
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
   _backgroundColor = backgroundColor;
   _marker.fillColor = _backgroundColor.CGColor;
@@ -130,16 +132,28 @@ static const CGFloat kLabelInsetSize = 6;
   return _label.font.pointSize;
 }
 
-- (void)setFontSize:(CGFloat)fontSize {
-  _label.font = [[MDCTypography fontLoader] regularFontOfSize:fontSize];
-}
-
 - (NSString *)text {
   return _label.text;
 }
 
 - (void)setText:(NSString *)text {
   _label.text = text;
+}
+
+- (UIFont *)font {
+  return _label.font;
+}
+
+- (void)setFont:(UIFont *)font {
+  _label.font = font;
+}
+
+- (BOOL)adjustsFontForContentSizeCategory {
+  return _label.adjustsFontForContentSizeCategory;
+}
+
+- (void)setAdjustsFontForContentSizeCategory:(BOOL)adjustsFontForContentSizeCategory {
+  _label.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
 }
 
 @end

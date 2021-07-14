@@ -14,6 +14,10 @@
 
 #import <UIKit/UIKit.h>
 
+// TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
+// longer import delegates as transitive dependencies.
+#import "MaterialElevation.h"
+#import "MDCMultilineTextInputLayoutDelegate.h"
 #import "MDCTextInput.h"
 
 @class MDCIntrinsicHeightTextView;
@@ -25,7 +29,10 @@
   Material Design themed mutiline text field (multiline text input).
   https://www.google.com/design/spec/components/text-fields.html#text-fields-multi-line-text-field
  */
-@interface MDCMultilineTextField : UIView <MDCTextInput, MDCMultilineTextInput>
+__deprecated_msg(
+    "MDCTextField and its associated classes are deprecated. Please use TextControls instead.")
+    @interface MDCMultilineTextField
+    : UIView<MDCTextInput, MDCMultilineTextInput, MDCElevatable, MDCElevationOverriding>
 
 /** A mirror of the same property that already exists on UITextField, UITextView, and UILabel. */
 @property(nonatomic, assign) BOOL adjustsFontForContentSizeCategory;
@@ -53,11 +60,14 @@
 
 /**
  The text string of the placeholder label.
- Bringing convenience api found in UITextField to all MDCTextInputs. Maps to the .text of the
+ Bringing convenience API found in UITextField to all MDCTextInputs. Maps to the .text of the
  placeholder label.
 
  Note: Inherited from MDCTextInput protocol. Added here to declare Interface Builder support
  (IBInspectable).
+ Note: The [Design guidance](https://material.io/components/text-fields/#anatomy) changed and treats
+ placeholder as distinct from `label text`. The placeholder-related properties of this class most
+ closely align with the "label text" as described in the guidance.
  */
 @property(nonatomic, nullable, copy) IBInspectable NSString *placeholder;
 
@@ -70,30 +80,18 @@
 @property(nonatomic, nullable, strong) IBOutlet MDCIntrinsicHeightTextView *textView;
 
 /**
+ * Whether or not the multiline text field should use its contraints to calculate its intrinsic
+ * content size. Default is NO, in which case the multiline text field gives an approximate
+ * intrinsic content size using its subviews.
+ */
+@property(nonatomic) BOOL useConstraintsForIntrinsicContentSize;
+
+/**
  A block that is invoked when the @c MDCMultilineTextField receives a call to @c
  traitCollectionDidChange:. The block is called after the call to the superclass.
  */
 @property(nonatomic, copy, nullable) void (^traitCollectionDidChangeBlock)(
     MDCMultilineTextField *_Nonnull textField, UITraitCollection *_Nullable previousTraitCollection)
     ;
-
-@end
-
-/** Delegate for MDCTextInput size changes. */
-@protocol MDCMultilineTextInputLayoutDelegate <NSObject>
-
-@optional
-/**
- Notifies the delegate that the text field's content size changed, requiring the size provided for
- best display.
-
- If using auto layout, this method is unnecessary; this is a way for views not implementing auto
- layout to know when to grow and shrink height to accomodate changes in content.
-
- @param multilineTextField  The text field for which the content size changed.
- @param size                The size required by the text view to fit all of its content.
- */
-- (void)multilineTextField:(id<MDCMultilineTextInput> _Nonnull)multilineTextField
-      didChangeContentSize:(CGSize)size;
 
 @end

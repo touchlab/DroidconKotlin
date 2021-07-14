@@ -16,10 +16,20 @@
 
 #import "MaterialShadowElevations.h"
 
+/** The visibility of the discrete dots. */
+typedef NS_ENUM(NSUInteger, MDCThumbDiscreteDotVisibility) {
+  /** Discrete dots are never shown. */
+  MDCThumbDiscreteDotVisibilityNever = 0,
+  /** Discrete dots are only shown when the thumb is pressed or dragging. */
+  MDCThumbDiscreteDotVisibilityWhenDragging = 1U,
+  /** Discrete dots are always shown. */
+  MDCThumbDiscreteDotVisibilityAlways = 2U,
+};
+
 @class MDCThumbView;
 @protocol MDCThumbTrackDelegate;
 
-@interface MDCThumbTrack : UIControl
+@interface MDCThumbTrack : UIControl <UIContentSizeCategoryAdjusting>
 
 /** The delegate for the thumb track. */
 @property(nullable, nonatomic, weak) id<MDCThumbTrackDelegate> delegate;
@@ -83,18 +93,27 @@
 @property(null_resettable, nonatomic, strong) UIColor *valueLabelBackgroundColor;
 
 /**
- The number of discrete values that the thumb can take along the track. If this property is zero,
- then the slider operates continuously and doesn't do any snapping after the user releases the
- thumb. If this property is greater or equal to two, then the thumb will snap to the nearest
- discrete value on when the user lifts their finger or taps. The set of discrete values is
- equivalent to
+ The number of discrete values that the thumb can take along the track.
+
+ The set of discrete values is equivalent to
  { minimumValue +  (i / (numDiscreteValues - 1.0)) * (maximumValue - minimumValue) } for
  i = 0..numDiscreteValues-1.
 
- The default value is zero. If numDiscreteValues is set to one, then the thumb track will act as
- if numDiscreteValues is zero and will judge you silently.
+ The default value is zero. If @c numDiscreteValues is set to one, then the thumb track will act as
+ if @c numDiscreteValues is zero.
  */
 @property(nonatomic, assign) NSUInteger numDiscreteValues;
+
+/**
+ When @c YES, and @c numDiscreteValues is greater than 2, then the value can only ever be one of the
+ calculated discrete values. The resulting value is the one closest to the current position of the
+ touch that is dragging the thumb.
+
+ Defaults to @c YES.
+
+ @note This property has no effect if @c numDiscreteValues is less than 2.
+ */
+@property(nonatomic, assign, getter=isDiscrete) BOOL discrete;
 
 /**
   The value of the thumb along the track.
@@ -107,6 +126,11 @@
  maximum value is set instead. The default value of this property is 0.0.
  */
 @property(nonatomic, assign) CGFloat value;
+
+/**
+ When @c NO, changes to the @c value property will never be animated. Defaults to @c YES.
+ */
+@property(nonatomic, assign) BOOL allowAnimatedValueChanges;
 
 /**
   The minimum value of the thumb along the track.
@@ -152,17 +176,16 @@
  */
 @property(nonatomic, assign) BOOL thumbIsHollowAtStart;
 
-/** Whether or not the thumb should grow when the user is dragging it. Default is NO. */
-@property(nonatomic, assign) BOOL thumbGrowsWhenDragging;
-
 /** The max radius of the ripple when the user touches the thumb. */
 @property(nonatomic, assign) CGFloat thumbRippleMaximumRadius;
 
 /** Whether the thumb should display ripple splashes on touch. */
 @property(nonatomic, assign) BOOL shouldDisplayRipple;
 
-/** Whether or not to display dots indicating discrete locations. Default is NO. */
-@property(nonatomic, assign) BOOL shouldDisplayDiscreteDots;
+/**
+ Configures the visibility of the discrete dots.
+*/
+@property(nonatomic, assign) MDCThumbDiscreteDotVisibility discreteDotVisibility;
 
 /**
  Whether or not to show the numeric value label when dragging a discrete slider.
@@ -170,6 +193,14 @@
  Defaults to NO.
  */
 @property(nonatomic, assign) BOOL shouldDisplayDiscreteValueLabel;
+
+/**
+ Whether or not to display the thumb when dragging a discrete slider with a value label.
+ This only applies when @c shouldDisplayDiscreteValueLabel is set to @c YES.
+
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL shouldDisplayThumbWithDiscreteValueLabel;
 
 /**
  Whether or not to show the filled track on the left of the thumb. If NO, the left track will be
@@ -227,6 +258,17 @@
 @property(nonatomic, assign) BOOL tapsAllowedOnThumb;
 
 /**
+ The font of the discrete value label.
+
+ This font will come into effect only when @c numDiscreteValues is larger than 0 and when @c
+ shouldDisplayDiscreteValueLabel is
+ @c YES.
+
+ Defaults to [[MDCTypography fontLoader] regularFontOfSize:12].
+ */
+@property(nonatomic, strong, null_resettable) UIFont *discreteValueLabelFont;
+
+/**
  Initialize an instance with a particular frame and color group.
 
  Designated initializer.
@@ -268,19 +310,21 @@
 /** Disable setting multitouch. Has to be NO. */
 - (void)setMultipleTouchEnabled:(BOOL)multipleTouchEnabled NS_UNAVAILABLE;
 
-#pragma mark - To be deprecated
+@end
+
+@interface MDCThumbTrack (ToBeDeprecated)
 
 /**
  The color of the thumb and left track.
 
  @note This API will be deprecated. Use @c thumbEnabledColor, @c trackOnColor, and
-       @c inkColor instead.
+       @c rippleColor instead.
  */
 @property(nullable, nonatomic, strong) UIColor *primaryColor;
 
 @end
 
-@interface MDCThumbTrack (ToBeDeprecated)
+@interface MDCThumbTrack (Deprecated)
 
 /**
  The color of the Ink ripple.
@@ -288,7 +332,8 @@
  enableRippleBehavior to YES, and then use rippleColor instead. Learn more at
  https://github.com/material-components/material-components-ios/tree/develop/components/Ink#migration-guide-ink-to-ripple
  */
-@property(nullable, nonatomic, strong) UIColor *inkColor;
+@property(nullable, nonatomic, strong) UIColor *inkColor __deprecated_msg(
+    "Set enableRippleBehavior to YES and use rippleColor instead.");
 
 /**
  Whether the thumb should display ink splashes on touch.
@@ -296,15 +341,8 @@
  enableRippleBehavior to YES, and then use shouldDisplayRipple instead. Learn more at
  https://github.com/material-components/material-components-ios/tree/develop/components/Ink#migration-guide-ink-to-ripple
  */
-@property(nonatomic, assign) BOOL shouldDisplayInk;
-
-/**
- The max radius of the ripple when the user touches the thumb.
- @warning This method will eventually be deprecated. Opt-in to Ripple by setting
- enableRippleBehavior to YES, and then use thumbRippleMaximumRadius instead. Learn more at
- https://github.com/material-components/material-components-ios/tree/develop/components/Ink#migration-guide-ink-to-ripple
- */
-@property(nonatomic, assign) CGFloat thumbMaxRippleRadius;
+@property(nonatomic, assign) BOOL shouldDisplayInk __deprecated_msg(
+    "Set enableRippleBehavior to YES and use shouldDisplayRipple instead.");
 
 @end
 

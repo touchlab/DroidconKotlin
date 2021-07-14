@@ -14,6 +14,7 @@
 
 #import "MDCFlexibleHeaderMinMaxHeight.h"
 
+#import "MDCFlexibleHeaderMinMaxHeightDelegate.h"
 #import "MDCFlexibleHeaderTopSafeArea.h"
 
 // The default maximum height for the header. Does not include the status bar height.
@@ -25,6 +26,7 @@ static const CGFloat kFlexibleHeaderDefaultHeight = 56;
 
 @property(nonatomic) BOOL hasExplicitlySetMinHeight;
 @property(nonatomic) BOOL hasExplicitlySetMaxHeight;
+@property(nonatomic) BOOL minMaxHeightIncludesSafeArea;
 
 @end
 

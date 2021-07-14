@@ -18,6 +18,11 @@
 
 static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
 
+@interface MDCBottomSheetTransitionController ()
+@property(nonatomic, weak, nullable)
+    MDCBottomSheetPresentationController *currentPresentationController;
+@end
+
 @implementation MDCBottomSheetTransitionController {
  @protected
   UIColor *_scrimColor;
@@ -37,6 +42,7 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
   self = [super init];
   if (self) {
     _scrimAccessibilityTraits = UIAccessibilityTraitButton;
+    _adjustHeightForSafeAreaInsets = YES;
   }
   return self;
 }
@@ -50,12 +56,16 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
                                                            presentingViewController:presenting];
   presentationController.trackingScrollView = self.trackingScrollView;
   presentationController.dismissOnBackgroundTap = self.dismissOnBackgroundTap;
+  presentationController.dismissOnDraggingDownSheet = self.dismissOnDraggingDownSheet;
   presentationController.scrimColor = _scrimColor;
   presentationController.scrimAccessibilityTraits = _scrimAccessibilityTraits;
   presentationController.isScrimAccessibilityElement = _isScrimAccessibilityElement;
   presentationController.scrimAccessibilityHint = _scrimAccessibilityHint;
   presentationController.scrimAccessibilityLabel = _scrimAccessibilityLabel;
   presentationController.preferredSheetHeight = _preferredSheetHeight;
+  presentationController.adjustHeightForSafeAreaInsets = _adjustHeightForSafeAreaInsets;
+  presentationController.ignoreKeyboardHeight = _ignoreKeyboardHeight;
+  _currentPresentationController = presentationController;
   return presentationController;
 }
 
@@ -150,20 +160,32 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
     CGFloat leftPad = (containerSize.width - width) / 2;
     return CGRectMake(leftPad, 0, width, containerSize.height);
   } else {
-    return containerView.frame;
+    return CGRectStandardize(containerView.bounds);
   }
 }
 
 - (void)setScrimColor:(UIColor *)scrimColor {
   _scrimColor = scrimColor;
+  _currentPresentationController.scrimColor = scrimColor;
 }
 
 - (UIColor *)scrimColor {
   return _scrimColor;
 }
 
+- (void)setAdjustHeightForSafeAreaInsets:(BOOL)adjustHeightForSafeAreaInsets {
+  _adjustHeightForSafeAreaInsets = adjustHeightForSafeAreaInsets;
+  _currentPresentationController.adjustHeightForSafeAreaInsets = adjustHeightForSafeAreaInsets;
+}
+
+- (void)setIgnoreKeyboardHeight:(BOOL)ignoreKeyboardHeight {
+  _ignoreKeyboardHeight = ignoreKeyboardHeight;
+  _currentPresentationController.ignoreKeyboardHeight = ignoreKeyboardHeight;
+}
+
 - (void)setIsScrimAccessibilityElement:(BOOL)isScrimAccessibilityElement {
   _isScrimAccessibilityElement = isScrimAccessibilityElement;
+  _currentPresentationController.isScrimAccessibilityElement = isScrimAccessibilityElement;
 }
 
 - (BOOL)isScrimAccessibilityElement {
@@ -172,6 +194,7 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
 
 - (void)setScrimAccessibilityLabel:(NSString *)scrimAccessibilityLabel {
   _scrimAccessibilityLabel = scrimAccessibilityLabel;
+  _currentPresentationController.scrimAccessibilityLabel = scrimAccessibilityLabel;
 }
 
 - (NSString *)scrimAccessibilityLabel {
@@ -180,6 +203,7 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
 
 - (void)setScrimAccessibilityHint:(NSString *)scrimAccessibilityHint {
   _scrimAccessibilityHint = scrimAccessibilityHint;
+  _currentPresentationController.scrimAccessibilityHint = scrimAccessibilityHint;
 }
 
 - (NSString *)scrimAccessibilityHint {
@@ -188,6 +212,7 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
 
 - (void)setScrimAccessibilityTraits:(UIAccessibilityTraits)scrimAccessibilityTraits {
   _scrimAccessibilityTraits = scrimAccessibilityTraits;
+  _currentPresentationController.scrimAccessibilityTraits = scrimAccessibilityTraits;
 }
 
 - (UIAccessibilityTraits)scrimAccessibilityTraits {

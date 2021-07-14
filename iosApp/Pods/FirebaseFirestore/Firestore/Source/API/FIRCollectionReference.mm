@@ -22,20 +22,21 @@
 #import "Firestore/Source/API/FIRFirestore+Internal.h"
 #import "Firestore/Source/API/FIRQuery+Internal.h"
 #import "Firestore/Source/API/FSTUserDataConverter.h"
-#import "Firestore/Source/Core/FSTQuery.h"
 
-#include "Firestore/core/src/firebase/firestore/api/collection_reference.h"
-#include "Firestore/core/src/firebase/firestore/api/input_validation.h"
-#include "Firestore/core/src/firebase/firestore/model/resource_path.h"
-#include "Firestore/core/src/firebase/firestore/util/error_apple.h"
-#include "Firestore/core/src/firebase/firestore/util/string_apple.h"
+#include "Firestore/core/src/api/collection_reference.h"
+#include "Firestore/core/src/api/document_reference.h"
+#include "Firestore/core/src/core/user_data.h"
+#include "Firestore/core/src/model/resource_path.h"
+#include "Firestore/core/src/util/error_apple.h"
+#include "Firestore/core/src/util/exception.h"
+#include "Firestore/core/src/util/string_apple.h"
 
 namespace util = firebase::firestore::util;
 using firebase::firestore::api::CollectionReference;
 using firebase::firestore::api::DocumentReference;
-using firebase::firestore::api::ThrowInvalidArgument;
 using firebase::firestore::core::ParsedSetData;
 using firebase::firestore::model::ResourcePath;
+using firebase::firestore::util::ThrowInvalidArgument;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -52,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 // Override the designated initializer from the super class.
-- (instancetype)initWithQuery:(api::Query &&)query {
+- (instancetype)initWithQuery:(__unused api::Query &&)query {
   HARD_FAIL("Use FIRCollectionReference initWithPath: initializer.");
 }
 
@@ -102,6 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (FIRDocumentReference *)documentWithPath:(NSString *)documentPath {
   if (!documentPath) {
     ThrowInvalidArgument("Document path cannot be nil.");
+  }
+  if (!documentPath.length) {
+    ThrowInvalidArgument("Document path cannot be empty.");
   }
   DocumentReference child = self.reference.Document(util::MakeString(documentPath));
   return [[FIRDocumentReference alloc] initWithReference:std::move(child)];

@@ -54,7 +54,13 @@
  Underline Height Normal - 1p
 
  Underline View Mode - While editing
+
+ Note: The [Design guidance](https://material.io/components/text-fields/#anatomy) changed and treats
+ placeholder as distinct from `label text`. The placeholder-related properties of this class most
+ closely align with the "label text" as described in the guidance.
  */
-@interface MDCTextInputControllerOutlined : MDCTextInputControllerBase
+__deprecated_msg(
+    "MDCTextField and its associated classes are deprecated. Please use TextControls instead.")
+    @interface MDCTextInputControllerOutlined : MDCTextInputControllerBase
 
 @end
