@@ -1,0 +1,17 @@
+use_frameworks!
+
+platform :ios, '13.0'
+
+install! 'cocoapods', :deterministic_uuids => false
+
+target 'iosCompose' do
+    pod 'Kingfisher', '~> 6.3'
+    pod 'MaterialComponents', '~> 124.2.0'
+    pod 'Fabric', '~> 1.10.1'
+    pod 'Crashlytics', '~> 3.13.1'
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Firestore'
+    pod 'lib', :path => '../sessionize/lib'
+end
