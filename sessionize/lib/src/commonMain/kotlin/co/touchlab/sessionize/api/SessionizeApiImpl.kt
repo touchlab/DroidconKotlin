@@ -59,6 +59,7 @@ internal fun userUuid(): String {
     return ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID)
 }
 
+@ThreadLocal
 private val json = Json {
     prettyPrint = true
     ignoreUnknownKeys = true

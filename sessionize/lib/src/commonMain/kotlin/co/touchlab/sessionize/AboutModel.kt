@@ -21,6 +21,7 @@ object AboutModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     }
 }
 
+@ThreadLocal
 private val json = Json {
     prettyPrint = true
     ignoreUnknownKeys = true

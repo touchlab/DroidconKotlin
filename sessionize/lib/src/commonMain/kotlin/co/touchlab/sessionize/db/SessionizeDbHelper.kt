@@ -22,6 +22,7 @@ import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
+import kotlin.native.concurrent.ThreadLocal
 
 object SessionizeDbHelper {
 
@@ -76,12 +77,6 @@ object SessionizeDbHelper {
                 throw e
             }
         }
-    }
-
-    private val json = Json {
-        prettyPrint = true
-        ignoreUnknownKeys = true
-        isLenient = true
     }
 
     private fun primeSpeakers(speakerJson: String) {
@@ -235,3 +230,11 @@ object SessionizeDbHelper {
     val sessionSpeakerQueries: SessionSpeakerQueries
         get() = instance.sessionSpeakerQueries
 }
+
+@ThreadLocal
+private val json = Json {
+    prettyPrint = true
+    ignoreUnknownKeys = true
+    isLenient = true
+}
+
