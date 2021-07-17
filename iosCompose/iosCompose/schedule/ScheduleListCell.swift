@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import shared
 
 @objc class ScheduleListCell: UITableViewCell {
     

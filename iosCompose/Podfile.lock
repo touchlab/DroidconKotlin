@@ -347,7 +347,6 @@ PODS:
   - gRPC-Core/Interface (1.28.2)
   - Kingfisher (6.3.0)
   - leveldb-library (1.22.1)
-  - lib (1.0)
   - MaterialComponents (124.2.0):
     - MaterialComponents/ActionSheet (= 124.2.0)
     - "MaterialComponents/ActionSheet+Theming (= 124.2.0)"
@@ -999,6 +998,7 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (1.2.12)
+  - shared (1.0)
 
 DEPENDENCIES:
   - Crashlytics (~> 3.13.1)
@@ -1008,8 +1008,8 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Messaging
   - Kingfisher (~> 6.3)
-  - lib (from `../sessionize/lib`)
   - MaterialComponents (~> 124.2.0)
+  - shared (from `../shared`)
 
 SPEC REPOS:
   trunk:
@@ -1040,8 +1040,8 @@ SPEC REPOS:
     - PromisesObjC
 
 EXTERNAL SOURCES:
-  lib:
-    :path: "../sessionize/lib"
+  shared:
+    :path: "../shared"
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -1062,7 +1062,6 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
-  lib: 2cfde77965b86ba16af8f8d586ab5c3be1515f4d
   MaterialComponents: 1a9b2d9d45b1601ae544de85089adc4c464306d4
   MDFInternationalization: d697c55307816222a55685c4ccb1044ffb030c12
   MDFTextAccessibility: f4bb4cc2194286651b59a215fdeaa0e05dc90ba5
@@ -1070,7 +1069,8 @@ SPEC CHECKSUMS:
   MotionInterchange: 13adae439b377e31d1674cc165539d50e1d1566a
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  shared: e6d3ee33ec6f7c58516a8516b4fe27f6343a188a
 
-PODFILE CHECKSUM: 8f25429cbfa48d7359f428e44072c9f994477373
+PODFILE CHECKSUM: 92366dfa49223b03f84fcd711ab8d972edc16d4b
 
 COCOAPODS: 1.10.1

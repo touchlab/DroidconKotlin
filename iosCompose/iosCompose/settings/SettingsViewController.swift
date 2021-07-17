@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import shared
 
 class SettingsViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {
 

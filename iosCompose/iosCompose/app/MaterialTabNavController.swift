@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import shared
 import MaterialComponents
 import MaterialComponents.MaterialBottomNavigation_Theming
 

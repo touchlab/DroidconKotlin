@@ -13,5 +13,5 @@ target 'iosCompose' do
     pod 'Firebase/Messaging'
     pod 'Firebase/Analytics'
     pod 'Firebase/Firestore'
-    pod 'lib', :path => '../sessionize/lib'
+    pod 'shared', :path => '../shared'
 end

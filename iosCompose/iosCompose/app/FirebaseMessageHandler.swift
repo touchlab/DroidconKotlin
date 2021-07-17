@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 import Firebase
-import lib
+import shared
 
 class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, MessagingDelegate {
     

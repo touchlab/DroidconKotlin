@@ -20,6 +20,16 @@
 			);
 			name = Firebase;
 		};
+		8777C9F6889E59EFFD631D80AEE9048B /* shared */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 46EB2E000261A0 /* Build configuration list for PBXAggregateTarget "shared" */;
+			buildPhases = (
+				46EB2E000264F0 /* [CP-User] Build shared */,
+			);
+			dependencies = (
+			);
+			name = shared;
+		};
 		ABB048B191245233986A7CD75FE412A5 /* Fabric */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 46EB2E000121E0 /* Build configuration list for PBXAggregateTarget "Fabric" */;
@@ -65,16 +75,6 @@
 				46EB2E00026950 /* PBXTargetDependency */,
 			);
 			name = FirebaseAnalytics;
-		};
-		D4D577166CBD29B60D95B65AB586D385 /* lib */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 46EB2E00025FF0 /* Build configuration list for PBXAggregateTarget "lib" */;
-			buildPhases = (
-				46EB2E000264F0 /* [CP-User] Build lib */,
-			);
-			dependencies = (
-			);
-			name = lib;
 		};
 /* End PBXAggregateTarget section */
 
@@ -5081,16 +5081,16 @@
 		46EB2E00025F30 /* write_batch.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F590 /* write_batch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46EB2E00025F90 /* leveldb-library-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E00025F80 /* leveldb-library-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46EB2E00025FD0 /* leveldb-library-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00025FC0 /* leveldb-library-dummy.m */; };
-		46EB2E000260E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E0000FA50 /* Foundation.framework */; };
-		46EB2E000260F0 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5B0 /* pb_common.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc -fno-objc-arc"; }; };
-		46EB2E00026100 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5D0 /* pb_decode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc"; }; };
-		46EB2E00026110 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5F0 /* pb_encode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc"; }; };
-		46EB2E00026120 /* pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5A0 /* pb.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E00026130 /* pb_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5C0 /* pb_common.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E00026140 /* pb_decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5E0 /* pb_decode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E00026150 /* pb_encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F600 /* pb_encode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E000261B0 /* nanopb-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E000261A0 /* nanopb-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E000261F0 /* nanopb-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000261E0 /* nanopb-dummy.m */; };
+		46EB2E00026070 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E0000FA50 /* Foundation.framework */; };
+		46EB2E00026080 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5B0 /* pb_common.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc -fno-objc-arc"; }; };
+		46EB2E00026090 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5D0 /* pb_decode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc"; }; };
+		46EB2E000260A0 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5F0 /* pb_encode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc"; }; };
+		46EB2E000260B0 /* pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5A0 /* pb.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46EB2E000260C0 /* pb_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5C0 /* pb_common.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46EB2E000260D0 /* pb_decode.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F5E0 /* pb_decode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46EB2E000260E0 /* pb_encode.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E0000F600 /* pb_encode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46EB2E00026140 /* nanopb-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E00026130 /* nanopb-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46EB2E00026180 /* nanopb-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E00026170 /* nanopb-dummy.m */; };
 		46EB2E00026210 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00026200 /* UIKit.framework */; };
 		46EB2E00026230 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00026220 /* SystemConfiguration.framework */; };
 		46EB2E00026240 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00026200 /* UIKit.framework */; };
@@ -5324,15 +5324,15 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 46EB2E00000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D4D577166CBD29B60D95B65AB586D385;
-			remoteInfo = lib;
+			remoteGlobalIDString = D2B5E7DCCBBFB32341D857D01211A1A3;
+			remoteInfo = nanopb;
 		};
 		46EB2E00026820 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46EB2E00000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D2B5E7DCCBBFB32341D857D01211A1A3;
-			remoteInfo = nanopb;
+			remoteGlobalIDString = 8777C9F6889E59EFFD631D80AEE9048B;
+			remoteInfo = shared;
 		};
 		46EB2E00026840 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -13268,7 +13268,7 @@
 		46EB2E0000F660 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
 		46EB2E0000F690 /* FirebaseAnalytics.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = FirebaseAnalytics.xcframework; path = Frameworks/FirebaseAnalytics.xcframework; sourceTree = "<group>"; };
 		46EB2E0000F6C0 /* GoogleAppMeasurement.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = GoogleAppMeasurement.xcframework; path = Frameworks/GoogleAppMeasurement.xcframework; sourceTree = "<group>"; };
-		46EB2E0000F6E0 /* lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = lib.framework; path = build/cocoapods/framework/lib.framework; sourceTree = "<group>"; };
+		46EB2E0000F6E0 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
 		46EB2E0000F700 /* MaterialActivityIndicator.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = MaterialActivityIndicator.bundle; path = components/ActivityIndicator/src/MaterialActivityIndicator.bundle; sourceTree = "<group>"; };
 		46EB2E0000F720 /* MaterialAppBar.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = MaterialAppBar.bundle; path = components/AppBar/src/MaterialAppBar.bundle; sourceTree = "<group>"; };
 		46EB2E0000F740 /* MaterialCollectionCells.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = MaterialCollectionCells.bundle; path = components/CollectionCells/src/MaterialCollectionCells.bundle; sourceTree = "<group>"; };
@@ -13290,7 +13290,7 @@
 		46EB2E0000F940 /* MaterialIcons_ic_reorder.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = MaterialIcons_ic_reorder.xcassets; path = components/private/Icons/icons/ic_reorder/src/MaterialIcons_ic_reorder.xcassets; sourceTree = "<group>"; };
 		46EB2E0000F960 /* MaterialIcons_ic_settings.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = MaterialIcons_ic_settings.xcassets; path = components/private/Icons/icons/ic_settings/src/MaterialIcons_ic_settings.xcassets; sourceTree = "<group>"; };
 		46EB2E0000F980 /* roots.pem */ = {isa = PBXFileReference; includeInIndex = 1; name = roots.pem; path = etc/roots.pem; sourceTree = "<group>"; };
-		46EB2E0000F9A0 /* lib.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = lib.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		46EB2E0000F9A0 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		46EB2E0000FA50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		46EB2E000120F0 /* BoringSSL-GRPC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "BoringSSL-GRPC.debug.xcconfig"; sourceTree = "<group>"; };
 		46EB2E00012100 /* BoringSSL-GRPC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "BoringSSL-GRPC.release.xcconfig"; sourceTree = "<group>"; };
@@ -13440,15 +13440,15 @@
 		46EB2E00025FA0 /* leveldb-library-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "leveldb-library-Info.plist"; sourceTree = "<group>"; };
 		46EB2E00025FB0 /* leveldb-library-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "leveldb-library-prefix.pch"; sourceTree = "<group>"; };
 		46EB2E00025FC0 /* leveldb-library-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "leveldb-library-dummy.m"; sourceTree = "<group>"; };
-		46EB2E00026030 /* lib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = lib.debug.xcconfig; sourceTree = "<group>"; };
-		46EB2E00026040 /* lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = lib.release.xcconfig; sourceTree = "<group>"; };
-		46EB2E00026170 /* nanopb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = nanopb.debug.xcconfig; sourceTree = "<group>"; };
-		46EB2E00026180 /* nanopb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = nanopb.release.xcconfig; sourceTree = "<group>"; };
-		46EB2E00026190 /* nanopb.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = nanopb.modulemap; sourceTree = "<group>"; };
-		46EB2E000261A0 /* nanopb-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-umbrella.h"; sourceTree = "<group>"; };
-		46EB2E000261C0 /* nanopb-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "nanopb-Info.plist"; sourceTree = "<group>"; };
-		46EB2E000261D0 /* nanopb-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-prefix.pch"; sourceTree = "<group>"; };
-		46EB2E000261E0 /* nanopb-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "nanopb-dummy.m"; sourceTree = "<group>"; };
+		46EB2E00026100 /* nanopb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = nanopb.debug.xcconfig; sourceTree = "<group>"; };
+		46EB2E00026110 /* nanopb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = nanopb.release.xcconfig; sourceTree = "<group>"; };
+		46EB2E00026120 /* nanopb.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = nanopb.modulemap; sourceTree = "<group>"; };
+		46EB2E00026130 /* nanopb-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-umbrella.h"; sourceTree = "<group>"; };
+		46EB2E00026150 /* nanopb-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "nanopb-Info.plist"; sourceTree = "<group>"; };
+		46EB2E00026160 /* nanopb-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-prefix.pch"; sourceTree = "<group>"; };
+		46EB2E00026170 /* nanopb-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "nanopb-dummy.m"; sourceTree = "<group>"; };
+		46EB2E000261E0 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
+		46EB2E000261F0 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
 		46EB2E00026200 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		46EB2E00026220 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		46EB2E00026250 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
@@ -13796,11 +13796,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		46EB2E000260C0 /* Frameworks */ = {
+		46EB2E00026050 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E000260E0 /* Foundation.framework in Frameworks */,
+				46EB2E00026070 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13926,7 +13926,7 @@
 				46EB2E000001A0 /* MDFTextAccessibility */,
 				46EB2E000001C0 /* MotionAnimator */,
 				46EB2E000001D0 /* MotionInterchange */,
-				46EB2E00000240 /* nanopb */,
+				46EB2E00000230 /* nanopb */,
 				46EB2E000001E0 /* PromisesObjC */,
 			);
 			name = Pods;
@@ -13935,7 +13935,7 @@
 		46EB2E00000090 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E00000230 /* lib */,
+				46EB2E00000240 /* shared */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
@@ -15018,18 +15018,7 @@
 			path = "leveldb-library";
 			sourceTree = "<group>";
 		};
-		46EB2E00000230 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				46EB2E0000F6D0 /* Frameworks */,
-				46EB2E0000F990 /* Pod */,
-				46EB2E00026020 /* Support Files */,
-			);
-			name = lib;
-			path = ../../sessionize/lib;
-			sourceTree = "<group>";
-		};
-		46EB2E00000240 /* nanopb */ = {
+		46EB2E00000230 /* nanopb */ = {
 			isa = PBXGroup;
 			children = (
 				46EB2E0000F5A0 /* pb.h */,
@@ -15041,10 +15030,21 @@
 				46EB2E0000F600 /* pb_encode.h */,
 				46EB2E0000F610 /* decode */,
 				46EB2E0000F620 /* encode */,
-				46EB2E00026160 /* Support Files */,
+				46EB2E000260F0 /* Support Files */,
 			);
 			name = nanopb;
 			path = nanopb;
+			sourceTree = "<group>";
+		};
+		46EB2E00000240 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				46EB2E0000F6D0 /* Frameworks */,
+				46EB2E0000F990 /* Pod */,
+				46EB2E000261D0 /* Support Files */,
+			);
+			name = shared;
+			path = ../../shared;
 			sourceTree = "<group>";
 		};
 		46EB2E00000260 /* Implementation */ = {
@@ -19525,7 +19525,7 @@
 		46EB2E0000F6D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E0000F6E0 /* lib.framework */,
+				46EB2E0000F6E0 /* shared.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -19701,7 +19701,7 @@
 		46EB2E0000F990 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E0000F9A0 /* lib.podspec */,
+				46EB2E0000F9A0 /* shared.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
@@ -20063,29 +20063,29 @@
 			path = "../Target Support Files/leveldb-library";
 			sourceTree = "<group>";
 		};
-		46EB2E00026020 /* Support Files */ = {
+		46EB2E000260F0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E00026030 /* lib.debug.xcconfig */,
-				46EB2E00026040 /* lib.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../../iosCompose/Pods/Target Support Files/lib";
-			sourceTree = "<group>";
-		};
-		46EB2E00026160 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				46EB2E00026190 /* nanopb.modulemap */,
-				46EB2E000261E0 /* nanopb-dummy.m */,
-				46EB2E000261C0 /* nanopb-Info.plist */,
-				46EB2E000261D0 /* nanopb-prefix.pch */,
-				46EB2E000261A0 /* nanopb-umbrella.h */,
-				46EB2E00026170 /* nanopb.debug.xcconfig */,
-				46EB2E00026180 /* nanopb.release.xcconfig */,
+				46EB2E00026120 /* nanopb.modulemap */,
+				46EB2E00026170 /* nanopb-dummy.m */,
+				46EB2E00026150 /* nanopb-Info.plist */,
+				46EB2E00026160 /* nanopb-prefix.pch */,
+				46EB2E00026130 /* nanopb-umbrella.h */,
+				46EB2E00026100 /* nanopb.debug.xcconfig */,
+				46EB2E00026110 /* nanopb.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/nanopb";
+			sourceTree = "<group>";
+		};
+		46EB2E000261D0 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				46EB2E000261E0 /* shared.debug.xcconfig */,
+				46EB2E000261F0 /* shared.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../iosCompose/Pods/Target Support Files/shared";
 			sourceTree = "<group>";
 		};
 		46EB2E00026410 /* Pods-iosCompose */ = {
@@ -22328,15 +22328,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		46EB2E000260A0 /* Headers */ = {
+		46EB2E00026030 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E000261B0 /* nanopb-umbrella.h in Headers */,
-				46EB2E00026120 /* pb.h in Headers */,
-				46EB2E00026130 /* pb_common.h in Headers */,
-				46EB2E00026140 /* pb_decode.h in Headers */,
-				46EB2E00026150 /* pb_encode.h in Headers */,
+				46EB2E00026140 /* nanopb-umbrella.h in Headers */,
+				46EB2E000260B0 /* pb.h in Headers */,
+				46EB2E000260C0 /* pb_common.h in Headers */,
+				46EB2E000260D0 /* pb_decode.h in Headers */,
+				46EB2E000260E0 /* pb_encode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -23152,12 +23152,12 @@
 		};
 		D2B5E7DCCBBFB32341D857D01211A1A3 /* nanopb */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46EB2E00026060 /* Build configuration list for PBXNativeTarget "nanopb" */;
+			buildConfigurationList = 46EB2E00025FF0 /* Build configuration list for PBXNativeTarget "nanopb" */;
 			buildPhases = (
-				46EB2E000260A0 /* Headers */,
-				46EB2E000260B0 /* Sources */,
-				46EB2E000260C0 /* Frameworks */,
-				46EB2E000260D0 /* Resources */,
+				46EB2E00026030 /* Headers */,
+				46EB2E00026040 /* Sources */,
+				46EB2E00026050 /* Frameworks */,
+				46EB2E00026060 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -23318,7 +23318,6 @@
 				50F380A87A4FC4EC7EE3AC9BDADB6D2D /* gRPC-Core */,
 				E8022D22FAA6690B5E1C379C1BCE1491 /* Kingfisher */,
 				9307B7A119490930CF70393AB529AAC1 /* leveldb-library */,
-				D4D577166CBD29B60D95B65AB586D385 /* lib */,
 				B4723B5744013DF08BE3A5FEAA286944 /* MaterialComponents */,
 				DF90696196F65237863CD68D1E0BF679 /* MaterialComponents-MaterialIcons_ic_arrow_back */,
 				B6960D8022B3AD71E1A5F7885D987A38 /* MaterialComponents-MaterialIcons_ic_check */,
@@ -23339,6 +23338,7 @@
 				D2B5E7DCCBBFB32341D857D01211A1A3 /* nanopb */,
 				A15A7FC16948EBD17FEB2719E11657DF /* Pods-iosCompose */,
 				2BBF7206D7FAC92C82A042A99C4A98F8 /* PromisesObjC */,
+				8777C9F6889E59EFFD631D80AEE9048B /* shared */,
 			);
 		};
 /* End PBXProject section */
@@ -23602,7 +23602,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		46EB2E000260D0 /* Resources */ = {
+		46EB2E00026060 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -23653,15 +23653,15 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/GoogleAppMeasurement/GoogleAppMeasurement-xcframeworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		46EB2E000264F0 /* [CP-User] Build lib */ = {
+		46EB2E000264F0 /* [CP-User] Build shared */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			name = "[CP-User] Build lib";
+			name = "[CP-User] Build shared";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../../gradlew\" -p \"$REPO_ROOT\" :sessionize:lib:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
+			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :shared:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -25527,14 +25527,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		46EB2E000260B0 /* Sources */ = {
+		46EB2E00026040 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E000261F0 /* nanopb-dummy.m in Sources */,
-				46EB2E000260F0 /* pb_common.c in Sources */,
-				46EB2E00026100 /* pb_decode.c in Sources */,
-				46EB2E00026110 /* pb_encode.c in Sources */,
+				46EB2E00026180 /* nanopb-dummy.m in Sources */,
+				46EB2E00026080 /* pb_common.c in Sources */,
+				46EB2E00026090 /* pb_decode.c in Sources */,
+				46EB2E000260A0 /* pb_encode.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -25695,14 +25695,14 @@
 		};
 		46EB2E00026810 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = lib;
-			target = D4D577166CBD29B60D95B65AB586D385 /* lib */;
+			name = nanopb;
+			target = D2B5E7DCCBBFB32341D857D01211A1A3 /* nanopb */;
 			targetProxy = 46EB2E00026800 /* PBXContainerItemProxy */;
 		};
 		46EB2E00026830 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = nanopb;
-			target = D2B5E7DCCBBFB32341D857D01211A1A3 /* nanopb */;
+			name = shared;
+			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
 			targetProxy = 46EB2E00026820 /* PBXContainerItemProxy */;
 		};
 		46EB2E00026850 /* PBXTargetDependency */ = {
@@ -28044,24 +28044,76 @@
 		};
 		46EB2E00026000 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00026040 /* lib.release.xcconfig */;
+			baseConfigurationReference = 46EB2E00026110 /* nanopb.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/nanopb/nanopb-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/nanopb/nanopb-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "Target Support Files/nanopb/nanopb.modulemap";
+				PRODUCT_MODULE_NAME = nanopb;
+				PRODUCT_NAME = nanopb;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
 		46EB2E00026010 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00026030 /* lib.debug.xcconfig */;
+			baseConfigurationReference = 46EB2E00026100 /* nanopb.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/nanopb/nanopb-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/nanopb/nanopb-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/nanopb/nanopb.modulemap";
+				PRODUCT_MODULE_NAME = nanopb;
+				PRODUCT_NAME = nanopb;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		46EB2E000261B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46EB2E000261F0 /* shared.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -28072,75 +28124,23 @@
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		46EB2E00026070 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00026180 /* nanopb.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/nanopb/nanopb-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/nanopb/nanopb-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/nanopb/nanopb.modulemap";
-				PRODUCT_MODULE_NAME = nanopb;
-				PRODUCT_NAME = nanopb;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		46EB2E00026080 /* Debug */ = {
+		46EB2E000261C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00026170 /* nanopb.debug.xcconfig */;
+			baseConfigurationReference = 46EB2E000261E0 /* shared.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/nanopb/nanopb-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/nanopb/nanopb-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "Target Support Files/nanopb/nanopb.modulemap";
-				PRODUCT_MODULE_NAME = nanopb;
-				PRODUCT_NAME = nanopb;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
@@ -28564,7 +28564,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46EB2E00025FF0 /* Build configuration list for PBXAggregateTarget "lib" */ = {
+		46EB2E00025FF0 /* Build configuration list for PBXNativeTarget "nanopb" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				46EB2E00026010 /* Debug */,
@@ -28573,11 +28573,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46EB2E00026060 /* Build configuration list for PBXNativeTarget "nanopb" */ = {
+		46EB2E000261A0 /* Build configuration list for PBXAggregateTarget "shared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46EB2E00026080 /* Debug */,
-				46EB2E00026070 /* Release */,
+				46EB2E000261C0 /* Debug */,
+				46EB2E000261B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

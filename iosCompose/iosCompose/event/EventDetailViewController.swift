@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import shared
 import MaterialComponents
 
 @objc class EventDetailViewController: MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource {

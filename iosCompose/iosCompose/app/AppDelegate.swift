@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import lib
+import shared
 import UserNotifications
 import Firebase
 

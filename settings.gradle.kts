@@ -1,2 +1,2 @@
-include(":sessionize:lib")
-include(":sessionize:app")
+include(":shared")
+include(":android")

@@ -11,10 +11,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/android" />
             <option value="$PROJECT_DIR$/buildSrc" />
-            <option value="$PROJECT_DIR$/sessionize" />
-            <option value="$PROJECT_DIR$/sessionize/app" />
-            <option value="$PROJECT_DIR$/sessionize/lib" />
+            <option value="$PROJECT_DIR$/shared" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

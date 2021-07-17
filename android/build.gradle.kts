@@ -49,7 +49,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":sessionize:lib"))
+    implementation(project(":shared"))
 
     implementation("com.nex3z:flow-layout:1.3.3")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")

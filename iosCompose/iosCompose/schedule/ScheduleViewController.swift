@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import lib
+import shared
 import MaterialComponents
 
 class ScheduleViewController : MaterialAppBarUIViewController, UITableViewDelegate, UITableViewDataSource, MDCTabBarDelegate {
