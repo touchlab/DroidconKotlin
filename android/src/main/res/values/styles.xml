@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="Theme.Shrine" parent="Theme.MaterialComponents.Light.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:windowLightStatusBar" tools:targetApi="m">true</item>-->
+    </style>
+
+    <style name="Widget.Shrine.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimaryDark</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="TextAppearance.Sessionize.Tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/tab_color</item>
+    </style>
+
+    <style name="Widget.Sessionize.Toolbar" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/tabBackground</item>
+        <item name="tabIndicatorColor">@color/colorMenu</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Sessionize.Tab</item>
+    </style>
+
+    <style name="about_item">
+        <item name="android:layout_marginStart">@dimen/padding_medium</item>
+        <item name="android:layout_marginEnd">@dimen/padding_medium</item>
+        <item name="android:layout_marginTop">@dimen/padding_medium</item>
+    </style>
+
+</resources>
