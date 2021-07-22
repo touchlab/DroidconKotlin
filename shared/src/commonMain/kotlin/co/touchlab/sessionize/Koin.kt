@@ -37,7 +37,7 @@ fun initKoin(appModule: Module): KoinApplication {
 }
 
 private val coreModule = module {
-    single<SessionizeApi> { SessionizeApiImpl(get(), get()) }
+    single<SessionizeApi> { SessionizeApiImpl(get()) }
     single {
         val timeZone: String = get(qualifier = named("timeZone"))
         DroidconDb(
