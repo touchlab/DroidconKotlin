@@ -6,33 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.sessionize.FragmentAnimation
 import co.touchlab.sessionize.MainActivity
-import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
 import co.touchlab.sessionize.display.DaySchedule
-import co.touchlab.sessionize.event.EventFragment
 import com.google.android.material.tabs.TabLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleFragment:Fragment() {
-
-    private val viewModel: ScheduleViewModel by lazy {
-        ViewModelProviders.of(this, ScheduleViewModel.ScheduleViewModelFactory(allEvents))[ScheduleViewModel::class.java]
-    }
-
     val allEvents: Boolean by lazy {
         arguments?.let {
             val scheduleArgs = ScheduleFragmentArgs.fromBundle(it)
             scheduleArgs.allevents
         } ?: true
     }
+
+    private val viewModel: ScheduleViewModel by viewModel {
+        parametersOf(allEvents)
+    }
+
     lateinit var dayChooser: TabLayout
     lateinit var eventList: RecyclerView
     lateinit var noDataText: TextView

@@ -2,78 +2,54 @@ package co.touchlab.sessionize.db
 
 import co.touchlab.droidcon.db.DroidconDb
 import co.touchlab.droidcon.db.RoomQueries
-import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.db.SessionSpeakerQueries
 import co.touchlab.droidcon.db.SessionWithRoom
 import co.touchlab.droidcon.db.SponsorSessionQueries
 import co.touchlab.droidcon.db.UserAccountQueries
-import co.touchlab.sessionize.ServiceRegistry
+import co.touchlab.sessionize.api.SessionizeApi
 import co.touchlab.sessionize.api.parseSessionsFromDays
+import co.touchlab.sessionize.backgroundDispatcher
 import co.touchlab.sessionize.jsondata.SessionSpeaker
 import co.touchlab.sessionize.jsondata.Speaker
 import co.touchlab.sessionize.jsondata.SponsorSessionGroup
-import co.touchlab.sessionize.platform.printThrowable
-import co.touchlab.stately.concurrency.AtomicReference
-import co.touchlab.stately.concurrency.value
-import co.touchlab.stately.freeze
+import co.touchlab.sessionize.timeZone
 import com.squareup.sqldelight.Query
-import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
+import org.koin.core.component.KoinComponent
 import kotlin.native.concurrent.ThreadLocal
 
-object SessionizeDbHelper {
+class SessionizeDbHelper(private val db:DroidconDb, private val sessionizeApi:SessionizeApi):KoinComponent {
 
-    private val driverRef = AtomicReference<SqlDriver?>(null)
-    private val dbRef = AtomicReference<DroidconDb?>(null)
+    fun getSessionsQuery(): Query<SessionWithRoom> = db.sessionQueries.sessionWithRoom()
 
-    fun initDatabase(sqlDriver: SqlDriver) {
-        driverRef.value = sqlDriver.freeze()
-        dbRef.value = DroidconDb(sqlDriver, Session.Adapter(
-                startsAtAdapter = DateAdapter(), endsAtAdapter = DateAdapter()
-        )).freeze()
-    }
-
-    internal fun dbClear() {
-        dbRef.value = null
-        driverRef.value?.close()
-        driverRef.value = null
-    }
-
-    internal val instance: DroidconDb
-        get() = dbRef.value!!
-
-    fun getSessionsQuery(): Query<SessionWithRoom> = instance.sessionQueries.sessionWithRoom()
-
-    fun updateFeedback(feedbackRating: Long?, feedbackComment: String?, id: String) = instance.sessionQueries.updateFeedBack(feedbackRating,feedbackComment,id)
+    fun updateFeedback(feedbackRating: Long?, feedbackComment: String?, id: String) = db.sessionQueries.updateFeedBack(feedbackRating,feedbackComment,id)
 
     suspend fun sendFeedback(){
         val sessions = allFeedbackToSend()
 
         sessions.forEach {
             val rating = it.feedbackRating
-            if(rating != null) {
-                if(ServiceRegistry.sessionizeApi.sendFeedback(it.id, rating.toInt(), it.feedbackComment)){
-                    instance.sessionQueries.updateFeedBackSent(it.id)
-                }
+            if(sessionizeApi.sendFeedback(it.id, rating.toInt(), it.feedbackComment)){
+                db.sessionQueries.updateFeedBackSent(it.id)
             }
         }
     }
 
-    internal suspend fun allFeedbackToSend() = withContext(ServiceRegistry.backgroundDispatcher) {
-        instance.sessionQueries.sessionFeedbackToSend().executeAsList()
+    internal suspend fun allFeedbackToSend() = withContext(backgroundDispatcher) {
+        db.sessionQueries.sessionFeedbackToSend().executeAsList()
     }
 
     fun primeAll(speakerJson: String, scheduleJson: String, sponsorSessionJson: String) {
-        instance.sessionQueries.transaction {
+        db.sessionQueries.transaction {
             try {
                 primeSpeakers(speakerJson)
                 primeSessions(scheduleJson)
                 primeSponsorSessions(sponsorSessionJson)
             } catch (e: Exception) {
-                printThrowable(e)
+                e.printStackTrace()
                 throw e
             }
         }
@@ -106,7 +82,7 @@ object SessionizeDbHelper {
 
             }
 
-            instance.userAccountQueries.insertUserAccount(
+            db.userAccountQueries.insertUserAccount(
                     speaker.id,
                     speaker.fullName,
                     speaker.bio,
@@ -128,26 +104,26 @@ object SessionizeDbHelper {
     private fun primeSessions(scheduleJson: String) {
         val sessions = parseSessionsFromDays(scheduleJson)
 
-        instance.sessionSpeakerQueries.deleteAll()
-        val allSessions = instance.sessionQueries.allSessions().executeAsList()
+        db.sessionSpeakerQueries.deleteAll()
+        val allSessions = db.sessionQueries.allSessions().executeAsList()
 
         val newIdSet = HashSet<String>()
 
         for (session in sessions) {
-            instance.roomQueries.insertRoot(session.roomId!!.toLong(), session.room)
+            db.roomQueries.insertRoot(session.roomId!!.toLong(), session.room)
 
             val sessionId = session.id
             newIdSet.add(sessionId)
 
-            val dbSession = instance.sessionQueries.sessionById(sessionId).executeAsOneOrNull()
+            val dbSession = db.sessionQueries.sessionById(sessionId).executeAsOneOrNull()
 
 
             val startsAt = session.startsAt!!
             val endsAt = session.endsAt!!
 
-            val sessionDateAdapter = DateAdapter()
+            val sessionDateAdapter = DateAdapter(timeZone)
             if (dbSession == null) {
-                instance.sessionQueries.insert(
+                db.sessionQueries.insert(
                         sessionId,
                         session.title,
                         session.descriptionText ?: "",
@@ -160,7 +136,7 @@ object SessionizeDbHelper {
                         }, session.roomId!!.toLong()
                 )
             } else {
-                instance.sessionQueries.update(
+                db.sessionQueries.update(
                         title = session.title,
                         description = session.descriptionText ?: "",
                         startsAt = sessionDateAdapter.decode(startsAt),
@@ -185,7 +161,7 @@ object SessionizeDbHelper {
 
         allSessions.forEach {
             if (!newIdSet.contains(it.id)) {
-                instance.sessionQueries.deleteById(it.id)
+                db.sessionQueries.deleteById(it.id)
             }
         }
     }
@@ -194,7 +170,7 @@ object SessionizeDbHelper {
         var displayOrder = 0L
 
         for (sessionSpeaker in speakers) {
-            instance.sessionSpeakerQueries.insertUpdate(
+            db.sessionSpeakerQueries.insertUpdate(
                     sessionId,
                     sessionSpeaker.id,
                     displayOrder++)
@@ -209,26 +185,26 @@ object SessionizeDbHelper {
 
         for (sessionGroup in sponsorSessionGroups) {
             for (session in sessionGroup.sessions) {
-                instance.sponsorSessionQueries.insertUpdate(session.id, session.descriptionText)
+                db.sponsorSessionQueries.insertUpdate(session.id, session.descriptionText)
                 insertSessionSpeakers(session.speakers, session.id)
             }
         }
     }
 
     val sessionQueries: SessionQueries
-        get() = instance.sessionQueries
+        get() = db.sessionQueries
 
     val userAccountQueries: UserAccountQueries
-        get() = instance.userAccountQueries
+        get() = db.userAccountQueries
 
     val roomQueries: RoomQueries
-        get() = instance.roomQueries
+        get() = db.roomQueries
 
     val sponsorSessionQueries: SponsorSessionQueries
-        get() = instance.sponsorSessionQueries
+        get() = db.sponsorSessionQueries
 
     val sessionSpeakerQueries: SessionSpeakerQueries
-        get() = instance.sessionSpeakerQueries
+        get() = db.sessionSpeakerQueries
 }
 
 @ThreadLocal

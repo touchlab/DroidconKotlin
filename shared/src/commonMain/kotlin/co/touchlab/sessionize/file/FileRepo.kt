@@ -1,18 +1,17 @@
 package co.touchlab.sessionize.file
 
-import co.touchlab.sessionize.ServiceRegistry.staticFileLoader
+import co.touchlab.sessionize.BaseModel
 import co.touchlab.sessionize.db.SessionizeDbHelper
-import kotlin.native.concurrent.ThreadLocal
+import co.touchlab.sessionize.staticFileLoader
 
-@ThreadLocal
-object FileRepo {
+class FileRepo(private val dbHelper: SessionizeDbHelper): BaseModel() {
     fun seedFileLoad() {
         val speakerJson = staticFileLoader("speakers", "json")
         val scheduleJson = staticFileLoader("schedule", "json")
         val sponsorSessionJson = staticFileLoader("sponsor_session", "json")
 
         if (speakerJson != null && scheduleJson != null && sponsorSessionJson != null) {
-            SessionizeDbHelper.primeAll(
+            dbHelper.primeAll(
                     speakerJson,
                     scheduleJson,
                     sponsorSessionJson
@@ -22,6 +21,4 @@ object FileRepo {
             throw NullPointerException("Couldn't load static files")
         }
     }
-
-
 }

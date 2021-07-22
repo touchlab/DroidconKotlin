@@ -1,15 +1,11 @@
 package co.touchlab.sessionize.event
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import co.touchlab.sessionize.EventModel
+import co.touchlab.sessionize.api.SessionizeApi
+import co.touchlab.sessionize.db.SessionizeDbHelper
+import co.touchlab.sessionize.platform.NotificationsModel
 
-class EventViewModel(sessionId:String): ViewModel(){
-    val eventModel = EventModel(sessionId)
-}
-
-class EventViewModelFactory(private val sessionId: String) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return EventViewModel(sessionId) as T
-    }
+class EventViewModel(sessionId:String, dbHelper: SessionizeDbHelper, sessionizeApi: SessionizeApi, notificationsModel: NotificationsModel): ViewModel(){
+    val eventModel = EventModel(sessionId, dbHelper, sessionizeApi, notificationsModel)
 }

@@ -3,7 +3,6 @@ package co.touchlab.sessionize
 import co.touchlab.sessionize.api.AnalyticsApi
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.api.SessionizeApi
-import co.touchlab.sessionize.platform.backgroundDispatcher
 import co.touchlab.stately.concurrency.AtomicReference
 import co.touchlab.stately.concurrency.ThreadLocalRef
 import co.touchlab.stately.freeze
@@ -13,6 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlin.reflect.KProperty
 
+/*
 object ServiceRegistry {
     var analyticsApi: AnalyticsApi by FrozenDelegate()
     var sessionizeApi:SessionizeApi by ThreadLocalDelegate()
@@ -43,7 +43,8 @@ object ServiceRegistry {
         ServiceRegistry.timeZone = timeZone
     }
 
-    fun initLambdas(staticFileLoader: (filePrefix: String, fileType: String) -> String?,
+    fun initLambdas(
+        staticFileLoader: (filePrefix: String, fileType: String) -> String?,
                        clLogCallback: (s: String) -> Unit,
                     softExceptionCallback: (e:Throwable, message:String) ->Unit){
         ServiceRegistry.staticFileLoader = staticFileLoader
@@ -68,4 +69,4 @@ internal class ThreadLocalDelegate<T>{
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         delegateReference.set(value)
     }
-}
+}*/

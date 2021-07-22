@@ -1,20 +1,16 @@
 package co.touchlab.sessionize.sponsors
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.SponsorSessionInfo
-import co.touchlab.sessionize.SponsorSessionModel
-import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SponsorSessionFragment : Fragment() {
 
@@ -31,7 +27,7 @@ class SponsorSessionFragment : Fragment() {
         } ?: ""
     }
 
-    lateinit var sponsorSessionViewModel: SponsorSessionViewModel
+    val sponsorSessionViewModel: SponsorSessionViewModel by viewModel()
     lateinit var recycler: RecyclerView
     lateinit var sponsorSessionTitle: TextView
     lateinit var sponsorGroupName: TextView
@@ -39,10 +35,6 @@ class SponsorSessionFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sponsorSessionViewModel = ViewModelProviders.of(
-                this,
-                SponsorSessionViewModelFactory()
-        )[SponsorSessionViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,15 +49,15 @@ class SponsorSessionFragment : Fragment() {
         recycler = view.findViewById(R.id.recycler)
         sponsorImage = view.findViewById(R.id.sponsorImage)
 
-        val adapter = SponsorSessionAdapter(activity!!)
-        recycler.adapter = adapter
+        /*val adapter = SponsorSessionAdapter(activity!!)
+        recycler.adapter = adapter*/
 
-        sponsorSessionViewModel.sponsorSessionModel.loadSponsorDetail({
+        /*sponsorSessionViewModel.sponsorSessionModel.loadSponsorDetail({
             dataRefresh(it)
         }){
             Log.e("SponsorSessionFragment", it.message, it)
             activity?.onBackPressed()
-        }
+        }*/
 
         return view
     }
@@ -76,29 +68,29 @@ class SponsorSessionFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(getActivity())
     }
 
-    private fun dataRefresh(sponsorInfo: SponsorSessionInfo) {
-        updateContent(sponsorInfo)
-    }
-
-    private fun updateContent(sponsorInfo: SponsorSessionInfo) {
-        val adapter = SponsorSessionAdapter(activity!!)
-        val sponsor = sponsorInfo.sponsor
-        val sessionDetail = sponsorInfo.sessionDetail
-
-        sponsorSessionTitle.text = sponsor.name
-        sponsorGroupName.text = sponsor.groupName
-        adapter.addHeader(sponsor.name)
-
-        sponsor.icon.let {
-            Picasso.get().load(it).into(sponsorImage)
-        }
-
-        adapter.addBody(sessionDetail)
-
-        for (item in sponsorInfo.speakers) {
-            adapter.addSpeaker(item)
-        }
-
-        recycler.adapter = adapter
-    }
+//    private fun dataRefresh(sponsorInfo: SponsorSessionInfo) {
+//        updateContent(sponsorInfo)
+//    }
+//
+//    private fun updateContent(sponsorInfo: SponsorSessionInfo) {
+//        val adapter = SponsorSessionAdapter(activity!!)
+//        val sponsor = sponsorInfo.sponsor
+//        val sessionDetail = sponsorInfo.sessionDetail
+//
+//        sponsorSessionTitle.text = sponsor.name
+//        sponsorGroupName.text = sponsor.groupName
+//        adapter.addHeader(sponsor.name)
+//
+//        sponsor.icon.let {
+//            Picasso.get().load(it).into(sponsorImage)
+//        }
+//
+//        adapter.addBody(sessionDetail)
+//
+//        for (item in sponsorInfo.speakers) {
+//            adapter.addSpeaker(item)
+//        }
+//
+//        recycler.adapter = adapter
+//    }
 }

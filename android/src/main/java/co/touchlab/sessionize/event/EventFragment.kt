@@ -15,26 +15,31 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.*
+import co.touchlab.sessionize.db.SessionizeDbHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
 
 class EventFragment : Fragment() {
 
+    val timeZone: String by inject(qualifier = named("timeZone"))
+    val dbHelper: SessionizeDbHelper by inject()
     val sessionId: String by lazy {
         arguments?.let {
             val eventArgs = EventFragmentArgs.fromBundle(it)
             eventArgs.sessionid
         } ?: ""
     }
-    lateinit var eventViewModel: EventViewModel
+    private val eventViewModel: EventViewModel by viewModel {
+        parametersOf(sessionId)
+    }
+    
     lateinit var fab: FloatingActionButton
     lateinit var recycler: RecyclerView
     lateinit var eventTitle: TextView
     lateinit var eventRoomTime: TextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        eventViewModel = ViewModelProviders.of(this, EventViewModelFactory(sessionId))[EventViewModel::class.java]
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_event, container, false)
@@ -46,11 +51,11 @@ class EventFragment : Fragment() {
 
         eventViewModel.eventModel.register(object : EventModel.EventView {
             override suspend fun update(data: SessionInfo) {
-                dataRefresh(data, data.session.formattedRoomTime())
+                dataRefresh(data, data.session.formattedRoomTime(SessionRoomtimeFormatter(timeZone), dbHelper))
             }
         })
 
-        val adapter = EventDetailAdapter(activity!!)
+        val adapter = EventDetailAdapter(requireContext())
         recycler.adapter = adapter
 
         return view
@@ -74,13 +79,13 @@ class EventFragment : Fragment() {
 
     @SuppressLint("RestrictedApi")
     private fun updateFAB(event: SessionInfo) {
-        fab.rippleColor = ContextCompat.getColor(context!!, R.color.black)
+        fab.rippleColor = ContextCompat.getColor(requireContext(), R.color.black)
 
         if (event.isRsvped()) {
-            fab.setImageDrawable(ContextCompat.getDrawable(activity!!, R.drawable.ic_check))
+            fab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_check))
             fab.isActivated = true
         } else {
-            fab.setImageDrawable(ContextCompat.getDrawable(activity!!, R.drawable.ic_plus))
+            fab.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_plus))
             fab.isActivated = false
         }
 
@@ -100,7 +105,7 @@ class EventFragment : Fragment() {
     }
 
     private fun updateContent(event: SessionInfo, formattedRoomTime:String) {
-        val adapter = EventDetailAdapter(activity!!)
+        val adapter = EventDetailAdapter(requireContext())
 
         eventTitle.text = event.session.title
         eventRoomTime.text = formattedRoomTime

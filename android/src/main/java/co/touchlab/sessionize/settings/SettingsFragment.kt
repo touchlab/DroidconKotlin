@@ -10,28 +10,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys.FEEDBACK_ENABLED
 import co.touchlab.sessionize.SettingsKeys.REMINDERS_ENABLED
 import co.touchlab.sessionize.feedback.FeedbackManager.Companion.FeedbackDisabledNotificationName
 import co.touchlab.sessionize.platform.AndroidAppContext
+import com.russhwolf.settings.Settings
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SettingsFragment : Fragment() {
 
     lateinit var recycler: RecyclerView
-    lateinit var settingsViewModel: SettingsViewModel
-
+    val settingsViewModel: SettingsViewModel by viewModel()
+    val appSettings: Settings by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        settingsViewModel = ViewModelProviders.of(this, SettingsViewModelFactory())[SettingsViewModel::class.java]
 
         LocalBroadcastManager.getInstance(AndroidAppContext.app).registerReceiver(changedSettingReciever,
                 IntentFilter(FeedbackDisabledNotificationName))
@@ -54,7 +54,7 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         recycler = view.findViewById(R.id.recycler)
 
-        val adapter = SettingsAdapter(activity!!)
+        val adapter = SettingsAdapter(requireActivity())
         recycler.adapter = adapter
         updateContent()
 
@@ -70,26 +70,26 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateContent() {
-        val adapter = SettingsAdapter(activity!!)
+        val adapter = SettingsAdapter(requireActivity())
 
         //SettingsModel.loadSettingsInfo {
         adapter.addSwitchRow("Enable Feedback",
                 R.drawable.baseline_feedback_24,
-                ServiceRegistry.appSettings.getBoolean(FEEDBACK_ENABLED, true),
+                appSettings.getBoolean(FEEDBACK_ENABLED, true),
                 CompoundButton.OnCheckedChangeListener { _, isChecked ->
                     settingsViewModel.settingsModel.setFeedbackSettingEnabled(isChecked)
                 }
         )
         adapter.addSwitchRow("Enable Reminders",
                 R.drawable.baseline_insert_invitation_24,
-                ServiceRegistry.appSettings.getBoolean(REMINDERS_ENABLED, true),
+                appSettings.getBoolean(REMINDERS_ENABLED, true),
                 CompoundButton.OnCheckedChangeListener { _, isChecked ->
                     settingsViewModel.settingsModel.setRemindersSettingEnabled(isChecked)
                 }
         )
         adapter.addButtonRow("About", R.drawable.menu_info, View.OnClickListener {
             val direction = SettingsFragmentDirections.actionSettingsFragmentToAboutFragment()
-            view!!.findNavController().navigate(direction)
+            requireView().findNavController().navigate(direction)
         })
         //}
 

@@ -1,34 +1,33 @@
 package co.touchlab.sessionize.api
 
-import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.sessionize.platform.createUuid
-import co.touchlab.sessionize.platform.networkDispatcher
 import co.touchlab.sessionize.platform.simpleGet
+import com.russhwolf.settings.Settings
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlin.native.concurrent.ThreadLocal
 
-@ThreadLocal
-object SessionizeApiImpl : SessionizeApi {
+class SessionizeApiImpl(private val appSettings:Settings, private val networkDispatcher: CoroutineDispatcher) : SessionizeApi {
     private val INSTANCE_ID = "jmuc9diq"
     private val SPONSOR_INSTANCE_ID = "lhiyghwr"
 //    private val client = HttpClient {
 //        install(ExpectSuccess)
 //    }
 
-    override suspend fun getSpeakersJson(): String = withContext(networkDispatcher()) {
+    override suspend fun getSpeakersJson(): String = withContext(networkDispatcher) {
         simpleGet("https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/speakers")
     }
 
-    override suspend fun getSessionsJson(): String = withContext(networkDispatcher()) {
+    override suspend fun getSessionsJson(): String = withContext(networkDispatcher) {
         simpleGet("https://sessionize.com/api/v2/$INSTANCE_ID/view/gridtable")
     }
 
-    override suspend fun getSponsorSessionJson(): String = withContext(networkDispatcher()) {
+    override suspend fun getSponsorSessionJson(): String = withContext(networkDispatcher) {
         simpleGet("https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/sessions")
     }
 
@@ -49,14 +48,12 @@ object SessionizeApiImpl : SessionizeApi {
         it.status.isSuccess()
     }*/
 
-
-}
-
-internal fun userUuid(): String {
-    if (ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID).isBlank()) {
-        ServiceRegistry.appSettings.putString(SettingsKeys.USER_UUID, createUuid())
+    internal fun userUuid(): String {
+        if (appSettings.getString(SettingsKeys.USER_UUID).isBlank()) {
+            appSettings.putString(SettingsKeys.USER_UUID, createUuid())
+        }
+        return appSettings.getString(SettingsKeys.USER_UUID)
     }
-    return ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID)
 }
 
 @ThreadLocal

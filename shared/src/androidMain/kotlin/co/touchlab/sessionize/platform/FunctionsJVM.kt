@@ -17,9 +17,6 @@ actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
 private val btfHandler:Handler? = try{Handler(Looper.getMainLooper())}catch (e:Throwable){null}
 
-internal actual val mainThread: Boolean
-    get() = Looper.getMainLooper() === Looper.myLooper()
-
 object AndroidAppContext {
     lateinit var app: Application
 
@@ -66,11 +63,5 @@ object AndroidAppContext {
 }
 
 actual fun createUuid(): String = UUID.randomUUID().toString()
-actual fun printThrowable(t: Throwable) {
-    t.printStackTrace()
-}
-
-actual fun backgroundDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
 actual fun simpleGet(url: String): String = URL(url).readText()
-actual fun networkDispatcher(): CoroutineDispatcher = newSingleThreadContext("network")

@@ -4,17 +4,20 @@ import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.api.FeedbackApi
 import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.db.SessionizeDbHelper
-import co.touchlab.sessionize.platform.NotificationsModel.cancelFeedbackNotifications
-import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel
 import co.touchlab.sessionize.platform.currentTimeMillis
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FeedbackModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
+class FeedbackModel(
+    private val notificationsModel: NotificationsModel,
+    private val dbHelper: SessionizeDbHelper,
+    private val networkRepo: NetworkRepo
+) : BaseModel() {
     private var feedbackListener: FeedbackApi? = null
 
     fun showFeedbackForPastSessions(listener: FeedbackApi){
-        if(feedbackEnabled) {
+        if(notificationsModel.feedbackEnabled) {
             feedbackListener = listener
             requestNextFeedback()
         }
@@ -28,9 +31,9 @@ class FeedbackModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
         }
     }
 
-    private suspend fun loadPastSessions():List<MyPastSession>? = withContext(ServiceRegistry.backgroundDispatcher) {
-        if(feedbackEnabled) {
-            SessionizeDbHelper.sessionQueries.myPastSession().executeAsList()
+    private suspend fun loadPastSessions():List<MyPastSession>? = withContext(backgroundDispatcher) {
+        if(notificationsModel.feedbackEnabled) {
+            dbHelper.sessionQueries.myPastSession().executeAsList()
         } else
             null
     }
@@ -38,13 +41,13 @@ class FeedbackModel : BaseModel(ServiceRegistry.coroutinesDispatcher) {
     fun finishedFeedback(sessionId:String, rating:Int, comment: String) {
         mainScope.launch {
             updateFeedback(sessionId, rating, comment)
-            cancelFeedbackNotifications()
+            notificationsModel.cancelFeedbackNotifications()
             requestNextFeedback()
-            NetworkRepo.sendFeedback()
+            networkRepo.sendFeedback()
         }
     }
 
-    private suspend fun updateFeedback(sessionId:String, rating:Int, comment: String) = withContext(ServiceRegistry.backgroundDispatcher){
-        SessionizeDbHelper.updateFeedback(rating.toLong(), comment, sessionId)
+    private suspend fun updateFeedback(sessionId:String, rating:Int, comment: String) = withContext(backgroundDispatcher){
+        dbHelper.updateFeedback(rating.toLong(), comment, sessionId)
     }
 }

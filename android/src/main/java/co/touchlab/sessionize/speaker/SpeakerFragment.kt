@@ -20,7 +20,10 @@ import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SpeakerInfo
 import co.touchlab.sessionize.SpeakerModel
 import co.touchlab.sessionize.SpeakerUiData
+import co.touchlab.sessionize.db.SessionizeDbHelper
 import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class SpeakerFragment : Fragment() {
@@ -31,12 +34,8 @@ class SpeakerFragment : Fragment() {
             speakerArgs.userid
         } ?: ""
     }
-    lateinit var speakerViewModel:SpeakerViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        speakerViewModel = ViewModelProviders.of(this, SpeakerViewModelFactory(userId))[SpeakerViewModel::class.java]
-
+    val speakerViewModel:SpeakerViewModel by viewModel {
+        parametersOf(userId)
     }
 
     lateinit var mainView : View
@@ -114,12 +113,6 @@ class SpeakerFragment : Fragment() {
 
 fun finDrawableId(ctx: Context, str: String): Int = ctx.getResources().getIdentifier(str, "drawable", ctx.getPackageName())
 
-class SpeakerViewModel(userId:String):ViewModel(){
-    val speakerModel = SpeakerModel(userId)
-}
-
-class SpeakerViewModelFactory(private val userId:String) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return SpeakerViewModel(userId) as T
-    }
+class SpeakerViewModel(userId:String, db: SessionizeDbHelper):ViewModel(){
+    val speakerModel = SpeakerModel(userId, db)
 }

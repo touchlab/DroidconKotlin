@@ -3,27 +3,29 @@ package co.touchlab.sessionize
 import co.touchlab.droidcon.db.MySessions
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.db.SessionizeDbHelper.sessionQueries
-import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
+import co.touchlab.sessionize.api.SessionizeApi
+import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.db.room
 import co.touchlab.sessionize.platform.DateFormatHelper
 import co.touchlab.sessionize.platform.NotificationsModel
 import co.touchlab.sessionize.platform.currentTimeMillis
-import co.touchlab.sessionize.platform.printThrowable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.max
 
-class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInfo>(
-        sessionQueries.sessionById(sessionId),
+class EventModel(
+    val sessionId: String,
+    val dbHelper: SessionizeDbHelper,
+    val sessionizeApi: SessionizeApi,
+val notificationsModel: NotificationsModel) : BaseQueryModelView<Session, SessionInfo>(
+        dbHelper.sessionQueries.sessionById(sessionId),
         { q ->
             val session = q.executeAsOne()
-            collectSessionInfo(session)
-        },
-        ServiceRegistry.coroutinesDispatcher) {
+            collectSessionInfo(session, dbHelper)
+        }) {
 
     init {
-        ServiceRegistry.clLogCallback("init EventModel($sessionId)")
+        clLogCallback("init EventModel($sessionId)")
     }
 
     interface EventView : View<SessionInfo>
@@ -43,28 +45,28 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             "sessionizeUnrsvpEvent"
         }
 
-        NotificationsModel.recreateReminderNotifications()
-        NotificationsModel.recreateFeedbackNotifications()
+        notificationsModel.recreateReminderNotifications()
+        notificationsModel.recreateFeedbackNotifications()
         if (rsvp) {
-            ServiceRegistry.sessionizeApi.recordRsvp(methodName, sessionId)
+            sessionizeApi.recordRsvp(methodName, sessionId)
 
             sendAnalytics(sessionId, rsvp)
         }
     }
 
-    internal suspend fun callUpdateRsvp(rsvp: Boolean, localSessionId: String) = withContext(ServiceRegistry.backgroundDispatcher){
-        sessionQueries.updateRsvp(if (rsvp) {
+    internal suspend fun callUpdateRsvp(rsvp: Boolean, localSessionId: String) = withContext(backgroundDispatcher){
+        dbHelper.sessionQueries.updateRsvp(if (rsvp) {
             1
         } else {
             0
         }, localSessionId)
     }
 
-    private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) = withContext(ServiceRegistry.backgroundDispatcher) {
+    private suspend fun sendAnalytics(sessionId: String, rsvp: Boolean) = withContext(backgroundDispatcher) {
         try {
-            val session = sessionQueries.sessionById(sessionId).executeAsOne()
+            val session = dbHelper.sessionQueries.sessionById(sessionId).executeAsOne()
             val params = HashMap<String, Any>()
-            val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm")
+            val analyticsDateFormat = DateFormatHelper("MM_dd_HH_mm", timeZone)
             params["slot"] = analyticsDateFormat.formatConferenceTZ(session.startsAt)
             params["sessionId"] = sessionId
             params["count"] = if (rsvp) {
@@ -72,16 +74,16 @@ class EventModel(val sessionId: String) : BaseQueryModelView<Session, SessionInf
             } else {
                 -1
             }
-            ServiceRegistry.analyticsApi.logEvent("RSVP_EVENT", params)
+            analyticsApi.logEvent("RSVP_EVENT", params)
         } catch (e: Exception) {
-            printThrowable(e)
+            e.printStackTrace()
         }
     }
 }
 
-internal fun collectSessionInfo(session: Session): SessionInfo {
-    val speakers = userAccountQueries.selectBySession(session.id).executeAsList()
-    val mySessions = sessionQueries.mySessions().executeAsList()
+internal fun collectSessionInfo(session: Session, dbHelper: SessionizeDbHelper): SessionInfo {
+    val speakers = dbHelper.userAccountQueries.selectBySession(session.id).executeAsList()
+    val mySessions = dbHelper.sessionQueries.mySessions().executeAsList()
 
     return SessionInfo(session, speakers, session.conflict(mySessions))
 }
@@ -125,9 +127,9 @@ fun SessionInfo.isRsvped(): Boolean {
     return this.session.rsvp != 0L
 }
 
-suspend fun Session.formattedRoomTime(): String {
-    var formattedStart = SessionInfoStuff.roomNameTimeFormatter.formatConferenceTZ(this.startsAt)
-    val formattedEnd = SessionInfoStuff.roomNameTimeFormatter.formatConferenceTZ(this.endsAt)
+suspend fun Session.formattedRoomTime(formatter: SessionRoomtimeFormatter, dbHelper: SessionizeDbHelper): String {
+    var formattedStart = formatter.roomNameTimeFormatter.formatConferenceTZ(this.startsAt)
+    val formattedEnd = formatter.roomNameTimeFormatter.formatConferenceTZ(this.endsAt)
 
     val startMarker = formattedStart.substring(max(formattedStart.length - 3, 0))
     val endMarker = formattedEnd.substring(max(formattedEnd.length - 3, 0))
@@ -135,10 +137,10 @@ suspend fun Session.formattedRoomTime(): String {
         formattedStart = formattedStart.substring(0, max(formattedStart.length - 3, 0))
     }
 
-    return "${this.room().name}, $formattedStart - $formattedEnd"
+    return "${this.room(dbHelper).name}, $formattedStart - $formattedEnd"
 }
 
-object SessionInfoStuff {
+class SessionRoomtimeFormatter(timeZone: String) {
     private val TIME_FORMAT = "h:mm a"
-    val roomNameTimeFormatter = DateFormatHelper(TIME_FORMAT)
+    val roomNameTimeFormatter = DateFormatHelper(TIME_FORMAT, timeZone)
 }

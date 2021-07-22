@@ -76,6 +76,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.1.1")
     implementation(Deps.multiplatformSettings)
 
+    implementation(Deps.koinCore)
+    implementation(Deps.koinAndroid)
+
     implementation(Deps.Navigation.fragment_ktx) //"androidx.navigation:navigation-fragment-ktx:2.1.0-alpha06"
     implementation(Deps.Navigation.ui_ktx) //"androidx.navigation:navigation-ui-ktx:2.1.0-alpha06"
 

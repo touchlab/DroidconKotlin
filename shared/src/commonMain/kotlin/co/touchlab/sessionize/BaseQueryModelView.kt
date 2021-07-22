@@ -1,16 +1,14 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.db.coroutines.asFlow
-import co.touchlab.sessionize.platform.assertNotMainThread
-import co.touchlab.sessionize.platform.printThrowable
 import co.touchlab.stately.ensureNeverFrozen
 import com.squareup.sqldelight.Query
+import com.squareup.sqldelight.runtime.coroutines.asFlow
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
+import org.koin.core.component.KoinComponent
 
 /**
  * Sort of a "controller" in MVC thinking. Pass in the SQLDelight Query,
@@ -20,24 +18,23 @@ import kotlin.coroutines.CoroutineContext
  */
 @UseExperimental(InternalCoroutinesApi::class)
 abstract class BaseQueryModelView<Q : Any, VT>(
-        query: Query<Q>,
-        extractData: (Query<Q>) -> VT,
-        mainContext: CoroutineContext) : BaseModel(mainContext) {
+    query: Query<Q>,
+    extractData: (Query<Q>) -> VT
+) : BaseModel() {
 
     init {
         ensureNeverFrozen()
         mainScope.launch {
             query.asFlow()
-                    .map {
-                        assertNotMainThread()
-                        extractData(it)
+                .map {
+                    extractData(it)
+                }
+                .flowOn(backgroundDispatcher)
+                .collect { vt ->
+                    view?.let {
+                        it.update(vt)
                     }
-                    .flowOn(ServiceRegistry.backgroundDispatcher)
-                    .collect { vt ->
-                        view?.let {
-                            it.update(vt)
-                        }
-                    }
+                }
 
         }
     }
@@ -53,11 +50,11 @@ abstract class BaseQueryModelView<Q : Any, VT>(
         onDestroy()
     }
 
-    interface View<VT> {
+    interface View<VT> : KoinComponent {
         suspend fun update(data: VT)
-        fun error(t:Throwable){
-            printThrowable(t)
-            ServiceRegistry.softExceptionCallback(t, t.message?:"(Unknown View Error)")
+        fun error(t: Throwable) {
+            t.printStackTrace()
+            softExceptionCallback.invoke(t, t.message ?: "(Unknown View Error)")
         }
     }
 }
