@@ -11,11 +11,11 @@ import androidx.core.app.NotificationManagerCompat
 import co.touchlab.sessionize.NotificationsApiImpl.Companion.notificationFeedbackId
 import co.touchlab.sessionize.NotificationsApiImpl.Companion.notificationReminderId
 import co.touchlab.sessionize.api.NotificationsApi
-import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.NotificationsModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import org.koin.core.component.inject
 import java.util.*
 
@@ -35,7 +35,7 @@ class NotificationPublisher : BroadcastReceiver(), KoinComponent {
         if(notificationActionId == 0){
           notification?.let {
               Log.i(TAG, "---OnReceive called, creating   ${NotificationsApiImpl.notificationIdToString(notificationId)} notification")
-              with(NotificationManagerCompat.from(AndroidAppContext.app)) {
+              with(NotificationManagerCompat.from(context)) {
                   this.notify(notificationId, notification)
               }
 
@@ -60,8 +60,9 @@ class NotificationPublisher : BroadcastReceiver(), KoinComponent {
 
     private fun dismissLocalNotification(notificationId: Int, withDelay: Long){
         Log.i(TAG, "Dismissing ${NotificationsApiImpl.notificationIdToString(notificationId)} notification at ${notificationsApi.msTimeToString(withDelay)}(${withDelay}ms):")
-        val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = NotificationsApiImpl.createPendingIntent(NotificationsApiImpl.notificationDismissId, actionId = notificationId)
+        val context: Context = get()
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = NotificationsApiImpl.createPendingIntent(NotificationsApiImpl.notificationDismissId, actionId = notificationId, context = context)
         alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay, pendingIntent)
     }
 

@@ -10,7 +10,6 @@ import co.touchlab.sessionize.api.NetworkRepo
 import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.event.EventViewModel
 import co.touchlab.sessionize.feedback.FeedbackManager
-import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.schedule.ScheduleViewModel
 import co.touchlab.sessionize.settings.SettingsViewModel
 import co.touchlab.sessionize.speaker.SpeakerViewModel
@@ -46,8 +45,8 @@ class MainApp : Application(), KoinComponent {
                     AndroidSettings(get())
                 }
                 single<AnalyticsApi> { AnalyticsApiImpl(FirebaseAnalytics.getInstance(this@MainApp)) }
-                single { FeedbackManager(get(), get(), get(qualifier = named("softExceptionCallback"))) }
-                single<NotificationsApi> { NotificationsApiImpl(get(), get(qualifier = named("timeZone"))) }
+                single { FeedbackManager(get(), get(), get(qualifier = named("softExceptionCallback")), this@MainApp) }
+                single<NotificationsApi> { NotificationsApiImpl(get(), get(qualifier = named("timeZone")), this@MainApp) }
                 single(qualifier = named("timeZone")) { BuildConfig.TIME_ZONE }
                 single<StaticFileLoader>(qualifier = named("staticFile")) { this@MainApp::loadAsset }
                 single<ClLogCallback>(qualifier = named("clLog")) { { Log.w("MainApp", it) } }
@@ -62,8 +61,6 @@ class MainApp : Application(), KoinComponent {
                 viewModel { (userId:String) -> SpeakerViewModel(userId, get()) }
             }
         )
-
-        AndroidAppContext.app = this
 
         AppContext.initAppContext(get(), get(), get(), get())
 

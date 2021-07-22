@@ -18,7 +18,6 @@ import co.touchlab.sessionize.R
 import co.touchlab.sessionize.SettingsKeys.FEEDBACK_ENABLED
 import co.touchlab.sessionize.SettingsKeys.REMINDERS_ENABLED
 import co.touchlab.sessionize.feedback.FeedbackManager.Companion.FeedbackDisabledNotificationName
-import co.touchlab.sessionize.platform.AndroidAppContext
 import com.russhwolf.settings.Settings
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,7 +32,7 @@ class SettingsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        LocalBroadcastManager.getInstance(AndroidAppContext.app).registerReceiver(changedSettingReciever,
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(changedSettingReciever,
                 IntentFilter(FeedbackDisabledNotificationName))
     }
 
@@ -44,7 +43,7 @@ class SettingsFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        LocalBroadcastManager.getInstance(AndroidAppContext.app).unregisterReceiver(changedSettingReciever)
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(changedSettingReciever)
         super.onDestroy()
     }
 

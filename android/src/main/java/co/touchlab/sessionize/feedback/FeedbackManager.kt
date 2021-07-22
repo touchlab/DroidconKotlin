@@ -1,5 +1,6 @@
 package co.touchlab.sessionize.feedback
 
+import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.FragmentManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -7,14 +8,14 @@ import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.FeedbackModel
 import co.touchlab.sessionize.SoftExceptionCallback
 import co.touchlab.sessionize.api.FeedbackApi
-import co.touchlab.sessionize.platform.AndroidAppContext
 import co.touchlab.sessionize.platform.NotificationsModel
 import org.koin.core.component.KoinComponent
 
 class FeedbackManager(
     private val feedbackModel:FeedbackModel,
     private val notificationsModel: NotificationsModel,
-    private val softExceptionCallback: SoftExceptionCallback
+    private val softExceptionCallback: SoftExceptionCallback,
+    private val context: Context
     ) : FeedbackApi, KoinComponent {
 
     private var fragmentManager:FragmentManager? = null
@@ -40,7 +41,7 @@ class FeedbackManager(
 
     fun disableFeedback(){
         notificationsModel.feedbackEnabled = false
-        LocalBroadcastManager.getInstance(AndroidAppContext.app).sendBroadcast(Intent(FeedbackDisabledNotificationName))
+        LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(FeedbackDisabledNotificationName))
     }
 
     override fun generateFeedbackDialog(session: MyPastSession){
