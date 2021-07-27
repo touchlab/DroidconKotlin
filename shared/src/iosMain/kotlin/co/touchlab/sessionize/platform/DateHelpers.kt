@@ -1,13 +1,10 @@
 package co.touchlab.sessionize.platform
 
-import co.touchlab.sessionize.ServiceRegistry
 import platform.Foundation.NSDate
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSTimeZone
-import platform.Foundation.NSTimeZoneMeta
 import platform.Foundation.defaultTimeZone
 import platform.Foundation.timeIntervalSince1970
-import platform.Foundation.timeZoneForSecondsFromGMT
 import platform.Foundation.timeZoneWithName
 import kotlin.math.floor
 
@@ -17,10 +14,10 @@ actual class Date(val iosDate: NSDate) {
     }
 }
 
-actual class DateFormatHelper actual constructor(format: String) {
+actual class DateFormatHelper actual constructor(format: String, timeZone: String) {
 
     private val dateFormatterConference: NSDateFormatter = NSDateFormatter().apply {
-        this.timeZone = NSTimeZone.timeZoneWithName(ServiceRegistry.timeZone)!!
+        this.timeZone = NSTimeZone.timeZoneWithName(timeZone)!!
         this.dateFormat = format
     }
 

@@ -1,9 +1,11 @@
 package co.touchlab.sessionize
 
 import co.touchlab.sessionize.display.DaySchedule
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 
-class ScheduleViewModel(allEvents: Boolean) {
-    val scheduleModel = ScheduleModel(allEvents)
+class ScheduleViewModel(allEvents: Boolean):KoinComponent {
+    val scheduleModel = ScheduleModel(allEvents, get(), timeZone)
 
     fun registerForChanges(proc: (notes: List<DaySchedule>) -> Unit) {
 

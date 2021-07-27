@@ -1,7 +1,8 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.platform.NotificationsModel
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 
-class SettingsViewModel() {
-    val settingsModel = SettingsModel(ServiceRegistry.notificationsApi, ServiceRegistry.coroutinesDispatcher)
+class SettingsViewModel():KoinComponent {
+    val settingsModel = SettingsModel(get(), get())
 }

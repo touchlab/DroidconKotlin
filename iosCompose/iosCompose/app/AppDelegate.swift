@@ -15,9 +15,8 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let serviceRegistry = ServiceRegistry()
-
-
+    lazy var nai = NotificationsApiImpl()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") ?? ""
         let fileExists = FileManager.default.fileExists(atPath: path)
@@ -30,20 +29,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.statusBarStyle = .lightContent
 
-        serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog, softExceptionCallback: softExceptionCallback)
-
         let timeZone = Bundle.main.object(forInfoDictionaryKey: "TimeZone") as! String
-        serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
-                                                settings: FunctionsKt.defaultSettings(),
-                                                sessionizeApi: SessionizeApiImpl(),
-                                                analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
-                                                notificationsApi: NotificationsApiImpl(),
-                                                timeZone: timeZone)
-
-
-        AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
-
-        NetworkRepo().sendFeedback()
+        KoinIOSKt.injectModule(
+            analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
+            timeZone: timeZone,
+            notificationsApi: nai,
+            staticFileLoader: loadAsset,
+            ciLogCallback: csLog,
+            softExceptionCallback: softExceptionCallback
+        )
+        
+//        serviceRegistry.doInitLambdas(staticFileLoader: loadAsset, clLogCallback: csLog, softExceptionCallback: softExceptionCallback)
+//
+//
+//        serviceRegistry.doInitServiceRegistry(sqlDriver: FunctionsKt.defaultDriver(),
+//                                                settings: FunctionsKt.defaultSettings(),
+//                                                sessionizeApi: SessionizeApiImpl(),
+//                                                analyticsApi: FunctionsKt.createAnalyticsApiImpl(analyticsCallback: analyticsCallback),
+//                                                notificationsApi: NotificationsApiImpl(),
+//                                                timeZone: timeZone)
+//
+//
+//        AppContext().doInitAppContext(networkRepo: NetworkRepo(), fileRepo: FileRepo(), serviceRegistry: ServiceRegistry(), dbHelper: SessionizeDbHelper(), notificationsModel: NotificationsModel())
+//
+//        NetworkRepo().sendFeedback()
         
         if(fileExists){
             FirebaseMessageHandler.initMessaging()
@@ -92,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        serviceRegistry.notificationsApi.deinitializeNotifications()
+        nai.deinitializeNotifications()
     }
 }
 

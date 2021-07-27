@@ -6,14 +6,11 @@ import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.newSingleThreadContext
 import platform.Foundation.NSApplicationSupportDirectory
 import platform.Foundation.NSDate
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSString
-import platform.Foundation.NSThread
 import platform.Foundation.NSURL
 import platform.Foundation.NSURLConnection
 import platform.Foundation.NSURLRequest
@@ -25,9 +22,6 @@ import platform.Foundation.sendSynchronousRequest
 import platform.Foundation.timeIntervalSince1970
 
 actual fun currentTimeMillis(): Long = (NSDate().timeIntervalSince1970 * 1000).toLong()
-
-internal actual val mainThread: Boolean
-    get() = NSThread.isMainThread
 
 actual fun createUuid(): String = NSUUID.UUID().UUIDString
 
@@ -63,13 +57,6 @@ fun createAnalyticsApiImpl(analyticsCallback: (name: String, params: Map<String,
     }
 }
 
-fun forceInclude() = listOf(CoroutineDispatcher::class)
-actual fun printThrowable(t: Throwable) {
-    t.printStackTrace()
-}
-
-actual fun backgroundDispatcher():CoroutineDispatcher = newSingleThreadContext("arst")
-
 actual fun simpleGet(url: String): String {
     val urlObj = NSURL(string = url)
     var resultString: String? = null
@@ -86,5 +73,3 @@ actual fun simpleGet(url: String): String {
     else
         return resultString!!
 }
-
-actual fun networkDispatcher(): CoroutineDispatcher = newSingleThreadContext("network")

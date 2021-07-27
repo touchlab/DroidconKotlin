@@ -1,22 +1,21 @@
 package co.touchlab.sessionize
 
-import co.touchlab.sessionize.platform.printThrowable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import org.koin.core.component.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
-open class BaseModel(
-        mainContext: CoroutineContext
-) {
-    internal val mainScope = MainScope(mainContext)
+open class BaseModel : KoinComponent {
+    internal val mainScope = MainScope(Dispatchers.Main)
 
     open fun onDestroy() {
         mainScope.job.cancel()
     }
 }
 
-internal class MainScope(private val mainContext: CoroutineContext): CoroutineScope{
+internal class MainScope(private val mainContext: CoroutineContext) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
@@ -26,6 +25,6 @@ internal class MainScope(private val mainContext: CoroutineContext): CoroutineSc
     }
 
     fun showError(t: Throwable) {
-        printThrowable(t)
+        t.printStackTrace()
     }
 }

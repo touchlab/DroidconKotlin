@@ -1,25 +1,29 @@
 package co.touchlab.sessionize
 
-import android.app.Activity
 import android.app.AlarmManager
+import android.app.Notification
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.app.Notification
 import android.util.Log
 import androidx.core.app.NotificationManagerCompat
 import co.touchlab.sessionize.NotificationsApiImpl.Companion.notificationFeedbackId
 import co.touchlab.sessionize.NotificationsApiImpl.Companion.notificationReminderId
-import co.touchlab.sessionize.platform.AndroidAppContext
+import co.touchlab.sessionize.api.NotificationsApi
 import co.touchlab.sessionize.platform.NotificationsModel
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.component.inject
 import java.util.*
 
 
-class NotificationPublisher : BroadcastReceiver() {
+class NotificationPublisher : BroadcastReceiver(), KoinComponent {
 
+    private val notificationsModel:NotificationsModel by inject()
+    private val notificationsApi:NotificationsApi by inject()
     private val mainScope = MainScope()
     override fun onReceive(context: Context, intent: Intent) {
         val notification = intent.getParcelableExtra<Notification>(NOTIFICATION)
@@ -31,19 +35,19 @@ class NotificationPublisher : BroadcastReceiver() {
         if(notificationActionId == 0){
           notification?.let {
               Log.i(TAG, "---OnReceive called, creating   ${NotificationsApiImpl.notificationIdToString(notificationId)} notification")
-              with(NotificationManagerCompat.from(AndroidAppContext.app)) {
+              with(NotificationManagerCompat.from(context)) {
                   this.notify(notificationId, notification)
               }
 
               mainScope.launch {
                   if (notificationId == notificationReminderId) {
-                      NotificationsModel.recreateReminderNotifications()
+                      notificationsModel.recreateReminderNotifications()
 
                       val currentTime = Calendar.getInstance().time
                       dismissLocalNotification(notificationId, currentTime.time + (Durations.TEN_MINS_MILLIS * 2))
                   }
                   if (notificationId == notificationFeedbackId) {
-                      NotificationsModel.recreateFeedbackNotifications()
+                      notificationsModel.recreateFeedbackNotifications()
                   }
               }
             }
@@ -55,9 +59,10 @@ class NotificationPublisher : BroadcastReceiver() {
     }
 
     private fun dismissLocalNotification(notificationId: Int, withDelay: Long){
-        Log.i(TAG, "Dismissing ${NotificationsApiImpl.notificationIdToString(notificationId)} notification at ${NotificationsApiImpl.msTimeToString(withDelay)}(${withDelay}ms):")
-        val alarmManager = AndroidAppContext.app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = NotificationsApiImpl.createPendingIntent(NotificationsApiImpl.notificationDismissId, actionId = notificationId)
+//        Log.i(TAG, "Dismissing ${NotificationsApiImpl.notificationIdToString(notificationId)} notification at ${notificationsApi.msTimeToString(withDelay)}(${withDelay}ms):")
+        val context: Context = get()
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = NotificationsApiImpl.createPendingIntent(NotificationsApiImpl.notificationDismissId, actionId = notificationId, context = context)
         alarmManager.set(AlarmManager.RTC_WAKEUP, withDelay, pendingIntent)
     }
 

@@ -2,18 +2,17 @@ package co.touchlab.sessionize
 
 import co.touchlab.droidcon.db.Session
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.db.SessionizeDbHelper.userAccountQueries
+import co.touchlab.sessionize.db.SessionizeDbHelper
 import co.touchlab.sessionize.db.sessions
 
-class SpeakerModel(speakerId: String) : BaseQueryModelView<UserAccount, UserAccount>(
-        userAccountQueries.selectById(speakerId),
+class SpeakerModel(speakerId: String, private val db: SessionizeDbHelper) : BaseQueryModelView<UserAccount, UserAccount>(
+        db.userAccountQueries.selectById(speakerId),
         {
             it.executeAsOne()
-        },
-        ServiceRegistry.coroutinesDispatcher
+        }
 ) {
     init {
-        ServiceRegistry.clLogCallback("init SpeakerModel($speakerId)")
+        clLogCallback("init SpeakerModel($speakerId)")
     }
 
     interface SpeakerView : View<UserAccount>
@@ -25,17 +24,17 @@ class SpeakerModel(speakerId: String) : BaseQueryModelView<UserAccount, UserAcco
         val infoSections = ArrayList<SpeakerInfo>()
 
         if (!it.tagLine.isNullOrBlank())
-            infoSections.add(SpeakerInfo(InfoType.Company, it.tagLine!!))
+            infoSections.add(SpeakerInfo(InfoType.Company, it.tagLine))
         if (!it.website.isNullOrBlank())
-            infoSections.add(SpeakerInfo(InfoType.Website, it.website!!))
+            infoSections.add(SpeakerInfo(InfoType.Website, it.website))
         if (!it.twitter.isNullOrBlank())
-            infoSections.add(SpeakerInfo(InfoType.Twitter, it.twitter!!))
+            infoSections.add(SpeakerInfo(InfoType.Twitter, it.twitter))
         if (!it.linkedIn.isNullOrBlank())
-            infoSections.add(SpeakerInfo(InfoType.Linkedin, it.linkedIn!!))
+            infoSections.add(SpeakerInfo(InfoType.Linkedin, it.linkedIn))
         if (!it.bio.isNullOrBlank())
-            infoSections.add(SpeakerInfo(InfoType.Profile, it.bio!!))
+            infoSections.add(SpeakerInfo(InfoType.Profile, it.bio))
 
-        return SpeakerUiData(it, it.fullName, it.tagLine, it.profilePicture, infoSections, it.sessions())
+        return SpeakerUiData(it, it.fullName, it.tagLine, it.profilePicture, infoSections, it.sessions(db))
     }
 }
 

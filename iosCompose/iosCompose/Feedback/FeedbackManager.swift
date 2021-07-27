@@ -14,14 +14,15 @@ class FeedbackManager: NSObject,FeedbackApi {
     static let FeedbackDisabledNotificationName = "FeedbackDisabled"
     
     var viewController:UIViewController?
-    private lazy var feedbackModel:FeedbackModel = FeedbackModel()
+    private lazy var feedbackModel:FeedbackModel = FeedbackHelper().feedbackModel
+    private lazy var notificationsModel :NotificationsModel = NotificationHelper().notificationModel
     
     func setViewController(_ vc: UIViewController){
         viewController = vc
     }
     
     func showFeedbackForPastSessions(){
-        if(NotificationsModel().feedbackEnabled) {
+        if(notificationsModel.feedbackEnabled) {
             feedbackModel.showFeedbackForPastSessions(listener: self)
         }
     }
@@ -32,7 +33,7 @@ class FeedbackManager: NSObject,FeedbackApi {
     }
     
     func disableFeedback(){
-        NotificationsModel().feedbackEnabled = false
+        notificationsModel.feedbackEnabled = false
         NotificationCenter.default.post(name: Notification.Name(FeedbackManager.FeedbackDisabledNotificationName), object: nil)
     }
     

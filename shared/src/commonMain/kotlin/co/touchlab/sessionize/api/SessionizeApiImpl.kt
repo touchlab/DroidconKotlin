@@ -1,35 +1,38 @@
 package co.touchlab.sessionize.api
 
-import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys
 import co.touchlab.sessionize.jsondata.Days
 import co.touchlab.sessionize.jsondata.Session
 import co.touchlab.sessionize.platform.createUuid
-import co.touchlab.sessionize.platform.networkDispatcher
 import co.touchlab.sessionize.platform.simpleGet
+import com.russhwolf.settings.Settings
+import io.ktor.client.*
+import io.ktor.client.features.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlin.native.concurrent.ThreadLocal
 
-@ThreadLocal
-object SessionizeApiImpl : SessionizeApi {
+class SessionizeApiImpl(private val appSettings:Settings) : SessionizeApi {
     private val INSTANCE_ID = "jmuc9diq"
     private val SPONSOR_INSTANCE_ID = "lhiyghwr"
-//    private val client = HttpClient {
+    private val client = HttpClient {
 //        install(ExpectSuccess)
-//    }
-
-    override suspend fun getSpeakersJson(): String = withContext(networkDispatcher()) {
-        simpleGet("https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/speakers")
     }
 
-    override suspend fun getSessionsJson(): String = withContext(networkDispatcher()) {
-        simpleGet("https://sessionize.com/api/v2/$INSTANCE_ID/view/gridtable")
+    override suspend fun getSpeakersJson(): String = client.get<String> {
+        sessionize("/api/v2/$SPONSOR_INSTANCE_ID/view/speakers")
     }
 
-    override suspend fun getSponsorSessionJson(): String = withContext(networkDispatcher()) {
-        simpleGet("https://sessionize.com/api/v2/$SPONSOR_INSTANCE_ID/view/sessions")
+    override suspend fun getSessionsJson(): String = client.get<String> {
+        sessionize("/api/v2/$INSTANCE_ID/view/gridtable")
+    }
+
+    override suspend fun getSponsorSessionJson(): String = client.get<String> {
+        sessionize("/api/v2/$SPONSOR_INSTANCE_ID/view/sessions")
     }
 
     override suspend fun recordRsvp(methodName: String, sessionId: String): Boolean = true/* = client.request<HttpResponse> {
@@ -49,14 +52,19 @@ object SessionizeApiImpl : SessionizeApi {
         it.status.isSuccess()
     }*/
 
-
-}
-
-internal fun userUuid(): String {
-    if (ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID).isBlank()) {
-        ServiceRegistry.appSettings.putString(SettingsKeys.USER_UUID, createUuid())
+    private fun HttpRequestBuilder.sessionize(path: String) {
+        url {
+            takeFrom("https://sessionize.com")
+            encodedPath = path
+        }
     }
-    return ServiceRegistry.appSettings.getString(SettingsKeys.USER_UUID)
+
+    internal fun userUuid(): String {
+        if (appSettings.getString(SettingsKeys.USER_UUID).isBlank()) {
+            appSettings.putString(SettingsKeys.USER_UUID, createUuid())
+        }
+        return appSettings.getString(SettingsKeys.USER_UUID)
+    }
 }
 
 @ThreadLocal

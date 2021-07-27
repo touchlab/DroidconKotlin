@@ -1,38 +1,17 @@
 package co.touchlab.sessionize.sponsors
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.SponsorSessionModel
-import co.touchlab.sessionize.jsondata.SponsorGroup
-import com.nex3z.flowlayout.FlowLayout
-import com.squareup.picasso.Picasso
-
 
 class SponsorsFragment : Fragment() {
 
-    lateinit var adapter: SponsorGroupAdapter
-    lateinit var sponsorViewModel:SponsorViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sponsorViewModel = SponsorViewModel()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sponsor, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
+       /* val recyclerView = view.findViewById<RecyclerView>(R.id.recycler)
 
 
         sponsorViewModel.load({
@@ -52,10 +31,10 @@ class SponsorsFragment : Fragment() {
         adapter = SponsorGroupAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-
+*/
         return view
     }
-
+/*
     inner class SponsorGroupAdapter : RecyclerView.Adapter<SponsorGroupViewHolder>(){
         var sponsorGroupItems:List<SponsorGroup> = emptyList()
 
@@ -108,5 +87,5 @@ class SponsorsFragment : Fragment() {
     class SponsorGroupViewHolder(view:View):RecyclerView.ViewHolder(view){
         val groupName = view.findViewById<TextView>(R.id.groupName)
         val flowGroup = view.findViewById<FlowLayout>(R.id.flowGroup)
-    }
+    }*/
 }

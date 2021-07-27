@@ -1,19 +1,24 @@
 package co.touchlab.sessionize.feedback
 
+import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.FragmentManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import co.touchlab.droidcon.db.MyPastSession
 import co.touchlab.sessionize.FeedbackModel
-import co.touchlab.sessionize.ServiceRegistry
+import co.touchlab.sessionize.SoftExceptionCallback
 import co.touchlab.sessionize.api.FeedbackApi
-import co.touchlab.sessionize.platform.AndroidAppContext
-import co.touchlab.sessionize.platform.NotificationsModel.feedbackEnabled
+import co.touchlab.sessionize.platform.NotificationsModel
+import org.koin.core.component.KoinComponent
 
-class FeedbackManager : FeedbackApi {
+class FeedbackManager(
+    private val feedbackModel:FeedbackModel,
+    private val notificationsModel: NotificationsModel,
+    private val softExceptionCallback: SoftExceptionCallback,
+    private val context: Context
+    ) : FeedbackApi, KoinComponent {
 
     private var fragmentManager:FragmentManager? = null
-    private var feedbackModel:FeedbackModel = FeedbackModel()
     private var feedbackDialog:FeedbackDialog? = null
 
     fun setFragmentManager(fragmentManager: FragmentManager){
@@ -29,14 +34,14 @@ class FeedbackManager : FeedbackApi {
         try {
             feedbackDialog?.dismiss()
         } catch (e: Exception) {
-            ServiceRegistry.softExceptionCallback(e, "Failed closing FeedbackManager")
+            softExceptionCallback(e, "Failed closing FeedbackManager")
         }
         feedbackDialog = null
     }
 
     fun disableFeedback(){
-        feedbackEnabled = false
-        LocalBroadcastManager.getInstance(AndroidAppContext.app).sendBroadcast(Intent(FeedbackDisabledNotificationName))
+        notificationsModel.feedbackEnabled = false
+        LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(FeedbackDisabledNotificationName))
     }
 
     override fun generateFeedbackDialog(session: MyPastSession){
@@ -46,7 +51,7 @@ class FeedbackManager : FeedbackApi {
                 feedbackDialog?.showNow(it, "FeedbackDialog")
             }
         } catch (e: Exception) {
-            ServiceRegistry.softExceptionCallback(e, "Failed generating feedback dialog. Probably closing context.")
+            softExceptionCallback(e, "Failed generating feedback dialog. Probably closing context.")
         }
     }
 

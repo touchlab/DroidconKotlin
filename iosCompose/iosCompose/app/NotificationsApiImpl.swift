@@ -11,29 +11,28 @@ import shared
 import UserNotifications
 
 class NotificationsApiImpl : NSObject, NotificationsApi {
-
+    
     let reminderTag = "Reminder"
     let feedbackTag = "Feedback"
-
+    lazy var notificationModel = NotificationHelper().notificationModel
 
     func scheduleReminderNotificationsForSessions(sessions: [MySessions]) {
-        let notificationModel = NotificationsModel()
-        for session in sessions {
-            let title = notificationModel.getReminderNotificationTitle(session: session)
-            let message = notificationModel.getReminderNotificationMessage(session: session)
-            let time = notificationModel.getReminderTimeFromSession(session: session)
-            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(truncatingIfNeeded: session.id.hashValue), notificationTag: reminderTag)
-        }
+        
+//        for session in sessions {
+//            let title = notificationModel.getReminderNotificationTitle(session: session)
+//            let message = notificationModel.getReminderNotificationMessage(session: session)
+//            let time = notificationModel.getReminderTimeFromSession(session: session)
+//            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(truncatingIfNeeded: session.id.hashValue), notificationTag: reminderTag)
+//        }
     }
 
     func scheduleFeedbackNotificationsForSessions(sessions: [MySessions]) {
-        let notificationModel = NotificationsModel()
-        for session in sessions {
-            let title = notificationModel.getFeedbackNotificationTitle()
-            let message = notificationModel.getFeedbackNotificationMessage()
-            let time = notificationModel.getFeedbackTimeFromSession(session: session)
-            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(truncatingIfNeeded: session.id.hashValue), notificationTag: feedbackTag)
-        }
+//        for session in sessions {
+//            let title = notificationModel.getFeedbackNotificationTitle()
+//            let message = notificationModel.getFeedbackNotificationMessage()
+//            let time = notificationModel.getFeedbackTimeFromSession(session: session)
+//            scheduleLocalNotification(title: title, message: message, timeInMS: time, notificationId: Int32(truncatingIfNeeded: session.id.hashValue), notificationTag: feedbackTag)
+//        }
     }
 
     func cancelReminderNotifications(andDismissals: Bool) {
@@ -105,20 +104,20 @@ class NotificationsApiImpl : NSObject, NotificationsApi {
                 center.requestAuthorization(options: options) {
                     (granted, error) in
                     DispatchQueue.main.async {
-                        NotificationsModel().notificationsEnabled = granted
+                        self.notificationModel.notificationsEnabled = granted
 //                        NotificationsModel().setNotificationsEnabled(enabled: granted)
                         _ = onSuccess(KotlinBoolean.init(bool: granted))
                     }
                 }
             } else if settings.authorizationStatus == .denied {
                 DispatchQueue.main.async {
-                    NotificationsModel().notificationsEnabled = false
+                    self.notificationModel.notificationsEnabled = false
 //                    NotificationsModel().setNotificationsEnabled(enabled: false)
                     _ = onSuccess(false)
                 }
             } else if settings.authorizationStatus == .authorized {
                 DispatchQueue.main.async {
-                    NotificationsModel().notificationsEnabled = true
+                    self.notificationModel.notificationsEnabled = true
 //                    NotificationsModel().setNotificationsEnabled(enabled: true)
                     _ = onSuccess(true)
                 }

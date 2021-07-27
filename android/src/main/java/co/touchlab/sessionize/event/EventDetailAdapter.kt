@@ -1,6 +1,6 @@
 package co.touchlab.sessionize.event
 
-import android.app.Activity
+import android.content.Context
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +10,11 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.droidcon.db.UserAccount
-import co.touchlab.sessionize.NavigationHost
 import co.touchlab.sessionize.R
-import co.touchlab.sessionize.speaker.SpeakerFragment
 import com.squareup.picasso.Picasso
-import java.util.ArrayList
+import java.util.*
 
-class EventDetailAdapter(private val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EventDetailAdapter(private val activity: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var data = ArrayList<Detail>()
 

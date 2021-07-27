@@ -2,24 +2,25 @@ package co.touchlab.sessionize.api
 
 import co.touchlab.sessionize.BaseModel
 import co.touchlab.sessionize.Durations
-import co.touchlab.sessionize.ServiceRegistry
 import co.touchlab.sessionize.SettingsKeys
+import co.touchlab.sessionize.backgroundDispatcher
 import co.touchlab.sessionize.db.SessionizeDbHelper
-import co.touchlab.sessionize.platform.NotificationsModel.createNotifications
-import co.touchlab.sessionize.platform.NotificationsModel.notificationsEnabled
+import co.touchlab.sessionize.platform.NotificationsModel
 import co.touchlab.sessionize.platform.currentTimeMillis
-import co.touchlab.sessionize.platform.printThrowable
+import co.touchlab.sessionize.softExceptionCallback
+import com.russhwolf.settings.Settings
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
-import kotlin.native.concurrent.ThreadLocal
 
-
-@ThreadLocal
-object NetworkRepo {
-    fun dataCalls() = CoroutineScope(ServiceRegistry.coroutinesDispatcher).mainScope.launch {
+class NetworkRepo(
+    private val dbHelper: SessionizeDbHelper,
+    private val sessionizeApi: SessionizeApi,
+    private val appSettings: Settings,
+    private val notificationsModel: NotificationsModel
+): BaseModel() {
+    fun dataCalls() = mainScope.launch {
         try {
-            val api = ServiceRegistry.sessionizeApi
+            val api = sessionizeApi
             val networkSpeakerJson = api.getSpeakersJson()
             val networkSessionJson = api.getSessionsJson()
             val networkSponsorSessionJson =  api.getSponsorSessionJson()
@@ -28,38 +29,36 @@ object NetworkRepo {
 
             //If we do some kind of data re-load after a user logs in, we'll need to update this.
             //We assume for now that when the app first starts, you have nothing rsvp'd
-            if (notificationsEnabled) {
-                createNotifications()
+            if (notificationsModel.notificationsEnabled) {
+                notificationsModel.createNotifications()
             }
         } catch (e: Exception) {
-            printThrowable(e)
+            e.printStackTrace()
         }
     }
 
     internal suspend fun callPrimeAll(networkSpeakerJson:String,
                                       networkSessionJson:String,
                                       networkSponsorSessionJson:String
-                                      ) = withContext(ServiceRegistry.backgroundDispatcher){
-        SessionizeDbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorSessionJson)
-        ServiceRegistry.appSettings.putLong(SettingsKeys.KEY_LAST_LOAD, currentTimeMillis())
+                                      ) = withContext(backgroundDispatcher){
+        dbHelper.primeAll(networkSpeakerJson, networkSessionJson, networkSponsorSessionJson)
+        appSettings.putLong(SettingsKeys.KEY_LAST_LOAD, currentTimeMillis())
     }
 
     fun refreshData() {
-        if (!ServiceRegistry.appSettings.getBoolean(SettingsKeys.KEY_FIRST_RUN, true)) {
-            val lastLoad = ServiceRegistry.appSettings.getLong(SettingsKeys.KEY_LAST_LOAD)
+        if (!appSettings.getBoolean(SettingsKeys.KEY_FIRST_RUN, true)) {
+            val lastLoad = appSettings.getLong(SettingsKeys.KEY_LAST_LOAD)
             if (lastLoad < (currentTimeMillis() - (Durations.TWO_HOURS_MILLIS.toLong()))) {
                 dataCalls()
             }
         }
     }
 
-    fun sendFeedback() = CoroutineScope(ServiceRegistry.coroutinesDispatcher).mainScope.launch {
+    fun sendFeedback() = mainScope.launch {
         try {
-            SessionizeDbHelper.sendFeedback()
+            dbHelper.sendFeedback()
         } catch (e: Throwable) {
-            ServiceRegistry.softExceptionCallback(e, "Feedback Send Failed")
+            softExceptionCallback(e, "Feedback Send Failed")
         }
     }
-
-    private class CoroutineScope(mainContext: CoroutineContext) : BaseModel(mainContext)
 }
