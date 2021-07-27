@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">My Library</string>
-    <string name="notification_channel_name">ChannelName</string>
-    <string name="notification_channel_description">ChannelName</string>
-    <string name="notification_channel_id">ChannelID</string>
-    <string name="notification_action">NotificationAction</string>
-</resources>
