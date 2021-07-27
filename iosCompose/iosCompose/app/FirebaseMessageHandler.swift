@@ -41,7 +41,7 @@ class FirebaseMessageHandler: NSObject, UNUserNotificationCenterDelegate, Messag
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
 //        print("From: \(messaging.mes.messageID)")
 //                print("Message data payload: \(remoteMessage.appData)")
-                NetworkRepo().dataCalls()
+//                NetworkRepo().dataCalls()
     }
     
     

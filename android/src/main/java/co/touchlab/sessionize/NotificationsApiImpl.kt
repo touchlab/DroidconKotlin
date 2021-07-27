@@ -109,12 +109,12 @@ class NotificationsApiImpl(
         timeInMS: Long,
         notificationId: Int
     ) {
-        Log.i(
+        /*Log.i(
             TAG,
             "Creating   ${notificationIdToString(notificationId)} notification at ${
                 msTimeToString(timeInMS)
             }(${timeInMS}ms): $title - $message"
-        )
+        )*/
 
         // Building Notification
         val channelId = context.getString(R.string.notification_channel_id)
@@ -185,13 +185,13 @@ class NotificationsApiImpl(
         }
     }
 
-    override fun msTimeToString(time: Long): String {
+    /*override fun msTimeToString(time: Long): String {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = time
         calendar.timeZone = TimeZone.getTimeZone(timeZone)
         val format = SimpleDateFormat("MM/dd/YYYY, hh:mma")
         return format.format(calendar.time)
-    }
+    }*/
 
     companion object {
         val TAG: String = NotificationsApiImpl::class.java.simpleName

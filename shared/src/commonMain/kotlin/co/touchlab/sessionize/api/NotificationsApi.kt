@@ -17,5 +17,5 @@ interface NotificationsApi {
 
     fun deinitializeNotifications()
 
-    fun msTimeToString(time: Long): String
+//    fun msTimeToString(time: Long): String
 }

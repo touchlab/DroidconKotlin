@@ -14,18 +14,18 @@ class SponsorTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel : UITextView!
     
     var viewModel: SponsorSessionViewModel!
-    var sponsorSessionInfo: SponsorSessionInfo!
-    
-    func loadInfo(_ sponsorSessionInfo: SponsorSessionInfo,
-                  viewModel: SponsorSessionViewModel) {
-        
-        self.viewModel = viewModel
-        self.sponsorSessionInfo = sponsorSessionInfo
-        
-        descriptionLabel.text = sponsorSessionInfo.sessionDetail.replacingOccurrences(of: "/n/n", with: "/n")
-        
-        descriptionLabel.sizeToFit()
-    }
+//    var sponsorSessionInfo: SponsorSessionInfo!
+//
+//    func loadInfo(_ sponsorSessionInfo: SponsorSessionInfo,
+//                  viewModel: SponsorSessionViewModel) {
+//
+//        self.viewModel = viewModel
+//        self.sponsorSessionInfo = sponsorSessionInfo
+//
+//        descriptionLabel.text = sponsorSessionInfo.sessionDetail.replacingOccurrences(of: "/n/n", with: "/n")
+//
+//        descriptionLabel.sizeToFit()
+//    }
     
     func formatHTMLString(_ htmlString: String) -> NSAttributedString {
         let modifiedFont = NSString(format:"<span style=\"font: -apple-system-body; font-size: 12px\">%@</span>", htmlString) as String

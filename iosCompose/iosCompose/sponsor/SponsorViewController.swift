@@ -115,7 +115,7 @@ class SponsorViewController: MaterialAppBarUIViewController, UICollectionViewDat
         if(segue.identifier == "ShowSponsorDetail"){
             let sponsor = sender as? Sponsor
             if(sponsor != nil){
-                SponsorSessionModel().sponsor = sponsor
+//                SponsorSessionModel().sponsor = sponsor
             }
         }
     }

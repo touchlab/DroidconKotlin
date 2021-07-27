@@ -8,6 +8,9 @@ class SettingsModel(
         private val notificationsApi: NotificationsApi,
         private val notificationsModel: NotificationsModel) : BaseModel() {
 
+    fun getRemindersSettingEnabled():Boolean = notificationsModel.remindersEnabled
+    fun getFeedbackSettingEnabled():Boolean = notificationsModel.feedbackEnabled
+
     fun setRemindersSettingEnabled(enabled:Boolean) = mainScope.launch {
         notificationsModel.remindersEnabled = enabled
 

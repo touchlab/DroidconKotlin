@@ -59,7 +59,7 @@ class NotificationPublisher : BroadcastReceiver(), KoinComponent {
     }
 
     private fun dismissLocalNotification(notificationId: Int, withDelay: Long){
-        Log.i(TAG, "Dismissing ${NotificationsApiImpl.notificationIdToString(notificationId)} notification at ${notificationsApi.msTimeToString(withDelay)}(${withDelay}ms):")
+//        Log.i(TAG, "Dismissing ${NotificationsApiImpl.notificationIdToString(notificationId)} notification at ${notificationsApi.msTimeToString(withDelay)}(${withDelay}ms):")
         val context: Context = get()
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pendingIntent = NotificationsApiImpl.createPendingIntent(NotificationsApiImpl.notificationDismissId, actionId = notificationId, context = context)
