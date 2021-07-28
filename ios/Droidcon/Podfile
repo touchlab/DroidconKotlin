@@ -1,0 +1,9 @@
+use_frameworks!
+
+platform :ios, '14.0'
+
+install! 'cocoapods', :deterministic_uuids => false
+
+target 'Droidcon' do
+    pod 'DroidconKit', :path => '../'
+end

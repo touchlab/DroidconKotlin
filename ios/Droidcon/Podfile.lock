@@ -1,0 +1,16 @@
+PODS:
+  - DroidconKit (1.1)
+
+DEPENDENCIES:
+  - DroidconKit (from `../`)
+
+EXTERNAL SOURCES:
+  DroidconKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DroidconKit: d45a6e956cf14cf4d51f00542796ecffc41193dc
+
+PODFILE CHECKSUM: e023de7fe666343995d2199d09b7143712ed5c68
+
+COCOAPODS: 1.10.1
