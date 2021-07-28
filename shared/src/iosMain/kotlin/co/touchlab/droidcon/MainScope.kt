@@ -1,5 +1,6 @@
 package co.touchlab.droidcon
 
+import co.touchlab.droidcon.util.printThrowable
 import co.touchlab.kermit.Kermit
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope

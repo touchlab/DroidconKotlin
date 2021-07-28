@@ -1,9 +1,6 @@
 package co.touchlab.droidcon
 
-import co.touchlab.droidcon.ktor.DogApiImpl
-import co.touchlab.droidcon.ktor.KtorApi
-import co.touchlab.kermit.Kermit
-import kotlinx.coroutines.Dispatchers
+import co.touchlab.droidcon.db.DroidconDatabase
 import kotlinx.datetime.Clock
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -21,28 +18,10 @@ fun initKoin(appModule: Module): KoinApplication {
         )
     }
 
-    // Dummy initialization logic, making use of appModule declarations for demonstration purposes.
-    val koin = koinApplication.koin
-    val kermit = koin.get<Kermit> { parametersOf(null) }
-    val appInfo = koin.get<AppInfo>() // AppInfo is a Kotlin interface with separate Android and iOS implementations
-    kermit.v { "App Id ${appInfo.appId}" }
-
     return koinApplication
 }
 
 private val coreModule = module {
-    single {
-        DatabaseHelper(
-            get(),
-            getWith("DatabaseHelper"),
-            Dispatchers.Default
-        )
-    }
-    single<KtorApi> {
-        DogApiImpl(
-            getWith("DogApiImpl")
-        )
-    }
     single<Clock> {
         Clock.System
     }

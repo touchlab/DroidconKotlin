@@ -1,6 +1,7 @@
 package co.touchlab.droidcon
 
-import co.touchlab.droidcon.db.DroidconDb
+import co.touchlab.droidcon.db.DroidconDatabase
+import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.NSLogLogger
 import com.russhwolf.settings.AppleSettings
@@ -18,16 +19,14 @@ import platform.Foundation.NSUserDefaults
 
 fun initKoinIos(
     userDefaults: NSUserDefaults,
-    appInfo: AppInfo,
 ): KoinApplication = initKoin(
     module {
         single<Settings> { AppleSettings(userDefaults) }
-        single { appInfo }
     }
 )
 
 actual val platformModule = module {
-    single<SqlDriver> { NativeSqliteDriver(DroidconDb.Schema, "DroidconDb") }
+    single<SqlDriver> { SqlDelightDriverFactory().createDriver() }
 
     val baseKermit = Kermit(NSLogLogger()).withTag("Droidcon")
     factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }

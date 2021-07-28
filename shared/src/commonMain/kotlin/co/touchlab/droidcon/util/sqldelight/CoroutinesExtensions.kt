@@ -1,4 +1,5 @@
-package co.touchlab.droidcon.sqldelight
+
+package co.touchlab.droidcon.util.sqldelight
 
 import com.squareup.sqldelight.Transacter
 import com.squareup.sqldelight.TransactionWithoutReturn

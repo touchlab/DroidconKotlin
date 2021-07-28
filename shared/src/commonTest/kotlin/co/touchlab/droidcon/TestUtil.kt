@@ -11,11 +11,9 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 
-fun appStart(helper: DatabaseHelper, settings: Settings, ktorApi: KtorApi, log: Kermit, clock: Clock) {
+fun appStart(settings: Settings, log: Kermit, clock: Clock) {
     val coreModule = module {
-        single { helper }
         single { settings }
-        single { ktorApi }
         single { log }
         single { clock }
     }

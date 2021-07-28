@@ -95,18 +95,6 @@ kotlin {
         implementation(libs.ktor.client.okhttp)
     }
 
-    sourceSets["androidTest"].dependencies {
-
-//        implementation(Deps.KotlinTest.jvm)
-//        implementation(Deps.KotlinTest.junit)
-//        implementation(Deps.AndroidXTest.core)
-//        implementation(Deps.AndroidXTest.junit)
-//        implementation(Deps.AndroidXTest.runner)
-//        implementation(Deps.AndroidXTest.rules)
-//        implementation(Deps.Coroutines.test)
-//        implementation(Deps.robolectric)
-    }
-
     sourceSets["iosMain"].dependencies {
         implementation(libs.sqldelight.driver.ios)
         implementation(libs.ktor.client.ios)
@@ -114,7 +102,7 @@ kotlin {
 }
 
 sqldelight {
-    database("DroidconDb") {
+    database("DroidconDatabase") {
         packageName = "co.touchlab.droidcon.db"
     }
 }

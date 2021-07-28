@@ -104,6 +104,5 @@ dependencyResolutionManagement {
     }
 }
 
-
 include(":shared", ":android", ":ios")
 rootProject.name = "Droidcon"

@@ -13,13 +13,6 @@ xcuserdata/
 *.xcscmblueprint
 *.xccheckout
 
-## Xcode Patch
-*.xcodeproj/*
-!KaMPKitiOS.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
-/*.gcno
-
 ### Xcode Patch ###
 **/xcshareddata/WorkspaceSettings.xcsettings
 

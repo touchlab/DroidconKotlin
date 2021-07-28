@@ -13,8 +13,6 @@ class KoinTest : BaseTest() {
     fun checkAllModules() {
         initKoinIos(
             userDefaults = NSUserDefaults.standardUserDefaults,
-            appInfo = TestAppInfo,
-            doOnStartup = { }
         ).checkModules {
             create<Kermit> { parametersOf("TestTag") }
         }

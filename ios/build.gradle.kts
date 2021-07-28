@@ -18,8 +18,6 @@ kotlin {
         iosX64("ios")
     }
 
-    version = "1.0"
-
     sourceSets {
         all {
             languageSettings.apply {
@@ -27,31 +25,6 @@ kotlin {
                 useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
-    }
-
-    sourceSets["commonMain"].dependencies {
-
-
-//        implementation(Deps.SqlDelight.runtime)
-//        implementation(Deps.SqlDelight.coroutinesExtensions)
-//        implementation(Deps.Ktor.commonCore)
-//        implementation(Deps.Ktor.commonJson)
-//        implementation(Deps.Ktor.commonLogging)
-//        implementation(Deps.Coroutines.common)
-//        implementation(Deps.stately)
-//        implementation(Deps.multiplatformSettings)
-//        implementation(Deps.koinCore)
-//        implementation(Deps.Ktor.commonSerialization)
-//        implementation(Deps.kotlinxDateTime)
-//        api(Deps.kermit)
-    }
-
-    sourceSets["commonTest"].dependencies {
-//        implementation(Deps.multiplatformSettingsTest)
-//        implementation(Deps.KotlinTest.common)
-//        implementation(Deps.KotlinTest.annotations)
-//        implementation(Deps.koinTest)
-//        implementation(Deps.turbine)
     }
 
     sourceSets.matching { it.name.endsWith("Test") }
@@ -62,14 +35,6 @@ kotlin {
     sourceSets["iosMain"].dependencies {
         api(project(":shared"))
         api(libs.kermit)
-//        implementation(Deps.SqlDelight.driverIos)
-//        implementation(Deps.Ktor.ios)
-//
-//        implementation(libs.kotlinx.coroutines.core) {
-//            version {
-//                strictly(libs.versions.kotlinx.coroutines.get())
-//            }
-//        }
     }
 
     cocoapods {
@@ -82,11 +47,9 @@ kotlin {
     // Configure the framework which is generated internally by cocoapods plugin
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
-            isStatic = true
             linkerOpts.add("-lsqlite3")
             export(libs.kermit)
             export(project(":shared"))
-            transitiveExport = true
         }
     }
 }

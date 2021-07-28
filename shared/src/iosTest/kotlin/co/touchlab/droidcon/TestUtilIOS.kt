@@ -1,16 +1,16 @@
 package co.touchlab.droidcon
 
-import co.touchlab.droidcon.db.KaMPKitDb
+import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.sqliter.DatabaseConfiguration
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import com.squareup.sqldelight.drivers.native.wrapConnection
 
 internal actual fun testDbConnection(): SqlDriver {
-    val schema = KaMPKitDb.Schema
+    val schema = DroidconDatabase.Schema
     return NativeSqliteDriver(
         DatabaseConfiguration(
-            name = "kampkitdb",
+            name = "droidcon.db",
             version = schema.version,
             create = { connection ->
                 wrapConnection(connection) { schema.create(it) }
