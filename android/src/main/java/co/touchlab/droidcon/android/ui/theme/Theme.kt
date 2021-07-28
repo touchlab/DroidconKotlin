@@ -24,13 +24,16 @@ private val LightColorPalette = lightColors(
     primary = Colors.teal,
     primaryVariant = Colors.darkBlue,
     secondary = Colors.lightYellow,
-    surface = Color.White,
+    // color of the switch (checked)
+    secondaryVariant = Colors.lightYellow,
+    // color of the switch (unchecked)
+    surface = Colors.lightGrey220,
     background = Color.White,
     error = Colors.orange,
     onPrimary = Color.White,
     onSecondary = Color.Black,
     onSurface = Color.Black,
-    onBackground = Color.Black,
+    onBackground = Colors.darkGrey,
 )
 
 @Composable

@@ -19,20 +19,27 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.agenda.MyAgenda
 import co.touchlab.droidcon.android.ui.schedule.Schedule
+import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
 import co.touchlab.droidcon.android.ui.sponsors.Sponsors
 
-sealed class Tab(val route: String, @StringRes val titleRes: Int, @DrawableRes val image: Int) {
-    object Schedule: Tab("schedule", R.string.schedule_title, R.drawable.menu_schedule)
-    object MyAgenda: Tab("myAgenda", R.string.my_agenda_title, R.drawable.menu_my_agenda)
-    object Sponsors: Tab("sponsors", R.string.sponsors_title, R.drawable.menu_sponsor)
-    object Settings: Tab("settings", R.string.settings_title, R.drawable.menu_settings)
+sealed class MainTab(val route: String, @StringRes val titleRes: Int, @DrawableRes val image: Int) {
+    object Schedule: MainTab("schedule", R.string.schedule_title, R.drawable.menu_schedule)
+    object MyAgenda: MainTab("myAgenda", R.string.my_agenda_title, R.drawable.menu_my_agenda)
+    object Sponsors: MainTab("sponsors", R.string.sponsors_title, R.drawable.menu_sponsor)
+    object Settings: MainTab("settings", R.string.settings_title, R.drawable.menu_settings)
 }
 
-val tabs: List<Tab> = listOf(Tab.Schedule, Tab.MyAgenda, Tab.Sponsors, Tab.Settings)
+sealed class SettingsScreen(val route: String) {
+    object Main: SettingsScreen("settings/main")
+    object About: SettingsScreen("settings/about")
+}
+
+val tabs: List<MainTab> = listOf(MainTab.Schedule, MainTab.MyAgenda, MainTab.Sponsors, MainTab.Settings)
 
 @Composable
 fun Main() {
@@ -62,11 +69,17 @@ fun Main() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Tab.Schedule.route, Modifier.padding(innerPadding)) {
-            composable(Tab.Schedule.route) { Schedule(navController) }
-            composable(Tab.MyAgenda.route) { MyAgenda(navController) }
-            composable(Tab.Sponsors.route) { Sponsors(navController) }
-            composable(Tab.Settings.route) { Settings(navController) }
+        NavHost(navController, startDestination = MainTab.Schedule.route, Modifier.padding(innerPadding)) {
+            composable(MainTab.Schedule.route) { Schedule(navController) }
+
+            composable(MainTab.MyAgenda.route) { MyAgenda(navController) }
+
+            composable(MainTab.Sponsors.route) { Sponsors(navController) }
+
+            navigation(SettingsScreen.Main.route, MainTab.Settings.route) {
+                composable(SettingsScreen.Main.route) { Settings(navController) }
+                composable(SettingsScreen.About.route) { About(navController) }
+            }
         }
     }
 }
