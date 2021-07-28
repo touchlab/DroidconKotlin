@@ -56,6 +56,9 @@ fun Main() {
                         alwaysShowLabel = false,
                         selected = currentDestination?.hierarchy?.any { it.route == tab.route } == true,
                         onClick = {
+                            if (currentDestination?.hierarchy?.any { it.route == tab.route } == true) {
+                                return@BottomNavigationItem
+                            }
                             navController.navigate(tab.route) {
                                 popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true

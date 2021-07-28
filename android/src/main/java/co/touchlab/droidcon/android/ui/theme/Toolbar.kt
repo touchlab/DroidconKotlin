@@ -31,7 +31,7 @@ fun Toolbar(
             {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_chevron_left_24),
+                        painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
                         contentDescription = "Back",
                         // tint = Colors.pink
                     )
