@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Droidcon</string>
+
+    <string name="schedule_title">Schedule</string>
+    <string name="my_agenda_title">My Agenda</string>
+    <string name="sponsors_title">Sponsors</string>
+    <string name="settings_title">Settings</string>
 </resources>

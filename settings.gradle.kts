@@ -40,6 +40,7 @@ dependencyResolutionManagement {
             val sqldelightRef = version("sqldelight", sqldelightVersion)
             val composeRef = version("compose", "1.0.0-rc02")
             val composeActivityRef = version("composeActivity", "1.3.0-rc01")
+            val composeNavigationRef = version("composeNavigation", "2.4.0-alpha05")
             val coroutinesRef = version("kotlinx-coroutines", "1.5.0-native-mt")
             val datetimeRef = version("kotlinx-datetime", "0.2.1")
             val serializationRef = version("kotlinx-serialization", "1.2.1")
@@ -57,6 +58,7 @@ dependencyResolutionManagement {
             alias("androidx-compose-foundation").to("androidx.compose.foundation", "foundation").versionRef(composeRef)
             alias("androidx-compose-material").to("androidx.compose.material", "material").versionRef(composeRef)
             alias("androidx-compose-activity").to("androidx.activity", "activity-compose").versionRef(composeActivityRef)
+            alias("androidx-compose-navigation").to("androidx.navigation", "navigation-compose").versionRef(composeNavigationRef)
 
             alias("kotlinx-coroutines-core").to("org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutinesRef)
             alias("kotlinx-coroutines-android").to("org.jetbrains.kotlinx", "kotlinx-coroutines-android").versionRef(coroutinesRef)
@@ -92,6 +94,7 @@ dependencyResolutionManagement {
                 "androidx-compose-foundation",
                 "androidx-compose-material",
                 "androidx-compose-activity",
+                "androidx-compose-navigation",
             ))
             bundle("ktor-common", listOf(
                 "ktor-client-core",

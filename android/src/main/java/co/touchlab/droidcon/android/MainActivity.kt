@@ -3,7 +3,7 @@ package co.touchlab.droidcon.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.Text
+import co.touchlab.droidcon.android.ui.main.Main
 import co.touchlab.droidcon.android.ui.theme.DroidconTheme
 import co.touchlab.kermit.Kermit
 import org.koin.core.component.KoinComponent
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
         setContent {
             DroidconTheme {
-                Text(text = "Hello World")
+                Main()
             }
         }
     }
