@@ -10,6 +10,7 @@ object Colors {
     val skyBlue = Color(0xFF68d1fd)
     val orange = Color(0xFFf1582c)
 
+    val grey = Color(0xFF868686)
     val darkGrey = Color(0xFF333333)
     val lightGrey220 = Color(0xFFdcdcdc)
     val lightGrey222 = Color(0xFFDEDEDE)

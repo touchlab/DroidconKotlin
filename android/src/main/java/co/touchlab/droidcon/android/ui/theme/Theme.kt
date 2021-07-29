@@ -28,7 +28,7 @@ private val LightColorPalette = lightColors(
     secondaryVariant = Colors.lightYellow,
     // color of the switch (unchecked)
     surface = Colors.lightGrey220,
-    background = Color.White,
+    background = Colors.lightGrey250,
     error = Colors.orange,
     onPrimary = Color.White,
     onSecondary = Color.Black,

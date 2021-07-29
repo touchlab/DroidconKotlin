@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 
@@ -28,6 +29,7 @@ data class DaySchedule(
 )
 
 data class HourBlock(
+    val id: Long,
     var time: String,
     val description: String,
 )
@@ -36,15 +38,15 @@ val days: List<DaySchedule> = listOf(
     DaySchedule(
         "AUG 1",
         listOf(
-            HourBlock("8:00 AM", "Welcome party"),
-            HourBlock("9:00 AM", "First presentation\n\nCome learn something about Compose, it's fun!"),
+            HourBlock(0L, "8:00 AM", "Welcome party"),
+            HourBlock(1L, "9:00 AM", "First presentation\n\nCome learn something about Compose, it's fun!"),
         ),
     ),
     DaySchedule(
         "AUG 2",
         listOf(
-            HourBlock("8:00 AM", "Welcome party"),
-            HourBlock("11:00 PM", "Last presentation\n\nWe will say our heartfelt goodbyes..."),
+            HourBlock(2L, "8:00 AM", "Welcome party"),
+            HourBlock(3L, "11:00 PM", "Last presentation\n\nWe will say our heartfelt goodbyes..."),
         ),
     ),
 )
@@ -74,7 +76,9 @@ fun Schedule(navController: NavHostController) {
                 val daySchedule = days[selectedTabIndex]
                 items(daySchedule.hourBlocks) { hourBlock ->
                     Box(modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half)) {
-                        HourBlock(hourBlock)
+                        HourBlock(hourBlock) {
+                            navController.navigate(ScheduleScreen.EventDetail.createRoute(hourBlock.id))
+                        }
                     }
                 }
             }

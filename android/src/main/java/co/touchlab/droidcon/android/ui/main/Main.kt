@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.agenda.MyAgenda
+import co.touchlab.droidcon.android.ui.schedule.EventDetail
 import co.touchlab.droidcon.android.ui.schedule.Schedule
 import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
@@ -37,6 +38,14 @@ sealed class MainTab(val route: String, @StringRes val titleRes: Int, @DrawableR
 sealed class SettingsScreen(val route: String) {
     object Main: SettingsScreen("settings/main")
     object About: SettingsScreen("settings/about")
+}
+
+sealed class ScheduleScreen(val route: String) {
+    object Main: ScheduleScreen("schedule/main")
+    object EventDetail: ScheduleScreen("schedule/eventDetail-{eventId}") {
+
+        fun createRoute(eventId: Long) = "schedule/eventDetail-$eventId"
+    }
 }
 
 val tabs: List<MainTab> = listOf(MainTab.Schedule, MainTab.MyAgenda, MainTab.Sponsors, MainTab.Settings)
@@ -73,7 +82,14 @@ fun Main() {
         }
     ) { innerPadding ->
         NavHost(navController, startDestination = MainTab.Schedule.route, Modifier.padding(innerPadding)) {
-            composable(MainTab.Schedule.route) { Schedule(navController) }
+            navigation(ScheduleScreen.Main.route, MainTab.Schedule.route) {
+                composable(ScheduleScreen.Main.route) { Schedule(navController) }
+                composable(ScheduleScreen.EventDetail.route) { backStackEntry ->
+                    val eventId = backStackEntry.arguments?.getLong("eventId")
+                    requireNotNull(eventId) { "Parameter eventId not found." }
+                    EventDetail(navController, eventId)
+                }
+            }
 
             composable(MainTab.MyAgenda.route) { MyAgenda(navController) }
 
