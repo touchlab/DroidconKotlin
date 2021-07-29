@@ -1,7 +1,6 @@
 package co.touchlab.droidcon.domain.entity
 
 import co.touchlab.droidcon.domain.service.DateTimeService
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
 class Session(

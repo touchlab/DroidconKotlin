@@ -19,12 +19,12 @@ import co.touchlab.droidcon.android.ui.theme.Dimensions
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun HourBlock(hourBlock: HourBlock, hourBlockTapped: () -> Unit) {
+fun HourBlock(sessionsBlock: SessionsBlockViewModel, sessionTapped: (SessionViewModel) -> Unit) {
     Row(modifier = Modifier.fillMaxWidth()) {
         val hasEnded = false
         Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.End) {
             Text(
-                text = hourBlock.time,
+                text = sessionsBlock.time,
                 modifier = Modifier.padding(Dimensions.Padding.half),
                 textAlign = TextAlign.End,
             )
@@ -34,17 +34,22 @@ fun HourBlock(hourBlock: HourBlock, hourBlockTapped: () -> Unit) {
                 BadgeBox(
                     modifier = Modifier.padding(end = Dimensions.Padding.default, bottom = Dimensions.Padding.default),
                     backgroundColor = badgeColor,
-                ) {}
+                ) { }
             }
         }
-        val backgroundColor = if (hasEnded) Colors.lightGrey222 else Color.White
-        Card(
-            backgroundColor = backgroundColor,
-            modifier = Modifier.weight(3f),
-            onClick = hourBlockTapped,
-            elevation = 2.dp,
-        ) {
-            Text(text = hourBlock.description, modifier = Modifier.padding(Dimensions.Padding.half))
+        Column(modifier = Modifier.weight(3f)) {
+            sessionsBlock.sessions.forEach { session ->
+                val backgroundColor = if (hasEnded) Colors.lightGrey222 else Color.White
+                Card(
+                    backgroundColor = backgroundColor,
+                    onClick = {
+                        sessionTapped(session)
+                    },
+                    elevation = 2.dp,
+                ) {
+                    Text(text = "${session.title}\n${session.speakers}", modifier = Modifier.padding(Dimensions.Padding.half))
+                }
+            }
         }
     }
 }

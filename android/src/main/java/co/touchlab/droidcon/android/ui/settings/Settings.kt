@@ -13,39 +13,71 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.main.SettingsScreen
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
+import co.touchlab.droidcon.application.gateway.SettingsGateway
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+class SettingsViewModel(): ViewModel(), KoinComponent {
+
+    val isRemindersEnabled = MutableStateFlow(false)
+    val isFeedbackEnabled = MutableStateFlow(false)
+
+    private val settingsGateway by inject<SettingsGateway>()
+    private val scope = viewModelScope
+
+    init {
+        scope.launch {
+            settingsGateway.observeSettings()
+                .collect { settings ->
+                    isRemindersEnabled.value = settings.isRemindersEnabled
+                    isFeedbackEnabled.value = settings.isFeedbackEnabled
+                }
+        }
+
+        scope.launch {
+            isRemindersEnabled.collect(settingsGateway::setRemindersEnabled)
+        }
+
+        scope.launch {
+            isFeedbackEnabled.collect(settingsGateway::setFeedbackEnabled)
+        }
+    }
+}
 
 @Composable
 fun Settings(navController: NavHostController) {
+    val settings = viewModel<SettingsViewModel>()
     Scaffold(topBar = {
         Toolbar(titleRes = R.string.settings_title, navController = navController)
     }) {
         Column(modifier = Modifier.fillMaxSize()) {
-            val enableFeedback = remember { mutableStateOf(false) }
             IconTextSwitchRow(
                 iconRes = R.drawable.ic_baseline_feedback_24,
                 textRes = R.string.settings_enable_feedback_title,
-                checked = enableFeedback,
+                checked = settings.isFeedbackEnabled,
             )
 
-            val enableReminders = remember { mutableStateOf(false) }
             IconTextSwitchRow(
                 iconRes = R.drawable.ic_baseline_insert_invitation_24,
                 textRes = R.string.settings_enable_reminders_title,
-                checked = enableReminders,
+                checked = settings.isRemindersEnabled,
             )
 
             Row(
@@ -69,12 +101,12 @@ fun Settings(navController: NavHostController) {
 }
 
 @Composable
-private fun IconTextSwitchRow(@DrawableRes iconRes: Int, @StringRes textRes: Int, checked: MutableState<Boolean>) {
-    var isChecked by checked
+private fun IconTextSwitchRow(@DrawableRes iconRes: Int, @StringRes textRes: Int, checked: MutableStateFlow<Boolean>) {
+    val isChecked by checked.collectAsState()
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { isChecked = !isChecked },
+            .clickable { checked.value = !checked.value },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -89,7 +121,7 @@ private fun IconTextSwitchRow(@DrawableRes iconRes: Int, @StringRes textRes: Int
         Switch(
             modifier = Modifier.padding(Dimensions.Padding.default),
             checked = isChecked,
-            onCheckedChange = { isChecked = it },
+            onCheckedChange = { checked.value = it },
         )
     }
 }

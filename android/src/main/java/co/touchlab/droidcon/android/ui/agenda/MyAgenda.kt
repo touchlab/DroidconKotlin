@@ -1,17 +1,13 @@
 package co.touchlab.droidcon.android.ui.agenda
 
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.ui.theme.Toolbar
+import co.touchlab.droidcon.android.ui.schedule.AgendaViewModel
+import co.touchlab.droidcon.android.ui.schedule.SessionList
 
 @Composable
 fun MyAgenda(navController: NavHostController) {
-    Scaffold(topBar = {
-        Toolbar(titleRes = R.string.my_agenda_title, navController = navController)
-    }) {
-        Text("My Agenda body")
-    }
+    val agenda = viewModel<AgendaViewModel>()
+    SessionList(navController = navController, sessions = agenda)
 }

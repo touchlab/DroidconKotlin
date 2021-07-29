@@ -22,6 +22,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,15 +42,62 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
+import co.touchlab.droidcon.domain.composite.ScheduleItem
+import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.domain.gateway.SessionGateway
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+class SessionDetailViewModel(): ViewModel(), KoinComponent {
+
+    private val sessionGateway by inject<SessionGateway>()
+    private val scope = viewModelScope
+
+    private val scheduleItem = MutableStateFlow<ScheduleItem?>(null)
+
+    var id = MutableStateFlow<Session.Id?>(null)
+
+    val title = scheduleItem.map { it?.session?.title ?: "" }
+
+    init {
+        scope.launch {
+            id.map {
+                it?.let { sessionGateway.getScheduleItem(it) }
+            }.collect {
+                scheduleItem.value = it
+            }
+        }
+    }
+
+    class Factory(): ViewModelProvider.NewInstanceFactory() {
+
+        override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+            return super.create(modelClass)
+        }
+    }
+}
 
 @Composable
-fun EventDetail(navController: NavHostController, eventId: Long) {
+fun EventDetail(navController: NavHostController, sessionId: Session.Id) {
+    val sessionDetail = viewModel<SessionDetailViewModel>()
+    LaunchedEffect(sessionId) {
+        sessionDetail.id.value = sessionId
+    }
+
     Scaffold(
         topBar = { Toolbar(titleRes = R.string.schedule_event_detail_title, navController = navController, showBackButton = true) },
     ) { paddingValues ->
@@ -60,7 +109,8 @@ fun EventDetail(navController: NavHostController, eventId: Long) {
         ) {
             Box {
                 Column {
-                    Header()
+                    val title by sessionDetail.title.collectAsState("")
+                    Header(title)
                     Title()
                 }
                 var isEventAdded by remember { mutableStateOf(false) }
@@ -97,7 +147,7 @@ fun EventDetail(navController: NavHostController, eventId: Long) {
 }
 
 @Composable
-private fun Header() {
+private fun Header(title: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -106,7 +156,7 @@ private fun Header() {
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = "Event cool title that can be quite long",
+            text = title,
             style = MaterialTheme.typography.h4,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
