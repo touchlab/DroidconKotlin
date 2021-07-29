@@ -4,6 +4,7 @@
     <string name="schedule_title">Schedule</string>
     <string name="droidcon_title">Droidcon SF</string>
     <string name="schedule_event_detail_title">Session</string>
+    <string name="schedule_speaker_detail_title">Speaker</string>
 
     <string name="my_agenda_title">My Agenda</string>
 

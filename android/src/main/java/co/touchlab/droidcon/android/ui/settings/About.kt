@@ -2,7 +2,6 @@ package co.touchlab.droidcon.android.ui.settings
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,27 +12,17 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
+import co.touchlab.droidcon.android.ui.theme.Hyperlink
 import co.touchlab.droidcon.android.ui.theme.Toolbar
+import co.touchlab.droidcon.android.ui.theme.WebLinkText
 
 data class AboutInfo(val title: String, val detail: String, val webLink: WebLink?, @DrawableRes val imageRes: Int?)
 data class WebLink(val range: IntRange, val link: String)
@@ -89,54 +78,10 @@ private fun Section(aboutInfo: AboutInfo) {
                 ),
             )
 
-            val detail = buildAnnotatedString {
-                val linkStyle = SpanStyle(
-                    color = Colors.darkBlue,
-                    textDecoration = TextDecoration.Underline,
-                )
-                val normalStyle = SpanStyle()
-
-                aboutInfo.webLink?.let { webLink ->
-                    withStyle(normalStyle) {
-                        append(aboutInfo.detail.substring(0, webLink.range.first - 1))
-                    }
-                    withStyle(linkStyle) {
-                        append(aboutInfo.detail.substring(webLink.range))
-                        addStringAnnotation(
-                            tag = "URL",
-                            annotation = webLink.link,
-                            start = webLink.range.first,
-                            end = webLink.range.last,
-                        )
-                    }
-                    withStyle(style = normalStyle) {
-                        append(aboutInfo.detail.substring(webLink.range.last + 1))
-                    }
-                } ?: withStyle(normalStyle) {
-                    append(aboutInfo.detail)
-                }
-            }
-
-            var textLayoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
-            val uriHandler = LocalUriHandler.current
-            Text(
-                text = detail,
-                modifier = Modifier
-                    .padding(end = Dimensions.Padding.default)
-                    .pointerInput("key") {
-                        detectTapGestures { offsetPosition ->
-                            textLayoutResult?.let {
-                                val position = it.getOffsetForPosition(offsetPosition)
-                                detail
-                                    .getStringAnnotations(position, position)
-                                    .firstOrNull()
-                                    ?.let { result ->
-                                        uriHandler.openUri(result.item)
-                                    }
-                            }
-                        }
-                    },
-                onTextLayout = { textLayoutResult = it },
+            WebLinkText(
+                text = aboutInfo.detail,
+                links = aboutInfo.webLink?.let { listOf(Hyperlink(it.range, it.link)) } ?: emptyList(),
+                modifier = Modifier.padding(end = Dimensions.Padding.default),
             )
             if (aboutInfo.imageRes != null) {
                 Image(

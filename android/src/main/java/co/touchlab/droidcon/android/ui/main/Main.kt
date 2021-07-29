@@ -24,6 +24,7 @@ import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.agenda.MyAgenda
 import co.touchlab.droidcon.android.ui.schedule.EventDetail
 import co.touchlab.droidcon.android.ui.schedule.Schedule
+import co.touchlab.droidcon.android.ui.schedule.SpeakerDetail
 import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
 import co.touchlab.droidcon.android.ui.sponsors.Sponsors
@@ -45,6 +46,11 @@ sealed class ScheduleScreen(val route: String) {
     object EventDetail: ScheduleScreen("schedule/eventDetail-{eventId}") {
 
         fun createRoute(eventId: Long) = "schedule/eventDetail-$eventId"
+    }
+
+    object SpeakerDetail: ScheduleScreen("schedule/speakerDetail-{speakerId}") {
+
+        fun createRoute(speakerId: Long) = "schedule/speakerDetail-$speakerId"
     }
 }
 
@@ -88,6 +94,11 @@ fun Main() {
                     val eventId = backStackEntry.arguments?.getLong("eventId")
                     requireNotNull(eventId) { "Parameter eventId not found." }
                     EventDetail(navController, eventId)
+                }
+                composable(ScheduleScreen.SpeakerDetail.route) { backStackEntry ->
+                    val speakerId = backStackEntry.arguments?.getLong("speakerId")
+                    requireNotNull(speakerId) { "Parameter speakerId not found." }
+                    SpeakerDetail(navController, speakerId)
                 }
             }
 

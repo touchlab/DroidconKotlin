@@ -2,6 +2,7 @@ package co.touchlab.droidcon.android.ui.schedule
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,6 +42,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
@@ -86,7 +88,9 @@ fun EventDetail(navController: NavHostController, eventId: Long) {
                     "Fusce interdum ultrices vulputate. Vestibulum sagittis dui vel hendrerit ornare. Duis et consectetur nunc. Curabitur pharetra blandit est, quis aliquam ligula convallis et. Nullam a vulputate leo, vitae facilisis nibh. Mauris leo nunc, maximus vel vestibulum ut, suscipit vitae nisi. Nulla facilisi.",
                 ),
             ).forEach { speaker ->
-                Speaker(image = speaker.first, name = speaker.second, description = speaker.third)
+                Speaker(image = speaker.first, name = speaker.second, description = speaker.third) {
+                    navController.navigate(ScheduleScreen.SpeakerDetail.createRoute(25L))
+                }
             }
         }
     }
@@ -190,8 +194,10 @@ private fun Description() {
 }
 
 @Composable
-private fun Speaker(image: ImageBitmap, name: String, description: String) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+private fun Speaker(image: ImageBitmap, name: String, description: String, speakerTapped: () -> Unit) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .clickable { speakerTapped() }) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_background),
@@ -199,7 +205,7 @@ private fun Speaker(image: ImageBitmap, name: String, description: String) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .width(80.dp)
-                    .padding(horizontal = Dimensions.Padding.default)
+                    .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                     .clip(CircleShape)
                     .aspectRatio(1f),
             )
