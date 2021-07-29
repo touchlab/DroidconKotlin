@@ -1,0 +1,77 @@
+import kotlinx.datetime.Instant;
+
+CREATE TABLE sessionTable(
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    startsAt INTEGER AS Instant NOT NULL,
+    endsAt INTEGER AS Instant NOT NULL,
+    serviceSession INTEGER NOT NULL DEFAULT 0,
+    rsvp INTEGER NOT NULL DEFAULT 0,
+    roomId INTEGER,
+    feedbackRating INTEGER,
+    feedbackComment TEXT,
+    feedbackSent INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (roomId) REFERENCES roomTable(id)
+);
+
+insert:
+INSERT INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId)
+VALUES (?,?,?,?,?,?,?);
+
+update:
+UPDATE sessionTable SET title = ?, description = ?, startsAt = ?,
+endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?, feedbackRating = ?, feedbackComment = ?
+WHERE id = ?;
+
+deleteById:
+DELETE FROM sessionTable WHERE id = ?;
+
+allSessions:
+SELECT * FROM sessionTable;
+
+sessionById:
+SELECT * FROM sessionTable WHERE id = ?;
+
+mySessions:
+SELECT sessionTable.id, sessionTable.title, sessionTable.startsAt, sessionTable.endsAt, sessionTable.feedbackRating, roomTable.name AS roomName
+FROM sessionTable
+JOIN roomTable ON sessionTable.roomId = roomTable.id
+WHERE rsvp != 0 ORDER BY sessionTable.startsAt ASC;
+
+myPastSession:
+SELECT sessionTable.id, sessionTable.title, sessionTable.endsAt, sessionTable.feedbackRating
+FROM sessionTable
+WHERE rsvp != 0 AND sessionTable.feedbackRating IS NULL;
+
+userSessions:
+SELECT sessionTable.* FROM sessionTable
+JOIN sessionSpeakerTable ON sessionTable.id = sessionSpeakerTable.sessionId
+WHERE sessionSpeakerTable.speakerId = ?;
+
+updateRsvp:
+UPDATE sessionTable SET rsvp = ? WHERE id = ?;
+
+updateFeedBack:
+UPDATE sessionTable SET feedbackRating = ?, feedbackComment = ?, feedbackSent = 0 WHERE id = ?;
+
+updateFeedBackSent:
+UPDATE sessionTable SET feedbackSent = 1 WHERE id = ?;
+
+sessionFeedbackToSend:
+SELECT * FROM sessionTable WHERE feedbackRating IS NOT NULL AND feedbackSent = 0;
+
+--Special query for schedule view
+sessionWithRoom:
+SELECT
+    sessionTable.id, sessionTable.title, sessionTable.description, sessionTable.startsAt, sessionTable.endsAt,
+    sessionTable.serviceSession, sessionTable.rsvp, sessionTable.roomId, roomTable.name AS roomName,
+    speakers.allNames
+FROM sessionTable
+LEFT JOIN (
+    SELECT sessionId, group_concat(fullName, ', ') AS allNames
+    FROM sessionSpeakerTable
+    JOIN profileTable ON profileTable.id = sessionSpeakerTable.speakerId
+    GROUP BY sessionId
+) AS speakers ON speakers.sessionId = sessionTable.id
+JOIN roomTable ON sessionTable.roomId = roomTable.id;

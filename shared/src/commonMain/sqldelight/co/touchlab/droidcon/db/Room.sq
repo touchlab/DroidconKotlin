@@ -1,0 +1,19 @@
+CREATE TABLE roomTable(
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+upsert:
+INSERT OR REPLACE INTO roomTable(id, name) VALUES(?,?);
+
+selectAll:
+SELECT * FROM roomTable;
+
+selectById:
+SELECT * FROM roomTable WHERE id = ?;
+
+deleteById:
+DELETE FROM roomTable WHERE id = ?;
+
+existsById:
+SELECT count(1) FROM roomTable WHERE id = ?;

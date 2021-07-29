@@ -1,6 +1,8 @@
 package co.touchlab.droidcon
 
 import co.touchlab.droidcon.db.DroidconDatabase
+import co.touchlab.droidcon.db.SessionTable
+import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
 import kotlinx.datetime.Clock
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -22,6 +24,15 @@ fun initKoin(appModule: Module): KoinApplication {
 }
 
 private val coreModule = module {
+    single {
+        DroidconDatabase(
+            driver = get(),
+            sessionTableAdapter = SessionTable.Adapter(
+                startsAtAdapter = InstantSqlDelightAdapter,
+                endsAtAdapter = InstantSqlDelightAdapter,
+            ),
+        )
+    }
     single<Clock> {
         Clock.System
     }

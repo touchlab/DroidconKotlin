@@ -1,0 +1,18 @@
+CREATE TABLE sponsorRepresentativeTable(
+    sponsorId TEXT NOT NULL,
+    representativeId TEXT NOT NULL,
+    displayOrder INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (sponsorId, representativeId),
+    FOREIGN KEY (sponsorId) REFERENCES sponsorTable(id),
+    FOREIGN KEY (representativeId) REFERENCES profileTable(id)
+);
+
+insertUpdate:
+INSERT OR REPLACE INTO sponsorRepresentativeTable(sponsorId, representativeId, displayOrder)
+VALUES (?,?,?);
+
+selectBySponsorId:
+SELECT * FROM sponsorRepresentativeTable WHERE sponsorId = ?;
+
+deleteAll:
+DELETE FROM sponsorRepresentativeTable;

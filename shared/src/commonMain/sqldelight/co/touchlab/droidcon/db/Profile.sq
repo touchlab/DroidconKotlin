@@ -1,0 +1,37 @@
+CREATE TABLE profileTable(
+    id TEXT NOT NULL PRIMARY KEY,
+    fullName TEXT NOT NULL,
+    bio TEXT,
+    tagLine TEXT,
+    profilePicture TEXT,
+    twitter TEXT,
+    linkedIn TEXT,
+    website TEXT
+);
+
+insertUserAccount:
+INSERT OR REPLACE INTO profileTable(id, fullName, bio, tagLine, profilePicture, twitter, linkedIn, website)
+VALUES(?,?,?,?,?,?,?,?);
+
+selectById:
+SELECT *
+FROM profileTable
+WHERE id = ?;
+
+selectBySession:
+SELECT profileTable.*
+FROM profileTable
+JOIN sessionSpeakerTable ON sessionSpeakerTable.speakerId = id
+WHERE sessionSpeakerTable.sessionId = ?
+ORDER BY sessionSpeakerTable.displayOrder;
+
+selectBySponsor:
+SELECT profileTable.*
+FROM profileTable
+JOIN sponsorRepresentativeTable ON sponsorRepresentativeTable.representativeId = id
+WHERE sponsorRepresentativeTable.sponsorId = ?
+ORDER BY sponsorRepresentativeTable.displayOrder;
+
+selectAll:
+SELECT *
+FROM profileTable;

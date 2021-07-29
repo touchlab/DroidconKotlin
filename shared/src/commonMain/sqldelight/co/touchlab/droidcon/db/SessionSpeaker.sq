@@ -1,0 +1,18 @@
+CREATE TABLE sessionSpeakerTable(
+    sessionId TEXT NOT NULL,
+    speakerId TEXT NOT NULL,
+    displayOrder INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (sessionId, speakerId),
+    FOREIGN KEY (sessionId) REFERENCES sessionTable(id),
+    FOREIGN KEY (speakerId) REFERENCES profileTable(id)
+);
+
+insertUpdate:
+INSERT OR REPLACE INTO sessionSpeakerTable(sessionId, speakerId, displayOrder)
+VALUES (?,?,?);
+
+selectBySessionId:
+SELECT * FROM sessionSpeakerTable WHERE sessionId = ?;
+
+deleteAll:
+DELETE FROM sessionSpeakerTable;

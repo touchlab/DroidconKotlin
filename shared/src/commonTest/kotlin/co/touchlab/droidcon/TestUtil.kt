@@ -1,6 +1,5 @@
 package co.touchlab.droidcon
 
-import co.touchlab.droidcon.ktor.KtorApi
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
