@@ -2,7 +2,7 @@ package co.touchlab.droidcon.domain.entity
 
 import co.touchlab.droidcon.composite.Url
 
-// TODO: If sponsors are added,
+// TODO: Add sponsors if desired.
 class Profile(
     override val id: Id,
     val fullName: String,

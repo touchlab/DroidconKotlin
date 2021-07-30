@@ -1,8 +1,14 @@
 PODS:
   - DroidconKit (1.1)
+  - Kingfisher (6.3.0)
 
 DEPENDENCIES:
   - DroidconKit (from `../`)
+  - Kingfisher (~> 6.3.0)
+
+SPEC REPOS:
+  trunk:
+    - Kingfisher
 
 EXTERNAL SOURCES:
   DroidconKit:
@@ -10,7 +16,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DroidconKit: d45a6e956cf14cf4d51f00542796ecffc41193dc
+  Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
 
-PODFILE CHECKSUM: e023de7fe666343995d2199d09b7143712ed5c68
+PODFILE CHECKSUM: 701da89f5f3ac53b38d16da4ded7a4d3a9d0c0db
 
 COCOAPODS: 1.10.1

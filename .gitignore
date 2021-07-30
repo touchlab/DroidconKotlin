@@ -87,3 +87,6 @@ iosApp/iosApp/app/GoogleService-Info.plist
 iosApp/iosApp/GoogleService-Info.plist
 Pods/
 *.xcworkspace
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/dictionaries/matyas.xml

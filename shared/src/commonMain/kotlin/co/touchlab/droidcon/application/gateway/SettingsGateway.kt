@@ -9,6 +9,5 @@ interface SettingsGateway {
 
     suspend fun setFeedbackEnabled(enabled: Boolean)
 
-    suspend fun setSettingsEnabled(enabled: Boolean)
-
+    suspend fun setRemindersEnabled(enabled: Boolean)
 }

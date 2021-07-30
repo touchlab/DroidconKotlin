@@ -3,13 +3,30 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833220F26B0CF5600D79482 /* DroidconApp.swift */; };
 		40275E911EDC846356ECC704 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21650A71319A7F88D3721407 /* Pods_Droidcon.framework */; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
+		684FAA7426B2A4D400673AFF /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FAA7326B2A4D400673AFF /* ScheduleView.swift */; };
+		684FAA7726B2A4EA00673AFF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FAA7626B2A4E900673AFF /* SettingsView.swift */; };
+		684FAA7B26B2A55C00673AFF /* SessionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FAA7A26B2A55C00673AFF /* SessionListView.swift */; };
+		684FAA7E26B2A7B600673AFF /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FAA7D26B2A7B600673AFF /* RoundedCorners.swift */; };
+		684FAA8326B2B60300673AFF /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FAA8226B2B60300673AFF /* SessionDetailView.swift */; };
+		684FAA8626B2BD1300673AFF /* DaySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FAA8526B2BD1300673AFF /* DaySelectionView.swift */; };
+		684FAA8926B2C31800673AFF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684FAA8B26B2C31800673AFF /* Localizable.strings */; };
+		68971CA426B313EC004B2763 /* BaseViewModel+ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68971CA326B313EC004B2763 /* BaseViewModel+ObservableObject.swift */; };
+		689DD2F726B40A9400A9B009 /* SwitchingNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */; };
+		689DD2F926B40B3800A9B009 /* SessionBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD2F826B40B3800A9B009 /* SessionBlockView.swift */; };
+		689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD2FA26B40F1800A9B009 /* LazyView.swift */; };
+		689DD2FD26B40F8200A9B009 /* AssertionFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD2FC26B40F8200A9B009 /* AssertionFailureView.swift */; };
+		689DD30126B4279400A9B009 /* SpeakerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD30026B4279400A9B009 /* SpeakerDetailView.swift */; };
+		689DD30326B431C300A9B009 /* SpeakerListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD30226B431C300A9B009 /* SpeakerListItemView.swift */; };
+		689DD30526B438CA00A9B009 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD30426B438CA00A9B009 /* Avatar.swift */; };
+		689DD30826B4447B00A9B009 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD30726B4447B00A9B009 /* AboutView.swift */; };
+		68C86E9F26B31D6100008D15 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C86E9E26B31D6100008D15 /* LifecycleManager.swift */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
 		F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
@@ -18,18 +35,31 @@
 /* Begin PBXFileReference section */
 		123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
-		1DFCC00C8DAA719770A18D1A /* Pods-KaMPKitiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.release.xcconfig"; sourceTree = "<group>"; };
 		21650A71319A7F88D3721407 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A1ED6A4A2A53F5F75C58E5F /* Pods-KaMPKitiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.release.xcconfig"; sourceTree = "<group>"; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
 		6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
-		ED1F782AF3705197012D0C33 /* Pods-KaMPKitiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		684FAA7326B2A4D400673AFF /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		684FAA7626B2A4E900673AFF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		684FAA7A26B2A55C00673AFF /* SessionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListView.swift; sourceTree = "<group>"; };
+		684FAA7D26B2A7B600673AFF /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
+		684FAA8226B2B60300673AFF /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
+		684FAA8526B2BD1300673AFF /* DaySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectionView.swift; sourceTree = "<group>"; };
+		684FAA8A26B2C31800673AFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		68971CA326B313EC004B2763 /* BaseViewModel+ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseViewModel+ObservableObject.swift"; sourceTree = "<group>"; };
+		689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchingNavigationLink.swift; sourceTree = "<group>"; };
+		689DD2F826B40B3800A9B009 /* SessionBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBlockView.swift; sourceTree = "<group>"; };
+		689DD2FA26B40F1800A9B009 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
+		689DD2FC26B40F8200A9B009 /* AssertionFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionFailureView.swift; sourceTree = "<group>"; };
+		689DD30026B4279400A9B009 /* SpeakerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerDetailView.swift; sourceTree = "<group>"; };
+		689DD30226B431C300A9B009 /* SpeakerListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerListItemView.swift; sourceTree = "<group>"; };
+		689DD30426B438CA00A9B009 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		689DD30726B4447B00A9B009 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		68C86E9E26B31D6100008D15 /* LifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleManager.swift; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1465F0C23AA94BF0055F7C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1465F0E23AA94BF0055F7C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F9C259C83C689DF8F4602F38 /* Pods-KaMPKitiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,13 +82,76 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		684FAA7226B2A4B400673AFF /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				684FAA7326B2A4D400673AFF /* ScheduleView.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		684FAA7526B2A4E200673AFF /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				684FAA7626B2A4E900673AFF /* SettingsView.swift */,
+				689DD30726B4447B00A9B009 /* AboutView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		684FAA7826B2A51100673AFF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				684FAA7D26B2A7B600673AFF /* RoundedCorners.swift */,
+				689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */,
+				689DD2FC26B40F8200A9B009 /* AssertionFailureView.swift */,
+				68971CA326B313EC004B2763 /* BaseViewModel+ObservableObject.swift */,
+				689DD2FA26B40F1800A9B009 /* LazyView.swift */,
+				68C86E9E26B31D6100008D15 /* LifecycleManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		684FAA7926B2A55500673AFF /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				684FAA7A26B2A55C00673AFF /* SessionListView.swift */,
+				689DD2F826B40B3800A9B009 /* SessionBlockView.swift */,
+				684FAA8526B2BD1300673AFF /* DaySelectionView.swift */,
+				689DD30926B4467800A9B009 /* Detail */,
+			);
+			path = Sessions;
+			sourceTree = "<group>";
+		};
+		689DD30626B4392100A9B009 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				689DD30426B438CA00A9B009 /* Avatar.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		689DD30926B4467800A9B009 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				689DD30A26B4467D00A9B009 /* Speaker */,
+				684FAA8226B2B60300673AFF /* SessionDetailView.swift */,
+				689DD30226B431C300A9B009 /* SpeakerListItemView.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		689DD30A26B4467D00A9B009 /* Speaker */ = {
+			isa = PBXGroup;
+			children = (
+				689DD30026B4279400A9B009 /* SpeakerDetailView.swift */,
+			);
+			path = Speaker;
+			sourceTree = "<group>";
+		};
 		DF9BBECBCD175B90105DA8D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F9C259C83C689DF8F4602F38 /* Pods-KaMPKitiOS.debug.xcconfig */,
-				1DFCC00C8DAA719770A18D1A /* Pods-KaMPKitiOS.release.xcconfig */,
-				ED1F782AF3705197012D0C33 /* Pods-KaMPKitiOS.debug.xcconfig */,
-				2A1ED6A4A2A53F5F75C58E5F /* Pods-KaMPKitiOS.release.xcconfig */,
 				123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */,
 				6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */,
 			);
@@ -91,7 +184,13 @@
 				F1465F0923AA94BF0055F7C3 /* Assets.xcassets */,
 				F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */,
 				F1465F0E23AA94BF0055F7C3 /* Info.plist */,
+				684FAA8B26B2C31800673AFF /* Localizable.strings */,
 				1833220F26B0CF5600D79482 /* DroidconApp.swift */,
+				689DD30626B4392100A9B009 /* Common */,
+				684FAA7926B2A55500673AFF /* Sessions */,
+				684FAA7226B2A4B400673AFF /* Schedule */,
+				684FAA7526B2A4E200673AFF /* Settings */,
+				684FAA7826B2A51100673AFF /* Utils */,
 			);
 			path = Droidcon;
 			sourceTree = "<group>";
@@ -107,6 +206,7 @@
 				F1465EF923AA94BF0055F7C3 /* Sources */,
 				F1465EFA23AA94BF0055F7C3 /* Frameworks */,
 				F1465EFB23AA94BF0055F7C3 /* Resources */,
+				F6AA88266EBC1B414A6C4232 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -156,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */,
+				684FAA8926B2C31800673AFF /* Localizable.strings in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +286,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F6AA88266EBC1B414A6C4232 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -192,15 +310,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				684FAA8626B2BD1300673AFF /* DaySelectionView.swift in Sources */,
+				68C86E9F26B31D6100008D15 /* LifecycleManager.swift in Sources */,
+				689DD2F726B40A9400A9B009 /* SwitchingNavigationLink.swift in Sources */,
+				684FAA7B26B2A55C00673AFF /* SessionListView.swift in Sources */,
+				689DD2F926B40B3800A9B009 /* SessionBlockView.swift in Sources */,
+				684FAA7726B2A4EA00673AFF /* SettingsView.swift in Sources */,
+				689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */,
+				689DD30526B438CA00A9B009 /* Avatar.swift in Sources */,
 				1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */,
+				684FAA7426B2A4D400673AFF /* ScheduleView.swift in Sources */,
 				46B5284D249C5CF400A7725D /* Koin.swift in Sources */,
+				684FAA8326B2B60300673AFF /* SessionDetailView.swift in Sources */,
+				689DD30126B4279400A9B009 /* SpeakerDetailView.swift in Sources */,
+				689DD30326B431C300A9B009 /* SpeakerListItemView.swift in Sources */,
 				F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */,
+				68971CA426B313EC004B2763 /* BaseViewModel+ObservableObject.swift in Sources */,
+				689DD30826B4447B00A9B009 /* AboutView.swift in Sources */,
+				689DD2FD26B40F8200A9B009 /* AssertionFailureView.swift in Sources */,
+				684FAA7E26B2A7B600673AFF /* RoundedCorners.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		684FAA8B26B2C31800673AFF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				684FAA8A26B2C31800673AFF /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -341,7 +483,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H5LD3T2655;
+				DEVELOPMENT_TEAM = Z4J75M6GAC;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -371,7 +513,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H5LD3T2655;
+				DEVELOPMENT_TEAM = Z4J75M6GAC;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (

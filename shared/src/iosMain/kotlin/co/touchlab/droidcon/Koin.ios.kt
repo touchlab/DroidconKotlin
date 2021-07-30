@@ -15,14 +15,6 @@ import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
 
-fun initKoinIos(
-    userDefaults: NSUserDefaults,
-): KoinApplication = initKoin(
-    module {
-        single<Settings> { AppleSettings(userDefaults) }
-    }
-)
-
 actual val platformModule = module {
     single<SqlDriver> { SqlDelightDriverFactory().createDriver() }
 

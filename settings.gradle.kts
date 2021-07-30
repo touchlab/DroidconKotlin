@@ -48,6 +48,7 @@ dependencyResolutionManagement {
             val statelyRef = version("stately", "1.1.7")
             val ktorRef = version("ktor", "1.6.0")
             val multiplatformSettingsRef = version("multiplatformSettings", "0.7.7")
+            val hyperdriveRef = version("hyperdrive", "0.1.71")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
 
@@ -82,6 +83,8 @@ dependencyResolutionManagement {
 
             alias("multiplatformSettings-core").to("com.russhwolf", "multiplatform-settings").versionRef(multiplatformSettingsRef)
             alias("multiplatformSettings-test").to("com.russhwolf", "multiplatform-settings-test").versionRef(multiplatformSettingsRef)
+
+            alias("hyperdrive-multiplatformx-api").to("org.brightify.hyperdrive", "multiplatformx-api").versionRef(hyperdriveRef)
 
             bundle("androidx-compose", listOf(
                 "androidx-compose-ui-core",

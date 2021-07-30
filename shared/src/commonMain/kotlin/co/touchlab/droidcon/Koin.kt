@@ -3,7 +3,10 @@ package co.touchlab.droidcon
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.db.SessionTable
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
+import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -33,9 +36,11 @@ private val coreModule = module {
             ),
         )
     }
-    single<Clock> {
-        Clock.System
-    }
+
+    single<Clock> { Clock.System }
+    // TODO: Get this from the conference timezone.
+    single { TimeZone.currentSystemDefault() }
+    single<DateTimeService> { DefaultDateTimeService(get(), get()) }
 }
 
 internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {

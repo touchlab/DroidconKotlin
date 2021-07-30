@@ -9,6 +9,13 @@ plugins {
 
 version = "1.0"
 
+repositories {
+    maven("https://maven.pkg.jetbrains.space/brightify/p/brightify/brightify-releases") {
+        name = "brightify"
+        credentials(PasswordCredentials::class)
+    }
+}
+
 kotlin {
     // Revert to just ios() when gradle plugin can properly resolve it
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
@@ -35,6 +42,7 @@ kotlin {
     sourceSets["iosMain"].dependencies {
         api(project(":shared"))
         api(libs.kermit)
+        api(libs.hyperdrive.multiplatformx.api)
     }
 
     cocoapods {
@@ -49,6 +57,7 @@ kotlin {
         binaries.withType<Framework> {
             linkerOpts.add("-lsqlite3")
             export(libs.kermit)
+            export(libs.hyperdrive.multiplatformx.api)
             export(project(":shared"))
         }
     }
