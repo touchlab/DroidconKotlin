@@ -19,51 +19,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.main.SettingsScreen
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
-import co.touchlab.droidcon.application.gateway.SettingsGateway
+import co.touchlab.droidcon.android.viewModel.settings.SettingsViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-
-class SettingsViewModel(): ViewModel(), KoinComponent {
-
-    val isRemindersEnabled = MutableStateFlow(false)
-    val isFeedbackEnabled = MutableStateFlow(false)
-
-    private val settingsGateway by inject<SettingsGateway>()
-    private val scope = viewModelScope
-
-    init {
-        scope.launch {
-            settingsGateway.observeSettings()
-                .collect { settings ->
-                    isRemindersEnabled.value = settings.isRemindersEnabled
-                    isFeedbackEnabled.value = settings.isFeedbackEnabled
-                }
-        }
-
-        scope.launch {
-            isRemindersEnabled.collect(settingsGateway::setRemindersEnabled)
-        }
-
-        scope.launch {
-            isFeedbackEnabled.collect(settingsGateway::setFeedbackEnabled)
-        }
-    }
-}
 
 @Composable
 fun Settings(navController: NavHostController) {
     val settings = viewModel<SettingsViewModel>()
+
     Scaffold(topBar = {
         Toolbar(titleRes = R.string.settings_title, navController = navController)
     }) {
@@ -89,7 +57,7 @@ fun Settings(navController: NavHostController) {
                 Icon(
                     modifier = Modifier.padding(Dimensions.Padding.default),
                     painter = painterResource(id = R.drawable.menu_info),
-                    contentDescription = "About",
+                    contentDescription = stringResource(id = R.string.settings_about_title),
                 )
                 Text(
                     modifier = Modifier.padding(end = Dimensions.Padding.default),

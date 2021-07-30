@@ -24,13 +24,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
-
-data class Hyperlink(val range: IntRange, val link: String)
+import co.touchlab.droidcon.android.dto.WebLink
 
 @Composable
 fun WebLinkText(
     text: String,
-    links: List<Hyperlink>,
+    links: List<WebLink>,
     modifier: Modifier = Modifier,
     normalTextColor: Color = Color.Unspecified,
     fontSize: TextUnit = TextUnit.Unspecified,

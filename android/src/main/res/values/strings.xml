@@ -4,6 +4,14 @@
     <string name="schedule_title">Schedule</string>
     <string name="droidcon_title">Droidcon SF</string>
     <string name="schedule_event_detail_title">Session</string>
+    <string name="schedule_event_detail_status_future">This session hasn\'t started yet.</string>
+    <string name="schedule_event_detail_status_in_progress">This session is happening now.</string>
+    <string name="schedule_event_detail_status_past">This session has already ended.</string>
+    <string name="schedule_event_detail_status_conflict">This session conflicts with another session in your schedule.</string>
+    <string name="schedule_event_detail_is_attending_action_description">Do not attend</string>
+    <string name="schedule_event_detail_is_not_attending_action_description">Attend</string>
+    <string name="schedule_event_detail_info_description">Info</string>
+    <string name="schedule_event_detail_description_description">Description</string>
     <string name="schedule_speaker_detail_title">Speaker</string>
 
     <string name="my_agenda_title">My Agenda</string>

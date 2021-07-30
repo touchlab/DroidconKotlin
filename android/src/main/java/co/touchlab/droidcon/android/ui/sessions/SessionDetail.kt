@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.android.ui.schedule
+package co.touchlab.droidcon.android.ui.sessions
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,26 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
@@ -52,47 +43,13 @@ import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
-import co.touchlab.droidcon.domain.composite.ScheduleItem
+import co.touchlab.droidcon.android.viewModel.sessions.SessionDetailViewModel
+import co.touchlab.droidcon.android.viewModel.sessions.SpeakerViewModel
 import co.touchlab.droidcon.domain.entity.Session
-import co.touchlab.droidcon.domain.gateway.SessionGateway
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-
-class SessionDetailViewModel(): ViewModel(), KoinComponent {
-
-    private val sessionGateway by inject<SessionGateway>()
-    private val scope = viewModelScope
-
-    private val scheduleItem = MutableStateFlow<ScheduleItem?>(null)
-
-    var id = MutableStateFlow<Session.Id?>(null)
-
-    val title = scheduleItem.map { it?.session?.title ?: "" }
-
-    init {
-        scope.launch {
-            id.map {
-                it?.let { sessionGateway.getScheduleItem(it) }
-            }.collect {
-                scheduleItem.value = it
-            }
-        }
-    }
-
-    class Factory(): ViewModelProvider.NewInstanceFactory() {
-
-        override fun <T: ViewModel?> create(modelClass: Class<T>): T {
-            return super.create(modelClass)
-        }
-    }
-}
+import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
-fun EventDetail(navController: NavHostController, sessionId: Session.Id) {
+fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
     val sessionDetail = viewModel<SessionDetailViewModel>()
     LaunchedEffect(sessionId) {
         sessionDetail.id.value = sessionId
@@ -110,35 +67,39 @@ fun EventDetail(navController: NavHostController, sessionId: Session.Id) {
             Box {
                 Column {
                     val title by sessionDetail.title.collectAsState("")
-                    Header(title)
-                    Title()
+                    val locationInfo by sessionDetail.locationInfo.collectAsState("")
+                    Header(title, locationInfo)
+                    Title(title)
                 }
-                var isEventAdded by remember { mutableStateOf(false) }
-                FloatingActionButton(
-                    onClick = { isEventAdded = !isEventAdded },
-                    modifier = Modifier
-                        .padding(top = 136.dp, start = Dimensions.Padding.default)
-                        .size(44.dp),
-                ) {
-                    val iconRes = if (isEventAdded) R.drawable.ic_baseline_check_24 else R.drawable.ic_baseline_add_24
-                    Icon(painter = painterResource(id = iconRes), contentDescription = "Add")
+                val hasEnded by sessionDetail.hasEnded.collectAsState(true)
+                if (!hasEnded) {
+                    val isAttending by sessionDetail.isAttending.collectAsState(false)
+                    FloatingActionButton(
+                        onClick = { sessionDetail.toggleIsAttending(!isAttending) },
+                        modifier = Modifier
+                            .padding(top = 136.dp, start = Dimensions.Padding.default)
+                            .size(44.dp),
+                    ) {
+                        val iconRes = if (isAttending) R.drawable.ic_baseline_check_24 else R.drawable.ic_baseline_add_24
+                        val descriptionRes = if (isAttending) {
+                            R.string.schedule_event_detail_is_attending_action_description
+                        } else {
+                            R.string.schedule_event_detail_is_not_attending_action_description
+                        }
+                        Icon(painter = painterResource(id = iconRes), contentDescription = stringResource(id = descriptionRes))
+                    }
                 }
             }
-            Info()
-            Description()
-            listOf(
-                Triple(
-                    ImageBitmap.imageResource(id = R.drawable.about_kotlin),
-                    "John Doe",
-                    "Fusce interdum ultrices vulputate. Vestibulum sagittis dui vel hendrerit ornare. Duis et consectetur nunc. Curabitur pharetra blandit est, quis aliquam ligula convallis et. Nullam a vulputate leo, vitae facilisis nibh. Mauris leo nunc, maximus vel vestibulum ut, suscipit vitae nisi. Nulla facilisi.",
-                ),
-                Triple(
-                    ImageBitmap.imageResource(id = R.drawable.about_kotlin),
-                    "Janette Doe",
-                    "Fusce interdum ultrices vulputate. Vestibulum sagittis dui vel hendrerit ornare. Duis et consectetur nunc. Curabitur pharetra blandit est, quis aliquam ligula convallis et. Nullam a vulputate leo, vitae facilisis nibh. Mauris leo nunc, maximus vel vestibulum ut, suscipit vitae nisi. Nulla facilisi.",
-                ),
-            ).forEach { speaker ->
-                Speaker(image = speaker.first, name = speaker.second, description = speaker.third) {
+
+            val statusRes by sessionDetail.statusRes.collectAsState(null)
+            Info(statusRes?.let { stringResource(id = it) } ?: "")
+
+            val description by sessionDetail.description.collectAsState("")
+            Description(description)
+
+            val speakers by sessionDetail.speakers.collectAsState(emptyList())
+            speakers.forEach { speaker ->
+                Speaker(speaker) {
                     navController.navigate(ScheduleScreen.SpeakerDetail.createRoute(25L))
                 }
             }
@@ -147,7 +108,7 @@ fun EventDetail(navController: NavHostController, sessionId: Session.Id) {
 }
 
 @Composable
-private fun Header(title: String) {
+private fun Header(title: String, locationInfo: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -168,7 +129,7 @@ private fun Header(title: String) {
             ),
         )
         Text(
-            text = "Robertson 1, 9:20 - 11:00 AM",
+            text = locationInfo,
             color = Color.White,
             modifier = Modifier.padding(
                 start = Dimensions.Padding.double,
@@ -180,9 +141,9 @@ private fun Header(title: String) {
 }
 
 @Composable
-private fun Title() {
+private fun Title(title: String) {
     Text(
-        text = "Event cool title that can be quite long, not gonna lie",
+        text = title,
         modifier = Modifier.padding(
             start = 80.dp,
             end = Dimensions.Padding.default,
@@ -195,18 +156,18 @@ private fun Title() {
 }
 
 @Composable
-private fun Info() {
+private fun Info(status: String) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Icon(
             painter = painterResource(id = R.drawable.menu_info),
-            contentDescription = "Info",
+            contentDescription = stringResource(id = R.string.schedule_event_detail_info_description),
             modifier = Modifier
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
             tint = Color.Black,
         )
         Text(
-            text = "This session has already ended",
+            text = status,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Italic,
             modifier = Modifier.padding(
@@ -220,20 +181,17 @@ private fun Info() {
 }
 
 @Composable
-private fun Description() {
+private fun Description(description: String) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Icon(
             painter = painterResource(id = R.drawable.ic_description_black_24dp),
-            contentDescription = "Info",
+            contentDescription = stringResource(id = R.string.schedule_event_detail_description_description),
             modifier = Modifier
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
         )
         Text(
-            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada, nibh vel molestie fringilla, sapien neque " +
-                "iaculis dolor, in congue nisl neque at dolor. Maecenas tincidunt, odio tristique viverra auctor, magna risus posuere justo, " +
-                "ac aliquam neque augue non elit. In ut arcu et risus ullamcorper eleifend sed ac risus. Sed sit amet iaculis purus. " +
-                "Proin convallis congue viverra. Ut eu nulla eget lectus sagittis pulvinar a sed tortor. Maecenas sodales ex ut ornare tempor.",
+            text = description,
             modifier = Modifier.padding(
                 end = Dimensions.Padding.default,
                 top = Dimensions.Padding.half,
@@ -244,23 +202,27 @@ private fun Description() {
 }
 
 @Composable
-private fun Speaker(image: ImageBitmap, name: String, description: String, speakerTapped: () -> Unit) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .clickable { speakerTapped() }) {
+private fun Speaker(speaker: SpeakerViewModel, speakerTapped: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { speakerTapped() }
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
+            val painter = speaker.imageUrl?.string?.let { rememberCoilPainter(request = it) }
             Image(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_background),
-                contentDescription = name,
+                painter = painter ?: painterResource(id = R.drawable.ic_baseline_person_24),
+                contentDescription = speaker.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .width(80.dp)
                     .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                     .clip(CircleShape)
-                    .aspectRatio(1f),
+                    .aspectRatio(1f)
+                    .background(Colors.teal),
             )
             Text(
-                text = name,
+                text = speaker.title,
                 color = Colors.grey,
                 modifier = Modifier.padding(
                     end = Dimensions.Padding.default,
@@ -270,7 +232,7 @@ private fun Speaker(image: ImageBitmap, name: String, description: String, speak
             )
         }
         Text(
-            text = description,
+            text = speaker.bio ?: "",
             modifier = Modifier.padding(
                 start = 80.dp,
                 end = Dimensions.Padding.default,

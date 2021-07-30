@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.android.ui.schedule
+package co.touchlab.droidcon.android.ui.sessions
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -30,19 +30,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.dto.WebLink
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
-import co.touchlab.droidcon.android.ui.theme.Hyperlink
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.ui.theme.WebLinkText
-
-val speakerInfoList: List<Triple<Int, String, Boolean>> = listOf(
-    Triple(R.drawable.icon_company,
-        "Company text that can be pretty long, even few lines, what can you do, companies need nice presentations and a lot of space.",
-        false),
-    Triple(R.drawable.icon_website, "https://google.com", true),
-    Triple(R.drawable.icon_twitter, "https://twitter.com/adam.hurwitz", true),
-)
 
 @Composable
 fun SpeakerDetail(navController: NavHostController, speakerId: Long) {
@@ -56,9 +48,9 @@ fun SpeakerDetail(navController: NavHostController, speakerId: Long) {
                 .verticalScroll(scrollState),
         ) {
             Header()
-            speakerInfoList.forEach { speakerInfo ->
-                SpeakerInfo(iconRes = speakerInfo.first, text = speakerInfo.second, isLink = speakerInfo.third)
-            }
+            // speakerInfoList.forEach { speakerInfo ->
+            //     SpeakerInfo(iconRes = speakerInfo.first, text = speakerInfo.second, isLink = speakerInfo.third)
+            // }
         }
     }
 }
@@ -118,7 +110,7 @@ private fun SpeakerInfo(@DrawableRes iconRes: Int, text: String, isLink: Boolean
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
         )
-        val links = if (isLink) listOf(Hyperlink(IntRange(0, text.length - 1), text)) else emptyList()
+        val links = if (isLink) listOf(WebLink(IntRange(0, text.length - 1), text)) else emptyList()
         WebLinkText(
             text = text,
             links = links,

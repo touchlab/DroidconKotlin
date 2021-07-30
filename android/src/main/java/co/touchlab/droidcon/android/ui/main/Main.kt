@@ -22,9 +22,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.agenda.MyAgenda
-import co.touchlab.droidcon.android.ui.schedule.EventDetail
 import co.touchlab.droidcon.android.ui.schedule.Schedule
-import co.touchlab.droidcon.android.ui.schedule.SpeakerDetail
+import co.touchlab.droidcon.android.ui.sessions.SessionDetail
+import co.touchlab.droidcon.android.ui.sessions.SpeakerDetail
 import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
 import co.touchlab.droidcon.android.ui.sponsors.Sponsors
@@ -69,7 +69,6 @@ fun Main() {
                     BottomNavigationItem(
                         icon = { Icon(painterResource(id = tab.image), contentDescription = null) },
                         label = { Text(text = stringResource(id = tab.titleRes)) },
-                        alwaysShowLabel = false,
                         selected = currentDestination?.hierarchy?.any { it.route == tab.route } == true,
                         onClick = {
                             if (currentDestination?.hierarchy?.any { it.route == tab.route } == true) {
@@ -94,7 +93,7 @@ fun Main() {
                 composable(ScheduleScreen.EventDetail.route) { backStackEntry ->
                     val eventId = backStackEntry.arguments?.getString("eventId")
                     requireNotNull(eventId) { "Parameter eventId not found." }
-                    EventDetail(navController, Session.Id(eventId))
+                    SessionDetail(navController, Session.Id(eventId))
                 }
                 composable(ScheduleScreen.SpeakerDetail.route) { backStackEntry ->
                     val speakerId = backStackEntry.arguments?.getLong("speakerId")
