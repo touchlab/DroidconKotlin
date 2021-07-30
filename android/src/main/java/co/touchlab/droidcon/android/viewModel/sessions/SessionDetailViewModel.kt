@@ -3,7 +3,9 @@ package co.touchlab.droidcon.android.viewModel.sessions
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.dto.WebLink
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
+import co.touchlab.droidcon.android.service.ParseUrlViewService
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
@@ -33,13 +35,16 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
     private val sessionGateway by inject<SessionGateway>()
     private val roomRepository by inject<RoomRepository>()
     private val dateTimeFormatter by inject<DateTimeFormatterViewService>()
+    private val parseUrlViewService by inject<ParseUrlViewService>()
 
     private val scheduleItem = MutableStateFlow<ScheduleItem?>(null)
 
     var id = MutableStateFlow<Session.Id?>(null)
 
     val title: Flow<String> = scheduleItem.map { it?.session?.title ?: "" }
-    val description: Flow<String> = scheduleItem.map { it?.session?.description ?: "" }
+    val description: Flow<Pair<String, List<WebLink>>> = scheduleItem.map { scheduleItem ->
+        scheduleItem?.session?.description?.let { it to parseUrlViewService.parse(it) } ?: "" to emptyList()
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val room: Flow<Room> = scheduleItem.flatMapLatest { scheduleItem ->
@@ -75,12 +80,12 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
     val statusRes: Flow<Int> = scheduleItem.map {
         it?.session?.let { session ->
             when {
-                it.isInConflict -> R.string.schedule_event_detail_status_conflict
-                session.startsAt > now -> R.string.schedule_event_detail_status_future
-                session.endsAt < now -> R.string.schedule_event_detail_status_past
-                else -> R.string.schedule_event_detail_status_in_progress
+                it.isInConflict -> R.string.schedule_session_detail_status_conflict
+                session.startsAt > now -> R.string.schedule_session_detail_status_future
+                session.endsAt < now -> R.string.schedule_session_detail_status_past
+                else -> R.string.schedule_session_detail_status_in_progress
             }
-        } ?: R.string.schedule_event_detail_status_future
+        } ?: R.string.schedule_session_detail_status_future
     }
 
     val speakers: Flow<List<SpeakerViewModel>> = scheduleItem.map { it?.speakers?.map(::SpeakerViewModel) ?: emptyList() }
@@ -96,6 +101,6 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
     }
 
     fun toggleIsAttending(value: Boolean) {
-        // TODO
+        // TODO: Set to gateway.
     }
 }

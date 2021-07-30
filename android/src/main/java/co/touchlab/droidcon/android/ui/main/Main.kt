@@ -28,6 +28,7 @@ import co.touchlab.droidcon.android.ui.sessions.SpeakerDetail
 import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
 import co.touchlab.droidcon.android.ui.sponsors.Sponsors
+import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
 
 sealed class MainTab(val route: String, @StringRes val titleRes: Int, @DrawableRes val image: Int) {
@@ -44,14 +45,14 @@ sealed class SettingsScreen(val route: String) {
 
 sealed class ScheduleScreen(val route: String) {
     object Main: ScheduleScreen("schedule/main")
-    object EventDetail: ScheduleScreen("schedule/eventDetail-{eventId}") {
+    object SessionDetail: ScheduleScreen("schedule/sessionDetail-{sessionId}") {
 
-        fun createRoute(sessionId: Session.Id) = "schedule/eventDetail-${sessionId.value}"
+        fun createRoute(sessionId: Session.Id) = "schedule/sessionDetail-${sessionId.value}"
     }
 
     object SpeakerDetail: ScheduleScreen("schedule/speakerDetail-{speakerId}") {
 
-        fun createRoute(speakerId: Long) = "schedule/speakerDetail-$speakerId"
+        fun createRoute(speakerId: Profile.Id) = "schedule/speakerDetail-$speakerId"
     }
 }
 
@@ -90,15 +91,15 @@ fun Main() {
         NavHost(navController, startDestination = MainTab.Schedule.route, Modifier.padding(innerPadding)) {
             navigation(ScheduleScreen.Main.route, MainTab.Schedule.route) {
                 composable(ScheduleScreen.Main.route) { Schedule(navController) }
-                composable(ScheduleScreen.EventDetail.route) { backStackEntry ->
-                    val eventId = backStackEntry.arguments?.getString("eventId")
-                    requireNotNull(eventId) { "Parameter eventId not found." }
-                    SessionDetail(navController, Session.Id(eventId))
+                composable(ScheduleScreen.SessionDetail.route) { backStackEntry ->
+                    val sessionId = backStackEntry.arguments?.getString("sessionId")
+                    requireNotNull(sessionId) { "Parameter sessionId not found." }
+                    SessionDetail(navController, Session.Id(sessionId))
                 }
                 composable(ScheduleScreen.SpeakerDetail.route) { backStackEntry ->
-                    val speakerId = backStackEntry.arguments?.getLong("speakerId")
+                    val speakerId = backStackEntry.arguments?.getString("speakerId")
                     requireNotNull(speakerId) { "Parameter speakerId not found." }
-                    SpeakerDetail(navController, speakerId)
+                    SpeakerDetail(navController, Profile.Id(speakerId))
                 }
             }
 

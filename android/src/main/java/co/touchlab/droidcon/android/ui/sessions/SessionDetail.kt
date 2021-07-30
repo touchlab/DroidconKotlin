@@ -39,10 +39,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.dto.WebLink
 import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
+import co.touchlab.droidcon.android.ui.theme.WebLinkText
 import co.touchlab.droidcon.android.viewModel.sessions.SessionDetailViewModel
 import co.touchlab.droidcon.android.viewModel.sessions.SpeakerViewModel
 import co.touchlab.droidcon.domain.entity.Session
@@ -56,7 +58,7 @@ fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
     }
 
     Scaffold(
-        topBar = { Toolbar(titleRes = R.string.schedule_event_detail_title, navController = navController, showBackButton = true) },
+        topBar = { Toolbar(titleRes = R.string.schedule_session_detail_title, navController = navController, showBackButton = true) },
     ) { paddingValues ->
         val scrollState = rememberScrollState()
         Column(
@@ -82,9 +84,9 @@ fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
                     ) {
                         val iconRes = if (isAttending) R.drawable.ic_baseline_check_24 else R.drawable.ic_baseline_add_24
                         val descriptionRes = if (isAttending) {
-                            R.string.schedule_event_detail_is_attending_action_description
+                            R.string.schedule_session_detail_is_attending_action_description
                         } else {
-                            R.string.schedule_event_detail_is_not_attending_action_description
+                            R.string.schedule_session_detail_is_not_attending_action_description
                         }
                         Icon(painter = painterResource(id = iconRes), contentDescription = stringResource(id = descriptionRes))
                     }
@@ -94,13 +96,13 @@ fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
             val statusRes by sessionDetail.statusRes.collectAsState(null)
             Info(statusRes?.let { stringResource(id = it) } ?: "")
 
-            val description by sessionDetail.description.collectAsState("")
-            Description(description)
+            val description by sessionDetail.description.collectAsState("" to emptyList())
+            Description(description.first, description.second)
 
             val speakers by sessionDetail.speakers.collectAsState(emptyList())
             speakers.forEach { speaker ->
                 Speaker(speaker) {
-                    navController.navigate(ScheduleScreen.SpeakerDetail.createRoute(25L))
+                    navController.navigate(ScheduleScreen.SpeakerDetail.createRoute(speaker.id))
                 }
             }
         }
@@ -160,7 +162,7 @@ private fun Info(status: String) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Icon(
             painter = painterResource(id = R.drawable.menu_info),
-            contentDescription = stringResource(id = R.string.schedule_event_detail_info_description),
+            contentDescription = stringResource(id = R.string.schedule_session_detail_info_description),
             modifier = Modifier
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
@@ -181,17 +183,18 @@ private fun Info(status: String) {
 }
 
 @Composable
-private fun Description(description: String) {
+private fun Description(description: String, links: List<WebLink>) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Icon(
             painter = painterResource(id = R.drawable.ic_description_black_24dp),
-            contentDescription = stringResource(id = R.string.schedule_event_detail_description_description),
+            contentDescription = stringResource(id = R.string.schedule_session_detail_description_description),
             modifier = Modifier
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
         )
-        Text(
+        WebLinkText(
             text = description,
+            links = links,
             modifier = Modifier.padding(
                 end = Dimensions.Padding.default,
                 top = Dimensions.Padding.half,
@@ -231,8 +234,9 @@ private fun Speaker(speaker: SpeakerViewModel, speakerTapped: () -> Unit) {
                 ),
             )
         }
-        Text(
-            text = speaker.bio ?: "",
+        WebLinkText(
+            text = speaker.bio?.first ?: "",
+            links = speaker.bio?.second ?: emptyList(),
             modifier = Modifier.padding(
                 start = 80.dp,
                 end = Dimensions.Padding.default,

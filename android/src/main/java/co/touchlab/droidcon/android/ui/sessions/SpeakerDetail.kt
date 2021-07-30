@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.android.ui.sessions
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,26 +17,37 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.dto.WebLink
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.ui.theme.WebLinkText
+import co.touchlab.droidcon.android.viewModel.sessions.SpeakerDetailViewModel
+import co.touchlab.droidcon.composite.Url
+import co.touchlab.droidcon.domain.entity.Profile
+import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
-fun SpeakerDetail(navController: NavHostController, speakerId: Long) {
+fun SpeakerDetail(navController: NavHostController, speakerId: Profile.Id) {
+    val speakerDetail = viewModel<SpeakerDetailViewModel>()
+    LaunchedEffect(speakerId) {
+        speakerDetail.id.value = speakerId
+    }
+
     Scaffold(
         topBar = { Toolbar(titleRes = R.string.schedule_speaker_detail_title, navController = navController, showBackButton = true) },
     ) { paddingValues ->
@@ -47,16 +57,21 @@ fun SpeakerDetail(navController: NavHostController, speakerId: Long) {
                 .padding(paddingValues)
                 .verticalScroll(scrollState),
         ) {
-            Header()
-            // speakerInfoList.forEach { speakerInfo ->
-            //     SpeakerInfo(iconRes = speakerInfo.first, text = speakerInfo.second, isLink = speakerInfo.third)
-            // }
+            val name by speakerDetail.name.collectAsState("")
+            val tagLine by speakerDetail.tagLine.collectAsState("")
+            val imageUrl by speakerDetail.imageUrl.collectAsState(null)
+            Header(name, tagLine, imageUrl)
+
+            val infoList by speakerDetail.infoList.collectAsState(emptyList())
+            infoList.forEach { speakerInfo ->
+                SpeakerInfo(speakerInfo)
+            }
         }
     }
 }
 
 @Composable
-private fun Header() {
+private fun Header(name: String, tagLine: String, imageUrl: Url?) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -64,9 +79,10 @@ private fun Header() {
             .background(color = Colors.teal),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        val painter = imageUrl?.string?.let { rememberCoilPainter(request = it) }
         Image(
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_background),
-            contentDescription = "Adam Hurwitz",
+            painter = painter ?: painterResource(id = R.drawable.ic_baseline_person_24),
+            contentDescription = name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .width(120.dp)
@@ -78,7 +94,7 @@ private fun Header() {
             modifier = Modifier.weight(1f),
         ) {
             Text(
-                text = "Adam Hurwitz",
+                text = name,
                 style = MaterialTheme.typography.h4,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -89,7 +105,7 @@ private fun Header() {
                 ),
             )
             Text(
-                text = "Coinverse, Creator",
+                text = tagLine,
                 color = Color.White,
                 modifier = Modifier.padding(
                     end = Dimensions.Padding.double,
@@ -101,19 +117,18 @@ private fun Header() {
 }
 
 @Composable
-private fun SpeakerInfo(@DrawableRes iconRes: Int, text: String, isLink: Boolean) {
+private fun SpeakerInfo(info: SpeakerDetailViewModel.SpeakerInfo) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Icon(
-            painter = painterResource(id = iconRes),
-            contentDescription = "Info",
+            painter = painterResource(id = info.iconRes),
+            contentDescription = stringResource(id = R.string.schedule_speaker_detail_info_description),
             modifier = Modifier
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
         )
-        val links = if (isLink) listOf(WebLink(IntRange(0, text.length - 1), text)) else emptyList()
         WebLinkText(
-            text = text,
-            links = links,
+            text = info.text,
+            links = info.links,
             modifier = Modifier.padding(
                 end = Dimensions.Padding.default,
                 top = Dimensions.Padding.half,
