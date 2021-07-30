@@ -25,4 +25,13 @@
     <string name="settings_enable_feedback_title">Enable feedback</string>
     <string name="settings_enable_reminders_title">Enable reminders</string>
     <string name="settings_about_title">About</string>
+
+    <string name="feedback_title">What did you think of %s?</string>
+    <string name="feedback_opinion_placeholder">(Optional) Suggest improvements</string>
+    <string name="feedback_reaction_bad_description">Bad</string>
+    <string name="feedback_reaction_normal_description">Normal</string>
+    <string name="feedback_reaction_good_description">Good</string>
+    <string name="feedback_submit">Submit</string>
+    <string name="feedback_close_and_disable">Close and disable feedback</string>
+    <string name="feedback_skip">Skip feedback</string>
 </resources>

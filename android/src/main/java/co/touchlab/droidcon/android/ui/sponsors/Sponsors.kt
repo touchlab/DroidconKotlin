@@ -9,11 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.ui.feedback.Feedback
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 
 @Composable
 fun Sponsors(navController: NavHostController) {
+    Feedback()
+
     Scaffold(topBar = {
         Toolbar(titleRes = R.string.sponsors_title, navController = navController)
     }) {
