@@ -1,13 +1,11 @@
 package co.touchlab.droidcon
 
-import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.NSLogLogger
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import kotlinx.cinterop.ObjCClass
 import kotlinx.cinterop.getOriginalKotlinClass
 import org.koin.core.Koin

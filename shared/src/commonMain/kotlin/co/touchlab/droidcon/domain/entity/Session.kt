@@ -9,8 +9,7 @@ class Session(
     val startsAt: Instant,
     val endsAt: Instant,
     val isServiceSession: Boolean,
-    val room: Room.Id,
-    val speakers: List<Profile.Id>,
+    val room: Room.Id?,
     var isAttending: Boolean,
     var feedback: Feedback?,
 ): DomainEntity<Session.Id>() {

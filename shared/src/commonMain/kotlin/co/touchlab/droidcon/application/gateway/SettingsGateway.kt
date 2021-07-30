@@ -1,13 +1,11 @@
 package co.touchlab.droidcon.application.gateway
 
 import co.touchlab.droidcon.application.composite.Settings
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface SettingsGateway {
 
-    fun settings(): Settings
-
-    fun observeSettings(): Flow<Settings>
+    fun settings(): StateFlow<Settings>
 
     suspend fun setFeedbackEnabled(enabled: Boolean)
 

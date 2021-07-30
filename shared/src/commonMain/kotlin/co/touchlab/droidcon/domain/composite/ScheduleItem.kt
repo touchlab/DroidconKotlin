@@ -7,6 +7,6 @@ import co.touchlab.droidcon.domain.entity.Session
 data class ScheduleItem(
     val session: Session,
     val isInConflict: Boolean,
-    val room: Room,
+    val room: Room?,
     val speakers: List<Profile>,
 )
