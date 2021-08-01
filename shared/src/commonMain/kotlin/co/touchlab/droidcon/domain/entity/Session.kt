@@ -1,11 +1,14 @@
 package co.touchlab.droidcon.domain.entity
 
+import co.touchlab.droidcon.domain.service.DateTimeService
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
 class Session(
+    private val dateTimeService: DateTimeService,
     override val id: Id,
     val title: String,
-    val description: String,
+    val description: String?,
     val startsAt: Instant,
     val endsAt: Instant,
     val isServiceSession: Boolean,
@@ -13,6 +16,10 @@ class Session(
     var isAttending: Boolean,
     var feedback: Feedback?,
 ): DomainEntity<Session.Id>() {
+
+    val isAttendable: Boolean
+        get() = dateTimeService.now() < endsAt
+
     data class Id(val value: String)
 
     data class Feedback(

@@ -1,23 +1,27 @@
 package co.touchlab.droidcon.ios.viewmodel
 
 import co.touchlab.droidcon.domain.gateway.SessionGateway
+import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.datetime.TimeZone
 
 class AgendaViewModel(
     sessionGateway: SessionGateway,
     sessionDayFactory: SessionDayViewModel.Factory,
-    timeZone: TimeZone,
+    sessionDetailFactory: SessionDetailViewModel.Factory,
+    dateTimeService: DateTimeService,
 ): BaseSessionListViewModel(
     sessionGateway,
     sessionDayFactory,
-    timeZone,
+    sessionDetailFactory,
+    dateTimeService,
     attendingOnly = true,
 ) {
     class Factory(
         private val sessionGateway: SessionGateway,
         private val sessionDayFactory: SessionDayViewModel.Factory,
-        private val timeZone: TimeZone,
+        private val sessionDetailFactory: SessionDetailViewModel.Factory,
+        private val dateTimeService: DateTimeService,
     ) {
-        fun create() = AgendaViewModel(sessionGateway, sessionDayFactory, timeZone)
+        fun create() = AgendaViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, dateTimeService)
     }
 }

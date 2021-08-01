@@ -6,7 +6,11 @@ import kotlinx.coroutines.flow.Flow
 interface Repository<ID: Any, ENTITY: DomainEntity<ID>> {
     suspend fun get(id: ID): ENTITY
 
+    suspend fun find(id: ID): ENTITY?
+
     fun observe(id: ID): Flow<ENTITY>
+
+    fun observeOrNull(id: ID): Flow<ENTITY?>
 
     fun observe(entity: ENTITY): Flow<ENTITY>
 
@@ -21,4 +25,8 @@ interface Repository<ID: Any, ENTITY: DomainEntity<ID>> {
     suspend fun remove(id: ID): Boolean
 
     suspend fun update(entity: ENTITY)
+
+    suspend fun addOrUpdate(entity: ENTITY)
+
+    suspend fun contains(id: ID): Boolean
 }

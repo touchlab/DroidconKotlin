@@ -63,12 +63,14 @@ struct SessionDetailView: View {
                             .padding(.horizontal)
                         }
 
-                        label(
-                            Text(viewModel.abstract),
-                            image: Image(systemName: "doc.text")
-                        )
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
+                        if let abstract = viewModel.abstract {
+                            label(
+                                Text(abstract),
+                                image: Image(systemName: "doc.text")
+                            )
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal)
+                        }
 
                         VStack(spacing: 4) {
                             Section(header: VStack(spacing: 4) {

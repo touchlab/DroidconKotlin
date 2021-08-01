@@ -1,16 +1,16 @@
 package co.touchlab.droidcon.ios.viewmodel
 
 import co.touchlab.droidcon.domain.gateway.SessionGateway
+import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.domain.service.toConferenceDateTime
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 abstract class BaseSessionListViewModel(
     private val sessionGateway: SessionGateway,
     private val sessionDayFactory: SessionDayViewModel.Factory,
-    private val timeZone: TimeZone,
+    private val sessionDetailFactory: SessionDetailViewModel.Factory,
+    private val dateTimeService: DateTimeService,
     val attendingOnly: Boolean,
 ): BaseViewModel() {
 
@@ -19,24 +19,27 @@ abstract class BaseSessionListViewModel(
 
     var selectedDay: SessionDayViewModel? by managed(null)
 
+    var presentedSessionDetail: SessionDetailViewModel? by managed(null)
+
     override suspend fun whileAttached() {
         val itemsFlow = if (attendingOnly) {
             sessionGateway.observeAgenda()
         } else {
-            sessionGateway.observeAgenda()
+            sessionGateway.observeSchedule()
         }
 
         itemsFlow
             .collect { items ->
                 days = items
-                    .groupBy { it.session.startsAt.toLocalDateTime(timeZone).date }
+                    .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).date }
                     .map { (date, items) ->
-                        sessionDayFactory.create(date, items)
+                        sessionDayFactory.create(date, items) { item ->
+                            if (item.session.isServiceSession) { return@create }
+                            presentedSessionDetail = sessionDetailFactory.create(item)
+                        }
                     }
 
-                if (selectedDay == null) {
-                    selectedDay = days.firstOrNull()
-                }
+                selectedDay = days.firstOrNull { it.day == selectedDay?.day } ?: days.firstOrNull()
             }
     }
 }

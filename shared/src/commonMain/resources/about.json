@@ -1,0 +1,17 @@
+[
+  {
+    "icon": "about_touchlab",
+    "title": "About Touchlab",
+    "detail": "Touchlab Accelerates Mobile Innovation for Enterprise and Startups.\n\nGet in touch.\n\nhttp://touchlab.co"
+  },
+  {
+    "icon": "about_kotlin",
+    "title": "Droidcon App",
+    "detail": "The Droidcon app is a Kotlin Multiplatform app by the Touchlab team and some folks from the mobile development community.\n\nSee the repo and read more at:\nhttps://github.com/touchlab/DroidconKotlin."
+  },
+  {
+    "icon": "about_droidcon",
+    "title": "Droidcon",
+    "detail": "Droidcon conferences around the world support the Android platform and create a global network for developers and companies.\n\nWe offer best-in-class presentations from leaders in all parts of the Android ecosystem, including core development, embedded solutions, augmented reality, business solutions, and games."
+  }
+]

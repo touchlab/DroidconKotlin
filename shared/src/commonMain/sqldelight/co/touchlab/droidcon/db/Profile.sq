@@ -9,14 +9,18 @@ CREATE TABLE profileTable(
     website TEXT
 );
 
-insertUserAccount:
+upsert:
 INSERT OR REPLACE INTO profileTable(id, fullName, bio, tagLine, profilePicture, twitter, linkedIn, website)
 VALUES(?,?,?,?,?,?,?,?);
 
+delete:
+DELETE FROM profileTable WHERE id = ?;
+
 selectById:
-SELECT *
-FROM profileTable
-WHERE id = ?;
+SELECT * FROM profileTable WHERE id = ?;
+
+existsById:
+SELECT count(1) FROM profileTable WHERE id = ?;
 
 selectBySession:
 SELECT profileTable.*

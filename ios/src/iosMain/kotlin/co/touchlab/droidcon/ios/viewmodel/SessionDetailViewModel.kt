@@ -4,11 +4,10 @@ import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
-import kotlinx.coroutines.delay
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.InterfaceLock
+import org.brightify.hyperdrive.multiplatformx.property.identityEqualityPolicy
+import org.brightify.hyperdrive.multiplatformx.property.map
 
 // TODO: Make all properties observable when API is updated.
 class SessionDetailViewModel(
@@ -17,49 +16,54 @@ class SessionDetailViewModel(
     private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
     private val dateFormatter: DateFormatter,
     private val dateTimeService: DateTimeService,
-    private val timeZone: TimeZone,
-    item: ScheduleItem,
+    initialItem: ScheduleItem,
 ): BaseViewModel() {
-    val title = item.session.title
-    val info = listOfNotNull(
-        item.room?.name,
-        with(timeZone) {
-            dateFormatter.timeOnlyInterval(
-                item.session.startsAt.toLocalDateTime(),
-                item.session.endsAt.toLocalDateTime(),
-            )
-       },
-    ).joinToString()
+    private val item by collected(initialItem, sessionGateway.observeScheduleItem(initialItem.session.id), identityEqualityPolicy())
+    private val observeItem by observe(::item)
 
-    val state: SessionState? = dateTimeService.now().let { now ->
-        with(timeZone) {
+    val title by observeItem.map { it.session.title }
+    val info by observeItem.map {
+        listOfNotNull(
+            it.room?.name,
+            with(dateTimeService) {
+                dateFormatter.timeOnlyInterval(
+                    it.session.startsAt.toConferenceDateTime(),
+                    it.session.endsAt.toConferenceDateTime(),
+                )
+            },
+        ).joinToString()
+    }
+
+    // TODO: Do we want to observe current time and update the state continuously?
+    val state: SessionState? by observeItem.map {
+        dateTimeService.now().let { now ->
             when {
-                item.session.endsAt.toLocalDateTime() < now -> SessionState.Ended
-                item.session.startsAt.toLocalDateTime() < now -> SessionState.InProgress
-                item.isInConflict -> SessionState.InConflict
+                it.session.endsAt < now -> SessionState.Ended
+                it.session.startsAt < now -> SessionState.InProgress
+                it.isInConflict -> SessionState.InConflict
                 else -> null
             }
         }
     }
-    val abstract = item.session.description
+    val abstract by observeItem.map { it.session.description }
 
     val speakers: List<SpeakerListItemViewModel> by managedList(
-        item.speakers.map {
-            speakerListItemFactory.create(it, selected = {
-                presentedSpeakerDetail = speakerDetailFactory.create(it)
-            })
+        observeItem.map {
+            it.speakers.map { speaker ->
+                speakerListItemFactory.create(speaker, selected = {
+                    presentedSpeakerDetail = speakerDetailFactory.create(speaker)
+                })
+            }
         }
     )
 
-    var isAttending by published(item.session.isAttending)
-        private set
-    val isAttendingLoading by collected(instanceLock.observeState) { it == InterfaceLock.State.Running }
+    val isAttending by observeItem.map { it.session.isAttending }
+    val isAttendingLoading by instanceLock.observeIsLocked
 
     var presentedSpeakerDetail: SpeakerDetailViewModel? by managed(null)
 
     fun attendingTapped() = instanceLock.runExclusively {
-        delay(1_000)
-        isAttending = !isAttending
+        sessionGateway.setAttending(item.session, attending = !isAttending)
     }
 
     enum class SessionState {
@@ -72,7 +76,6 @@ class SessionDetailViewModel(
         private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
         private val dateFormatter: DateFormatter,
         private val dateTimeService: DateTimeService,
-        private val timeZone: TimeZone,
     ) {
         fun create(
             item: ScheduleItem,
@@ -82,7 +85,6 @@ class SessionDetailViewModel(
             speakerDetailFactory,
             dateFormatter,
             dateTimeService,
-            timeZone,
             item,
         )
     }

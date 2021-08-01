@@ -4,6 +4,6 @@ import co.touchlab.droidcon.domain.entity.Session
 
 interface ScheduleService {
 
-    fun isInConflict(session: Session): Boolean
+    suspend fun isInConflict(session: Session): Boolean
 
 }

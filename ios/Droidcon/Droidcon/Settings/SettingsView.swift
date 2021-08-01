@@ -44,6 +44,7 @@ struct SettingsView: View {
             .navigationTitle("Settings.Title")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

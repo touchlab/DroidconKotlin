@@ -9,12 +9,6 @@ struct SessionBlockView: View {
 
     var body: some View {
         ZStack {
-            SwitchingNavigationLink(
-                selection: $viewModel.presentedSessionDetail,
-                isActive: { $0 },
-                content: SessionDetailView.init(viewModel:)
-            )
-
             HStack(alignment: .top) {
                 Text(viewModel.time)
                     .lineLimit(1)
@@ -47,7 +41,7 @@ struct SessionBlockView: View {
                                     Text("by \(session.speakers)")
                                         .font(.subheadline)
                                         .multilineTextAlignment(.leading)
-                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding([.horizontal, .top], 8)
                                         .padding(.bottom, 4)
                                 }

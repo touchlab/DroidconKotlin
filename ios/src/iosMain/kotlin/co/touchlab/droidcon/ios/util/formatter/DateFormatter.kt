@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ios.util.formatter
 
+import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -15,13 +16,12 @@ import platform.Foundation.NSLocale
 import platform.Foundation.currentLocale
 
 class DateFormatter(
-    timeZoner: TimeZone,
+    dateTimeService: DateTimeService,
 ) {
     private val monthWithDay: NSDateFormatter by lazy {
         NSDateFormatter().also {
             val dateTemplate = "MMM d"
             it.dateFormat = NSDateFormatter.dateFormatFromTemplate(dateTemplate, 0, NSLocale.currentLocale)!!
-            it.timeZone = timeZoner.toNSTimeZone()
         }
     }
 
@@ -29,7 +29,6 @@ class DateFormatter(
         NSDateFormatter().also {
             it.dateStyle = NSDateFormatterNoStyle
             it.timeStyle = NSDateFormatterShortStyle
-            it.timeZone = timeZoner.toNSTimeZone()
         }
     }
 
@@ -37,7 +36,6 @@ class DateFormatter(
         NSDateFormatter().also {
             val dateTemplate = "hh:mm"
             it.dateFormat = NSDateFormatter.dateFormatFromTemplate(dateTemplate, 0, NSLocale.currentLocale)!!
-            it.timeZone = timeZoner.toNSTimeZone()
         }
     }
 

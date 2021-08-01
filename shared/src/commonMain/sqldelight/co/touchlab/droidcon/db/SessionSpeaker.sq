@@ -14,5 +14,9 @@ VALUES (?,?,?);
 selectBySessionId:
 SELECT * FROM sessionSpeakerTable WHERE sessionId = ?;
 
+deleteBySessionId:
+DELETE FROM sessionSpeakerTable WHERE sessionId = ?;
+
 deleteAll:
 DELETE FROM sessionSpeakerTable;
+

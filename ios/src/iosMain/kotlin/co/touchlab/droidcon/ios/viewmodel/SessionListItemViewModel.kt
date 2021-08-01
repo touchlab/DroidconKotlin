@@ -22,6 +22,9 @@ class SessionListItemViewModel(
         private val dateTimeService: DateTimeService,
         private val clock: Clock,
     ) {
-        fun create(item: ScheduleItem, selected: () -> Unit) = SessionListItemViewModel(dateTimeService, clock, item, selected)
+        fun create(
+            item: ScheduleItem,
+            selected: () -> Unit,
+        ) = SessionListItemViewModel(dateTimeService, clock, item, selected)
     }
 }

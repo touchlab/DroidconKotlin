@@ -30,8 +30,16 @@ struct ScheduleView: View {
                         .navigationBarTitleDisplayMode(.inline)
                     }
                 }
+
+
+                SwitchingNavigationLink(
+                    selection: $viewModel.presentedSessionDetail,
+                    isActive: { $0 },
+                    content: SessionDetailView.init(viewModel:)
+                )
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

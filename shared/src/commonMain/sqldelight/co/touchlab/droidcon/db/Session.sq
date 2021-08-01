@@ -3,32 +3,33 @@ import kotlinx.datetime.Instant;
 CREATE TABLE sessionTable(
     id TEXT NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
-    description TEXT NOT NULL,
+    description TEXT,
     startsAt INTEGER AS Instant NOT NULL,
     endsAt INTEGER AS Instant NOT NULL,
     serviceSession INTEGER NOT NULL DEFAULT 0,
     rsvp INTEGER NOT NULL DEFAULT 0,
     roomId INTEGER,
-    feedbackRating INTEGER,
+    feedbackRating INTEGER AS Int,
     feedbackComment TEXT,
     feedbackSent INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (roomId) REFERENCES roomTable(id)
 );
 
-insert:
-INSERT INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId)
+upsert:
+INSERT OR REPLACE INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId)
 VALUES (?,?,?,?,?,?,?);
-
-update:
-UPDATE sessionTable SET title = ?, description = ?, startsAt = ?,
-endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?, feedbackRating = ?, feedbackComment = ?
-WHERE id = ?;
 
 deleteById:
 DELETE FROM sessionTable WHERE id = ?;
 
 allSessions:
-SELECT * FROM sessionTable;
+SELECT * FROM sessionTable ORDER BY sessionTable.startsAt ASC;
+
+attendingSessions:
+SELECT * FROM sessionTable WHERE rsvp != 0 ORDER BY sessionTable.startsAt ASC;
+
+existsById:
+SELECT count(1) FROM sessionTable WHERE id = ?;
 
 sessionById:
 SELECT * FROM sessionTable WHERE id = ?;

@@ -48,7 +48,7 @@ dependencyResolutionManagement {
             val statelyRef = version("stately", "1.1.7")
             val ktorRef = version("ktor", "1.6.0")
             val multiplatformSettingsRef = version("multiplatformSettings", "0.7.7")
-            val hyperdriveRef = version("hyperdrive", "0.1.71")
+            val hyperdriveRef = version("hyperdrive", "0.1.74")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
 
