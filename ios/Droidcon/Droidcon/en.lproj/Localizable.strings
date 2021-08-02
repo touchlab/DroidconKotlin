@@ -1,8 +1,8 @@
 "Schedule.Title" = "Schedule";
 "Schedule.TabItem.Title" = "Schedule";
 
-"Agenda.Title" = "Schedule";
-"Agenda.TabItem.Title" = "Schedule";
+"Agenda.Title" = "Agenda";
+"Agenda.TabItem.Title" = "Agenda";
 
 "Session.Detail.Title" = "Session";
 "Session.Detail.State.InProgress" = "This session is happening now.";
@@ -10,8 +10,8 @@
 "Session.Detail.State.Conflict" = "This session conflicts with another session in your schedule.";
 "Session.Detail.Speakers" = "Speakers";
 
-"Settings.Title" = "Schedule";
-"Settings.TabItem.Title" = "Schedule";
+"Settings.Title" = "Settings";
+"Settings.TabItem.Title" = "Settings";
 "Settings.Feedback" = "Enable feedback";
 "Settings.Reminders" = "Enable reminders";
 "Settings.About" = "About";
