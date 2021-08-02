@@ -13,11 +13,23 @@ import co.touchlab.droidcon.domain.service.fromConferenceDateTime
 import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
+import co.touchlab.droidcon.util.sqldelight.transactionWithContext
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
+import com.squareup.sqldelight.Transacter
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.minus
+import kotlinx.datetime.plus
+import kotlin.coroutines.coroutineContext
+
 
 @OptIn(ExperimentalSettingsApi::class)
 class SessionizeSyncService(
@@ -30,7 +42,19 @@ class SessionizeSyncService(
     private val apiDataSource: DataSource,
 ): SyncService {
     private companion object {
+        // MARK: Settings keys
         private const val LOCAL_REPOSITORIES_SEEDED_KEY = "LOCAL_REPOSITORIES_SEEDED"
+        private const val LAST_SESSIONIZE_SYNC_KEY = "LAST_SESSIONIZE_SYNC_TIME"
+
+        // MARK: Delays
+        // 5 minutes
+        private const val SESSIONIZE_SYNC_POLL_DELAY: Long = 300_000
+        // 2 hours
+        private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 7_200_000
+        // 5 minutes
+        private const val RSVP_SYNC_DELAY: Long = 300_000
+        // 5 minutes
+        private const val FEEDBACK_SYNC_DELAY: Long = 300_000
     }
 
     private var isLocalRepositoriesSeeded: Boolean
@@ -39,14 +63,45 @@ class SessionizeSyncService(
             settings[LOCAL_REPOSITORIES_SEEDED_KEY] = value
         }
 
+    private var lastSessionizeSync: Instant?
+        get() = settings.get<Long>(LAST_SESSIONIZE_SYNC_KEY)?.let { Instant.fromEpochMilliseconds(it) }
+        set(value) {
+            settings[LAST_SESSIONIZE_SYNC_KEY] = value?.toEpochMilliseconds()
+        }
+
     override suspend fun runSynchronization() {
         seedLocalRepositoriesIfNeeded()
 
-        // TODO: Keep local database synchronized with Sessionize.
+        coroutineScope {
+            launch {
+                while (isActive) {
+                    val lastSessionizeSync = lastSessionizeSync
+                    // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
+                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(2, DateTimeUnit.HOUR)) {
+                        updateRepositoriesFromDataSource(apiDataSource)
+                        this@SessionizeSyncService.lastSessionizeSync = dateTimeService.now()
+                        delay(SESSIONIZE_SYNC_NEXT_DELAY)
+                    } else {
+                        // The sync didn't happen, so we'll try again in a short while.
+                        delay(SESSIONIZE_SYNC_POLL_DELAY)
+                    }
+                }
+            }
 
-        // TODO: Send RSVP to a remote server.
+            launch {
+                while (isActive) {
+                    // TODO: Send RSVPs to a remote server.
+                    delay(RSVP_SYNC_DELAY)
+                }
+            }
 
-        // TODO: Send Feedback to a remote server.
+            launch {
+                while (isActive) {
+                    // TODO: Send Feedbacks to a remote server.
+                    delay(FEEDBACK_SYNC_DELAY)
+                }
+            }
+        }
     }
 
     private suspend fun seedLocalRepositoriesIfNeeded() {
@@ -67,6 +122,14 @@ class SessionizeSyncService(
     private suspend fun updateSpeakersFromDataSource(dataSource: DataSource) {
         val speakerDtos = dataSource.getSpeakers()
         val profiles = speakerDtos.map(::profileFactory)
+
+        // Remove deleted speakers.
+        sessionRepository.all()
+            .flatMap { session ->
+                profileRepository.getSpeakersBySession(session.id).map { it.id }
+            }
+            .subtract(profiles.map { it.id })
+            .forEach { profileRepository.remove(it) }
 
         profiles.forEach {
             profileRepository.addOrUpdate(it)
@@ -101,9 +164,20 @@ class SessionizeSyncService(
             }
         }
 
+        // Remove deleted rooms.
+        roomRepository.all().map { it.id }
+            .subtract(rooms.map { it.id })
+            .forEach { roomRepository.remove(it) }
+
         rooms.forEach { room ->
             roomRepository.addOrUpdate(room)
         }
+
+        // Remove deleted sessions.
+        sessionRepository.all()
+            .map { it.id }
+            .subtract(sessionsAndSpeakers.map { it.first.id })
+            .forEach { sessionRepository.remove(it) }
 
         sessionsAndSpeakers.forEach { (updatedSession, speakers) ->
             val existingSession = sessionRepository.find(updatedSession.id)
@@ -126,7 +200,7 @@ class SessionizeSyncService(
             fullName = speakerDto.fullName,
             bio = speakerDto.bio,
             tagLine = speakerDto.tagLine,
-            profilePicture = speakerDto.profilePicture.let(::Url),
+            profilePicture = speakerDto.profilePicture?.let(::Url),
             twitter = groupedLinks[LinkType.Twitter]?.firstOrNull()?.url?.let(::Url),
             linkedIn = groupedLinks[LinkType.LinkedIn]?.firstOrNull()?.url?.let(::Url),
             website = (
@@ -137,7 +211,7 @@ class SessionizeSyncService(
 
     interface DataSource {
         enum class Kind {
-            Api, Seed
+            Seed, Api
         }
 
         suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>

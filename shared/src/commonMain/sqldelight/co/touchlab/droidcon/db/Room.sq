@@ -12,8 +12,10 @@ SELECT * FROM roomTable;
 selectById:
 SELECT * FROM roomTable WHERE id = ?;
 
-deleteById:
-DELETE FROM roomTable WHERE id = ?;
+deleteById {
+    UPDATE sessionTable SET roomId = NULL WHERE roomId = :roomId;
+    DELETE FROM roomTable WHERE id = :roomId;
+}
 
 existsById:
 SELECT count(1) FROM roomTable WHERE id = ?;

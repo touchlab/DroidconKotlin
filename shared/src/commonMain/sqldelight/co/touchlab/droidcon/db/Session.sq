@@ -19,8 +19,10 @@ upsert:
 INSERT OR REPLACE INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId)
 VALUES (?,?,?,?,?,?,?);
 
-deleteById:
-DELETE FROM sessionTable WHERE id = ?;
+deleteById {
+    DELETE FROM sessionSpeakerTable WHERE sessionId = :sessionId;
+    DELETE FROM sessionTable WHERE id = :sessionId;
+}
 
 allSessions:
 SELECT * FROM sessionTable ORDER BY sessionTable.startsAt ASC;

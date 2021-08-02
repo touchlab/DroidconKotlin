@@ -109,9 +109,7 @@ private val coreModule = module {
         )
     }
     single {
-        HttpClient(engine = get()) {
-
-        }
+        HttpClient(engine = get()) {}
     }
     single {
         Json {

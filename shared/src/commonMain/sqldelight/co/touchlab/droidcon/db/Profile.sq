@@ -13,8 +13,10 @@ upsert:
 INSERT OR REPLACE INTO profileTable(id, fullName, bio, tagLine, profilePicture, twitter, linkedIn, website)
 VALUES(?,?,?,?,?,?,?,?);
 
-delete:
-DELETE FROM profileTable WHERE id = ?;
+delete {
+    DELETE FROM sessionSpeakerTable WHERE speakerId = :speakerId;
+    DELETE FROM profileTable WHERE id = :speakerId;
+}
 
 selectById:
 SELECT * FROM profileTable WHERE id = ?;
