@@ -7,7 +7,7 @@ struct DaySelectionView: View {
 
     var body: some View {
         Picker(viewModel.selectedDay?.day ?? "", selection: $viewModel.selectedDay) {
-            ForEach(viewModel.days) { day in
+            ForEach(viewModel.days ?? []) { day in
                 Text(day.day)
                     .tag(day as SessionDayViewModel?)
             }

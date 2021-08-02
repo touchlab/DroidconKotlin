@@ -3,6 +3,7 @@ package co.touchlab.droidcon.ios.viewmodel
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
@@ -14,7 +15,7 @@ abstract class BaseSessionListViewModel(
     val attendingOnly: Boolean,
 ): BaseViewModel() {
 
-    var days: List<SessionDayViewModel> by published(emptyList())
+    var days: List<SessionDayViewModel>? by published(null)
         private set
 
     var selectedDay: SessionDayViewModel? by managed(null)
@@ -30,7 +31,7 @@ abstract class BaseSessionListViewModel(
 
         itemsFlow
             .collect { items ->
-                days = items
+                items
                     .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).date }
                     .map { (date, items) ->
                         sessionDayFactory.create(date, items) { item ->
@@ -38,8 +39,10 @@ abstract class BaseSessionListViewModel(
                             presentedSessionDetail = sessionDetailFactory.create(item)
                         }
                     }
-
-                selectedDay = days.firstOrNull { it.day == selectedDay?.day } ?: days.firstOrNull()
+                    .also { newDays ->
+                        days = newDays
+                        selectedDay = newDays.firstOrNull { it.day == selectedDay?.day } ?: newDays.firstOrNull()
+                    }
             }
     }
 }
