@@ -13,7 +13,7 @@ struct SessionBlockView: View {
                 Text(viewModel.time)
                     .lineLimit(1)
                     .minimumScaleFactor(0.65)
-                    .padding([.leading, .bottom], 16)
+                    .padding(.leading, 16)
                     .padding(.top, 4)
                     .frame(width: 80, alignment: .trailing)
 
@@ -24,29 +24,35 @@ struct SessionBlockView: View {
                         }
 
                         HStack(spacing: 0) {
-                            attendanceIndicator(for: session)
-                                .frame(width: 8, height: 8)
-                                .cornerRadius(.greatestFiniteMagnitude)
-                                .padding(.leading, -16)
+                            if !session.isServiceSession {
+                                attendanceIndicator(for: session)
+                                    .frame(width: 8, height: 8)
+                                    .cornerRadius(.greatestFiniteMagnitude)
+                                    .padding(.leading, -16)
+                            }
 
                             VStack(spacing: 0) {
                                 Text(session.title)
                                     .font(.headline)
                                     .bold()
+                                    .lineLimit(2)
                                     .multilineTextAlignment(.leading)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.top, 4)
                                     .padding(.horizontal, 8)
+                                    .padding(.bottom, session.isServiceSession ? 4 : 0)
+                                    .fixedSize(horizontal: false, vertical: true)
                                 if !session.isServiceSession {
                                     Text("by \(session.speakers)")
                                         .font(.subheadline)
+                                        .lineLimit(2)
                                         .multilineTextAlignment(.leading)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .padding([.horizontal, .top], 8)
                                         .padding(.bottom, 4)
+                                        .fixedSize(horizontal: false, vertical: true)
                                 }
                             }
-                            .frame(maxHeight: .infinity, alignment: .top)
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
@@ -55,7 +61,7 @@ struct SessionBlockView: View {
                     }
                 }
                 .padding(.vertical, 4)
-                .frame(maxWidth: .infinity, minHeight: 56, alignment: .top)
+                .frame(maxWidth: .infinity, alignment: .top)
                 .background(
                     RoundedCorners(color: Color("ElevatedBackground"), tl: 8, tr: 0, bl: 8, br: 0)
                         .shadow(color: Color("Shadow"), radius: 3, x: 1, y: 2)
