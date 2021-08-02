@@ -41,7 +41,7 @@ struct SpeakerDetailView: View {
 
                 VStack(spacing: 16) {
                     if let website = viewModel.socials.website?.string, let websiteUrl = URL(string: website) {
-                        label(
+                        largeImageLabel(
                             Link(website, destination: websiteUrl).font(.callout),
                             image: Image(systemName: "globe")
                         )
@@ -49,7 +49,7 @@ struct SpeakerDetailView: View {
                     }
 
                     if let twitter = viewModel.socials.twitter?.string, let twitterUrl = URL(string: twitter) {
-                        label(
+                        largeImageLabel(
                             Link(twitter, destination: twitterUrl).font(.callout),
                             image: Image("twitter")
                         )
@@ -57,7 +57,7 @@ struct SpeakerDetailView: View {
                     }
 
                     if let linkedIn = viewModel.socials.linkedIn?.string, let linkedInUrl = URL(string: linkedIn) {
-                        label(
+                        largeImageLabel(
                             Link(linkedIn, destination: linkedInUrl).font(.callout),
                             image: Image("linked-in")
                         )
@@ -84,12 +84,20 @@ struct SpeakerDetailView: View {
         .navigationTitle("Session")
     }
 
-    private func label<TEXT: View>(_ text: TEXT, image: Image) -> some View {
-        return HStack(alignment: .top) {
-            image
+    private func largeImageLabel<TEXT: View>(_ text: TEXT, image: Image) -> some View {
+        return label(
+            text,
+            image: image
                 .resizable()
-                .scaledToFit()
-                .frame(width: 32, height: 32)
+                .scaledToFit(),
+            alignment: .top
+        )
+    }
+
+    private func label<TEXT: View, IMAGE: View>(_ text: TEXT, image: IMAGE, alignment: VerticalAlignment = .firstTextBaseline) -> some View {
+        return HStack(alignment: alignment) {
+            image
+                .frame(width: 24, height: 24)
 
             text
                 .padding(.leading, 8)

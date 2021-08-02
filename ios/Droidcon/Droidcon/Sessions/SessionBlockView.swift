@@ -38,9 +38,6 @@ struct SessionBlockView: View {
                                     .lineLimit(2)
                                     .multilineTextAlignment(.leading)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.top, 4)
-                                    .padding(.horizontal, 8)
-                                    .padding(.bottom, session.isServiceSession ? 4 : 0)
                                     .fixedSize(horizontal: false, vertical: true)
                                 if !session.isServiceSession {
                                     Text("by \(session.speakers)")
@@ -48,11 +45,13 @@ struct SessionBlockView: View {
                                         .lineLimit(2)
                                         .multilineTextAlignment(.leading)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding([.horizontal, .top], 8)
-                                        .padding(.bottom, 4)
+                                        .padding(.top, 4)
                                         .fixedSize(horizontal: false, vertical: true)
                                 }
                             }
+                            .padding(.vertical, 4)
+                            .padding(.leading, 8)
+                            .padding(.trailing)
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {

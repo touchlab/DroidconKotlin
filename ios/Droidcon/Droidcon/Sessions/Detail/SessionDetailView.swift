@@ -2,7 +2,7 @@ import SwiftUI
 import DroidconKit
 
 struct SessionDetailView: View {
-    private static let iconSize: CGFloat = 32
+    private static let iconSize: CGFloat = 24
 
     @ObservedObject
     private(set) var viewModel: SessionDetailViewModel
@@ -31,8 +31,7 @@ struct SessionDetailView: View {
                         Button(action: viewModel.attendingTapped) {
                             if viewModel.isAttendingLoading {
                                 ProgressView()
-                                    .accentColor(.black)
-                                    .foregroundColor(.black)
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
                             } else {
                                 Image(systemName: viewModel.isAttending ? "checkmark" : "plus")
                                     .resizable()
@@ -107,6 +106,7 @@ struct SessionDetailView: View {
             text
                 .font(.callout)
                 .padding(.leading, 8)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 

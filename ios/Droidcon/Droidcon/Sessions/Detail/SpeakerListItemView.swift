@@ -21,11 +21,14 @@ struct SpeakerListItemView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(viewModel.info)
                     .font(.footnote)
+                    .lineLimit(2)
                     .foregroundColor(.gray)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 if let bio = viewModel.bio {
                     Text(bio)
                         .font(.callout)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             .padding(.leading, 8)
