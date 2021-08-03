@@ -11,8 +11,10 @@ import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.repository.RoomRepository
+import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +23,11 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.isActive
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
@@ -30,11 +36,12 @@ import kotlinx.datetime.toLocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SessionDetailViewModel: ViewModel(), KoinComponent {
 
     private val sessionGateway by inject<SessionGateway>()
-    private val roomRepository by inject<RoomRepository>()
     private val dateTimeFormatter by inject<DateTimeFormatterViewService>()
+    private val dateTimeService by inject<DateTimeService>()
     private val parseUrlViewService by inject<ParseUrlViewService>()
 
     private val scheduleItem = MutableStateFlow<ScheduleItem?>(null)
@@ -46,27 +53,24 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
         scheduleItem?.session?.description?.let { it to parseUrlViewService.parse(it) } ?: "" to emptyList()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private val room: Flow<Room> = scheduleItem.flatMapLatest { scheduleItem ->
-        scheduleItem?.room?.let {
-            roomRepository.observe(it)
-        } ?: emptyFlow()
+    val locationInfo: Flow<String> = scheduleItem.map {
+        listOfNotNull(
+            it?.room?.name,
+            it?.let { item ->
+                with(dateTimeService) {
+                    dateTimeFormatter.timeRange(
+                        item.session.startsAt.toConferenceDateTime(),
+                        item.session.endsAt.toConferenceDateTime(),
+                    )
+                }
+            },
+        ).joinToString()
     }
 
-    @OptIn(FlowPreview::class)
-    val locationInfo: Flow<String> = room.map { it.name }.flatMapConcat { room ->
-        scheduleItem.map { scheduleItem ->
-            room + (scheduleItem?.session?.let { ", " + dateTimeFormatter.timeRange(it.startsAt, it.endsAt) } ?: "")
-        }
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
     val hasEnded: Flow<Boolean> = scheduleItem.flatMapLatest { scheduleItem ->
         flow {
-            while (true) {
-                val hasEnded =
-                    scheduleItem?.session?.startsAt?.let { Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()) > it }
-                        ?: false
+            while (currentCoroutineContext().isActive) {
+                val hasEnded = scheduleItem?.session?.endsAt?.let { dateTimeService.now() > it } ?: false
                 emit(hasEnded)
                 delay(1_000)
             }
@@ -74,26 +78,24 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
     }
     val isAttending: Flow<Boolean> = scheduleItem.map { it?.session?.isAttending ?: false }
 
-    private val now: LocalDateTime
-        get() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-
-    val statusRes: Flow<Int> = scheduleItem.map {
-        it?.session?.let { session ->
+    val statusRes: Flow<Int> = scheduleItem.mapNotNull {
+        if (it == null) { return@mapNotNull R.string.schedule_session_detail_status_future }
+        dateTimeService.now().let { now ->
             when {
+                it.session.endsAt < now -> R.string.schedule_session_detail_status_past
+                it.session.startsAt > now -> R.string.schedule_session_detail_status_future
                 it.isInConflict -> R.string.schedule_session_detail_status_conflict
-                session.startsAt > now -> R.string.schedule_session_detail_status_future
-                session.endsAt < now -> R.string.schedule_session_detail_status_past
-                else -> R.string.schedule_session_detail_status_in_progress
+                else -> null
             }
-        } ?: R.string.schedule_session_detail_status_future
+        }
     }
 
     val speakers: Flow<List<SpeakerViewModel>> = scheduleItem.map { it?.speakers?.map(::SpeakerViewModel) ?: emptyList() }
 
     init {
         viewModelScope.launch {
-            id.map {
-                it?.let { sessionGateway.getScheduleItem(it) }
+            id.flatMapLatest {
+                it?.let { sessionGateway.observeScheduleItem(it) } ?: flowOf(null)
             }.collect {
                 scheduleItem.value = it
             }

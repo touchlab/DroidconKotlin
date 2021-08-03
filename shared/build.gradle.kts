@@ -67,12 +67,12 @@ kotlin {
 
     sourceSets["commonMain"].dependencies {
         api(libs.kermit)
+        api(libs.kotlinx.coroutines.core)
+        api(libs.kotlinx.datetime)
 
         implementation(libs.bundles.ktor.common)
         implementation(libs.bundles.sqldelight.common)
         
-        implementation(libs.kotlinx.coroutines.core)
-        implementation(libs.kotlinx.datetime)
         implementation(libs.stately.common)
         implementation(libs.multiplatformSettings.core)
         implementation(libs.koin.core)

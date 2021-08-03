@@ -18,7 +18,7 @@ class SettingsViewModel: ViewModel(), KoinComponent {
 
     init {
         viewModelScope.launch {
-            settingsGateway.observeSettings()
+            settingsGateway.settings()
                 .collect { settings ->
                     isRemindersEnabled.value = settings.isRemindersEnabled
                     isFeedbackEnabled.value = settings.isFeedbackEnabled
