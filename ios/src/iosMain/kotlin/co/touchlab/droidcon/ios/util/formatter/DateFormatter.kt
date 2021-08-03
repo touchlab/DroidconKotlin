@@ -3,13 +3,9 @@ package co.touchlab.droidcon.ios.util.formatter
 import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toNSDateComponents
-import kotlinx.datetime.toNSTimeZone
 import platform.Foundation.NSCalendar
-import platform.Foundation.NSDate
 import platform.Foundation.NSDateFormatter
-import platform.Foundation.NSDateFormatterMediumStyle
 import platform.Foundation.NSDateFormatterNoStyle
 import platform.Foundation.NSDateFormatterShortStyle
 import platform.Foundation.NSLocale

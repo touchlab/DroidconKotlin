@@ -17,6 +17,7 @@ import co.touchlab.droidcon.ios.viewmodel.SpeakerDetailViewModel
 import co.touchlab.droidcon.ios.viewmodel.SpeakerListItemViewModel
 import co.touchlab.droidcon.util.BundleResourceReader
 import com.russhwolf.settings.AppleSettings
+import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,34 +28,16 @@ import platform.Foundation.NSBundle
 import platform.Foundation.NSUserDefaults
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalTime::class)
+@OptIn(
+    ExperimentalTime::class,
+    ExperimentalSettingsApi::class,
+)
 fun initKoinIos(
     userDefaults: NSUserDefaults,
 ): KoinApplication = initKoin(
     module {
         single<ObservableSettings> { AppleSettings(userDefaults) }
         single<ResourceReader> { BundleResourceReader(NSBundle.mainBundle) }
-
-        single<SettingsGateway> {
-            object: SettingsGateway {
-                private var settings = co.touchlab.droidcon.application.composite.Settings(
-                    isFeedbackEnabled = true,
-                    isRemindersEnabled = true,
-                )
-
-                override fun settings(): StateFlow<co.touchlab.droidcon.application.composite.Settings> {
-                    return MutableStateFlow(settings)
-                }
-
-                override suspend fun setFeedbackEnabled(enabled: Boolean) {
-                    settings = settings.copy(isFeedbackEnabled = enabled)
-                }
-
-                override suspend fun setRemindersEnabled(enabled: Boolean) {
-                    settings = settings.copy(isRemindersEnabled = enabled)
-                }
-            }
-        }
 
         single { DateFormatter(get()) }
 

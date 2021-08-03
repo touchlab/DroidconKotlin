@@ -2,7 +2,6 @@ package co.touchlab.droidcon.domain.service
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
 
 interface DateTimeService {
     fun now(): Instant

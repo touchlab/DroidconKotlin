@@ -1,5 +1,9 @@
 package co.touchlab.droidcon
 
+import co.touchlab.droidcon.application.gateway.SettingsGateway
+import co.touchlab.droidcon.application.gateway.impl.DefaultSettingsGateway
+import co.touchlab.droidcon.application.repository.SettingsRepository
+import co.touchlab.droidcon.application.repository.impl.DefaultSettingsRepository
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.db.SessionTable
 import co.touchlab.droidcon.domain.gateway.SessionGateway
@@ -55,6 +59,16 @@ private val coreModule = module {
     }
     single<Clock> { Clock.System }
 
+    single {
+        HttpClient(engine = get()) {}
+    }
+
+    single {
+        Json {
+            ignoreUnknownKeys = true
+        }
+    }
+
     single<DateTimeService> {
         // TODO: Where should we store the conference timezone?
         DefaultDateTimeService(
@@ -108,13 +122,15 @@ private val coreModule = module {
             sessionRepository = get(),
         )
     }
-    single {
-        HttpClient(engine = get()) {}
+    single<SettingsGateway> {
+        DefaultSettingsGateway(
+            settingsRepository = get()
+        )
     }
-    single {
-        Json {
-            ignoreUnknownKeys = true
-        }
+    single<SettingsRepository> {
+        DefaultSettingsRepository(
+            observableSettings = get()
+        )
     }
 }
 

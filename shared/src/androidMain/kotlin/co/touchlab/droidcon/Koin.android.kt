@@ -1,8 +1,6 @@
 package co.touchlab.droidcon
 
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
-import co.touchlab.droidcon.domain.service.impl.ResourceReader
-import co.touchlab.droidcon.util.AssetResourceReader
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.LogcatLogger
 import com.russhwolf.settings.AndroidSettings

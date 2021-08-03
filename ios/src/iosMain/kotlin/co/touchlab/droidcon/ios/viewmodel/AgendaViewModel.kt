@@ -2,7 +2,6 @@ package co.touchlab.droidcon.ios.viewmodel
 
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
-import kotlinx.datetime.TimeZone
 
 class AgendaViewModel(
     sessionGateway: SessionGateway,

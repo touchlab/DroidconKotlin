@@ -13,12 +13,10 @@ import co.touchlab.droidcon.domain.service.fromConferenceDateTime
 import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
-import co.touchlab.droidcon.util.sqldelight.transactionWithContext
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
-import com.squareup.sqldelight.Transacter
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -27,9 +25,6 @@ import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.minus
-import kotlinx.datetime.plus
-import kotlin.coroutines.coroutineContext
-
 
 @OptIn(ExperimentalSettingsApi::class)
 class SessionizeSyncService(
@@ -64,7 +59,7 @@ class SessionizeSyncService(
         }
 
     private var lastSessionizeSync: Instant?
-        get() = settings.get<Long>(LAST_SESSIONIZE_SYNC_KEY)?.let { Instant.fromEpochMilliseconds(it) }
+        get() = settings.getLongOrNull(LAST_SESSIONIZE_SYNC_KEY)?.let { Instant.fromEpochMilliseconds(it) }
         set(value) {
             settings[LAST_SESSIONIZE_SYNC_KEY] = value?.toEpochMilliseconds()
         }

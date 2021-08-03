@@ -5,7 +5,6 @@ import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
-import org.brightify.hyperdrive.multiplatformx.InterfaceLock
 import org.brightify.hyperdrive.multiplatformx.property.identityEqualityPolicy
 import org.brightify.hyperdrive.multiplatformx.property.map
 
