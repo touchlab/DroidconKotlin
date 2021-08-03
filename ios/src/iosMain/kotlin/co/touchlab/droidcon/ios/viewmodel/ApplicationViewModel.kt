@@ -1,9 +1,7 @@
 package co.touchlab.droidcon.ios.viewmodel
 
+import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.SyncService
-import co.touchlab.droidcon.ios.viewmodel.AgendaViewModel
-import co.touchlab.droidcon.ios.viewmodel.ScheduleViewModel
-import co.touchlab.droidcon.ios.viewmodel.SettingsViewModel
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class ApplicationViewModel(
@@ -11,13 +9,19 @@ class ApplicationViewModel(
     agendaFactory: AgendaViewModel.Factory,
     settingsFactory: SettingsViewModel.Factory,
     private val syncService: SyncService,
+    private val notificationSchedulingService: NotificationSchedulingService,
 ): BaseViewModel() {
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())
     val settings by managed(settingsFactory.create())
 
-    override suspend fun whileAttached() {
-        syncService.runSynchronization()
-        // TODO: Run notification service autosubscribe.
+    init {
+        lifecycle.whileAttached {
+            notificationSchedulingService.runScheduling()
+        }
+
+        lifecycle.whileAttached {
+            syncService.runSynchronization()
+        }
     }
 }

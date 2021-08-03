@@ -1,6 +1,8 @@
 package co.touchlab.droidcon
 
+import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
+import co.touchlab.droidcon.service.IOSNotificationService
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.NSLogLogger
 import com.squareup.sqldelight.db.SqlDriver
@@ -18,6 +20,12 @@ actual val platformModule = module {
 
     single<HttpClientEngine> {
         Ios.create {}
+    }
+
+    single<NotificationService> {
+        IOSNotificationService(
+            log = getWith("IOSNotificationService"),
+        )
     }
 
     val baseKermit = Kermit(NSLogLogger()).withTag("Droidcon")

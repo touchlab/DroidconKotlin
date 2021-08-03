@@ -4,6 +4,8 @@ import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.gateway.impl.DefaultSettingsGateway
 import co.touchlab.droidcon.application.repository.SettingsRepository
 import co.touchlab.droidcon.application.repository.impl.DefaultSettingsRepository
+import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.application.service.impl.DefaultNotificationSchedulingService
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.db.SessionTable
 import co.touchlab.droidcon.domain.gateway.SessionGateway
@@ -130,6 +132,16 @@ private val coreModule = module {
     single<SettingsRepository> {
         DefaultSettingsRepository(
             observableSettings = get()
+        )
+    }
+    single<NotificationSchedulingService> {
+        DefaultNotificationSchedulingService(
+            sessionRepository = get(),
+            roomRepository = get(),
+            settingsRepository = get(),
+            notificationService = get(),
+            settings = get(),
+            json = get(),
         )
     }
 }

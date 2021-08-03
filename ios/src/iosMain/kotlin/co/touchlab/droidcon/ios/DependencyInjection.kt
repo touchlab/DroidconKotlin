@@ -42,7 +42,7 @@ fun initKoinIos(
         single { DateFormatter(get()) }
 
         // MARK: View model factories.
-        factory { ApplicationViewModel(get(), get(), get(), get()) }
+        factory { ApplicationViewModel(get(), get(), get(), get(), get()) }
 
         factory { ScheduleViewModel.Factory(get(), get(), get(), get()) }
         factory { AgendaViewModel.Factory(get(), get(), get(), get()) }
