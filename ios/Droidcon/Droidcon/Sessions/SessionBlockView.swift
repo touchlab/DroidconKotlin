@@ -24,12 +24,12 @@ struct SessionBlockView: View {
                         }
 
                         HStack(spacing: 0) {
-                            if !session.isServiceSession {
-                                attendanceIndicator(for: session)
-                                    .frame(width: 8, height: 8)
-                                    .cornerRadius(.greatestFiniteMagnitude)
-                                    .padding(.leading, -16)
-                            }
+                            // BUG: Do not wrap this in an `if`, otherwise SwiftUI won't render it even if the condition is true.
+                            // It probably has to do with the negative padding, so if you have a better idea, go ahead.
+                            attendanceIndicator(for: session)
+                                .frame(width: 8, height: 8)
+                                .cornerRadius(.greatestFiniteMagnitude)
+                                .padding(.leading, -16)
 
                             VStack(spacing: 0) {
                                 Text(session.title)
@@ -72,7 +72,7 @@ struct SessionBlockView: View {
 
     private func attendanceIndicator(for session: SessionListItemViewModel) -> Color {
         // `guard` instead of `if` to sidestep the issue of SwiftUI not rendering the dot at all.
-        guard showAttendingIndicators && session.isAttending else { return Color.clear }
+        guard showAttendingIndicators && !session.isServiceSession && session.isAttending else { return Color.clear }
 
         let colorName: String
         if session.isInPast {
