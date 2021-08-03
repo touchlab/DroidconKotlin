@@ -51,6 +51,7 @@ dependencyResolutionManagement {
             val multiplatformSettingsRef = version("multiplatformSettings", "0.7.7")
             val hyperdriveRef = version("hyperdrive", "0.1.74")
             val androidCoilRef = version("androidCoil", "0.13.0")
+            val coreRef = version("androidx-core", "1.6.0")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
 
@@ -89,6 +90,8 @@ dependencyResolutionManagement {
             alias("android-coil").to("com.google.accompanist", "accompanist-coil").versionRef(androidCoilRef)
 
             alias("hyperdrive-multiplatformx-api").to("org.brightify.hyperdrive", "multiplatformx-api").versionRef(hyperdriveRef)
+
+            alias("androidx-core").to("androidx.core", "core-ktx").versionRef(coreRef)
 
             bundle("androidx-compose", listOf(
                 "androidx-compose-ui-core",

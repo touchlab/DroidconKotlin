@@ -33,13 +33,11 @@ class DefaultNotificationSchedulingService(
     private val notificationService: NotificationService,
     private val settings: ObservableSettings,
     private val json: Json,
+    private val localizedStringFactory: NotificationSchedulingService.LocalizedStringFactory,
 ): NotificationSchedulingService {
     private companion object {
         // MARK: Settings keys
         private const val SCHEDULED_NOTIFICATIONS_KEY = "SCHEDULED_NOTIFICATIONS_KEY"
-
-        // MARK: Delivery offsets (in minutes)
-        private const val REMINDER_DELIVERY_OFFSET: Long = -10
     }
 
     private var scheduledNotifications: List<Session.Id>
@@ -62,13 +60,14 @@ class DefaultNotificationSchedulingService(
                         transform = { agenda, isRemindersEnabled -> agenda to isRemindersEnabled }
                     )
                     .collect { (agenda, isRemindersEnabled) ->
-                        println("agenda: $agenda, reminders: $isRemindersEnabled")
                         if (isRemindersEnabled) {
                             val scheduledNotificationIds = scheduledNotifications
 
                             // Cancel sessions that the user isn't attending anymore.
                             notificationService.cancel(
-                                scheduledNotificationIds.minus(agenda.map { it.id })
+                                scheduledNotificationIds.filterNot { sessionId ->
+                                    agenda.map { it.id.value }.contains(sessionId.value)
+                                }
                             )
 
                             // Schedule new upcoming sessions.
@@ -77,13 +76,13 @@ class DefaultNotificationSchedulingService(
                                 val roomName = session.room?.let { roomRepository.get(it).name }
                                 notificationService.schedule(
                                     sessionId = session.id,
-                                    title = "Upcoming event${roomName?.let { " in $it" } ?: ""}",
-                                    body = "${session.title} is starting soon.",
-                                    delivery = session.startsAt.plus(REMINDER_DELIVERY_OFFSET, DateTimeUnit.MINUTE),
+                                    title = localizedStringFactory.title(roomName),
+                                    body = localizedStringFactory.body(session.title),
+                                    delivery = session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_OFFSET, DateTimeUnit.MINUTE),
                                 )
                             }
 
-                            scheduledNotifications = scheduledNotificationIds.plus(newSessions.map { it.id })
+                            scheduledNotifications += newSessions.map { it.id }
                         } else {
                             notificationService.cancel(scheduledNotifications)
                             scheduledNotifications = emptyList()
@@ -91,7 +90,5 @@ class DefaultNotificationSchedulingService(
                     }
             }
         }
-
-        println("Scheduling done!")
     }
 }

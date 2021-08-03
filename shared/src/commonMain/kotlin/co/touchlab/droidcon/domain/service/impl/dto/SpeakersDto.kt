@@ -28,7 +28,7 @@ object SpeakersDto {
     )
 
     @Serializable
-    data class LinkDto (
+    data class LinkDto(
         val title: String,
         val url: String,
         val linkType: LinkType

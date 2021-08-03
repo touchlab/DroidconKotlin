@@ -1,5 +1,9 @@
 "Shrug" = "¯\\_(ツ)_/¯";
 
+"Notification.Title.Base" = "Upcoming event%@";
+"Notification.Title.InRoom" = " in %@";
+"Notification.Body" = "%@ is starting soon.";
+
 "Schedule.Title" = "Schedule";
 "Schedule.TabItem.Title" = "Schedule";
 

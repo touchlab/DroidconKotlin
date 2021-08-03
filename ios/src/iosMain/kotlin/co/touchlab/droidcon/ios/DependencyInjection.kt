@@ -1,8 +1,9 @@
 package co.touchlab.droidcon.ios
 
-import co.touchlab.droidcon.application.gateway.SettingsGateway
+import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
+import co.touchlab.droidcon.ios.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
 import co.touchlab.droidcon.ios.viewmodel.AboutViewModel
 import co.touchlab.droidcon.ios.viewmodel.AgendaViewModel
@@ -19,8 +20,6 @@ import co.touchlab.droidcon.util.BundleResourceReader
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.dsl.module
@@ -36,10 +35,15 @@ fun initKoinIos(
     userDefaults: NSUserDefaults,
 ): KoinApplication = initKoin(
     module {
+        single { BundleProvider(NSBundle.mainBundle) }
         single<ObservableSettings> { AppleSettings(userDefaults) }
-        single<ResourceReader> { BundleResourceReader(NSBundle.mainBundle) }
+        single<ResourceReader> { BundleResourceReader(get<BundleProvider>().bundle) }
 
         single { DateFormatter(get()) }
+
+        single<NotificationSchedulingService.LocalizedStringFactory> {
+            NotificationLocalizedStringFactory(get<BundleProvider>().bundle)
+        }
 
         // MARK: View model factories.
         factory { ApplicationViewModel(get(), get(), get(), get(), get()) }
@@ -59,6 +63,10 @@ fun initKoinIos(
         factory { AboutViewModel.Factory() }
     }
 )
+
+// Workaround class for injecting an `NSObject` class.
+// When not used, an error "KClass of Objective-C classes is not supported." is thrown.
+data class BundleProvider(val bundle: NSBundle)
 
 val Koin.applicationViewModel: ApplicationViewModel
     get() = get()

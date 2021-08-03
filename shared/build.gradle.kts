@@ -26,7 +26,12 @@ android {
         val main by getting
         main.java.setSrcDirs(listOf("src/androidMain/kotlin"))
         main.res.setSrcDirs(listOf("src/androidMain/res"))
-        main.resources.setSrcDirs(listOf("src/androidMain/resources"))
+        main.resources.setSrcDirs(
+            listOf(
+                "src/androidMain/resources",
+                "src/commonMain/resources",
+            )
+        )
         main.manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
@@ -69,12 +74,12 @@ kotlin {
         api(libs.kermit)
         api(libs.kotlinx.coroutines.core)
         api(libs.kotlinx.datetime)
+        api(libs.multiplatformSettings.core)
 
         implementation(libs.bundles.ktor.common)
         implementation(libs.bundles.sqldelight.common)
-        
+
         implementation(libs.stately.common)
-        implementation(libs.multiplatformSettings.core)
         implementation(libs.koin.core)
     }
 
@@ -93,6 +98,7 @@ kotlin {
         implementation(libs.sqldelight.driver.android)
         implementation(libs.kotlinx.coroutines.android)
         implementation(libs.ktor.client.okhttp)
+        implementation(libs.androidx.core)
     }
 
     sourceSets["iosMain"].dependencies {

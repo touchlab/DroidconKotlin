@@ -22,9 +22,10 @@ import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
-import co.touchlab.droidcon.domain.service.impl.JsonResourceDataSource
+import co.touchlab.droidcon.domain.service.impl.json.SessionJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.SessionizeApiDataSource
 import co.touchlab.droidcon.domain.service.impl.SessionizeSyncService
+import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -71,6 +72,13 @@ private val coreModule = module {
         }
     }
 
+    single {
+        JsonResourceReader(
+            resourceReader = get(),
+            json = get(),
+        )
+    }
+
     single<DateTimeService> {
         // TODO: Where should we store the conference timezone?
         DefaultDateTimeService(
@@ -106,9 +114,8 @@ private val coreModule = module {
         )
     }
     single<SessionizeSyncService.DataSource>(qualifier(SessionizeSyncService.DataSource.Kind.Seed)) {
-        JsonResourceDataSource(
-            resourceReader = get(),
-            json = get(),
+        SessionJsonResourceDataSource(
+            jsonResourceReader = get(),
         )
     }
     single<SessionGateway> {
@@ -142,6 +149,7 @@ private val coreModule = module {
             notificationService = get(),
             settings = get(),
             json = get(),
+            localizedStringFactory = get(),
         )
     }
 }

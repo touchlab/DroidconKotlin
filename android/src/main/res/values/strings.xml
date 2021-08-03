@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Droidcon</string>
 
+    <string name="notification_title_base">Upcoming event%s</string>
+    <string name="notification_title_in_room">" in %s"</string>
+    <string name="notification_body">%s is starting soon.</string>
+
     <string name="schedule_title">Schedule</string>
     <string name="droidcon_title">Droidcon SF</string>
     <string name="schedule_session_detail_title">Session</string>

@@ -103,6 +103,10 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
     }
 
     fun toggleIsAttending(value: Boolean) {
-        // TODO: Set to gateway.
+        scheduleItem.value?.session?.let { session ->
+            viewModelScope.launch {
+                sessionGateway.setAttending(session, value)
+            }
+        }
     }
 }
