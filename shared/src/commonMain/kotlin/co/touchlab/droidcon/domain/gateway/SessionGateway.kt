@@ -13,6 +13,4 @@ interface SessionGateway {
     fun observeScheduleItem(id: Session.Id): Flow<ScheduleItem>
 
     suspend fun setAttending(session: Session, attending: Boolean)
-
-    fun observeScheduledItem(id: Session.Id): Flow<ScheduleItem>
 }
