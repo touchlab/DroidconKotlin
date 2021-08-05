@@ -10,6 +10,6 @@ class SessionViewModel(item: ScheduleItem) {
     val title: String = item.session.title
     val speakers: String = item.speakers.joinToString(", ") { it.fullName }
 
-    val isInAttending: Boolean = item.session.isAttending
+    val isAttending: Boolean = item.session.isAttending
     val isColliding: Boolean = item.isInConflict
 }

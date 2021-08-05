@@ -25,7 +25,7 @@ import co.touchlab.droidcon.android.viewModel.sessions.SessionsBlockViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SessionBlock(sessionsBlock: SessionsBlockViewModel, sessionTapped: (SessionViewModel) -> Unit) {
+fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, sessionTapped: (SessionViewModel) -> Unit) {
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopStart) {
         Text(
             text = sessionsBlock.time,
@@ -41,7 +41,7 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, sessionTapped: (SessionV
             sessionsBlock.sessions.forEach { session ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     val badgeColor = when {
-                        !session.isInAttending -> Color.Transparent
+                        attendingOnly || !session.isAttending -> Color.Transparent
                         hasEnded -> Colors.grey
                         session.isColliding -> Colors.orange
                         else -> Colors.skyBlue

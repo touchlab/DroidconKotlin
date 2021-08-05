@@ -2,7 +2,9 @@ package co.touchlab.droidcon
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.gateway.impl.DefaultSettingsGateway
+import co.touchlab.droidcon.application.repository.AboutRepository
 import co.touchlab.droidcon.application.repository.SettingsRepository
+import co.touchlab.droidcon.application.repository.impl.DefaultAboutRepository
 import co.touchlab.droidcon.application.repository.impl.DefaultSettingsRepository
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.impl.DefaultNotificationSchedulingService
@@ -25,6 +27,7 @@ import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
 import co.touchlab.droidcon.domain.service.impl.json.SessionJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.SessionizeApiDataSource
 import co.touchlab.droidcon.domain.service.impl.SessionizeSyncService
+import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Clock
@@ -139,6 +142,16 @@ private val coreModule = module {
     single<SettingsRepository> {
         DefaultSettingsRepository(
             observableSettings = get()
+        )
+    }
+    single {
+        AboutJsonResourceDataSource(
+            jsonResourceReader = get(),
+        )
+    }
+    single<AboutRepository> {
+        DefaultAboutRepository(
+            aboutJsonResourceDataSource = get(),
         )
     }
     single<NotificationSchedulingService> {

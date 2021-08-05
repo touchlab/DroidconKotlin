@@ -5,21 +5,17 @@ import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.droidcon.service.AndroidNotificationService
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.LogcatLogger
-import com.russhwolf.settings.AndroidSettings
-import com.russhwolf.settings.Settings
+import com.russhwolf.settings.ExperimentalSettingsApi
 import com.squareup.sqldelight.db.SqlDriver
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
+@OptIn(ExperimentalSettingsApi::class)
 actual val platformModule: Module = module {
     single<SqlDriver> {
         SqlDelightDriverFactory(get()).createDriver()
-    }
-
-    single<Settings> {
-        AndroidSettings(get())
     }
 
     single<HttpClientEngine> {

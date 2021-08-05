@@ -13,67 +13,33 @@ struct AboutView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
-                paragraph {
-                    Text("About.Touchlab.Title")
-                        .font(.headline)
+            VStack(spacing: 16) {
+                ForEach(Array(viewModel.items.enumerated()), id: \.element) { index, section in
+                    paragraph {
+                        Text(section.title)
+                            .font(.headline)
+                            .padding(.bottom, 4)
 
-                    Text("About.Touchlab.Text.1")
-                        .font(.callout)
-
-                    Text("About.Touchlab.Text.2")
-                        .font(.callout)
-
-                    Link(Self.touchlabUrl.absoluteString, destination: Self.touchlabUrl)
-                        .font(.callout)
-
-                    Image("touchlab")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxHeight: 50)
-                        .onTapGesture {
-                            openURL(Self.touchlabUrl)
+                        ForEach(section.detail.split(separator: "\n").filter { !$0.isEmpty }, id: \.self) { text in
+                            Text(text)
+                                .font(.callout)
                         }
-                }
 
-                paragraph {
-                    Text("About.DroidconApp.Title")
-                        .font(.headline)
+                        if let link = section.link.flatMap({ URL(string: $0.string) }) {
+                            Link(link.absoluteString, destination: link)
+                                .font(.callout)
+                        }
 
-                    Text("About.DroidconApp.Text.1")
-                        .font(.callout)
-
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("About.DroidconApp.Text.2")
-                            .font(.callout)
-
-                        Link(Self.droidconAppUrl.absoluteString, destination: Self.droidconAppUrl)
-                            .font(.callout)
+                        Image(section.icon)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxHeight: 50)
+                            .onTapGesture {
+                                if let link = section.link.flatMap({ URL(string: $0.string) }) {
+                                    openURL(link)
+                                }
+                            }
                     }
-
-                    Image("kotlin")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxHeight: 50)
-                        .onTapGesture {
-                            openURL(Self.droidconAppUrl)
-                        }
-                }
-
-                paragraph {
-                    Text("About.Droidcon.Title")
-                        .font(.headline)
-
-                    Text("About.Droidcon.Text.1")
-                        .font(.callout)
-
-                    Text("About.Droidcon.Text.2")
-                        .font(.callout)
-
-                    Image("droidcon")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxHeight: 50)
                 }
             }
             .padding([.top, .leading], 8)
@@ -88,7 +54,7 @@ struct AboutView: View {
             Image(systemName: "info.circle")
                 .frame(width: Self.iconSize, height: Self.iconSize)
 
-            VStack(spacing: 12) {
+            VStack(spacing: 8) {
                 content()
                     .frame(maxWidth: .infinity, alignment: .leading)
             }

@@ -7,13 +7,12 @@ import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-abstract class BaseSessionsViewModel(
-    private val onlyAttending: Boolean,
+abstract class BaseSessionListViewModel(
+    val attendingOnly: Boolean,
 ): ViewModel(), KoinComponent {
 
     val days = MutableStateFlow(emptyList<SessionsDayViewModel>())
@@ -28,19 +27,19 @@ abstract class BaseSessionsViewModel(
 
     private fun loadSchedule() {
         scope.launch {
-            val itemsFlow = if (onlyAttending) {
+            val itemsFlow = if (attendingOnly) {
                 sessionGateway.observeAgenda()
             } else {
                 sessionGateway.observeSchedule()
             }
             itemsFlow.collect { items ->
-                val days = items.groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).date }
-                .map { (date, items) ->
-                    SessionsDayViewModel(date, items)
-                }
-                this@BaseSessionsViewModel.days.value = days
+                val days = items
+                    .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).date }
+                    .map { (date, items) ->
+                        SessionsDayViewModel(date, items)
+                    }
+                this@BaseSessionListViewModel.days.value = days
             }
-
         }
     }
 }

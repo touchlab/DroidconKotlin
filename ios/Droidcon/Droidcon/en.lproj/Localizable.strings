@@ -23,12 +23,3 @@
 "Settings.About" = "About";
 
 "About.Title" = "About";
-"About.Touchlab.Title" = "Touchlab";
-"About.Touchlab.Text.1" = "Touchlab accelerates mobile innovation for enterprise and startups.";
-"About.Touchlab.Text.2" = "Get in touch.";
-"About.DroidconApp.Title" = "Droidcon App";
-"About.DroidconApp.Text.1" = "The Droidcon app is a Kotlin Multiplatform app by the Touchlab team and some folks from the mobile development community.";
-"About.DroidconApp.Text.2" = "See the repo and read more at:";
-"About.Droidcon.Title" = "Droidcon";
-"About.Droidcon.Text.1" = "Droidcon conferences around the world support the Android platform and create a global network for developers and companies.";
-"About.Droidcon.Text.2" = "We offer best-in-class presentations from leaders in all parts of the Android ecosystem, including core development, embedded solutions, augmented reality, business solutions, and games.";

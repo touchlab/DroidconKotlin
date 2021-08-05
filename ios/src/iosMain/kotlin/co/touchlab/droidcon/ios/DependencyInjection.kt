@@ -27,10 +27,7 @@ import platform.Foundation.NSBundle
 import platform.Foundation.NSUserDefaults
 import kotlin.time.ExperimentalTime
 
-@OptIn(
-    ExperimentalTime::class,
-    ExperimentalSettingsApi::class,
-)
+@OptIn(ExperimentalSettingsApi::class)
 fun initKoinIos(
     userDefaults: NSUserDefaults,
 ): KoinApplication = initKoin(
@@ -60,7 +57,7 @@ fun initKoinIos(
         factory { SpeakerDetailViewModel.Factory() }
 
         factory { SettingsViewModel.Factory(get(), get()) }
-        factory { AboutViewModel.Factory() }
+        factory { AboutViewModel.Factory(get()) }
     }
 )
 

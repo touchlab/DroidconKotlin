@@ -5,5 +5,4 @@ import co.touchlab.droidcon.application.composite.AboutItem
 interface AboutRepository {
 
     suspend fun getAboutItems(): List<AboutItem>
-
 }

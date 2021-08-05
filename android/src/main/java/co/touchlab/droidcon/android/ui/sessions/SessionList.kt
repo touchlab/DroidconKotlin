@@ -35,10 +35,10 @@ import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
-import co.touchlab.droidcon.android.viewModel.sessions.BaseSessionsViewModel
+import co.touchlab.droidcon.android.viewModel.sessions.BaseSessionListViewModel
 
 @Composable
-fun SessionList(navController: NavHostController, sessions: BaseSessionsViewModel, @StringRes emptyRes: Int) {
+fun SessionList(navController: NavHostController, sessions: BaseSessionListViewModel, @StringRes emptyRes: Int) {
     var selectedTabIndex by remember { mutableStateOf(0) }
     val days by sessions.days.collectAsState()
     LaunchedEffect(days) {
@@ -69,7 +69,7 @@ fun SessionList(navController: NavHostController, sessions: BaseSessionsViewMode
                     val daySchedule = days.getOrNull(selectedTabIndex)?.blocks ?: emptyList()
                     items(daySchedule) { hourBlock ->
                         Box(modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half)) {
-                            SessionBlock(hourBlock) { tappedSession ->
+                            SessionBlock(hourBlock, sessions.attendingOnly) { tappedSession ->
                                 navController.navigate(ScheduleScreen.SessionDetail.createRoute(tappedSession.id))
                             }
                         }
