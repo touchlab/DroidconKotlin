@@ -49,7 +49,7 @@ fun initKoinIos(
         factory { AgendaViewModel.Factory(get(), get(), get(), get()) }
         factory { SessionBlockViewModel.Factory(get(), get()) }
         factory { SessionDayViewModel.Factory(get(), get(), get()) }
-        factory { SessionListItemViewModel.Factory(get(), get()) }
+        factory { SessionListItemViewModel.Factory(get()) }
 
         factory { SessionDetailViewModel.Factory(get(), get(), get(), get(), get()) }
         factory { SpeakerListItemViewModel.Factory() }

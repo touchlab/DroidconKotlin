@@ -28,22 +28,24 @@ struct SessionDetailView: View {
                         .padding(.horizontal, 8)
                         .frame(maxWidth: .infinity, alignment: .leading)
 
-                        Button(action: viewModel.attendingTapped) {
-                            if viewModel.isAttendingLoading {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                            } else {
-                                Image(systemName: viewModel.isAttending ? "checkmark" : "plus")
-                                    .resizable()
-                                    .foregroundColor(.black)
+                        if viewModel.state != .ended {
+                            Button(action: viewModel.attendingTapped) {
+                                if viewModel.isAttendingLoading {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                                } else {
+                                    Image(systemName: viewModel.isAttending ? "checkmark" : "plus")
+                                        .resizable()
+                                        .foregroundColor(.black)
+                                }
                             }
+                            .frame(width: 16, height: 16)
+                            .padding(12)
+                            .background(Color.yellow)
+                            .cornerRadius(.greatestFiniteMagnitude)
+                            .shadow(color: Color("Shadow"), radius: 2)
+                            .padding(.bottom, -36)
                         }
-                        .frame(width: 16, height: 16)
-                        .padding(12)
-                        .background(Color.yellow)
-                        .cornerRadius(.greatestFiniteMagnitude)
-                        .shadow(color: Color("Shadow"), radius: 2)
-                        .padding(.bottom, -36)
                     }
                     .frame(maxWidth: .infinity)
                     .padding()

@@ -4,7 +4,11 @@ import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import kotlinx.datetime.Instant
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+import org.brightify.hyperdrive.multiplatformx.property.flatMapLatest
 import org.brightify.hyperdrive.multiplatformx.property.identityEqualityPolicy
 import org.brightify.hyperdrive.multiplatformx.property.map
 
@@ -20,6 +24,14 @@ class SessionDetailViewModel(
     private val item by collected(initialItem, sessionGateway.observeScheduleItem(initialItem.session.id), identityEqualityPolicy())
     private val observeItem by observe(::item)
 
+    private val time: Instant by collected(dateTimeService.now(), flow {
+        while (true) {
+            emit(dateTimeService.now())
+            delay(10_000)
+        }
+    })
+    private val observeTime by observe(::time)
+
     val title by observeItem.map { it.session.title }
     val info by observeItem.map {
         listOfNotNull(
@@ -33,13 +45,12 @@ class SessionDetailViewModel(
         ).joinToString()
     }
 
-    // TODO: Do we want to observe current time and update the state continuously?
-    val state: SessionState? by observeItem.map {
-        dateTimeService.now().let { now ->
+    val state: SessionState? by observeItem.flatMapLatest { item ->
+        observeTime.map { now ->
             when {
-                it.session.endsAt < now -> SessionState.Ended
-                it.session.startsAt < now -> SessionState.InProgress
-                it.isInConflict -> SessionState.InConflict
+                item.session.endsAt < now -> SessionState.Ended
+                item.session.startsAt < now -> SessionState.InProgress
+                item.isInConflict -> SessionState.InConflict
                 else -> null
             }
         }

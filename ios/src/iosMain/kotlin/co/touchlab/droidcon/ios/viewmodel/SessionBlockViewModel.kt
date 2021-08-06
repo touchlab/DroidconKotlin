@@ -1,9 +1,19 @@
 package co.touchlab.droidcon.ios.viewmodel
 
 import co.touchlab.droidcon.domain.composite.ScheduleItem
+import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+import org.brightify.hyperdrive.multiplatformx.CancellationToken
+import org.brightify.hyperdrive.multiplatformx.property.ViewModelProperty
+import org.brightify.hyperdrive.multiplatformx.property.map
 
 class SessionBlockViewModel(
     sessionListItemFactory: SessionListItemViewModel.Factory,

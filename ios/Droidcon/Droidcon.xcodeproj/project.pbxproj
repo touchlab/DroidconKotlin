@@ -21,6 +21,7 @@
 		684FAA8326B2B60300673AFF /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FAA8226B2B60300673AFF /* SessionDetailView.swift */; };
 		684FAA8626B2BD1300673AFF /* DaySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FAA8526B2BD1300673AFF /* DaySelectionView.swift */; };
 		684FAA8926B2C31800673AFF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684FAA8B26B2C31800673AFF /* Localizable.strings */; };
+		6881CF6026BD3D22002541F0 /* SessionBlockItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881CF5F26BD3D22002541F0 /* SessionBlockItemView.swift */; };
 		68971CA426B313EC004B2763 /* BaseViewModel+ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68971CA326B313EC004B2763 /* BaseViewModel+ObservableObject.swift */; };
 		689DD2F726B40A9400A9B009 /* SwitchingNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */; };
 		689DD2F926B40B3800A9B009 /* SessionBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD2F826B40B3800A9B009 /* SessionBlockView.swift */; };
@@ -53,6 +54,7 @@
 		684FAA8226B2B60300673AFF /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		684FAA8526B2BD1300673AFF /* DaySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectionView.swift; sourceTree = "<group>"; };
 		684FAA8A26B2C31800673AFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6881CF5F26BD3D22002541F0 /* SessionBlockItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBlockItemView.swift; sourceTree = "<group>"; };
 		68971CA326B313EC004B2763 /* BaseViewModel+ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseViewModel+ObservableObject.swift"; sourceTree = "<group>"; };
 		689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchingNavigationLink.swift; sourceTree = "<group>"; };
 		689DD2F826B40B3800A9B009 /* SessionBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBlockView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				684FAA7A26B2A55C00673AFF /* SessionListView.swift */,
 				689DD2F826B40B3800A9B009 /* SessionBlockView.swift */,
+				6881CF5F26BD3D22002541F0 /* SessionBlockItemView.swift */,
 				684FAA8526B2BD1300673AFF /* DaySelectionView.swift */,
 				689DD30926B4467800A9B009 /* Detail */,
 			);
@@ -348,6 +351,7 @@
 				684FAA8326B2B60300673AFF /* SessionDetailView.swift in Sources */,
 				689DD30126B4279400A9B009 /* SpeakerDetailView.swift in Sources */,
 				689DD30326B431C300A9B009 /* SpeakerListItemView.swift in Sources */,
+				6881CF6026BD3D22002541F0 /* SessionBlockItemView.swift in Sources */,
 				F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */,
 				68971CA426B313EC004B2763 /* BaseViewModel+ObservableObject.swift in Sources */,
 				689DD30826B4447B00A9B009 /* AboutView.swift in Sources */,
