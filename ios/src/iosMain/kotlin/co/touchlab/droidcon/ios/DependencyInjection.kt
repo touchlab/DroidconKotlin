@@ -16,6 +16,9 @@ import co.touchlab.droidcon.ios.viewmodel.SessionListItemViewModel
 import co.touchlab.droidcon.ios.viewmodel.SettingsViewModel
 import co.touchlab.droidcon.ios.viewmodel.SpeakerDetailViewModel
 import co.touchlab.droidcon.ios.viewmodel.SpeakerListItemViewModel
+import co.touchlab.droidcon.ios.viewmodel.SponsorGroupItemViewModel
+import co.touchlab.droidcon.ios.viewmodel.SponsorGroupViewModel
+import co.touchlab.droidcon.ios.viewmodel.SponsorListViewModel
 import co.touchlab.droidcon.util.BundleResourceReader
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -25,7 +28,6 @@ import org.koin.core.KoinApplication
 import org.koin.dsl.module
 import platform.Foundation.NSBundle
 import platform.Foundation.NSUserDefaults
-import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalSettingsApi::class)
 fun initKoinIos(
@@ -43,7 +45,7 @@ fun initKoinIos(
         }
 
         // MARK: View model factories.
-        factory { ApplicationViewModel(get(), get(), get(), get(), get()) }
+        factory { ApplicationViewModel(get(), get(), get(), get(), get(), get()) }
 
         factory { ScheduleViewModel.Factory(get(), get(), get(), get()) }
         factory { AgendaViewModel.Factory(get(), get(), get(), get()) }
@@ -55,6 +57,10 @@ fun initKoinIos(
         factory { SpeakerListItemViewModel.Factory() }
 
         factory { SpeakerDetailViewModel.Factory() }
+
+        factory { SponsorListViewModel.Factory(get(), get()) }
+        factory { SponsorGroupViewModel.Factory(get()) }
+        factory { SponsorGroupItemViewModel.Factory() }
 
         factory { SettingsViewModel.Factory(get(), get()) }
         factory { AboutViewModel.Factory(get()) }

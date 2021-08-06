@@ -42,6 +42,16 @@ struct MainView: View {
             }
             .tag(2)
 
+            SponsorListView(
+                viewModel: viewModel.sponsors,
+                navigationTitle: "Sponsors.Title"
+            )
+            .tabItem {
+                Image(systemName: "flame")
+                Text("Sponsors.TabItem.Title")
+            }
+            .tag(3)
+
             SettingsView(
                 viewModel: viewModel.settings
             )
@@ -49,7 +59,7 @@ struct MainView: View {
                 Image(systemName: "gearshape")
                 Text("Settings.TabItem.Title")
             }
-            .tag(3)
+            .tag(4)
         }
         .attach(viewModel: viewModel)
     }

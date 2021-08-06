@@ -11,7 +11,9 @@ import co.touchlab.droidcon.application.service.impl.DefaultNotificationScheduli
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.db.SessionTable
 import co.touchlab.droidcon.domain.gateway.SessionGateway
+import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.domain.gateway.impl.DefaultSessionGateway
+import co.touchlab.droidcon.domain.gateway.impl.DefaultSponsorGateway
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
@@ -24,6 +26,7 @@ import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
+import co.touchlab.droidcon.domain.service.impl.FirestoreApiDataSource
 import co.touchlab.droidcon.domain.service.impl.json.SessionJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.SessionizeApiDataSource
 import co.touchlab.droidcon.domain.service.impl.SessionizeSyncService
@@ -132,6 +135,17 @@ private val coreModule = module {
     single<ScheduleService> {
         DefaultScheduleService(
             sessionRepository = get(),
+        )
+    }
+    single {
+        FirestoreApiDataSource(
+            client = get(),
+            json = get(),
+        )
+    }
+    single<SponsorGateway> {
+        DefaultSponsorGateway(
+            firestoreApiDataSource = get(),
         )
     }
     single<SettingsGateway> {
