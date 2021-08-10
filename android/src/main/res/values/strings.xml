@@ -24,6 +24,7 @@
     <string name="my_agenda_empty">You are not attending any sessions.</string>
 
     <string name="sponsors_title">Sponsors</string>
+    <string name="sponsors_empty">Sponsors could not be loaded.</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_enable_feedback_title">Enable feedback</string>

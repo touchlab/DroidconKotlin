@@ -1,7 +1,7 @@
 package co.touchlab.droidcon.domain.service.impl.dto
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 object SponsorsDto {
 
@@ -23,6 +23,7 @@ object SponsorsDto {
     data class DocumentFields(
         val displayOrder: DisplayOrder,
         val sponsors: Sponsors,
+        val prominent: BooleanValue? = null,
     )
 
     @Serializable
@@ -61,5 +62,10 @@ object SponsorsDto {
     @Serializable
     data class StringValue(
         val stringValue: String,
+    )
+
+    @Serializable
+    data class BooleanValue(
+        val booleanValue: Boolean,
     )
 }

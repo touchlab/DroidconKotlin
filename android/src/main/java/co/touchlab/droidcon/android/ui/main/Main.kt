@@ -27,7 +27,8 @@ import co.touchlab.droidcon.android.ui.sessions.SessionDetail
 import co.touchlab.droidcon.android.ui.sessions.SpeakerDetail
 import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
-import co.touchlab.droidcon.android.ui.sponsors.Sponsors
+import co.touchlab.droidcon.android.ui.sponsors.SponsorDetail
+import co.touchlab.droidcon.android.ui.sponsors.SponsorList
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
 
@@ -53,6 +54,14 @@ sealed class ScheduleScreen(val route: String) {
     object SpeakerDetail: ScheduleScreen("schedule/speakerDetail-{speakerId}") {
 
         fun createRoute(speakerId: Profile.Id) = "schedule/speakerDetail-$speakerId"
+    }
+}
+
+sealed class SponsorsScreen(val route: String) {
+    object Main: SponsorsScreen("sponsors/main")
+    object Detail: SponsorsScreen("sponsors/detail-{sponsorId}") {
+
+        fun createRoute(sponsorId: String) = "sponsors/detail-$sponsorId"
     }
 }
 
@@ -105,7 +114,14 @@ fun Main() {
 
             composable(MainTab.MyAgenda.route) { MyAgenda(navController) }
 
-            composable(MainTab.Sponsors.route) { Sponsors(navController) }
+            navigation(SponsorsScreen.Main.route, MainTab.Sponsors.route) {
+                composable(SponsorsScreen.Main.route) { SponsorList(navController) }
+                composable(SponsorsScreen.Detail.route) { backStackEntry ->
+                    val sponsorId = backStackEntry.arguments?.getString("sponsorId")
+                    requireNotNull(sponsorId) { "Parameter sponsorId not found." }
+                    SponsorDetail(navController, sponsorId)
+                }
+            }
 
             navigation(SettingsScreen.Main.route, MainTab.Settings.route) {
                 composable(SettingsScreen.Main.route) { Settings(navController) }

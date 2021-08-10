@@ -26,6 +26,7 @@ class DefaultSponsorGateway(
                         )
                     },
                 displayPriority = group.fields.displayOrder.integerValue.toInt(),
+                isProminent = group.fields.prominent?.booleanValue ?: false,
             )
         }
 }

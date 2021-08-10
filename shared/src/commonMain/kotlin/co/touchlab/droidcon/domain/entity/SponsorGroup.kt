@@ -4,4 +4,5 @@ data class SponsorGroup(
     val name: String,
     val sponsors: List<Sponsor>,
     val displayPriority: Int,
+    val isProminent: Boolean,
 )
