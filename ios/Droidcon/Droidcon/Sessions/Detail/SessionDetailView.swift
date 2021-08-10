@@ -97,7 +97,7 @@ struct SessionDetailView: View {
                 }
             }
         }
-        .navigationTitle("Session")
+        .navigationTitle("Session.Detail.Title")
     }
 
     private func label(_ text: Text, image: Image) -> some View {

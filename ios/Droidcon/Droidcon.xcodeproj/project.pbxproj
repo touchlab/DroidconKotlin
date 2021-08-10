@@ -24,6 +24,7 @@
 		6881CF6026BD3D22002541F0 /* SessionBlockItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881CF5F26BD3D22002541F0 /* SessionBlockItemView.swift */; };
 		6881CF6326BD60D4002541F0 /* SponsorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881CF6226BD60D4002541F0 /* SponsorListView.swift */; };
 		6881CF6526BD6D75002541F0 /* SponsorGroupItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881CF6426BD6D75002541F0 /* SponsorGroupItemView.swift */; };
+		6881CF6926C29B81002541F0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6881CF6826C29B81002541F0 /* MainView.swift */; };
 		68971CA426B313EC004B2763 /* BaseViewModel+ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68971CA326B313EC004B2763 /* BaseViewModel+ObservableObject.swift */; };
 		689DD2F726B40A9400A9B009 /* SwitchingNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */; };
 		689DD2F926B40B3800A9B009 /* SessionBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689DD2F826B40B3800A9B009 /* SessionBlockView.swift */; };
@@ -59,6 +60,7 @@
 		6881CF5F26BD3D22002541F0 /* SessionBlockItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBlockItemView.swift; sourceTree = "<group>"; };
 		6881CF6226BD60D4002541F0 /* SponsorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorListView.swift; sourceTree = "<group>"; };
 		6881CF6426BD6D75002541F0 /* SponsorGroupItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorGroupItemView.swift; sourceTree = "<group>"; };
+		6881CF6826C29B81002541F0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		68971CA326B313EC004B2763 /* BaseViewModel+ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseViewModel+ObservableObject.swift"; sourceTree = "<group>"; };
 		689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchingNavigationLink.swift; sourceTree = "<group>"; };
 		689DD2F826B40B3800A9B009 /* SessionBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBlockView.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				F1465F0E23AA94BF0055F7C3 /* Info.plist */,
 				684FAA8B26B2C31800673AFF /* Localizable.strings */,
 				1833220F26B0CF5600D79482 /* DroidconApp.swift */,
+				6881CF6826C29B81002541F0 /* MainView.swift */,
 				689DD30626B4392100A9B009 /* Common */,
 				684FAA7926B2A55500673AFF /* Sessions */,
 				684FAA7226B2A4B400673AFF /* Schedule */,
@@ -352,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				684FAA8626B2BD1300673AFF /* DaySelectionView.swift in Sources */,
+				6881CF6926C29B81002541F0 /* MainView.swift in Sources */,
 				68C86E9F26B31D6100008D15 /* LifecycleManager.swift in Sources */,
 				689DD2F726B40A9400A9B009 /* SwitchingNavigationLink.swift in Sources */,
 				684FAA7B26B2A55C00673AFF /* SessionListView.swift in Sources */,
@@ -542,7 +546,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = tk.co.touchlab.droidcon.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = org.brightify.droidcon.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -572,7 +576,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = tk.co.touchlab.droidcon.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = org.brightify.droidcon.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

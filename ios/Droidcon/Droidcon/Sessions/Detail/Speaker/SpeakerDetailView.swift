@@ -81,7 +81,7 @@ struct SpeakerDetailView: View {
                 .padding()
             }
         }
-        .navigationTitle("Session")
+        .navigationTitle("Speaker.Detail.Title")
     }
 
     private func largeImageLabel<TEXT: View>(_ text: TEXT, image: Image) -> some View {

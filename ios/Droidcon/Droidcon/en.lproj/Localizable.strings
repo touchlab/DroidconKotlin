@@ -16,6 +16,8 @@
 "Session.Detail.State.Conflict" = "This session conflicts with another session in your schedule.";
 "Session.Detail.Speakers" = "Speakers";
 
+"Speaker.Detail.Title" = "Speaker";
+
 "Sponsors.Title" = "Sponsors";
 "Sponsors.TabItem.Title" = "Sponsors";
 

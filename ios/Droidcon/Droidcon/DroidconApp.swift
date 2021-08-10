@@ -1,66 +1,44 @@
 import SwiftUI
-import DroidconKit
 
 @main
 struct DroidconApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
 
+    init() {
+        setupNavBarAppearance()
+        setupTabBarAppearance()
+    }
+
     var body: some Scene {
         WindowGroup {
             MainView(viewModel: koin.applicationViewModel)
         }
     }
-}
 
-struct MainView: View {
-    @State
-    var selectedTabIndex: Int = 1
+    private func setupNavBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(named: "NavBar_Background")
+        appearance.titleTextAttributes = UIColor(named: "NavBar_Foreground").map { [.foregroundColor: $0] } ?? [:]
+        UINavigationBar.appearance().tintColor = UIColor(named: "NavBar_Foreground")
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
 
-    @ObservedObject
-    private(set) var viewModel: ApplicationViewModel
+    private func setupTabBarAppearance() {
+        let itemAppearance = UITabBarItemAppearance()
+        itemAppearance.configureWithDefault(for: .inline)
+        itemAppearance.normal.iconColor = UIColor(named: "TabBar_Foreground")
+        itemAppearance.normal.titleTextAttributes = UIColor(named: "TabBar_Foreground").map { [.foregroundColor: $0] } ?? [:]
+        itemAppearance.selected.iconColor = UIColor(named: "TabBar_Foreground_Selected")
+        itemAppearance.selected.titleTextAttributes = UIColor(named: "TabBar_Foreground_Selected").map { [.foregroundColor: $0] } ?? [:]
+        let appearance = UITabBarAppearance()
+        appearance.backgroundColor = UIColor(named: "TabBar_Background")
+        appearance.inlineLayoutAppearance = itemAppearance
+        appearance.compactInlineLayoutAppearance = itemAppearance
+        appearance.stackedLayoutAppearance = itemAppearance
 
-    var body: some View {
-        TabView(selection: $selectedTabIndex) {
-            ScheduleView(
-                viewModel: viewModel.schedule,
-                navigationTitle: "Schedule.Title"
-            )
-            .tabItem {
-                Image(systemName: "calendar")
-                Text("Schedule.TabItem.Title")
-            }
-            .tag(1)
-            
-            ScheduleView(
-                viewModel: viewModel.agenda,
-                navigationTitle: "Agenda.Title"
-            )
-            .tabItem {
-                Image(systemName: "clock")
-                Text("Agenda.TabItem.Title")
-            }
-            .tag(2)
-
-            SponsorListView(
-                viewModel: viewModel.sponsors,
-                navigationTitle: "Sponsors.Title"
-            )
-            .tabItem {
-                Image(systemName: "flame")
-                Text("Sponsors.TabItem.Title")
-            }
-            .tag(3)
-
-            SettingsView(
-                viewModel: viewModel.settings
-            )
-            .tabItem {
-                Image(systemName: "gearshape")
-                Text("Settings.TabItem.Title")
-            }
-            .tag(4)
-        }
-        .attach(viewModel: viewModel)
+        UITabBar.appearance().standardAppearance = appearance
     }
 }
