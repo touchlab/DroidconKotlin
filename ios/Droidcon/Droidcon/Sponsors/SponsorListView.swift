@@ -11,8 +11,7 @@ struct SponsorListView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
-                    ForEach(Array(viewModel.sponsorGroups.enumerated()), id: \.element) { index, sponsorGroup in
-                        let isFirstGroup = index == viewModel.sponsorGroups.startIndex
+                    ForEach(viewModel.sponsorGroups) { sponsorGroup in
                         VStack(spacing: 8) {
                             Text(sponsorGroup.title)
                                 .font(.title)
@@ -21,7 +20,7 @@ struct SponsorListView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
 
                             LazyVGrid(
-                                columns: Array(repeating: GridItem(.flexible()), count: isFirstGroup ? 3 : 4),
+                                columns: Array(repeating: GridItem(.flexible()), count: sponsorGroup.isProminent ? 3 : 4),
                                 alignment: .center,
                                 spacing: 16
                             ) {

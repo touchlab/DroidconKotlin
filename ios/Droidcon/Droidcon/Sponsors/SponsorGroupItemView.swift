@@ -20,6 +20,10 @@ struct SponsorGroupItemView: View {
                     .onTapGesture {
                         viewModel.selected()
                     }
+                    .padding(4)
+                    .background(Color.white)
+                    .cornerRadius(.greatestFiniteMagnitude)
+                    .shadow(color: Color("Shadow"), radius: 2, y: 1)
             }
         }
     }
