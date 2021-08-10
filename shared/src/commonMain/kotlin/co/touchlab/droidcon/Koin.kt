@@ -86,11 +86,10 @@ private val coreModule = module {
     }
 
     single<DateTimeService> {
-        // TODO: Where should we store the conference timezone?
         DefaultDateTimeService(
             clock = get(),
             deviceTimeZone = TimeZone.currentSystemDefault(),
-            conferenceTimeZone = TimeZone.UTC,
+            conferenceTimeZone = Constants.conferenceTimeZone,
         )
     }
     single<ProfileRepository> {
