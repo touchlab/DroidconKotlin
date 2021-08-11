@@ -14,6 +14,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
@@ -34,16 +35,21 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
     private val dateTimeService by inject<DateTimeService>()
     private val parseUrlViewService by inject<ParseUrlViewService>()
 
-    private val scheduleItem = MutableStateFlow<ScheduleItem?>(null)
+    private val observeScheduleItem = MutableSharedFlow<ScheduleItem?>(replay = 1)
+    private var scheduleItem: ScheduleItem? = null
+        set(value) {
+            field = value
+            observeScheduleItem.tryEmit(value)
+        }
 
     var id = MutableStateFlow<Session.Id?>(null)
 
-    val title: Flow<String> = scheduleItem.map { it?.session?.title ?: "" }
-    val description: Flow<Pair<String, List<WebLink>>> = scheduleItem.map { scheduleItem ->
+    val title: Flow<String> = observeScheduleItem.map { it?.session?.title ?: "" }
+    val description: Flow<Pair<String, List<WebLink>>> = observeScheduleItem.map { scheduleItem ->
         scheduleItem?.session?.description?.let { it to parseUrlViewService.parse(it) } ?: "" to emptyList()
     }
 
-    val locationInfo: Flow<String> = scheduleItem.map {
+    val locationInfo: Flow<String> = observeScheduleItem.map {
         listOfNotNull(
             it?.room?.name,
             it?.let { item ->
@@ -57,7 +63,7 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
         ).joinToString()
     }
 
-    val hasEnded: Flow<Boolean> = scheduleItem.flatMapLatest { scheduleItem ->
+    val hasEnded: Flow<Boolean> = observeScheduleItem.flatMapLatest { scheduleItem ->
         flow {
             while (currentCoroutineContext().isActive) {
                 val hasEnded = scheduleItem?.session?.endsAt?.let { dateTimeService.now() > it } ?: false
@@ -66,10 +72,13 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
             }
         }
     }
-    val isAttending: Flow<Boolean> = scheduleItem.map { it?.session?.isAttending ?: false }
 
-    val statusRes: Flow<Int> = scheduleItem.mapNotNull {
-        if (it == null) { return@mapNotNull R.string.schedule_session_detail_status_future }
+    val isAttending: Flow<Boolean> = observeScheduleItem.map { it?.session?.isAttending ?: false }
+
+    val statusRes: Flow<Int> = observeScheduleItem.mapNotNull {
+        if (it == null) {
+            return@mapNotNull R.string.schedule_session_detail_status_future
+        }
         dateTimeService.now().let { now ->
             when {
                 it.session.endsAt < now -> R.string.schedule_session_detail_status_past
@@ -80,20 +89,20 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
         }
     }
 
-    val speakers: Flow<List<ProfileViewModel>> = scheduleItem.map { it?.speakers?.map(::ProfileViewModel) ?: emptyList() }
+    val speakers: Flow<List<ProfileViewModel>> = observeScheduleItem.map { it?.speakers?.map(::ProfileViewModel) ?: emptyList() }
 
     init {
         viewModelScope.launch {
             id.flatMapLatest {
                 it?.let { sessionGateway.observeScheduleItem(it) } ?: flowOf(null)
             }.collect {
-                scheduleItem.value = it
+                scheduleItem = it
             }
         }
     }
 
     fun toggleIsAttending(value: Boolean) {
-        scheduleItem.value?.session?.let { session ->
+        scheduleItem?.session?.let { session ->
             viewModelScope.launch {
                 sessionGateway.setAttending(session, value)
             }

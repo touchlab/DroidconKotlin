@@ -53,7 +53,7 @@ sealed class ScheduleScreen(val route: String) {
 
     object SpeakerDetail: ScheduleScreen("schedule/speakerDetail-{speakerId}") {
 
-        fun createRoute(speakerId: Profile.Id) = "schedule/speakerDetail-$speakerId"
+        fun createRoute(speakerId: Profile.Id) = "schedule/speakerDetail-${speakerId.value}"
     }
 }
 
