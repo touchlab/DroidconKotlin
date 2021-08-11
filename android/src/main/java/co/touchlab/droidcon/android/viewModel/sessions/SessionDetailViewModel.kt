@@ -7,32 +7,22 @@ import co.touchlab.droidcon.android.dto.WebLink
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.ParseUrlViewService
 import co.touchlab.droidcon.domain.composite.ScheduleItem
-import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
-import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.isActive
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -90,7 +80,7 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
         }
     }
 
-    val speakers: Flow<List<SpeakerViewModel>> = scheduleItem.map { it?.speakers?.map(::SpeakerViewModel) ?: emptyList() }
+    val speakers: Flow<List<ProfileViewModel>> = scheduleItem.map { it?.speakers?.map(::ProfileViewModel) ?: emptyList() }
 
     init {
         viewModelScope.launch {

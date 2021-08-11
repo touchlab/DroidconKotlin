@@ -25,6 +25,8 @@
 
     <string name="sponsors_title">Sponsors</string>
     <string name="sponsors_empty">Sponsors could not be loaded.</string>
+    <string name="sponsor_title">Sponsor</string>
+    <string name="sponsor_detail_description_description">Description</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_enable_feedback_title">Enable feedback</string>

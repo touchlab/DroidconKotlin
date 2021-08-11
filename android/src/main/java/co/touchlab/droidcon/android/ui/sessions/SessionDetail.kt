@@ -45,8 +45,8 @@ import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.ui.theme.WebLinkText
+import co.touchlab.droidcon.android.viewModel.sessions.ProfileViewModel
 import co.touchlab.droidcon.android.viewModel.sessions.SessionDetailViewModel
-import co.touchlab.droidcon.android.viewModel.sessions.SpeakerViewModel
 import co.touchlab.droidcon.domain.entity.Session
 import com.google.accompanist.coil.rememberCoilPainter
 
@@ -205,7 +205,7 @@ private fun Description(description: String, links: List<WebLink>) {
 }
 
 @Composable
-private fun Speaker(speaker: SpeakerViewModel, speakerTapped: () -> Unit) {
+private fun Speaker(speaker: ProfileViewModel, speakerTapped: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -234,9 +234,8 @@ private fun Speaker(speaker: SpeakerViewModel, speakerTapped: () -> Unit) {
                 ),
             )
         }
-        WebLinkText(
-            text = speaker.bio?.first ?: "",
-            links = speaker.bio?.second ?: emptyList(),
+        Text(
+            text = speaker.bio ?: "",
             modifier = Modifier.padding(
                 start = 80.dp,
                 end = Dimensions.Padding.default,
