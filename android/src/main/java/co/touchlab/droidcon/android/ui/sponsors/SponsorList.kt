@@ -115,14 +115,14 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                             modifier = Modifier
                                 .weight(1f)
                                 .padding(Dimensions.Padding.quarter)
+                                .shadow(2.dp, CircleShape)
                                 .clickable {
                                     if (sponsor.id == null) {
                                         uriHandler.openUri(sponsor.url.string)
                                     } else {
                                         navController.navigate(SponsorsScreen.Detail.createRoute(sponsor.id))
                                     }
-                                }
-                                .shadow(2.dp, CircleShape),
+                                },
                         )
                     }
                     repeat(columnCount - endIndex + startIndex) {

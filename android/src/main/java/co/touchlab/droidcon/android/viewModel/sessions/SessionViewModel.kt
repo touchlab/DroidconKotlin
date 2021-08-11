@@ -12,4 +12,6 @@ class SessionViewModel(item: ScheduleItem) {
 
     val isAttending: Boolean = item.session.isAttending
     val isColliding: Boolean = item.isInConflict
+
+    val isServiceSession: Boolean = item.session.isServiceSession
 }

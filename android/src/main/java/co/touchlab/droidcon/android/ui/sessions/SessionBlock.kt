@@ -52,6 +52,7 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                     ) { }
 
                     val backgroundColor = if (hasEnded) Colors.lightGrey222 else Color.White
+                    val isClickable = !session.isServiceSession
                     Card(
                         modifier = Modifier.weight(1f),
                         backgroundColor = backgroundColor,
@@ -59,6 +60,7 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                             sessionTapped(session)
                         },
                         elevation = 2.dp,
+                        enabled = isClickable,
                     ) {
                         Column {
                             Text(text = session.title, modifier = Modifier.padding(Dimensions.Padding.half))
