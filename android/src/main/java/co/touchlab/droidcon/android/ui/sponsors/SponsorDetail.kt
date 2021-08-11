@@ -78,7 +78,7 @@ private fun Header(name: String, groupTitle: String, imageUrl: Url?) {
         Modifier
             .fillMaxWidth()
             .heightIn(min = 160.dp)
-            .background(color = Colors.teal),
+            .background(color = MaterialTheme.colors.primary),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(

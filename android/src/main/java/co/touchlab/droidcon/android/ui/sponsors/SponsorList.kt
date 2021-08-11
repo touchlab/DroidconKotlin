@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.android.ui.sponsors
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -85,8 +85,9 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
     Surface(
         shape = MaterialTheme.shapes.medium,
         modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half),
-        color = Color.White,
+        color = MaterialTheme.colors.background,
         elevation = 2.dp,
+        border = if (MaterialTheme.colors.isLight) null else BorderStroke(1.dp, MaterialTheme.colors.surface),
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(

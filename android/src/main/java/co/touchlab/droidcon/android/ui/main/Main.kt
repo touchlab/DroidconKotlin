@@ -31,6 +31,7 @@ import co.touchlab.droidcon.android.ui.sponsors.SponsorDetail
 import co.touchlab.droidcon.android.ui.sponsors.SponsorList
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
+import com.google.accompanist.insets.systemBarsPadding
 
 sealed class MainTab(val route: String, @StringRes val titleRes: Int, @DrawableRes val image: Int) {
     object Schedule: MainTab("schedule", R.string.schedule_title, R.drawable.menu_schedule)
@@ -71,6 +72,7 @@ val tabs: List<MainTab> = listOf(MainTab.Schedule, MainTab.MyAgenda, MainTab.Spo
 fun Main() {
     val navController = rememberNavController()
     Scaffold(
+        modifier = Modifier.systemBarsPadding(),
         bottomBar = {
             BottomNavigation {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()

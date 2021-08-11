@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.android.ui.sessions
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.BadgeBox
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -51,7 +53,7 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                         backgroundColor = badgeColor,
                     ) { }
 
-                    val backgroundColor = if (hasEnded) Colors.lightGrey222 else Color.White
+                    val backgroundColor = if (hasEnded) MaterialTheme.colors.surface else MaterialTheme.colors.background
                     val isClickable = !session.isServiceSession
                     Card(
                         modifier = Modifier.weight(1f),
@@ -61,6 +63,7 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                         },
                         elevation = 2.dp,
                         enabled = isClickable,
+                        border = if (MaterialTheme.colors.isLight || hasEnded) null else BorderStroke(1.dp, MaterialTheme.colors.surface),
                     ) {
                         Column {
                             Text(text = session.title, modifier = Modifier.padding(Dimensions.Padding.half))

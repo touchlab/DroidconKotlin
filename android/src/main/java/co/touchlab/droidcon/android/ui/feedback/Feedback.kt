@@ -17,6 +17,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +47,7 @@ fun Feedback() {
             Column(modifier = Modifier.padding(Dimensions.Padding.default)) {
                 Text(
                     text = stringResource(id = R.string.feedback_title, "Droidcon 2021"),
-                    color = Colors.darkGrey,
+                    color = MaterialTheme.colors.onBackground,
                     style = MaterialTheme.typography.h6,
                 )
 
@@ -81,6 +82,7 @@ fun Feedback() {
                     modifier = Modifier
                         .height(160.dp)
                         .fillMaxWidth(),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(cursorColor = Colors.teal, focusedBorderColor = Colors.teal),
                 )
 
                 Column(
@@ -88,13 +90,13 @@ fun Feedback() {
                     horizontalAlignment = Alignment.End,
                 ) {
                     TextButton(onClick = { /*TODO*/ }) {
-                        Text(text = stringResource(id = R.string.feedback_submit).uppercase())
+                        Text(text = stringResource(id = R.string.feedback_submit).uppercase(), color = Colors.teal)
                     }
                     TextButton(onClick = { /*TODO*/ }) {
-                        Text(text = stringResource(id = R.string.feedback_close_and_disable).uppercase())
+                        Text(text = stringResource(id = R.string.feedback_close_and_disable).uppercase(), color = Colors.teal)
                     }
                     TextButton(onClick = { /*TODO*/ }) {
-                        Text(text = stringResource(id = R.string.feedback_skip).uppercase())
+                        Text(text = stringResource(id = R.string.feedback_skip).uppercase(), color = Colors.teal)
                     }
                 }
             }

@@ -115,7 +115,7 @@ private fun Header(title: String, locationInfo: String) {
         modifier = Modifier
             .fillMaxWidth()
             .height(160.dp)
-            .background(color = Colors.teal),
+            .background(color = MaterialTheme.colors.primary),
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
@@ -166,7 +166,7 @@ private fun Info(status: String) {
             modifier = Modifier
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
-            tint = Color.Black,
+            tint = MaterialTheme.colors.onSurface,
         )
         Text(
             text = status,
@@ -177,7 +177,7 @@ private fun Info(status: String) {
                 top = Dimensions.Padding.half,
                 bottom = Dimensions.Padding.half,
             ),
-            color = Color.Black,
+            color = MaterialTheme.colors.onSurface,
         )
     }
 }

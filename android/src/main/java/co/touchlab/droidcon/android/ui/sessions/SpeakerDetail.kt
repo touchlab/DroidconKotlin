@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.ui.theme.WebLinkText
@@ -76,7 +75,7 @@ private fun Header(name: String, tagLine: String, imageUrl: Url?) {
         Modifier
             .fillMaxWidth()
             .heightIn(min = 160.dp)
-            .background(color = Colors.teal),
+            .background(color = MaterialTheme.colors.primary),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         val painter = imageUrl?.string?.let { rememberCoilPainter(request = it) }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.Droidcon" parent="Theme.Material.DayNight.NoActionBar">
-        <item name="android:statusBarColor">#0E65B1</item>
-        <item name="android:colorPrimary">#14A1B6</item>
+        <item name="android:statusBarColor">#33000000</item>
+        <item name="android:navigationBarColor">#33000000</item>
     </style>
 
     <style name="Theme.Material.DayNight.NoActionBar" parent="@android:style/Theme.Material.Light.NoActionBar" />
