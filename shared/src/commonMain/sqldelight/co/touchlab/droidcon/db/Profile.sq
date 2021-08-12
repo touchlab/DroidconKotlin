@@ -35,7 +35,7 @@ selectBySponsor:
 SELECT profileTable.*
 FROM profileTable
 JOIN sponsorRepresentativeTable ON sponsorRepresentativeTable.representativeId = id
-WHERE sponsorRepresentativeTable.sponsorId = ?
+WHERE sponsorRepresentativeTable.sponsorName = ? AND sponsorRepresentativeTable.sponsorGroupName = ?
 ORDER BY sponsorRepresentativeTable.displayOrder;
 
 selectAll:

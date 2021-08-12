@@ -19,15 +19,10 @@ class SponsorDetailViewModel: ViewModel(), KoinComponent {
 
     private val sponsorGateway by inject<SponsorGateway>()
 
-    var id = MutableStateFlow<String?>(null)
+    var id = MutableStateFlow<Sponsor.Id?>(null)
 
     private val sponsor = MutableStateFlow<Sponsor?>(
-        Sponsor(
-            sponsorId = id.value,
-            name = "Awesome sponsor",
-            icon = Url("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"),
-            url = Url("www.google.com"),
-        )
+        null
     )
 
     val name: Flow<String> = sponsor.map { it?.name ?: "" }

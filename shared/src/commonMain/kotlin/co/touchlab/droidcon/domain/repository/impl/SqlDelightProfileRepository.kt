@@ -3,8 +3,10 @@ package co.touchlab.droidcon.domain.repository.impl
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.db.ProfileQueries
 import co.touchlab.droidcon.db.SessionSpeakerQueries
+import co.touchlab.droidcon.db.SponsorRepresentativeQueries
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
@@ -15,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 class SqlDelightProfileRepository(
     private val profileQueries: ProfileQueries,
     private val speakerQueries: SessionSpeakerQueries,
+    private val representativeQueries: SponsorRepresentativeQueries,
 ): BaseRepository<Profile.Id, Profile>(), ProfileRepository {
 
     override suspend fun getSpeakersBySession(id: Session.Id): List<Profile> {
@@ -27,6 +30,18 @@ class SqlDelightProfileRepository(
             speakerQueries.insertUpdate(
                 sessionId = session.id.value,
                 speakerId = speakerId.value,
+                displayOrder = index.toLong(),
+            )
+        }
+    }
+
+    override suspend fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>) {
+        representativeQueries.deleteBySponsorId(sponsorName = sponsor.id.name, sponsorGroupName = sponsor.id.group)
+        representatives.forEachIndexed { index, representativeId ->
+            representativeQueries.insertUpdate(
+                sponsorName = sponsor.name,
+                sponsorGroupName = sponsor.id.group,
+                representativeId = representativeId.value,
                 displayOrder = index.toLong(),
             )
         }

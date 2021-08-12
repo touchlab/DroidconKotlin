@@ -14,7 +14,7 @@ class SponsorListViewModel: ViewModel(), KoinComponent {
     val sponsorGroups: Flow<List<SponsorGroupViewModel>> = flow {
         emit(
             sponsorGateway.getSponsors()
-                .sortedBy { it.displayPriority }
+                .sortedBy { it.group.displayPriority }
                 .map(::SponsorGroupViewModel)
         )
     }

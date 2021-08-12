@@ -1,16 +1,17 @@
 package co.touchlab.droidcon.ios.viewmodel.sponsor
 
+import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.entity.SponsorGroup
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SponsorGroupViewModel(
     sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory,
-    sponsorGroup: SponsorGroup,
+    sponsorGroup: SponsorGroupWithSponsors,
     onSponsorSelected: (Sponsor) -> Unit
 ): BaseViewModel() {
-    val title = sponsorGroup.name
-    val isProminent = sponsorGroup.isProminent
+    val title = sponsorGroup.group.name
+    val isProminent = sponsorGroup.group.isProminent
     val sponsors by managedList(
         sponsorGroup.sponsors.map { sponsor ->
             sponsorGroupItemFactory.create(sponsor, selected = { onSponsorSelected(sponsor) })
@@ -21,7 +22,7 @@ class SponsorGroupViewModel(
         private val sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory,
     ) {
         fun create(
-            sponsorGroup: SponsorGroup,
+            sponsorGroup: SponsorGroupWithSponsors,
             onSponsorSelected: (Sponsor) -> Unit,
         ) = SponsorGroupViewModel(sponsorGroupItemFactory, sponsorGroup, onSponsorSelected)
     }

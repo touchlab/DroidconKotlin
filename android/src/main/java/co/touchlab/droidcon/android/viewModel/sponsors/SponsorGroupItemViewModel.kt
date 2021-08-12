@@ -8,7 +8,7 @@ class SponsorGroupItemViewModel(
     sponsor: Sponsor,
 ): ViewModel() {
 
-    val id: String? = sponsor.sponsorId
+    val id: Sponsor.Id = sponsor.id
     val name: String = sponsor.name
     val imageUrl: Url = sponsor.icon
     val url: Url = sponsor.url

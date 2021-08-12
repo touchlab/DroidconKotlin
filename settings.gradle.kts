@@ -21,7 +21,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "com.android" || requested.id.id == "android-gradle") {
-                useModule("com.android.tools.build:gradle:7.0.0-rc01")
+                useModule("com.android.tools.build:gradle:7.0.0")
             }
         }
     }
@@ -38,9 +38,9 @@ dependencyResolutionManagement {
         create("libs") {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
-            val composeRef = version("compose", "1.0.0-rc02")
-            val composeActivityRef = version("composeActivity", "1.3.0-rc01")
-            val composeNavigationRef = version("composeNavigation", "2.4.0-alpha05")
+            val composeRef = version("compose", "1.0.0")
+            val composeActivityRef = version("composeActivity", "1.3.0")
+            val composeNavigationRef = version("composeNavigation", "2.4.0-alpha06")
             val coroutinesRef = version("kotlinx-coroutines", "1.5.0-native-mt")
             val datetimeRef = version("kotlinx-datetime", "0.2.1")
             val serializationRef = version("kotlinx-serialization", "1.2.1")

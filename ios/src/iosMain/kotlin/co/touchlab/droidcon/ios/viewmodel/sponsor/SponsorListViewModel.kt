@@ -14,13 +14,13 @@ class SponsorListViewModel(
     val sponsorGroups: List<SponsorGroupViewModel> by managedList(emptyList(), flow {
         emit(
             sponsorGateway.getSponsors()
-                .sortedBy { it.displayPriority }
+                .sortedBy { it.group.displayPriority }
                 .map { sponsorGroup ->
                     sponsorGroupFactory.create(sponsorGroup, onSponsorSelected = { sponsor ->
-                        if (sponsor.sponsorId == null) {
-                            UIApplication.sharedApplication.openURL(NSURL(string = sponsor.url.string))
+                        if (sponsor.hasDetail) {
+                            presentedSponsorDetail = sponsorDetailFactory.create(sponsor, sponsorGroup.group.name)
                         } else {
-                            presentedSponsorDetail = sponsorDetailFactory.create(sponsor, sponsorGroup.name)
+                            UIApplication.sharedApplication.openURL(NSURL(string = sponsor.url.string))
                         }
                     })
                 }

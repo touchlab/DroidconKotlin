@@ -1,17 +1,32 @@
 CREATE TABLE sponsorTable(
-    id TEXT NOT NULL PRIMARY KEY,
-    description TEXT
+    name TEXT NOT NULL,
+    groupName TEXT NOT NULL,
+    hasDetail INTEGER AS Boolean NOT NULL,
+    description TEXT,
+    iconUrl TEXT NOT NULL,
+    url TEXT NOT NULL,
+    PRIMARY KEY (name, groupName),
+    FOREIGN KEY (groupName) REFERENCES sponsorGroupTable(name)
 );
 
-insertUpdate:
-INSERT OR REPLACE INTO  sponsorTable(id, description)
-VALUES (?, ?);
+upsert:
+INSERT OR REPLACE INTO sponsorTable(name, groupName, hasDetail, description, iconUrl, url)
+VALUES (?, ?, ?, ?, ?, ?);
 
 selectAll:
 SELECT * FROM sponsorTable;
 
+sponsorsByGroup:
+SELECT * FROM sponsorTable WHERE groupName = ?;
+
 sponsorById:
-SELECT * FROM sponsorTable WHERE id = ? LIMIT 1;
+SELECT * FROM sponsorTable WHERE name = ? AND groupName = ? LIMIT 1;
+
+existsById:
+SELECT count(1) FROM sponsorTable WHERE name = ? AND groupName = ? LIMIT 1;
+
+deleteById:
+DELETE FROM sponsorTable WHERE name = ? AND groupName = ?;
 
 deleteAll:
 DELETE FROM sponsorTable;

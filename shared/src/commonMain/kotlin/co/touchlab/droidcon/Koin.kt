@@ -17,19 +17,22 @@ import co.touchlab.droidcon.domain.gateway.impl.DefaultSponsorGateway
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
+import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
+import co.touchlab.droidcon.domain.repository.SponsorRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightProfileRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightRoomRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
+import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorGroupRepository
+import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
-import co.touchlab.droidcon.domain.service.impl.FirestoreApiDataSource
-import co.touchlab.droidcon.domain.service.impl.json.SessionJsonResourceDataSource
-import co.touchlab.droidcon.domain.service.impl.SessionizeApiDataSource
-import co.touchlab.droidcon.domain.service.impl.SessionizeSyncService
+import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
+import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
+import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import io.ktor.client.HttpClient
@@ -93,7 +96,11 @@ private val coreModule = module {
         )
     }
     single<ProfileRepository> {
-        SqlDelightProfileRepository(get<DroidconDatabase>().profileQueries, get<DroidconDatabase>().sessionSpeakerQueries)
+        SqlDelightProfileRepository(
+            get<DroidconDatabase>().profileQueries,
+            get<DroidconDatabase>().sessionSpeakerQueries,
+            get<DroidconDatabase>().sponsorRepresentativeQueries,
+        )
     }
     single<SessionRepository> {
         SqlDelightSessionRepository(get(), get<DroidconDatabase>().sessionQueries)
@@ -101,25 +108,34 @@ private val coreModule = module {
     single<RoomRepository> {
         SqlDelightRoomRepository(get<DroidconDatabase>().roomQueries)
     }
+    single<SponsorRepository> {
+        SqlDelightSponsorRepository(get<DroidconDatabase>().sponsorQueries)
+    }
+    single<SponsorGroupRepository> {
+        SqlDelightSponsorGroupRepository(get<DroidconDatabase>().sponsorGroupQueries)
+    }
     single<SyncService> {
-        SessionizeSyncService(
+        DefaultSyncService(
+            logger = getWith("SyncService"),
             settings = get(),
             dateTimeService = get(),
             profileRepository = get(),
             sessionRepository = get(),
             roomRepository = get(),
-            seedDataSource = get(qualifier(SessionizeSyncService.DataSource.Kind.Seed)),
-            apiDataSource = get(qualifier(SessionizeSyncService.DataSource.Kind.Api)),
+            sponsorRepository = get(),
+            sponsorGroupRepository = get(),
+            seedDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Seed)),
+            apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
         )
     }
-    single<SessionizeSyncService.DataSource>(qualifier(SessionizeSyncService.DataSource.Kind.Api)) {
-        SessionizeApiDataSource(
+    single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {
+        DefaultApiDataSource(
             client = get(),
             json = get(),
         )
     }
-    single<SessionizeSyncService.DataSource>(qualifier(SessionizeSyncService.DataSource.Kind.Seed)) {
-        SessionJsonResourceDataSource(
+    single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Seed)) {
+        JsonSeedResourceDataSource(
             jsonResourceReader = get(),
         )
     }
@@ -136,15 +152,10 @@ private val coreModule = module {
             sessionRepository = get(),
         )
     }
-    single {
-        FirestoreApiDataSource(
-            client = get(),
-            json = get(),
-        )
-    }
     single<SponsorGateway> {
         DefaultSponsorGateway(
-            firestoreApiDataSource = get(),
+            sponsorRepository = get(),
+            sponsorGroupRepository = get(),
         )
     }
     single<SettingsGateway> {

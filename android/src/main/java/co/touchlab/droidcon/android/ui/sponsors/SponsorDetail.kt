@@ -38,10 +38,11 @@ import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.viewModel.sessions.ProfileViewModel
 import co.touchlab.droidcon.android.viewModel.sponsors.SponsorDetailViewModel
 import co.touchlab.droidcon.composite.Url
+import co.touchlab.droidcon.domain.entity.Sponsor
 import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
-fun SponsorDetail(navController: NavHostController, sponsorId: String) {
+fun SponsorDetail(navController: NavHostController, sponsorId: Sponsor.Id) {
     val sponsorDetail = viewModel<SponsorDetailViewModel>()
     LaunchedEffect(sponsorId) {
         sponsorDetail.id.value = sponsorId

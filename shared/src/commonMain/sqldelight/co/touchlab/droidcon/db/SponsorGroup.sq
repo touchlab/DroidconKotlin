@@ -1,0 +1,24 @@
+CREATE TABLE sponsorGroupTable(
+    name TEXT NOT NULL PRIMARY KEY,
+    displayPriority INTEGER AS Int NOT NULL,
+    prominent INTEGER AS Boolean NOT NULL
+);
+
+upsert:
+INSERT OR REPLACE INTO sponsorGroupTable(name, displayPriority, prominent)
+VALUES (?, ?, ?);
+
+selectAll:
+SELECT * FROM sponsorGroupTable;
+
+sponsorGroupByName:
+SELECT * FROM sponsorGroupTable WHERE name = ? LIMIT 1;
+
+existsByName:
+SELECT count(1) FROM sponsorGroupTable WHERE name = ? LIMIT 1;
+
+deleteAll:
+DELETE FROM sponsorGroupTable;
+
+deleteByName:
+DELETE FROM sponsorGroupTable WHERE name = ?;

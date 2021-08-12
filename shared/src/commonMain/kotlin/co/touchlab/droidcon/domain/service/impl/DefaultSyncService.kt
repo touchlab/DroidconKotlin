@@ -1,18 +1,27 @@
 package co.touchlab.droidcon.domain.service.impl
 
 import co.touchlab.droidcon.composite.Url
+import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.domain.entity.Sponsor
+import co.touchlab.droidcon.domain.entity.SponsorGroup
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
+import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
+import co.touchlab.droidcon.domain.repository.SponsorRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.fromConferenceDateTime
 import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
+import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
+import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
+import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
@@ -27,12 +36,15 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.minus
 
 @OptIn(ExperimentalSettingsApi::class)
-class SessionizeSyncService(
+class DefaultSyncService(
+    private val logger: Kermit,
     private val settings: ObservableSettings,
     private val dateTimeService: DateTimeService,
     private val profileRepository: ProfileRepository,
     private val sessionRepository: SessionRepository,
     private val roomRepository: RoomRepository,
+    private val sponsorRepository: SponsorRepository,
+    private val sponsorGroupRepository: SponsorGroupRepository,
     private val seedDataSource: DataSource,
     private val apiDataSource: DataSource,
 ): SyncService {
@@ -43,13 +55,13 @@ class SessionizeSyncService(
 
         // MARK: Delays
         // 5 minutes
-        private const val SESSIONIZE_SYNC_POLL_DELAY: Long = 300_000
+        private const val SESSIONIZE_SYNC_POLL_DELAY: Long = 5 * 60 * 1000
         // 2 hours
-        private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 7_200_000
+        private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 2 * 60 * 60 * 1000
         // 5 minutes
-        private const val RSVP_SYNC_DELAY: Long = 300_000
+        private const val RSVP_SYNC_DELAY: Long = 5 * 60 * 1000
         // 5 minutes
-        private const val FEEDBACK_SYNC_DELAY: Long = 300_000
+        private const val FEEDBACK_SYNC_DELAY: Long = 5 * 60 * 1000
     }
 
     private var isLocalRepositoriesSeeded: Boolean
@@ -73,11 +85,13 @@ class SessionizeSyncService(
                     val lastSessionizeSync = lastSessionizeSync
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
                     if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(2, DateTimeUnit.HOUR)) {
+                        logger.d { "Will sync all repositories from API data source." }
                         updateRepositoriesFromDataSource(apiDataSource)
-                        this@SessionizeSyncService.lastSessionizeSync = dateTimeService.now()
+                        logger.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
+                        this@DefaultSyncService.lastSessionizeSync = dateTimeService.now()
                         delay(SESSIONIZE_SYNC_NEXT_DELAY)
                     } else {
-                        // The sync didn't happen, so we'll try again in a short while.
+                        logger.d { "The sync didn't happen, so we'll try again in a short while ($SESSIONIZE_SYNC_POLL_DELAY ms)." }
                         delay(SESSIONIZE_SYNC_POLL_DELAY)
                     }
                 }
@@ -112,6 +126,7 @@ class SessionizeSyncService(
     private suspend fun updateRepositoriesFromDataSource(dataSource: DataSource) {
         updateSpeakersFromDataSource(dataSource)
         updateScheduleFromDataSource(dataSource)
+        updateSponsorsFromDataSource(dataSource)
     }
 
     private suspend fun updateSpeakersFromDataSource(dataSource: DataSource) {
@@ -119,10 +134,7 @@ class SessionizeSyncService(
         val profiles = speakerDtos.map(::profileFactory)
 
         // Remove deleted speakers.
-        sessionRepository.all()
-            .flatMap { session ->
-                profileRepository.getSpeakersBySession(session.id).map { it.id }
-            }
+        profileRepository.all().map { it.id }
             .subtract(profiles.map { it.id })
             .forEach { profileRepository.remove(it) }
 
@@ -188,6 +200,55 @@ class SessionizeSyncService(
         }
     }
 
+    private suspend fun updateSponsorsFromDataSource(dataSource: DataSource) {
+        val sponsorSessions = dataSource.getSponsorSessions().flatMap { it.sessions }.associateBy { it.id }
+        val sponsors = dataSource.getSponsors()
+
+        val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
+            val groupName = (group.name.split('/').lastOrNull() ?: group.name)
+                .split(' ').joinToString(" ") { it.capitalize() }
+
+            SponsorGroup(
+                id = SponsorGroup.Id(groupName),
+                displayPriority = group.fields.displayOrder.integerValue.toInt(),
+                isProminent = group.fields.prominent?.booleanValue ?: false
+            ) to group.fields.sponsors.arrayValue.values.map { it.mapValue.fields }
+        }
+
+        val sponsorsAndRepresentativeIds = sponsorGroupsToSponsorDtos.flatMap { (group, sponsorDtos) ->
+            sponsorDtos.map { sponsorDto ->
+                val sponsorSession = sponsorDto.sponsorId?.stringValue?.let(sponsorSessions::get)
+                val representativeIds = sponsorSession?.speakers?.map { Profile.Id(it.id) } ?: emptyList()
+
+                Sponsor(
+                    id = Sponsor.Id(sponsorDto.name.stringValue, group.name),
+                    hasDetail = sponsorSession != null,
+                    description = sponsorSession?.description,
+                    icon = Url(sponsorDto.icon.stringValue),
+                    url = Url(sponsorDto.url.stringValue),
+                ) to representativeIds
+            }
+        }
+
+        sponsorRepository.all().map { it.id }
+            .subtract(sponsorsAndRepresentativeIds.map { it.first.id })
+            .forEach { sponsorRepository.remove(it) }
+
+        sponsorGroupRepository.all().map { it.id }
+            .subtract(sponsorGroupsToSponsorDtos.map { it.first.id })
+            .forEach { sponsorGroupRepository.remove(it) }
+
+        sponsorGroupsToSponsorDtos.forEach { (group, _) ->
+            sponsorGroupRepository.addOrUpdate(group)
+        }
+
+        sponsorsAndRepresentativeIds.forEach { (sponsor, representativeIds) ->
+            sponsorRepository.addOrUpdate(sponsor)
+
+            profileRepository.setSponsorRepresentatives(sponsor, representativeIds)
+        }
+    }
+
     private fun profileFactory(speakerDto: SpeakersDto.SpeakerDto): Profile {
         val groupedLinks = speakerDto.links.filter { it.url.isNotBlank() } .groupBy { it.linkType }
         return Profile(
@@ -212,5 +273,9 @@ class SessionizeSyncService(
         suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>
 
         suspend fun getSchedule(): List<ScheduleDto.DayDto>
+
+        suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto>
+
+        suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto
     }
 }
