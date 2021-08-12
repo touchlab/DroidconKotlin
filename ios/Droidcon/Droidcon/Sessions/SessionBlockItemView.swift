@@ -41,7 +41,7 @@ struct SessionBlockItemView: View {
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
-                    if !viewModel.isServiceSession {
+                    if !viewModel.isServiceSession && !viewModel.speakers.isEmpty {
                         Text("by \(viewModel.speakers)")
                             .font(.subheadline)
                             .lineLimit(2)
