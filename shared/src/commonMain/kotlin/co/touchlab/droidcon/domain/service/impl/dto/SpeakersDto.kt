@@ -38,7 +38,7 @@ object SpeakersDto {
     data class LinkType(val value: String) {
         companion object : KSerializer<LinkType> {
             val Blog = LinkType("Blog")
-            val CompanyWebsite = LinkType("CompanyWebsite")
+            val CompanyWebsite = LinkType("Company_Website")
             val LinkedIn = LinkType("LinkedIn")
             val Other = LinkType("Other")
             val Twitter = LinkType("Twitter")
