@@ -100,11 +100,10 @@ class SessionizeSyncService(
     }
 
     private suspend fun seedLocalRepositoriesIfNeeded() {
-        if (true || isLocalRepositoriesSeeded) {
+        if (isLocalRepositoriesSeeded) {
             return
         }
 
-        // FIXME: Crashes on Android, that's what it's skipped ^.
         updateRepositoriesFromDataSource(seedDataSource)
 
         isLocalRepositoriesSeeded = true
