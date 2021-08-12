@@ -18,7 +18,7 @@ class SponsorDetailViewModel(
     val name = sponsor.name
     val imageUrl = sponsor.icon
 
-    val abstract = "We are very hard-working here, but we also know when it's time to kick back and relax with an AriZona can in hand."
+    val abstract = "We are very hard-working here https://stackoverflow.com/, but we also know when it's time to kick back and relax with an AriZona can in hand. https://stackoverflow.com/questions/995219/how-to-make-uitextview-detect-links-for-website-mail-and-phone-number"
 
     val speakers: List<SpeakerListItemViewModel> by managedList(
         // observeItem.map {

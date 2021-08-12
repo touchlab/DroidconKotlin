@@ -9,6 +9,5 @@ object AboutDto {
         val icon: String,
         val title: String,
         val detail: String,
-        val link: String?,
     )
 }

@@ -3,11 +3,6 @@ import DroidconKit
 
 struct AboutView: View {
     private static let iconSize: CGFloat = 32
-    private static let touchlabUrl = URL(string: "http://touchlab.co")!
-    private static let droidconAppUrl = URL(string: "https://github.com/touchlab/DroidconKotlin")!
-
-    @Environment(\.openURL)
-    var openURL
 
     private(set) var viewModel: AboutViewModel
 
@@ -20,25 +15,17 @@ struct AboutView: View {
                             .font(.headline)
                             .padding(.bottom, 4)
 
-                        ForEach(section.detail.split(separator: "\n").filter { !$0.isEmpty }, id: \.self) { text in
-                            Text(text)
-                                .font(.callout)
-                        }
-
-                        if let link = section.link.flatMap({ URL(string: $0.string) }) {
-                            Link(link.absoluteString, destination: link)
-                                .font(.callout)
+                        ForEach(section.detail.split(separator: "\n").filter { !$0.isEmpty }.map(String.init), id: \.self) { text in
+                            TextView("", text: .constant(text))
+                                .isEditable(false)
+                                .autoDetectDataTypes(.link)
+                                .font(Font.callout)
                         }
 
                         Image(section.icon)
                             .resizable()
                             .scaledToFit()
                             .frame(maxHeight: 50)
-                            .onTapGesture {
-                                if let link = section.link.flatMap({ URL(string: $0.string) }) {
-                                    openURL(link)
-                                }
-                            }
                     }
                 }
             }

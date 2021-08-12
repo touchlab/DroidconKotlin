@@ -59,10 +59,16 @@ struct SponsorDetailView: View {
 
                     VStack(spacing: 16) {
                         if let abstract = viewModel.abstract {
-                            label(
-                                Text(abstract),
-                                image: Image(systemName: "doc.text")
-                            )
+                            HStack(alignment: .firstTextBaseline) {
+                                Image(systemName: "doc.text")
+                                    .frame(width: Self.iconSize, height: Self.iconSize)
+
+                                TextView("", text: .constant(abstract))
+                                    .isEditable(false)
+                                    .autoDetectDataTypes(.link)
+                                    .font(Font.callout)
+                                    .padding(.leading, 8)
+                            }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         }

@@ -15,7 +15,6 @@ class DefaultAboutRepository(
                 icon = it.icon,
                 title = it.title,
                 detail = it.detail,
-                link = it.link?.let(::Url),
             )
         }
     }
