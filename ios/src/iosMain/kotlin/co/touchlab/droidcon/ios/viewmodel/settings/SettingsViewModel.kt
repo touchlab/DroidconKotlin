@@ -1,7 +1,6 @@
-package co.touchlab.droidcon.ios.viewmodel
+package co.touchlab.droidcon.ios.viewmodel.settings
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
-import kotlinx.coroutines.flow.map
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SettingsViewModel(

@@ -1,9 +1,9 @@
-package co.touchlab.droidcon.ios.viewmodel
+package co.touchlab.droidcon.ios.viewmodel.session
 
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 
-class ScheduleViewModel(
+class AgendaViewModel(
     sessionGateway: SessionGateway,
     sessionDayFactory: SessionDayViewModel.Factory,
     sessionDetailFactory: SessionDetailViewModel.Factory,
@@ -13,7 +13,7 @@ class ScheduleViewModel(
     sessionDayFactory,
     sessionDetailFactory,
     dateTimeService,
-    attendingOnly = false,
+    attendingOnly = true,
 ) {
     class Factory(
         private val sessionGateway: SessionGateway,
@@ -21,6 +21,6 @@ class ScheduleViewModel(
         private val sessionDetailFactory: SessionDetailViewModel.Factory,
         private val dateTimeService: DateTimeService,
     ) {
-        fun create() = ScheduleViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, dateTimeService)
+        fun create() = AgendaViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, dateTimeService)
     }
 }

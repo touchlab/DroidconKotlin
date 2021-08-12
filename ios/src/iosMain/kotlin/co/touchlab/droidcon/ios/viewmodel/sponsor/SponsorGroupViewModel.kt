@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.viewmodel
+package co.touchlab.droidcon.ios.viewmodel.sponsor
 
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.entity.SponsorGroup

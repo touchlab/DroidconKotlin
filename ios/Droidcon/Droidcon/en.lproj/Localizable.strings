@@ -21,6 +21,8 @@
 "Sponsors.Title" = "Sponsors";
 "Sponsors.TabItem.Title" = "Sponsors";
 
+"Sponsor.Detail.Title" = "Sponsor";
+
 "Settings.Title" = "Settings";
 "Settings.TabItem.Title" = "Settings";
 "Settings.Feedback" = "Enable feedback";

@@ -10,6 +10,12 @@ struct SponsorListView: View {
     var body: some View {
         NavigationView {
             ScrollView {
+                SwitchingNavigationLink(
+                    selection: $viewModel.presentedSponsorDetail,
+                    isActive: { $0 },
+                    content: SponsorDetailView.init(viewModel:)
+                )
+
                 VStack(spacing: 20) {
                     ForEach(viewModel.sponsorGroups) { sponsorGroup in
                         VStack(spacing: 8) {
@@ -22,7 +28,7 @@ struct SponsorListView: View {
                             LazyVGrid(
                                 columns: Array(repeating: GridItem(.flexible()), count: sponsorGroup.isProminent ? 3 : 4),
                                 alignment: .center,
-                                spacing: 16
+                                spacing: 8
                             ) {
                                 ForEach(sponsorGroup.sponsors, id: \.self) { sponsor in
                                     SponsorGroupItemView(viewModel: sponsor)

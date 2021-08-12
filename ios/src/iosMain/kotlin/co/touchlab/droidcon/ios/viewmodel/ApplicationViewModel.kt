@@ -2,6 +2,10 @@ package co.touchlab.droidcon.ios.viewmodel
 
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.ios.viewmodel.session.AgendaViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.ScheduleViewModel
+import co.touchlab.droidcon.ios.viewmodel.settings.SettingsViewModel
+import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorListViewModel
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class ApplicationViewModel(

@@ -1,14 +1,9 @@
-package co.touchlab.droidcon.ios.viewmodel
+package co.touchlab.droidcon.ios.viewmodel.session
 
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.service.DateTimeService
-import co.touchlab.droidcon.domain.service.toConferenceDateTime
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.datetime.Clock
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SessionListItemViewModel(

@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.viewmodel
+package co.touchlab.droidcon.ios.viewmodel.session
 
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile

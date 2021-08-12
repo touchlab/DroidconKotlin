@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.viewmodel
+package co.touchlab.droidcon.ios.viewmodel.sponsor
 
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import kotlinx.coroutines.flow.flow
@@ -9,6 +9,7 @@ import platform.UIKit.UIApplication
 class SponsorListViewModel(
     private val sponsorGateway: SponsorGateway,
     private val sponsorGroupFactory: SponsorGroupViewModel.Factory,
+    private val sponsorDetailFactory: SponsorDetailViewModel.Factory,
 ): BaseViewModel() {
     val sponsorGroups: List<SponsorGroupViewModel> by managedList(emptyList(), flow {
         emit(
@@ -19,20 +20,20 @@ class SponsorListViewModel(
                         if (sponsor.sponsorId == null) {
                             UIApplication.sharedApplication.openURL(NSURL(string = sponsor.url.string))
                         } else {
-                            // TODO: Present detail.
+                            presentedSponsorDetail = sponsorDetailFactory.create(sponsor, sponsorGroup.name)
                         }
                     })
                 }
         )
     })
 
-    // var presentedSponsorDetail: SponsorDetailViewModel?
+    var presentedSponsorDetail: SponsorDetailViewModel? by managed(null)
 
     class Factory(
         private val sponsorGateway: SponsorGateway,
         private val sponsorGroupFactory: SponsorGroupViewModel.Factory,
+        private val sponsorDetailFactory: SponsorDetailViewModel.Factory,
     ) {
-        fun create() = SponsorListViewModel(sponsorGateway, sponsorGroupFactory)
+        fun create() = SponsorListViewModel(sponsorGateway, sponsorGroupFactory, sponsorDetailFactory)
     }
 }
-

@@ -5,20 +5,21 @@ import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.ios.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
-import co.touchlab.droidcon.ios.viewmodel.AboutViewModel
-import co.touchlab.droidcon.ios.viewmodel.AgendaViewModel
+import co.touchlab.droidcon.ios.viewmodel.settings.AboutViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.ios.viewmodel.ApplicationViewModel
-import co.touchlab.droidcon.ios.viewmodel.ScheduleViewModel
-import co.touchlab.droidcon.ios.viewmodel.SessionBlockViewModel
-import co.touchlab.droidcon.ios.viewmodel.SessionDayViewModel
-import co.touchlab.droidcon.ios.viewmodel.SessionDetailViewModel
-import co.touchlab.droidcon.ios.viewmodel.SessionListItemViewModel
-import co.touchlab.droidcon.ios.viewmodel.SettingsViewModel
-import co.touchlab.droidcon.ios.viewmodel.SpeakerDetailViewModel
-import co.touchlab.droidcon.ios.viewmodel.SpeakerListItemViewModel
-import co.touchlab.droidcon.ios.viewmodel.SponsorGroupItemViewModel
-import co.touchlab.droidcon.ios.viewmodel.SponsorGroupViewModel
-import co.touchlab.droidcon.ios.viewmodel.SponsorListViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.ScheduleViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.SessionBlockViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.SessionDayViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.SessionDetailViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.SessionListItemViewModel
+import co.touchlab.droidcon.ios.viewmodel.settings.SettingsViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.SpeakerDetailViewModel
+import co.touchlab.droidcon.ios.viewmodel.session.SpeakerListItemViewModel
+import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorDetailViewModel
+import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorGroupItemViewModel
+import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorGroupViewModel
+import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorListViewModel
 import co.touchlab.droidcon.util.BundleResourceReader
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -58,9 +59,10 @@ fun initKoinIos(
 
         factory { SpeakerDetailViewModel.Factory() }
 
-        factory { SponsorListViewModel.Factory(get(), get()) }
+        factory { SponsorListViewModel.Factory(get(), get(), get()) }
         factory { SponsorGroupViewModel.Factory(get()) }
         factory { SponsorGroupItemViewModel.Factory() }
+        factory { SponsorDetailViewModel.Factory(get(), get()) }
 
         factory { SettingsViewModel.Factory(get(), get()) }
         factory { AboutViewModel.Factory(get()) }

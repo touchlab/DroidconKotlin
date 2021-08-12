@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.viewmodel
+package co.touchlab.droidcon.ios.viewmodel.settings
 
 import co.touchlab.droidcon.application.composite.AboutItem
 import co.touchlab.droidcon.application.repository.AboutRepository
