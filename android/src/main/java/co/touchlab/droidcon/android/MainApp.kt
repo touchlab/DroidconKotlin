@@ -6,14 +6,18 @@ import android.content.Context
 import android.content.SharedPreferences
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.ParseUrlViewService
+import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
 import co.touchlab.droidcon.android.service.impl.DefaultDateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
 import co.touchlab.droidcon.android.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.util.AssetResourceReader
 import co.touchlab.droidcon.util.ClasspathResourceReader
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
@@ -46,6 +50,10 @@ class MainApp: Application() {
 
                 single<NotificationSchedulingService.LocalizedStringFactory> {
                     NotificationLocalizedStringFactory(get())
+                }
+
+                single<AnalyticsService> {
+                    AndroidAnalyticsService(Firebase.analytics)
                 }
             }
         )

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -59,4 +60,5 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.accompanist.coil)
     implementation(libs.accompanist.insets)
+    implementation(libs.firebase.analytics)
 }

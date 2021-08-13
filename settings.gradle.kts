@@ -23,6 +23,10 @@ pluginManagement {
             if (requested.id.namespace == "com.android" || requested.id.id == "android-gradle") {
                 useModule("com.android.tools.build:gradle:7.0.0")
             }
+
+            if (requested.id.id == "com.google.gms.google-services") {
+                useModule("com.google.gms:google-services:4.3.10")
+            }
         }
     }
 }
@@ -53,6 +57,7 @@ dependencyResolutionManagement {
             val accompanistCoilRef = version("accompanistCoil", "0.13.0")
             val accompanistInsetsRef = version("accompanistInsets", "0.16.1")
             val coreRef = version("androidx-core", "1.6.0")
+            val firebaseAnalyticsRef = version("firebase-analytics", "19.0.0")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
 
@@ -94,6 +99,8 @@ dependencyResolutionManagement {
             alias("hyperdrive-multiplatformx-api").to("org.brightify.hyperdrive", "multiplatformx-api").versionRef(hyperdriveRef)
 
             alias("androidx-core").to("androidx.core", "core-ktx").versionRef(coreRef)
+
+            alias("firebase-analytics").to("com.google.firebase", "firebase-analytics-ktx").versionRef(firebaseAnalyticsRef)
 
             bundle("androidx-compose", listOf(
                 "androidx-compose-ui-core",

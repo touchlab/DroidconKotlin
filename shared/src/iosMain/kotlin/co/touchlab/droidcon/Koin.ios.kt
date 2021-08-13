@@ -9,6 +9,7 @@ import com.squareup.sqldelight.db.SqlDriver
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.ios.Ios
 import kotlinx.cinterop.ObjCClass
+import kotlinx.cinterop.ObjCProtocol
 import kotlinx.cinterop.getOriginalKotlinClass
 import org.koin.core.Koin
 import org.koin.core.parameter.parametersOf
@@ -33,17 +34,22 @@ actual val platformModule = module {
 }
 
 fun Koin.get(objCClass: ObjCClass, qualifier: Qualifier?, parameter: Any): Any {
-    val kClazz = getOriginalKotlinClass(objCClass)!!
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCClass)) { "Could not get original kotlin class for $objCClass." }
     return get(kClazz, qualifier) { parametersOf(parameter) }
 }
 
 fun Koin.get(objCClass: ObjCClass, parameter: Any): Any {
-    val kClazz = getOriginalKotlinClass(objCClass)!!
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCClass)) { "Could not get original kotlin class for $objCClass." }
     return get(kClazz, null) { parametersOf(parameter) }
 }
 
 fun Koin.get(objCClass: ObjCClass, qualifier: Qualifier?): Any {
-    val kClazz = getOriginalKotlinClass(objCClass)!!
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCClass)) { "Could not get original kotlin class for $objCClass." }
+    return get(kClazz, qualifier, null)
+}
+
+fun Koin.get(objCProtocol: ObjCProtocol, qualifier: Qualifier?): Any {
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCProtocol)) { "Could not get original kotlin class for $objCProtocol." }
     return get(kClazz, qualifier, null)
 }
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1091975587304-vkpk56qp8oekh492tr4im8nkt0h7gm7q.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1091975587304-vkpk56qp8oekh492tr4im8nkt0h7gm7q</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1091975587304-541fmmu0bb0uhp62cbve7vqdm7drefhm.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDJfGdSS15YDDg7CZCaAISCVv7YhzimvVA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1091975587304</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>co.touchlab.droidcon.ios.base</string>
+	<key>PROJECT_ID</key>
+	<string>droidcon-148cc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>droidcon-148cc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1091975587304:ios:c55b1dbd315734e7</string>
+	<key>DATABASE_URL</key>
+	<string>https://droidcon-148cc.firebaseio.com</string>
+</dict>
+</plist>

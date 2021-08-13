@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.ios
 
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.ios.util.NotificationLocalizedStringFactory
@@ -33,6 +34,7 @@ import platform.Foundation.NSUserDefaults
 @OptIn(ExperimentalSettingsApi::class)
 fun initKoinIos(
     userDefaults: NSUserDefaults,
+    analyticsService: AnalyticsService,
 ): KoinApplication = initKoin(
     module {
         single { BundleProvider(NSBundle.mainBundle) }
@@ -44,6 +46,8 @@ fun initKoinIos(
         single<NotificationSchedulingService.LocalizedStringFactory> {
             NotificationLocalizedStringFactory(get<BundleProvider>().bundle)
         }
+
+        single { analyticsService }
 
         // MARK: View model factories.
         factory { ApplicationViewModel(get(), get(), get(), get(), get(), get()) }
