@@ -13,5 +13,8 @@ class Sponsor(
     val name: String
         get() = id.name
 
+    val group: String
+        get() = id.group
+
     data class Id(val name: String, val group: String)
 }

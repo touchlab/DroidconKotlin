@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.android.ui.sessions
+package co.touchlab.droidcon.android.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -41,7 +41,7 @@ import co.touchlab.droidcon.domain.entity.Profile
 import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
-fun SpeakerDetail(navController: NavHostController, speakerId: Profile.Id) {
+fun ProfileDetail(navController: NavHostController, speakerId: Profile.Id) {
     val speakerDetail = viewModel<SpeakerDetailViewModel>()
     LaunchedEffect(speakerId) {
         speakerDetail.id.value = speakerId
@@ -94,8 +94,8 @@ private fun Header(name: String, tagLine: String, imageUrl: Url?) {
         ) {
             Text(
                 text = name,
-                style = MaterialTheme.typography.h4,
-                maxLines = 1,
+                style = MaterialTheme.typography.h5,
+                maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.White,
                 modifier = Modifier.padding(

@@ -2,12 +2,15 @@ package co.touchlab.droidcon.android.ui.sponsors
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -32,10 +35,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -110,21 +115,34 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                     val endIndex = min(startIndex + columnCount, sponsors.size)
                     sponsors.subList(startIndex, endIndex).forEach { sponsor ->
                         val resource = rememberCoilPainter(request = sponsor.imageUrl.string)
-                        Image(
-                            painter = resource,
-                            contentDescription = sponsor.name,
+                        Box(
                             modifier = Modifier
                                 .weight(1f)
+                                .aspectRatio(1f)
                                 .padding(Dimensions.Padding.quarter)
                                 .shadow(2.dp, CircleShape)
+                                .background(Color.White)
                                 .clickable {
-                                    if (sponsor.id == null) {
-                                        uriHandler.openUri(sponsor.url.string)
-                                    } else {
+                                    if (sponsor.hasDetail) {
                                         navController.navigate(SponsorsScreen.Detail.createRoute(sponsor.id))
+                                    } else {
+                                        uriHandler.openUri(sponsor.url.string)
                                     }
                                 },
-                        )
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Text(
+                                text = sponsor.name,
+                                modifier = Modifier.padding(Dimensions.Padding.half),
+                                textAlign = TextAlign.Center,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 3,
+                            )
+                            Image(
+                                painter = resource,
+                                contentDescription = sponsor.name,
+                            )
+                        }
                     }
                     repeat(columnCount - endIndex + startIndex) {
                         Spacer(modifier = Modifier.weight(1f))

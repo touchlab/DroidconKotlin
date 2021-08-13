@@ -1,14 +1,17 @@
 package co.touchlab.droidcon.domain.gateway.impl
 
 import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
+import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
+import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
 
 class DefaultSponsorGateway(
     private val sponsorRepository: SponsorRepository,
     private val sponsorGroupRepository: SponsorGroupRepository,
+    private val profileRepository: ProfileRepository,
 ): SponsorGateway {
 
     override suspend fun getSponsors(): List<SponsorGroupWithSponsors> =
@@ -21,6 +24,7 @@ class DefaultSponsorGateway(
 
     override suspend fun getSponsorById(id: Sponsor.Id): Sponsor = sponsorRepository.get(id)
 
-
+    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> =
+        profileRepository.getSponsorRepresentatives(sponsorId)
 }
 

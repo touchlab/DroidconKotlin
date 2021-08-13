@@ -12,4 +12,5 @@ class SponsorGroupItemViewModel(
     val name: String = sponsor.name
     val imageUrl: Url = sponsor.icon
     val url: Url = sponsor.url
+    val hasDetail: Boolean = sponsor.hasDetail
 }

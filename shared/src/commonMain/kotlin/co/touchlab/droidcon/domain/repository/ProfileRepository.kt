@@ -11,4 +11,6 @@ interface ProfileRepository: Repository<Profile.Id, Profile> {
     suspend fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>)
 
     suspend fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>)
+
+    suspend fun getSponsorRepresentatives(sponsorId: Sponsor.Id): List<Profile>
 }

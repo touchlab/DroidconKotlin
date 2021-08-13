@@ -28,13 +28,13 @@ import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdap
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
-import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
-import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
 import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
+import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -156,6 +156,7 @@ private val coreModule = module {
         DefaultSponsorGateway(
             sponsorRepository = get(),
             sponsorGroupRepository = get(),
+            profileRepository = get(),
         )
     }
     single<SettingsGateway> {

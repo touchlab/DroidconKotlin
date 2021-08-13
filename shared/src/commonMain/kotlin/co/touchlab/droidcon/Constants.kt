@@ -8,6 +8,7 @@ object Constants {
     object Firestore {
         const val projectId = "droidcon-148cc"
         const val databaseName = "(default)"
+
         // Known variants: "sponsors", "sponsors-lisbon-2019", "sponsors-sf-2019"
         const val collectionName = "sponsors"
         const val apiKey = "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0"

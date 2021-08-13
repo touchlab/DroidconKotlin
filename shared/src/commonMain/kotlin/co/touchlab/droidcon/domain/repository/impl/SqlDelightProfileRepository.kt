@@ -47,6 +47,11 @@ class SqlDelightProfileRepository(
         }
     }
 
+    override suspend fun getSponsorRepresentatives(sponsorId: Sponsor.Id): List<Profile> {
+        return profileQueries.selectBySponsor(sponsorName = sponsorId.name, sponsorGroupName = sponsorId.group, mapper = ::profileFactory)
+            .executeAsList()
+    }
+
     override fun observe(id: Profile.Id): Flow<Profile> {
         return profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOne()
     }

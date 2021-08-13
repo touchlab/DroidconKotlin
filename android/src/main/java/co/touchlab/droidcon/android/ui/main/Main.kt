@@ -21,10 +21,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.ui.ProfileDetail
 import co.touchlab.droidcon.android.ui.agenda.MyAgenda
 import co.touchlab.droidcon.android.ui.schedule.Schedule
 import co.touchlab.droidcon.android.ui.sessions.SessionDetail
-import co.touchlab.droidcon.android.ui.sessions.SpeakerDetail
 import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
 import co.touchlab.droidcon.android.ui.sponsors.SponsorDetail
@@ -62,7 +62,13 @@ sealed class ScheduleScreen(val route: String) {
 sealed class SponsorsScreen(val route: String) {
     object Main: SponsorsScreen("sponsors/main")
     object Detail: SponsorsScreen("sponsors/detail/{sponsorGroup}-{sponsorName}") {
+
         fun createRoute(sponsorId: Sponsor.Id) = "sponsors/detail/${sponsorId.group}-${sponsorId.name}"
+    }
+
+    object RepresentativeDetail: ScheduleScreen("sponsors/representativeDetail-{representativeId}") {
+
+        fun createRoute(representativeId: Profile.Id) = "sponsors/representativeDetail-${representativeId.value}"
     }
 }
 
@@ -110,7 +116,7 @@ fun Main() {
                 composable(ScheduleScreen.SpeakerDetail.route) { backStackEntry ->
                     val speakerId = backStackEntry.arguments?.getString("speakerId")
                     requireNotNull(speakerId) { "Parameter speakerId not found." }
-                    SpeakerDetail(navController, Profile.Id(speakerId))
+                    ProfileDetail(navController, Profile.Id(speakerId))
                 }
             }
 
@@ -127,6 +133,11 @@ fun Main() {
                     }
 
                     SponsorDetail(navController, Sponsor.Id(name = sponsorName, group = sponsorGroup))
+                }
+                composable(SponsorsScreen.RepresentativeDetail.route) { backStackEntry ->
+                    val representativeId = backStackEntry.arguments?.getString("representativeId")
+                    requireNotNull(representativeId) { "Parameter representativeId not found." }
+                    ProfileDetail(navController, Profile.Id(representativeId))
                 }
             }
 

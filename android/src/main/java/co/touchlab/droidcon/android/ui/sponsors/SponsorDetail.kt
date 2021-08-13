@@ -2,6 +2,7 @@ package co.touchlab.droidcon.android.ui.sponsors
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.ui.main.SponsorsScreen
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
@@ -62,12 +64,16 @@ fun SponsorDetail(navController: NavHostController, sponsorId: Sponsor.Id) {
             val imageUrl by sponsorDetail.imageUrl.collectAsState(initial = null)
             Header(name = name, groupTitle = groupTitle, imageUrl = imageUrl)
 
-            val description by sponsorDetail.description.collectAsState(initial = "")
-            Description(description = description)
+            val description by sponsorDetail.description.collectAsState(initial = null)
+            description?.let {
+                Description(description = it)
+            }
 
-            val representative by sponsorDetail.representative.collectAsState(initial = null)
-            representative?.let {
-                RepresentativeInfo(profile = it)
+            val representatives by sponsorDetail.representatives.collectAsState(initial = emptyList())
+            representatives.forEach {
+                RepresentativeInfo(profile = it) {
+                    navController.navigate(SponsorsScreen.RepresentativeDetail.createRoute(it.id))
+                }
             }
         }
     }
@@ -87,8 +93,8 @@ private fun Header(name: String, groupTitle: String, imageUrl: Url?) {
         ) {
             Text(
                 text = name,
-                style = MaterialTheme.typography.h4,
-                maxLines = 1,
+                style = MaterialTheme.typography.h5,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.White,
                 modifier = Modifier.padding(
@@ -141,8 +147,12 @@ private fun Description(description: String) {
 }
 
 @Composable
-private fun RepresentativeInfo(profile: ProfileViewModel) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+private fun RepresentativeInfo(profile: ProfileViewModel, representativeTapped: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { representativeTapped() },
+    ) {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             val painter = profile.imageUrl?.string?.let { rememberCoilPainter(request = it) }
             Image(
