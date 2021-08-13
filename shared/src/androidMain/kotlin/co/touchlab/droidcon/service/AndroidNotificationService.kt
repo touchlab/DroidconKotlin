@@ -118,7 +118,7 @@ class AndroidNotificationService(
             context,
             id,
             intent,
-            PendingIntent.FLAG_ONE_SHOT,
+            PendingIntent.FLAG_UPDATE_CURRENT,
         )
     }
 
