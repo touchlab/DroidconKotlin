@@ -75,6 +75,7 @@ kotlin {
         api(libs.kotlinx.coroutines.core)
         api(libs.kotlinx.datetime)
         api(libs.multiplatformSettings.core)
+        api(libs.uuid)
 
         implementation(libs.bundles.ktor.common)
         implementation(libs.bundles.sqldelight.common)

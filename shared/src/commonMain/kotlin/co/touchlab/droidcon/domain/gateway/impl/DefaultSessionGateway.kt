@@ -50,4 +50,8 @@ class DefaultSessionGateway(
     override suspend fun setAttending(session: Session, attending: Boolean) {
         sessionRepository.setAttending(session.id, attending)
     }
+
+    override suspend fun setFeedback(session: Session, feedback: Session.Feedback) {
+        sessionRepository.setFeedback(session.id, feedback)
+    }
 }

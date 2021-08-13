@@ -13,6 +13,7 @@ class ApplicationViewModel(
     agendaFactory: AgendaViewModel.Factory,
     sponsorsFactory: SponsorListViewModel.Factory,
     settingsFactory: SettingsViewModel.Factory,
+    private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
     private val syncService: SyncService,
     private val notificationSchedulingService: NotificationSchedulingService,
 ): BaseViewModel() {
@@ -20,6 +21,8 @@ class ApplicationViewModel(
     val agenda by managed(agendaFactory.create())
     val sponsors by managed(sponsorsFactory.create())
     val settings by managed(settingsFactory.create())
+
+    var presentedFeedback: FeedbackDialogViewModel? by managed(null)
 
     init {
         lifecycle.whileAttached {

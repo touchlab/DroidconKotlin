@@ -63,7 +63,7 @@ struct SponsorDetailView: View {
                                 Image(systemName: "doc.text")
                                     .frame(width: Self.iconSize, height: Self.iconSize)
 
-                                TextView("", text: .constant(abstract))
+                                TextView(.constant(abstract))
                                     .isEditable(false)
                                     .autoDetectDataTypes(.link)
                                     .font(Font.callout)

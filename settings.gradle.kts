@@ -58,6 +58,7 @@ dependencyResolutionManagement {
             val accompanistInsetsRef = version("accompanistInsets", "0.16.1")
             val coreRef = version("androidx-core", "1.6.0")
             val firebaseAnalyticsRef = version("firebase-analytics", "19.0.0")
+            val uuidRef = version("uuid", "0.3.0")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
 
@@ -101,6 +102,8 @@ dependencyResolutionManagement {
             alias("androidx-core").to("androidx.core", "core-ktx").versionRef(coreRef)
 
             alias("firebase-analytics").to("com.google.firebase", "firebase-analytics-ktx").versionRef(firebaseAnalyticsRef)
+
+            alias("uuid").to("com.benasher44", "uuid").versionRef(uuidRef)
 
             bundle("androidx-compose", listOf(
                 "androidx-compose-ui-core",

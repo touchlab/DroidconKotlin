@@ -56,10 +56,10 @@ updateRsvp:
 UPDATE sessionTable SET rsvp = ? WHERE id = ?;
 
 updateFeedBack:
-UPDATE sessionTable SET feedbackRating = ?, feedbackComment = ?, feedbackSent = 0 WHERE id = ?;
+UPDATE sessionTable SET feedbackRating = ?, feedbackComment = ?, feedbackSent = 0 WHERE id = :sessionId;
 
 updateFeedBackSent:
-UPDATE sessionTable SET feedbackSent = 1 WHERE id = ?;
+UPDATE sessionTable SET feedbackSent = ? WHERE id = :sessionId;
 
 sessionFeedbackToSend:
 SELECT * FROM sessionTable WHERE feedbackRating IS NOT NULL AND feedbackSent = 0;

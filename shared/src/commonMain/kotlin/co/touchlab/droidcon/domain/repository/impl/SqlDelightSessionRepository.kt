@@ -37,6 +37,14 @@ class SqlDelightSessionRepository(
         sessionQueries.updateRsvp(attending.toLong(), sessionId.value)
     }
 
+    override suspend fun setFeedback(sessionId: Session.Id, feedback: Session.Feedback) {
+        sessionQueries.updateFeedBack(feedback.rating, feedback.comment, sessionId.value)
+    }
+
+    override suspend fun setFeedbackSent(sessionId: Session.Id, isSent: Boolean) {
+        sessionQueries.updateFeedBackSent(if (isSent) 1 else 0, sessionId.value)
+    }
+
     override fun observeAll(): Flow<List<Session>> {
         return sessionQueries.allSessions(::sessionFactory).asFlow().mapToList()
     }

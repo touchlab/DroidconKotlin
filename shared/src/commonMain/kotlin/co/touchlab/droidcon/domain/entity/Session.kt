@@ -25,5 +25,11 @@ class Session(
         val rating: Int,
         val comment: String,
         val isSent: Boolean,
-    )
+    ) {
+        object Rating {
+            const val DISSATISFIED = 1
+            const val NORMAL = 2
+            const val SATISFIED = 3
+        }
+    }
 }

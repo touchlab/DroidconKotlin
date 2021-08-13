@@ -13,6 +13,7 @@ import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.fromConferenceDateTime
 import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
@@ -26,8 +27,23 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.flatMap
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.runningReduce
+import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
@@ -47,6 +63,7 @@ class DefaultSyncService(
     private val sponsorGroupRepository: SponsorGroupRepository,
     private val seedDataSource: DataSource,
     private val apiDataSource: DataSource,
+    private val serverApi: ServerApi,
 ): SyncService {
     private companion object {
         // MARK: Settings keys
@@ -76,6 +93,7 @@ class DefaultSyncService(
             settings[LAST_SESSIONIZE_SYNC_KEY] = value?.toEpochMilliseconds()
         }
 
+    @OptIn(FlowPreview::class)
     override suspend fun runSynchronization() {
         seedLocalRepositoriesIfNeeded()
 
@@ -105,10 +123,33 @@ class DefaultSyncService(
             }
 
             launch {
-                while (isActive) {
-                    // TODO: Send Feedbacks to a remote server.
-                    delay(FEEDBACK_SYNC_DELAY)
-                }
+                sessionRepository.observeAll()
+                    .flatMapMerge { sessions ->
+                        flow {
+                            for (session in sessions) {
+                                val feedback = session.feedback
+                                if (feedback != null && !feedback.isSent) {
+                                    emit(session.id to feedback)
+                                }
+                            }
+                        }
+                    }
+                    // Distinct by session ID.
+                    .distinctUntilChangedBy { it.first }
+                    .flatMapConcat { (sessionId, feedback) ->
+                        flow {
+                            while (true) {
+                                val isFeedbackSent = serverApi.setFeedback(sessionId, feedback.rating, feedback.comment)
+                                if (isFeedbackSent) {
+                                    sessionRepository.setFeedbackSent(sessionId, isFeedbackSent)
+                                    emit(Unit)
+                                    return@flow
+                                }
+                                delay(FEEDBACK_SYNC_DELAY)
+                            }
+                        }
+                    }
+                    .collect()
             }
         }
     }

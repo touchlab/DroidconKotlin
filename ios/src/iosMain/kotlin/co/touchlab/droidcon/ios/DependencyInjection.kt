@@ -9,6 +9,7 @@ import co.touchlab.droidcon.ios.util.formatter.DateFormatter
 import co.touchlab.droidcon.ios.viewmodel.settings.AboutViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.ios.viewmodel.ApplicationViewModel
+import co.touchlab.droidcon.ios.viewmodel.FeedbackDialogViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.SessionBlockViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.SessionDayViewModel
@@ -50,26 +51,28 @@ fun initKoinIos(
         single { analyticsService }
 
         // MARK: View model factories.
-        factory { ApplicationViewModel(get(), get(), get(), get(), get(), get()) }
+        single { ApplicationViewModel(get(), get(), get(), get(), get(), get(), get()) }
 
-        factory { ScheduleViewModel.Factory(get(), get(), get(), get()) }
-        factory { AgendaViewModel.Factory(get(), get(), get(), get()) }
-        factory { SessionBlockViewModel.Factory(get(), get()) }
-        factory { SessionDayViewModel.Factory(get(), get(), get()) }
-        factory { SessionListItemViewModel.Factory(get()) }
+        single { ScheduleViewModel.Factory(get(), get(), get(), get()) }
+        single { AgendaViewModel.Factory(get(), get(), get(), get()) }
+        single { SessionBlockViewModel.Factory(get(), get()) }
+        single { SessionDayViewModel.Factory(get(), get(), get()) }
+        single { SessionListItemViewModel.Factory(get()) }
 
-        factory { SessionDetailViewModel.Factory(get(), get(), get(), get(), get()) }
-        factory { SpeakerListItemViewModel.Factory() }
+        single { SessionDetailViewModel.Factory(get(), get(), get(), get(), get()) }
+        single { SpeakerListItemViewModel.Factory() }
 
-        factory { SpeakerDetailViewModel.Factory() }
+        single { SpeakerDetailViewModel.Factory() }
 
-        factory { SponsorListViewModel.Factory(get(), get(), get()) }
-        factory { SponsorGroupViewModel.Factory(get()) }
-        factory { SponsorGroupItemViewModel.Factory() }
-        factory { SponsorDetailViewModel.Factory(get(), get()) }
+        single { SponsorListViewModel.Factory(get(), get(), get()) }
+        single { SponsorGroupViewModel.Factory(get()) }
+        single { SponsorGroupItemViewModel.Factory() }
+        single { SponsorDetailViewModel.Factory(get(), get()) }
 
-        factory { SettingsViewModel.Factory(get(), get()) }
-        factory { AboutViewModel.Factory(get()) }
+        single { SettingsViewModel.Factory(get(), get()) }
+        single { AboutViewModel.Factory(get()) }
+
+        single { FeedbackDialogViewModel.Factory(get()) }
     }
 )
 

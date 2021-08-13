@@ -8,7 +8,7 @@ struct TextView: View {
     @State private var calculatedHeight: CGFloat = 44
     @State private var isEmpty: Bool = false
 
-    private var title: String
+    private var placeholder: LocalizedStringKey?
     private var onEditingChanged: (() -> Void)?
     private var shouldEditInRange: ((Range<String.Index>, String) -> Bool)?
     private var onCommit: (() -> Void)?
@@ -37,12 +37,14 @@ struct TextView: View {
         }
     }
 
-    init(_ title: String,
-         text: Binding<String>,
-         shouldEditInRange: ((Range<String.Index>, String) -> Bool)? = nil,
-         onEditingChanged: (() -> Void)? = nil,
-         onCommit: (() -> Void)? = nil) {
-        self.title = title
+    init(
+        _ text: Binding<String>,
+        placeholder: LocalizedStringKey? = nil,
+        shouldEditInRange: ((Range<String.Index>, String) -> Bool)? = nil,
+        onEditingChanged: (() -> Void)? = nil,
+        onCommit: (() -> Void)? = nil
+    ) {
+        self.placeholder = placeholder
 
         _text = text
         _isEmpty = State(initialValue: self.text.isEmpty)
@@ -76,13 +78,15 @@ struct TextView: View {
                 minHeight: isScrollingEnabled ? 0 : calculatedHeight,
                 maxHeight: isScrollingEnabled ? .infinity : calculatedHeight
         )
-            .background(placeholderView, alignment: .leading)
+            .background(placeholderView, alignment: .topLeading)
     }
 
     @ViewBuilder
     var placeholderView: some View {
-        if isEmpty {
-            Text(title)
+        if let placeholder = placeholder, isEmpty {
+            Text(placeholder)
+                .lineLimit(1)
+                .minimumScaleFactor(0.65)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(placeholderAlignment)
                 .font(placeholderFont)

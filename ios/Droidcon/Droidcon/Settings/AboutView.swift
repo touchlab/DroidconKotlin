@@ -16,7 +16,7 @@ struct AboutView: View {
                             .padding(.bottom, 4)
 
                         ForEach(section.detail.split(separator: "\n").filter { !$0.isEmpty }.map(String.init), id: \.self) { text in
-                            TextView("", text: .constant(text))
+                            TextView(.constant(text))
                                 .isEditable(false)
                                 .autoDetectDataTypes(.link)
                                 .font(Font.callout)

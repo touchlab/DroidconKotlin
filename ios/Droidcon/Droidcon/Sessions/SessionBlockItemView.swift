@@ -42,7 +42,8 @@ struct SessionBlockItemView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
                     if !viewModel.isServiceSession && !viewModel.speakers.isEmpty {
-                        Text("by \(viewModel.speakers)")
+                        // TODO: Localize.
+                        Text("Session.List.Item.Speakers \(viewModel.speakers)")
                             .font(.subheadline)
                             .lineLimit(2)
                             .multilineTextAlignment(.leading)

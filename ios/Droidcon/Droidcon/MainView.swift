@@ -50,5 +50,9 @@ struct MainView: View {
             .tag(4)
         }
         .attach(viewModel: viewModel)
+        .accentColor(Color("Accent"))
+        .present(item: $viewModel.presentedFeedback) { viewModel in
+            FeedbackDialog(viewModel: viewModel)
+        }
     }
 }

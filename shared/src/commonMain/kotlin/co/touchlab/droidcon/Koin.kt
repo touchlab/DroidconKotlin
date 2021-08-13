@@ -27,11 +27,15 @@ import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.ScheduleService
+import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
 import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
+import co.touchlab.droidcon.domain.service.UserIdProvider
+import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
+import co.touchlab.droidcon.domain.service.impl.DefaultServerApi
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
@@ -126,6 +130,7 @@ private val coreModule = module {
             sponsorGroupRepository = get(),
             seedDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Seed)),
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
+            serverApi = get(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {
@@ -188,6 +193,18 @@ private val coreModule = module {
             settings = get(),
             json = get(),
             localizedStringFactory = get(),
+        )
+    }
+    single<ServerApi> {
+        DefaultServerApi(
+            userIdProvider = get(),
+            client = get(),
+            json = get(),
+        )
+    }
+    single<UserIdProvider> {
+        DefaultUserIdProvider(
+            observableSettings = get(),
         )
     }
 }

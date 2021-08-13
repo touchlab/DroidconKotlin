@@ -10,6 +10,8 @@
 "Agenda.Title" = "Agenda";
 "Agenda.TabItem.Title" = "Agenda";
 
+"Session.List.Item.Speakers %@" = "by %@";
+
 "Session.Detail.Title" = "Session";
 "Session.Detail.State.InProgress" = "This session is happening now.";
 "Session.Detail.State.Ended" = "This session has already ended.";
@@ -30,3 +32,9 @@
 "Settings.About" = "About";
 
 "About.Title" = "About";
+
+"Feedback.Dialog.Title" = "What did you think of %@?";
+"Feedback.Dialog.Opinion.Placeholder" = "(Optional) Suggest improvements";
+"Feedback.Dialog.Submit" = "Submit";
+"Feedback.Dialog.CloseAndDisable" = "Close and disable feedback";
+"Feedback.Dialog.Skip" = "Skip feedback";

@@ -34,3 +34,4 @@ fun LocalDateTime.fromConferenceDateTime(dateTimeService: DateTimeService): Inst
 fun LocalDateTime.fromDeviceDateTime(dateTimeService: DateTimeService): Instant = with(dateTimeService) {
     fromDeviceDateTime()
 }
+
