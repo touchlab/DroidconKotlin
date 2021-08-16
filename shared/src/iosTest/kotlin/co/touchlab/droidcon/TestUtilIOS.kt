@@ -10,7 +10,7 @@ internal actual fun testDbConnection(): SqlDriver {
     val schema = DroidconDatabase.Schema
     return NativeSqliteDriver(
         DatabaseConfiguration(
-            name = "droidcon.db",
+            name = "new-droidcon.db",
             version = schema.version,
             create = { connection ->
                 wrapConnection(connection) { schema.create(it) }

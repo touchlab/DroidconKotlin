@@ -6,6 +6,6 @@ import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
 actual class SqlDelightDriverFactory {
     actual fun createDriver(): SqlDriver {
-        return NativeSqliteDriver(DroidconDatabase.Schema, "droidcon.db")
+        return NativeSqliteDriver(DroidconDatabase.Schema, "new-droidcon.db")
     }
 }

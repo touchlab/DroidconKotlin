@@ -8,5 +8,5 @@ import com.squareup.sqldelight.db.SqlDriver
 
 internal actual fun testDbConnection(): SqlDriver {
     val app = ApplicationProvider.getApplicationContext<Application>()
-    return AndroidSqliteDriver(DroidconDatabase.Schema, app, "droidcon.db")
+    return AndroidSqliteDriver(DroidconDatabase.Schema, app, "new-droidcon.db")
 }
