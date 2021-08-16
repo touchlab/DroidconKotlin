@@ -12,7 +12,7 @@ struct FeedbackDialog: View {
         ZStack {
             VStack(spacing: 0) {
                 VStack(spacing: 0) {
-                    Text("Titulek")
+                    Text("Feedback.Dialog.Title \(viewModel.sessionTitle)")
                         .font(.system(size: 20))
                         .fontWeight(.medium)
                         .padding(.horizontal)
@@ -36,7 +36,7 @@ struct FeedbackDialog: View {
                 Divider()
 
                 VStack(spacing: 0) {
-                    Button(action: viewModel.submit) {
+                    Button(action: viewModel.submitTapped) {
                         Text("Feedback.Dialog.Submit")
                             .font(.system(size: 18))
                             .fontWeight(.medium)
@@ -50,7 +50,7 @@ struct FeedbackDialog: View {
 
                     Divider()
 
-                    Button(action: viewModel.closeAndDisable) {
+                    Button(action: viewModel.closeAndDisableTapped) {
                         Text("Feedback.Dialog.CloseAndDisable")
                             .font(.system(size: 18))
                             .fontWeight(.medium)
@@ -62,7 +62,7 @@ struct FeedbackDialog: View {
 
                     Divider()
 
-                    Button(action: viewModel.skip) {
+                    Button(action: viewModel.skipTapped) {
                         Text("Feedback.Dialog.Skip")
                             .font(.system(size: 18))
                             .fontWeight(.semibold)

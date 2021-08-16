@@ -8,6 +8,9 @@ import org.brightify.hyperdrive.multiplatformx.property.map
 class FeedbackDialogViewModel(
     private val sessionGateway: SessionGateway,
     private val session: Session,
+    private val submit: suspend (Session.Feedback) -> Unit,
+    private val closeAndDisable: suspend () -> Unit,
+    private val skip: suspend () -> Unit,
 ): BaseViewModel() {
     val sessionTitle = session.title
     var rating: Rating? by published(null)
@@ -16,24 +19,15 @@ class FeedbackDialogViewModel(
 
     val isSubmitDisabled by observeRating.map { it == null }
 
-    fun submit() = instanceLock.runExclusively{
-        val rating = rating ?: return@runExclusively
-
-        sessionGateway.setFeedback(
-            session,
-            Session.Feedback(rating.entityValue, comment, false)
-        )
-
-        // TODO: Go to next.
+    fun submitTapped() = instanceLock.runExclusively {
+        rating?.let {
+            submit(Session.Feedback(it.entityValue, comment, false))
+        }
     }
 
-    fun closeAndDisable() {
-        // TODO: Close and disable further feedback dialogs.
-    }
+    fun closeAndDisableTapped() = instanceLock.runExclusively(closeAndDisable::invoke)
 
-    fun skip() {
-        // TODO: Go to next.
-    }
+    fun skipTapped() = instanceLock.runExclusively(skip::invoke)
 
     enum class Rating {
         Dissatisfied, Normal, Satisfied;
@@ -49,6 +43,11 @@ class FeedbackDialogViewModel(
     class Factory(
         private val sessionGateway: SessionGateway,
     ) {
-        fun create(session: Session) = FeedbackDialogViewModel(sessionGateway, session)
+        fun create(
+            session: Session,
+            submit: suspend (Session.Feedback) -> Unit,
+            closeAndDisable: suspend () -> Unit,
+            skip: suspend () -> Unit,
+        ) = FeedbackDialogViewModel(sessionGateway, session, submit, closeAndDisable, skip)
     }
 }

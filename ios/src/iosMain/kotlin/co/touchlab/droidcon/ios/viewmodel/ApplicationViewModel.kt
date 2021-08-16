@@ -1,6 +1,8 @@
 package co.touchlab.droidcon.ios.viewmodel
 
+import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.ios.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.ScheduleViewModel
@@ -16,6 +18,8 @@ class ApplicationViewModel(
     private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
     private val syncService: SyncService,
     private val notificationSchedulingService: NotificationSchedulingService,
+    private val feedbackService: FeedbackService,
+    private val settingsGateway: SettingsGateway,
 ): BaseViewModel() {
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())
@@ -31,6 +35,32 @@ class ApplicationViewModel(
 
         lifecycle.whileAttached {
             syncService.runSynchronization()
+        }
+    }
+
+    fun onAppear() {
+        lifecycle.whileAttached {
+            feedbackService.next()
+        }
+    }
+
+    private suspend fun presentNextFeedback() {
+        presentedFeedback = feedbackService.next()?.let { session ->
+            feedbackDialogFactory.create(
+                session,
+                submit = { feedback ->
+                    feedbackService.submit(session, feedback)
+                    presentNextFeedback()
+                },
+                closeAndDisable = {
+                    settingsGateway.setFeedbackEnabled(false)
+                    presentedFeedback = null
+                },
+                skip = {
+                    feedbackService.skip(session)
+                    presentNextFeedback()
+                },
+            )
         }
     }
 }

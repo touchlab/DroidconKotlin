@@ -51,7 +51,7 @@ fun initKoinIos(
         single { analyticsService }
 
         // MARK: View model factories.
-        single { ApplicationViewModel(get(), get(), get(), get(), get(), get(), get()) }
+        single { ApplicationViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
 
         single { ScheduleViewModel.Factory(get(), get(), get(), get()) }
         single { AgendaViewModel.Factory(get(), get(), get(), get()) }

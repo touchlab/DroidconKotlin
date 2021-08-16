@@ -26,6 +26,7 @@ import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorGroupReposit
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
 import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
@@ -34,6 +35,7 @@ import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
 import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
 import co.touchlab.droidcon.domain.service.UserIdProvider
+import co.touchlab.droidcon.domain.service.impl.DefaultFeedbackService
 import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultServerApi
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
@@ -205,6 +207,13 @@ private val coreModule = module {
     single<UserIdProvider> {
         DefaultUserIdProvider(
             observableSettings = get(),
+        )
+    }
+    single<FeedbackService> {
+        DefaultFeedbackService(
+            sessionGateway = get(),
+            settings = get(),
+            json = get(),
         )
     }
 }
