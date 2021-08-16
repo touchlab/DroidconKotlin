@@ -96,7 +96,13 @@ class DefaultSyncService(
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
                     if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(2, DateTimeUnit.HOUR)) {
                         log.d { "Will sync all repositories from API data source." }
-                        updateRepositoriesFromDataSource(apiDataSource)
+                        try {
+                            updateRepositoriesFromDataSource(apiDataSource)
+                        } catch (e: javax.net.ssl.SSLHandshakeException) {
+                            log.w(e) { "Failed to update repositories from API data source." }
+                            delay(SESSIONIZE_SYNC_POLL_DELAY)
+                            continue
+                        }
                         log.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
                         this@DefaultSyncService.lastSessionizeSync = dateTimeService.now()
                         delay(SESSIONIZE_SYNC_NEXT_DELAY)
@@ -127,7 +133,7 @@ class DefaultSyncService(
                                             sessionRepository.setRsvpSent(sessionId, isRsvpSent)
                                         }
                                     } catch (e: Exception) {
-                                        log.w(e) { "Couldn't sent RSVP." }
+                                        log.w(e) { "Couldn't send RSVP." }
                                         delay(RSVP_SYNC_DELAY)
                                     }
                                 }
@@ -155,7 +161,7 @@ class DefaultSyncService(
                                             sessionRepository.setFeedbackSent(sessionId, isFeedbackSent)
                                         }
                                     } catch (e: Exception) {
-                                        log.w(e) { "Couldn't sent feedback." }
+                                        log.w(e) { "Couldn't send feedback." }
                                         delay(FEEDBACK_SYNC_DELAY)
                                     }
                                 }
