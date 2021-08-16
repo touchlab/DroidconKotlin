@@ -6,10 +6,13 @@ import co.touchlab.droidcon.android.viewModel.sessions.ProfileViewModel
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import org.koin.core.component.KoinComponent
@@ -21,8 +24,9 @@ class SponsorDetailViewModel: ViewModel(), KoinComponent {
 
     var id = MutableStateFlow<Sponsor.Id?>(null)
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val sponsor: SharedFlow<Sponsor?> =
-        id.map { it?.let { sponsorGateway.getSponsorById(it) } }.shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
+        id.flatMapLatest { it?.let { sponsorGateway.observeSponsorById(it) } ?: emptyFlow() }.shareIn(viewModelScope, SharingStarted.Eagerly, replay = 1)
 
     val name: Flow<String> = sponsor.map { it?.name ?: "" }
     val groupTitle: Flow<String> = sponsor.map { it?.group ?: "" }

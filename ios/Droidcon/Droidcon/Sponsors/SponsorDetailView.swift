@@ -73,24 +73,26 @@ struct SponsorDetailView: View {
                             .padding(.horizontal)
                         }
 
-                        VStack(spacing: 4) {
-                            Section(header: VStack(spacing: 4) {
-                                Text("Session.Detail.Speakers").font(.title2)
-                                Divider()
-                            }) {
-                                ForEach(viewModel.speakers) { speaker in
-                                    SpeakerListItemView(viewModel: speaker)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(12)
-                                        .contentShape(Rectangle())
-                                        .onTapGesture {
-                                            speaker.selected()
-                                        }
+                        if !viewModel.representatives.isEmpty {
+                            VStack(spacing: 4) {
+                                Section(header: VStack(spacing: 4) {
+                                    Text("Sponsor.Detail.Representatives").font(.title2)
+                                    Divider()
+                                }) {
+                                    ForEach(viewModel.representatives) { representative in
+                                        SpeakerListItemView(viewModel: representative)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding(12)
+                                            .contentShape(Rectangle())
+                                            .onTapGesture {
+                                                representative.selected()
+                                            }
+                                    }
                                 }
                             }
+                            .padding(4)
+                            .padding(.top)
                         }
-                        .padding(4)
-                        .padding(.top)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 32)

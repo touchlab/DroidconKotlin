@@ -7,6 +7,8 @@ import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class DefaultSponsorGateway(
     private val sponsorRepository: SponsorRepository,
@@ -14,15 +16,18 @@ class DefaultSponsorGateway(
     private val profileRepository: ProfileRepository,
 ): SponsorGateway {
 
-    override suspend fun getSponsors(): List<SponsorGroupWithSponsors> =
-        sponsorGroupRepository.all().map { group ->
-            SponsorGroupWithSponsors(
-                group,
-                sponsorRepository.allByGroupName(group.name)
-            )
+    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> =
+        sponsorGroupRepository.observeAll().map { groups ->
+            groups.map { group ->
+                SponsorGroupWithSponsors(
+                    group,
+                    sponsorRepository.allByGroupName(group.name)
+                )
+            }
         }
 
-    override suspend fun getSponsorById(id: Sponsor.Id): Sponsor = sponsorRepository.get(id)
+    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> =
+        sponsorRepository.observe(id)
 
     override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> =
         profileRepository.getSponsorRepresentatives(sponsorId)

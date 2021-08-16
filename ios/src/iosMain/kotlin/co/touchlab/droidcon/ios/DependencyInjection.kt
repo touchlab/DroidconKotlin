@@ -67,7 +67,7 @@ fun initKoinIos(
         single { SponsorListViewModel.Factory(get(), get(), get()) }
         single { SponsorGroupViewModel.Factory(get()) }
         single { SponsorGroupItemViewModel.Factory() }
-        single { SponsorDetailViewModel.Factory(get(), get()) }
+        single { SponsorDetailViewModel.Factory(get(), get(), get()) }
 
         single { SettingsViewModel.Factory(get(), get()) }
         single { AboutViewModel.Factory(get()) }
