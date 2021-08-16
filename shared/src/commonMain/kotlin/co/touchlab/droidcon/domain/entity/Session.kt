@@ -12,7 +12,7 @@ class Session(
     val endsAt: Instant,
     val isServiceSession: Boolean,
     val room: Room.Id?,
-    var isAttending: Boolean,
+    var rsvp: RSVP?,
     var feedback: Feedback?,
 ): DomainEntity<Session.Id>() {
 
@@ -20,6 +20,11 @@ class Session(
         get() = dateTimeService.now() < endsAt
 
     data class Id(val value: String)
+
+    data class RSVP(
+        val isAttending: Boolean,
+        val isSent: Boolean,
+    )
 
     data class Feedback(
         val rating: Int,

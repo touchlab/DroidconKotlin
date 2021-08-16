@@ -33,8 +33,12 @@ class SqlDelightSessionRepository(
         return observeAllAttending().first()
     }
 
-    override suspend fun setAttending(sessionId: Session.Id, attending: Boolean) {
-        sessionQueries.updateRsvp(attending.toLong(), sessionId.value)
+    override suspend fun setRsvp(sessionId: Session.Id, isAttending: Boolean) {
+        sessionQueries.updateRsvp(isAttending.toLong(), sessionId.value)
+    }
+
+    override suspend fun setRsvpSent(sessionId: Session.Id, isSent: Boolean) {
+        sessionQueries.updateRsvpSent(isSent.toLong(), sessionId.value)
     }
 
     override suspend fun setFeedback(sessionId: Session.Id, feedback: Session.Feedback) {
@@ -76,7 +80,8 @@ class SqlDelightSessionRepository(
         startsAt: Instant,
         endsAt: Instant,
         serviceSession: Long,
-        rsvp: Long,
+        rsvp: Long?,
+        rsvpSent: Long,
         roomId: Long?,
         feedbackRating: Int?,
         feedbackComment: String?,
@@ -90,7 +95,11 @@ class SqlDelightSessionRepository(
         endsAt = endsAt,
         isServiceSession = serviceSession.toBoolean(),
         room = roomId?.let(Room::Id),
-        isAttending = rsvp.toBoolean(),
+        rsvp = if (rsvp != null) {
+            Session.RSVP(rsvp.toBoolean(), rsvpSent.toBoolean())
+        } else {
+            null
+        },
         feedback = if (feedbackRating != null && feedbackComment != null) {
             Session.Feedback(feedbackRating, feedbackComment, feedbackSent.toBoolean())
         } else {

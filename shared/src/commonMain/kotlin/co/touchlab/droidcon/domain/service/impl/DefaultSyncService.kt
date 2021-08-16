@@ -1,7 +1,6 @@
 package co.touchlab.droidcon.domain.service.impl
 
 import co.touchlab.droidcon.composite.Url
-import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
@@ -22,28 +21,21 @@ import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
 import co.touchlab.kermit.Kermit
-import co.touchlab.kermit.Logger
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.flatMap
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.flow.runningReduce
-import kotlinx.coroutines.flow.scan
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
@@ -53,7 +45,7 @@ import kotlinx.datetime.minus
 
 @OptIn(ExperimentalSettingsApi::class)
 class DefaultSyncService(
-    private val logger: Kermit,
+    private val log: Kermit,
     private val settings: ObservableSettings,
     private val dateTimeService: DateTimeService,
     private val profileRepository: ProfileRepository,
@@ -103,53 +95,72 @@ class DefaultSyncService(
                     val lastSessionizeSync = lastSessionizeSync
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
                     if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(2, DateTimeUnit.HOUR)) {
-                        logger.d { "Will sync all repositories from API data source." }
+                        log.d { "Will sync all repositories from API data source." }
                         updateRepositoriesFromDataSource(apiDataSource)
-                        logger.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
+                        log.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
                         this@DefaultSyncService.lastSessionizeSync = dateTimeService.now()
                         delay(SESSIONIZE_SYNC_NEXT_DELAY)
                     } else {
-                        logger.d { "The sync didn't happen, so we'll try again in a short while ($SESSIONIZE_SYNC_POLL_DELAY ms)." }
+                        log.d { "The sync didn't happen, so we'll try again in a short while ($SESSIONIZE_SYNC_POLL_DELAY ms)." }
                         delay(SESSIONIZE_SYNC_POLL_DELAY)
                     }
                 }
             }
 
             launch {
-                while (isActive) {
-                    // TODO: Send RSVPs to a remote server.
-                    delay(RSVP_SYNC_DELAY)
-                }
+                sessionRepository.observeAll()
+                    .collect { sessions ->
+                        sessions
+                            .mapNotNull { session ->
+                                val rsvp = session.rsvp
+                                return@mapNotNull if (rsvp != null && !rsvp.isSent) {
+                                    session.id to rsvp.isAttending
+                                } else {
+                                    null
+                                }
+                            }
+                            .forEach { (sessionId, isAttending) ->
+                                while (isActive) {
+                                    try {
+                                        val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
+                                        if (isRsvpSent) {
+                                            sessionRepository.setRsvpSent(sessionId, isRsvpSent)
+                                        }
+                                    } catch (e: Exception) {
+                                        log.w(e) { "Couldn't sent RSVP." }
+                                        delay(RSVP_SYNC_DELAY)
+                                    }
+                                }
+                            }
+                    }
             }
 
             launch {
                 sessionRepository.observeAll()
-                    .flatMapMerge { sessions ->
-                        flow {
-                            for (session in sessions) {
+                    .collect { sessions ->
+                        sessions
+                            .mapNotNull { session ->
                                 val feedback = session.feedback
-                                if (feedback != null && !feedback.isSent) {
-                                    emit(session.id to feedback)
+                                return@mapNotNull if (feedback != null && !feedback.isSent) {
+                                    session.id to feedback
+                                } else {
+                                    null
                                 }
                             }
-                        }
-                    }
-                    // Distinct by session ID.
-                    .distinctUntilChangedBy { it.first }
-                    .flatMapConcat { (sessionId, feedback) ->
-                        flow {
-                            while (true) {
-                                val isFeedbackSent = serverApi.setFeedback(sessionId, feedback.rating, feedback.comment)
-                                if (isFeedbackSent) {
-                                    sessionRepository.setFeedbackSent(sessionId, isFeedbackSent)
-                                    emit(Unit)
-                                    return@flow
+                            .forEach { (sessionId, feedback) ->
+                                while (isActive) {
+                                    try {
+                                        val isFeedbackSent = serverApi.setFeedback(sessionId, feedback.rating, feedback.comment)
+                                        if (isFeedbackSent) {
+                                            sessionRepository.setFeedbackSent(sessionId, isFeedbackSent)
+                                        }
+                                    } catch (e: Exception) {
+                                        log.w(e) { "Couldn't sent feedback." }
+                                        delay(FEEDBACK_SYNC_DELAY)
+                                    }
                                 }
-                                delay(FEEDBACK_SYNC_DELAY)
                             }
-                        }
                     }
-                    .collect()
             }
         }
     }
@@ -206,7 +217,10 @@ class DefaultSyncService(
                     endsAt = LocalDateTime.parse(dto.endsAt).fromConferenceDateTime(dateTimeService),
                     isServiceSession = dto.isServiceSession,
                     room = Room.Id(dto.roomID),
-                    isAttending = false,
+                    rsvp = Session.RSVP(
+                        isAttending = false,
+                        isSent = false,
+                    ),
                     feedback = null,
                 ) to dto.speakers.map { Profile.Id(it.id) }
             }
@@ -230,7 +244,7 @@ class DefaultSyncService(
         sessionsAndSpeakers.forEach { (updatedSession, speakers) ->
             val existingSession = sessionRepository.find(updatedSession.id)
             if (existingSession != null) {
-                updatedSession.isAttending = existingSession.isAttending
+                updatedSession.rsvp = existingSession.rsvp
                 updatedSession.feedback = existingSession.feedback
                 sessionRepository.update(updatedSession)
             } else {
