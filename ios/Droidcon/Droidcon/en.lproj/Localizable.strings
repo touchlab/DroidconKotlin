@@ -1,8 +1,10 @@
 "Shrug" = "¯\\_(ツ)_/¯";
 
-"Notification.Title.Base" = "Upcoming event%@";
-"Notification.Title.InRoom" = " in %@";
-"Notification.Body" = "%@ is starting soon.";
+"Notification.Reminder.Title.Base" = "Upcoming event%@";
+"Notification.Reminder.Title.InRoom" = " in %@";
+"Notification.Reminder.Body" = "%@ is starting soon.";
+"Notification.Feedback.Title" = "Feedback Time!";
+"Notification.Feedback.Body" = "Your Feedback is Requested.";
 
 "Schedule.Title" = "Schedule";
 "Schedule.TabItem.Title" = "Schedule";

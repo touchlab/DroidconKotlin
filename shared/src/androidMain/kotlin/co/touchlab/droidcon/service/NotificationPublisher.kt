@@ -10,15 +10,14 @@ class NotificationPublisher: BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val notificationId = intent.getIntExtra(AndroidNotificationService.NOTIFICATION_PAYLOAD_ID, 0)
-        val notificationTag = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_PAYLOAD_TAG)
+        val notificationType = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_PAYLOAD_TYPE)
         val notification = intent.getParcelableExtra<Notification>(AndroidNotificationService.NOTIFICATION_PAYLOAD_NOTIFICATION)
 
         with(context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager) {
-            if (notificationTag == AndroidNotificationService.NOTIFICATION_TAG_DISMISS) {
-                val notificationTargetTag = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_PAYLOAD_TARGET_TAG)
-                cancel(notificationTargetTag, notificationId)
+            if (notificationType == AndroidNotificationService.NOTIFICATION_TYPE_DISMISS) {
+                cancel(notificationId)
             } else {
-                notify(notificationTag, notificationId, notification)
+                notify(notificationId, notification)
             }
         }
     }

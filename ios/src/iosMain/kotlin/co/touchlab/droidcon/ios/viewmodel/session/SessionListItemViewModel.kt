@@ -13,7 +13,7 @@ class SessionListItemViewModel(
 ): BaseViewModel() {
     val title: String = item.session.title
     val isServiceSession: Boolean = item.session.isServiceSession
-    val isAttending: Boolean = item.session.isAttending
+    val isAttending: Boolean = item.session.rsvp?.isAttending ?: false
     val isInConflict: Boolean = item.isInConflict
     val speakers: String = item.speakers.joinToString { it.fullName }
 

@@ -120,7 +120,7 @@ private val coreModule = module {
     }
     single<SyncService> {
         DefaultSyncService(
-            logger = getWith("SyncService"),
+            log = getWith("SyncService"),
             settings = get(),
             dateTimeService = get(),
             profileRepository = get(),

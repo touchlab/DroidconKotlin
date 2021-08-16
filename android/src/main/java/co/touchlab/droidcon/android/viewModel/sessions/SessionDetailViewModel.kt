@@ -73,7 +73,7 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
         }
     }
 
-    val isAttending: Flow<Boolean> = observeScheduleItem.map { it?.session?.isAttending ?: false }
+    val isAttending: Flow<Boolean> = observeScheduleItem.map { it?.session?.rsvp?.isAttending ?: false }
 
     val statusRes: Flow<Int> = observeScheduleItem.mapNotNull {
         if (it == null) {

@@ -27,6 +27,8 @@ actual val platformModule: Module = module {
             context = get(),
             entrypointActivity = get(),
             log = getWith("AndroidNotificationService"),
+            settings = get(),
+            json = get(),
         )
     }
 

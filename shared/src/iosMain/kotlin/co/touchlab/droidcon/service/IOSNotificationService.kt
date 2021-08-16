@@ -79,7 +79,7 @@ class IOSNotificationService(
         }
     }
 
-    override suspend fun schedule(sessionId: Session.Id, title: String, body: String, delivery: Instant) {
+    override suspend fun schedule(sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at ${delivery.toNSDate().description}." }
         val deliveryDate = delivery.toNSDate()
         val allUnits = NSCalendarUnitSecond or

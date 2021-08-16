@@ -9,7 +9,7 @@ interface SessionRepository: Repository<Session.Id, Session> {
 
     suspend fun allAttending(): List<Session>
 
-    suspend fun setRsvp(sessionId: Session.Id, isAttending: Boolean)
+    suspend fun setRsvp(sessionId: Session.Id, rsvp: Session.RSVP)
 
     suspend fun setRsvpSent(sessionId: Session.Id, isSent: Boolean)
 

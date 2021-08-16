@@ -8,12 +8,20 @@ class NotificationLocalizedStringFactory(
     private val context: Context,
 ): NotificationSchedulingService.LocalizedStringFactory {
 
-    override fun title(roomName: String?): String {
-        val ending = roomName?.let { context.getString(R.string.notification_title_in_room, it) } ?: ""
-        return context.getString(R.string.notification_title_base, ending)
+    override fun reminderTitle(roomName: String?): String {
+        val ending = roomName?.let { context.getString(R.string.notification_reminder_title_in_room, it) } ?: ""
+        return context.getString(R.string.notification_reminder_title_base, ending)
     }
 
-    override fun body(sessionTitle: String): String {
-        return context.getString(R.string.notification_body, sessionTitle)
+    override fun reminderBody(sessionTitle: String): String {
+        return context.getString(R.string.notification_reminder_body, sessionTitle)
+    }
+
+    override fun feedbackTitle(): String {
+        return context.getString(R.string.notification_feedback_title)
+    }
+
+    override fun feedbackBody(): String {
+        return context.getString(R.string.notification_feedback_body)
     }
 }
