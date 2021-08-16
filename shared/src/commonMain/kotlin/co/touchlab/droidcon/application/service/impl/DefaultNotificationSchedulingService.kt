@@ -65,11 +65,11 @@ class DefaultNotificationSchedulingService(
     private suspend fun scheduleNotifications(flow: Flow<List<Session>>) {
         flow
             .combine(
-                settingsRepository.settings.map { it.isRemindersEnabled },
-                transform = { agenda, isRemindersEnabled -> agenda to isRemindersEnabled }
+                settingsRepository.settings,
+                transform = { agenda, settings -> Triple(agenda, settings.isRemindersEnabled, settings.isFeedbackEnabled) }
             )
-            .collect { (agenda, isRemindersEnabled) ->
-                if (isRemindersEnabled) {
+            .collect { (agenda, isRemindersEnabled, isFeedbackEnabled) ->
+                if (isRemindersEnabled || isFeedbackEnabled) {
                     val scheduledNotificationIds = scheduledNotifications
 
                     // Cancel sessions that the user isn't attending anymore.
@@ -82,24 +82,28 @@ class DefaultNotificationSchedulingService(
                     // Schedule new upcoming sessions.
                     val newSessions = agenda.filterNot { scheduledNotificationIds.contains(it.id) }
                     for (session in newSessions) {
-                        val roomName = session.room?.let { roomRepository.get(it).name }
-                        val reminderDelivery = session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
-                        notificationService.schedule(
-                            sessionId = session.id,
-                            title = localizedStringFactory.reminderTitle(roomName),
-                            body = localizedStringFactory.reminderBody(session.title),
-                            delivery = reminderDelivery,
-                            dismiss = reminderDelivery.plus(NotificationSchedulingService.REMINDER_DISMISS_OFFSET, DateTimeUnit.MINUTE),
-                        )
+                        if (isRemindersEnabled) {
+                            val roomName = session.room?.let { roomRepository.get(it).name }
+                            val reminderDelivery = session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
+                            notificationService.schedule(
+                                sessionId = session.id,
+                                title = localizedStringFactory.reminderTitle(roomName),
+                                body = localizedStringFactory.reminderBody(session.title),
+                                delivery = reminderDelivery,
+                                dismiss = reminderDelivery.plus(NotificationSchedulingService.REMINDER_DISMISS_OFFSET, DateTimeUnit.MINUTE),
+                            )
+                        }
 
-                        val feedbackDelivery = session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
-                        notificationService.schedule(
-                            sessionId = session.id,
-                            title = localizedStringFactory.feedbackTitle(),
-                            body = localizedStringFactory.feedbackBody(),
-                            delivery = feedbackDelivery,
-                            dismiss = null,
-                        )
+                        if (isFeedbackEnabled) {
+                            val feedbackDelivery = session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
+                            notificationService.schedule(
+                                sessionId = session.id,
+                                title = localizedStringFactory.feedbackTitle(),
+                                body = localizedStringFactory.feedbackBody(),
+                                delivery = feedbackDelivery,
+                                dismiss = null,
+                            )
+                        }
                     }
 
                     scheduledNotifications += newSessions.map { it.id }
