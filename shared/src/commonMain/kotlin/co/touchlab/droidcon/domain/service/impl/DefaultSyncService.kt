@@ -98,7 +98,7 @@ class DefaultSyncService(
                         log.d { "Will sync all repositories from API data source." }
                         try {
                             updateRepositoriesFromDataSource(apiDataSource)
-                        } catch (e: javax.net.ssl.SSLHandshakeException) {
+                        } catch (e: Exception) {
                             log.w(e) { "Failed to update repositories from API data source." }
                             delay(SESSIONIZE_SYNC_POLL_DELAY)
                             continue
