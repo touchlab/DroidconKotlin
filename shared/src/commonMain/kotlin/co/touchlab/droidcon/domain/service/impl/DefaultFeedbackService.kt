@@ -39,6 +39,7 @@ class DefaultFeedbackService(
                     .map { it.session }
                     .filter { it.endsAt < clock.now() }
                     .filterNot { completedSessionIds.contains(it.id) }
+                completable.complete(Unit)
             }
         completable.await()
     }
