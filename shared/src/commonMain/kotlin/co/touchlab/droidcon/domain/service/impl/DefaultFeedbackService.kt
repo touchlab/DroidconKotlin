@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalSettingsApi::class)
@@ -31,20 +32,23 @@ class DefaultFeedbackService(
 
     private var sessionsToReview: List<Session> = emptyList()
 
-    override suspend fun initialize() {
-        val completable = CompletableDeferred<Unit>()
-        sessionGateway.observeAgenda()
-            .collect { sessions ->
-                sessionsToReview = sessions
-                    .map { it.session }
-                    .filter { it.endsAt < clock.now() }
-                    .filterNot { completedSessionIds.contains(it.id) }
-                completable.complete(Unit)
-            }
-        completable.await()
+    private val initializationCompletable = CompletableDeferred<Unit>()
+
+    init {
+        MainScope().launch {
+            sessionGateway.observeAgenda()
+                .collect { sessions ->
+                    sessionsToReview = sessions
+                        .map { it.session }
+                        .filter { it.endsAt < clock.now() }
+                        .filterNot { completedSessionIds.contains(it.id) }
+                    initializationCompletable.complete(Unit)
+                }
+        }
     }
 
     override suspend fun next(): Session? {
+        initializationCompletable.await()
         return sessionsToReview.firstOrNull { !completedSessionIds.contains(it.id) }
     }
 
@@ -60,6 +64,6 @@ class DefaultFeedbackService(
     }
 
     private fun saveCompletedSessions() {
-        settings[COMPLETED_SESSION_FEEDBACKS_KEY] = completedSessionIds
+        settings[COMPLETED_SESSION_FEEDBACKS_KEY] = json.encodeToString(completedSessionIds)
     }
 }
