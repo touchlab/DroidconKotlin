@@ -2,12 +2,14 @@ package co.touchlab.droidcon.ios.viewmodel
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.ios.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.ios.viewmodel.settings.SettingsViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorListViewModel
+import co.touchlab.droidcon.service.NotificationHandler
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class ApplicationViewModel(
@@ -20,7 +22,7 @@ class ApplicationViewModel(
     private val notificationSchedulingService: NotificationSchedulingService,
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
-): BaseViewModel() {
+): BaseViewModel(), NotificationHandler {
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())
     val sponsors by managed(sponsorsFactory.create())
@@ -35,6 +37,15 @@ class ApplicationViewModel(
 
         lifecycle.whileAttached {
             syncService.runSynchronization()
+        }
+    }
+
+    override fun notificationReceived(sessionId: String, notificationType: NotificationService.NotificationType) {
+        if (notificationType == NotificationService.NotificationType.Feedback) {
+            lifecycle.whileAttached {
+                // We're not checking whether feedback is enabled, because the user opened a feedback notification.
+                presentNextFeedback()
+            }
         }
     }
 

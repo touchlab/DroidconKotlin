@@ -88,6 +88,7 @@ class DefaultNotificationSchedulingService(
                             val roomName = session.room?.let { roomRepository.get(it).name }
                             val reminderDelivery = session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
                             notificationService.schedule(
+                                type = NotificationService.NotificationType.Reminder,
                                 sessionId = session.id,
                                 title = localizedStringFactory.reminderTitle(roomName),
                                 body = localizedStringFactory.reminderBody(session.title),
@@ -99,6 +100,7 @@ class DefaultNotificationSchedulingService(
                         if (isFeedbackEnabled) {
                             val feedbackDelivery = session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
                             notificationService.schedule(
+                                type = NotificationService.NotificationType.Feedback,
                                 sessionId = session.id,
                                 title = localizedStringFactory.feedbackTitle(),
                                 body = localizedStringFactory.feedbackBody(),

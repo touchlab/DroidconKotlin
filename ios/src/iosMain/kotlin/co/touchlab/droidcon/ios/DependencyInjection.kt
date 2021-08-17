@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.ios
 
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
@@ -22,6 +23,8 @@ import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorDetailViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorGroupItemViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorListViewModel
+import co.touchlab.droidcon.service.IOSNotificationService
+import co.touchlab.droidcon.service.NotificationHandler
 import co.touchlab.droidcon.util.BundleResourceReader
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -51,7 +54,10 @@ fun initKoinIos(
         single { analyticsService }
 
         // MARK: View model factories.
-        single { ApplicationViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+        single {
+            ApplicationViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get())
+                .also { (get<NotificationService>() as IOSNotificationService).setHandler(it) }
+        }
 
         single { ScheduleViewModel.Factory(get(), get(), get(), get()) }
         single { AgendaViewModel.Factory(get(), get(), get(), get()) }

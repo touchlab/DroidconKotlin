@@ -6,7 +6,11 @@ import kotlinx.datetime.Instant
 interface NotificationService {
     suspend fun initialize(): Boolean
 
-    suspend fun schedule(sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?)
+    suspend fun schedule(type: NotificationType, sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?)
 
     suspend fun cancel(sessionIds: List<Session.Id>)
+
+    enum class NotificationType {
+        Reminder, Feedback
+    }
 }

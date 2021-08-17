@@ -28,6 +28,7 @@ import platform.UserNotifications.UNNotification
 import platform.UserNotifications.UNNotificationPresentationOptionAlert
 import platform.UserNotifications.UNNotificationPresentationOptions
 import platform.UserNotifications.UNNotificationRequest
+import platform.UserNotifications.UNNotificationResponse
 import platform.UserNotifications.UNNotificationSound
 import platform.UserNotifications.UNUserNotificationCenter
 import platform.UserNotifications.UNUserNotificationCenterDelegateProtocol
@@ -40,14 +41,19 @@ import platform.darwin.NSObject
 class IOSNotificationService(
     private val log: Kermit,
 ): NotificationService {
-    private val notificationDelegate: UNUserNotificationCenterDelegateProtocol by lazy {
-        NotificationDelegate()
-    }
-
     private val notificationCenter: UNUserNotificationCenter by lazy {
         val center = UNUserNotificationCenter.currentNotificationCenter()
         center.delegate = notificationDelegate
         center
+    }
+
+    private lateinit var notificationHandler: NotificationHandler
+    private val notificationDelegate: UNUserNotificationCenterDelegateProtocol by lazy {
+        NotificationDelegate(notificationHandler)
+    }
+
+    fun setHandler(notificationHandler: NotificationHandler) {
+        this.notificationHandler = notificationHandler
     }
 
     override suspend fun initialize(): Boolean {
@@ -79,7 +85,7 @@ class IOSNotificationService(
         }
     }
 
-    override suspend fun schedule(sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?) {
+    override suspend fun schedule(type: NotificationService.NotificationType, sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at ${delivery.toNSDate().description}." }
         val deliveryDate = delivery.toNSDate()
         val allUnits = NSCalendarUnitSecond or
@@ -97,8 +103,18 @@ class IOSNotificationService(
         content.setTitle(title)
         content.setBody(body)
         content.setSound(UNNotificationSound.defaultSound)
+        val typeString = when (type) {
+            NotificationService.NotificationType.Reminder -> NOTIFICATION_TYPE_REMINDER
+            NotificationService.NotificationType.Feedback -> NOTIFICATION_TYPE_FEEDBACK
+        }
+        content.setUserInfo(
+            mapOf(
+                NOTIFICATION_SESSION_ID_KEY to sessionId.value,
+                NOTIFICATION_TYPE_KEY to typeString,
+            )
+        )
 
-        val request = UNNotificationRequest.requestWithIdentifier(sessionId.value, content, trigger)
+        val request = UNNotificationRequest.requestWithIdentifier("${sessionId.value}-$typeString", content, trigger)
 
         val error = wrapMultiThreadCallback<NSError?> { notificationCenter.addNotificationRequest(request, it) }
         if (error == null) {
@@ -115,7 +131,9 @@ class IOSNotificationService(
     }
 
     // Delegate necessary to show notification.
-    private class NotificationDelegate: NSObject(), UNUserNotificationCenterDelegateProtocol {
+    private class NotificationDelegate(
+        private val notificationHandler: NotificationHandler,
+    ): NSObject(), UNUserNotificationCenterDelegateProtocol {
         override fun userNotificationCenter(
             center: UNUserNotificationCenter,
             willPresentNotification: UNNotification,
@@ -123,5 +141,31 @@ class IOSNotificationService(
         ) {
             withCompletionHandler(UNNotificationPresentationOptionAlert)
         }
+
+        override fun userNotificationCenter(
+            center: UNUserNotificationCenter,
+            didReceiveNotificationResponse: UNNotificationResponse,
+            withCompletionHandler: () -> Unit,
+        ) {
+            val notification = didReceiveNotificationResponse.notification
+            val notificationType = when (notification.request.content.userInfo[NOTIFICATION_TYPE_KEY] as String) {
+                NOTIFICATION_TYPE_REMINDER -> NotificationService.NotificationType.Reminder
+                NOTIFICATION_TYPE_FEEDBACK -> NotificationService.NotificationType.Feedback
+                else -> null
+            }
+            if (notificationType != null) {
+                val sessionId = notification.request.content.userInfo[NOTIFICATION_SESSION_ID_KEY] as String
+                notificationHandler.notificationReceived(sessionId, notificationType)
+            }
+            withCompletionHandler()
+        }
+    }
+
+    companion object {
+        private const val NOTIFICATION_SESSION_ID_KEY = "NOTIFICATION_SESSION_ID_KEY"
+
+        private const val NOTIFICATION_TYPE_KEY = "NOTIFICATION_TYPE_KEY"
+        private const val NOTIFICATION_TYPE_REMINDER = "NOTIFICATION_TYPE_REMINDER"
+        private const val NOTIFICATION_TYPE_FEEDBACK = "NOTIFICATION_TYPE_FEEDBACK"
     }
 }
