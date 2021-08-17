@@ -13,6 +13,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
@@ -67,16 +69,17 @@ class DefaultNotificationSchedulingService(
                 settingsRepository.settings,
                 transform = { agenda, settings -> Triple(agenda, settings.isRemindersEnabled, settings.isFeedbackEnabled) }
             )
+            .distinctUntilChanged()
             .collect { (agenda, isRemindersEnabled, isFeedbackEnabled) ->
                 if (isRemindersEnabled || isFeedbackEnabled) {
                     val scheduledSessionIds = scheduledNotifications
 
                     // Cancel sessions that the user isn't attending anymore.
-                    notificationService.cancel(
-                        scheduledSessionIds.filterNot { sessionId ->
-                            agenda.map { it.id.value }.contains(sessionId.value)
-                        }
-                    )
+                    val oldSessionIds = scheduledSessionIds.filterNot { sessionId ->
+                        agenda.map { it.id.value }.contains(sessionId.value)
+                    }
+                    scheduledNotifications = scheduledNotifications.filterNot { oldSessionIds.contains(it) }
+                    notificationService.cancel(oldSessionIds)
 
                     // Schedule new upcoming sessions.
                     val newSessions = agenda.filterNot { scheduledSessionIds.contains(it.id) }
