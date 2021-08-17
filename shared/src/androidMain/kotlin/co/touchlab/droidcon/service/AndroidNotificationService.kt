@@ -118,6 +118,8 @@ class AndroidNotificationService(
     override suspend fun cancel(sessionIds: List<Session.Id>) {
         if (sessionIds.isEmpty()) { return }
 
+        log.v { "Cancelling scheduled notifications with IDs: [${sessionIds.joinToString { it.value }}]" }
+
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         for (sessionId in sessionIds) {
