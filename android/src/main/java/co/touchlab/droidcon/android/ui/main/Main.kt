@@ -14,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -79,9 +78,7 @@ sealed class SponsorsScreen(val route: String) {
 val tabs: List<MainTab> = listOf(MainTab.Schedule, MainTab.MyAgenda, MainTab.Sponsors, MainTab.Settings)
 
 @Composable
-fun Main() {
-    val main = viewModel<MainViewModel>()
-    
+fun Main(main: MainViewModel) {
     val feedback by main.showFeedback.collectAsState()
     feedback?.let {
         Feedback(it)

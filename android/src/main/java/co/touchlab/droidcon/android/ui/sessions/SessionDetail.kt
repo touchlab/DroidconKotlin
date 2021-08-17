@@ -121,7 +121,7 @@ private fun Header(title: String, locationInfo: String) {
         Text(
             text = title,
             style = MaterialTheme.typography.h5,
-            maxLines = 5,
+            maxLines = 3,
             overflow = TextOverflow.Ellipsis,
             color = Color.White,
             modifier = Modifier.padding(

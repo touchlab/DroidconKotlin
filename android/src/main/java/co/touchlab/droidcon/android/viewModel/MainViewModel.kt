@@ -17,7 +17,7 @@ class MainViewModel: ViewModel(), KoinComponent {
 
     val showFeedback: MutableStateFlow<FeedbackViewModel?> = MutableStateFlow(null)
 
-    init {
+    fun initializeFeedbackObserving() {
         viewModelScope.launch {
             if (settingsGateway.settings().value.isFeedbackEnabled) {
                 presentNextFeedback()

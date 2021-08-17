@@ -8,6 +8,7 @@ import co.touchlab.droidcon.R
 import co.touchlab.droidcon.domain.entity.Session
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -24,6 +25,15 @@ class FeedbackViewModel(
     val selectedReaction: MutableStateFlow<Reaction?> = MutableStateFlow(null)
 
     val isSubmitDisabled: Flow<Boolean> = selectedReaction.map { it == null }
+
+    init {
+        viewModelScope.launch {
+            session.collect {
+                comment.value = ""
+                selectedReaction.value = null
+            }
+        }
+    }
 
     fun submit() {
         viewModelScope.launch {
