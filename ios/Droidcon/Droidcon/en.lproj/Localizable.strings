@@ -36,7 +36,7 @@
 
 "About.Title" = "About";
 
-"Feedback.Dialog.Title" = "What did you think of %@?";
+"Feedback.Dialog.Title %@" = "What did you think of \"%@\"?";
 "Feedback.Dialog.Opinion.Placeholder" = "(Optional) Suggest improvements";
 "Feedback.Dialog.Submit" = "Submit";
 "Feedback.Dialog.CloseAndDisable" = "Close and disable feedback";
