@@ -40,7 +40,9 @@ class ApplicationViewModel(
 
     fun onAppear() {
         lifecycle.whileAttached {
-            feedbackService.next()
+            if (settingsGateway.settings().value.isFeedbackEnabled) {
+                presentNextFeedback()
+            }
         }
     }
 
