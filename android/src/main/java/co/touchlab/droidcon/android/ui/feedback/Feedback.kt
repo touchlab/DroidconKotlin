@@ -1,7 +1,5 @@
 package co.touchlab.droidcon.android.ui.feedback
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,45 +17,47 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
-
-sealed class Reaction(@StringRes val descriptionRes: Int, @DrawableRes val imageRes: Int) {
-    object Bad: Reaction(R.string.feedback_reaction_bad_description, R.drawable.baseline_sentiment_very_dissatisfied_24)
-    object Normal: Reaction(R.string.feedback_reaction_normal_description, R.drawable.baseline_sentiment_satisfied_24)
-    object Good: Reaction(R.string.feedback_reaction_good_description, R.drawable.baseline_sentiment_satisfied_alt_24)
-}
+import co.touchlab.droidcon.android.viewModel.feedback.FeedbackViewModel
 
 @Composable
-fun Feedback() {
-    Dialog(onDismissRequest = { /*TODO*/ }) {
+fun Feedback(feedback: FeedbackViewModel) {
+    // FIXME: Dialog does not resize in response to changing views inside, it's a compose bug: https://issuetracker.google.com/issues/194911971
+    // FIXME: Update compose when it's fixed, remove maxLines = 2, from the title TextField.
+    Dialog(onDismissRequest = feedback::skip) {
         Card {
-            Column(modifier = Modifier.padding(Dimensions.Padding.default)) {
+            Column(
+                modifier = Modifier
+                    .padding(Dimensions.Padding.default),
+            ) {
+                val title by feedback.title.collectAsState(initial = "")
                 Text(
-                    text = stringResource(id = R.string.feedback_title, "Droidcon 2021"),
+                    text = title,
                     color = MaterialTheme.colors.onBackground,
                     style = MaterialTheme.typography.h6,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
-                    var selected by remember { mutableStateOf<Reaction?>(null) }
+                    val selected by feedback.selectedReaction.collectAsState()
 
-                    listOf(Reaction.Bad, Reaction.Normal, Reaction.Good).forEach { reaction ->
+                    feedback.reactions.forEach { reaction ->
                         Icon(
                             painter = painterResource(id = reaction.imageRes),
                             contentDescription = stringResource(id = reaction.descriptionRes),
@@ -65,16 +65,16 @@ fun Feedback() {
                                 .size(80.dp)
                                 .padding(Dimensions.Padding.default)
                                 .clip(CircleShape)
-                                .clickable { selected = reaction },
+                                .clickable { feedback.selectedReaction.value = reaction },
                             tint = if (selected == reaction) Colors.teal else Colors.grey,
                         )
                     }
                 }
 
-                var opinion by remember { mutableStateOf("") }
+                val comment by feedback.comment.collectAsState()
                 OutlinedTextField(
-                    value = opinion,
-                    onValueChange = { opinion = it },
+                    value = comment,
+                    onValueChange = { feedback.comment.value = it },
                     placeholder = {
                         Text(text = stringResource(id = R.string.feedback_opinion_placeholder), style = MaterialTheme.typography.body1)
                     },
@@ -89,13 +89,17 @@ fun Feedback() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.End,
                 ) {
-                    TextButton(onClick = { /*TODO*/ }) {
+                    val isSubmitDisabled by feedback.isSubmitDisabled.collectAsState(initial = true)
+                    TextButton(onClick = feedback::submit, enabled = !isSubmitDisabled) {
                         Text(text = stringResource(id = R.string.feedback_submit).uppercase(), color = Colors.teal)
                     }
-                    TextButton(onClick = { /*TODO*/ }) {
+                    TextButton(onClick = feedback::closeAndDisable) {
                         Text(text = stringResource(id = R.string.feedback_close_and_disable).uppercase(), color = Colors.teal)
                     }
-                    TextButton(onClick = { /*TODO*/ }) {
+                    TextButton(onClick = feedback::skip) {
+                        Text(text = stringResource(id = R.string.feedback_skip).uppercase(), color = Colors.teal)
+                    }
+                    TextButton(onClick = feedback::skip) {
                         Text(text = stringResource(id = R.string.feedback_skip).uppercase(), color = Colors.teal)
                     }
                 }

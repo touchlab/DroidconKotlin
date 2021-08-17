@@ -26,7 +26,7 @@ class DefaultFeedbackService(
         private const val COMPLETED_SESSION_FEEDBACKS_KEY = "COMPLETED_SESSION_FEEDBACKS"
     }
 
-    private var completedSessionIds: Set<Session.Id> = settings.getStringOrNull(COMPLETED_SESSION_FEEDBACKS_KEY)?.let {
+    private var completedSessionIds: Set<String> = settings.getStringOrNull(COMPLETED_SESSION_FEEDBACKS_KEY)?.let {
         json.decodeFromString(it)
     } ?: emptySet()
 
@@ -41,7 +41,7 @@ class DefaultFeedbackService(
                     sessionsToReview = sessions
                         .map { it.session }
                         .filter { it.endsAt < clock.now() }
-                        .filterNot { completedSessionIds.contains(it.id) }
+                        .filterNot { completedSessionIds.contains(it.id.value) }
                     initializationCompletable.complete(Unit)
                 }
         }
@@ -49,17 +49,17 @@ class DefaultFeedbackService(
 
     override suspend fun next(): Session? {
         initializationCompletable.await()
-        return sessionsToReview.firstOrNull { !completedSessionIds.contains(it.id) }
+        return sessionsToReview.firstOrNull { !completedSessionIds.contains(it.id.value) }
     }
 
     override suspend fun submit(session: Session, feedback: Session.Feedback) {
         sessionGateway.setFeedback(session, feedback)
-        completedSessionIds += session.id
+        completedSessionIds += session.id.value
         saveCompletedSessions()
     }
 
     override suspend fun skip(session: Session) {
-        completedSessionIds += session.id
+        completedSessionIds += session.id.value
         saveCompletedSessions()
     }
 

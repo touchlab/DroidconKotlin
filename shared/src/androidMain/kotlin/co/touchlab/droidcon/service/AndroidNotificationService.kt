@@ -12,7 +12,6 @@ import android.os.Build
 import android.os.RemoteException
 import androidx.core.app.NotificationCompat
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.util.IdentifiableIntent
@@ -21,9 +20,7 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
-import kotlinx.datetime.plus
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -44,7 +41,7 @@ class AndroidNotificationService(
             settings[NOTIFICATION_ID_COUNTER_KEY] = value
         }
 
-    private val registeredNotifications: MutableMap<Session.Id, List<Int>> = settings.getStringOrNull(NOTIFICATION_ID_MAP_KEY)?.let {
+    private val registeredNotifications: MutableMap<String, List<Int>> = settings.getStringOrNull(NOTIFICATION_ID_MAP_KEY)?.let {
         json.decodeFromString(it)
     } ?: mutableMapOf()
 
@@ -124,7 +121,7 @@ class AndroidNotificationService(
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         for (sessionId in sessionIds) {
-            val notificationIds = registeredNotifications[sessionId] ?: continue
+            val notificationIds = registeredNotifications[sessionId.value] ?: continue
 
             for (id in notificationIds) {
                 try {
@@ -156,14 +153,14 @@ class AndroidNotificationService(
     }
 
     private fun saveRegisteredNotificationId(sessionId: Session.Id, notificationId: Int) {
-        val currentNotificationIds = (registeredNotifications[sessionId] ?: emptyList()).toMutableList()
+        val currentNotificationIds = (registeredNotifications[sessionId.value] ?: emptyList()).toMutableList()
         currentNotificationIds.add(notificationId)
-        registeredNotifications[sessionId] = currentNotificationIds
+        registeredNotifications[sessionId.value] = currentNotificationIds
         saveRegisteredNotifications()
     }
 
     private fun deleteRegisteredNotificationIdSession(sessionId: Session.Id) {
-        registeredNotifications.remove(sessionId)
+        registeredNotifications.remove(sessionId.value)
         saveRegisteredNotifications()
     }
 

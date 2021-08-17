@@ -9,10 +9,12 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -23,12 +25,14 @@ import androidx.navigation.navigation
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.ProfileDetail
 import co.touchlab.droidcon.android.ui.agenda.MyAgenda
+import co.touchlab.droidcon.android.ui.feedback.Feedback
 import co.touchlab.droidcon.android.ui.schedule.Schedule
 import co.touchlab.droidcon.android.ui.sessions.SessionDetail
 import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
 import co.touchlab.droidcon.android.ui.sponsors.SponsorDetail
 import co.touchlab.droidcon.android.ui.sponsors.SponsorList
+import co.touchlab.droidcon.android.viewModel.MainViewModel
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.entity.Sponsor
@@ -76,6 +80,13 @@ val tabs: List<MainTab> = listOf(MainTab.Schedule, MainTab.MyAgenda, MainTab.Spo
 
 @Composable
 fun Main() {
+    val main = viewModel<MainViewModel>()
+    
+    val feedback by main.showFeedback.collectAsState()
+    feedback?.let {
+        Feedback(it)
+    }
+
     val navController = rememberNavController()
     Scaffold(
         modifier = Modifier.systemBarsPadding(),
