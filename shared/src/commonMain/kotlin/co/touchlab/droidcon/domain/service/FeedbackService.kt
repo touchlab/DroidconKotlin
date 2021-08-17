@@ -3,6 +3,8 @@ package co.touchlab.droidcon.domain.service
 import co.touchlab.droidcon.domain.entity.Session
 
 interface FeedbackService {
+    suspend fun initialize()
+
     suspend fun next(): Session?
 
     suspend fun submit(session: Session, feedback: Session.Feedback)

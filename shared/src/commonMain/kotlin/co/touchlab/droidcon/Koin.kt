@@ -214,6 +214,7 @@ private val coreModule = module {
             sessionGateway = get(),
             settings = get(),
             json = get(),
+            clock = get(),
         )
     }
 }
