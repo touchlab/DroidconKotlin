@@ -9,6 +9,8 @@ import com.russhwolf.settings.set
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.serialization.decodeFromString
@@ -30,26 +32,10 @@ class DefaultFeedbackService(
         json.decodeFromString(it)
     } ?: emptySet()
 
-    private var sessionsToReview: List<Session> = emptyList()
-
-    private val initializationCompletable = CompletableDeferred<Unit>()
-
-    init {
-        MainScope().launch {
-            sessionGateway.observeAgenda()
-                .collect { sessions ->
-                    sessionsToReview = sessions
-                        .map { it.session }
-                        .filter { it.endsAt < clock.now() }
-                        .filterNot { completedSessionIds.contains(it.id.value) }
-                    initializationCompletable.complete(Unit)
-                }
-        }
-    }
-
     override suspend fun next(): Session? {
-        initializationCompletable.await()
-        return sessionsToReview.firstOrNull { !completedSessionIds.contains(it.id.value) }
+        return sessionGateway.observeAgenda().first()
+            .firstOrNull { it.session.endsAt < clock.now() && !completedSessionIds.contains(it.session.id.value) }
+            ?.session
     }
 
     override suspend fun submit(session: Session, feedback: Session.Feedback) {

@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import co.touchlab.droidcon.android.viewModel.MainViewModel
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.service.AndroidNotificationService
 import co.touchlab.kermit.Kermit
 import com.google.accompanist.insets.ProvideWindowInsets
 import org.koin.core.component.KoinComponent
@@ -55,8 +57,8 @@ class MainActivity: ComponentActivity(), KoinComponent {
         }
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
+    override fun onResume() {
+        super.onResume()
         mainViewModel.initializeFeedbackObserving()
     }
 }
