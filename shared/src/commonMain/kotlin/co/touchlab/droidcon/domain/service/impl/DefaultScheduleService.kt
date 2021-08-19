@@ -20,7 +20,7 @@ class DefaultScheduleService(
     }
 
     private fun ClosedRange<Instant>.intersects(otherRange: ClosedRange<Instant>): Boolean {
-        return contains(otherRange.start) || contains(otherRange.endInclusive) ||
-            otherRange.contains(start) || otherRange.contains(endInclusive)
+        return start.epochSeconds < otherRange.endInclusive.epochSeconds
+            && endInclusive.epochSeconds > otherRange.start.epochSeconds
     }
 }
