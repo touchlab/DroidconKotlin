@@ -12,7 +12,6 @@ struct SessionDetailView: View {
             ZStack {
                 SwitchingNavigationLink(
                     selection: $viewModel.presentedSpeakerDetail,
-                    isActive: { $0 },
                     content: SpeakerDetailView.init(viewModel:)
                 )
 

@@ -60,7 +60,6 @@ struct ScheduleView: View {
 
                 SwitchingNavigationLink(
                     selection: $viewModel.presentedSessionDetail,
-                    isActive: { $0 },
                     content: SessionDetailView.init(viewModel:)
                 )
             }

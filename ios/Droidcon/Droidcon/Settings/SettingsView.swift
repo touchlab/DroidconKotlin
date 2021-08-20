@@ -10,7 +10,6 @@ struct SettingsView: View {
             ZStack {
                 SwitchingNavigationLink(
                     selection: $viewModel.presentedAbout,
-                    isActive: { $0 },
                     content: { AboutView(viewModel: $0) }
                 )
 
