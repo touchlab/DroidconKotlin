@@ -1,7 +1,7 @@
 import SwiftUI
 import DroidconKit
 
-class LifecycleManager: ObservableObject {
+class LifecycleManager: SwiftUI.ObservableObject {
 
     var managedViewModel: BaseViewModel? {
         willSet {
