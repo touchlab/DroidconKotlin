@@ -1,2 +1,0 @@
-ALTER TABLE sponsor ADD COLUMN sponsorId TEXT;
-ALTER TABLE sponsor ADD COLUMN description TEXT;

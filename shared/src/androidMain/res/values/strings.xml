@@ -1,0 +1,4 @@
+<resources>
+    <string name="notification_channel_name">Notifications</string>
+    <string name="notification_channel_description">Reminders and feedback.</string>
+</resources>

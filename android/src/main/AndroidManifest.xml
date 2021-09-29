@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="co.touchlab.sessionize"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="co.touchlab.droidcon">
     <uses-permission android:name="android.permission.INTERNET"/>
-    <application
-            android:allowBackup="false"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:name="co.touchlab.sessionize.MainApp"
-            android:theme="@style/Theme.Shrine">
-        <activity
-            android:name="co.touchlab.sessionize.MainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Droidcon"
+        android:name="co.touchlab.droidcon.android.MainApp">
+        <activity
+            android:name="co.touchlab.droidcon.android.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".NotificationPublisher"/>
-      
-        <service
-                android:name=".FirebaseMessageHandler"
-                android:exported="false">
+        <receiver android:name=".service.NotificationPublisher" />
+
+        <receiver
+            android:name=".service.NotificationRescheduler"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </service>
+        </receiver>
     </application>
 </manifest>

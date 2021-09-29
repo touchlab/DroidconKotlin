@@ -1,0 +1,43 @@
+"Shrug" = "¯\\_(ツ)_/¯";
+
+"Notification.Reminder.Title.Base" = "Upcoming event%@";
+"Notification.Reminder.Title.InRoom" = " in %@";
+"Notification.Reminder.Body" = "%@ is starting soon.";
+"Notification.Feedback.Title" = "Feedback Time!";
+"Notification.Feedback.Body" = "Your Feedback is Requested.";
+
+"Schedule.Title" = "Schedule";
+"Schedule.TabItem.Title" = "Schedule";
+
+"Agenda.Title" = "Agenda";
+"Agenda.TabItem.Title" = "Agenda";
+
+"Session.List.Item.Speakers %@" = "by %@";
+
+"Session.Detail.Title" = "Session";
+"Session.Detail.State.InProgress" = "This session is happening now.";
+"Session.Detail.State.Ended" = "This session has already ended.";
+"Session.Detail.State.Conflict" = "This session conflicts with another session in your schedule.";
+"Session.Detail.Speakers" = "Speakers";
+
+"Speaker.Detail.Title" = "Speaker";
+
+"Sponsors.Title" = "Sponsors";
+"Sponsors.TabItem.Title" = "Sponsors";
+
+"Sponsor.Detail.Title" = "Sponsor";
+"Sponsor.Detail.Representatives" = "Representatives";
+
+"Settings.Title" = "Settings";
+"Settings.TabItem.Title" = "Settings";
+"Settings.Feedback" = "Enable feedback";
+"Settings.Reminders" = "Enable reminders";
+"Settings.About" = "About";
+
+"About.Title" = "About";
+
+"Feedback.Dialog.Title %@" = "What did you think of \"%@\"?";
+"Feedback.Dialog.Opinion.Placeholder" = "(Optional) Suggest improvements";
+"Feedback.Dialog.Submit" = "Submit";
+"Feedback.Dialog.CloseAndDisable" = "Close and disable feedback";
+"Feedback.Dialog.Skip" = "Skip feedback";

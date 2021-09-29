@@ -1,13 +1,21 @@
-CREATE TABLE room(
-id INTEGER NOT NULL PRIMARY KEY,
-name TEXT NOT NULL
+CREATE TABLE roomTable(
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL
 );
 
-insertRoot:
-INSERT OR REPLACE INTO room(id, name)VALUES(?,?);
+upsert:
+INSERT OR REPLACE INTO roomTable(id, name) VALUES(?,?);
 
 selectAll:
-SELECT * FROM room;
+SELECT * FROM roomTable;
 
 selectById:
-SELECT * FROM room WHERE id = ?;
+SELECT * FROM roomTable WHERE id = ?;
+
+deleteById {
+    UPDATE sessionTable SET roomId = NULL WHERE roomId = :roomId;
+    DELETE FROM roomTable WHERE id = :roomId;
+}
+
+existsById:
+SELECT count(1) FROM roomTable WHERE id = ?;

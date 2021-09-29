@@ -1,29 +1,53 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("kotlinx-serialization")
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
 }
 
 android {
-    compileSdkVersion(Versions.compile_sdk)
+    val androidMinSdk: String by project
+    val androidCompileSdk: String by project
+    val androidTargetSdk: String by project
+
+    compileSdk = androidCompileSdk.toInt()
     defaultConfig {
-        minSdk = Versions.min_sdk
-        targetSdk = Versions.target_sdk
+        minSdk = androidMinSdk.toInt()
+        targetSdk = androidTargetSdk.toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    lintOptions {
-        isWarningsAsErrors = false
-        isAbortOnError = false
+    lint {
+        isWarningsAsErrors = true
+        isAbortOnError = true
+    }
+
+    sourceSets {
+        val main by getting
+        main.java.setSrcDirs(listOf("src/androidMain/kotlin"))
+        main.res.setSrcDirs(listOf("src/androidMain/res"))
+        main.resources.setSrcDirs(
+            listOf(
+                "src/androidMain/resources",
+                "src/commonMain/resources",
+            )
+        )
+        main.manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
 }
 
 version = "1.0"
+
+android {
+    configurations {
+        create("androidTestApi")
+        create("androidTestDebugApi")
+        create("androidTestReleaseApi")
+        create("testApi")
+        create("testDebugApi")
+        create("testReleaseApi")
+    }
+}
 
 kotlin {
     android()
@@ -35,6 +59,8 @@ kotlin {
         iosX64("ios")
     }
 
+    version = "1.0"
+
     sourceSets {
         all {
             languageSettings.apply {
@@ -45,28 +71,23 @@ kotlin {
     }
 
     sourceSets["commonMain"].dependencies {
-        implementation(Deps.SqlDelight.runtime)
-        implementation(Deps.SqlDelight.coroutinesExtensions)
-        implementation(Deps.Ktor.commonCore)
-        implementation(Deps.Ktor.commonJson)
-        implementation(Deps.Ktor.commonLogging)
-        implementation(Deps.Coroutines.common)
-        implementation(Deps.Stately.stately_common)
-        implementation(Deps.Stately.stately_concurrency)
-        implementation(Deps.Stately.stately_collections)
-        implementation(Deps.multiplatformSettings)
-        implementation(Deps.koinCore)
-        implementation(Deps.Ktor.commonSerialization)
-        implementation(Deps.kotlinxDateTime)
-        api(Deps.kermit)
+        api(libs.kermit)
+        api(libs.kotlinx.coroutines.core)
+        api(libs.kotlinx.datetime)
+        api(libs.multiplatformSettings.core)
+        api(libs.uuid)
+
+        implementation(libs.bundles.ktor.common)
+        implementation(libs.bundles.sqldelight.common)
+
+        implementation(libs.stately.common)
+        implementation(libs.koin.core)
     }
 
     sourceSets["commonTest"].dependencies {
-        implementation(Deps.multiplatformSettingsTest)
-        implementation(Deps.KotlinTest.common)
-        implementation(Deps.KotlinTest.annotations)
-        implementation(Deps.koinTest)
-        implementation(Deps.turbine)
+        implementation(libs.multiplatformSettings.test)
+        implementation(libs.kotlin.test.common)
+        implementation(libs.koin.test)
     }
 
     sourceSets.matching { it.name.endsWith("Test") }
@@ -75,54 +96,20 @@ kotlin {
         }
 
     sourceSets["androidMain"].dependencies {
-        implementation(kotlin("stdlib", Versions.kotlin))
-        implementation(Deps.SqlDelight.driverAndroid)
-        implementation(Deps.Coroutines.android)
-        implementation(Deps.Ktor.androidCore)
-        implementation(Deps.core)
-        implementation(Deps.app_compat)
-    }
-
-    sourceSets["androidTest"].dependencies {
-        implementation(Deps.KotlinTest.jvm)
-        implementation(Deps.KotlinTest.junit)
-        implementation(Deps.AndroidXTest.core)
-        implementation(Deps.AndroidXTest.junit)
-        implementation(Deps.AndroidXTest.runner)
-        implementation(Deps.AndroidXTest.rules)
-        implementation(Deps.Coroutines.test)
-        implementation(Deps.robolectric)
+        implementation(libs.sqldelight.driver.android)
+        implementation(libs.kotlinx.coroutines.android)
+        implementation(libs.ktor.client.okhttp)
+        implementation(libs.androidx.core)
     }
 
     sourceSets["iosMain"].dependencies {
-        implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.Ktor.ios)
-
-        implementation(Deps.Coroutines.common) {
-            version {
-                strictly(Versions.coroutines)
-            }
-        }
-    }
-
-    cocoapods {
-        // Configure fields required by CocoaPods.
-        summary = "Lots of Droidcon Stuff"
-        homepage = "https://github.com/touchlab/DroidconKotlin"
-    }
-
-    // Configure the framework which is generated internally by cocoapods plugin
-    targets.withType<KotlinNativeTarget> {
-        binaries.withType<Framework> {
-            isStatic = true
-//            export(Deps.kermit)
-//            transitiveExport = true
-        }
+        implementation(libs.sqldelight.driver.ios)
+        implementation(libs.ktor.client.ios)
     }
 }
 
 sqldelight {
-    database("DroidconDb") {
+    database("DroidconDatabase") {
         packageName = "co.touchlab.droidcon.db"
     }
 }

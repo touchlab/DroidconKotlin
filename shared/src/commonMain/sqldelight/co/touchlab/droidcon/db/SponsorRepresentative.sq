@@ -1,0 +1,23 @@
+CREATE TABLE sponsorRepresentativeTable(
+    sponsorName TEXT NOT NULL,
+    sponsorGroupName TEXT NOT NULL,
+    representativeId TEXT NOT NULL,
+    displayOrder INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (sponsorName, sponsorGroupName, representativeId),
+    FOREIGN KEY (sponsorName) REFERENCES sponsorTable(name),
+    FOREIGN KEY (sponsorGroupName) REFERENCES sponsorTable(groupName),
+    FOREIGN KEY (representativeId) REFERENCES profileTable(id)
+);
+
+insertUpdate:
+INSERT OR REPLACE INTO sponsorRepresentativeTable(sponsorName, sponsorGroupName, representativeId, displayOrder)
+VALUES (?,?,?, ?);
+
+selectBySponsorId:
+SELECT * FROM sponsorRepresentativeTable WHERE sponsorName = ? AND sponsorGroupName = ?;
+
+deleteBySponsorId:
+DELETE FROM sponsorRepresentativeTable WHERE sponsorName = ? AND sponsorGroupName = ?;
+
+deleteAll:
+DELETE FROM sponsorRepresentativeTable;

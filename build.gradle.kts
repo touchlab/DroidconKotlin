@@ -1,28 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        //        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-        maven(url = "https://maven.fabric.io/public")
-    }
-    dependencies {
-        classpath(Deps.android_gradle_plugin)
-        classpath(Deps.SqlDelight.gradle)
-        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
-
-        classpath(kotlin("gradle-plugin", Versions.kotlin))
-        classpath(Deps.google_services)
-        classpath(Deps.Navigation.safe_args)
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build gradle files
-    }
+plugins {
+    id("android-gradle") apply false
+    kotlin("multiplatform") apply false
+    id("org.jlleitschuh.gradle.ktlint")
 }
-
-//plugins {
-//    id("org.jlleitschuh.gradle.ktlint") version Versions.ktlint_gradle_plugin
-//}
 
 allprojects {
     repositories {
@@ -33,22 +14,22 @@ allprojects {
 }
 
 subprojects {
-//    apply(plugin = "org.jlleitschuh.gradle.ktlint")
-//
-//    ktlint {
-//        version.set("0.37.2")
-//        enableExperimentalRules.set(true)
-//        verbose.set(true)
-//        filter {
-//            exclude { it.file.path.contains("build/") }
-//        }
-//    }
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-//    afterEvaluate {
-//        tasks.named("check").configure {
-//            dependsOn(tasks.getByName("ktlintCheck"))
-//        }
-//    }
+    ktlint {
+        version.set("0.37.2")
+        enableExperimentalRules.set(true)
+        verbose.set(true)
+        filter {
+            exclude { it.file.path.contains("build/") }
+        }
+    }
+
+    afterEvaluate {
+        tasks.named("check") {
+            dependsOn(tasks.getByName("ktlintCheck"))
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {

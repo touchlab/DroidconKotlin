@@ -45,7 +45,10 @@ captures/
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 /.idea/encodings.xml
-/.idea/codeStyles/Project.xml
+.idea/saveactions_settings.xml
+.idea/deploymentTargetDropDown.xml
+.idea/gradle.xml
+.idea/misc.xml
 .DS_Store
 /build
 /captures
@@ -82,3 +85,8 @@ buildboth.sh
 sessionize/app/google-services.json
 iosApp/iosApp/app/GoogleService-Info.plist
 iosApp/iosApp/GoogleService-Info.plist
+Pods/
+*.xcworkspace
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/dictionaries/matyas.xml

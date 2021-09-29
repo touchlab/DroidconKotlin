@@ -1,78 +1,84 @@
-import co.touchlab.sessionize.platform.Date;
+import kotlinx.datetime.Instant;
 
-CREATE TABLE session(
-id TEXT NOT NULL PRIMARY KEY,
-title TEXT NOT NULL,
-description TEXT NOT NULL,
-startsAt TEXT AS Date NOT NULL,
-endsAt TEXT AS Date NOT NULL,
-serviceSession INTEGER NOT NULL DEFAULT 0,
-rsvp INTEGER NOT NULL DEFAULT 0,
-roomId INTEGER,
-feedbackRating INTEGER,
-feedbackComment TEXT,
-feedbackSent INTEGER NOT NULL DEFAULT 0,
-FOREIGN KEY (roomId) REFERENCES room(id)
+CREATE TABLE sessionTable(
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    startsAt INTEGER AS Instant NOT NULL,
+    endsAt INTEGER AS Instant NOT NULL,
+    serviceSession INTEGER NOT NULL DEFAULT 0,
+    rsvp INTEGER,
+    rsvpSent INTEGER NOT NULL DEFAULT 0,
+    roomId INTEGER,
+    feedbackRating INTEGER AS Int,
+    feedbackComment TEXT,
+    feedbackSent INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (roomId) REFERENCES roomTable(id)
 );
 
-insert:
-INSERT INTO session(id, title, description, startsAt, endsAt, serviceSession, roomId)
-VALUES (?,?,?,?,?,?,?)
-;
+upsert:
+INSERT OR REPLACE INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId)
+VALUES (?,?,?,?,?,?,?);
 
-update:
-UPDATE session SET title = ?, description = ?, startsAt = ?,
-endsAt = ?, serviceSession = ?, roomId = ?, rsvp = ?, feedbackRating = ?, feedbackComment = ?
-WHERE id = ?;
-
-deleteById:
-DELETE FROM session WHERE id = ?;
+deleteById {
+    DELETE FROM sessionSpeakerTable WHERE sessionId = :sessionId;
+    DELETE FROM sessionTable WHERE id = :sessionId;
+}
 
 allSessions:
-SELECT * FROM session;
+SELECT * FROM sessionTable ORDER BY sessionTable.startsAt ASC;
+
+attendingSessions:
+SELECT * FROM sessionTable WHERE rsvp != 0 ORDER BY sessionTable.startsAt ASC;
+
+existsById:
+SELECT count(1) FROM sessionTable WHERE id = ?;
 
 sessionById:
-SELECT * FROM session WHERE id = ?;
+SELECT * FROM sessionTable WHERE id = ?;
 
 mySessions:
-SELECT session.id, session.title, session.startsAt, session.endsAt, session.feedbackRating, room.name AS roomName
-FROM session
-JOIN room ON session.roomId = room.id
-WHERE rsvp != 0 ORDER BY session.startsAt ASC;
+SELECT sessionTable.id, sessionTable.title, sessionTable.startsAt, sessionTable.endsAt, sessionTable.feedbackRating, roomTable.name AS roomName
+FROM sessionTable
+JOIN roomTable ON sessionTable.roomId = roomTable.id
+WHERE rsvp != 0 ORDER BY sessionTable.startsAt ASC;
 
 myPastSession:
-SELECT session.id, session.title, session.endsAt, session.feedbackRating
-FROM session
-WHERE rsvp != 0 AND session.feedbackRating IS NULL;
+SELECT sessionTable.id, sessionTable.title, sessionTable.endsAt, sessionTable.feedbackRating
+FROM sessionTable
+WHERE rsvp != 0 AND sessionTable.feedbackRating IS NULL;
 
 userSessions:
-SELECT session.* FROM session
-JOIN sessionSpeaker ON session.id = sessionSpeaker.sessionId
-WHERE sessionSpeaker.userAccountId = ?;
+SELECT sessionTable.* FROM sessionTable
+JOIN sessionSpeakerTable ON sessionTable.id = sessionSpeakerTable.sessionId
+WHERE sessionSpeakerTable.speakerId = ?;
 
 updateRsvp:
-UPDATE session SET rsvp = ? WHERE id = ?;
+UPDATE sessionTable SET rsvp = ? WHERE id = ?;
+
+updateRsvpSent:
+UPDATE sessionTable SET rsvpSent = ? WHERE id = :sessionId;
 
 updateFeedBack:
-UPDATE session SET feedbackRating = ?, feedbackComment = ?, feedbackSent = 0 WHERE id = ?;
+UPDATE sessionTable SET feedbackRating = ?, feedbackComment = ?, feedbackSent = 0 WHERE id = :sessionId;
 
 updateFeedBackSent:
-UPDATE session SET feedbackSent = 1 WHERE id = ?;
+UPDATE sessionTable SET feedbackSent = ? WHERE id = :sessionId;
 
 sessionFeedbackToSend:
-SELECT * FROM session WHERE feedbackRating IS NOT NULL AND feedbackSent = 0;
+SELECT * FROM sessionTable WHERE feedbackRating IS NOT NULL AND feedbackSent = 0;
 
 --Special query for schedule view
 sessionWithRoom:
-SELECT session.id, session.title, session.description, session.startsAt, session.endsAt,
-session.serviceSession, session.rsvp, session.roomId, room.name AS roomName,
-speakers.allNames
-FROM session
+SELECT
+    sessionTable.id, sessionTable.title, sessionTable.description, sessionTable.startsAt, sessionTable.endsAt,
+    sessionTable.serviceSession, sessionTable.rsvp, sessionTable.roomId, roomTable.name AS roomName,
+    speakers.allNames
+FROM sessionTable
 LEFT JOIN (
-SELECT sessionId,group_concat(fullName, ', ') AS allNames
-FROM sessionSpeaker
-JOIN userAccount ON userAccount.id = sessionSpeaker.userAccountId
-GROUP BY sessionId
-) AS speakers ON speakers.sessionId = session.id
-JOIN room ON session.roomId = room.id
-;
+    SELECT sessionId, group_concat(fullName, ', ') AS allNames
+    FROM sessionSpeakerTable
+    JOIN profileTable ON profileTable.id = sessionSpeakerTable.speakerId
+    GROUP BY sessionId
+) AS speakers ON speakers.sessionId = sessionTable.id
+JOIN roomTable ON sessionTable.roomId = roomTable.id;

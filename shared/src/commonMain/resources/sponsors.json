@@ -1,0 +1,801 @@
+{
+  "documents": [
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/bronze",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "4"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "sponsorId": {
+                      "stringValue": "143090"
+                    },
+                    "name": {
+                      "stringValue": "Twitter"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_88ffac18400d40db8a6c3ee498ae61fb~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://twitter.com/TwitterCareers"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.nexmo.com/"
+                    },
+                    "name": {
+                      "stringValue": "Nexmo"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143101"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_028826fbffeb4c93b67420be4735d482~mv2.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "sponsorId": {
+                      "stringValue": "143099"
+                    },
+                    "url": {
+                      "stringValue": "https://www.bugsnag.com/"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_4dc23c6cde1d419581db22b05ad9f7fa~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Bugsnag"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "ARCore"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_8c94f2b07d7544ac89bc4f9552779c51~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://developers.google.com/ar/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_f06f730403274938babd409d3546cebe~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.preemptive.com/"
+                    },
+                    "name": {
+                      "stringValue": "PreEmptive"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_5ae89e2c81c144379eea551fc15fc8e5~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "The New York Times"
+                    },
+                    "url": {
+                      "stringValue": "https://www.nytimes.com/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Esper"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_43f3de16d7f8408c9a318fe966e360e5~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://esper.io/"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143096"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Guardsquare"
+                    },
+                    "url": {
+                      "stringValue": "https://www.guardsquare.com/en"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_e8ebb5b91b124ddbaa4604608e0b01a0~mv2.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "sponsorId": {
+                      "stringValue": "143091"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/b1f32d_15bbe43e073e4094a2f806c6a4a909f3~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.usebutton.com/"
+                    },
+                    "name": {
+                      "stringValue": "Button"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_420c7c21369c4a36b4477af1fade4a5a~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://uber.com"
+                    },
+                    "name": {
+                      "stringValue": "Uber"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.zimperium.com/"
+                    },
+                    "name": {
+                      "stringValue": "Zimperium"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_c5837ecc9a0b45a59f08027bb4807f19~mv2.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.wework.com"
+                    },
+                    "name": {
+                      "stringValue": "WeWork"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_999df1339640421484cf7ec61b29500a~mv2.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "http://www.backtrace.io"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9c2e6b0925954c079dbd092a99399612~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Backtrace"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Peloton"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_19b546a62e6646948816a2b1a41d93da~mv2.png"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143102"
+                    },
+                    "url": {
+                      "stringValue": "https://www.onepeloton.com/company/careers"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.protectmyapp.com/login"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_04479a0916f745aaa11f38ab35b7a5f3~mv2.png"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143094"
+                    },
+                    "name": {
+                      "stringValue": "Verimatrix"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.snap.com/en-US/"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143097"
+                    },
+                    "name": {
+                      "stringValue": "Snap Inc."
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_b40122d78c5a4432ae84849aa2c9ba42~mv2.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Butterfly"
+                    },
+                    "url": {
+                      "stringValue": "https://www.butterflynetwork.com/"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_2a224c9e01344bd59a623787213ed3d0~mv2.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2019-08-15T19:08:27.788398Z",
+      "updateTime": "2019-08-22T12:15:05.866114Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/community partners",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "20"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.jetbrains.com/"
+                    },
+                    "name": {
+                      "stringValue": "JetBrains"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_d8d370e2737e4b35b99e26be44f4f8c0~mv2.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://androidweekly.net/"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/a378f5_5352f0f87cbc4498a0ee942709bad751~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Android Weekly"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/a378f5_3969a2471b844a9badaba1e9e9de8312~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "New York Android Developers"
+                    },
+                    "url": {
+                      "stringValue": "https://www.meetup.com/nyandroiddevelopers/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/a378f5_e4169c45fe0c4d53aee468556ac5ca48~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.meetup.com/gdgnyc/"
+                    },
+                    "name": {
+                      "stringValue": "Google Developer Group NYC"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_6f65f4c9135042d79f4772d5b7c3827e~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Sticker Mule"
+                    },
+                    "url": {
+                      "stringValue": "http://stickermule.com/supports/droidconnyc19-sponsorship"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2019-08-15T19:10:07.007943Z",
+      "updateTime": "2019-08-19T16:32:41.820379Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/enterprise summit",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.google.com"
+                    },
+                    "name": {
+                      "stringValue": "Google"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_c692f40e7614427abc66c0ee631af5ca~mv2.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "10"
+        }
+      },
+      "createTime": "2019-08-15T19:09:11.305782Z",
+      "updateTime": "2019-08-19T16:32:27.654966Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/general party sponsors",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "70"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "WB Digital Labs"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_df3ababaf7cd41afbbe3be118d933176~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.linkedin.com/company/warnerbrosdigitallabs"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2019-08-15T19:14:10.738634Z",
+      "updateTime": "2019-08-19T16:33:56.856524Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/gold",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Tinder"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_147bd0c6b994459cba937957983b04a7~mv2.png"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143104"
+                    },
+                    "url": {
+                      "stringValue": "https://medium.com/tinder-engineering"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_aa7aa9c3c3b64107a7d30ac9a308007c~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Actian"
+                    },
+                    "url": {
+                      "stringValue": "https://www.actian.com"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_56b06bae8e3d49d496c58f48c4fce5b9~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://developer.android.com"
+                    },
+                    "name": {
+                      "stringValue": "Android"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Touchlab"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_f7bf9ac25fd14217899f7bd75c525c8d~mv2.png"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143318"
+                    },
+                    "url": {
+                      "stringValue": "https://touchlab.co"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "1"
+        }
+      },
+      "createTime": "2019-08-14T18:10:32.536979Z",
+      "updateTime": "2019-08-22T12:24:04.415856Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/gold video sponsor",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "40"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_6a0ad470e2de491cb5c59230f6ab8735~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "American Express"
+                    },
+                    "url": {
+                      "stringValue": "https://americanexpress.io/android-jobs"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2019-08-15T19:12:53.563354Z",
+      "updateTime": "2019-08-19T16:33:17.376559Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/lanyard sponsor",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "30"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9314bd6ae42f4aa0bd9eb37c1939de6d~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.wayfair.com/careers"
+                    },
+                    "name": {
+                      "stringValue": "Wayfair"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2019-08-15T19:10:37.210082Z",
+      "updateTime": "2019-08-19T16:33:01.076073Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/silver",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "2"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Square"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_e64c8ac7ca924222967377e47227af26~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://squareup.com/us/en"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143100"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_f577fdab8f3d4c789abe6c937b7a6803~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.etsy.com"
+                    },
+                    "name": {
+                      "stringValue": "Etsy"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_0b0eb3758b21422db7f39c1eaa120a35~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.here.com"
+                    },
+                    "name": {
+                      "stringValue": "Here"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_75cd9a789bef42e296866b090ad5ab17~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Lowe's"
+                    },
+                    "url": {
+                      "stringValue": "https://www.lowes.com"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://gradle.com/"
+                    },
+                    "name": {
+                      "stringValue": "Gradle"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ecf945e57e3d404db7606f4b807b897a~mv2.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2019-08-14T20:48:33.228005Z",
+      "updateTime": "2019-08-22T12:11:13.749085Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/speaker partners",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_84aaa5c59a314f678236ab5c75f65da6~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "PlanGrid"
+                    },
+                    "url": {
+                      "stringValue": "https://www.plangrid.com/"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "60"
+        }
+      },
+      "createTime": "2019-08-15T19:13:47.330747Z",
+      "updateTime": "2019-08-19T16:33:45.760632Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/speaker party sponsors",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "80"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/b1f32d_15bbe43e073e4094a2f806c6a4a909f3~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.usebutton.com/"
+                    },
+                    "sponsorId": {
+                      "stringValue": "143091"
+                    },
+                    "name": {
+                      "stringValue": "Button"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_6a0ad470e2de491cb5c59230f6ab8735~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://americanexpress.io/android-jobs"
+                    },
+                    "name": {
+                      "stringValue": "American Express"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2019-08-15T19:14:32.448523Z",
+      "updateTime": "2019-08-22T12:14:27.018768Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors/video production partners",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_3fb0f25d4e7646ae95ddfde35275e5e3~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Pluralsight"
+                    },
+                    "url": {
+                      "stringValue": "https://www.pluralsight.com/"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "50"
+        }
+      },
+      "createTime": "2019-08-15T19:13:25.215570Z",
+      "updateTime": "2019-08-19T16:33:29.945387Z"
+    }
+  ]
+}

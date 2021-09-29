@@ -1,17 +1,28 @@
-CREATE TABLE sessionSpeaker(
-sessionId TEXT NOT NULL,
-userAccountId TEXT NOT NULL,
-displayOrder INTEGER NOT NULL DEFAULT 0,
-PRIMARY KEY (sessionId, userAccountId)
+CREATE TABLE sessionSpeakerTable(
+    sessionId TEXT NOT NULL,
+    speakerId TEXT NOT NULL,
+    displayOrder INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (sessionId, speakerId),
+    FOREIGN KEY (sessionId) REFERENCES sessionTable(id),
+    FOREIGN KEY (speakerId) REFERENCES profileTable(id)
 );
 
 insertUpdate:
-INSERT OR REPLACE INTO sessionSpeaker(sessionId, userAccountId, displayOrder)
-VALUES (?,?,?)
-;
+INSERT OR REPLACE INTO sessionSpeakerTable(sessionId, speakerId, displayOrder)
+VALUES (?,?,?);
 
 selectBySessionId:
-SELECT * FROM sessionSpeaker WHERE sessionId = ?;
+SELECT * FROM sessionSpeakerTable WHERE sessionId = ?;
+
+deleteBySessionId:
+DELETE FROM sessionSpeakerTable WHERE sessionId = ?;
+
+selectBySpeakerId:
+SELECT * FROM sessionSpeakerTable WHERE speakerId = ?;
+
+deleteBySpeakerId:
+DELETE FROM sessionSpeakerTable WHERE speakerId = ?;
 
 deleteAll:
-DELETE FROM sessionSpeaker;
+DELETE FROM sessionSpeakerTable;
+
