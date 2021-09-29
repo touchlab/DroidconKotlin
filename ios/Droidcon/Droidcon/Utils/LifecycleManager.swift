@@ -5,15 +5,24 @@ class LifecycleManager: SwiftUI.ObservableObject {
 
     var managedViewModel: BaseViewModel? {
         willSet {
-            managedViewModel?.lifecycle.detach()
+            managedViewModel?.lifecycle.removeFromParent()
         }
         didSet {
-            managedViewModel?.lifecycle.attachToMainScope()
+            if let managedViewModel = managedViewModel {
+                root.addChild(child: managedViewModel.lifecycle)
+            }
         }
     }
 
+    private let root = LifecycleGraph.Root(owner: "LifecycleManager")
+    private let cancelAttach: CancellationToken
+
+    init() {
+        cancelAttach = root.attachToMainScope()
+    }
+
     deinit {
-        managedViewModel?.lifecycle.detach()
+        cancelAttach.cancel()
     }
 }
 

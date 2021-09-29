@@ -21,7 +21,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "com.android" || requested.id.id == "android-gradle") {
-                useModule("com.android.tools.build:gradle:7.0.0")
+                useModule("com.android.tools.build:gradle:7.0.2")
             }
 
             if (requested.id.id == "com.google.gms.google-services") {
@@ -43,23 +43,23 @@ dependencyResolutionManagement {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
             val composeRef = version("compose", "1.0.2")
-            val composeCompilerRef = version("compose-compiler", "1.1.0-alpha03")
-            val composeActivityRef = version("composeActivity", "1.4.0-alpha01")
-            val composeNavigationRef = version("composeNavigation", "2.4.0-alpha08")
-            val coroutinesRef = version("kotlinx-coroutines", "1.5.0-native-mt")
-            val datetimeRef = version("kotlinx-datetime", "0.2.1")
+            val composeCompilerRef = version("compose-compiler", "1.1.0-alpha04")
+            val composeActivityRef = version("composeActivity", "1.4.0-alpha02")
+            val composeNavigationRef = version("composeNavigation", "2.4.0-alpha09")
+            val coroutinesRef = version("kotlinx-coroutines", "1.5.2-native-mt")
+            val datetimeRef = version("kotlinx-datetime", "0.3.0")
             val serializationRef = version("kotlinx-serialization", "1.2.1")
-            val koinRef = version("koin", "3.0.2")
+            val koinRef = version("koin", "3.1.2")
             val kermitRef = version("kermit", "0.1.9")
-            val statelyRef = version("stately", "1.1.7")
-            val ktorRef = version("ktor", "1.6.0")
-            val multiplatformSettingsRef = version("multiplatformSettings", "0.7.7")
-            val hyperdriveRef = version("hyperdrive", "0.1.98")
+            val statelyRef = version("stately", "1.1.10")
+            val ktorRef = version("ktor", "1.6.3")
+            val multiplatformSettingsRef = version("multiplatformSettings", "0.8.1")
+            val hyperdriveRef = version("hyperdrive", "0.1.110")
             val accompanistCoilRef = version("accompanistCoil", "0.13.0")
             val accompanistInsetsRef = version("accompanistInsets", "0.16.1")
             val coreRef = version("androidx-core", "1.6.0")
             val firebaseAnalyticsRef = version("firebase-analytics", "19.0.0")
-            val uuidRef = version("uuid", "0.3.0")
+            val uuidRef = version("uuid", "0.3.1")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
 

@@ -36,7 +36,7 @@ struct ScheduleView: View {
                     } else {
                         Spacer().frame(maxHeight: 128)
 
-                        Text("Shrug")
+                        Text(NSLocalizedString("Shrug", comment: "Empty list state"))
                             .font(.system(size: 72))
                             .minimumScaleFactor(0.65)
                             .lineLimit(1)
