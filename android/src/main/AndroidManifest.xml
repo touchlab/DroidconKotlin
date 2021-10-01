@@ -22,10 +22,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".service.NotificationPublisher" />
+        <receiver android:name="co.touchlab.droidcon.service.NotificationPublisher" />
 
         <receiver
-            android:name=".service.NotificationRescheduler"
+            android:name="co.touchlab.droidcon.service.NotificationRescheduler"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
