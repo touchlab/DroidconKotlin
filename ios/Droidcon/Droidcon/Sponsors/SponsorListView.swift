@@ -12,7 +12,6 @@ struct SponsorListView: View {
             ScrollView {
                 SwitchingNavigationLink(
                     selection: $viewModel.presentedSponsorDetail,
-                    isActive: { $0 },
                     content: SponsorDetailView.init(viewModel:)
                 )
 

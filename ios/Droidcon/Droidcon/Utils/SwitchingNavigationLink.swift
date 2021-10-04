@@ -1,11 +1,5 @@
 import SwiftUI
 
-extension SwitchingNavigationLink where T == U {
-    init(selection: Binding<T?>, @ViewBuilder content: @escaping (U) -> Content) {
-        self.init(selection: selection, isActive: { $0 }, content: content)
-    }
-}
-
 struct SwitchingNavigationLink<T, U, Content: View>: View {
     @Binding
     private var selection: T?
@@ -16,6 +10,10 @@ struct SwitchingNavigationLink<T, U, Content: View>: View {
         self._selection = selection
         self.isActive = isActive
         self.content = content
+    }
+
+    init(selection: Binding<T?>, @ViewBuilder content: @escaping (U) -> Content) where T == U {
+        self.init(selection: selection, isActive: { $0 }, content: content)
     }
 
     var body: some View {

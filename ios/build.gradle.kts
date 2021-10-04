@@ -9,13 +9,6 @@ plugins {
 
 version = "1.0"
 
-repositories {
-    maven("https://maven.pkg.jetbrains.space/brightify/p/brightify/brightify-releases") {
-        name = "brightify"
-        credentials(PasswordCredentials::class)
-    }
-}
-
 kotlin {
     // Revert to just ios() when gradle plugin can properly resolve it
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
@@ -48,7 +41,10 @@ kotlin {
     cocoapods {
         summary = "Common library for the Droidcon app"
         homepage = "https://github.com/touchlab/DroidconKotlin"
-        frameworkName = "DroidconKit"
+        framework {
+            baseName = "DroidconKit"
+            isStatic = true
+        }
         noPodspec()
     }
 
