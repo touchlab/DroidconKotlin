@@ -8,39 +8,41 @@ import sys
 
 
 
-filePath = "sessionize/app/src/main/assets/schedule.json"
-outputPathAndroid = "sessionize/app/src/main/assets/schedule.json"
-outputPathiOS = "iosApp/iosApp/schedule.json"
+filePath = "shared/src/commonMain/resources/schedule.json"
+outputPath = filePath
+# outputPathiOS = "iosApp/iosApp/schedule.json"
 startDate = datetime.date.today()
 customOutput = False
 shouldPrint = False
 
 # Gathering Arguments
 if '-h' in sys.argv:
-    print "usage: updateDates.py [option] ... [-i | -o | -d | -p] [arg] ..."
-    print "-i   : Input schedule file. Defaults to \"sessionize/app/src/main/assets/schedule.json\""
-    print "-o   : Output schedule file. If this is not specified, it will output to BOTH \"sessionize/app/src/main/assets/schedule.json\" and \"iosApp/iosApp/schedule.json\""
-    print "-d   : Date to set as the first day of the conference, defaults to todays date"
-    print "-p   : Set to 1 to print the result to stdOut. If this is set no output files will be written"
+    print("arst")
+    # print "usage: updateDates.py [option] ... [-i | -o | -d | -p] [arg] ..."
+    # print "-i   : Input schedule file. Defaults to \"shared/src/commonMain/resources/schedule.json\""
+    # print "-o   : Output schedule file. Defaults to input file."
+    # print "-d   : Date to set as the first day of the conference, defaults to todays date"
+    # print "-p   : Set to 1 to print the result to stdOut. If this is set no output files will be written"
 else:
-    argumentList = [sys.argv[i:i + 2] for i in xrange(1, len(sys.argv), 2)]
+    argumentList = [sys.argv[i:i + 2] for i in range(1, len(sys.argv), 2)]
     for argPair in argumentList:
         argType = argPair[0]
         argValue = argPair[1]
         if argType ==   "-i":
             filePath = argValue
         elif argType == "-o":
-            outputPathAndroid = argValue
+            outputPath = argValue
             customOutput = True
         elif argType == "-d":
             startDate = datetime.datetime.strptime(argValue, "%m-%d-%Y")
         elif argType == "-p" and argValue == "1":
             shouldPrint = True
 
-
+    if not customOutput:
+        outputPath = filePath
 
     if os.path.isfile(filePath) == 0:
-        print "Error: File not found at location:",filePath
+        print("Error: File not found at location:",filePath)
     else:
 
         # read existing file
@@ -98,11 +100,7 @@ else:
             data[i] = day
 
         if shouldPrint:
-            print json.dumps(data)
+            print(json.dumps(data))
         else:
-            with open(outputPathAndroid, "w") as f:
+            with open(outputPath, "w") as f:
                 json.dump(data, f, indent=4)
-
-            if not customOutput:
-                with open(outputPathiOS, "w") as f:
-                    json.dump(data, f, indent=4)
