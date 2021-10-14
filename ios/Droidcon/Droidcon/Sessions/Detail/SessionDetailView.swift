@@ -40,7 +40,7 @@ struct SessionDetailView: View {
                             }
                             .frame(width: 16, height: 16)
                             .padding(12)
-                            .background(Color.yellow)
+                            .background(Color("AttendButton"))
                             .cornerRadius(.greatestFiniteMagnitude)
                             .shadow(color: Color("Shadow"), radius: 2)
                             .padding(.bottom, -36)
