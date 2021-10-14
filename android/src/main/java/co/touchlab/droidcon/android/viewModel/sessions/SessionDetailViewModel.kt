@@ -83,6 +83,7 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
             when {
                 it.session.endsAt < now -> R.string.schedule_session_detail_status_past
                 it.session.startsAt > now -> R.string.schedule_session_detail_status_future
+                it.session.startsAt <= now && now <= it.session.endsAt -> R.string.schedule_session_detail_status_in_progress
                 it.isInConflict -> R.string.schedule_session_detail_status_conflict
                 else -> null
             }
