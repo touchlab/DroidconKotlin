@@ -34,11 +34,15 @@ struct DroidconApp: App {
         itemAppearance.selected.iconColor = UIColor(named: "TabBar_Foreground_Selected")
         itemAppearance.selected.titleTextAttributes = UIColor(named: "TabBar_Foreground_Selected").map { [.foregroundColor: $0] } ?? [:]
         let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(named: "TabBar_Background")
         appearance.inlineLayoutAppearance = itemAppearance
         appearance.compactInlineLayoutAppearance = itemAppearance
         appearance.stackedLayoutAppearance = itemAppearance
 
         UITabBar.appearance().standardAppearance = appearance
+        if #available(iOS 15.0, *) {
+            UITabBar.appearance().scrollEdgeAppearance = UITabBarAppearance(barAppearance: appearance)
+        }
     }
 }

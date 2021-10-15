@@ -11,7 +11,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.RemoteException
 import androidx.core.app.NotificationCompat
-import co.touchlab.droidcon.R
+import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.util.IdentifiableIntent
