@@ -28,6 +28,10 @@ class DefaultDateTimeService(
         return toLocalDateTime(deviceTimeZone)
     }
 
+    override fun Instant.fromConferenceToDeviceInstant(): Instant {
+        return toConferenceDateTime().toInstant(deviceTimeZone)
+    }
+
     override fun LocalDateTime.fromConferenceDateTime(): Instant {
         return toInstant(conferenceTimeZone)
     }

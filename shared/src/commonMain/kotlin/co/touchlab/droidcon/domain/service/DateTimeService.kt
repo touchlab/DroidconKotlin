@@ -14,6 +14,8 @@ interface DateTimeService {
 
     fun Instant.toDeviceDateTime(): LocalDateTime
 
+    fun Instant.fromConferenceToDeviceInstant(): Instant
+
     fun LocalDateTime.fromConferenceDateTime(): Instant
 
     fun LocalDateTime.fromDeviceDateTime(): Instant
@@ -25,6 +27,10 @@ fun Instant.toConferenceDateTime(dateTimeService: DateTimeService): LocalDateTim
 
 fun Instant.toDeviceDateTime(dateTimeService: DateTimeService): LocalDateTime = with(dateTimeService) {
     toDeviceDateTime()
+}
+
+fun Instant.fromConferenceToDeviceInstant(dateTimeService: DateTimeService): Instant = with(dateTimeService) {
+    fromConferenceToDeviceInstant()
 }
 
 fun LocalDateTime.fromConferenceDateTime(dateTimeService: DateTimeService): Instant = with(dateTimeService) {

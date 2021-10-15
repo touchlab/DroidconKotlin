@@ -195,6 +195,7 @@ private val coreModule = module {
             settings = get(),
             json = get(),
             localizedStringFactory = get(),
+            dateTimeService = get()
         )
     }
     single<ServerApi> {
