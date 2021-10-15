@@ -2,6 +2,7 @@ package co.touchlab.droidcon.android.viewModel.sessions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.dto.WebLink
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.datetime.toInstant
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -79,10 +81,13 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
         if (it == null) {
             return@mapNotNull R.string.schedule_session_detail_status_future
         }
-        dateTimeService.now().let { now ->
+
+        dateTimeService.deviceNow().let { device ->
+            val deviceInstant = device.toInstant(Constants.conferenceTimeZone)
             when {
-                it.session.endsAt < now -> R.string.schedule_session_detail_status_past
-                it.session.startsAt > now -> R.string.schedule_session_detail_status_future
+                it.session.endsAt < deviceInstant -> R.string.schedule_session_detail_status_past
+                it.session.startsAt > deviceInstant -> R.string.schedule_session_detail_status_future
+                it.session.startsAt <= deviceInstant && deviceInstant <= it.session.endsAt -> R.string.schedule_session_detail_status_in_progress
                 it.isInConflict -> R.string.schedule_session_detail_status_conflict
                 else -> null
             }
