@@ -10,7 +10,7 @@ object Constants {
         const val databaseName = "(default)"
 
         // Known variants: "sponsors", "sponsors-lisbon-2019", "sponsors-sf-2019"
-        const val collectionName = "sponsors"
+        const val collectionName = "sponsors-berlin-2021"
         const val apiKey = "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0"
     }
 

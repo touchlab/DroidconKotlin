@@ -279,6 +279,7 @@ private struct SwiftUITextView: UIViewRepresentable {
         view.backgroundColor = UIColor.clear
         view.adjustsFontForContentSizeCategory = true
         view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        view.dataDetectorTypes = autoDetectionTypes
         return view
     }
 

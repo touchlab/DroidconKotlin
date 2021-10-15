@@ -8,7 +8,6 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Droidcon"
         android:name="co.touchlab.droidcon.android.MainApp">
@@ -22,10 +21,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".service.NotificationPublisher" />
+        <receiver android:name="co.touchlab.droidcon.service.NotificationPublisher" />
 
         <receiver
-            android:name=".service.NotificationRescheduler"
+            android:name="co.touchlab.droidcon.service.NotificationRescheduler"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

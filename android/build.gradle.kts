@@ -11,7 +11,7 @@ android {
 
     compileSdk = androidCompileSdk.toInt()
     defaultConfig {
-        applicationId = "co.touchlab.droidcon"
+        applicationId = "co.touchlab.droidcon.berlin"
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
         versionCode = 1
@@ -47,7 +47,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 }
 
