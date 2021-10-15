@@ -1,8 +1,22 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     kotlin("android")
     id("com.google.gms.google-services")
 }
+val releaseEnabled = file("./release.jks").exists()
+
+val properties = Properties()
+try {
+
+    properties.load(project.rootProject.file("local.properties").bufferedReader())
+}
+catch(e:Exception) {
+
+}
+
+val releasePassword = properties.getProperty("releasePassword", "")
 
 android {
     val androidMinSdk: String by project
@@ -14,17 +28,30 @@ android {
         applicationId = "co.touchlab.droidcon.berlin"
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 20000
+        versionName = "2.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {
         resources.excludes.add("META-INF/*.kotlin_module")
     }
+    if(releaseEnabled) {
+        signingConfigs {
+            create("release") {
+                keyAlias = "key0"
+                keyPassword = "$releasePassword"
+                storeFile = file("./release.jks")
+                storePassword = "$releasePassword"
+            }
+        }
+    }
     buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        if(releaseEnabled) {
+            getByName("release") {
+                isMinifyEnabled = false
+                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {
@@ -44,6 +71,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+    }
+
+    packagingOptions {
+        exclude("META-INF/*.kotlin_module")
     }
 
     composeOptions {
