@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.domain.service.impl
 
 import co.touchlab.droidcon.composite.Url
+import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
@@ -11,6 +12,7 @@ import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
+import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
@@ -56,6 +58,7 @@ class DefaultSyncService(
     private val seedDataSource: DataSource,
     private val apiDataSource: DataSource,
     private val serverApi: ServerApi,
+    private val db:DroidconDatabase,
 ): SyncService {
     private companion object {
         // MARK: Settings keys
@@ -182,17 +185,25 @@ class DefaultSyncService(
     }
 
     private suspend fun updateRepositoriesFromDataSource(dataSource: DataSource) {
-        updateSpeakersFromDataSource(dataSource)
-        updateScheduleFromDataSource(dataSource)
-        updateSponsorsFromDataSource(dataSource)
+        val speakerDtos = dataSource.getSpeakers()
+        val days = dataSource.getSchedule()
+        val sponsorSessionsGroups = dataSource.getSponsorSessions()
+        val sponsors = dataSource.getSponsors()
+
+        //DB Transactions for db mods are ridiculously faster than non-trans changes. Also, if something fails, thd db will roll back.
+        //The repo architecture will likely need to change. Everything is suspend and unconcerned with thread, but that's not good practice.
+        db.transaction {
+            updateSpeakersFromDataSource(speakerDtos)
+            updateScheduleFromDataSource(days)
+            updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors)
+        }
     }
 
-    private suspend fun updateSpeakersFromDataSource(dataSource: DataSource) {
-        val speakerDtos = dataSource.getSpeakers()
+    private fun updateSpeakersFromDataSource(speakerDtos: List<SpeakersDto.SpeakerDto>) {
         val profiles = speakerDtos.map(::profileFactory)
 
         // Remove deleted speakers.
-        profileRepository.all().map { it.id }
+        profileRepository.allSync().map { it.id }
             .subtract(profiles.map { it.id })
             .forEach { profileRepository.remove(it) }
 
@@ -201,8 +212,7 @@ class DefaultSyncService(
         }
     }
 
-    private suspend fun updateScheduleFromDataSource(dataSource: DataSource) {
-        val days = dataSource.getSchedule()
+    private fun updateScheduleFromDataSource(days: List<ScheduleDto.DayDto>) {
         val roomDtos = days.flatMap { it.rooms }
 
         val rooms = roomDtos.map { room ->
@@ -233,7 +243,7 @@ class DefaultSyncService(
         }
 
         // Remove deleted rooms.
-        roomRepository.all().map { it.id }
+        roomRepository.allSync().map { it.id }
             .subtract(rooms.map { it.id })
             .forEach { roomRepository.remove(it) }
 
@@ -242,13 +252,13 @@ class DefaultSyncService(
         }
 
         // Remove deleted sessions.
-        sessionRepository.all()
+        sessionRepository.allSync()
             .map { it.id }
             .subtract(sessionsAndSpeakers.map { it.first.id })
             .forEach { sessionRepository.remove(it) }
 
         sessionsAndSpeakers.forEach { (updatedSession, speakers) ->
-            val existingSession = sessionRepository.find(updatedSession.id)
+            val existingSession = sessionRepository.findSync(updatedSession.id)
             if (existingSession != null) {
                 updatedSession.rsvp = existingSession.rsvp
                 updatedSession.feedback = existingSession.feedback
@@ -261,10 +271,8 @@ class DefaultSyncService(
         }
     }
 
-    private suspend fun updateSponsorsFromDataSource(dataSource: DataSource) {
-        val sponsorSessions = dataSource.getSponsorSessions().flatMap { it.sessions }.associateBy { it.id }
-        val sponsors = dataSource.getSponsors()
-
+    private fun updateSponsorsFromDataSource(sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>, sponsors: SponsorsDto.SponsorCollectionDto) {
+        val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
                 .split(' ').joinToString(" ") { it.capitalize() }
@@ -291,11 +299,11 @@ class DefaultSyncService(
             }
         }
 
-        sponsorRepository.all().map { it.id }
+        sponsorRepository.allSync().map { it.id }
             .subtract(sponsorsAndRepresentativeIds.map { it.first.id })
             .forEach { sponsorRepository.remove(it) }
 
-        sponsorGroupRepository.all().map { it.id }
+        sponsorGroupRepository.allSync().map { it.id }
             .subtract(sponsorGroupsToSponsorDtos.map { it.first.id })
             .forEach { sponsorGroupRepository.remove(it) }
 

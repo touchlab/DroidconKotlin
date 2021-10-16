@@ -132,6 +132,7 @@ private val coreModule = module {
             seedDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Seed)),
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
+            get()
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {
