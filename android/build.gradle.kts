@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("com.google.gms.google-services")
+    // id("com.google.firebase.crashlytics") //WTF. Every damn time we try to use Crashlytics something is broke...
 }
 val releaseEnabled = file("./release.jks").exists()
 
