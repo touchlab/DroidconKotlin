@@ -132,9 +132,7 @@ class DefaultSyncService(
                             .forEach { (sessionId, isAttending) ->
                                 while (isActive) {
                                     try {
-                                        println("sending ${getTimeMillis()}")
                                         val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
-                                        println("sent ${getTimeMillis()}")
                                         if (isRsvpSent) {
                                             sessionRepository.setRsvpSent(sessionId, isRsvpSent)
                                         }
