@@ -27,6 +27,7 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
+import io.ktor.util.date.getTimeMillis
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -131,10 +132,13 @@ class DefaultSyncService(
                             .forEach { (sessionId, isAttending) ->
                                 while (isActive) {
                                     try {
+                                        println("sending ${getTimeMillis()}")
                                         val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
+                                        println("sent ${getTimeMillis()}")
                                         if (isRsvpSent) {
                                             sessionRepository.setRsvpSent(sessionId, isRsvpSent)
                                         }
+                                        break
                                     } catch (e: Exception) {
                                         log.w(e) { "Couldn't send RSVP." }
                                         delay(RSVP_SYNC_DELAY)
@@ -163,6 +167,7 @@ class DefaultSyncService(
                                         if (isFeedbackSent) {
                                             sessionRepository.setFeedbackSent(sessionId, isFeedbackSent)
                                         }
+                                        break
                                     } catch (e: Exception) {
                                         log.w(e) { "Couldn't send feedback." }
                                         delay(FEEDBACK_SYNC_DELAY)
