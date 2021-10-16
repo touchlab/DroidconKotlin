@@ -3,7 +3,7 @@ package co.touchlab.droidcon
 import kotlinx.datetime.TimeZone
 
 object Constants {
-    val conferenceTimeZone = TimeZone.UTC
+    val conferenceTimeZone = TimeZone.of("Europe/Berlin")
 
     object Firestore {
         const val projectId = "droidcon-148cc"

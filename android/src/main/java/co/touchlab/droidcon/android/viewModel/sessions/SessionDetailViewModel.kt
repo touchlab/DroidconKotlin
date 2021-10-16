@@ -53,12 +53,10 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
         listOfNotNull(
             it?.room?.name,
             it?.let { item ->
-                with(dateTimeService) {
-                    dateTimeFormatter.timeRange(
-                        item.session.startsAt.toConferenceDateTime(),
-                        item.session.endsAt.toConferenceDateTime(),
-                    )
-                }
+                dateTimeFormatter.timeRange(
+                    item.session.startsAt,
+                    item.session.endsAt,
+                )
             },
         ).joinToString()
     }
