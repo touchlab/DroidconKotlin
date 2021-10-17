@@ -14,6 +14,8 @@ class SqlDelightRoomRepository(
     private val roomQueries: RoomQueries,
 ): BaseRepository<Room.Id, Room>(), RoomRepository {
 
+    override fun allSync(): List<Room> = roomQueries.selectAll(::roomFactory).executeAsList()
+
     override fun observe(id: Room.Id): Flow<Room> {
         return roomQueries.selectById(id.value, ::roomFactory).asFlow().mapToOne()
     }
@@ -26,15 +28,15 @@ class SqlDelightRoomRepository(
         return roomQueries.selectAll(::roomFactory).asFlow().mapToList()
     }
 
-    override suspend fun doUpsert(entity: Room) {
+    override fun doUpsert(entity: Room) {
         roomQueries.upsert(id = entity.id.value, name = entity.name)
     }
 
-    override suspend fun doDelete(id: Room.Id) {
+    override fun doDelete(id: Room.Id) {
         roomQueries.deleteById(id.value)
     }
 
-    override suspend fun contains(id: Room.Id): Boolean {
+    override fun contains(id: Room.Id): Boolean {
         return roomQueries.existsById(id.value).executeAsOne() != 0L
     }
 

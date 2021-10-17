@@ -10,7 +10,6 @@ import kotlinx.datetime.toLocalDateTime
 
 class DefaultDateTimeService(
     private val clock: Clock,
-    private val deviceTimeZone: TimeZone,
     private val conferenceTimeZone: TimeZone,
 ): DateTimeService {
 
@@ -18,21 +17,11 @@ class DefaultDateTimeService(
 
     override fun conferenceNow(): LocalDateTime = now().toConferenceDateTime()
 
-    override fun deviceNow(): LocalDateTime = now().toDeviceDateTime()
-
     override fun Instant.toConferenceDateTime(): LocalDateTime {
         return toLocalDateTime(conferenceTimeZone)
     }
 
-    override fun Instant.toDeviceDateTime(): LocalDateTime {
-        return toLocalDateTime(deviceTimeZone)
-    }
-
     override fun LocalDateTime.fromConferenceDateTime(): Instant {
         return toInstant(conferenceTimeZone)
-    }
-
-    override fun LocalDateTime.fromDeviceDateTime(): Instant {
-        return toInstant(deviceTimeZone)
     }
 }

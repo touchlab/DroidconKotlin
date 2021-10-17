@@ -6,6 +6,6 @@ install! 'cocoapods', :deterministic_uuids => false
 
 target 'Droidcon' do
     pod 'DroidconKit', :path => '../'
-    pod 'Kingfisher', '~> 6.3.0'
+    pod 'Kingfisher', '~> 7.1.1'
     pod 'Firebase/Analytics'
 end

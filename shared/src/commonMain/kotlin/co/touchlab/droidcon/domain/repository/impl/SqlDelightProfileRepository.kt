@@ -24,7 +24,7 @@ class SqlDelightProfileRepository(
         return profileQueries.selectBySession(id.value, ::profileFactory).executeAsList()
     }
 
-    override suspend fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>) {
+    override fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>) {
         speakerQueries.deleteBySessionId(session.id.value)
         speakers.forEachIndexed { index, speakerId ->
             speakerQueries.insertUpdate(
@@ -35,7 +35,7 @@ class SqlDelightProfileRepository(
         }
     }
 
-    override suspend fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>) {
+    override fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>) {
         representativeQueries.deleteBySponsorId(sponsorName = sponsor.id.name, sponsorGroupName = sponsor.id.group)
         representatives.forEachIndexed { index, representativeId ->
             representativeQueries.insertUpdate(
@@ -52,6 +52,10 @@ class SqlDelightProfileRepository(
             .executeAsList()
     }
 
+    override fun allSync(): List<Profile> {
+        return profileQueries.selectAll(mapper = ::profileFactory).executeAsList()
+    }
+
     override fun observe(id: Profile.Id): Flow<Profile> {
         return profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOne()
     }
@@ -64,7 +68,7 @@ class SqlDelightProfileRepository(
         return profileQueries.selectAll(::profileFactory).asFlow().mapToList()
     }
 
-    override suspend fun doUpsert(entity: Profile) {
+    override fun doUpsert(entity: Profile) {
         profileQueries.upsert(
             id = entity.id.value,
             fullName = entity.fullName,
@@ -77,11 +81,11 @@ class SqlDelightProfileRepository(
         )
     }
 
-    override suspend fun doDelete(id: Profile.Id) {
+    override fun doDelete(id: Profile.Id) {
         profileQueries.delete(id.value)
     }
 
-    override suspend fun contains(id: Profile.Id): Boolean {
+    override fun contains(id: Profile.Id): Boolean {
         return profileQueries.existsById(id.value).executeAsOne().toBoolean()
     }
 

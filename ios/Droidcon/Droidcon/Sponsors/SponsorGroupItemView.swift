@@ -7,32 +7,42 @@ struct SponsorGroupItemView: View {
     private(set) var viewModel: SponsorGroupItemViewModel
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .center) {
+            Rectangle()
+                .aspectRatio(1, contentMode: .fill)
+                .foregroundColor(Color.white)
+                .cornerRadius(.greatestFiniteMagnitude)
+                .shadow(color: Color("Shadow"), radius: 2, y: 1)
+
             if let imageUrl = URL(string: viewModel.imageUrl.string) {
                 KFImage(imageUrl)
                     .placeholder {
-                        GeometryReader { geometry in
-                            Text(viewModel.name)
-                                .bold()
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.65)
-                                .padding(8)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: geometry.size.width)
-                        }
+                        placeholder
                     }
                     .resizable()
                     .scaledToFit()
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        viewModel.selected()
-                    }
-                    .padding(4)
-                    .background(Color.white)
                     .cornerRadius(.greatestFiniteMagnitude)
-                    .shadow(color: Color("Shadow"), radius: 2, y: 1)
+                    .padding(4)
+            } else {
+                placeholder
+                    .padding(4)
             }
         }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.selected()
+        }
+    }
+
+    @ViewBuilder
+    private var placeholder: some View {
+        Text(viewModel.name)
+            .foregroundColor(.black)
+            .bold()
+            .lineLimit(1)
+            .minimumScaleFactor(0.65)
+            .padding(8)
+            .frame(maxWidth: .infinity)
     }
 }
 
