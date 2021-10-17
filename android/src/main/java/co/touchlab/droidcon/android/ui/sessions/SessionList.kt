@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Tab
@@ -66,12 +67,18 @@ fun SessionList(navController: NavHostController, sessions: BaseSessionListViewM
                         }
                     }
                 }
-                LazyColumn(contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
-                    val daySchedule = days.getOrNull(selectedTabIndex)?.blocks ?: emptyList()
-                    items(daySchedule) { hourBlock ->
-                        Box(modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half)) {
-                            SessionBlock(hourBlock, sessions.attendingOnly) { tappedSession ->
-                                navController.navigate(ScheduleScreen.SessionDetail.createRoute(tappedSession.id))
+                days.forEachIndexed { index, daySchedule ->
+                    val state = rememberLazyListState()
+                    if (index == selectedTabIndex) {
+                        LazyColumn(state = state, contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
+                            val daySchedule = days.getOrNull(selectedTabIndex)?.blocks ?: emptyList()
+                            items(daySchedule) { hourBlock ->
+                                Box(modifier = Modifier.padding(vertical = Dimensions.Padding.quarter,
+                                    horizontal = Dimensions.Padding.half)) {
+                                    SessionBlock(hourBlock, sessions.attendingOnly) { tappedSession ->
+                                        navController.navigate(ScheduleScreen.SessionDetail.createRoute(tappedSession.id))
+                                    }
+                                }
                             }
                         }
                     }
