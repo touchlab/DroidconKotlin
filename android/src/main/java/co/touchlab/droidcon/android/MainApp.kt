@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.ParseUrlViewService
 import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
@@ -14,7 +15,6 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
-import co.touchlab.droidcon.util.AssetResourceReader
 import co.touchlab.droidcon.util.ClasspathResourceReader
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -42,7 +42,7 @@ class MainApp: Application() {
                 }
 
                 single<DateTimeFormatterViewService> {
-                    DefaultDateTimeFormatterViewService()
+                    DefaultDateTimeFormatterViewService(Constants.conferenceTimeZone)
                 }
                 single<ResourceReader> {
                     ClasspathResourceReader()

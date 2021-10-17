@@ -23,7 +23,7 @@ abstract class BaseRepository<ID: Any, ENTITY: DomainEntity<ID>>: Repository<ID,
         return observeAll().first()
     }
 
-    override suspend fun add(entity: ENTITY) {
+    override fun add(entity: ENTITY) {
         if (!contains(entity.id)) {
             doUpsert(entity)
         } else {
@@ -32,9 +32,9 @@ abstract class BaseRepository<ID: Any, ENTITY: DomainEntity<ID>>: Repository<ID,
         }
     }
 
-    override suspend fun remove(entity: ENTITY) = remove(entity.id)
+    override fun remove(entity: ENTITY) = remove(entity.id)
 
-    override suspend fun remove(id: ID): Boolean {
+    override fun remove(id: ID): Boolean {
         val idExists = contains(id)
         if (idExists) {
             doDelete(id)
@@ -42,7 +42,7 @@ abstract class BaseRepository<ID: Any, ENTITY: DomainEntity<ID>>: Repository<ID,
         return idExists
     }
 
-    override suspend fun update(entity: ENTITY) {
+    override fun update(entity: ENTITY) {
         if (contains(entity.id)) {
             doUpsert(entity)
         } else {
@@ -51,11 +51,11 @@ abstract class BaseRepository<ID: Any, ENTITY: DomainEntity<ID>>: Repository<ID,
         }
     }
 
-    override suspend fun addOrUpdate(entity: ENTITY) = doUpsert(entity)
+    override fun addOrUpdate(entity: ENTITY) = doUpsert(entity)
 
-    protected abstract suspend fun doUpsert(entity: ENTITY)
+    protected abstract fun doUpsert(entity: ENTITY)
 
-    protected abstract suspend fun doDelete(id: ID)
+    protected abstract fun doDelete(id: ID)
 
     protected fun Long.toBoolean(): Boolean = this != 0L
 

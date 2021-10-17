@@ -8,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
-    primary = Colors.darkGrey51,
-    primaryVariant = Color.Black,
-    secondary = Colors.teal,
-    secondaryVariant = Colors.lightYellow,
-    surface = Colors.darkGrey51,
+    primary = Colors.berlinPrimary,
+    primaryVariant = Colors.berlinPrimary,
+    secondary = Colors.berlinSecondary,
+    secondaryVariant = Colors.berlinSecondary,
+    surface = Colors.berlinPrimary,
     background = Colors.darkGrey32,
     error = Colors.orange,
     onPrimary = Color.White,
@@ -22,11 +22,11 @@ private val DarkColorPalette = darkColors(
 )
 
 private val LightColorPalette = lightColors(
-    primary = Colors.teal,
-    primaryVariant = Colors.darkBlue,
-    secondary = Colors.lightYellow,
+    primary = Colors.berlinPrimary,
+    primaryVariant = Colors.berlinPrimary,
+    secondary = Colors.berlinSecondary,
     // color of the switch (checked)
-    secondaryVariant = Colors.lightYellow,
+    secondaryVariant = Colors.berlinSecondary,
     // color of the switch (unchecked)
     surface = Colors.lightGrey220,
     background = Colors.lightGrey250,

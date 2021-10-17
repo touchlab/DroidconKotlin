@@ -21,6 +21,8 @@ class SqlDelightSessionRepository(
         return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOne()
     }
 
+    fun sessionById(id: Session.Id):Session? = sessionQueries.sessionById(id.value, ::sessionFactory).executeAsOneOrNull()
+
     override fun observeOrNull(id: Session.Id): Flow<Session?> {
         return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOneOrNull()
     }
@@ -49,11 +51,15 @@ class SqlDelightSessionRepository(
         sessionQueries.updateFeedBackSent(if (isSent) 1 else 0, sessionId.value)
     }
 
+    override fun allSync(): List<Session> = sessionQueries.allSessions(::sessionFactory).executeAsList()
+
+    override fun findSync(id: Session.Id): Session? = sessionQueries.sessionById(id.value, mapper = ::sessionFactory).executeAsOneOrNull()
+
     override fun observeAll(): Flow<List<Session>> {
         return sessionQueries.allSessions(::sessionFactory).asFlow().mapToList()
     }
 
-    override suspend fun doUpsert(entity: Session) {
+    override fun doUpsert(entity: Session) {
         sessionQueries.upsert(
             id = entity.id.value,
             title = entity.title,
@@ -65,11 +71,11 @@ class SqlDelightSessionRepository(
         )
     }
 
-    override suspend fun doDelete(id: Session.Id) {
+    override fun doDelete(id: Session.Id) {
         return sessionQueries.deleteById(id.value)
     }
 
-    override suspend fun contains(id: Session.Id): Boolean {
+    override fun contains(id: Session.Id): Boolean {
         return sessionQueries.existsById(id.value).executeAsOne().toBoolean()
     }
 

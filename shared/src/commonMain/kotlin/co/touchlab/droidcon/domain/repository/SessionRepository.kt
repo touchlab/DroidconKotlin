@@ -16,4 +16,8 @@ interface SessionRepository: Repository<Session.Id, Session> {
     suspend fun setFeedback(sessionId: Session.Id, feedback: Session.Feedback)
 
     suspend fun setFeedbackSent(sessionId: Session.Id, isSent: Boolean)
+
+    fun allSync():List<Session>
+
+    fun findSync(id:Session.Id):Session?
 }

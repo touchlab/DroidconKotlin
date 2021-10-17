@@ -21,7 +21,7 @@ class SessionsDayViewModel(
     val day: String = dateTimeFormatter.shortDate(date)
 
     val blocks: List<SessionsBlockViewModel> = items
-        .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).startOfMinute }
+        .groupBy { it.session.startsAt }
         .map { (startsAt, items) ->
             SessionsBlockViewModel(startsAt, items)
         }
