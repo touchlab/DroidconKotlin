@@ -12,7 +12,6 @@ import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
-import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
@@ -27,18 +26,10 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
-import io.ktor.util.date.getTimeMillis
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
@@ -68,13 +59,13 @@ class DefaultSyncService(
 
         // MARK: Delays
         // 5 minutes
-        private const val SESSIONIZE_SYNC_POLL_DELAY: Long = 5 * 60 * 1000
+        private const val SESSIONIZE_SYNC_POLL_DELAY: Long = 5L * 60L * 1000L
         // 2 hours
-        private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 2 * 60 * 60 * 1000
+        private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 2L * 60L * 60L * 1000L
         // 5 minutes
-        private const val RSVP_SYNC_DELAY: Long = 5 * 60 * 1000
+        private const val RSVP_SYNC_DELAY: Long = 5L * 60L * 1000L
         // 5 minutes
-        private const val FEEDBACK_SYNC_DELAY: Long = 5 * 60 * 1000
+        private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
 
     private var isLocalRepositoriesSeeded: Boolean
@@ -123,7 +114,7 @@ class DefaultSyncService(
                         sessions
                             .mapNotNull { session ->
                                 val rsvp = session.rsvp
-                                return@mapNotNull if (rsvp != null && !rsvp.isSent) {
+                                return@mapNotNull if (rsvp.isAttending != rsvp.isSent) {
                                     session.id to rsvp.isAttending
                                 } else {
                                     null
@@ -134,7 +125,7 @@ class DefaultSyncService(
                                     try {
                                         val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
                                         if (isRsvpSent) {
-                                            sessionRepository.setRsvpSent(sessionId, isRsvpSent)
+                                            sessionRepository.setRsvpSent(sessionId, isAttending)
                                         }
                                         break
                                     } catch (e: Exception) {

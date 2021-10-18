@@ -10,7 +10,7 @@ class DefaultScheduleService(
 ): ScheduleService {
 
     override suspend fun isInConflict(session: Session): Boolean {
-        if (session.rsvp?.isAttending != true) {
+        if (!session.rsvp.isAttending) {
             return false
         }
         val sessionRange = session.startsAt.rangeTo(session.endsAt)

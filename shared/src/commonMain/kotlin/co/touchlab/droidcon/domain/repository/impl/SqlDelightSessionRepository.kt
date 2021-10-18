@@ -101,11 +101,7 @@ class SqlDelightSessionRepository(
         endsAt = endsAt,
         isServiceSession = serviceSession.toBoolean(),
         room = roomId?.let(Room::Id),
-        rsvp = if (rsvp != null) {
-            Session.RSVP(rsvp.toBoolean(), rsvpSent.toBoolean())
-        } else {
-            null
-        },
+        rsvp = Session.RSVP(rsvp?.toBoolean() ?: false, rsvpSent.toBoolean()),
         feedback = if (feedbackRating != null && feedbackComment != null) {
             Session.Feedback(feedbackRating, feedbackComment, feedbackSent.toBoolean())
         } else {

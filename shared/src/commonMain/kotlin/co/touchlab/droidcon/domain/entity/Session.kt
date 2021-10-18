@@ -12,7 +12,7 @@ class Session(
     val endsAt: Instant,
     val isServiceSession: Boolean,
     val room: Room.Id?,
-    var rsvp: RSVP?,
+    var rsvp: RSVP,
     var feedback: Feedback?,
 ): DomainEntity<Session.Id>() {
 
