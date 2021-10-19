@@ -67,8 +67,6 @@ class AndroidNotificationService(
         return true
     }
 
-    // FIXME: Try this on Android 12 before release. Bug: https://issuetracker.google.com/issues/180884673
-    @SuppressLint("UnspecifiedImmutableFlag")
     @ExperimentalTime
     override suspend fun schedule(type: NotificationService.NotificationType, sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at $delivery." }
@@ -87,7 +85,11 @@ class AndroidNotificationService(
             context,
             if (type == NotificationService.NotificationType.Feedback) NOTIFICATION_FEEDBACK_REQUEST_CODE else 0,
             Intent(context, entrypointActivity),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            }
         )
         builder.setContentIntent(contentIntent)
 
@@ -137,14 +139,17 @@ class AndroidNotificationService(
         }
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     private fun createPendingIntent(id: Int, intentTransform: Intent.() -> Unit = {}): PendingIntent {
         val intent = IdentifiableIntent("$id", context, NotificationPublisher::class.java).apply(intentTransform)
         return PendingIntent.getBroadcast(
             context,
             id,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            },
         )
     }
 
