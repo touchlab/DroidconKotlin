@@ -9,10 +9,11 @@ This project has a pair of native mobile applications backed by the Sessionize d
 events hosted by the Sessionize web application. These are specifically for Droidcon events, but can 
 be forked and customized for anything run on Sessionize.
 
-> ## **We're Hiring!**
+
+> ## Touchlab's Hiring!
 >
-> Touchlab is looking for Android-focused mobile engineers, experienced with Kotlin and 
-> looking to get involved with Kotlin Multiplatorm in the near future. [More info here](https://on.touchlab.co/2KNeYYN).
+> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
+
 
 ## Libraries
 
