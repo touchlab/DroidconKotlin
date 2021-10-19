@@ -52,6 +52,7 @@ import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.viewModel.sponsors.SponsorGroupViewModel
 import co.touchlab.droidcon.android.viewModel.sponsors.SponsorListViewModel
 import com.google.accompanist.coil.rememberCoilPainter
+import com.google.accompanist.imageloading.ImageLoadState
 import kotlin.math.min
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -115,6 +116,7 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                     val endIndex = min(startIndex + columnCount, sponsors.size)
                     sponsors.subList(startIndex, endIndex).forEach { sponsor ->
                         val resource = rememberCoilPainter(request = sponsor.imageUrl.string)
+
                         Box(
                             modifier = Modifier
                                 .weight(1f)
@@ -131,13 +133,15 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                                 },
                             contentAlignment = Alignment.Center,
                         ) {
-                            Text(
-                                text = sponsor.name,
-                                modifier = Modifier.padding(Dimensions.Padding.half),
-                                textAlign = TextAlign.Center,
-                                overflow = TextOverflow.Ellipsis,
-                                maxLines = 3,
-                            )
+                            if (resource.loadState !is ImageLoadState.Success) {
+                                Text(
+                                    text = sponsor.name,
+                                    modifier = Modifier.padding(Dimensions.Padding.half),
+                                    textAlign = TextAlign.Center,
+                                    overflow = TextOverflow.Ellipsis,
+                                    maxLines = 3,
+                                )
+                            }
                             Image(
                                 painter = resource,
                                 contentDescription = sponsor.name,
