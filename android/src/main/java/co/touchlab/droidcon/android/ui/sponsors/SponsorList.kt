@@ -127,7 +127,7 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                                 .clickable {
                                     if (sponsor.hasDetail) {
                                         navController.navigate(SponsorsScreen.Detail.createRoute(sponsor.id))
-                                    } else {
+                                    } else if (sponsor.isUrlValid) {
                                         uriHandler.openUri(sponsor.url.string)
                                     }
                                 },
