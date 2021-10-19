@@ -18,18 +18,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-ED-diD">
-                                <rect key="frame" x="78" y="310" width="234" height="234"/>
+                                <rect key="frame" x="48.666666666666657" y="187" width="292.66666666666674" height="480"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="0IB-ED-diD" secondAttribute="height" multiplier="1:1" id="Vc0-BB-0qz"/>
+                                    <constraint firstAttribute="width" secondItem="0IB-ED-diD" secondAttribute="height" multiplier="850:1395" id="Vc0-BB-0qz"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="LaunchScreen_Background"/>
                         <constraints>
-                            <constraint firstItem="0IB-ED-diD" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3vk-mZ-Hfl"/>
-                            <constraint firstItem="0IB-ED-diD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="B8m-gl-UsN"/>
-                            <constraint firstItem="0IB-ED-diD" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.6" id="JW2-eP-WpG"/>
+                            <constraint firstItem="0IB-ED-diD" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="20" id="3vk-mZ-Hfl"/>
+                            <constraint firstItem="0IB-ED-diD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="B8m-gl-UsN"/>
+                            <constraint firstItem="0IB-ED-diD" firstAttribute="width" relation="lessThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.75" id="JW2-eP-WpG"/>
                             <constraint firstItem="0IB-ED-diD" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tg9-6c-cLR"/>
                             <constraint firstItem="0IB-ED-diD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lgz-oM-RlH"/>
                             <constraint firstItem="0IB-ED-diD" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="pAQ-Ys-gJI"/>
@@ -43,7 +43,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreen_Icon" width="341.33334350585938" height="341.33334350585938"/>
+        <image name="LaunchScreen_Icon" width="850" height="1396"/>
         <namedColor name="LaunchScreen_Background">
             <color red="0.0" green="0.078431372549019607" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

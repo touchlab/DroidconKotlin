@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.android.viewModel.feedback.FeedbackViewModel
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.service.FeedbackService
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -15,7 +16,13 @@ class MainViewModel: ViewModel(), KoinComponent {
     private val feedbackService: FeedbackService by inject()
     private val settingsGateway: SettingsGateway by inject()
 
+    val showSplashScreen: MutableStateFlow<Boolean> = MutableStateFlow(true)
     val showFeedback: MutableStateFlow<FeedbackViewModel?> = MutableStateFlow(null)
+
+    suspend fun didShowSplashScreen() {
+        delay(1_000)
+        showSplashScreen.value = false
+    }
 
     fun initializeFeedbackObserving() {
         viewModelScope.launch {

@@ -16,13 +16,17 @@ class SessionsDayViewModel(
 ): ViewModel(), KoinComponent {
 
     private val dateTimeFormatter by inject<DateTimeFormatterViewService>()
-    private val dateTimeService by inject<DateTimeService>()
 
     val day: String = dateTimeFormatter.shortDate(date)
 
     val blocks: List<SessionsBlockViewModel> = items
         .groupBy { it.session.startsAt }
         .map { (startsAt, items) ->
-            SessionsBlockViewModel(startsAt, items)
+            SessionsBlockViewModel(
+                startsAt = startsAt,
+                // Only once all items have ended we consider the block to end.
+                endsAt = items.maxOf { it.session.endsAt },
+                items = items
+            )
         }
 }

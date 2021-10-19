@@ -50,6 +50,7 @@ dependencyResolutionManagement {
             val composeCompilerRef = version("compose-compiler", "1.1.0-alpha04")
             val composeActivityRef = version("composeActivity", "1.4.0-alpha02")
             val composeNavigationRef = version("composeNavigation", "2.4.0-alpha09")
+            val splashcreenRef = version("splashscreen", "1.0.0-alpha02")
             val coroutinesRef = version("kotlinx-coroutines", "1.5.2-native-mt")
             val datetimeRef = version("kotlinx-datetime", "0.3.0")
             val serializationRef = version("kotlinx-serialization", "1.2.1")
@@ -73,6 +74,8 @@ dependencyResolutionManagement {
             alias("androidx-compose-material").to("androidx.compose.material", "material").versionRef(composeRef)
             alias("androidx-compose-activity").to("androidx.activity", "activity-compose").versionRef(composeActivityRef)
             alias("androidx-compose-navigation").to("androidx.navigation", "navigation-compose").versionRef(composeNavigationRef)
+
+            alias("androidx-core-splashscreen").to("androidx.core", "core-splashscreen").versionRef(splashcreenRef)
 
             alias("kotlinx-coroutines-core").to("org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutinesRef)
             alias("kotlinx-coroutines-android").to("org.jetbrains.kotlinx", "kotlinx-coroutines-android").versionRef(coroutinesRef)

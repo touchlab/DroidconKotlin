@@ -67,7 +67,7 @@ class SessionDetailViewModel(
         }
     )
 
-    val isAttending by observeItem.map { it.session.rsvp?.isAttending ?: false }
+    val isAttending by observeItem.map { it.session.rsvp.isAttending }
     val isAttendingLoading by instanceLock.observeIsLocked
 
     var presentedSpeakerDetail: SpeakerDetailViewModel? by managed(null)
