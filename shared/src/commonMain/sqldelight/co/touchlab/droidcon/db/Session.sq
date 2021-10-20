@@ -17,8 +17,8 @@ CREATE TABLE sessionTable(
 );
 
 upsert:
-INSERT OR REPLACE INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId)
-VALUES (?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId, rsvp, rsvpSent, feedbackRating, feedbackComment, feedbackSent)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
 
 deleteById {
     DELETE FROM sessionSpeakerTable WHERE sessionId = :sessionId;

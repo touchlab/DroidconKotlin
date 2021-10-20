@@ -68,6 +68,11 @@ class SqlDelightSessionRepository(
             endsAt = entity.endsAt,
             serviceSession = entity.isServiceSession.toLong(),
             roomId = entity.room?.value,
+            rsvp = entity.rsvp.isAttending.toLong(),
+            rsvpSent = entity.rsvp.isSent.toLong(),
+            feedbackRating = entity.feedback?.rating,
+            feedbackComment = entity.feedback?.comment,
+            feedbackSent = entity.feedback?.isSent?.toLong()?:0
         )
     }
 
