@@ -15,8 +15,11 @@ class NotificationRescheduler: BroadcastReceiver(), KoinComponent {
     override fun onReceive(context: Context?, intent: Intent?) {
         val backgroundIntent = goAsync()
         MainScope().launch {
-            notificationSchedulingService.rescheduleAll()
-            backgroundIntent.finish()
+            try {
+                notificationSchedulingService.rescheduleAll()
+            } finally {
+                backgroundIntent.finish()
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package co.touchlab.droidcon.application.service.impl
 import co.touchlab.droidcon.application.repository.SettingsRepository
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
+import  co.touchlab.droidcon.application.composite.Settings
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
@@ -52,7 +53,8 @@ class DefaultNotificationSchedulingService(
         coroutineScope {
             launch {
                 scheduleNotifications(
-                    sessionRepository.observeAllAttending()
+                    sessionRepository.observeAllAttending(),
+                    settingsRepository.settings,
                 )
             }
         }
@@ -60,13 +62,16 @@ class DefaultNotificationSchedulingService(
 
     override suspend fun rescheduleAll() {
         scheduledNotifications = emptyList()
-        scheduleNotifications(sessionRepository.observeAllAttending().take(1))
+        scheduleNotifications(
+            sessionRepository.observeAllAttending().take(1),
+            settingsRepository.settings.take(1),
+        )
     }
 
-    private suspend fun scheduleNotifications(sessionFlow: Flow<List<Session>>) {
+    private suspend fun scheduleNotifications(sessionFlow: Flow<List<Session>>, settingsFlow: Flow<Settings>) {
         sessionFlow
             .combine(
-                settingsRepository.settings,
+                settingsFlow,
                 transform = { agenda, settings -> Triple(agenda, settings.isRemindersEnabled, settings.isFeedbackEnabled) }
             )
             .distinctUntilChanged()
