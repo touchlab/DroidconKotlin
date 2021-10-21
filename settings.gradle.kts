@@ -68,6 +68,7 @@ dependencyResolutionManagement {
             val uuidRef = version("uuid", "0.3.1")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
+            alias("android-desugar").to("com.android.tools", "desugar_jdk_libs").version("1.1.5")
 
             alias("androidx-compose-ui-core").to("androidx.compose.ui", "ui").versionRef(composeRef)
             alias("androidx-compose-ui-tooling").to("androidx.compose.ui", "ui-tooling").versionRef(composeRef)
