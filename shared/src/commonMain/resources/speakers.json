@@ -205,6 +205,46 @@
     "categories": []
   },
   {
+    "id": "94191f8d-345e-4581-bb03-516104a406d6",
+    "firstName": "Andrei",
+    "lastName": "Lesnitsky",
+    "fullName": "Andrei Lesnitsky",
+    "bio": ">7 years of production experience in web and mobile development with react, node.js, react native and flutter. Flutter is my passion and I hope (and do what I can to make this happen) it will be an ultimate framework for cross-platform development",
+    "tagLine": "Opensource software engineer @invertase.io",
+    "profilePicture": "https://sessionize.com/image/313e-400o400o2-N3Z3QAkfGvmQyv4tbdwJAu.png",
+    "sessions": [
+      {
+        "id": 289416,
+        "name": "3D in Flutter"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/lesnitsky_dev",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/andrei-lesnitsky-140555192/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://dev.to/lesnitsky",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://invertase.io",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
     "id": "bf0a6f37-894e-4093-88f1-94b664a01c39",
     "firstName": "Andrei Tudor",
     "lastName": "Diaconu",
@@ -245,6 +285,25 @@
     "categories": []
   },
   {
+    "id": "b9697a66-31a5-458b-a248-8386959ae409",
+    "firstName": "Andrew",
+    "lastName": "Fitz Gibbon",
+    "fullName": "Andrew Fitz Gibbon",
+    "bio": "Fitz is a Developer Advocate for Flutter, specializing in helping people learn how to more effectively develop apps with Flutter and Dart. Combining coding, storytelling, and teaching he aims to give people the tools they need to feel personally empowered and do amazing things. Outside of the day job, Fitz teaches at the local university and looks after his dog and two cats.",
+    "tagLine": "Developer Relations Engineer, Flutter, Google",
+    "profilePicture": "https://sessionize.com/image/0b5e-400o400o2-3wf8tcTFvUzeGi6GarJRAv.png",
+    "sessions": [
+      {
+        "id": 286068,
+        "name": "Foldable Layouts in Flutter"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
     "id": "f3facba0-c34d-4c87-a7e7-a81a67c8029d",
     "firstName": "Antoine",
     "lastName": "Danois",
@@ -254,12 +313,12 @@
     "profilePicture": "https://sessionize.com/image/7c3b-400o400o2-805cfa80-4e3d-475d-85d9-a7f40baaa31c.jpg",
     "sessions": [
       {
-        "id": 282767,
-        "name": "Remote work, is it life changing or just a bad idea?"
-      },
-      {
         "id": 282769,
         "name": "What’s the best way to do experimentation within your app, without destroying everything?"
+      },
+      {
+        "id": 282767,
+        "name": "Remote work, is it life changing or just a bad idea?"
       }
     ],
     "isTopSpeaker": false,
@@ -329,6 +388,81 @@
     "categories": []
   },
   {
+    "id": "713aa3f4-4ee0-44f7-ba4b-eda29d5e0f31",
+    "firstName": "Bartosz",
+    "lastName": "Kraszewski",
+    "fullName": "Bartosz Kraszewski",
+    "bio": "Software Engineer specialised in Mobile Applications development. Focused on code quality and standards, experienced working in fast paced, product-oriented environment - Silicon Valley startups. Co-founder of Mobile Bialystok - local mobile technology enthusiasts group. Also an amateur squash player.",
+    "tagLine": "Android Team Leader",
+    "profilePicture": "https://sessionize.com/image/cfae-400o400o2-f4-4ee0-44f7-ba4b-eda29d5e0f31.9999d262-2357-4e76-bf16-40d2376c7131.jpg",
+    "sessions": [
+      {
+        "id": 256319,
+        "name": "Monarch - The royal way to develop your widgets in isolation."
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/BartoszKraszew1",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/bkraszewski",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://about.me/bartoszk",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://about.me/bartoszk",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "e869461e-b6fb-43e5-a89c-033da87008c0",
+    "firstName": "Ben",
+    "lastName": "Weiss",
+    "fullName": "Ben Weiss",
+    "bio": "I go through the painful stuff so you don't have to.",
+    "tagLine": "Android Developer Relations at Google",
+    "profilePicture": "https://sessionize.com/image/66e8-400o400o2-ShDbUcBbEcwA6StMVj1bF7.jpeg",
+    "sessions": [
+      {
+        "id": 286341,
+        "name": "WorkManager: Back to the Foregraound"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "http://twitter.com/keyboardsurfer",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "Blog",
+        "url": "https://twitter.com/keyboardsurfer",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://d.android.com",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
     "id": "7c082d3c-9a96-472e-a3dc-5ff581c066e5",
     "firstName": "Canato",
     "lastName": ".",
@@ -339,7 +473,7 @@
     "sessions": [
       {
         "id": 252401,
-        "name": "Open Source, project handover"
+        "name": "Android Image Cropper, Open Source Project Handover"
       }
     ],
     "isTopSpeaker": false,
@@ -399,25 +533,40 @@
     "categories": []
   },
   {
-    "id": "fd699fd4-ca8a-4b16-a811-cfb7de9e9b1b",
+    "id": "ac28663f-4a2f-4ca5-8186-43b03bf36e15",
     "firstName": "Chris",
-    "lastName": "Banes",
-    "fullName": "Chris Banes",
-    "bio": "Chris is an engineer who has worked on Android UIs for 10+ years, currently working on the Android Core UI team at Twitter. He previously worked in the Android Developer Relations at Google, where he worked on some of the libraries in Android Jetpack, most notably AppCompat, Design and Palette.",
-    "tagLine": "Staff Software Engineer, Twitter",
-    "profilePicture": "https://sessionize.com/image/80ea-400o400o2-PWLYVuP6U97cN7hfwsFB19.jpg",
+    "lastName": "Sells",
+    "fullName": "Chris Sells",
+    "bio": "Chris enjoys long walks on the beach and various technologies.",
+    "tagLine": "PM on the Flutter team",
+    "profilePicture": "https://sessionize.com/image/57fb-400o400o2-6kUt214J1ykWNMuTV88Uc.png",
     "sessions": [
       {
-        "id": 268036,
-        "name": "Life of a frame in Jetpack Compose"
+        "id": 287916,
+        "name": "Building a custom router for Flutter's Navigation 2.0 API"
       }
     ],
     "isTopSpeaker": false,
     "links": [
       {
         "title": "Twitter",
-        "url": "https://twitter.com/chrisbanes",
+        "url": "https://twitter.com/csells",
         "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://linkedin.com/in/csells",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://sellsbrothers.com",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://flutter.dev",
+        "linkType": "Company_Website"
       }
     ],
     "questionAnswers": [],
@@ -443,6 +592,46 @@
         "title": "Twitter",
         "url": "https://twitter.com/csinco",
         "linkType": "Twitter"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "27310ceb-01d4-42b6-ae97-5dbca301b6b8",
+    "firstName": "Chris",
+    "lastName": "Swan",
+    "fullName": "Chris Swan",
+    "bio": "Chris Swan is an Engineer at The @ Company, building the @platform, a technology that is putting people in control of their data and removing the frictions and surveillance associated with today’s Internet. He was previously a Fellow at DXC Technology where he held various CTO roles. Before that he held CTO and Director of R&D roles at Cohesive Networks, UBS, Capital SCF and Credit Suisse, where he worked on app servers, compute grids, security, mobile, cloud, networking and containers. Chris co-hosts the Tech Debt Burndown Podcast, and is a cloud editor for InfoQ.",
+    "tagLine": "Engineer, The @ Company",
+    "profilePicture": "https://sessionize.com/image/4bdb-400o400o2-pUAA55uZoU6M8CrrYXSrnC.jpg",
+    "sessions": [
+      {
+        "id": 288236,
+        "name": "Full Stack Dart"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/cpswan",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/chrisswan/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://blog.thestateofme.com/",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://atsign.com/",
+        "linkType": "Company_Website"
       }
     ],
     "questionAnswers": [],
@@ -498,7 +687,13 @@
       }
     ],
     "isTopSpeaker": false,
-    "links": [],
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/clarabayarri",
+        "linkType": "Twitter"
+      }
+    ],
     "questionAnswers": [],
     "categories": []
   },
@@ -583,41 +778,6 @@
     "categories": []
   },
   {
-    "id": "a34985cc-f276-4f1a-ba53-db86d084fe93",
-    "firstName": "Divya",
-    "lastName": "jain",
-    "fullName": "Divya jain",
-    "bio": "I'm a Lead Android Developer, currently working on Hi-Road Auto Insurance App. I am an Android Enthusiast, also experimenting & learning other mobile frameworks like IOS, React Native with a goal to become a Holistic Mobile App Developer\r\nI've been working on Mobile Apps (Android) for over 7 years and I love to create useful and user-friendly apps to make lives more easy and happy. You will also find me blogging about my code experiments and things I learn. I also speak at conferences and love traveling the world.",
-    "tagLine": "Lead Mobile App Developer",
-    "profilePicture": "https://sessionize.com/image/0b1f-400o400o2-cc-f276-4f1a-ba53-db86d084fe93.fd999ba8-4ec4-408c-8bdc-b15c7e626e8a.jpg",
-    "sessions": [
-      {
-        "id": 258548,
-        "name": "Clean Architecture with Jetpack Compose"
-      }
-    ],
-    "isTopSpeaker": false,
-    "links": [
-      {
-        "title": "Twitter",
-        "url": "https://twitter.com/divyajain2405",
-        "linkType": "Twitter"
-      },
-      {
-        "title": "LinkedIn",
-        "url": "https://www.linkedin.com/in/divyajain2405/",
-        "linkType": "LinkedIn"
-      },
-      {
-        "title": "Blog",
-        "url": "https://androidwithdivya.wordpress.com/",
-        "linkType": "Blog"
-      }
-    ],
-    "questionAnswers": [],
-    "categories": []
-  },
-  {
     "id": "82508e77-1061-4969-8272-e7112eb754b7",
     "firstName": "Dmytro",
     "lastName": "Shuba",
@@ -646,6 +806,86 @@
       {
         "title": "Company Website",
         "url": "https://betterme.world/",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "29ba7916-20b4-48e5-9715-bddfbdd1aa3a",
+    "firstName": "Dominik",
+    "lastName": "Roszkowski",
+    "fullName": "Dominik Roszkowski",
+    "bio": "Dominik is Google Developer Expert in Flutter eager to create beautiful apps for mobile and desktop. He’s Principal Developer at Very Good Ventures and co-founder of Flutter Europe conference. He is active speaker on local meetups and writes Flutter-related articles on his blog roszkowski.dev. He’s been working as a deputy manager of PW-Sat2 student satellite project.",
+    "tagLine": "Google Developer Expert in Flutter",
+    "profilePicture": "https://sessionize.com/image/e4ef-400o400o2-16-20b4-48e5-9715-bddfbdd1aa3a.cbe08c75-28a8-46e7-89e3-49ef8922e3c4.png",
+    "sessions": [
+      {
+        "id": 288996,
+        "name": "Improve your animations skills in Flutter"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/OrestesGaolin",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/dominik-roszkowski/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://roszkowski.dev",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://roszkowski.dev",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "7eb1c6f1-2d6c-45cf-b06d-846c9df9e390",
+    "firstName": "Ed",
+    "lastName": "George",
+    "fullName": "Ed George",
+    "bio": "Ed George is an Android Developer originally from Oxford, UK and currently residing within Shropshire, UK.\r\n\r\nAn Android developer for 8 years; Ed now works for ASOS as a Senior Developer having previously worked on well known applications such as National Trust, My Oxfam, Snoop, Carling Tap and many more.\r\n\r\nIn his spare time, Ed can be found tweeting and posting pictures of his dog.",
+    "tagLine": "Senior Android Developer @ ASOS",
+    "profilePicture": "https://sessionize.com/image/c5da-400o400o2-GnGJZ8YmzYJG4fC4BihXcH.jpeg",
+    "sessions": [
+      {
+        "id": 286806,
+        "name": "Implementing config-driven experiments that don’t require a release"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/Sp4ghettiCode",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/edgeorge/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://ed-george.github.io/",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://www.asos.com",
         "linkType": "Company_Website"
       }
     ],
@@ -693,6 +933,111 @@
     "categories": []
   },
   {
+    "id": "5dc26a08-6078-4b78-88a9-c41274e06a4e",
+    "firstName": "Elliot",
+    "lastName": "Hesp",
+    "fullName": "Elliot Hesp",
+    "bio": "Elliot Hesp is the CEO at Invertase & a GDE for Firebase.",
+    "tagLine": "Elliot Hesp - Invertase -C",
+    "profilePicture": "https://sessionize.com/image/42a9-400o400o2-LyTGvRGwxo8tW6Gxoy65wx.jpeg",
+    "sessions": [
+      {
+        "id": 289064,
+        "name": "Journey into the Flutter ecosystem"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/elliothesp",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://invertase.io",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "849fdd55-5b2a-4e48-a12c-1d3df2bc6a13",
+    "firstName": "Emanuele",
+    "lastName": "Papa",
+    "fullName": "Emanuele Papa",
+    "bio": "Emanuele has been an Android developer and enthusiast since 2010. He has developed several apps through these years and always loved to share what he learned. He nowadays develops Android apps, but also explores cross-platform frameworks like Flutter to expand his horizons. Look online for his blog posts to see what he's currently working on.",
+    "tagLine": "Senior Android Developer",
+    "profilePicture": "https://sessionize.com/image/8faa-400o400o2-LEPRQCFD1Ayod9GmXz1avL.png",
+    "sessions": [
+      {
+        "id": 276863,
+        "name": "Supercharge Flutter Declarative UI with code generation"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/ema_nue_le_",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/emanuelepapa",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://www.emanuelepapa.dev",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://www.zest.one",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "0fbaa9d8-40c2-4b55-ad28-d263d0a82ebf",
+    "firstName": "Emma",
+    "lastName": "Tresanszki",
+    "fullName": "Emma Tresanszki",
+    "bio": "Android developer @JPMorgan Chase.\r\nPreviously building SDKs for hyper-accurate localization @Scape and SDKs for contextual communications&2FA @Nexmo,Vonage.\r\n",
+    "tagLine": "Android developer @JPMorgan Chase",
+    "profilePicture": "https://sessionize.com/image/1d6a-400o400o2-d4b41751-bd0f-41fc-8d5d-3be224a50006.jpg",
+    "sessions": [
+      {
+        "id": 286910,
+        "name": "Digital Identity / Mobile Authentication with Android"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/emmatresanszki",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/emmatresanszki/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://scape.io",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
     "id": "0e28eaf0-f8b6-4475-a3be-f3ce49f2d1ec",
     "firstName": "Fanny",
     "lastName": "Demey",
@@ -723,6 +1068,96 @@
     "categories": []
   },
   {
+    "id": "5f7faf69-dd61-4ad6-b6d8-0173cae292d8",
+    "firstName": "Fatih",
+    "lastName": "Giriş",
+    "fullName": "Fatih Giriş",
+    "bio": "Fatih has studied Computer Engineering in his bachelor's degree. He got his master's degree in \"Natural Language Processing\" and he was a research assistant for 2 years. After that, he started working as a freelance mobile developer for 2 years. He joined DNB Bank as a Senior Android Developer and now he is an Android Lead in DNB Bank for Norway's top used finance app \"Mobilbank\" and the savings app \"Spare\".",
+    "tagLine": "Android Lead @DNB",
+    "profilePicture": "https://sessionize.com/image/efc0-400o400o2-N7uQxEDZmhwNrBeKepKL1k.jpg",
+    "sessions": [
+      {
+        "id": 280744,
+        "name": "Migrating a large-scale banking app to Compose"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/fatih_grs",
+        "linkType": "Twitter"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "6f48a257-2e52-4b42-a488-2d2fa057c575",
+    "firstName": "Filip",
+    "lastName": "Stanis",
+    "fullName": "Filip Stanis",
+    "bio": "As a developer advocate, Filip works with Google's large partners to help them make the most out of the latest Android and wearable technologies. He holds a BCompSc from Union University in Serbia.",
+    "tagLine": "Developer Advocate, Google",
+    "profilePicture": "https://sessionize.com/image/b27f-400o400o2-X7iifvGEk36jExdZo14hSB.jpg",
+    "sessions": [
+      {
+        "id": 291288,
+        "name": "Thinking about UX on Wear OS"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/FilipStanis",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "Blog",
+        "url": "https://stanis.me",
+        "linkType": "Blog"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "3a487103-31c6-4f28-84ca-1ca5cbdd64f3",
+    "firstName": "Florian",
+    "lastName": "Harr",
+    "fullName": "Florian Harr",
+    "bio": "Changing the world (for the better) one app at a time!\r\n\r\nFlorian has been developing mobile apps for more than 10 years. He still loves mobile development as much as ever, trying to make the world better one app at a time. Originally from Germany, he now lives in Atlanta, Georgia, and works as a Mobile Staff Engineer at Betterment. Whenever he’s not coding, he enjoys running and hiking with his wife and dog.",
+    "tagLine": "Florian Harr, Staff Engineer@Betterment",
+    "profilePicture": "https://sessionize.com/image/0e80-400o400o2-UMb6Znvo9MFZ51uhwpfbgE.jpeg",
+    "sessions": [
+      {
+        "id": 283674,
+        "name": "Is Flutter the Coke Zero of the mobile world?"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/caffeineflo",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/caffeineflo/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://www.betterment.com",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
     "id": "3b7c5574-4d74-4529-9d3f-d058f302fea1",
     "firstName": "Florina",
     "lastName": "Muntenescu",
@@ -747,6 +1182,66 @@
         "title": "Company Website",
         "url": "https://developer.android.com/index.html",
         "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "3bb27702-c7fc-44f6-9ad7-36e5583693e9",
+    "firstName": "Franco",
+    "lastName": "Meloni",
+    "fullName": "Franco Meloni",
+    "bio": "Software engineer, Currently working on the American Express' iOS App.\r\nMainly an iOS Developer, but a lover of Kotlin too.\r\nQuite active in the Open Source community, and one of the top contributors of the Danger organisation, where is one of the core maintainers of Danger-Swift and Danger-Kotlin.\r\nHe also contributed to a lot of other open source projects such as:\r\nMoya, Danger-js, swift-snapshot-testing, octokit.swift.\r\n",
+    "tagLine": "Senior iOS Developer @AmericanExpress",
+    "profilePicture": "https://sessionize.com/image/66ff-400o400o2-8407abf9-3017-4eb6-a8a6-674702907914.jpg",
+    "sessions": [
+      {
+        "id": 269408,
+        "name": "Formalise your Pull Request etiquette with Danger Kotlin"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/fmeloni1",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/franco-meloni-7b461b76/",
+        "linkType": "LinkedIn"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "fb8a6d69-fa2e-4a3f-b8d2-af87471ae391",
+    "firstName": "Gianluca",
+    "lastName": "Zuddas",
+    "fullName": "Gianluca Zuddas",
+    "bio": "Senior Android Developer, Kotlin enthusiast and Tech Ambassador at comparethemarket  with over 9 years of experience with Android since Donut!\r\nCurrently working at the Meerkat App and opensourcing at the Danger Organisation where is one of the core maintainers of Danger-Kotlin.",
+    "tagLine": "Senior Android Developer, comparethemarket.com",
+    "profilePicture": "https://sessionize.com/image/de8f-400o400o2-69-fa2e-4a3f-b8d2-af87471ae391.fe46e1c8-9dc8-46c1-9c51-82b445701ecb.jpg",
+    "sessions": [
+      {
+        "id": 269408,
+        "name": "Formalise your Pull Request etiquette with Danger Kotlin"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/_gianluz",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/gianluca-zuddas-26b49345/",
+        "linkType": "LinkedIn"
       }
     ],
     "questionAnswers": [],
@@ -893,7 +1388,7 @@
     "lastName": "Hamilton",
     "fullName": "James Hamilton",
     "bio": "I've been working as a software developer at Guardsquare working on ProGuard and DexGuard for 2 years.\r\nPreviously, I worked at CERN in Switzerland and before that earned a PhD in Computer Science, with a focus on code analysis, from the University of London.",
-    "tagLine": "Software Engineer",
+    "tagLine": "Software Engineer, Guardsquare",
     "profilePicture": "https://sessionize.com/image/0481-400o400o2-4fM5f5gR72UaPVwm9vX4L.jpeg",
     "sessions": [
       {
@@ -923,6 +1418,116 @@
     "categories": []
   },
   {
+    "id": "63736f71-3fac-430d-91d9-2e49300b8075",
+    "firstName": "James",
+    "lastName": "Swinton-Bland",
+    "fullName": "James Swinton-Bland",
+    "bio": "Hi, I’m James Swinton-Bland and I’m a developer advocate working for Zebra Technologies UK covering the entire EMEA (Europe, Middle East & Africa) region. I’ve been an android developer since graduating in 2016, and a developer advocate for Zebra since 2018. As a developer advocate, It’s my job to facilitate & promote the use of Zebra’s vast portfolio of devices by developing proof of concept demo applications, speaking at conferences, holding development workshops and providing consultancy services to developers all across the world",
+    "tagLine": "Developer Advocate for EMEA @ Zebra Technologies",
+    "profilePicture": "https://sessionize.com/image/5a8b-400o400o2-JAoMP3yUJ6FeJjUwvmbkNL.png",
+    "sessions": [
+      {
+        "id": 282803,
+        "name": "Writing Apps for the Work Profile"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/JamesSwintonDev",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/james-swinton-bland/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://jamesswinton.com",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://zebra.com",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "c354db9f-0f29-4cfa-98de-05f61ad8b370",
+    "firstName": "Jay (Jeroen)",
+    "lastName": "Meijer",
+    "fullName": "Jay (Jeroen) Meijer",
+    "bio": "Jay is a Dutch freelance full-stack app developer, administrator and moderator for the Flutter Community organisation and host of the live programming show GenericTyping. With two years of experience writing Flutter apps, he has contributed to multiple open source projects and given talks about various facets of the Flutter ecosystem. In his free time, he likes to experiment with new and exciting technologies such as TypeScript apps and Flutter for web.",
+    "tagLine": "Freelance developer @ Very Good Ventures",
+    "profilePicture": "https://sessionize.com/image/bb72-400o400o2-9f-0f29-4cfa-98de-05f61ad8b370.613ed9cc-13ef-4f0b-8df7-a9e5a5d16c8d.png",
+    "sessions": [
+      {
+        "id": 290071,
+        "name": "Testing in Flutter and Dart (for the lazy)"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/jfkdev",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/jfkdev/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://verygood.ventures/team/jeroen-meijer",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://jfk.dev/",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "4890d3da-a19b-4d13-b761-332932534267",
+    "firstName": "Jesse",
+    "lastName": "Harrelson",
+    "fullName": "Jesse Harrelson",
+    "bio": "Jesse is a software engineer living in Brooklyn NY. He has been a part of the Betterment engineering team for over 4 years mainly writing Ruby On Rails but more recently working with the mobile team during their move from native to Flutter. He is involved in several employee resource groups and is usually finding new and exciting ways to document and share engineering knowledge. When he's not coding he's usually running absurdly long distances, watering his plants, or writing songs.",
+    "tagLine": "Jesse Harrelson - Mobile Engineering Manager @ Betterment",
+    "profilePicture": "https://sessionize.com/image/946e-400o400o2-W55F8AMKCmZ7mXcMNAXZgA.jpeg",
+    "sessions": [
+      {
+        "id": 283674,
+        "name": "Is Flutter the Coke Zero of the mobile world?"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/jesseharrelson/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://www.betterment.com/",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
     "id": "40b1ba07-5c4a-4668-bbcc-7ee1d668c606",
     "firstName": "Jianfeng",
     "lastName": "Chen",
@@ -942,6 +1547,31 @@
         "title": "Blog",
         "url": "https://jianfeng.us/",
         "linkType": "Blog"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "22a0842d-51da-43e2-a5f2-b48893ae49f4",
+    "firstName": "Joe",
+    "lastName": "Birch",
+    "fullName": "Joe Birch",
+    "bio": "Hi, my names Joe. I’m an Android Engineer and Google Developer Expert for Android, Google Pay and Flutter based in Brighton, UK working on the Android team at Buffer. I’m passionate about coding and love creating robust, polished and exciting projects for mobile, the web, TV, wearables and I’ll probably be toying with whatever the new thing is at the time you’re reading this – I love to be constantly learning. I’m also a keen writer as I love to share my learnings and experiences with others.",
+    "tagLine": "Senior Engineer @ Buffer",
+    "profilePicture": "https://sessionize.com/image/72a6-400o400o2-36905613-03bb-4a98-8405-c07b923f1414.jpg",
+    "sessions": [
+      {
+        "id": 261486,
+        "name": "Building Accessible Apps with Jetpack Compose"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/hitherejoe",
+        "linkType": "Twitter"
       }
     ],
     "questionAnswers": [],
@@ -1018,6 +1648,36 @@
     "categories": []
   },
   {
+    "id": "c03a7211-54ff-4819-9789-1a22ed91fafc",
+    "firstName": "Jossi",
+    "lastName": "Wolf",
+    "fullName": "Jossi Wolf",
+    "bio": "Jossi is an Android Developer at Snapp Mobile. Jossi graduated high school in 2018 and has been working on many projects, including software for startups as well as car manufacturers. As a GDG Organiser and part of Women Tech Makers Hamburg, he is working on a project bringing coding classes to schools using several new approaches. Jossi also loves Kotlin and Rabbits!",
+    "tagLine": "Android Developer @Snapp Mobile",
+    "profilePicture": "https://sessionize.com/image/4486-400o400o2-7a6b15fa-3ca2-4fee-845a-a72d4d9f9f08.jpg",
+    "sessions": [
+      {
+        "id": 270761,
+        "name": "A Hitchhiker's Guide to Compose Compiler:  Composers, Compiler Plugins, and Snapshots"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/jossiwolf",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://josswolf.de",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
     "id": "462e6b97-01f9-44b1-864c-9d85bedf911b",
     "firstName": "Julien",
     "lastName": "Salvi",
@@ -1086,16 +1746,6 @@
         "title": "LinkedIn",
         "url": "https://www.linkedin.com/in/madona-syombua/",
         "linkType": "LinkedIn"
-      },
-      {
-        "title": "Blog",
-        "url": "https://www.madonahsyombua.com/",
-        "linkType": "Blog"
-      },
-      {
-        "title": "Company Website",
-        "url": "https://www.streem.com/",
-        "linkType": "Company_Website"
       }
     ],
     "questionAnswers": [],
@@ -1131,6 +1781,46 @@
         "title": "Blog",
         "url": "https://magdamiu.com/",
         "linkType": "Blog"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "36aaec31-fde9-427c-bd04-3a7ceecbab0b",
+    "firstName": "Majid",
+    "lastName": "Hajian",
+    "fullName": "Majid Hajian",
+    "bio": "Majid is a Google developer expert and passionate software developer with years of developing and architecting complex web and mobile applications. His passions are generally Flutter, PWA, and performance. He is an award-winning book author at Apress and instructor at PacktPub/Udemy and Pluralsight. \r\nHe loves sharing his knowledge with the community by writing and speaking, having workshops and video tutorials, contributing to open source, and organizing meetups and events. He is also the organizer of several big Nordic conferences and meetups such as FlutterVikings!\r\n\r\n----\r\nMajid is a Google developer expert, an award-winning book author, Flutter, PWA, perf enthusiast, and a passionate software developer with years of developing and architecting complex web and mobile applications.",
+    "tagLine": "Becoming Better, Always a learner",
+    "profilePicture": "https://sessionize.com/image/05a0-400o400o2-TKioVY3ZVyC45GBxPkRjt8.jpg",
+    "sessions": [
+      {
+        "id": 288700,
+        "name": "Architectural thinking on Flutter State Management"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/mhadaily",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/mhadaily/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://newsletter.majidhajian.com/",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://majidhajian.com/",
+        "linkType": "Company_Website"
       }
     ],
     "questionAnswers": [],
@@ -1280,6 +1970,41 @@
       {
         "title": "Company Website",
         "url": "https://support.google.com/googleplay/android-developer/answer/10787469",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "b308cbd1-215d-461a-8b10-8814798ab6f8",
+    "firstName": "Michael",
+    "lastName": "Bailey",
+    "fullName": "Michael Bailey",
+    "bio": "Michael is a Google Developer Expert and a Distinguished Engineer on the Android team responsible for American Express’ flagship consumer Android apps in the U.S. market. Development on these apps began in 2010. Since joining the company in 2008, Michael has worked on a number initiatives at American Express including analytics, enterprise content management, AmexLabs, iOS apps, international mobile applications, NFC payments, the U.S. homepage and the U.S. online card applications site. Michael holds a BS in Computer Science from Harvey Mudd College and an MS in Computer Science from the University of Southern California, where he specialized in computer security. Including the U.S. consumer apps that Michael works on, American Express has 8 Android apps in the U.S. Google Play Store (https://play.google.com/store/apps/developer?id=American%20Express) and more in the international Play Stores.",
+    "tagLine": "Distinguished Engineer, American Express",
+    "profilePicture": "https://sessionize.com/image/743c-400o400o2-d1-215d-461a-8b10-8814798ab6f8.d2aeafdf-e1f7-40d9-aaa3-beb74ef7c05e.jpg",
+    "sessions": [
+      {
+        "id": 290818,
+        "name": "Overview of UI testing in Compose"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/yogurtearl",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/michaeljbaileyyogurtearl/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://www.americanexpress.com/careers/",
         "linkType": "Company_Website"
       }
     ],
@@ -1516,8 +2241,8 @@
     "firstName": "Paul",
     "lastName": "Ruiz",
     "fullName": "Paul Ruiz",
-    "bio": "Paul is a Developer Programs Engineer on Firebase with a background in Android and IoT development. Outside of work he makes movie props as a hobby, and is a member of a Star Wars costuming charity where he volunteers at events as various movie characters including an Imperial Snowtrooper, X-Wing Pilot, or Tusken Raider.",
-    "tagLine": "Developer Programs Engineer, Firebase",
+    "bio": "Paul is a Developer Relations Engineer with Android focused on Enterprise. Outside of work he makes movie props as a hobby, and is a member of a Star Wars costuming charity where he volunteers at events as various movie characters including an Imperial Snowtrooper, X-Wing Pilot, or Tusken Raider.",
+    "tagLine": "Developer Relations Engineer, Android Enterprise",
     "profilePicture": "https://sessionize.com/image/f535-400o400o2-22d3538b-8c10-4423-b7c4-ca5d3d6c254a.jpg",
     "sessions": [
       {
@@ -1577,7 +2302,7 @@
     "sessions": [
       {
         "id": 286341,
-        "name": "The Inner-workings of WorkManager"
+        "name": "WorkManager: Back to the Foregraound"
       }
     ],
     "isTopSpeaker": false,
@@ -1600,6 +2325,76 @@
       {
         "title": "Company Website",
         "url": "https://google.com",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "ed561709-d64d-407d-be4e-921892515eff",
+    "firstName": "Razvan Cristian",
+    "lastName": "Lung",
+    "fullName": "Razvan Cristian Lung",
+    "bio": "Razvan started learning mobile development as a hobby. He offers more than six years of experience building, integrating, testing and supporting Android, iOS and Flutter apps.",
+    "tagLine": "upcode",
+    "profilePicture": "https://sessionize.com/image/de7e-400o400o2-T1KKmxAXWVBQcu7iGp2Hag.jpg",
+    "sessions": [
+      {
+        "id": 288197,
+        "name": "Executing Dart code in background with Flutter"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/long1eu",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/long1eu/",
+        "linkType": "LinkedIn"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "7eea8752-c68d-4a4b-910d-fd1f5dcd0975",
+    "firstName": "Remi",
+    "lastName": "Rousselet",
+    "fullName": "Remi Rousselet",
+    "bio": "Rémi is an active member of the Flutter community since its early days. He is the author of various popular packages such as Provider/Riverpod, flutter_hooks or Freezed. At Invertase, he is working on open-source projects to simplify the life of other developers. ",
+    "tagLine": "Open-source software engineer at Invertase",
+    "profilePicture": "https://sessionize.com/image/8293-400o400o2-V5D3bjpnvfJgYG9zBPgBHk.png",
+    "sessions": [
+      {
+        "id": 290394,
+        "name": "Breaking down Riverpod 1.0"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/remi_rousselet",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/r%C3%A9mi-rousselet/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Blog",
+        "url": "https://dash-overflow.net/",
+        "linkType": "Blog"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://invertase.io/",
         "linkType": "Company_Website"
       }
     ],
@@ -1701,36 +2496,6 @@
     "categories": []
   },
   {
-    "id": "7a1d47f2-dfd1-4af1-b097-5c415f9b29c3",
-    "firstName": "Russell",
-    "lastName": "Wolf",
-    "fullName": "Russell Wolf",
-    "bio": "Russell started his first Kotlin Multiplatform project the day after it was possible to share code between JVM and Kotlin/Native. He is the author and maintainer of Multiplatform Settings, a key-value storage library which was one of the earliest mobile multiplatform libraries available. Now a part of Touchlab and with over three years of experience in both multiplatform apps and libraries, he loves finding new ways to connect with the community and help people use this technology. ",
-    "tagLine": "Kotlin Multiplatform at Touchlab",
-    "profilePicture": "https://sessionize.com/image/49c8-400o400o2-f2-dfd1-4af1-b097-5c415f9b29c3.eadbc841-6bf0-46f0-9940-e4c6ba646137.png",
-    "sessions": [
-      {
-        "id": 286260,
-        "name": "The Kotlin/Swift boundary"
-      }
-    ],
-    "isTopSpeaker": false,
-    "links": [
-      {
-        "title": "Twitter",
-        "url": "https://twitter.com/RussHWolf",
-        "linkType": "Twitter"
-      },
-      {
-        "title": "Company Website",
-        "url": "https://www.touchlab.co",
-        "linkType": "Company_Website"
-      }
-    ],
-    "questionAnswers": [],
-    "categories": []
-  },
-  {
     "id": "adadf66f-529c-48fd-ba12-94903187a216",
     "firstName": "Salih",
     "lastName": "Guler",
@@ -1785,6 +2550,11 @@
         "title": "Twitter",
         "url": "https://twitter.com/salomonbrys",
         "linkType": "Twitter"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://kodein.net",
+        "linkType": "Company_Website"
       }
     ],
     "questionAnswers": [],
@@ -1940,8 +2710,8 @@
     "firstName": "Seyed",
     "lastName": "Jafari",
     "fullName": "Seyed Jafari",
-    "bio": "I'd like to work closely with the community and try to help people out. I have given a few talks before. I have a blog that I try to keep updated. \r\n\r\nBeing part of the Droidcon family is definitely the next step for me.\r\n\r\nlinks:\r\nhttps://www.youtube.com/watch?v=-VZjpSw3r5Y\r\nhttps://www.youtube.com/watch?v=NmdMg-G6Pr0\r\nhttps://www.youtube.com/watch?v=W9nWGzRTmgw\r\nhttps://www.youtube.com/watch?v=gULVhLvbkwU\r\nhttps://www.youtube.com/watch?v=-Ga_CroMJ0Y\r\n\r\nwebsite:\r\nhttps://worldsnas.com\r\n",
-    "tagLine": "Senior Android Engineer @AUTO1",
+    "bio": "I enjoy creating software and sharing my knowledge.\r\n\r\nAndroid is my day-to-day but working on Python scripts, IOS apps, Desktop apps are also really interesting.\r\n\r\nAs a human being, I would love to help people out in any way possible.\r\n\r\nFollow me on Twitter: @worldsnas\r\nor check my blog: worldsnas.com\r\n",
+    "tagLine": "Senior Software Engineer @ Revolut Ltd",
     "profilePicture": "https://sessionize.com/image/2fd1-400o400o2-70-903d-4990-9377-95048497d702.5506ec57-771f-4c9e-9d89-26e7e02e71bb.png",
     "sessions": [
       {
@@ -1999,6 +2769,45 @@
       {
         "title": "Company Website",
         "url": "http://www.shailvi.com",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "bc346296-9555-45d1-abde-8a05a51121c7",
+    "firstName": "Simon",
+    "lastName": "Lightfoot",
+    "fullName": "Simon Lightfoot",
+    "bio": "Simon has been developing apps for 20+ years, with a focus on Android the past 13 years. Working on such apps as the BBC News and TD Ameritrade. Deciding to setup his own App Development Agency in 2015.\r\n\r\nHis focus has been in Flutter the past 4 years. Over that time Simon has helped setup the Flutter Community and Flutter Study Group.",
+    "tagLine": "Flutter Community Leader and CTO DevAngels London",
+    "profilePicture": "https://sessionize.com/image/b309-400o400o2-KKomxc1bcn6URkD9auBs3x.jpg",
+    "sessions": [
+      {
+        "id": 291558,
+        "name": "Flutter Flutter Flutter"
+      },
+      {
+        "id": 291559,
+        "name": "Flutter Panel"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/devangelslondon",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/simonlightfoot",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://www.devangels.london/",
         "linkType": "Company_Website"
       }
     ],
