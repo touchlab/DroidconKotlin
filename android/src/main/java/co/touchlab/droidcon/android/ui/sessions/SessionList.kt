@@ -15,13 +15,14 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
+import androidx.compose.material.TabRowDefaults
+import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,6 +39,8 @@ import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.viewModel.sessions.BaseSessionListViewModel
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun SessionList(navController: NavHostController, sessions: BaseSessionListViewModel, @StringRes emptyRes: Int) {
@@ -56,7 +59,19 @@ fun SessionList(navController: NavHostController, sessions: BaseSessionListViewM
             if (days.isEmpty()) {
                 Empty(emptyRes)
             } else {
-                TabRow(selectedTabIndex = selectedTabIndex) {
+                TabRow(
+                    selectedTabIndex = selectedTabIndex,
+                    indicator = { tabPositions ->
+                        if (tabPositions.indices.contains(selectedTabIndex)) {
+                            TabRowDefaults.Indicator(
+                                Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex])
+                            )
+                        } else {
+                            Firebase.crashlytics.recordException(IllegalStateException("SessionList TabRow requested an indicator for selectedTabIndex: $selectedTabIndex, but only got ${tabPositions.count()} tabs."))
+                            TabRowDefaults.Indicator()
+                        }
+                    }
+                ) {
                     days.forEachIndexed { index, daySchedule ->
                         Tab(selected = selectedTabIndex == index, onClick = { selectedTabIndex = index }) {
                             Text(

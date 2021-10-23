@@ -4,7 +4,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("com.google.gms.google-services")
-    // id("com.google.firebase.crashlytics") //WTF. Every damn time we try to use Crashlytics something is broke...
+    id("com.google.firebase.crashlytics")
 }
 val releaseEnabled = file("./release.jks").exists()
 
@@ -26,11 +26,11 @@ android {
 
     compileSdk = androidCompileSdk.toInt()
     defaultConfig {
-        applicationId = "co.touchlab.droidcon.berlin"
+        applicationId = "co.touchlab.droidcon.london"
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
-        versionCode = 20003
-        versionName = "2.0.3"
+        versionCode = 20006
+        versionName = "2.0.6"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {
@@ -56,6 +56,9 @@ android {
         }
     }
     compileOptions {
+        // Flag to enable support for the new language APIs
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -94,4 +97,7 @@ dependencies {
     implementation(libs.accompanist.coil)
     implementation(libs.accompanist.insets)
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+
+    coreLibraryDesugaring(libs.android.desugar)
 }

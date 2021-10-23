@@ -1,7 +1,7 @@
 {
   "documents": [
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2021/bronze",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/bronze",
       "fields": {
         "sponsors": {
           "arrayValue": {
@@ -15,11 +15,11 @@
                     "sponsorId": {
                       "stringValue": ""
                     },
-                    "name": {
-                      "stringValue": "Bitrise"
-                    },
                     "url": {
                       "stringValue": "https://www.bitrise.io/why/technologies/android-continuous-integration"
+                    },
+                    "name": {
+                      "stringValue": "bitrise"
                     }
                   }
                 }
@@ -27,71 +27,17 @@
               {
                 "mapValue": {
                   "fields": {
-                    "name": {
-                      "stringValue": "ebay"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://tech.ebayinc.com/?utm=derd-droidcon2021"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ede17a23b2d54f67bddf1cfaa147814b~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://mobimeo.com/"
-                    },
-                    "name": {
-                      "stringValue": "Mobimeo"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_80ff5f3c534044acb7bace2a0e2f1c08~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_bdb3e1ef700e40e2b99c636e8207b85b~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "Gradle"
-                    },
                     "sponsorId": {
                       "stringValue": ""
                     },
                     "url": {
                       "stringValue": "https://gradle.com/"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
+                    },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9df3c1dc3d5f43eba7a87028321808b0~mv2.png"
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_bdb3e1ef700e40e2b99c636e8207b85b~mv2.png"
                     },
                     "name": {
-                      "stringValue": "Babbel"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://jobs.babbel.com/en/departments/engineering/"
+                      "stringValue": "gradle"
                     }
                   }
                 }
@@ -100,13 +46,13 @@
                 "mapValue": {
                   "fields": {
                     "url": {
-                      "stringValue": "https://www.payback.group/de/jobs/"
-                    },
-                    "name": {
-                      "stringValue": "Payback"
+                      "stringValue": "https://www.comparethemarket.com/?AFFCLIE=FL77&SRC=FL77&cmpid=PC-_-BNG-_-AL-_-BRD-_-DXYftulWPXVTXOw&gclid=3302638e16931990bc4902d8dab28300&gclsrc=3p.ds&TrackerID=43700005301754954&msclkid=3302638e16931990bc4902d8dab28300"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_6f77e49363e74719b01b8d0cc77275d9~mv2.png"
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_82cd5f0203ad46bab249ca3e2ce88e1d~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "bgl"
                     },
                     "sponsorId": {
                       "stringValue": ""
@@ -118,506 +64,16 @@
                 "mapValue": {
                   "fields": {
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_53f5466b1ed44f608a0fad6eff62be35~mv2.png"
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9a3fa4646e21449c8e50c2c2272a09b8~mv2.png"
                     },
                     "sponsorId": {
                       "stringValue": ""
                     },
                     "url": {
-                      "stringValue": "https://career.axelspringer.com/de/tech"
+                      "stringValue": "https://www.mongodb.com/realm/lp?utm_source=google&utm_campaign=gs_footprint_row_search_brand_realm_atlas_product_desktop&utm_term=realm%20mongo&utm_medium=cpc_paid_search&utm_ad=p&utm_ad_campaign_id=11303420057&gclid=Cj0KCQjw-4SLBhCVARIsACrhWLVwgzPGheWGaBMUmObmZo_ypfQamkuexBatmxG1CZVpY2G8zSLW-NgaAg7JEALw_wcB"
                     },
                     "name": {
-                      "stringValue": "Axel Springer"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ae72477f27aa402e9aa3e9d802d72da8~mv2.png"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "REWE Digital"
-                    },
-                    "url": {
-                      "stringValue": "https://www.rewe-digital.com/en/index.html"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://de.scalable.capital/careers"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_018b27c86c2b401ebb5cc79b1f001f45~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "scalable.capital"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "realm by MongoDB"
-                    },
-                    "url": {
-                      "stringValue": "https://www.mongodb.com/realm/lp?utm_source=google&utm_campaign=gs_footprint_row_search_brand_realm_atlas_product_desktop&utm_term=realm&utm_medium=cpc_paid_search&utm_ad=p&utm_ad_campaign_id=11303420057&gclid=Cj0KCQjw-4SLBhCVARIsACrhWLU5Zo37c0u0rrEIgUxUSbXkF68I342Wz_b4ucPyzcLDbAuGtMSN1N8aAoyzEALw_wcB"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_dcb42910647347e0927d5e03bc9064aa~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "circleci"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_b681c37cbc0e42c6be6a54997dda907f~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://circleci.com/"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "displayOrder": {
-          "integerValue": "3"
-        }
-      },
-      "createTime": "2021-10-07T08:30:20.623759Z",
-      "updateTime": "2021-10-09T12:06:48.289193Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2021/community",
-      "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://coderbee.de/"
-                    },
-                    "name": {
-                      "stringValue": "Coder Bee"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_4997654e61534e368044149f083287f4~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_a71b7f43e59442cba10a21e4c4667812~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://berlindroid.de/"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "GDG BerlinDroid"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "stickermule"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_188ba557e7ea49e2a5fb50216a650f85~mv2.jpeg"
-                    },
-                    "url": {
-                      "stringValue": "https://www.stickermule.com/de/uses?utm_source=google&utm_id=droidconberlin21"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://www.womenwhocode.com/berlin"
-                    },
-                    "name": {
-                      "stringValue": "Women Who Code Berlin"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_09aa46a490354778b1875bc38addd27e~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_515a542debbe4140b3a7657807674559~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "Women Techmakers Berlin"
-                    },
-                    "url": {
-                      "stringValue": "https://wtmberlin.com/"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "displayOrder": {
-          "integerValue": "6"
-        }
-      },
-      "createTime": "2021-10-07T19:18:19.215008Z",
-      "updateTime": "2021-10-09T21:53:29.727398Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2021/enterprise",
-      "fields": {
-        "displayOrder": {
-          "integerValue": "1"
-        },
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://developer.android.com/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_924be2e6c8924753b03af54bde6acc33~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "Android Developers"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        }
-      },
-      "createTime": "2021-10-07T19:17:45.427226Z",
-      "updateTime": "2021-10-07T19:28:49.953023Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2021/gold",
-      "fields": {
-        "displayOrder": {
-          "integerValue": "0"
-        },
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "Microsoft Surface Duo"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://docs.microsoft.com/en-us/dual-screen/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_1d72fd0d4a3547aeb28e706352195e2e~mv2.png"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        }
-      },
-      "createTime": "2021-10-07T19:17:37.541122Z",
-      "updateTime": "2021-10-07T19:25:07.730944Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2021/lanyard",
-      "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://getstream.io/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_5bdc2eb4e8d3441681aad083c36bbb0c~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "Stream"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "displayOrder": {
-          "integerValue": "5"
-        }
-      },
-      "createTime": "2021-10-07T19:18:11.809351Z",
-      "updateTime": "2021-10-07T20:33:21.789663Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2021/silver",
-      "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://developer.zebra.com/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9715d9be34a2402296d543cb1e9cdbb2~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "Zebra"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "sipgate"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_fa03653e4eba4f47ba909cd9d23ccd77~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://www.sipgate.de/jobs"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_55ee4ec3243845d99d185588a20d399b~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://careers.deliveryhero.com/global/en?utm_source=Conference&utm_medium=droidcon2021&utm_campaign=Conference_droidcon2021_October_2021"
-                    },
-                    "name": {
-                      "stringValue": "Delivery Hero"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "Zalando"
-                    },
-                    "url": {
-                      "stringValue": "https://jobs.zalando.com/en/tech/client-engineering?utm_source=droidcon&utm_content=09-cto-ab"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_abf9982a19ba446383629ee7429ba5ff~mv2.png"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "displayOrder": {
-          "integerValue": "2"
-        }
-      },
-      "createTime": "2021-10-07T09:06:12.066644Z",
-      "updateTime": "2021-10-07T20:25:11.148696Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2021/speaker",
-      "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_428884b47a7b4ac6ab2a3d99d9d35b9a~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://www.appdev.de/"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "appDev"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_19afe74137734528ad8ef0291040ba6d~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://education.github.com/pack"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "GitHub"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_e8fdc5af6e024434bff37e4d57143a5a~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "DNB"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://www.dnb.no/en/personal"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "displayOrder": {
-          "integerValue": "7"
-        }
-      },
-      "createTime": "2021-10-07T19:18:31.357769Z",
-      "updateTime": "2021-10-08T08:09:56.081419Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2021/startup",
-      "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "Repeato"
-                    },
-                    "url": {
-                      "stringValue": "https://www.repeato.app/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_a83f5321875c4a96a6c6505bf18ea7db~mv2.png"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "eShard"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_297cd9b717dc45c9a5b81fd61b96caad~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://eshard.com/eschecker/"
+                      "stringValue": "Realm by MongoDB"
                     }
                   }
                 }
@@ -629,8 +85,372 @@
           "integerValue": "4"
         }
       },
-      "createTime": "2021-10-07T19:18:04.159132Z",
-      "updateTime": "2021-10-08T08:12:45.848370Z"
+      "createTime": "2021-10-07T09:38:35.789971Z",
+      "updateTime": "2021-10-09T17:09:09.612933Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/community",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_371d553d0a7740ca92d4f5b2ade7d146~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://flutterldn.dev/"
+                    },
+                    "name": {
+                      "stringValue": "Flutter London"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "sitckermule"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_37f9a927f88a49e8b7486399c347e75d~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.stickermule.com/uk/uses?utm_source=google&utm_id=droidconlondon21"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "7"
+        }
+      },
+      "createTime": "2021-10-09T13:23:24.953435Z",
+      "updateTime": "2021-10-09T17:18:22.002550Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/enterprise",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://developer.android.com/"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "name": {
+                      "stringValue": "android developers"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_924be2e6c8924753b03af54bde6acc33~mv2.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "1"
+        }
+      },
+      "createTime": "2021-10-09T13:22:52.832673Z",
+      "updateTime": "2021-10-09T13:59:48.873599Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/gold",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://docs.microsoft.com/en-us/dual-screen/"
+                    },
+                    "name": {
+                      "stringValue": "Microsoft Surface Duo"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_1e729823c5224d5e812f8ceb2782136d~mv2.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "0"
+        }
+      },
+      "createTime": "2021-10-09T13:22:43.794263Z",
+      "updateTime": "2021-10-09T13:45:25.269951Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/silver",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "3"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Zebra Developers"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9715d9be34a2402296d543cb1e9cdbb2~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://developer.zebra.com/"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_b681c37cbc0e42c6be6a54997dda907f~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "cirecleci"
+                    },
+                    "url": {
+                      "stringValue": "https://circleci.com/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.guardsquare.com/"
+                    },
+                    "name": {
+                      "stringValue": "Guardsquare"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ffaec42a0bca4d2c95bd453f1870b8d6~mv2.jpeg"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_a6b6ea89e7424211bcd37b84fd2e9234~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "YOTI"
+                    },
+                    "url": {
+                      "stringValue": "https://www.yoti.com/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "asos"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "url": {
+                      "stringValue": "https://www.asos.com/"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_4f4978129f974ae2b813546dae1c591a~mv2.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2021-10-09T13:22:56.294169Z",
+      "updateTime": "2021-10-09T14:50:52.377075Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/speaker",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_daabcbcb173a4654866b58f67bd84fa6~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "DNB"
+                    },
+                    "url": {
+                      "stringValue": "https://www.dnb.no/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "name": {
+                      "stringValue": "appDev"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_aef70831880b4d1c8c364fdd95d9062b~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.appdev.de/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "SBER"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_8dfe92cbf409411cb76cca7945df9fc1~mv2.png"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "url": {
+                      "stringValue": "https://sberdevices.ru/"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "6"
+        }
+      },
+      "createTime": "2021-10-09T13:23:39.119748Z",
+      "updateTime": "2021-10-09T18:11:30.138495Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/startup",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "5"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "eShard"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_73b9bc64488841bab0deb9f60dc7fc4e~mv2.jpeg"
+                    },
+                    "url": {
+                      "stringValue": "https://eshard.com/"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2021-10-09T13:23:17.788469Z",
+      "updateTime": "2021-10-09T17:15:26.637933Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/video",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Amex"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_78d1ededaf26463b9949dcd9a427f109~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.americanexpress.com/de-de/"
+                    },
+                    "sponsorId": {
+                      "stringValue": ""
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "2"
+        }
+      },
+      "createTime": "2021-10-09T13:27:03.417559Z",
+      "updateTime": "2021-10-09T14:16:28.574144Z"
     }
   ]
 }

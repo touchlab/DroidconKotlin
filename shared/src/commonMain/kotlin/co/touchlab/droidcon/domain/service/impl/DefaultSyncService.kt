@@ -60,8 +60,10 @@ class DefaultSyncService(
         // MARK: Delays
         // 5 minutes
         private const val SESSIONIZE_SYNC_POLL_DELAY: Long = 5L * 60L * 1000L
-        // 2 hours
-        private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 2L * 60L * 60L * 1000L
+
+        private const val SESSIONIZE_SYNC_SINCE_LAST_MINUTES = 15
+
+        private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 1L * 60L * 60L * 1000L
         // 5 minutes
         private const val RSVP_SYNC_DELAY: Long = 5L * 60L * 1000L
         // 5 minutes
@@ -89,7 +91,7 @@ class DefaultSyncService(
                 while (isActive) {
                     val lastSessionizeSync = lastSessionizeSync
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
-                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(2, DateTimeUnit.HOUR)) {
+                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)) {
                         log.d { "Will sync all repositories from API data source." }
                         try {
                             updateRepositoriesFromDataSource(apiDataSource)
@@ -182,13 +184,17 @@ class DefaultSyncService(
         val speakerDtos = dataSource.getSpeakers()
         val days = dataSource.getSchedule()
         val sponsorSessionsGroups = dataSource.getSponsorSessions()
-        val sponsors = dataSource.getSponsors()
 
         //DB Transactions for db mods are ridiculously faster than non-trans changes. Also, if something fails, thd db will roll back.
         //The repo architecture will likely need to change. Everything is suspend and unconcerned with thread, but that's not good practice.
         db.transaction {
             updateSpeakersFromDataSource(speakerDtos)
             updateScheduleFromDataSource(days)
+        }
+
+        //Sponsors may fail due to firebase errors, so we'll do this separate
+        val sponsors = dataSource.getSponsors()
+        db.transaction {
             updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors)
         }
     }

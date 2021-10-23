@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id("android-gradle") apply false
+    id("com.google.firebase.crashlytics") apply false
     kotlin("multiplatform") apply false
     id("org.jlleitschuh.gradle.ktlint")
 }
