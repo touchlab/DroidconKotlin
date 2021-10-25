@@ -8,7 +8,7 @@
     <string name="notification_feedback_body">Your Feedback is Requested.</string>
 
     <string name="schedule_title">Schedule</string>
-    <string name="droidcon_title">Droidcon Berlin 2021</string>
+    <string name="droidcon_title">Droidcon London 2021</string>
     <string name="schedule_session_detail_title">Session</string>
     <string name="schedule_session_detail_status_future">This session hasn\'t started yet.</string>
     <string name="schedule_session_detail_status_in_progress">This session is happening now.</string>
