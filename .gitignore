@@ -82,9 +82,9 @@ fastlane/test_output
 .DS_Store
 
 buildboth.sh
-sessionize/app/google-services.json
-iosApp/iosApp/app/GoogleService-Info.plist
-iosApp/iosApp/GoogleService-Info.plist
+google-services.json
+GoogleService-Info.plist
+GoogleService-Info.plist
 Pods/
 *.xcworkspace
 .idea/inspectionProfiles/profiles_settings.xml
