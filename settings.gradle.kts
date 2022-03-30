@@ -61,7 +61,7 @@ dependencyResolutionManagement {
             val koinRef = version("koin", "3.1.5")
             val kermitRef = version("kermit", "1.0.3")
             val statelyRef = version("stately", "1.2.1")
-            val ktorRef = version("ktor", "1.6.8") // TODO bump to 2.x beta (breaking changes)
+            val ktorRef = version("ktor", "2.0.0-beta-1")
             val multiplatformSettingsRef = version("multiplatformSettings", "0.8.1")
             val hyperdriveRef = version("hyperdrive", "0.1.110")
             val accompanistCoilRef = version("accompanistCoil", "0.15.0")
