@@ -1,0 +1,17 @@
+name: faktory_build
+on:
+  pull_request:
+    branches:
+      - "**"
+  push:
+    branches:
+      - "develop"
+
+jobs:
+  call-workflow-in-another-repo:
+    uses: touchlab/FaktoryWorkflow/.github/workflows/faktorybuild.yml@main
+    with:
+      faktory_module: ./ios
+      build_branch: develop
+    secrets:
+      FAKTORY_SECRET_KEY: ${{ secrets.FAKTORY_SECRET_KEY }}
