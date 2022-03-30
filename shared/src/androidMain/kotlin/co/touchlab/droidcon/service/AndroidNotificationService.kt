@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.service
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -11,11 +10,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.RemoteException
 import androidx.core.app.NotificationCompat
-import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.util.IdentifiableIntent
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
@@ -30,7 +29,7 @@ import kotlin.time.ExperimentalTime
 class AndroidNotificationService(
     private val context: Context,
     private val entrypointActivity: Class<out Activity>,
-    private val log: Kermit,
+    private val log: Logger,
     private val settings: ObservableSettings,
     private val json: Json,
 ): NotificationService {

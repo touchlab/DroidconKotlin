@@ -21,7 +21,7 @@ import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
@@ -29,7 +29,6 @@ import com.russhwolf.settings.set
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
@@ -39,7 +38,7 @@ import kotlinx.datetime.minus
 
 @OptIn(ExperimentalSettingsApi::class)
 class DefaultSyncService(
-    private val log: Kermit,
+    private val log: Logger,
     private val settings: ObservableSettings,
     private val dateTimeService: DateTimeService,
     private val profileRepository: ProfileRepository,

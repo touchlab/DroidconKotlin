@@ -3,8 +3,9 @@ package co.touchlab.droidcon
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.droidcon.service.AndroidNotificationService
-import co.touchlab.kermit.Kermit
-import co.touchlab.kermit.LogcatLogger
+import co.touchlab.kermit.LogcatWriter
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.StaticConfig
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.squareup.sqldelight.db.SqlDriver
 import io.ktor.client.engine.HttpClientEngine
@@ -32,7 +33,7 @@ actual val platformModule: Module = module {
         )
     }
 
-    val baseKermit = Kermit(LogcatLogger()).withTag("Droidcon")
+    val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(LogcatWriter())), tag = "Droidcon")
     factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
 }
 

@@ -59,7 +59,7 @@ dependencyResolutionManagement {
             val datetimeRef = version("kotlinx-datetime", "0.3.2")
             val serializationRef = version("kotlinx-serialization", "1.3.2")
             val koinRef = version("koin", "3.1.5")
-            val kermitRef = version("kermit", "0.1.9") // TODO bump to 1.x (breaking changes)
+            val kermitRef = version("kermit", "1.0.3")
             val statelyRef = version("stately", "1.2.1")
             val ktorRef = version("ktor", "1.6.8") // TODO bump to 2.x beta (breaking changes)
             val multiplatformSettingsRef = version("multiplatformSettings", "0.8.1")
