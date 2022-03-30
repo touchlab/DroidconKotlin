@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.BadgeBox
+import androidx.compose.material.Badge
+import androidx.compose.material.BadgedBox
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -48,9 +49,9 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                         session.isColliding -> Colors.orange
                         else -> Colors.skyBlue
                     }
-                    BadgeBox(
+                    BadgedBox(
                         modifier = Modifier.padding(Dimensions.Padding.default),
-                        backgroundColor = badgeColor,
+                        badge = { Badge(backgroundColor = badgeColor) { } }
                     ) { }
 
                     val backgroundColor = if (hasEnded) MaterialTheme.colors.surface else MaterialTheme.colors.background
