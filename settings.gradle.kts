@@ -5,6 +5,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven("https://api.touchlab.dev/mvn/2121236024984723A81D74EC73")
     }
 
     val kotlinVersion: String by settings
@@ -35,6 +36,9 @@ pluginManagement {
     }
 }
 
+plugins {
+    id("co.touchlab.faktory-build-cache") version "0.8.8"
+}
 
 enableFeaturePreview("VERSION_CATALOGS")
 
@@ -47,7 +51,7 @@ dependencyResolutionManagement {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
             val composeRef = version("compose", "1.0.2")
-            val composeCompilerRef = version("compose-compiler", "1.1.0-alpha04")
+            val composeCompilerRef = version("compose-compiler", "1.2.0-dev-k1.6.20-RC2-727605f905e") // TODO this is prerelease version
             val composeActivityRef = version("composeActivity", "1.4.0-alpha02")
             val composeNavigationRef = version("composeNavigation", "2.4.0-alpha09")
             val splashcreenRef = version("splashscreen", "1.0.0-alpha02")

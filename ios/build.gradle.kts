@@ -5,6 +5,12 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
+    id("co.touchlab.faktory") version "0.8.12"
+}
+
+faktory {
+    faktoryReadKey.set("2121236024984723A81D74EC73")
+    cocoapods()
 }
 
 version = "1.0"
@@ -45,7 +51,6 @@ kotlin {
             baseName = "DroidconKit"
             isStatic = true
         }
-        noPodspec()
     }
 
     // Configure the framework which is generated internally by cocoapods plugin
