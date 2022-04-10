@@ -5,11 +5,11 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
-    id("co.touchlab.faktory") version "0.8.12"
+    id("co.touchlab.faktory") version "0.8.13"
 }
 
 faktory {
-    faktoryReadKey.set("2121236024984723A81D74EC73")
+    faktoryReadKey.set("0188C1E28E7B4C7598CCBB496B")
     cocoapods()
 }
 
