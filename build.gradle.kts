@@ -11,7 +11,6 @@ allprojects {
         google()
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
-        maven("https://api.touchlab.dev/mvn/2121236024984723A81D74EC73")
         maven("https://androidx.dev/storage/compose-compiler/repository/") // TODO Remove this once we're back on release compose version
     }
 }
