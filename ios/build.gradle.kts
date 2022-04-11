@@ -47,8 +47,9 @@ kotlin {
     cocoapods {
         summary = "Common library for the Droidcon app"
         homepage = "https://github.com/touchlab/DroidconKotlin"
+        // TODO we can't set name here until 1.6.20, and Faktory seems to be pulling us down to 1.6.10
+        // name = "DroidconKit"
         framework {
-            baseName = "DroidconKit"
             isStatic = true
         }
     }
