@@ -70,6 +70,9 @@ dependencyResolutionManagement {
             val firebaseAnalyticsRef = version("firebase-analytics", "20.1.2")
             val firebaseCrashlyticsRef = version("firebase-crashlytics", "18.2.9")
             val uuidRef = version("uuid", "0.4.0")
+            val junitRef = version("junit", "4.13.2")
+            val junitKtxRef = version("junitKtx", "1.1.3")
+            val coroutinesTestRef = version("coroutinesTest", "1.6.0-native-mt")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
             alias("android-desugar").to("com.android.tools", "desugar_jdk_libs").version("1.1.5")
@@ -119,6 +122,10 @@ dependencyResolutionManagement {
             alias("firebase-crashlytics").to("com.google.firebase", "firebase-crashlytics-ktx").versionRef(firebaseCrashlyticsRef)
 
             alias("uuid").to("com.benasher44", "uuid").versionRef(uuidRef)
+
+            alias("test-junit").to("junit", "junit").versionRef(junitRef)
+            alias("test-junitKtx").to("androidx.test.ext", "junit-ktx").versionRef(junitKtxRef)
+            alias("test-coroutines").to("org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutinesTestRef)
 
             bundle(
                 "androidx-compose",

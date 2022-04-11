@@ -102,6 +102,12 @@ kotlin {
         implementation(libs.androidx.core)
     }
 
+    sourceSets["androidTest"].dependencies {
+        implementation(libs.test.junit)
+        implementation(libs.test.junitKtx)
+        implementation(libs.test.coroutines)
+    }
+
     sourceSets["iosMain"].dependencies {
         implementation(libs.sqldelight.driver.ios)
         implementation(libs.ktor.client.ios)
