@@ -66,6 +66,7 @@ dependencyResolutionManagement {
             val hyperdriveRef = version("hyperdrive", "0.1.110")
             val accompanistCoilRef = version("accompanistCoil", "0.15.0")
             val accompanistInsetsRef = version("accompanistInsets", "0.23.1")
+            val accompanistNavigationAnimationRef = version("accompanistNavigationAnimation", "0.24.6-alpha")
             val coreRef = version("androidx-core", "1.7.0")
             val firebaseAnalyticsRef = version("firebase-analytics", "20.1.2")
             val firebaseCrashlyticsRef = version("firebase-crashlytics", "18.2.9")
@@ -113,6 +114,7 @@ dependencyResolutionManagement {
             alias("multiplatformSettings-test").to("com.russhwolf", "multiplatform-settings-test").versionRef(multiplatformSettingsRef)
             alias("accompanist-coil").to("com.google.accompanist", "accompanist-coil").versionRef(accompanistCoilRef)
             alias("accompanist-insets").to("com.google.accompanist", "accompanist-insets").versionRef(accompanistInsetsRef)
+            alias("accompanist-navigationAnimation").to("com.google.accompanist", "accompanist-navigation-animation").versionRef(accompanistNavigationAnimationRef)
 
             alias("hyperdrive-multiplatformx-api").to("org.brightify.hyperdrive", "multiplatformx-api").versionRef(hyperdriveRef)
 
