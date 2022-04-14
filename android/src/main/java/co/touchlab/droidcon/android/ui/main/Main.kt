@@ -2,6 +2,12 @@ package co.touchlab.droidcon.android.ui.main
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -16,10 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.ProfileDetail
@@ -36,6 +39,9 @@ import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.entity.Sponsor
 import com.google.accompanist.insets.systemBarsPadding
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 sealed class MainTab(val route: String, @StringRes val titleRes: Int, @DrawableRes val image: Int) {
     object Schedule: MainTab("schedule", R.string.schedule_title, R.drawable.menu_schedule)
@@ -77,6 +83,7 @@ sealed class SponsorsScreen(val route: String) {
 
 val tabs: List<MainTab> = listOf(MainTab.Schedule, MainTab.MyAgenda, MainTab.Sponsors, MainTab.Settings)
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Main(main: MainViewModel) {
     val feedback by main.showFeedback.collectAsState()
@@ -84,7 +91,7 @@ fun Main(main: MainViewModel) {
         Feedback(it)
     }
 
-    val navController = rememberNavController()
+    val navController = rememberAnimatedNavController()
     Scaffold(
         modifier = Modifier.systemBarsPadding(),
         bottomBar = {
@@ -113,15 +120,48 @@ fun Main(main: MainViewModel) {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = MainTab.Schedule.route, Modifier.padding(innerPadding)) {
+        AnimatedNavHost(navController, startDestination = MainTab.Schedule.route, Modifier.padding(innerPadding)) {
             navigation(ScheduleScreen.Main.route, MainTab.Schedule.route) {
                 composable(ScheduleScreen.Main.route) { Schedule(navController) }
-                composable(ScheduleScreen.SessionDetail.route) { backStackEntry ->
+                composable(
+                    route = ScheduleScreen.SessionDetail.route,
+                    enterTransition = {
+                        if (initialState.destination.route == ScheduleScreen.Main.route) {
+                            slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
+                        } else {
+                            fadeIn()
+                        }
+                    },
+                    popEnterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.Up) },
+                    exitTransition = {
+                        if (targetState.destination.route == ScheduleScreen.Main.route) {
+                            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
+                        } else {
+                            fadeOut()
+                        }
+                    },
+                ) { backStackEntry ->
                     val sessionId = backStackEntry.arguments?.getString("sessionId")
                     requireNotNull(sessionId) { "Parameter sessionId not found." }
                     SessionDetail(navController, Session.Id(sessionId))
                 }
-                composable(ScheduleScreen.SpeakerDetail.route) { backStackEntry ->
+                composable(
+                    route = ScheduleScreen.SpeakerDetail.route,
+                    enterTransition = {
+                        if (initialState.destination.route == ScheduleScreen.SessionDetail.route) {
+                            slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
+                        } else {
+                            fadeIn()
+                        }
+                    },
+                    exitTransition = {
+                        if (targetState.destination.route == ScheduleScreen.SessionDetail.route) {
+                            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
+                        } else {
+                            fadeOut()
+                        }
+                    },
+                ) { backStackEntry ->
                     val speakerId = backStackEntry.arguments?.getString("speakerId")
                     requireNotNull(speakerId) { "Parameter speakerId not found." }
                     ProfileDetail(navController, Profile.Id(speakerId))
@@ -132,7 +172,23 @@ fun Main(main: MainViewModel) {
 
             navigation(SponsorsScreen.Main.route, MainTab.Sponsors.route) {
                 composable(SponsorsScreen.Main.route) { SponsorList(navController) }
-                composable(SponsorsScreen.Detail.route) { backStackEntry ->
+                composable(
+                    route = SponsorsScreen.Detail.route,
+                    enterTransition = {
+                        if (initialState.destination.route == SponsorsScreen.Main.route) {
+                            slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
+                        } else {
+                            fadeIn()
+                        }
+                    },
+                    exitTransition = {
+                        if (targetState.destination.route == SponsorsScreen.Main.route) {
+                            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
+                        } else {
+                            fadeOut()
+                        }
+                    },
+                ) { backStackEntry ->
                     val sponsorName = requireNotNull(backStackEntry.arguments?.getString("sponsorName")) {
                         "Parameter sponsorName not found."
                     }
@@ -142,7 +198,23 @@ fun Main(main: MainViewModel) {
 
                     SponsorDetail(navController, Sponsor.Id(name = sponsorName, group = sponsorGroup))
                 }
-                composable(SponsorsScreen.RepresentativeDetail.route) { backStackEntry ->
+                composable(
+                    route = SponsorsScreen.RepresentativeDetail.route,
+                    enterTransition = {
+                        if (initialState.destination.route == SponsorsScreen.Detail.route) {
+                            slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
+                        } else {
+                            fadeIn()
+                        }
+                    },
+                    exitTransition = {
+                        if (targetState.destination.route == SponsorsScreen.Detail.route) {
+                            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
+                        } else {
+                            fadeOut()
+                        }
+                    },
+                ) { backStackEntry ->
                     val representativeId = backStackEntry.arguments?.getString("representativeId")
                     requireNotNull(representativeId) { "Parameter representativeId not found." }
                     ProfileDetail(navController, Profile.Id(representativeId))
@@ -151,7 +223,23 @@ fun Main(main: MainViewModel) {
 
             navigation(SettingsScreen.Main.route, MainTab.Settings.route) {
                 composable(SettingsScreen.Main.route) { Settings(navController) }
-                composable(SettingsScreen.About.route) { About(navController) }
+                composable(
+                    route = SettingsScreen.About.route,
+                    enterTransition = {
+                        if (initialState.destination.route == SettingsScreen.Main.route) {
+                            slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
+                        } else {
+                            fadeIn()
+                        }
+                    },
+                    exitTransition = {
+                        if (targetState.destination.route == SettingsScreen.Main.route) {
+                            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
+                        } else {
+                            fadeOut()
+                        }
+                    },
+                ) { About(navController) }
             }
         }
     }
