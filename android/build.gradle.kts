@@ -96,6 +96,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.accompanist.coil)
     implementation(libs.accompanist.insets)
+    implementation(libs.accompanist.navigationAnimation)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
 
