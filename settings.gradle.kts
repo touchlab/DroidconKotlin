@@ -158,5 +158,11 @@ dependencyResolutionManagement {
     }
 }
 
-include(":shared", ":android", ":ios")
+include(":shared", ":android")
+
+// Hacky module naming so that our podSpec comes out with the correct name while still using the ios/ directory
+// TODO once we update Faktory to 1.6.20, this can go back to include(":ios") with the other includes
+include(":DroidconKit")
+project(":DroidconKit").projectDir = File("ios")
+
 rootProject.name = "Droidcon"
