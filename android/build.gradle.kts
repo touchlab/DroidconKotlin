@@ -40,9 +40,9 @@ android {
         signingConfigs {
             create("release") {
                 keyAlias = "key0"
-                keyPassword = "$releasePassword"
+                keyPassword = releasePassword
                 storeFile = file("./release.jks")
-                storePassword = "$releasePassword"
+                storePassword = releasePassword
             }
         }
     }
@@ -78,7 +78,7 @@ android {
     }
 
     packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+        resources.excludes.add("META-INF/*.kotlin_module")
     }
 
     composeOptions {
