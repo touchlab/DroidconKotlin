@@ -9,7 +9,7 @@ plugins {
 }
 
 faktory {
-    faktoryReadKey.set("0188C1E28E7B4C7598CCBB496B")
+    faktoryReadKey.set("285E7757D9384C5EA5CC175816")
     cocoapods()
 }
 
