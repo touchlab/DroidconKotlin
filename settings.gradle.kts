@@ -5,7 +5,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven("https://api.touchlab.dev/mvn/0188C1E28E7B4C7598CCBB496B")
+        maven("https://api.touchlab.dev/mvn/285E7757D9384C5EA5CC175816")
     }
 
     val kotlinVersion: String by settings
@@ -37,7 +37,7 @@ pluginManagement {
 }
 
 plugins {
-    id("co.touchlab.faktory-build-cache") version "0.8.13"
+    id("co.touchlab.faktory-build-cache") version "0.8.15"
 }
 
 enableFeaturePreview("VERSION_CATALOGS")
