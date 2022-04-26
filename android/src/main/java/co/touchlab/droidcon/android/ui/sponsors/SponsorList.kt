@@ -51,8 +51,10 @@ import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.viewModel.sponsors.SponsorGroupViewModel
 import co.touchlab.droidcon.android.viewModel.sponsors.SponsorListViewModel
-import com.google.accompanist.coil.rememberCoilPainter
-import com.google.accompanist.imageloading.ImageLoadState
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.ImagePainter
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
 import kotlin.math.min
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -84,6 +86,7 @@ fun SponsorList(navController: NavHostController) {
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: NavHostController) {
     val uriHandler = LocalUriHandler.current
@@ -115,7 +118,14 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                     val startIndex = rowIndex * columnCount
                     val endIndex = min(startIndex + columnCount, sponsors.size)
                     sponsors.subList(startIndex, endIndex).forEach { sponsor ->
-                        val resource = rememberCoilPainter(request = sponsor.imageUrl.string)
+
+                        val resource = rememberImagePainter(
+                            data = sponsor.imageUrl.string,
+                            imageLoader = LocalImageLoader.current,
+                            builder = {
+                                placeholder(0)
+                            }
+                        )
 
                         Box(
                             modifier = Modifier
@@ -133,7 +143,7 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                                 },
                             contentAlignment = Alignment.Center,
                         ) {
-                            if (resource.loadState !is ImageLoadState.Success) {
+                            if (resource.state !is ImagePainter.State.Success) {
                                 Text(
                                     text = sponsor.name,
                                     modifier = Modifier.padding(Dimensions.Padding.half),

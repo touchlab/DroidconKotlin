@@ -1,5 +1,5 @@
 PODS:
-  - DroidconKit (1.1)
+  - DroidconKit (1.0)
   - Firebase/Analytics (8.5.0):
     - Firebase/Core
   - Firebase/Core (8.5.0):
@@ -107,7 +107,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DroidconKit: 216eedd0f3e4a8b543f64039d51b8a1342f4624c
+  DroidconKit: de5273e1569eed84c46b19961d1fbd7354c6c22b
   Firebase: ff8c73105b90e33e1dc6c8e5445d7adc2ccdc7c1
   FirebaseAnalytics: 96325c1e0acbd2bb805c6a613028b1fe599d6a37
   FirebaseCore: 1c1ca72483b59b17050f5b4cec4fb748425a3901

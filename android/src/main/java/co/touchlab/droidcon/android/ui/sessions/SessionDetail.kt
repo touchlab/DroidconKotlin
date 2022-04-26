@@ -48,7 +48,9 @@ import co.touchlab.droidcon.android.ui.theme.WebLinkText
 import co.touchlab.droidcon.android.viewModel.sessions.ProfileViewModel
 import co.touchlab.droidcon.android.viewModel.sessions.SessionDetailViewModel
 import co.touchlab.droidcon.domain.entity.Session
-import com.google.accompanist.coil.rememberCoilPainter
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
 
 @Composable
 fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
@@ -204,6 +206,7 @@ private fun Description(description: String, links: List<WebLink>) {
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun Speaker(speaker: ProfileViewModel, speakerTapped: () -> Unit) {
     Column(
@@ -212,7 +215,17 @@ private fun Speaker(speaker: ProfileViewModel, speakerTapped: () -> Unit) {
             .clickable { speakerTapped() }
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            val painter = speaker.imageUrl?.string?.let { rememberCoilPainter(request = it) }
+
+            val painter = speaker.imageUrl?.string?.let {
+                rememberImagePainter(
+                    data = it,
+                    imageLoader = LocalImageLoader.current,
+                    builder = {
+                        placeholder(0)
+                    }
+                )
+            }
+
             Image(
                 painter = painter ?: painterResource(id = R.drawable.ic_baseline_person_24),
                 contentDescription = speaker.name,

@@ -38,7 +38,9 @@ import co.touchlab.droidcon.android.ui.theme.WebLinkText
 import co.touchlab.droidcon.android.viewModel.sessions.SpeakerDetailViewModel
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile
-import com.google.accompanist.coil.rememberCoilPainter
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
 
 @Composable
 fun ProfileDetail(navController: NavHostController, speakerId: Profile.Id) {
@@ -69,6 +71,7 @@ fun ProfileDetail(navController: NavHostController, speakerId: Profile.Id) {
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun Header(name: String, tagLine: String, imageUrl: Url?) {
     Row(
@@ -78,7 +81,17 @@ private fun Header(name: String, tagLine: String, imageUrl: Url?) {
             .background(color = MaterialTheme.colors.primary),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val painter = imageUrl?.string?.let { rememberCoilPainter(request = it) }
+
+        val painter = imageUrl?.string?.let {
+            rememberImagePainter(
+                data = it,
+                imageLoader = LocalImageLoader.current,
+                builder = {
+                    placeholder(0)
+                }
+            )
+        }
+
         Image(
             painter = painter ?: painterResource(id = R.drawable.ic_baseline_person_24),
             contentDescription = name,

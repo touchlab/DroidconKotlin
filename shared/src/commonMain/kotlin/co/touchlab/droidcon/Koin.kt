@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSettingsApi::class)
+
 package co.touchlab.droidcon
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
@@ -30,20 +32,20 @@ import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.domain.service.UserIdProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
-import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
-import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
-import co.touchlab.droidcon.domain.service.UserIdProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultFeedbackService
-import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
+import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
 import co.touchlab.droidcon.domain.service.impl.DefaultServerApi
+import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
+import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
+import com.russhwolf.settings.ExperimentalSettingsApi
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin

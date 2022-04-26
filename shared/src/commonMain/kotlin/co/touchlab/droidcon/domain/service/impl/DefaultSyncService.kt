@@ -274,7 +274,9 @@ class DefaultSyncService(
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
-                .split(' ').joinToString(" ") { it.capitalize() }
+                .split(' ').joinToString(" ") {
+                    it.replaceFirstChar { s -> if (s.isLowerCase()) s.titlecase() else s.toString() }
+                }
 
             SponsorGroup(
                 id = SponsorGroup.Id(groupName),
