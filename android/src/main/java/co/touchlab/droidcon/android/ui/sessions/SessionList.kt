@@ -82,7 +82,7 @@ fun SessionList(navController: NavHostController, sessions: BaseSessionListViewM
                         }
                     }
                 }
-                days.forEachIndexed { index, daySchedule ->
+                days.forEachIndexed { index, _ ->
                     val state = rememberLazyListState()
                     if (index == selectedTabIndex) {
                         LazyColumn(state = state, contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {

@@ -23,7 +23,6 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalSettingsApi::class)
 class AndroidNotificationService(
@@ -66,7 +65,6 @@ class AndroidNotificationService(
         return true
     }
 
-    @ExperimentalTime
     override suspend fun schedule(type: NotificationService.NotificationType, sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at $delivery." }
         val deliveryTime = delivery.toEpochMilliseconds()
@@ -174,11 +172,13 @@ class AndroidNotificationService(
         settings[NOTIFICATION_ID_MAP_KEY] = json.encodeToString(registeredNotifications)
     }
 
+    /*
     private data class NotificationIds(
         var reminderId: Int?,
         var dismissId: Int?,
         var feedbackId: Int?,
     )
+     */
 
     companion object {
         private const val NOTIFICATION_CHANNEL_ID = "NOTIFICATION_CHANNEL_ID"

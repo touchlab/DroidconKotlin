@@ -51,66 +51,66 @@ android {
 
 kotlin {
     android()
-    // Revert to just ios() when gradle plugin can properly resolve it
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios")
-    } else {
-        iosX64("ios")
-    }
+    ios()
 
     version = "1.0"
 
     sourceSets {
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        val commonMain by getting {
+            dependencies {
+                api(libs.kermit)
+                api(libs.kotlinx.coroutines.core)
+                api(libs.kotlinx.datetime)
+                api(libs.multiplatformSettings.core)
+                api(libs.uuid)
+
+                implementation(libs.bundles.ktor.common)
+                implementation(libs.bundles.sqldelight.common)
+
+                implementation(libs.stately.common)
+                implementation(libs.koin.core)
             }
         }
-    }
-
-    sourceSets["commonMain"].dependencies {
-        api(libs.kermit)
-        api(libs.kotlinx.coroutines.core)
-        api(libs.kotlinx.datetime)
-        api(libs.multiplatformSettings.core)
-        api(libs.uuid)
-
-        implementation(libs.bundles.ktor.common)
-        implementation(libs.bundles.sqldelight.common)
-
-        implementation(libs.stately.common)
-        implementation(libs.koin.core)
-    }
-
-    sourceSets["commonTest"].dependencies {
-        implementation(libs.multiplatformSettings.test)
-        implementation(libs.kotlin.test.common)
-        implementation(libs.koin.test)
-    }
-
-    sourceSets.matching { it.name.endsWith("Test") }
-        .configureEach {
-            languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.multiplatformSettings.test)
+                implementation(libs.kotlin.test.common)
+                implementation(libs.koin.test)
+            }
         }
-
-    sourceSets["androidMain"].dependencies {
-        implementation(libs.sqldelight.driver.android)
-        implementation(libs.kotlinx.coroutines.android)
-        implementation(libs.ktor.client.okhttp)
-        implementation(libs.androidx.core)
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.driver.android)
+                implementation(libs.kotlinx.coroutines.android)
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.androidx.core)
+            }
+        }
+        val androidTest by getting {
+            dependencies {
+                implementation(libs.test.junit)
+                implementation(libs.test.junitKtx)
+                implementation(libs.test.coroutines)
+            }
+        }
+        val iosMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.driver.ios)
+                implementation(libs.ktor.client.ios)
+            }
+        }
+        val iosTest by getting {}
     }
 
-    sourceSets["androidTest"].dependencies {
-        implementation(libs.test.junit)
-        implementation(libs.test.junitKtx)
-        implementation(libs.test.coroutines)
+    sourceSets.all {
+        languageSettings.apply {
+            optIn("kotlin.RequiresOptIn")
+            optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
     }
 
-    sourceSets["iosMain"].dependencies {
-        implementation(libs.sqldelight.driver.ios)
-        implementation(libs.ktor.client.ios)
+    sourceSets.matching { it.name.endsWith("Test") }.configureEach {
+        languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
 }
 
