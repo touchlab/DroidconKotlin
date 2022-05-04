@@ -16,13 +16,11 @@ faktory {
 version = "1.0"
 
 kotlin {
-    // Revert to just ios() when gradle plugin can properly resolve it
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios")
-    } else {
-        iosX64("ios")
-    }
+
+    ios()
+    iosSimulatorArm64()
+    sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
+    sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
 
     sourceSets {
         all {
@@ -61,6 +59,14 @@ kotlin {
             export(libs.kermit)
             export(libs.hyperdrive.multiplatformx.api)
             export(project(":shared"))
+        }
+    }
+
+    // Enable concurrent sweep phase in new native memory manager. (This will be enabled by default in 1.7.0)
+    // https://kotlinlang.org/docs/whatsnew1620.html#concurrent-implementation-for-the-sweep-phase-in-new-memory-manager
+    targets.withType<KotlinNativeTarget> {
+        binaries.all {
+            freeCompilerArgs += "-Xgc=cms"
         }
     }
 }

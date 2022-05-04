@@ -51,7 +51,7 @@ dependencyResolutionManagement {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
             val composeRef = version("compose", "1.1.1")
-            val composeCompilerRef = version("compose-compiler", "1.2.0-dev-k1.6.20-RC2-727605f905e") // TODO this is prerelease version
+            val composeCompilerRef = version("compose-compiler", "1.2.0-alpha08")
             val composeActivityRef = version("composeActivity", "1.4.0")
             val composeNavigationRef = version("composeNavigation", "2.4.1")
             val splashcreenRef = version("splashscreen", "1.0.0-beta02")
@@ -63,7 +63,7 @@ dependencyResolutionManagement {
             val statelyRef = version("stately", "1.2.1")
             val ktorRef = version("ktor", "2.0.0-beta-1")
             val multiplatformSettingsRef = version("multiplatformSettings", "0.8.1")
-            val hyperdriveRef = version("hyperdrive", "0.1.110")
+            val hyperdriveRef = version("hyperdrive", "0.1.139")
             val accompanistCoilRef = version("accompanistCoil", "0.15.0")
             val accompanistInsetsRef = version("accompanistInsets", "0.23.1")
             val accompanistNavigationAnimationRef = version("accompanistNavigationAnimation", "0.24.6-alpha")
