@@ -63,5 +63,13 @@ kotlin {
             export(project(":shared"))
         }
     }
+
+    // Enable concurrent sweep phase in new native memory manager. (This will be enabled by default in 1.7.0)
+    // https://kotlinlang.org/docs/whatsnew1620.html#concurrent-implementation-for-the-sweep-phase-in-new-memory-manager
+    targets.withType<KotlinNativeTarget> {
+        binaries.all {
+            freeCompilerArgs += "-Xgc=cms"
+        }
+    }
 }
 

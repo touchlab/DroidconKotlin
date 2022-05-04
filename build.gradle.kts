@@ -11,7 +11,6 @@ allprojects {
         google()
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
-        maven("https://androidx.dev/storage/compose-compiler/repository/") // TODO Remove this once we're back on release compose version
     }
 }
 

@@ -112,6 +112,16 @@ kotlin {
     sourceSets.matching { it.name.endsWith("Test") }.configureEach {
         languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
+
+    // Enable concurrent sweep phase in new native memory manager. (This will be enabled by default in 1.7.0)
+    // https://kotlinlang.org/docs/whatsnew1620.html#concurrent-implementation-for-the-sweep-phase-in-new-memory-manager
+    // (This might not be necessary here since the other module creates the framework, but it's here as well just in case it matters for
+    //  test binaries)
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+        binaries.all {
+            freeCompilerArgs += "-Xgc=cms"
+        }
+    }
 }
 
 sqldelight {

@@ -107,7 +107,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DroidconKit: de5273e1569eed84c46b19961d1fbd7354c6c22b
+  DroidconKit: 58698a7c131cfd6bd76f46ec85476040e09a14d8
   Firebase: ff8c73105b90e33e1dc6c8e5445d7adc2ccdc7c1
   FirebaseAnalytics: 96325c1e0acbd2bb805c6a613028b1fe599d6a37
   FirebaseCore: 1c1ca72483b59b17050f5b4cec4fb748425a3901
