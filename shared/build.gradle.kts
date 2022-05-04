@@ -52,6 +52,7 @@ android {
 kotlin {
     android()
     ios()
+    iosSimulatorArm64()
 
     version = "1.0"
 
@@ -100,6 +101,9 @@ kotlin {
             }
         }
         val iosTest by getting {}
+
+        sourceSets["iosSimulatorArm64Main"].dependsOn(iosMain)
+        sourceSets["iosSimulatorArm64Test"].dependsOn(iosTest)
     }
 
     sourceSets.all {
