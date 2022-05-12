@@ -9,13 +9,13 @@ object Constants {
         const val projectId = "droidcon-148cc"
         const val databaseName = "(default)"
 
-        // Known variants: "sponsors", "sponsors-lisbon-2019", "sponsors-sf-2019"
-        const val collectionName = "sponsors-london-2021"
+        // Known variants: "sponsors", "sponsors-lisbon-2019", "sponsors-sf-2019", "sponsors-sf-2022"
+        const val collectionName = "sponsors-sf-2022"
         const val apiKey = "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0"
     }
 
     object Sessionize {
-        const val scheduleId = "4b752cf5"
-        const val sponsorsId = "4b752cf5"
+        const val scheduleId = "qx6mydae"
+        const val sponsorsId = "qx6mydae"
     }
 }

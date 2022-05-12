@@ -1,7 +1,173 @@
 {
   "documents": [
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/bronze",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/bronze",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "2"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://keenresearch.com/?utm_source=droidconSF2022&utm_medium=conference&utm_campaign=logo"
+                    },
+                    "name": {
+                      "stringValue": "Keen Research"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ca1cca51ff854cb5934fba5e64a6bdd4~mv2.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_23fd68ad177a44e6927b1d2a08072d04~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://turo.com/gb/en"
+                    },
+                    "name": {
+                      "stringValue": "Turo"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Gradle"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_e3da2b51c3a649219647a8740195169f~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://gradle.com"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_21720b45af05440182c81f8ff0be3a25~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://slack.com/careers/dept/products-and-technology"
+                    },
+                    "name": {
+                      "stringValue": "Slack"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_6f611aac940f4bc3b5620e45effd6064~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.travis-ci.com/"
+                    },
+                    "name": {
+                      "stringValue": "Travis CI"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Zillow"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_0c51220978fd440ca6d822004a5ccdd6~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.zillow.com/careers/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_16d5a7bd3d324868aa0a3e66d467ff07~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Tinder"
+                    },
+                    "url": {
+                      "stringValue": "https://tinder.com/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Uber"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_525555f749044fbf91fe92eee4dd975b~mv2.jpeg"
+                    },
+                    "url": {
+                      "stringValue": "https://www.uber.com/de/en/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_edad3edc43f34d0388687ca42b18d2d5~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://developer.amazon.com/apps-and-games"
+                    },
+                    "name": {
+                      "stringValue": "Amazon Fire TV"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_c046658c053243da963c799ab17ae869~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.tomesoftware.com/"
+                    },
+                    "name": {
+                      "stringValue": "Tome Software"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2022-05-11T08:45:19.288796Z",
+      "updateTime": "2022-05-12T11:35:15.810215Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/community partners",
       "fields": {
         "sponsors": {
           "arrayValue": {
@@ -9,53 +175,14 @@
               {
                 "mapValue": {
                   "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ad883efbef9942ba8b8080de1b52ff1f~mv2.png"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
+                    "name": {
+                      "stringValue": "Woman Who Code"
                     },
                     "url": {
-                      "stringValue": "https://www.bitrise.io/why/technologies/android-continuous-integration"
-                    },
-                    "name": {
-                      "stringValue": "bitrise"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://gradle.com/"
+                      "stringValue": "https://www.womenwhocode.com/sf"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_bdb3e1ef700e40e2b99c636e8207b85b~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "gradle"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://www.comparethemarket.com/?AFFCLIE=FL77&SRC=FL77&cmpid=PC-_-BNG-_-AL-_-BRD-_-DXYftulWPXVTXOw&gclid=3302638e16931990bc4902d8dab28300&gclsrc=3p.ds&TrackerID=43700005301754954&msclkid=3302638e16931990bc4902d8dab28300"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_82cd5f0203ad46bab249ca3e2ce88e1d~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "bgl"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9e7bf12a044c4c3d944cb6ee69846d47~mv2.png"
                     }
                   }
                 }
@@ -64,16 +191,13 @@
                 "mapValue": {
                   "fields": {
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9a3fa4646e21449c8e50c2c2272a09b8~mv2.png"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_4687c7d9067b4ca69768f1728a357f31~mv2.jpeg"
                     },
                     "url": {
-                      "stringValue": "https://www.mongodb.com/realm/lp?utm_source=google&utm_campaign=gs_footprint_row_search_brand_realm_atlas_product_desktop&utm_term=realm%20mongo&utm_medium=cpc_paid_search&utm_ad=p&utm_ad_campaign_id=11303420057&gclid=Cj0KCQjw-4SLBhCVARIsACrhWLVwgzPGheWGaBMUmObmZo_ypfQamkuexBatmxG1CZVpY2G8zSLW-NgaAg7JEALw_wcB"
+                      "stringValue": "https://www.stickermule.com/custom-stickers?utm_source=google&utm_campaign=droidconsf22&utm_id=droidconsf22"
                     },
                     "name": {
-                      "stringValue": "Realm by MongoDB"
+                      "stringValue": "Stickermule"
                     }
                   }
                 }
@@ -85,134 +209,14 @@
           "integerValue": "4"
         }
       },
-      "createTime": "2021-10-07T09:38:35.789971Z",
-      "updateTime": "2021-10-09T17:09:09.612933Z"
+      "createTime": "2022-05-09T18:32:17.869259Z",
+      "updateTime": "2022-05-12T11:39:58.112558Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/community",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/gold",
       "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_371d553d0a7740ca92d4f5b2ade7d146~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://flutterldn.dev/"
-                    },
-                    "name": {
-                      "stringValue": "Flutter London"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "sitckermule"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_37f9a927f88a49e8b7486399c347e75d~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://www.stickermule.com/uk/uses?utm_source=google&utm_id=droidconlondon21"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "displayOrder": {
-          "integerValue": "7"
-        }
-      },
-      "createTime": "2021-10-09T13:23:24.953435Z",
-      "updateTime": "2021-10-09T17:18:22.002550Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/enterprise",
-      "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://developer.android.com/"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "android developers"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_924be2e6c8924753b03af54bde6acc33~mv2.png"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        "displayOrder": {
-          "integerValue": "1"
-        }
-      },
-      "createTime": "2021-10-09T13:22:52.832673Z",
-      "updateTime": "2021-10-09T13:59:48.873599Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/gold",
-      "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://docs.microsoft.com/en-us/dual-screen/"
-                    },
-                    "name": {
-                      "stringValue": "Microsoft Surface Duo"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_1e729823c5224d5e812f8ceb2782136d~mv2.png"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
         "displayOrder": {
           "integerValue": "0"
-        }
-      },
-      "createTime": "2021-10-09T13:22:43.794263Z",
-      "updateTime": "2021-10-09T13:45:25.269951Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/silver",
-      "fields": {
-        "displayOrder": {
-          "integerValue": "3"
         },
         "sponsors": {
           "arrayValue": {
@@ -221,16 +225,13 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "Zebra Developers"
+                      "stringValue": "SauceLabs"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9715d9be34a2402296d543cb1e9cdbb2~mv2.png"
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ab5a845b1e1f45cb8ab5664c0892109c~mv2.png"
                     },
                     "url": {
-                      "stringValue": "https://developer.zebra.com/"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
+                      "stringValue": "https://saucelabs.com/"
                     }
                   }
                 }
@@ -238,17 +239,29 @@
               {
                 "mapValue": {
                   "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_b681c37cbc0e42c6be6a54997dda907f~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "cirecleci"
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_4f9085b750464d83969f08fbf8cdbb2e~mv2.png"
                     },
                     "url": {
-                      "stringValue": "https://circleci.com/"
+                      "stringValue": "https://docs.microsoft.com/de-de/dual-screen/"
+                    },
+                    "name": {
+                      "stringValue": "Microsoft Duo"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_7bd904bbae0241f784274229ad2c8c82~mv2.jpeg"
+                    },
+                    "url": {
+                      "stringValue": "https://forms.gle/GU6EjkEbAby4ZnkX9"
+                    },
+                    "name": {
+                      "stringValue": "Pinterest"
                     }
                   }
                 }
@@ -257,16 +270,13 @@
                 "mapValue": {
                   "fields": {
                     "url": {
-                      "stringValue": "https://www.guardsquare.com/"
-                    },
-                    "name": {
-                      "stringValue": "Guardsquare"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
+                      "stringValue": "https://touchlab.co/"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ffaec42a0bca4d2c95bd453f1870b8d6~mv2.jpeg"
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ea6b454a9baf42969c9f8186f5f81581~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Touchlab"
                     }
                   }
                 }
@@ -274,17 +284,14 @@
               {
                 "mapValue": {
                   "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_a6b6ea89e7424211bcd37b84fd2e9234~mv2.png"
+                    "url": {
+                      "stringValue": "https://www.snap.com/en-GB"
                     },
                     "name": {
-                      "stringValue": "YOTI"
+                      "stringValue": "Snap Inc."
                     },
-                    "url": {
-                      "stringValue": "https://www.yoti.com/"
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_2a6c1e74f45447149b5cf6e8b7dc0336~mv2.png"
                     }
                   }
                 }
@@ -292,17 +299,14 @@
               {
                 "mapValue": {
                   "fields": {
-                    "name": {
-                      "stringValue": "asos"
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_7cf37463149e47fb8008a6ed3c4b0379~mv2.png"
                     },
-                    "sponsorId": {
-                      "stringValue": ""
+                    "name": {
+                      "stringValue": "Salesforce"
                     },
                     "url": {
-                      "stringValue": "https://www.asos.com/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_4f4978129f974ae2b813546dae1c591a~mv2.png"
+                      "stringValue": "https://www.salesforce.com/de/?ir=1"
                     }
                   }
                 }
@@ -311,81 +315,148 @@
           }
         }
       },
-      "createTime": "2021-10-09T13:22:56.294169Z",
-      "updateTime": "2021-10-09T14:50:52.377075Z"
+      "createTime": "2022-05-11T08:15:39.767554Z",
+      "updateTime": "2022-05-12T11:07:04.338067Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/speaker",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/media partners",
       "fields": {
-        "sponsors": {
-          "arrayValue": {
-            "values": [
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_daabcbcb173a4654866b58f67bd84fa6~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "DNB"
-                    },
-                    "url": {
-                      "stringValue": "https://www.dnb.no/"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "name": {
-                      "stringValue": "appDev"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_aef70831880b4d1c8c364fdd95d9062b~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://www.appdev.de/"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "SBER"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_8dfe92cbf409411cb76cca7945df9fc1~mv2.png"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
-                    },
-                    "url": {
-                      "stringValue": "https://sberdevices.ru/"
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
         "displayOrder": {
           "integerValue": "6"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Global Tech Gadgets"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_6c27af6b559740bea7535336ff8bd9eb~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://globaltechgadgets.com/"
+                    }
+                  }
+                }
+              }
+            ]
+          }
         }
       },
-      "createTime": "2021-10-09T13:23:39.119748Z",
-      "updateTime": "2021-10-09T18:11:30.138495Z"
+      "createTime": "2022-05-11T08:47:47.426153Z",
+      "updateTime": "2022-05-12T11:42:57.069324Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/startup",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/silver",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "1"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_5ee354432c79484691f989a0594a61a8~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.bitrise.io/why/technologies/android-continuous-integration"
+                    },
+                    "name": {
+                      "stringValue": "Bitrise"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://branch.io"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_bd2c2e3b68d24579854b00c559fe4d72~mv2.png"
+                    },
+                    "name": {
+                      "stringValue": "Branch"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Smartbear"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_bbc485d360e944daaf30aabbf6893958~mv2.jpeg"
+                    },
+                    "url": {
+                      "stringValue": "https://smartbear.com"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://sentry.io/for/android/?utm_medium=event&utm_source=eventplatform&utm_campaign=mobile-event-droidcon-2022"
+                    },
+                    "name": {
+                      "stringValue": "Sentry"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_b046a978f0c240ec8351ef88b507a548~mv2.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Stream"
+                    },
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_f78bf17cebfb435da7f1631985fc96a2~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://getstream.io/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_881e3534ccfb439a8fb9118166db23b5~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://instabug.com/"
+                    },
+                    "name": {
+                      "stringValue": "Instabug"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2022-05-11T08:26:27.743199Z",
+      "updateTime": "2022-05-12T11:14:55.137038Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/speaker sponsor",
       "fields": {
         "displayOrder": {
           "integerValue": "5"
@@ -397,16 +468,28 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "eShard"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
+                      "stringValue": "Monzo"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_73b9bc64488841bab0deb9f60dc7fc4e~mv2.jpeg"
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_be72e6e2dc6641e9bd14b812f343435a~mv2.png"
                     },
                     "url": {
-                      "stringValue": "https://eshard.com/"
+                      "stringValue": "https://monzo.com/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_67cb278255754b059ba915d8b848b46b~mv2.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.slanglabs.in/"
+                    },
+                    "name": {
+                      "stringValue": "Slang Labs "
                     }
                   }
                 }
@@ -415,11 +498,11 @@
           }
         }
       },
-      "createTime": "2021-10-09T13:23:17.788469Z",
-      "updateTime": "2021-10-09T17:15:26.637933Z"
+      "createTime": "2022-05-11T08:47:29.969408Z",
+      "updateTime": "2022-05-12T11:41:37.886543Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2021/video",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/startup alley",
       "fields": {
         "sponsors": {
           "arrayValue": {
@@ -427,17 +510,14 @@
               {
                 "mapValue": {
                   "fields": {
-                    "name": {
-                      "stringValue": "Amex"
+                    "url": {
+                      "stringValue": "https://www.emergetools.com"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_78d1ededaf26463b9949dcd9a427f109~mv2.png"
+                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_62b8a57e3f844656b8acc99d05aff877~mv2.png"
                     },
-                    "url": {
-                      "stringValue": "https://www.americanexpress.com/de-de/"
-                    },
-                    "sponsorId": {
-                      "stringValue": ""
+                    "name": {
+                      "stringValue": "Emerge Tools"
                     }
                   }
                 }
@@ -446,11 +526,11 @@
           }
         },
         "displayOrder": {
-          "integerValue": "2"
+          "integerValue": "3"
         }
       },
-      "createTime": "2021-10-09T13:27:03.417559Z",
-      "updateTime": "2021-10-09T14:16:28.574144Z"
+      "createTime": "2022-05-11T08:47:07.636056Z",
+      "updateTime": "2022-05-12T11:37:03.911243Z"
     }
   ]
 }

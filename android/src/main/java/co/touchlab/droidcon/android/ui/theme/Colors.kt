@@ -3,8 +3,8 @@ package co.touchlab.droidcon.android.ui.theme
 import androidx.compose.ui.graphics.Color
 
 object Colors {
-    val londonPrimary = Color(0xFF7DE1C3)
-    val londonSecondary = Color(0xFF2430C6)
+    val primary = Color(0xFF202020)
+    val secondary = Color(0xFFfa6e50)
 
     val teal = Color(0xFF14A1B6)
     val darkBlue = Color(0xFF0E65B1)

@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.android.ui.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -8,30 +9,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
-    primary = Colors.londonPrimary,
-    primaryVariant = Colors.londonPrimary,
-    secondary = Colors.londonSecondary,
-    secondaryVariant = Colors.londonSecondary,
-    surface = Colors.londonPrimary,
+    primary = Colors.primary,
+    primaryVariant = Colors.primary,
+    secondary = Colors.secondary,
+    secondaryVariant = Colors.secondary,
+    surface = Colors.primary,
     background = Colors.darkGrey32,
     error = Colors.orange,
-    onPrimary = Color.White,
+    onPrimary = Colors.secondary,
     onSecondary = Color.White,
-    onSurface = Color.White,
-    onBackground = Color.White,
+    onSurface = Colors.secondary,
+    onBackground = Colors.secondary,
 )
 
 private val LightColorPalette = lightColors(
-    primary = Colors.londonPrimary,
-    primaryVariant = Colors.londonPrimary,
-    secondary = Colors.londonSecondary,
+    primary = Colors.primary,
+    primaryVariant = Colors.primary,
+    secondary = Colors.secondary,
     // color of the switch (checked)
-    secondaryVariant = Colors.londonSecondary,
+    secondaryVariant = Colors.secondary,
     // color of the switch (unchecked)
     surface = Colors.lightGrey220,
     background = Colors.lightGrey250,
     error = Colors.orange,
-    onPrimary = Colors.londonSecondary,
+    onPrimary = Colors.secondary,
     onSecondary = Color.White,
     onSurface = Color.Black,
     onBackground = Colors.darkGrey51,
