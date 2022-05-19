@@ -14,6 +14,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         startKoin()
 
+        print(SwiftTestPlease())
+
         analytics.logEvent(name: AnalyticsServiceCompanion().EVENT_STARTED, params: [:])
 
         log.v(message: { "App Started" })
