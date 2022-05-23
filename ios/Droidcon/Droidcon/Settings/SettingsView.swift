@@ -31,12 +31,7 @@ struct SettingsView: View {
 
                         Divider().padding(.horizontal)
 
-                        Button(action: viewModel.aboutTapped) {
-                            Label("Settings.About", systemImage: "info.circle")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.vertical, 8)
-                                .padding(.horizontal)
-                        }
+                        AboutView(viewModel: viewModel.about)
                     }
                 }
             }
