@@ -26,7 +26,7 @@ pluginManagement {
         kotlin("native.cocoapods") version kotlinVersion
         id("com.squareup.sqldelight") version sqldelightVersion
         id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
-        id("co.touchlab.swikt") version "0.0.1"
+        id("co.touchlab.swikt") version "0.0.2"
     }
 
     resolutionStrategy {
