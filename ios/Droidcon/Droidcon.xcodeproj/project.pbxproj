@@ -14,6 +14,7 @@
 		1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833220F26B0CF5600D79482 /* DroidconApp.swift */; };
 		18493C04282B5BA500D4D992 /* iosMain in Resources */ = {isa = PBXBuildFile; fileRef = 18493C03282B5BA500D4D992 /* iosMain */; };
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
+		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 		40275E911EDC846356ECC704 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21650A71319A7F88D3721407 /* Pods_Droidcon.framework */; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
 		681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C959C26C554E00011330B /* FeedbackDialog.swift */; };
@@ -46,7 +47,6 @@
 		8404D81226C6631C00AE200F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8404D81126C6631C00AE200F /* GoogleService-Info.plist */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
-		F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -342,10 +342,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */,
 				1821427D26B5418D0047DB71 /* speakers.json in Resources */,
 				8404D81226C6631C00AE200F /* GoogleService-Info.plist in Resources */,
 				1821427C26B5418D0047DB71 /* sponsor_sessions.json in Resources */,
+				18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */,
 				1821427B26B5418D0047DB71 /* about.json in Resources */,
 				1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */,
 				1821427E26B5418D0047DB71 /* schedule.json in Resources */,
@@ -604,7 +604,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.sf;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.sf2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -636,7 +636,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.sf;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.sf2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

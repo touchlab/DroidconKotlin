@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "splash_screen_sf.png",
+      "filename" : "dcsf-splash scfeen-ios-foreground.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "splash_screen_sf@2x.png",
+      "filename" : "dcsf-splash scfeen-ios-foreground@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "splash_screen_sf@3x.png",
+      "filename" : "dcsf-splash scfeen-ios-foreground@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
