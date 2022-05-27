@@ -14,3 +14,4 @@ jobs:
       build_branch: devbuild
     secrets:
       FAKTORY_SECRET_KEY: ${{ secrets.FAKTORY_SECRET_KEY }}
+      gradle_params: -PgithubActor=${{ secrets.GITHUBACTOR }} -PgithubToken=${{ secrets.GITHUBTOKEN }}
