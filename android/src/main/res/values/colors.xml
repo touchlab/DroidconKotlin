@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="londonPrimary">#FF7DE1C3</color>
+    <color name="primary">#FFfa6e50</color>
+    <color name="background">#FF202020</color>
+    <color name="content">#FFffffff</color>
 </resources>

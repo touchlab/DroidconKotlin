@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.Droidcon.Starting" parent="Theme.SplashScreen">
         <!-- Set the splash screen background. -->
-        <item name="windowSplashScreenBackground">@color/londonPrimary</item>
+        <item name="windowSplashScreenBackground">@color/background</item>
 
         <!-- Use windowSplashScreenAnimatedIcon to add either a drawable. -->
         <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
@@ -12,8 +12,8 @@
     </style>
 
     <style name="Theme.Droidcon" parent="Theme.Material.DayNight.NoActionBar">
-        <item name="android:statusBarColor">#33000000</item>
-        <item name="android:navigationBarColor">#33000000</item>
+        <item name="android:statusBarColor">#33202020</item>
+        <item name="android:navigationBarColor">#33202020</item>
     </style>
 
     <style name="Theme.Material.DayNight.NoActionBar" parent="@android:style/Theme.Material.Light.NoActionBar" />

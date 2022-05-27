@@ -223,23 +223,6 @@ fun Main(main: MainViewModel) {
 
             navigation(SettingsScreen.Main.route, MainTab.Settings.route) {
                 composable(SettingsScreen.Main.route) { Settings(navController) }
-                composable(
-                    route = SettingsScreen.About.route,
-                    enterTransition = {
-                        if (initialState.destination.route == SettingsScreen.Main.route) {
-                            slideIntoContainer(AnimatedContentScope.SlideDirection.Left)
-                        } else {
-                            fadeIn()
-                        }
-                    },
-                    exitTransition = {
-                        if (targetState.destination.route == SettingsScreen.Main.route) {
-                            slideOutOfContainer(AnimatedContentScope.SlideDirection.Right)
-                        } else {
-                            fadeOut()
-                        }
-                    },
-                ) { About(navController) }
             }
         }
     }
