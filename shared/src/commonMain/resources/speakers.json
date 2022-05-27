@@ -375,6 +375,11 @@
     "isTopSpeaker": false,
     "links": [
       {
+        "title": "Twitter",
+        "url": "https://www.twitter.com/khareanshaj",
+        "linkType": "Twitter"
+      },
+      {
         "title": "LinkedIn",
         "url": "https://in.linkedin.com/in/khare-anshaj",
         "linkType": "LinkedIn"
@@ -408,6 +413,11 @@
         "title": "Twitter",
         "url": "https://twitter.com/AshNohe",
         "linkType": "Twitter"
+      },
+      {
+        "title": "Sessionize",
+        "url": "https://sessionize.com/ash-nohe",
+        "linkType": "Sessionize"
       }
     ],
     "questionAnswers": [],
@@ -1494,6 +1504,41 @@
       }
     ],
     "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "Twitter",
+        "url": "https://twitter.com/mnakamurakare",
+        "linkType": "Twitter"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/in/manask88/",
+        "linkType": "LinkedIn"
+      },
+      {
+        "title": "Company Website",
+        "url": "https://www.pinterest.com/",
+        "linkType": "Company_Website"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "327f56b4-c631-4489-9590-37bdfc856e3a",
+    "firstName": "Miguel",
+    "lastName": "Montemayor",
+    "fullName": "Miguel Montemayor",
+    "bio": "Developer Relations Engineer at Google working on Android TV, Google TV, tablets, and foldables.",
+    "tagLine": "Google, Developer Relations Engineer",
+    "profilePicture": "https://sessionize.com/image/66cb-400o400o2-976d5e62-f37c-43dc-bedf-4fe8ecacdf79.jpg",
+    "sessions": [
+      {
+        "id": 332418,
+        "name": "What's on tonight? New developments in Android and Google TV"
+      }
+    ],
+    "isTopSpeaker": false,
     "links": [],
     "questionAnswers": [],
     "categories": []
@@ -1563,11 +1608,6 @@
         "title": "Blog",
         "url": "https://codingwithmohit.com/",
         "linkType": "Blog"
-      },
-      {
-        "title": "Company Website",
-        "url": "https://codingwithmohit.com/",
-        "linkType": "Company_Website"
       }
     ],
     "questionAnswers": [],
@@ -1885,10 +1925,6 @@
       {
         "id": 332418,
         "name": "What's on tonight? New developments in Android and Google TV"
-      },
-      {
-        "id": 330925,
-        "name": "Optimize your app for large screens"
       }
     ],
     "isTopSpeaker": false,
@@ -1907,11 +1943,6 @@
         "title": "Sessionize",
         "url": "https://sessionize.com/plammer",
         "linkType": "Sessionize"
-      },
-      {
-        "title": "Sessionize",
-        "url": "https://sessionize.com/plammer",
-        "linkType": "Sessionize"
       }
     ],
     "questionAnswers": [],
@@ -1922,7 +1953,7 @@
     "firstName": "Pavlo",
     "lastName": "Stavytskyi",
     "fullName": "Pavlo Stavytskyi",
-    "bio": "Working on a mobile infrastructure at Lyft.\r\nFan of Android, Kotlin language, and build systems such as Gradle and Bazel.\r\nWriting tech blogs.\r\nDoing Ph.D. in software engineering.",
+    "bio": "Pavlo is a Google Developer Expert for Android and works at Lyft on mobile infrastructure. He develops Android apps, absolutely loves Kotlin language, works with build systems such as Gradle and Bazel, and writes blog posts about it.\r\nHe is also doing a Ph.D. in software engineering.",
     "tagLine": "Software Engineer, Lyft",
     "profilePicture": "https://sessionize.com/image/88b6-400o400o2-B1HY1F8tQ2Dmr9hxLEPjfq.png",
     "sessions": [
@@ -1939,19 +1970,9 @@
         "linkType": "Twitter"
       },
       {
-        "title": "LinkedIn",
-        "url": "https://www.linkedin.com/in/pavlo-stavytskyi-184313129/",
-        "linkType": "LinkedIn"
-      },
-      {
         "title": "Blog",
         "url": "https://morfly.medium.com/",
         "linkType": "Blog"
-      },
-      {
-        "title": "Company Website",
-        "url": "https://www.lyft.com/",
-        "linkType": "Company_Website"
       },
       {
         "title": "Sessionize",

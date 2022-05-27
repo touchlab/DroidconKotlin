@@ -8,11 +8,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                SwitchingNavigationLink(
-                    selection: $viewModel.presentedAbout,
-                    content: { AboutView(viewModel: $0) }
-                )
-
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         Toggle(isOn: $viewModel.isFeedbackEnabled) {

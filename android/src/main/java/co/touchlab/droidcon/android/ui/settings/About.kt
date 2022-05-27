@@ -33,7 +33,7 @@ fun About() {
     val about: AboutViewModel = viewModel()
     val items by about.items.collectAsState()
     items.forEach { aboutItem ->
-        item { AboutSection(aboutItem = aboutItem) }
+        AboutSection(aboutItem = aboutItem)
     }
 }
 

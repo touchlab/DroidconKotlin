@@ -1604,7 +1604,7 @@
         "questionAnswers": [],
         "id": "330626",
         "title": "Netflix + Gradle A Journey in Developer Productivity",
-        "description": "A case study on how Netflix and Gradle have been working together to optimize Netflix Android builds, find bottlenecks, and improve developer productivity. Emmanuel Boudrant from Netflix and Rooz Mohazzabi from Gradle will share wins and findings from their journey on...\r\n\r\nHow Netflix does builds \r\n- Spinnaker / Jenkins\r\n- Gradle / AGP / Android Studio\r\n- Lots of variants\r\n- Build Scans, Gradle profiler\r\nLots of static analysis and testing\r\n- AGP updates \r\n- Dexguard\r\n- Jettifier \r\nBuild cache optimizations and debugging cache misses \r\n- Android SDK and JDK version \r\n- CI vs Local cache-miss \r\nBuild properties case with modularisation\r\n- Modularization with dependency injection",
+        "description": "A case study on how Netflix and Gradle have been working together to optimize Netflix Android builds, find bottlenecks, and improve developer productivity. Emmanuel Boudrant from Netflix and Rooz Mohazzabi from Gradle will share wins and findings from their journey on...\r\n\r\nHow Netflix does builds\r\n- Gradle / AGP / Android Studio\r\n- Build Scans, Gradle profiler\r\n- CI / CD\r\nThe Developer Productivity Journey\r\n- The first build scan\r\n- Build caching, who’s using it? Who’s Not?\r\n- Identifying build performance bottlenecks\r\n- Enabling local and remote build caching\r\nBuild Performance Regressions: One year later, the usual suspects are back\r\n- Android SDK and JDK version\r\n- CI vs Local cache-miss\r\n- Setting up Android properties properly\r\n- Dagger and other annotation processors\r\nBuild properties case with modularisation\r\n- How dependency injection helped\r\n",
         "startsAt": "2022-06-02T16:00:00",
         "endsAt": "2022-06-02T16:40:00",
         "isServiceSession": false,
@@ -1923,8 +1923,74 @@
             "sort": 1001
           }
         ],
-        "roomId": 25195,
-        "room": "Fisher East",
+        "roomId": 22799,
+        "room": "Robertson 1",
+        "liveUrl": null,
+        "recordingUrl": null
+      },
+      {
+        "questionAnswers": [],
+        "id": "330925",
+        "title": "Optimize your app for large screens",
+        "description": "The rising popularity of tablets and foldable devices unlocks opportunities to address a new range of users in innovative ways. A responsive UI allows you to easily build this experience.\r\n\r\nIn this talk, you’ll get an understanding of what’s available for developers to support large screens. We’ll cover new APIs like Compose for large screens and Jetpack WindowManager, activity embedding, drag and drop, Android Studio templates and more. By the end of this session, you’ll have all the skills you need to create and test responsive UIs on Android so that users love your app no matter what device they’re using it on.",
+        "startsAt": "2022-06-02T16:50:00",
+        "endsAt": "2022-06-02T17:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "570cfc56-f8ce-4af4-9833-6a16ef868455",
+            "name": "Alex Vanyo"
+          }
+        ],
+        "categories": [
+          {
+            "id": 21003,
+            "name": "Level",
+            "categoryItems": [
+              {
+                "id": 46014,
+                "name": "Intermediate"
+              }
+            ],
+            "sort": 2
+          },
+          {
+            "id": 21004,
+            "name": "Session format",
+            "categoryItems": [
+              {
+                "id": 46017,
+                "name": "Session"
+              }
+            ],
+            "sort": 1000
+          },
+          {
+            "id": 21005,
+            "name": "Tags",
+            "categoryItems": [
+              {
+                "id": 46024,
+                "name": "Android"
+              }
+            ],
+            "sort": 1004
+          },
+          {
+            "id": 21006,
+            "name": "Track",
+            "categoryItems": [
+              {
+                "id": 46041,
+                "name": "droidcon"
+              }
+            ],
+            "sort": 1001
+          }
+        ],
+        "roomId": 22800,
+        "room": "Robertson 2",
         "liveUrl": null,
         "recordingUrl": null
       },
@@ -2001,8 +2067,8 @@
             "sort": 1001
           }
         ],
-        "roomId": 22799,
-        "room": "Robertson 1",
+        "roomId": 25195,
+        "room": "Fisher East",
         "liveUrl": null,
         "recordingUrl": null
       },
@@ -2069,72 +2135,6 @@
         ],
         "roomId": 22801,
         "room": "Fisher West",
-        "liveUrl": null,
-        "recordingUrl": null
-      },
-      {
-        "questionAnswers": [],
-        "id": "332418",
-        "title": "What's on tonight? New developments in Android and Google TV",
-        "description": "Discover the latest from Android TV and Google TV, including a recap of Android 12 updates and what’s available in the developer preview for Android 13.\r\n\r\nExplore ways of connecting with your TV users through new experiences like multitasking and optimized layouts to support resizable windows and 4K UIs, as well as through improvements in performance and quality, including supporting frame rate switching, audio routes and keyboard layouts and accessibility. We’ll see how to make use of new validation tools to build native experiences across a variety of living room configurations.",
-        "startsAt": "2022-06-02T16:50:00",
-        "endsAt": "2022-06-02T17:30:00",
-        "isServiceSession": false,
-        "isPlenumSession": false,
-        "speakers": [
-          {
-            "id": "f89ea766-4af9-4b88-8842-ede574e4c648",
-            "name": "Paul Lammertsma"
-          }
-        ],
-        "categories": [
-          {
-            "id": 21003,
-            "name": "Level",
-            "categoryItems": [
-              {
-                "id": 46014,
-                "name": "Intermediate"
-              }
-            ],
-            "sort": 2
-          },
-          {
-            "id": 21004,
-            "name": "Session format",
-            "categoryItems": [
-              {
-                "id": 46017,
-                "name": "Session"
-              }
-            ],
-            "sort": 1000
-          },
-          {
-            "id": 21005,
-            "name": "Tags",
-            "categoryItems": [
-              {
-                "id": 46024,
-                "name": "Android"
-              }
-            ],
-            "sort": 1004
-          },
-          {
-            "id": 21006,
-            "name": "Track",
-            "categoryItems": [
-              {
-                "id": 46041,
-                "name": "droidcon"
-              }
-            ],
-            "sort": 1001
-          }
-        ],
-        "roomId": 22800,
-        "room": "Robertson 2",
         "liveUrl": null,
         "recordingUrl": null
       },
@@ -2518,8 +2518,8 @@
             "sort": 1001
           }
         ],
-        "roomId": 25195,
-        "room": "Fisher East",
+        "roomId": 22801,
+        "room": "Fisher West",
         "liveUrl": null,
         "recordingUrl": null
       },
@@ -2728,8 +2728,8 @@
             "sort": 1001
           }
         ],
-        "roomId": 22801,
-        "room": "Fisher West",
+        "roomId": 25195,
+        "room": "Fisher East",
         "liveUrl": null,
         "recordingUrl": null
       },
@@ -2737,7 +2737,7 @@
         "questionAnswers": [],
         "id": "280189",
         "title": "Automated migration of Android apps to Bazel build system",
-        "description": "Migrating large projects that consist of hundreds or thousands of modules and being maintained by a large team, from Gradle to Bazel might be challenging. I would like to discuss the process of automation of the migration that includes the development and usage of a Gradle plugin as well as a type-safe and declarative Kotlin DSL for Bazel code generation. \r\nAn automated migration can save a lot of time and effort for organizations by making the transition to Bazel build system smoothly and allow to enjoy the benefits Bazel provides much sooner.\r\n- This project for automated migration to Bazel that I'm working on was presented at the official Google Bazelcon 2021 conference: https://youtu.be/dz-CFEwJuko\r\n- Also, it is described in a ProAndroidDev blog post: https://proandroiddev.com/304fa8b3680c\r\n- Source code could be found on GitHub: https://github.com/Morfly/airin",
+        "description": "Migrating large projects that consist of hundreds or thousands of modules and being maintained by a large team, from Gradle to Bazel might be challenging. I would like to discuss the process of automation of the migration that includes the development and usage of a Gradle plugin as well as a type-safe and declarative Kotlin DSL for Bazel code generation. \r\nAn automated migration can save a lot of time and effort for organizations by making the transition to Bazel build system smoothly and allow to enjoy the benefits Bazel provides much sooner.\r\nThe ideas that will be discussed in this talk were used in the project for automated migration to Bazel, called Airin: https://github.com/Morfly/airin\r\nMore information about it could be found in the talk from BazelCon 2021: https://youtu.be/dz-CFEwJuko\r\nOr in this blog post: https://proandroiddev.com/304fa8b3680c ",
         "startsAt": "2022-06-03T11:00:00",
         "endsAt": "2022-06-03T11:40:00",
         "isServiceSession": false,
@@ -2754,8 +2754,8 @@
             "name": "Level",
             "categoryItems": [
               {
-                "id": 46015,
-                "name": "Advanced"
+                "id": 46014,
+                "name": "Intermediate"
               }
             ],
             "sort": 2
@@ -4185,76 +4185,6 @@
       },
       {
         "questionAnswers": [],
-        "id": "330925",
-        "title": "Optimize your app for large screens",
-        "description": "The rising popularity of tablets and foldable devices unlocks opportunities to address a new range of users in innovative ways. A responsive UI allows you to easily build this experience.\r\n\r\nIn this talk, you’ll get an understanding of what’s available for developers to support large screens. We’ll cover new APIs like Compose for large screens and Jetpack WindowManager, activity embedding, drag and drop, Android Studio templates and more. By the end of this session, you’ll have all the skills you need to create and test responsive UIs on Android so that users love your app no matter what device they’re using it on.",
-        "startsAt": "2022-06-03T15:50:00",
-        "endsAt": "2022-06-03T16:30:00",
-        "isServiceSession": false,
-        "isPlenumSession": false,
-        "speakers": [
-          {
-            "id": "f89ea766-4af9-4b88-8842-ede574e4c648",
-            "name": "Paul Lammertsma"
-          },
-          {
-            "id": "570cfc56-f8ce-4af4-9833-6a16ef868455",
-            "name": "Alex Vanyo"
-          }
-        ],
-        "categories": [
-          {
-            "id": 21003,
-            "name": "Level",
-            "categoryItems": [
-              {
-                "id": 46014,
-                "name": "Intermediate"
-              }
-            ],
-            "sort": 2
-          },
-          {
-            "id": 21004,
-            "name": "Session format",
-            "categoryItems": [
-              {
-                "id": 46017,
-                "name": "Session"
-              }
-            ],
-            "sort": 1000
-          },
-          {
-            "id": 21005,
-            "name": "Tags",
-            "categoryItems": [
-              {
-                "id": 46024,
-                "name": "Android"
-              }
-            ],
-            "sort": 1004
-          },
-          {
-            "id": 21006,
-            "name": "Track",
-            "categoryItems": [
-              {
-                "id": 46041,
-                "name": "droidcon"
-              }
-            ],
-            "sort": 1001
-          }
-        ],
-        "roomId": 22801,
-        "room": "Fisher West",
-        "liveUrl": null,
-        "recordingUrl": null
-      },
-      {
-        "questionAnswers": [],
         "id": "330282",
         "title": "State Machines and Hopeful Dreams",
         "description": "Building out an Architecture for your application can be quite a difficult task. Thankfully (or Unfortunately) there are many solutions out there trying to solve this problem, acting as Architecture containers that create an opinionated way that data flows through your application and how state is managed/updated. \r\n\r\nI'll be looking at these libraries:\r\n- Mavericks\r\n- Workflow\r\n- Decompose\r\n\r\nWe'll build a medium complexity Jetpack Compose UI based app with these three libraries and compare them on a few different criteria, including flexibility, ease of use, documentation, etc. We'll find out if they are worth using for our current and future projects. Or maybe we just find out we should build out own.",
@@ -4398,6 +4328,76 @@
         ],
         "roomId": 22800,
         "room": "Robertson 2",
+        "liveUrl": null,
+        "recordingUrl": null
+      },
+      {
+        "questionAnswers": [],
+        "id": "332418",
+        "title": "What's on tonight? New developments in Android and Google TV",
+        "description": "Discover the latest from Android TV and Google TV, including a recap of Android 12 updates and what’s available in the developer preview for Android 13.\r\n\r\nExplore ways of connecting with your TV users through new experiences like multitasking and optimized layouts to support resizable windows and 4K UIs, as well as through improvements in performance and quality, including supporting frame rate switching, audio routes and keyboard layouts and accessibility. We’ll see how to make use of new validation tools to build native experiences across a variety of living room configurations.",
+        "startsAt": "2022-06-03T15:50:00",
+        "endsAt": "2022-06-03T16:30:00",
+        "isServiceSession": false,
+        "isPlenumSession": false,
+        "speakers": [
+          {
+            "id": "f89ea766-4af9-4b88-8842-ede574e4c648",
+            "name": "Paul Lammertsma"
+          },
+          {
+            "id": "327f56b4-c631-4489-9590-37bdfc856e3a",
+            "name": "Miguel Montemayor"
+          }
+        ],
+        "categories": [
+          {
+            "id": 21003,
+            "name": "Level",
+            "categoryItems": [
+              {
+                "id": 46014,
+                "name": "Intermediate"
+              }
+            ],
+            "sort": 2
+          },
+          {
+            "id": 21004,
+            "name": "Session format",
+            "categoryItems": [
+              {
+                "id": 46017,
+                "name": "Session"
+              }
+            ],
+            "sort": 1000
+          },
+          {
+            "id": 21005,
+            "name": "Tags",
+            "categoryItems": [
+              {
+                "id": 46024,
+                "name": "Android"
+              }
+            ],
+            "sort": 1004
+          },
+          {
+            "id": 21006,
+            "name": "Track",
+            "categoryItems": [
+              {
+                "id": 46041,
+                "name": "droidcon"
+              }
+            ],
+            "sort": 1001
+          }
+        ],
+        "roomId": 22801,
+        "room": "Fisher West",
         "liveUrl": null,
         "recordingUrl": null
       },

@@ -15,6 +15,7 @@
 		18493C04282B5BA500D4D992 /* iosMain in Resources */ = {isa = PBXBuildFile; fileRef = 18493C03282B5BA500D4D992 /* iosMain */; };
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
 		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
+		18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */; };
 		40275E911EDC846356ECC704 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21650A71319A7F88D3721407 /* Pods_Droidcon.framework */; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
 		681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C959C26C554E00011330B /* FeedbackDialog.swift */; };
@@ -44,7 +45,6 @@
 		68DCBC6226C512DD0084C70D /* SponsorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */; };
 		68DCBC6426C51E260084C70D /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6326C51E260084C70D /* TextView.swift */; };
 		8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */; };
-		8404D81226C6631C00AE200F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8404D81126C6631C00AE200F /* GoogleService-Info.plist */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -60,6 +60,7 @@
 		18493C00282B5B5C00D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../../shared/src/iosMain; sourceTree = "<group>"; };
 		18493C03282B5BA500D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../src/iosMain; sourceTree = "<group>"; };
 		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
+		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		21650A71319A7F88D3721407 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
 		6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorDetailView.swift; sourceTree = "<group>"; };
 		68DCBC6326C51E260084C70D /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAnalyticsService.swift; sourceTree = "<group>"; };
-		8404D81126C6631C00AE200F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 		F1465EFF23AA94BF0055F7C3 /* Droidcon */ = {
 			isa = PBXGroup;
 			children = (
-				8404D81126C6631C00AE200F /* GoogleService-Info.plist */,
+				18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */,
 				1821427626B541720047DB71 /* Resources */,
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
 				46B5284C249C5CF400A7725D /* Koin.swift */,
@@ -343,13 +343,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1821427D26B5418D0047DB71 /* speakers.json in Resources */,
-				8404D81226C6631C00AE200F /* GoogleService-Info.plist in Resources */,
 				1821427C26B5418D0047DB71 /* sponsor_sessions.json in Resources */,
 				18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */,
 				1821427B26B5418D0047DB71 /* about.json in Resources */,
 				1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */,
 				1821427E26B5418D0047DB71 /* schedule.json in Resources */,
 				684FAA8926B2C31800673AFF /* Localizable.strings in Resources */,
+				18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
 				18493C04282B5BA500D4D992 /* iosMain in Resources */,
 			);

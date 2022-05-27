@@ -547,7 +547,7 @@
           {
             "id": "330626",
             "title": "Netflix + Gradle A Journey in Developer Productivity",
-            "description": "A case study on how Netflix and Gradle have been working together to optimize Netflix Android builds, find bottlenecks, and improve developer productivity. Emmanuel Boudrant from Netflix and Rooz Mohazzabi from Gradle will share wins and findings from their journey on...\r\n\r\nHow Netflix does builds \r\n- Spinnaker / Jenkins\r\n- Gradle / AGP / Android Studio\r\n- Lots of variants\r\n- Build Scans, Gradle profiler\r\nLots of static analysis and testing\r\n- AGP updates \r\n- Dexguard\r\n- Jettifier \r\nBuild cache optimizations and debugging cache misses \r\n- Android SDK and JDK version \r\n- CI vs Local cache-miss \r\nBuild properties case with modularisation\r\n- Modularization with dependency injection",
+            "description": "A case study on how Netflix and Gradle have been working together to optimize Netflix Android builds, find bottlenecks, and improve developer productivity. Emmanuel Boudrant from Netflix and Rooz Mohazzabi from Gradle will share wins and findings from their journey on...\r\n\r\nHow Netflix does builds\r\n- Gradle / AGP / Android Studio\r\n- Build Scans, Gradle profiler\r\n- CI / CD\r\nThe Developer Productivity Journey\r\n- The first build scan\r\n- Build caching, who’s using it? Who’s Not?\r\n- Identifying build performance bottlenecks\r\n- Enabling local and remote build caching\r\nBuild Performance Regressions: One year later, the usual suspects are back\r\n- Android SDK and JDK version\r\n- CI vs Local cache-miss\r\n- Setting up Android properties properly\r\n- Dagger and other annotation processors\r\nBuild properties case with modularisation\r\n- How dependency injection helped\r\n",
             "startsAt": "2022-06-02T16:00:00",
             "endsAt": "2022-06-02T16:40:00",
             "isServiceSession": false,
@@ -645,17 +645,21 @@
             "recordingUrl": null
           },
           {
-            "id": "331028",
-            "title": "Testing Jetpack Compose UI",
-            "description": "Building UI with Jetpack Compose is different from using Views and so is testing. After implementing and testing Compose UI in production code for almost a year I would like to share my learnings to make UI testing much easier for other developers.\r\n\r\nIn this session we will:\r\n\u2028- Determine how Compose UI is different from Android View\r\n\u2028- Speak about UI testing tools and their compatibility\u2028\r\n- Learn how to test Jetpack Compose layout\r\n- Discover how to test hybrid apps with both XML and Jetpack Compose UI\r\n\u2028- Explore compose testing library and learn advanced testing techniques\u2028\r\n- Discuss some common pitfalls and issues",
+            "id": "332816",
+            "title": "Elevate Your Application with Progressive Delivery for Android",
+            "description": "Developers are under increasing pressure to build and ship applications quickly and then add new features consistently to boost user engagement and grow competitive advantage. Moving fast always comes with risks but since moving slow isn’t a popular option, how can development teams ship code with speed whilst strategically managing the risks?  \r\n\r\nProgressive delivery is a modern way of developing, testing, and deploying code, which allows development teams to make data-driven decisions throughout the software delivery lifecycle, from pre-production to production. ",
             "startsAt": "2022-06-02T16:50:00",
             "endsAt": "2022-06-02T17:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "82508e77-1061-4969-8272-e7112eb754b7",
-                "name": "Dmytro Shuba"
+                "id": "3c8a6904-bcc0-483b-ba2f-9e1edafa31ff",
+                "name": "Ivan Diaz"
+              },
+              {
+                "id": "b14f12ac-e2c6-4f7c-8f29-3ff36147b65f",
+                "name": "Ivan Diaz"
               }
             ],
             "categories": [
@@ -686,6 +690,10 @@
                 "name": "Tags",
                 "categoryItems": [
                   {
+                    "id": 46019,
+                    "name": "Tooling"
+                  },
+                  {
                     "id": 46024,
                     "name": "Android"
                   },
@@ -694,12 +702,8 @@
                     "name": "Testing"
                   },
                   {
-                    "id": 46031,
-                    "name": "Libraries"
-                  },
-                  {
-                    "id": 46036,
-                    "name": "UI/UX"
+                    "id": 46032,
+                    "name": "Functional Programming"
                   }
                 ],
                 "sort": 1004
@@ -1177,17 +1181,17 @@
             "recordingUrl": null
           },
           {
-            "id": "332418",
-            "title": "What's on tonight? New developments in Android and Google TV",
-            "description": "Discover the latest from Android TV and Google TV, including a recap of Android 12 updates and what’s available in the developer preview for Android 13.\r\n\r\nExplore ways of connecting with your TV users through new experiences like multitasking and optimized layouts to support resizable windows and 4K UIs, as well as through improvements in performance and quality, including supporting frame rate switching, audio routes and keyboard layouts and accessibility. We’ll see how to make use of new validation tools to build native experiences across a variety of living room configurations.",
+            "id": "330925",
+            "title": "Optimize your app for large screens",
+            "description": "The rising popularity of tablets and foldable devices unlocks opportunities to address a new range of users in innovative ways. A responsive UI allows you to easily build this experience.\r\n\r\nIn this talk, you’ll get an understanding of what’s available for developers to support large screens. We’ll cover new APIs like Compose for large screens and Jetpack WindowManager, activity embedding, drag and drop, Android Studio templates and more. By the end of this session, you’ll have all the skills you need to create and test responsive UIs on Android so that users love your app no matter what device they’re using it on.",
             "startsAt": "2022-06-02T16:50:00",
             "endsAt": "2022-06-02T17:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "f89ea766-4af9-4b88-8842-ede574e4c648",
-                "name": "Paul Lammertsma"
+                "id": "570cfc56-f8ce-4af4-9833-6a16ef868455",
+                "name": "Alex Vanyo"
               }
             ],
             "categories": [
@@ -2188,21 +2192,17 @@
             "recordingUrl": null
           },
           {
-            "id": "332816",
-            "title": "Elevate Your Application with Progressive Delivery for Android",
-            "description": "Developers are under increasing pressure to build and ship applications quickly and then add new features consistently to boost user engagement and grow competitive advantage. Moving fast always comes with risks but since moving slow isn’t a popular option, how can development teams ship code with speed whilst strategically managing the risks?  \r\n\r\nProgressive delivery is a modern way of developing, testing, and deploying code, which allows development teams to make data-driven decisions throughout the software delivery lifecycle, from pre-production to production. ",
+            "id": "331028",
+            "title": "Testing Jetpack Compose UI",
+            "description": "Building UI with Jetpack Compose is different from using Views and so is testing. After implementing and testing Compose UI in production code for almost a year I would like to share my learnings to make UI testing much easier for other developers.\r\n\r\nIn this session we will:\r\n\u2028- Determine how Compose UI is different from Android View\r\n\u2028- Speak about UI testing tools and their compatibility\u2028\r\n- Learn how to test Jetpack Compose layout\r\n- Discover how to test hybrid apps with both XML and Jetpack Compose UI\r\n\u2028- Explore compose testing library and learn advanced testing techniques\u2028\r\n- Discuss some common pitfalls and issues",
             "startsAt": "2022-06-02T16:50:00",
             "endsAt": "2022-06-02T17:30:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "3c8a6904-bcc0-483b-ba2f-9e1edafa31ff",
-                "name": "Ivan Diaz"
-              },
-              {
-                "id": "b14f12ac-e2c6-4f7c-8f29-3ff36147b65f",
-                "name": "Ivan Diaz"
+                "id": "82508e77-1061-4969-8272-e7112eb754b7",
+                "name": "Dmytro Shuba"
               }
             ],
             "categories": [
@@ -2233,10 +2233,6 @@
                 "name": "Tags",
                 "categoryItems": [
                   {
-                    "id": 46019,
-                    "name": "Tooling"
-                  },
-                  {
                     "id": 46024,
                     "name": "Android"
                   },
@@ -2245,8 +2241,12 @@
                     "name": "Testing"
                   },
                   {
-                    "id": 46032,
-                    "name": "Functional Programming"
+                    "id": 46031,
+                    "name": "Libraries"
+                  },
+                  {
+                    "id": 46036,
+                    "name": "UI/UX"
                   }
                 ],
                 "sort": 1004
@@ -4103,7 +4103,7 @@
             "session": {
               "id": "330626",
               "title": "Netflix + Gradle A Journey in Developer Productivity",
-              "description": "A case study on how Netflix and Gradle have been working together to optimize Netflix Android builds, find bottlenecks, and improve developer productivity. Emmanuel Boudrant from Netflix and Rooz Mohazzabi from Gradle will share wins and findings from their journey on...\r\n\r\nHow Netflix does builds \r\n- Spinnaker / Jenkins\r\n- Gradle / AGP / Android Studio\r\n- Lots of variants\r\n- Build Scans, Gradle profiler\r\nLots of static analysis and testing\r\n- AGP updates \r\n- Dexguard\r\n- Jettifier \r\nBuild cache optimizations and debugging cache misses \r\n- Android SDK and JDK version \r\n- CI vs Local cache-miss \r\nBuild properties case with modularisation\r\n- Modularization with dependency injection",
+              "description": "A case study on how Netflix and Gradle have been working together to optimize Netflix Android builds, find bottlenecks, and improve developer productivity. Emmanuel Boudrant from Netflix and Rooz Mohazzabi from Gradle will share wins and findings from their journey on...\r\n\r\nHow Netflix does builds\r\n- Gradle / AGP / Android Studio\r\n- Build Scans, Gradle profiler\r\n- CI / CD\r\nThe Developer Productivity Journey\r\n- The first build scan\r\n- Build caching, who’s using it? Who’s Not?\r\n- Identifying build performance bottlenecks\r\n- Enabling local and remote build caching\r\nBuild Performance Regressions: One year later, the usual suspects are back\r\n- Android SDK and JDK version\r\n- CI vs Local cache-miss\r\n- Setting up Android properties properly\r\n- Dagger and other annotation processors\r\nBuild properties case with modularisation\r\n- How dependency injection helped\r\n",
               "startsAt": "2022-06-02T16:00:00",
               "endsAt": "2022-06-02T16:40:00",
               "isServiceSession": false,
@@ -4467,17 +4467,21 @@
             "id": 22799,
             "name": "Robertson 1",
             "session": {
-              "id": "331028",
-              "title": "Testing Jetpack Compose UI",
-              "description": "Building UI with Jetpack Compose is different from using Views and so is testing. After implementing and testing Compose UI in production code for almost a year I would like to share my learnings to make UI testing much easier for other developers.\r\n\r\nIn this session we will:\r\n\u2028- Determine how Compose UI is different from Android View\r\n\u2028- Speak about UI testing tools and their compatibility\u2028\r\n- Learn how to test Jetpack Compose layout\r\n- Discover how to test hybrid apps with both XML and Jetpack Compose UI\r\n\u2028- Explore compose testing library and learn advanced testing techniques\u2028\r\n- Discuss some common pitfalls and issues",
+              "id": "332816",
+              "title": "Elevate Your Application with Progressive Delivery for Android",
+              "description": "Developers are under increasing pressure to build and ship applications quickly and then add new features consistently to boost user engagement and grow competitive advantage. Moving fast always comes with risks but since moving slow isn’t a popular option, how can development teams ship code with speed whilst strategically managing the risks?  \r\n\r\nProgressive delivery is a modern way of developing, testing, and deploying code, which allows development teams to make data-driven decisions throughout the software delivery lifecycle, from pre-production to production. ",
               "startsAt": "2022-06-02T16:50:00",
               "endsAt": "2022-06-02T17:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "82508e77-1061-4969-8272-e7112eb754b7",
-                  "name": "Dmytro Shuba"
+                  "id": "3c8a6904-bcc0-483b-ba2f-9e1edafa31ff",
+                  "name": "Ivan Diaz"
+                },
+                {
+                  "id": "b14f12ac-e2c6-4f7c-8f29-3ff36147b65f",
+                  "name": "Ivan Diaz"
                 }
               ],
               "categories": [
@@ -4508,6 +4512,10 @@
                   "name": "Tags",
                   "categoryItems": [
                     {
+                      "id": 46019,
+                      "name": "Tooling"
+                    },
+                    {
                       "id": 46024,
                       "name": "Android"
                     },
@@ -4516,12 +4524,8 @@
                       "name": "Testing"
                     },
                     {
-                      "id": 46031,
-                      "name": "Libraries"
-                    },
-                    {
-                      "id": 46036,
-                      "name": "UI/UX"
+                      "id": 46032,
+                      "name": "Functional Programming"
                     }
                   ],
                   "sort": 1004
@@ -4549,17 +4553,17 @@
             "id": 22800,
             "name": "Robertson 2",
             "session": {
-              "id": "332418",
-              "title": "What's on tonight? New developments in Android and Google TV",
-              "description": "Discover the latest from Android TV and Google TV, including a recap of Android 12 updates and what’s available in the developer preview for Android 13.\r\n\r\nExplore ways of connecting with your TV users through new experiences like multitasking and optimized layouts to support resizable windows and 4K UIs, as well as through improvements in performance and quality, including supporting frame rate switching, audio routes and keyboard layouts and accessibility. We’ll see how to make use of new validation tools to build native experiences across a variety of living room configurations.",
+              "id": "330925",
+              "title": "Optimize your app for large screens",
+              "description": "The rising popularity of tablets and foldable devices unlocks opportunities to address a new range of users in innovative ways. A responsive UI allows you to easily build this experience.\r\n\r\nIn this talk, you’ll get an understanding of what’s available for developers to support large screens. We’ll cover new APIs like Compose for large screens and Jetpack WindowManager, activity embedding, drag and drop, Android Studio templates and more. By the end of this session, you’ll have all the skills you need to create and test responsive UIs on Android so that users love your app no matter what device they’re using it on.",
               "startsAt": "2022-06-02T16:50:00",
               "endsAt": "2022-06-02T17:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "f89ea766-4af9-4b88-8842-ede574e4c648",
-                  "name": "Paul Lammertsma"
+                  "id": "570cfc56-f8ce-4af4-9833-6a16ef868455",
+                  "name": "Alex Vanyo"
                 }
               ],
               "categories": [
@@ -4689,21 +4693,17 @@
             "id": 25195,
             "name": "Fisher East",
             "session": {
-              "id": "332816",
-              "title": "Elevate Your Application with Progressive Delivery for Android",
-              "description": "Developers are under increasing pressure to build and ship applications quickly and then add new features consistently to boost user engagement and grow competitive advantage. Moving fast always comes with risks but since moving slow isn’t a popular option, how can development teams ship code with speed whilst strategically managing the risks?  \r\n\r\nProgressive delivery is a modern way of developing, testing, and deploying code, which allows development teams to make data-driven decisions throughout the software delivery lifecycle, from pre-production to production. ",
+              "id": "331028",
+              "title": "Testing Jetpack Compose UI",
+              "description": "Building UI with Jetpack Compose is different from using Views and so is testing. After implementing and testing Compose UI in production code for almost a year I would like to share my learnings to make UI testing much easier for other developers.\r\n\r\nIn this session we will:\r\n\u2028- Determine how Compose UI is different from Android View\r\n\u2028- Speak about UI testing tools and their compatibility\u2028\r\n- Learn how to test Jetpack Compose layout\r\n- Discover how to test hybrid apps with both XML and Jetpack Compose UI\r\n\u2028- Explore compose testing library and learn advanced testing techniques\u2028\r\n- Discuss some common pitfalls and issues",
               "startsAt": "2022-06-02T16:50:00",
               "endsAt": "2022-06-02T17:30:00",
               "isServiceSession": false,
               "isPlenumSession": false,
               "speakers": [
                 {
-                  "id": "3c8a6904-bcc0-483b-ba2f-9e1edafa31ff",
-                  "name": "Ivan Diaz"
-                },
-                {
-                  "id": "b14f12ac-e2c6-4f7c-8f29-3ff36147b65f",
-                  "name": "Ivan Diaz"
+                  "id": "82508e77-1061-4969-8272-e7112eb754b7",
+                  "name": "Dmytro Shuba"
                 }
               ],
               "categories": [
@@ -4734,10 +4734,6 @@
                   "name": "Tags",
                   "categoryItems": [
                     {
-                      "id": 46019,
-                      "name": "Tooling"
-                    },
-                    {
                       "id": 46024,
                       "name": "Android"
                     },
@@ -4746,8 +4742,12 @@
                       "name": "Testing"
                     },
                     {
-                      "id": 46032,
-                      "name": "Functional Programming"
+                      "id": 46031,
+                      "name": "Libraries"
+                    },
+                    {
+                      "id": 46036,
+                      "name": "UI/UX"
                     }
                   ],
                   "sort": 1004
@@ -5791,7 +5791,7 @@
           {
             "id": "280189",
             "title": "Automated migration of Android apps to Bazel build system",
-            "description": "Migrating large projects that consist of hundreds or thousands of modules and being maintained by a large team, from Gradle to Bazel might be challenging. I would like to discuss the process of automation of the migration that includes the development and usage of a Gradle plugin as well as a type-safe and declarative Kotlin DSL for Bazel code generation. \r\nAn automated migration can save a lot of time and effort for organizations by making the transition to Bazel build system smoothly and allow to enjoy the benefits Bazel provides much sooner.\r\n- This project for automated migration to Bazel that I'm working on was presented at the official Google Bazelcon 2021 conference: https://youtu.be/dz-CFEwJuko\r\n- Also, it is described in a ProAndroidDev blog post: https://proandroiddev.com/304fa8b3680c\r\n- Source code could be found on GitHub: https://github.com/Morfly/airin",
+            "description": "Migrating large projects that consist of hundreds or thousands of modules and being maintained by a large team, from Gradle to Bazel might be challenging. I would like to discuss the process of automation of the migration that includes the development and usage of a Gradle plugin as well as a type-safe and declarative Kotlin DSL for Bazel code generation. \r\nAn automated migration can save a lot of time and effort for organizations by making the transition to Bazel build system smoothly and allow to enjoy the benefits Bazel provides much sooner.\r\nThe ideas that will be discussed in this talk were used in the project for automated migration to Bazel, called Airin: https://github.com/Morfly/airin\r\nMore information about it could be found in the talk from BazelCon 2021: https://youtu.be/dz-CFEwJuko\r\nOr in this blog post: https://proandroiddev.com/304fa8b3680c ",
             "startsAt": "2022-06-03T11:00:00",
             "endsAt": "2022-06-03T11:40:00",
             "isServiceSession": false,
@@ -5808,8 +5808,8 @@
                 "name": "Level",
                 "categoryItems": [
                   {
-                    "id": 46015,
-                    "name": "Advanced"
+                    "id": 46014,
+                    "name": "Intermediate"
                   }
                 ],
                 "sort": 2
@@ -6379,17 +6379,17 @@
             "recordingUrl": null
           },
           {
-            "id": "330676",
-            "title": "What does Recomposition mean to your app?",
-            "description": "You’ve heard a lot that Jetpack Compose is a declarative UI toolkit and it recomposes only the components that changed. But what does it exactly mean? How does it apply not only in the scale of one composable function but the entire app? Well, it turns out there is more than meets the eye when it comes to recomposition, and in this talk, we will deep dive into its benefits, costs, and gotchas. You’ll learn some practical tips to efficiently build functions in Jetpack Compose.",
+            "id": "341670",
+            "title": "Building Apps that Scale",
+            "description": "When it comes to building mobile apps, there are virtually unlimited approaches a developer can take to accomplish the job. However, when it comes to ensuring that the app can scale in terms of the codebase and performance with a growing userbase, there are a few best practices that should be followed.\r\n\r\nThis talk will cover common architecture principles that help you modularize your codebase and manage dependencies between those components. It will also introduce viewers to AWS Amplify, a toolset that allows mobile developers to take advantage of some of the most popular, scalable, resources offered by AWS.\r\n\r\nBy the end of this talk, viewers will know how to structure a codebase that can scale and build an app that can support a demanding userbase.",
             "startsAt": "2022-06-03T10:10:00",
             "endsAt": "2022-06-03T10:50:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "72c63733-5d76-4159-bdb3-969aea5c1147",
-                "name": "Aida Issayeva"
+                "id": "eef04f1d-3e67-46e4-8426-c79b9ff8f089",
+                "name": "Kilo Loco"
               }
             ],
             "categories": [
@@ -6418,12 +6418,7 @@
               {
                 "id": 21005,
                 "name": "Tags",
-                "categoryItems": [
-                  {
-                    "id": 46024,
-                    "name": "Android"
-                  }
-                ],
+                "categoryItems": [],
                 "sort": 1004
               },
               {
@@ -6796,9 +6791,9 @@
             "recordingUrl": null
           },
           {
-            "id": "330925",
-            "title": "Optimize your app for large screens",
-            "description": "The rising popularity of tablets and foldable devices unlocks opportunities to address a new range of users in innovative ways. A responsive UI allows you to easily build this experience.\r\n\r\nIn this talk, you’ll get an understanding of what’s available for developers to support large screens. We’ll cover new APIs like Compose for large screens and Jetpack WindowManager, activity embedding, drag and drop, Android Studio templates and more. By the end of this session, you’ll have all the skills you need to create and test responsive UIs on Android so that users love your app no matter what device they’re using it on.",
+            "id": "332418",
+            "title": "What's on tonight? New developments in Android and Google TV",
+            "description": "Discover the latest from Android TV and Google TV, including a recap of Android 12 updates and what’s available in the developer preview for Android 13.\r\n\r\nExplore ways of connecting with your TV users through new experiences like multitasking and optimized layouts to support resizable windows and 4K UIs, as well as through improvements in performance and quality, including supporting frame rate switching, audio routes and keyboard layouts and accessibility. We’ll see how to make use of new validation tools to build native experiences across a variety of living room configurations.",
             "startsAt": "2022-06-03T15:50:00",
             "endsAt": "2022-06-03T16:30:00",
             "isServiceSession": false,
@@ -6809,8 +6804,8 @@
                 "name": "Paul Lammertsma"
               },
               {
-                "id": "570cfc56-f8ce-4af4-9833-6a16ef868455",
-                "name": "Alex Vanyo"
+                "id": "327f56b4-c631-4489-9590-37bdfc856e3a",
+                "name": "Miguel Montemayor"
               }
             ],
             "categories": [
@@ -7010,17 +7005,17 @@
             "recordingUrl": null
           },
           {
-            "id": "341670",
-            "title": "Building Apps that Scale",
-            "description": "When it comes to building mobile apps, there are virtually unlimited approaches a developer can take to accomplish the job. However, when it comes to ensuring that the app can scale in terms of the codebase and performance with a growing userbase, there are a few best practices that should be followed.\r\n\r\nThis talk will cover common architecture principles that help you modularize your codebase and manage dependencies between those components. It will also introduce viewers to AWS Amplify, a toolset that allows mobile developers to take advantage of some of the most popular, scalable, resources offered by AWS.\r\n\r\nBy the end of this talk, viewers will know how to structure a codebase that can scale and build an app that can support a demanding userbase.",
+            "id": "330676",
+            "title": "What does Recomposition mean to your app?",
+            "description": "You’ve heard a lot that Jetpack Compose is a declarative UI toolkit and it recomposes only the components that changed. But what does it exactly mean? How does it apply not only in the scale of one composable function but the entire app? Well, it turns out there is more than meets the eye when it comes to recomposition, and in this talk, we will deep dive into its benefits, costs, and gotchas. You’ll learn some practical tips to efficiently build functions in Jetpack Compose.",
             "startsAt": "2022-06-03T10:10:00",
             "endsAt": "2022-06-03T10:50:00",
             "isServiceSession": false,
             "isPlenumSession": false,
             "speakers": [
               {
-                "id": "eef04f1d-3e67-46e4-8426-c79b9ff8f089",
-                "name": "Kilo Loco"
+                "id": "72c63733-5d76-4159-bdb3-969aea5c1147",
+                "name": "Aida Issayeva"
               }
             ],
             "categories": [
@@ -7049,7 +7044,12 @@
               {
                 "id": 21005,
                 "name": "Tags",
-                "categoryItems": [],
+                "categoryItems": [
+                  {
+                    "id": 46024,
+                    "name": "Android"
+                  }
+                ],
                 "sort": 1004
               },
               {
@@ -8066,6 +8066,71 @@
             "id": 22801,
             "name": "Fisher West",
             "session": {
+              "id": "341670",
+              "title": "Building Apps that Scale",
+              "description": "When it comes to building mobile apps, there are virtually unlimited approaches a developer can take to accomplish the job. However, when it comes to ensuring that the app can scale in terms of the codebase and performance with a growing userbase, there are a few best practices that should be followed.\r\n\r\nThis talk will cover common architecture principles that help you modularize your codebase and manage dependencies between those components. It will also introduce viewers to AWS Amplify, a toolset that allows mobile developers to take advantage of some of the most popular, scalable, resources offered by AWS.\r\n\r\nBy the end of this talk, viewers will know how to structure a codebase that can scale and build an app that can support a demanding userbase.",
+              "startsAt": "2022-06-03T10:10:00",
+              "endsAt": "2022-06-03T10:50:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "eef04f1d-3e67-46e4-8426-c79b9ff8f089",
+                  "name": "Kilo Loco"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 21003,
+                  "name": "Level",
+                  "categoryItems": [
+                    {
+                      "id": 46014,
+                      "name": "Intermediate"
+                    }
+                  ],
+                  "sort": 2
+                },
+                {
+                  "id": 21004,
+                  "name": "Session format",
+                  "categoryItems": [
+                    {
+                      "id": 46017,
+                      "name": "Session"
+                    }
+                  ],
+                  "sort": 1000
+                },
+                {
+                  "id": 21005,
+                  "name": "Tags",
+                  "categoryItems": [],
+                  "sort": 1004
+                },
+                {
+                  "id": 21006,
+                  "name": "Track",
+                  "categoryItems": [
+                    {
+                      "id": 46041,
+                      "name": "droidcon"
+                    }
+                  ],
+                  "sort": 1001
+                }
+              ],
+              "roomId": 22801,
+              "room": "Fisher West",
+              "liveUrl": null,
+              "recordingUrl": null
+            },
+            "index": 2
+          },
+          {
+            "id": 25195,
+            "name": "Fisher East",
+            "session": {
               "id": "330676",
               "title": "What does Recomposition mean to your app?",
               "description": "You’ve heard a lot that Jetpack Compose is a declarative UI toolkit and it recomposes only the components that changed. But what does it exactly mean? How does it apply not only in the scale of one composable function but the entire app? Well, it turns out there is more than meets the eye when it comes to recomposition, and in this talk, we will deep dive into its benefits, costs, and gotchas. You’ll learn some practical tips to efficiently build functions in Jetpack Compose.",
@@ -8111,71 +8176,6 @@
                       "name": "Android"
                     }
                   ],
-                  "sort": 1004
-                },
-                {
-                  "id": 21006,
-                  "name": "Track",
-                  "categoryItems": [
-                    {
-                      "id": 46041,
-                      "name": "droidcon"
-                    }
-                  ],
-                  "sort": 1001
-                }
-              ],
-              "roomId": 22801,
-              "room": "Fisher West",
-              "liveUrl": null,
-              "recordingUrl": null
-            },
-            "index": 2
-          },
-          {
-            "id": 25195,
-            "name": "Fisher East",
-            "session": {
-              "id": "341670",
-              "title": "Building Apps that Scale",
-              "description": "When it comes to building mobile apps, there are virtually unlimited approaches a developer can take to accomplish the job. However, when it comes to ensuring that the app can scale in terms of the codebase and performance with a growing userbase, there are a few best practices that should be followed.\r\n\r\nThis talk will cover common architecture principles that help you modularize your codebase and manage dependencies between those components. It will also introduce viewers to AWS Amplify, a toolset that allows mobile developers to take advantage of some of the most popular, scalable, resources offered by AWS.\r\n\r\nBy the end of this talk, viewers will know how to structure a codebase that can scale and build an app that can support a demanding userbase.",
-              "startsAt": "2022-06-03T10:10:00",
-              "endsAt": "2022-06-03T10:50:00",
-              "isServiceSession": false,
-              "isPlenumSession": false,
-              "speakers": [
-                {
-                  "id": "eef04f1d-3e67-46e4-8426-c79b9ff8f089",
-                  "name": "Kilo Loco"
-                }
-              ],
-              "categories": [
-                {
-                  "id": 21003,
-                  "name": "Level",
-                  "categoryItems": [
-                    {
-                      "id": 46014,
-                      "name": "Intermediate"
-                    }
-                  ],
-                  "sort": 2
-                },
-                {
-                  "id": 21004,
-                  "name": "Session format",
-                  "categoryItems": [
-                    {
-                      "id": 46017,
-                      "name": "Session"
-                    }
-                  ],
-                  "sort": 1000
-                },
-                {
-                  "id": 21005,
-                  "name": "Tags",
-                  "categoryItems": [],
                   "sort": 1004
                 },
                 {
@@ -8315,7 +8315,7 @@
             "session": {
               "id": "280189",
               "title": "Automated migration of Android apps to Bazel build system",
-              "description": "Migrating large projects that consist of hundreds or thousands of modules and being maintained by a large team, from Gradle to Bazel might be challenging. I would like to discuss the process of automation of the migration that includes the development and usage of a Gradle plugin as well as a type-safe and declarative Kotlin DSL for Bazel code generation. \r\nAn automated migration can save a lot of time and effort for organizations by making the transition to Bazel build system smoothly and allow to enjoy the benefits Bazel provides much sooner.\r\n- This project for automated migration to Bazel that I'm working on was presented at the official Google Bazelcon 2021 conference: https://youtu.be/dz-CFEwJuko\r\n- Also, it is described in a ProAndroidDev blog post: https://proandroiddev.com/304fa8b3680c\r\n- Source code could be found on GitHub: https://github.com/Morfly/airin",
+              "description": "Migrating large projects that consist of hundreds or thousands of modules and being maintained by a large team, from Gradle to Bazel might be challenging. I would like to discuss the process of automation of the migration that includes the development and usage of a Gradle plugin as well as a type-safe and declarative Kotlin DSL for Bazel code generation. \r\nAn automated migration can save a lot of time and effort for organizations by making the transition to Bazel build system smoothly and allow to enjoy the benefits Bazel provides much sooner.\r\nThe ideas that will be discussed in this talk were used in the project for automated migration to Bazel, called Airin: https://github.com/Morfly/airin\r\nMore information about it could be found in the talk from BazelCon 2021: https://youtu.be/dz-CFEwJuko\r\nOr in this blog post: https://proandroiddev.com/304fa8b3680c ",
               "startsAt": "2022-06-03T11:00:00",
               "endsAt": "2022-06-03T11:40:00",
               "isServiceSession": false,
@@ -8332,8 +8332,8 @@
                   "name": "Level",
                   "categoryItems": [
                     {
-                      "id": 46015,
-                      "name": "Advanced"
+                      "id": 46014,
+                      "name": "Intermediate"
                     }
                   ],
                   "sort": 2
@@ -9993,9 +9993,9 @@
             "id": 22801,
             "name": "Fisher West",
             "session": {
-              "id": "330925",
-              "title": "Optimize your app for large screens",
-              "description": "The rising popularity of tablets and foldable devices unlocks opportunities to address a new range of users in innovative ways. A responsive UI allows you to easily build this experience.\r\n\r\nIn this talk, you’ll get an understanding of what’s available for developers to support large screens. We’ll cover new APIs like Compose for large screens and Jetpack WindowManager, activity embedding, drag and drop, Android Studio templates and more. By the end of this session, you’ll have all the skills you need to create and test responsive UIs on Android so that users love your app no matter what device they’re using it on.",
+              "id": "332418",
+              "title": "What's on tonight? New developments in Android and Google TV",
+              "description": "Discover the latest from Android TV and Google TV, including a recap of Android 12 updates and what’s available in the developer preview for Android 13.\r\n\r\nExplore ways of connecting with your TV users through new experiences like multitasking and optimized layouts to support resizable windows and 4K UIs, as well as through improvements in performance and quality, including supporting frame rate switching, audio routes and keyboard layouts and accessibility. We’ll see how to make use of new validation tools to build native experiences across a variety of living room configurations.",
               "startsAt": "2022-06-03T15:50:00",
               "endsAt": "2022-06-03T16:30:00",
               "isServiceSession": false,
@@ -10006,8 +10006,8 @@
                   "name": "Paul Lammertsma"
                 },
                 {
-                  "id": "570cfc56-f8ce-4af4-9833-6a16ef868455",
-                  "name": "Alex Vanyo"
+                  "id": "327f56b4-c631-4489-9590-37bdfc856e3a",
+                  "name": "Miguel Montemayor"
                 }
               ],
               "categories": [
