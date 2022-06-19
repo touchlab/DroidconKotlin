@@ -6,6 +6,15 @@ pluginManagement {
         google()
         mavenCentral()
         maven("https://api.touchlab.dev/mvn/285E7757D9384C5EA5CC175816")
+        maven("https://maven.pkg.github.com/Touchlab/swikt") {
+            name = "gitHub"
+            credentials {
+                val githubActor: String? by settings
+                val githubToken: String? by settings
+                username = System.getenv("GITHUB_ACTOR") ?: githubActor
+                password = System.getenv("GITHUB_TOKEN") ?: githubToken
+            }
+        }
     }
 
     val kotlinVersion: String by settings
@@ -17,6 +26,7 @@ pluginManagement {
         kotlin("native.cocoapods") version kotlinVersion
         id("com.squareup.sqldelight") version sqldelightVersion
         id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
+        id("co.touchlab.swikt") version "0.0.4"
     }
 
     resolutionStrategy {

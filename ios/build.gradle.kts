@@ -6,6 +6,7 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("co.touchlab.faktory") version "0.8.13"
+    id("co.touchlab.swikt")
 }
 
 faktory {

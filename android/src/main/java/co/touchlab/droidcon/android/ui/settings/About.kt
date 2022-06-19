@@ -29,21 +29,16 @@ import co.touchlab.droidcon.android.viewModel.settings.AboutItemViewModel
 import co.touchlab.droidcon.android.viewModel.settings.AboutViewModel
 
 @Composable
-fun About(navController: NavHostController) {
+fun About() {
     val about: AboutViewModel = viewModel()
-
-    Scaffold(topBar = { Toolbar(titleRes = R.string.settings_about_title, navController = navController, showBackButton = true) }) {
-        val items by about.items.collectAsState()
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items.forEach { aboutItem ->
-                item { Section(aboutItem = aboutItem) }
-            }
-        }
+    val items by about.items.collectAsState()
+    items.forEach { aboutItem ->
+        AboutSection(aboutItem = aboutItem)
     }
 }
 
 @Composable
-private fun Section(aboutItem: AboutItemViewModel) {
+fun AboutSection(aboutItem: AboutItemViewModel) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Icon(
             modifier = Modifier.padding(horizontal = Dimensions.Padding.double, vertical = Dimensions.Padding.default),

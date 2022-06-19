@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
@@ -25,6 +28,7 @@ import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.main.SettingsScreen
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
+import co.touchlab.droidcon.android.viewModel.settings.AboutViewModel
 import co.touchlab.droidcon.android.viewModel.settings.SettingsViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -35,7 +39,8 @@ fun Settings(navController: NavHostController) {
     Scaffold(topBar = {
         Toolbar(titleRes = R.string.settings_title, navController = navController)
     }) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        val scrollState = rememberScrollState()
+        Column(modifier = Modifier.fillMaxSize().padding(it).verticalScroll(scrollState)) {
             IconTextSwitchRow(
                 iconRes = R.drawable.ic_baseline_feedback_24,
                 textRes = R.string.settings_enable_feedback_title,
@@ -48,22 +53,7 @@ fun Settings(navController: NavHostController) {
                 checked = settings.isRemindersEnabled,
             )
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { navController.navigate(SettingsScreen.About.route) },
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(
-                    modifier = Modifier.padding(Dimensions.Padding.default),
-                    painter = painterResource(id = R.drawable.menu_info),
-                    contentDescription = stringResource(id = R.string.settings_about_title),
-                )
-                Text(
-                    modifier = Modifier.padding(end = Dimensions.Padding.default),
-                    text = stringResource(id = R.string.settings_about_title),
-                )
-            }
+            About()
         }
     }
 }

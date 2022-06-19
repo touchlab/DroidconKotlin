@@ -29,11 +29,7 @@ class SettingsViewModel(
         }
     )
 
-    var presentedAbout: AboutViewModel? by managed(null)
-
-    fun aboutTapped() {
-        presentedAbout = aboutFactory.create()
-    }
+	val about by managed(aboutFactory.create())
 
     class Factory(
         private val settingsGateway: SettingsGateway,

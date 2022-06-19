@@ -4,35 +4,33 @@ import DroidconKit
 struct AboutView: View {
     private static let iconSize: CGFloat = 32
 
+    @ObservedObject
     private(set) var viewModel: AboutViewModel
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                ForEach(Array(viewModel.items.enumerated()), id: \.element) { index, section in
-                    paragraph {
-                        Text(section.title)
-                            .font(.headline)
-                            .padding(.bottom, 4)
+        VStack(spacing: 16) {
+            ForEach(Array(viewModel.items.enumerated()), id: \.element) { index, section in
+                paragraph {
+                    Text(section.title)
+                        .font(.headline)
+                        .padding(.bottom, 4)
 
-                        ForEach(section.detail.split(separator: "\n").filter { !$0.isEmpty }.map(String.init), id: \.self) { text in
-                            TextView(.constant(text))
-                                .isEditable(false)
-                                .autoDetectDataTypes(.link)
-                                .font(Font.callout)
-                        }
-
-                        Image(section.icon)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 50)
+                    ForEach(section.detail.split(separator: "\n").filter { !$0.isEmpty }.map(String.init), id: \.self) { text in
+                        TextView(.constant(text))
+                            .isEditable(false)
+                            .autoDetectDataTypes(.link)
+                            .font(Font.callout)
                     }
+
+                    Image(section.icon)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxHeight: 50)
                 }
             }
-            .padding([.top, .leading], 8)
-            .padding([.trailing, .bottom])
         }
-        .navigationTitle("About.Title")
+        .padding([.top, .leading], 8)
+        .padding([.trailing, .bottom])
     }
 
     @ViewBuilder
