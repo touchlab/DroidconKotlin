@@ -1,17 +1,50 @@
 {
   "images" : [
     {
-      "filename" : "dcsf-splash scfeen-ios-foreground.png",
+      "filename" : "LaunchScreen_Icon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "dcsf-splash scfeen-ios-foreground@2x.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "LaunchScreen_dark.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "LaunchScreen_Icon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "dcsf-splash scfeen-ios-foreground@3x.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "LaunchScreen_dark@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "LaunchScreen_Icon@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "LaunchScreen_dark@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

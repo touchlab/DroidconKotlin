@@ -26,11 +26,11 @@ android {
 
     compileSdk = androidCompileSdk.toInt()
     defaultConfig {
-        applicationId = "co.touchlab.droidconsf2018"
+        applicationId = "co.touchlab.droidcon.berlin"
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
-        versionCode = 20002
-        versionName = "2.0.2"
+        versionCode = 20008
+        versionName = "2.0.8"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {

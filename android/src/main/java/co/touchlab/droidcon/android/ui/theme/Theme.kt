@@ -16,10 +16,10 @@ private val DarkColorPalette = darkColors(
     surface = Colors.primary,
     background = Colors.darkGrey32,
     error = Colors.orange,
-    onPrimary = Colors.secondary,
+    onPrimary = Color.White,
     onSecondary = Color.White,
-    onSurface = Colors.secondary,
-    onBackground = Colors.secondary,
+    onSurface = Color.White,
+    onBackground = Color.White,
 )
 
 private val LightColorPalette = lightColors(
@@ -32,8 +32,8 @@ private val LightColorPalette = lightColors(
     surface = Colors.lightGrey220,
     background = Colors.lightGrey250,
     error = Colors.orange,
-    onPrimary = Colors.secondary,
-    onSecondary = Color.White,
+    onPrimary = Color.White,
+    onSecondary = Color.Black,
     onSurface = Color.Black,
     onBackground = Colors.darkGrey51,
 )

@@ -1,7 +1,7 @@
 {
   "documents": [
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/bronze",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/bronze",
       "fields": {
         "sponsors": {
           "arrayValue": {
@@ -10,13 +10,58 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "Keen Research"
-                    },
-                    "url": {
-                      "stringValue": "https://keenresearch.com/?utm_source=droidconSF2022&utm_medium=conference&utm_campaign=logo"
+                      "stringValue": "Payback"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ca1cca51ff854cb5934fba5e64a6bdd4~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Payback.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.payback.group/de/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Check24"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/check24.png"
+                    },
+                    "url": {
+                      "stringValue": "https://jobs.check24.de/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Scalable"
+                    },
+                    "url": {
+                      "stringValue": "https://de.scalable.capital/en/careers"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/scalable-capital.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Mobimeo"
+                    },
+                    "url": {
+                      "stringValue": "https://mobimeo.com/"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Mobimeo.png"
                     }
                   }
                 }
@@ -25,13 +70,13 @@
                 "mapValue": {
                   "fields": {
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_23fd68ad177a44e6927b1d2a08072d04~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/keenresearch.png"
+                    },
+                    "url": {
+                      "stringValue": "https://keenresearch.com"
                     },
                     "name": {
-                      "stringValue": "Turo"
-                    },
-                    "url": {
-                      "stringValue": "https://turo.com/gb/en"
+                      "stringValue": "Keen Research"
                     }
                   }
                 }
@@ -39,59 +84,44 @@
               {
                 "mapValue": {
                   "fields": {
+                    "name": {
+                      "stringValue": "MicroStream"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Microstream.png"
+                    },
+                    "url": {
+                      "stringValue": "https://microstream.one/platforms/microstream-for-android/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Klarna.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.klarna.com/careers/"
+                    },
+                    "name": {
+                      "stringValue": "Klarna"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://gradle.com/"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/gradle-1.png"
+                    },
                     "name": {
                       "stringValue": "Gradle"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_e3da2b51c3a649219647a8740195169f~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://gradle.com"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://slack.com/careers/dept/products-and-technology"
-                    },
-                    "name": {
-                      "stringValue": "Slack"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_af86d4ce7fd34af9ae9fd30284c5dab8~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_6f611aac940f4bc3b5620e45effd6064~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://www.travis-ci.com/"
-                    },
-                    "name": {
-                      "stringValue": "Travis CI"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://www.zillow.com/careers/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_0c51220978fd440ca6d822004a5ccdd6~mv2.png"
-                    },
-                    "name": {
-                      "stringValue": "Zillow"
                     }
                   }
                 }
@@ -100,28 +130,28 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "Tinder"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_71fdeb94f2a44241840fa70e79e58336~mv2.png"
-                    },
-                    "url": {
-                      "stringValue": "https://tinder.com/"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_e87036f851564a9296527479495b752c~mv2.png"
+                      "stringValue": "Uber"
                     },
                     "url": {
                       "stringValue": "https://www.uber.com/de/en/"
                     },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/uber-1.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Choco.png"
+                    },
                     "name": {
-                      "stringValue": "Uber"
+                      "stringValue": "Choco"
+                    },
+                    "url": {
+                      "stringValue": "https://choco.com/careers"
                     }
                   }
                 }
@@ -130,28 +160,43 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "Amazon Fire TV"
+                      "stringValue": "Tier"
                     },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/Tier.png"
+                    },
+                    "url": {
+                      "stringValue": "https://about.tier.app/jobs/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Mobile.dev"
+                    },
+                    "url": {
+                      "stringValue": "https://www.mobile.dev/"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/Mobile-dev.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
                     "url": {
                       "stringValue": "https://developer.amazon.com/apps-and-games"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_edad3edc43f34d0388687ca42b18d2d5~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Amazonappstore.png"
+                    },
                     "name": {
-                      "stringValue": "Tome Software"
-                    },
-                    "url": {
-                      "stringValue": "https://www.tomesoftware.com/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_c046658c053243da963c799ab17ae869~mv2.png"
+                      "stringValue": "Amazon Fire TV"
                     }
                   }
                 }
@@ -160,13 +205,28 @@
                 "mapValue": {
                   "fields": {
                     "url": {
-                      "stringValue": "https://www.siriusxm.com"
-                    },
-                    "name": {
-                      "stringValue": "siriusXM"
+                      "stringValue": "https://careers.getyourguide.com"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_24ab681ef0ea41f695c656c28360fe8b~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/getyourguide.png"
+                    },
+                    "name": {
+                      "stringValue": "Get Your Guide"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Nord Security"
+                    },
+                    "url": {
+                      "stringValue": "https://nordsecurity.com/careers?utm_source=website&utm_medium=banner&utm_campaign=droidcon22"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/Nord-Security.png"
                     }
                   }
                 }
@@ -175,17 +235,218 @@
           }
         },
         "displayOrder": {
-          "integerValue": "2"
+          "integerValue": "3"
         }
       },
-      "createTime": "2022-05-11T08:45:19.288796Z",
-      "updateTime": "2022-05-25T09:40:56.666305Z"
+      "createTime": "2022-06-15T08:09:14.318351Z",
+      "updateTime": "2022-06-17T14:01:01.310033Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/community partners",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/community partners",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/women-techmakers.png"
+                    },
+                    "url": {
+                      "stringValue": "https://wtmberlin.com"
+                    },
+                    "name": {
+                      "stringValue": "Woman TechMakers Berlin"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Stickermule"
+                    },
+                    "url": {
+                      "stringValue": "https://www.stickermule.com/eu/custom-stickers?utm_source=google&utm_campaign=droidconberlin22&utm_id=droidconberlin22"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Sticker-Mule.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "GDG Mount Kenya University"
+                    },
+                    "url": {
+                      "stringValue": "https://gdsc.community.dev/mount-kenya-university/"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Google-Developer-Student-Clubs.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Voltron.png"
+                    },
+                    "name": {
+                      "stringValue": "GDG Berlin Android"
+                    },
+                    "url": {
+                      "stringValue": "https://berlindroid.de/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/Coder-bee.png"
+                    },
+                    "url": {
+                      "stringValue": "https://coderbee.de/"
+                    },
+                    "name": {
+                      "stringValue": "Coder Bee"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "9"
+        }
+      },
+      "createTime": "2022-06-15T15:35:27.612218Z",
+      "updateTime": "2022-06-17T13:58:55.637917Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/enterprise",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.sap.com/germany/index.html?url_id=auto_hp_redirect_germany"
+                    },
+                    "name": {
+                      "stringValue": "SAP"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/SAP-1.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "7"
+        }
+      },
+      "createTime": "2022-06-15T08:12:56.295389Z",
+      "updateTime": "2022-06-15T12:46:38.956325Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/gold",
+      "fields": {
+        "prominent": {
+          "booleanValue": true
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Sipgate"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/sipgate.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.sipgate.de"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Microsoft Surface Duo"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/microsoft-surface-duo.png"
+                    },
+                    "url": {
+                      "stringValue": "https://docs.microsoft.com/en-gb/dual-screen/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Touchlab"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Touchlab-1.png"
+                    },
+                    "url": {
+                      "stringValue": "https://touchlab.co/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "url": {
+                      "stringValue": "https://www.youtube.com/watch?v=pDqgxy27h6Y"
+                    },
+                    "name": {
+                      "stringValue": "Amazon Last Mile"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/Amazon-Last-Mile.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "1"
+        }
+      },
+      "createTime": "2022-06-09T14:11:33.946763Z",
+      "updateTime": "2022-06-17T14:00:05.971674Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/lanyard",
       "fields": {
         "displayOrder": {
-          "integerValue": "4"
+          "integerValue": "6"
         },
         "sponsors": {
           "arrayValue": {
@@ -194,28 +455,13 @@
                 "mapValue": {
                   "fields": {
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_9e7bf12a044c4c3d944cb6ee69846d47~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/agora.png"
                     },
                     "name": {
-                      "stringValue": "Woman Who Code"
+                      "stringValue": "Agora"
                     },
                     "url": {
-                      "stringValue": "https://www.womenwhocode.com/sf"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_4687c7d9067b4ca69768f1728a357f31~mv2.jpeg"
-                    },
-                    "url": {
-                      "stringValue": "https://www.stickermule.com/custom-stickers?utm_source=google&utm_campaign=droidconsf22&utm_id=droidconsf22"
-                    },
-                    "name": {
-                      "stringValue": "Stickermule"
+                      "stringValue": "https://www.agora.io/en/"
                     }
                   }
                 }
@@ -224,11 +470,11 @@
           }
         }
       },
-      "createTime": "2022-05-09T18:32:17.869259Z",
-      "updateTime": "2022-05-12T11:39:58.112558Z"
+      "createTime": "2022-06-15T08:12:28.922523Z",
+      "updateTime": "2022-06-15T15:29:01.652097Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/gold",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/platinum",
       "fields": {
         "displayOrder": {
           "integerValue": "0"
@@ -242,74 +488,14 @@
               {
                 "mapValue": {
                   "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ab5a845b1e1f45cb8ab5664c0892109c~mv2.png"
-                    },
                     "name": {
-                      "stringValue": "SauceLabs"
+                      "stringValue": "Google"
                     },
                     "url": {
-                      "stringValue": "https://saucelabs.com/"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "Microsoft Duo"
-                    },
-                    "url": {
-                      "stringValue": "https://docs.microsoft.com/de-de/dual-screen/"
+                      "stringValue": "https://about.google/"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_4f9085b750464d83969f08fbf8cdbb2e~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_7bd904bbae0241f784274229ad2c8c82~mv2.jpeg"
-                    },
-                    "url": {
-                      "stringValue": "https://forms.gle/GU6EjkEbAby4ZnkX9"
-                    },
-                    "name": {
-                      "stringValue": "Pinterest"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "url": {
-                      "stringValue": "https://touchlab.co/"
-                    },
-                    "name": {
-                      "stringValue": "Touchlab"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_ea6b454a9baf42969c9f8186f5f81581~mv2.png"
-                    }
-                  }
-                }
-              },
-              {
-                "mapValue": {
-                  "fields": {
-                    "name": {
-                      "stringValue": "Salesforce"
-                    },
-                    "url": {
-                      "stringValue": "https://www.salesforce.com/de/?ir=1"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_7cf37463149e47fb8008a6ed3c4b0379~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Google-1.png"
                     }
                   }
                 }
@@ -318,12 +504,15 @@
           }
         }
       },
-      "createTime": "2022-05-11T08:15:39.767554Z",
-      "updateTime": "2022-05-25T12:29:31.903500Z"
+      "createTime": "2022-06-15T08:10:45.981326Z",
+      "updateTime": "2022-06-15T12:45:16.813079Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/media partners",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/silver",
       "fields": {
+        "displayOrder": {
+          "integerValue": "2"
+        },
         "sponsors": {
           "arrayValue": {
             "values": [
@@ -331,44 +520,40 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "Global Tech Gadgets"
+                      "stringValue": "Zebra"
                     },
                     "url": {
-                      "stringValue": "https://globaltechgadgets.com/"
+                      "stringValue": "https://developer.zebra.com"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_6c27af6b559740bea7535336ff8bd9eb~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/zebra-.png"
                     }
                   }
                 }
-              }
-            ]
-          }
-        },
-        "displayOrder": {
-          "integerValue": "5"
-        }
-      },
-      "createTime": "2022-05-11T08:47:47.426153Z",
-      "updateTime": "2022-05-25T10:36:02.564202Z"
-    },
-    {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/silver",
-      "fields": {
-        "displayOrder": {
-          "integerValue": "1"
-        },
-        "sponsors": {
-          "arrayValue": {
-            "values": [
+              },
               {
                 "mapValue": {
                   "fields": {
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_5ee354432c79484691f989a0594a61a8~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/delivery-hero-1.png"
                     },
+                    "url": {
+                      "stringValue": "https://careers.deliveryhero.com/global/en?utm_source=Event&utm_medium=droidcon+2022+Careers&utm_campaign=Event_droidcon+2022+Careers_WK13_Q1_2022"
+                    },
+                    "name": {
+                      "stringValue": "Delivery Hero"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
                     "name": {
                       "stringValue": "Bitrise"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/bitrise.png"
                     },
                     "url": {
                       "stringValue": "https://www.bitrise.io/why/technologies/android-continuous-integration"
@@ -379,14 +564,14 @@
               {
                 "mapValue": {
                   "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_5e784f123c3b486e803c7db2b931a756~mv2.png"
+                    "name": {
+                      "stringValue": "Paradox Cat"
                     },
                     "url": {
-                      "stringValue": "https://branch.io"
+                      "stringValue": "https://paradoxcat.com/en/"
                     },
-                    "name": {
-                      "stringValue": "Branch"
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Paradoxcat.png"
                     }
                   }
                 }
@@ -395,13 +580,13 @@
                 "mapValue": {
                   "fields": {
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_bbc485d360e944daaf30aabbf6893958~mv2.jpeg"
-                    },
-                    "name": {
-                      "stringValue": "Smartbear"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/rewe-digital.png"
                     },
                     "url": {
-                      "stringValue": "https://smartbear.com"
+                      "stringValue": "https://www.rewe-digital.com"
+                    },
+                    "name": {
+                      "stringValue": "REWE Digital"
                     }
                   }
                 }
@@ -410,13 +595,13 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "Sentry"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_b046a978f0c240ec8351ef88b507a548~mv2.png"
+                      "stringValue": "Purchasely"
                     },
                     "url": {
-                      "stringValue": "https://sentry.io/for/android/?utm_medium=event&utm_source=eventplatform&utm_campaign=mobile-event-droidcon-2022"
+                      "stringValue": "https://www.purchasely.com"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Purchasely.png"
                     }
                   }
                 }
@@ -425,13 +610,13 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "Stream"
+                      "stringValue": "CircleCI"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_f78bf17cebfb435da7f1631985fc96a2~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Circleci-1.png"
                     },
                     "url": {
-                      "stringValue": "https://getstream.io/"
+                      "stringValue": "https://circleci.com/?utm_content=droidcon/"
                     }
                   }
                 }
@@ -440,13 +625,13 @@
                 "mapValue": {
                   "fields": {
                     "name": {
-                      "stringValue": "Instabug"
+                      "stringValue": "Bolt"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_881e3534ccfb439a8fb9118166db23b5~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Bolt.png"
                     },
                     "url": {
-                      "stringValue": "https://instabug.com/"
+                      "stringValue": "https://bolt.eu/en/careers/"
                     }
                   }
                 }
@@ -455,13 +640,13 @@
                 "mapValue": {
                   "fields": {
                     "url": {
-                      "stringValue": "https://aws.amazon.com/amplify/"
+                      "stringValue": "https://www.dpdhl.com/en/about-us/corporate-divisions/it-services.html"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_328d29794bda4cdd9f9665ecda04b2b4~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/dhl.png"
                     },
                     "name": {
-                      "stringValue": "AWS"
+                      "stringValue": "DHL"
                     }
                   }
                 }
@@ -469,14 +654,14 @@
               {
                 "mapValue": {
                   "fields": {
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_61af2a3ca7074b2299c7eee2f5227570~mv2.png"
+                    "url": {
+                      "stringValue": "https://www.vonage.com"
                     },
                     "name": {
-                      "stringValue": "mobile.dev"
+                      "stringValue": "Vonage"
                     },
-                    "url": {
-                      "stringValue": "https://www.mobile.dev/"
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Vonage.png"
                     }
                   }
                 }
@@ -485,14 +670,45 @@
           }
         }
       },
-      "createTime": "2022-05-11T08:26:27.743199Z",
-      "updateTime": "2022-05-25T10:34:48.225276Z"
+      "createTime": "2022-06-15T08:09:03.227458Z",
+      "updateTime": "2022-06-15T15:12:00.459341Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/speaker sponsor",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/speaker party",
       "fields": {
         "displayOrder": {
-          "integerValue": "6"
+          "integerValue": "5"
+        },
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Babbel"
+                    },
+                    "url": {
+                      "stringValue": "https://uk.babbel.com/"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Babbel.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "createTime": "2022-06-15T08:12:14.988120Z",
+      "updateTime": "2022-06-15T15:40:37.770556Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/speaker sponsors",
+      "fields": {
+        "displayOrder": {
+          "integerValue": "10"
         },
         "sponsors": {
           "arrayValue": {
@@ -501,13 +717,13 @@
                 "mapValue": {
                   "fields": {
                     "url": {
-                      "stringValue": "https://monzo.com/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_be72e6e2dc6641e9bd14b812f343435a~mv2.png"
+                      "stringValue": "https://deezer.io/"
                     },
                     "name": {
-                      "stringValue": "Monzo"
+                      "stringValue": "Deezer"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/deezer.png"
                     }
                   }
                 }
@@ -516,13 +732,13 @@
                 "mapValue": {
                   "fields": {
                     "url": {
-                      "stringValue": "https://www.slanglabs.in/"
-                    },
-                    "name": {
-                      "stringValue": "Slang Labs "
+                      "stringValue": "https://www.apollographql.com/"
                     },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_67cb278255754b059ba915d8b848b46b~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/Apollo.png"
+                    },
+                    "name": {
+                      "stringValue": "Apollo"
                     }
                   }
                 }
@@ -530,27 +746,117 @@
               {
                 "mapValue": {
                   "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/sentry.png"
+                    },
+                    "url": {
+                      "stringValue": "https://sentry.io/for/android/"
+                    },
+                    "name": {
+                      "stringValue": "Sentry"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Axel Springer"
+                    },
+                    "url": {
+                      "stringValue": "https://career.axelspringer.com/en/"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/axel.png"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/luno.png"
+                    },
                     "url": {
                       "stringValue": "https://www.luno.com/"
-                    },
-                    "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_5dcfd73e0c3044fe85f205b6f6dd7c0d~mv2.png"
                     },
                     "name": {
                       "stringValue": "Luno"
                     }
                   }
                 }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/appdev.png"
+                    },
+                    "url": {
+                      "stringValue": "https://www.appdev.de/"
+                    },
+                    "name": {
+                      "stringValue": "Appdev"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Monzo"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/Monzo.png"
+                    },
+                    "url": {
+                      "stringValue": "https://monzo.com/"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/Slanglabs.png"
+                    },
+                    "name": {
+                      "stringValue": "Slanglabs"
+                    },
+                    "url": {
+                      "stringValue": "https://www.slanglabs.in"
+                    }
+                  }
+                }
+              },
+              {
+                "mapValue": {
+                  "fields": {
+                    "name": {
+                      "stringValue": "Shopify"
+                    },
+                    "url": {
+                      "stringValue": "https://www.shopify.com/"
+                    },
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/06/shopify.png"
+                    }
+                  }
+                }
               }
             ]
           }
         }
       },
-      "createTime": "2022-05-11T08:47:29.969408Z",
-      "updateTime": "2022-05-25T10:36:09.283498Z"
+      "createTime": "2022-06-16T09:18:51.442954Z",
+      "updateTime": "2022-06-16T09:27:05.376691Z"
     },
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-sf-2022/video",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/startup alley",
       "fields": {
         "sponsors": {
           "arrayValue": {
@@ -558,14 +864,14 @@
               {
                 "mapValue": {
                   "fields": {
+                    "name": {
+                      "stringValue": "tru.ID"
+                    },
                     "icon": {
-                      "stringValue": "https://static.wixstatic.com/media/6e1ab2_bdfa3786f43541f09b061872cc692ba5~mv2.png"
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/truid.png"
                     },
                     "url": {
-                      "stringValue": "https://www.agora.io/en/"
-                    },
-                    "name": {
-                      "stringValue": "Agora"
+                      "stringValue": "https://tru.id/"
                     }
                   }
                 }
@@ -574,11 +880,42 @@
           }
         },
         "displayOrder": {
-          "integerValue": "3"
+          "integerValue": "8"
         }
       },
-      "createTime": "2022-05-16T09:08:53.962228Z",
-      "updateTime": "2022-05-25T10:35:46.529701Z"
+      "createTime": "2022-06-15T08:13:14.498432Z",
+      "updateTime": "2022-06-15T15:28:18.871840Z"
+    },
+    {
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-berlin-2022/video",
+      "fields": {
+        "sponsors": {
+          "arrayValue": {
+            "values": [
+              {
+                "mapValue": {
+                  "fields": {
+                    "icon": {
+                      "stringValue": "https://berlin.droidcon.com/wp-content/uploads/2022/05/Stream.png"
+                    },
+                    "name": {
+                      "stringValue": "Stream"
+                    },
+                    "url": {
+                      "stringValue": "https://getstream.io/"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "displayOrder": {
+          "integerValue": "4"
+        }
+      },
+      "createTime": "2022-06-15T08:10:13.969221Z",
+      "updateTime": "2022-06-15T15:30:50.000492Z"
     }
   ]
 }

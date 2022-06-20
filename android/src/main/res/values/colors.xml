@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#FFfa6e50</color>
-    <color name="background">#FF202020</color>
-    <color name="content">#FFffffff</color>
+    <color name="primary">#FF2430C6</color>
+    <color name="background">#FFffffff</color>
+    <color name="content">#FF202020</color>
 </resources>

@@ -31,11 +31,11 @@ struct SessionDetailView: View {
                             Button(action: viewModel.attendingTapped) {
                                 if viewModel.isAttendingLoading {
                                     ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: Color("AttendButton_Foreground")))
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
                                 } else {
                                     Image(systemName: viewModel.isAttending ? "checkmark" : "plus")
                                         .resizable()
-                                        .foregroundColor(Color("AttendButton_Foreground"))
+                                        .foregroundColor(.black)
                                 }
                             }
                             .frame(width: 16, height: 16)

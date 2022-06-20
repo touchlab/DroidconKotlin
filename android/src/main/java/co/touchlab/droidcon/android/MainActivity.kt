@@ -66,7 +66,7 @@ class MainActivity: ComponentActivity(), KoinComponent {
                             LaunchedEffect(mainViewModel) {
                                 mainViewModel.didShowSplashScreen()
                             }
-                            Surface(color = MaterialTheme.colors.primary, modifier = Modifier.fillMaxSize()) {
+                            Surface(color = MaterialTheme.colors.background, modifier = Modifier.fillMaxSize()) {
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_splash_screen),
                                     contentDescription = getString(R.string.droidcon_title),

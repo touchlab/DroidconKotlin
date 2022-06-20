@@ -50,16 +50,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1562630A698D702F3ADBB9C1 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
-		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
-		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
-		1821427A26B5418D0047DB71 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../../shared/src/commonMain/resources/schedule.json; sourceTree = "<group>"; };
+		123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
+		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
+		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
+		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
+		1821427A26B5418D0047DB71 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../shared/src/commonMain/resources/schedule.json; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
 		18493BFF282B5B5C00D4D992 /* commonMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = commonMain; path = ../../shared/src/commonMain; sourceTree = "<group>"; };
 		18493C00282B5B5C00D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../../shared/src/iosMain; sourceTree = "<group>"; };
 		18493C03282B5BA500D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../src/iosMain; sourceTree = "<group>"; };
-		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
+		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
 		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
 		540A306F1CD61E1DFBEC756F /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 				1821427926B5418D0047DB71 /* speakers.json */,
 				1821427826B5418D0047DB71 /* sponsor_sessions.json */,
 			);
-			path = Resources;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		18493C01282B5B8F00D4D992 /* shared */ = {
@@ -625,7 +625,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.sf2;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -657,7 +657,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.sf2;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
