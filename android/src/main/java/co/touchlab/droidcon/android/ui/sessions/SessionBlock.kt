@@ -56,7 +56,8 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                     val backgroundColor = if (hasEnded) MaterialTheme.colors.surface else MaterialTheme.colors.background
                     val isClickable = !session.isServiceSession
                     Card(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f)
+                            .padding(vertical = Dimensions.Padding.quarter),
                         backgroundColor = backgroundColor,
                         onClick = {
                             sessionTapped(session)
