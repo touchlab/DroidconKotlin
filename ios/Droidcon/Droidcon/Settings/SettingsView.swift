@@ -10,6 +10,9 @@ struct SettingsView: View {
             ZStack {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
+                        ComposeController()
+                            .frame(height: 50)
+
                         Toggle(isOn: $viewModel.isFeedbackEnabled) {
                             Label("Settings.Feedback", systemImage: "ellipsis.bubble")
                         }
@@ -41,5 +44,15 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
 //        SettingsView()
         EmptyView()
+    }
+}
+
+struct ComposeController: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> some UIViewController {
+        TestViewKt.getRootController()
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+
     }
 }
