@@ -5,12 +5,6 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
-    id("co.touchlab.faktory") version "0.8.13"
-}
-
-faktory {
-    faktoryReadKey.set("285E7757D9384C5EA5CC175816")
-    cocoapods()
 }
 
 version = "1.0"
@@ -45,9 +39,9 @@ kotlin {
     cocoapods {
         summary = "Common library for the Droidcon app"
         homepage = "https://github.com/touchlab/DroidconKotlin"
-        // TODO we can't set name here until 1.6.20, and Faktory seems to be pulling us down to 1.6.10
-        // name = "DroidconKit"
+        name = "DroidconKit"
         framework {
+            baseName = "DroidconKit"
             isStatic = true
         }
     }

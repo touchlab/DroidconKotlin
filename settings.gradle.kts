@@ -5,7 +5,6 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven("https://api.touchlab.dev/mvn/285E7757D9384C5EA5CC175816")
     }
 
     val kotlinVersion: String by settings
@@ -34,10 +33,6 @@ pluginManagement {
             }
         }
     }
-}
-
-plugins {
-    id("co.touchlab.faktory-build-cache") version "0.8.15"
 }
 
 enableFeaturePreview("VERSION_CATALOGS")
@@ -160,11 +155,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":shared", ":android")
-
-// Hacky module naming so that our podSpec comes out with the correct name while still using the ios/ directory
-// TODO once we update Faktory to 1.6.20, this can go back to include(":ios") with the other includes
-include(":DroidconKit")
-project(":DroidconKit").projectDir = File("ios")
+include(":shared", ":android", ":ios")
 
 rootProject.name = "Droidcon"
