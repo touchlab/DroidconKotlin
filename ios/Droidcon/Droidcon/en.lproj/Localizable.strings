@@ -13,6 +13,7 @@
 "Agenda.TabItem.Title" = "Agenda";
 
 "Session.List.Item.Speakers %@" = "by %@";
+"Session.List.Item.Room %@" = "in %@";
 
 "Session.Detail.Title" = "Session";
 "Session.Detail.State.InProgress" = "This session is happening now.";

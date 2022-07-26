@@ -16,6 +16,7 @@ class SessionListItemViewModel(
     val isAttending: Boolean = item.session.rsvp.isAttending
     val isInConflict: Boolean = item.isInConflict
     val speakers: String = item.speakers.joinToString { it.fullName }
+    val room: String? = item.room?.name
 
     val isInPast: Boolean by collected(dateTimeService.now() > item.session.endsAt, flow {
         while (true) {
