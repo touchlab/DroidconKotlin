@@ -41,6 +41,7 @@ kotlin {
         api(project(":shared"))
         api(libs.kermit)
         api(libs.hyperdrive.multiplatformx.api)
+        implementation(libs.hyperdrive.multiplatformx.compose)
     }
 
     cocoapods {
@@ -86,5 +87,11 @@ kotlin {
             // TODO: the current compose binary surprises LLVM, so disable checks for now.
             freeCompilerArgs += "-Xdisable-phases=VerifyBitcode"
         }
+    }
+}
+
+afterEvaluate {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>() {
+        (compilerPluginClasspath as? Configuration)?.isTransitive = true
     }
 }

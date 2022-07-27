@@ -66,5 +66,10 @@
       <option name="name" value="maven3" />
       <option name="url" value="https://androidx.dev/storage/compose-compiler/repository/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="https://maven.pkg.jetbrains.space/public/p/compose/dev" />
+    </remote-repository>
   </component>
 </project>

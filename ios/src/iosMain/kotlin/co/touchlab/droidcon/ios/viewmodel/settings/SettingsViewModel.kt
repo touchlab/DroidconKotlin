@@ -7,7 +7,8 @@ class SettingsViewModel(
     settingsGateway: SettingsGateway,
     private val aboutFactory: AboutViewModel.Factory,
 ): BaseViewModel() {
-    var isFeedbackEnabled: Boolean by binding(
+
+    var isFeedbackEnabled by binding(
         settingsGateway.settings(),
         mapping = { it.isFeedbackEnabled },
         set = { newValue ->
@@ -17,8 +18,9 @@ class SettingsViewModel(
             }
         }
     )
+    val observeIsFeedbackEnabled by observe(::isFeedbackEnabled)
 
-    var isRemindersEnabled: Boolean by binding(
+    var isRemindersEnabled by binding(
         settingsGateway.settings(),
         mapping = { it.isRemindersEnabled },
         set = { newValue ->
@@ -28,6 +30,7 @@ class SettingsViewModel(
             }
         }
     )
+    val observeIsRemindersEnabled by observe(::isRemindersEnabled)
 
 	val about by managed(aboutFactory.create())
 

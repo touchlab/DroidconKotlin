@@ -8,28 +8,36 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 0) {
-                        ComposeController()
-                            .frame(height: 50)
+                GeometryReader { geometry in
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 0) {
+                            NavigationLink(
+                                destination: ComposeController(viewModel: viewModel)
+                                    .frame(height: geometry.size.height)
+                            ) {
+                                Text("Try out in Compose for iOS!")
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                            }
 
-                        Toggle(isOn: $viewModel.isFeedbackEnabled) {
-                            Label("Settings.Feedback", systemImage: "ellipsis.bubble")
+                            Toggle(isOn: $viewModel.isFeedbackEnabled) {
+                                Label("Settings.Feedback", systemImage: "ellipsis.bubble")
+                            }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal)
+
+                            Divider().padding(.horizontal)
+
+                            Toggle(isOn: $viewModel.isRemindersEnabled) {
+                                Label("Settings.Reminders", systemImage: "calendar")
+                            }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal)
+
+                            Divider().padding(.horizontal)
+
+                            AboutView(viewModel: viewModel.about)
                         }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal)
-
-                        Divider().padding(.horizontal)
-
-                        Toggle(isOn: $viewModel.isRemindersEnabled) {
-                            Label("Settings.Reminders", systemImage: "calendar")
-                        }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal)
-
-                        Divider().padding(.horizontal)
-
-                        AboutView(viewModel: viewModel.about)
                     }
                 }
             }
@@ -48,11 +56,14 @@ struct SettingsView_Previews: PreviewProvider {
 }
 
 struct ComposeController: UIViewControllerRepresentable {
+    
+    let viewModel: SettingsViewModel
+    
     func makeUIViewController(context: Context) -> some UIViewController {
-        TestViewKt.getRootController()
+        TestViewKt.getRootController(viewModel: viewModel)
     }
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-
+        uiViewController.view.setNeedsLayout()
     }
 }

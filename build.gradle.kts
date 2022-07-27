@@ -27,11 +27,11 @@ subprojects {
         }
     }
 
-    afterEvaluate {
-        tasks.named("check") {
-            dependsOn(tasks.getByName("ktlintCheck"))
-        }
-    }
+    // afterEvaluate {
+    //     tasks.named("check") {
+    //         dependsOn(tasks.getByName("ktlintCheck"))
+    //     }
+    // }
 }
 
 tasks.register<Delete>("clean") {

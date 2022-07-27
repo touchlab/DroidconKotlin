@@ -1,34 +1,80 @@
 package co.touchlab.droidcon.ios.ui
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
-import kotlinx.coroutines.delay
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
+import co.touchlab.droidcon.ios.viewmodel.settings.SettingsViewModel
+import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 
 @Composable
-internal fun TestView() {
-    val (int, setInt) = remember { mutableStateOf(1) }
+internal fun SettingsTestView(viewModel: SettingsViewModel) {
+    val scrollState = rememberScrollState()
+    Column(modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)) {
+        IconTextSwitchRow(
+            text = "Enable feedback",
+            image = Icons.Default.MailOutline,
+            checked = viewModel.observeIsFeedbackEnabled,
+        )
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text("Hello from Compose #$int!")
-        Spacer(Modifier.weight(1f))
-        Button(onClick = { setInt(int + 1) }) {
-            Text("Increment")
-        }
+        Divider()
+
+        IconTextSwitchRow(
+            text = "Enable reminders",
+            image = Icons.Default.Notifications,
+            checked = viewModel.observeIsRemindersEnabled,
+        )
+
+        Divider()
+
+        AboutView(viewModel.about)
     }
 }
 
-fun getRootController() = Application("TestView") {
-    TestView()
+@Composable
+private fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
+    val isChecked by checked.observeAsState()
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { checked.value = !checked.value },
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            modifier = Modifier.padding(16.dp),
+            imageVector = image,
+            contentDescription = text,
+        )
+        Text(
+            modifier = Modifier.weight(1f),
+            text = text,
+        )
+        Switch(
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 24.dp),
+            checked = isChecked,
+            onCheckedChange = { checked.value = it },
+        )
+    }
+}
+
+fun getRootController(viewModel: SettingsViewModel) = Application("SettingsTestView") {
+    SettingsTestView(viewModel)
 }
