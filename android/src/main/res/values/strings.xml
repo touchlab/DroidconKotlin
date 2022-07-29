@@ -43,4 +43,7 @@
     <string name="feedback_submit">Submit</string>
     <string name="feedback_close_and_disable">Close and disable feedback</string>
     <string name="feedback_skip">Skip feedback</string>
+
+    <string name="feedback_add_title">Add a feedback</string>
+    <string name="feedback_change_title">Change your feedback</string>
 </resources>

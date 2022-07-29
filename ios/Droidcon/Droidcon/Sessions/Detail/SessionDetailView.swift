@@ -90,10 +90,24 @@ struct SessionDetailView: View {
                         }
                         .padding(4)
                         .padding(.top)
+                        
+                        
+                        Button(action: viewModel.writeFeedbackTapped) {
+                            if viewModel.feedbackAlreadyWritten {
+                                Text("Session.Detail.ChangeFeedback")
+                            } else {
+                                Text("Session.Detail.AddFeedback")
+                            }
+                        }
+                            .padding(.bottom)
+                            .buttonStyle(FilledButtonStyle())
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 32)
                 }
+            }
+            .present(item: $viewModel.presentedFeedback) { viewModel in
+                FeedbackDialog(viewModel: viewModel)
             }
         }
         .navigationTitle("Session.Detail.Title")

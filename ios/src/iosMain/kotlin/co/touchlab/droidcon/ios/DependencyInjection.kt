@@ -65,7 +65,7 @@ fun initKoinIos(
         single { SessionDayViewModel.Factory(get(), get(), get()) }
         single { SessionListItemViewModel.Factory(get()) }
 
-        single { SessionDetailViewModel.Factory(get(), get(), get(), get(), get()) }
+        single { SessionDetailViewModel.Factory(get(), get(), get(), get(), get(), get(), get(), get()) }
         single { SpeakerListItemViewModel.Factory() }
 
         single { SpeakerDetailViewModel.Factory() }

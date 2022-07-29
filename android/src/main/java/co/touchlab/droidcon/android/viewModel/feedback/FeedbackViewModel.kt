@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class FeedbackViewModel(
     val session: MutableStateFlow<Session>,
     private val submitFeedback: suspend (Session, Session.Feedback) -> Unit,
-    private val closeAndDisableFeedback: suspend () -> Unit,
+    private val closeAndDisableFeedback: (suspend () -> Unit)? = null,
     private val skipFeedback: suspend (Session) -> Unit,
 ): ViewModel() {
 
@@ -26,11 +26,13 @@ class FeedbackViewModel(
 
     val isSubmitDisabled: Flow<Boolean> = selectedReaction.map { it == null }
 
+    val showCloseAndDisableOption: Boolean = closeAndDisableFeedback != null
+
     init {
         viewModelScope.launch {
             session.collect {
-                comment.value = ""
-                selectedReaction.value = null
+                comment.value = it.feedback?.comment ?: ""
+                selectedReaction.value = it.feedback?.rating?.let(::feedbackRatingToReaction)
             }
         }
     }
@@ -45,7 +47,7 @@ class FeedbackViewModel(
 
     fun closeAndDisable() {
         viewModelScope.launch {
-            closeAndDisableFeedback()
+            closeAndDisableFeedback?.invoke()
         }
     }
 
@@ -60,6 +62,14 @@ class FeedbackViewModel(
             Reaction.Bad -> Session.Feedback.Rating.DISSATISFIED
             Reaction.Normal -> Session.Feedback.Rating.NORMAL
             Reaction.Good -> Session.Feedback.Rating.SATISFIED
+        }
+
+    private fun feedbackRatingToReaction(rating: Int): Reaction =
+        when (rating) {
+            Session.Feedback.Rating.DISSATISFIED -> Reaction.Bad
+            Session.Feedback.Rating.NORMAL -> Reaction.Normal
+            Session.Feedback.Rating.SATISFIED -> Reaction.Good
+            else -> throw IllegalStateException("Unknown feedback rating $rating.")
         }
 
     sealed class Reaction(@StringRes val descriptionRes: Int, @DrawableRes val imageRes: Int) {

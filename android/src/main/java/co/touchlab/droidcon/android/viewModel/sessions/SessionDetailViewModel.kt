@@ -6,22 +6,29 @@ import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.dto.WebLink
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.ParseUrlViewService
+import co.touchlab.droidcon.android.viewModel.feedback.FeedbackViewModel
+import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.domain.service.FeedbackService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -34,6 +41,8 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
     private val dateTimeFormatter by inject<DateTimeFormatterViewService>()
     private val dateTimeService by inject<DateTimeService>()
     private val parseUrlViewService by inject<ParseUrlViewService>()
+    private val feedbackService: FeedbackService by inject()
+    private val settingsGateway: SettingsGateway by inject()
 
     private val observeScheduleItem = MutableSharedFlow<ScheduleItem?>(replay = 1)
     private var scheduleItem: ScheduleItem? = null
@@ -90,6 +99,23 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
 
     val speakers: Flow<List<ProfileViewModel>> = observeScheduleItem.map { it?.speakers?.map(::ProfileViewModel) ?: emptyList() }
 
+    val showFeedbackOption: StateFlow<Boolean> = settingsGateway.settings()
+        .map { it.isFeedbackEnabled }
+        .combine(hasEnded) { feedbackEnabled, hasEnded ->
+            feedbackEnabled && hasEnded
+        }
+        .stateIn(viewModelScope, SharingStarted.Lazily, false)
+
+    val showFeedbackTitleRes: StateFlow<Int> = observeScheduleItem.map {
+        if (it?.session?.feedback != null) {
+            R.string.feedback_change_title
+        } else {
+            R.string.feedback_add_title
+        }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, initialValue = R.string.feedback_add_title)
+
+    val showFeedback: MutableStateFlow<FeedbackViewModel?> = MutableStateFlow(null)
+
     init {
         viewModelScope.launch {
             id.flatMapLatest {
@@ -106,5 +132,21 @@ class SessionDetailViewModel: ViewModel(), KoinComponent {
                 sessionGateway.setAttending(session, value)
             }
         }
+    }
+
+    fun writeFeedbackTapped() {
+        val session = scheduleItem?.session ?: return
+        showFeedback.value = FeedbackViewModel(
+            MutableStateFlow(session),
+            submitFeedback = { currentSession, feedback ->
+                feedbackService.submit(currentSession, feedback)
+                showFeedback.value = null
+            },
+            closeAndDisableFeedback = null,
+            skipFeedback = {
+                feedbackService.skip(it)
+                showFeedback.value = null
+            },
+        )
     }
 }

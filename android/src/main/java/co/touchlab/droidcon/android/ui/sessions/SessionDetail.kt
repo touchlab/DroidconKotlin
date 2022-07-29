@@ -16,9 +16,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.dto.WebLink
+import co.touchlab.droidcon.android.ui.feedback.Feedback
 import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
@@ -57,6 +60,10 @@ fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
     val sessionDetail = viewModel<SessionDetailViewModel>()
     LaunchedEffect(sessionId) {
         sessionDetail.id.value = sessionId
+    }
+    val feedback by sessionDetail.showFeedback.collectAsState()
+    feedback?.let {
+        Feedback(it)
     }
 
     Scaffold(
@@ -105,6 +112,19 @@ fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
             speakers.forEach { speaker ->
                 Speaker(speaker) {
                     navController.navigate(ScheduleScreen.SpeakerDetail.createRoute(speaker.id))
+                }
+            }
+
+            val showFeedbackOption by sessionDetail.showFeedbackOption.collectAsState()
+            if (showFeedbackOption) {
+                Button(
+                    onClick = sessionDetail::writeFeedbackTapped,
+                    modifier = Modifier
+                        .padding(Dimensions.Padding.default)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    val showFeedbackTitleRes by sessionDetail.showFeedbackTitleRes.collectAsState()
+                    Text(text = stringResource(id = showFeedbackTitleRes))
                 }
             }
         }
