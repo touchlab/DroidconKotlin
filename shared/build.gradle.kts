@@ -60,6 +60,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(libs.kermit)
+                api(libs.kermit.crashlytics)
                 api(libs.kotlinx.coroutines.core)
                 api(libs.kotlinx.datetime)
                 api(libs.multiplatformSettings.core)
