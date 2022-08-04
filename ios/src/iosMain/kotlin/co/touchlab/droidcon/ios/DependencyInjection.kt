@@ -31,6 +31,7 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
+import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import platform.Foundation.NSBundle
 import platform.Foundation.NSUserDefaults
@@ -78,7 +79,7 @@ fun initKoinIos(
         single { SettingsViewModel.Factory(get(), get()) }
         single { AboutViewModel.Factory(get()) }
 
-        single { FeedbackDialogViewModel.Factory(get()) }
+        single { FeedbackDialogViewModel.Factory(get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
     }
 )
 
