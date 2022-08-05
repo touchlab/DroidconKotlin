@@ -60,7 +60,7 @@ struct ComposeController: UIViewControllerRepresentable {
     let viewModel: SettingsViewModel
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        TestViewKt.getRootController(viewModel: viewModel)
+        SettingsTestViewKt.getRootController(viewModel: viewModel)
     }
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
