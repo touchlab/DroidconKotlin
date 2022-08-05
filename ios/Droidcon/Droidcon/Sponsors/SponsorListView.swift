@@ -16,6 +16,14 @@ struct SponsorListView: View {
                 )
 
                 VStack(spacing: 20) {
+                    NavigationLink(
+                        destination: SponsorsComposeController(viewModel: viewModel)
+                    ) {
+                        Text("Try out in Compose for iOS!")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                    }
+                    
                     ForEach(viewModel.sponsorGroups) { sponsorGroup in
                         VStack(spacing: 8) {
                             Text(sponsorGroup.title)
@@ -47,6 +55,19 @@ struct SponsorListView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+struct SponsorsComposeController: UIViewControllerRepresentable {
+    
+    let viewModel: SponsorListViewModel
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        SponsorsTestViewKt.getRootController(viewModel: viewModel)
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        uiViewController.view.setNeedsLayout()
     }
 }
 
