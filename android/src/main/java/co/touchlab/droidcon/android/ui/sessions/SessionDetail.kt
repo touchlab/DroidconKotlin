@@ -105,16 +105,6 @@ fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
             val statusRes by sessionDetail.statusRes.collectAsState(null)
             Info(statusRes?.let { stringResource(id = it) } ?: "")
 
-            val description by sessionDetail.description.collectAsState("" to emptyList())
-            Description(description.first, description.second)
-
-            val speakers by sessionDetail.speakers.collectAsState(emptyList())
-            speakers.forEach { speaker ->
-                Speaker(speaker) {
-                    navController.navigate(ScheduleScreen.SpeakerDetail.createRoute(speaker.id))
-                }
-            }
-
             val showFeedbackOption by sessionDetail.showFeedbackOption.collectAsState()
             if (showFeedbackOption) {
                 Button(
@@ -125,6 +115,16 @@ fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
                 ) {
                     val showFeedbackTitleRes by sessionDetail.showFeedbackTitleRes.collectAsState()
                     Text(text = stringResource(id = showFeedbackTitleRes))
+                }
+            }
+
+            val description by sessionDetail.description.collectAsState("" to emptyList())
+            Description(description.first, description.second)
+
+            val speakers by sessionDetail.speakers.collectAsState(emptyList())
+            speakers.forEach { speaker ->
+                Speaker(speaker) {
+                    navController.navigate(ScheduleScreen.SpeakerDetail.createRoute(speaker.id))
                 }
             }
         }

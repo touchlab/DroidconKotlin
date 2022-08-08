@@ -62,6 +62,17 @@ struct SessionDetailView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         }
+                        
+                        if viewModel.showFeedbackOption {
+                            Button(action: viewModel.writeFeedbackTapped) {
+                                if viewModel.feedbackAlreadyWritten {
+                                    Text("Session.Detail.ChangeFeedback")
+                                } else {
+                                    Text("Session.Detail.AddFeedback")
+                                }
+                            }
+                            .buttonStyle(FilledButtonStyle())
+                        }
 
                         if let abstract = viewModel.abstract {
                             label(
@@ -90,18 +101,6 @@ struct SessionDetailView: View {
                         }
                         .padding(4)
                         .padding(.top)
-                        
-                        if viewModel.showFeedbackOption {
-                            Button(action: viewModel.writeFeedbackTapped) {
-                                if viewModel.feedbackAlreadyWritten {
-                                    Text("Session.Detail.ChangeFeedback")
-                                } else {
-                                    Text("Session.Detail.AddFeedback")
-                                }
-                            }
-                            .padding(.bottom)
-                            .buttonStyle(FilledButtonStyle())
-                        }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 32)
