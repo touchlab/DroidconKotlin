@@ -16,6 +16,7 @@ abstract class BaseSessionListViewModel(
 
     var days: List<SessionDayViewModel>? by published(null)
         private set
+    val observeDays by observe(::days)
 
     var selectedDay: SessionDayViewModel? by managed(null)
 

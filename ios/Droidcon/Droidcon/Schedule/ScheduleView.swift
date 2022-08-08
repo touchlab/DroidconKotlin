@@ -13,6 +13,12 @@ struct ScheduleView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
+                NavigationLink(destination: ScheduleComposeController(viewModel: viewModel)) {
+                    Text("Try out in Compose for iOS!")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                }
+                
                 if let days = viewModel.days {
                     if !days.isEmpty {
                         DaySelectionView(viewModel: viewModel)
@@ -75,4 +81,15 @@ struct ScheduleView_Previews: PreviewProvider {
     static var previews: some View {
         EmptyView()
     }
+}
+
+struct ScheduleComposeController: UIViewControllerRepresentable {
+    
+    let viewModel: BaseSessionListViewModel
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        SessionListTestViewKt.getRootController(viewModel: viewModel)
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
