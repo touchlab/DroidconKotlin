@@ -54,8 +54,8 @@ fun SessionList(navController: NavHostController, sessions: BaseSessionListViewM
         topBar = {
             Toolbar(titleRes = R.string.droidcon_title, navController = navController)
         }
-    ) {
-        Column {
+    ) { contentPadding ->
+        Column(modifier = Modifier.padding(contentPadding)) {
             if (days.isEmpty()) {
                 Empty(emptyRes)
             } else {
