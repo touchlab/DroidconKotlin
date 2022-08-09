@@ -21,6 +21,7 @@
     <string name="schedule_speaker_detail_title">Speaker</string>
     <string name="schedule_speaker_detail_info_description">Info</string>
     <string name="schedule_empty">There are no sessions planned.</string>
+    <string name="schedule_item_in_room">in %s</string>
 
     <string name="my_agenda_title">My Agenda</string>
     <string name="my_agenda_empty">You are not attending any sessions.</string>

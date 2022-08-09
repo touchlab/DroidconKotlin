@@ -19,8 +19,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.viewModel.sessions.SessionViewModel
@@ -67,15 +70,32 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                         border = if (MaterialTheme.colors.isLight || hasEnded) null else BorderStroke(1.dp, MaterialTheme.colors.surface),
                     ) {
                         Column {
-                            Text(text = session.title, modifier = Modifier.padding(Dimensions.Padding.half))
                             Text(
-                                text = session.speakers,
-                                modifier = Modifier.padding(
-                                    start = Dimensions.Padding.half,
-                                    end = Dimensions.Padding.half,
-                                    bottom = Dimensions.Padding.half,
-                                ),
+                                text = session.title,
+                                modifier = Modifier.padding(Dimensions.Padding.half),
+                                fontWeight = FontWeight.Bold,
                             )
+                            session.room?.let { roomName ->
+                                Text(
+                                    text = stringResource(id = R.string.schedule_item_in_room).format(roomName),
+                                    modifier = Modifier.padding(
+                                        start = Dimensions.Padding.half,
+                                        bottom = Dimensions.Padding.half,
+                                    ),
+                                    style = MaterialTheme.typography.caption,
+                                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.8f),
+                                )
+                            }
+                            if (!session.isServiceSession && session.speakers.isNotEmpty()) {
+                                Text(
+                                    text = session.speakers,
+                                    modifier = Modifier.padding(
+                                        start = Dimensions.Padding.half,
+                                        end = Dimensions.Padding.half,
+                                        bottom = Dimensions.Padding.half,
+                                    ),
+                                )
+                            }
                         }
                     }
                 }

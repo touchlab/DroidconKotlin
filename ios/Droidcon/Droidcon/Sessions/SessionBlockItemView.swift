@@ -41,6 +41,18 @@ struct SessionBlockItemView: View {
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true)
+                    
+                    if let roomName = viewModel.room {
+                        Text("Session.List.Item.Room \(roomName)")
+                            .font(.caption)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 4)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .opacity(0.8)
+                    }
+                    
                     if !viewModel.isServiceSession && !viewModel.speakers.isEmpty {
                         Text("Session.List.Item.Speakers \(viewModel.speakers)")
                             .font(.subheadline)
