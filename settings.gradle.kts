@@ -5,16 +5,6 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven("https://api.touchlab.dev/mvn/285E7757D9384C5EA5CC175816")
-        maven("https://maven.pkg.github.com/Touchlab/swikt") {
-            name = "gitHub"
-            credentials {
-                val githubActor: String? by settings
-                val githubToken: String? by settings
-                username = System.getenv("GITHUB_ACTOR") ?: githubActor
-                password = System.getenv("GITHUB_TOKEN") ?: githubToken
-            }
-        }
     }
 
     val kotlinVersion: String by settings
@@ -26,7 +16,6 @@ pluginManagement {
         kotlin("native.cocoapods") version kotlinVersion
         id("com.squareup.sqldelight") version sqldelightVersion
         id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
-        id("co.touchlab.swikt") version "0.0.4"
     }
 
     resolutionStrategy {
@@ -44,10 +33,6 @@ pluginManagement {
             }
         }
     }
-}
-
-plugins {
-    id("co.touchlab.faktory-build-cache") version "0.8.15"
 }
 
 enableFeaturePreview("VERSION_CATALOGS")
@@ -171,11 +156,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":shared", ":android")
-
-// Hacky module naming so that our podSpec comes out with the correct name while still using the ios/ directory
-// TODO once we update Faktory to 1.6.20, this can go back to include(":ios") with the other includes
-include(":DroidconKit")
-project(":DroidconKit").projectDir = File("ios")
+include(":shared", ":android", ":ios")
 
 rootProject.name = "Droidcon"

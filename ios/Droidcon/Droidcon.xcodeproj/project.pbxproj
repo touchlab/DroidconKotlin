@@ -16,7 +16,7 @@
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
 		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 		18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */; };
-		40275E911EDC846356ECC704 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21650A71319A7F88D3721407 /* Pods_Droidcon.framework */; };
+		3E160FDC55470B05AD9C2767 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1562630A698D702F3ADBB9C1 /* Pods_Droidcon.framework */; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
 		681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C959C26C554E00011330B /* FeedbackDialog.swift */; };
 		681C95A126C555D90011330B /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95A026C555D90011330B /* VisualEffectView.swift */; };
@@ -50,7 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
+		1562630A698D702F3ADBB9C1 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
 		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
 		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
@@ -61,9 +61,8 @@
 		18493C03282B5BA500D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../src/iosMain; sourceTree = "<group>"; };
 		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
 		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		21650A71319A7F88D3721407 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
-		6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
+		540A306F1CD61E1DFBEC756F /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
 		681C959C26C554E00011330B /* FeedbackDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackDialog.swift; sourceTree = "<group>"; };
 		681C95A026C555D90011330B /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		681C95A226C56B100011330B /* CustomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOverlayView.swift; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorDetailView.swift; sourceTree = "<group>"; };
 		68DCBC6326C51E260084C70D /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAnalyticsService.swift; sourceTree = "<group>"; };
+		A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40275E911EDC846356ECC704 /* Pods_Droidcon.framework in Frameworks */,
+				3E160FDC55470B05AD9C2767 /* Pods_Droidcon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,14 +137,6 @@
 				18493C03282B5BA500D4D992 /* iosMain */,
 			);
 			name = ios;
-			sourceTree = "<group>";
-		};
-		6278498AD96A4D949D39BF44 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				21650A71319A7F88D3721407 /* Pods_Droidcon.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		684FAA7226B2A4B400673AFF /* Schedule */ = {
@@ -232,10 +224,18 @@
 		DF9BBECBCD175B90105DA8D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */,
-				6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */,
+				540A306F1CD61E1DFBEC756F /* Pods-Droidcon.debug.xcconfig */,
+				A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		EA4A32E32829B6496044B105 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1562630A698D702F3ADBB9C1 /* Pods_Droidcon.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F1465EF423AA94BF0055F7C3 = {
@@ -246,7 +246,7 @@
 				F1465EFF23AA94BF0055F7C3 /* Droidcon */,
 				F1465EFE23AA94BF0055F7C3 /* Products */,
 				DF9BBECBCD175B90105DA8D9 /* Pods */,
-				6278498AD96A4D949D39BF44 /* Frameworks */,
+				EA4A32E32829B6496044B105 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -603,7 +603,7 @@
 		};
 		F1465F2823AA94C00055F7C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */;
+			baseConfigurationReference = 540A306F1CD61E1DFBEC756F /* Pods-Droidcon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -635,7 +635,7 @@
 		};
 		F1465F2923AA94C00055F7C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */;
+			baseConfigurationReference = A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
