@@ -8,102 +8,112 @@ struct SessionDetailView: View {
     private(set) var viewModel: SessionDetailViewModel
 
     var body: some View {
-        ScrollView {
-            ZStack {
-                SwitchingNavigationLink(
-                    selection: $viewModel.presentedSpeakerDetail,
-                    content: SpeakerDetailView.init(viewModel:)
-                )
-
-                VStack(spacing: 0) {
-                    VStack(alignment: .leading, spacing: 16) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(viewModel.title)
-                                .font(.title2)
-
-                            Text(viewModel.info)
-                                .font(.footnote)
-                        }
-                        .padding(.horizontal, 8)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-                        if viewModel.state != .ended {
-                            Button(action: viewModel.attendingTapped) {
-                                if viewModel.isAttendingLoading {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                                } else {
-                                    Image(systemName: viewModel.isAttending ? "checkmark" : "plus")
-                                        .resizable()
-                                        .foregroundColor(.black)
-                                }
-                            }
-                            .frame(width: 16, height: 16)
-                            .padding(12)
-                            .background(Color("AttendButton"))
-                            .cornerRadius(.greatestFiniteMagnitude)
-                            .shadow(color: Color("Shadow"), radius: 2)
-                            .padding(.bottom, -36)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(
-                        Color("ElevatedHeaderBackground")
-                            .shadow(color: Color("Shadow"), radius: 2, y: 1)
+        GeometryReader { geometry in
+            ScrollView {
+                ZStack {
+                    SwitchingNavigationLink(
+                        selection: $viewModel.presentedSpeakerDetail,
+                        content: SpeakerDetailView.init(viewModel:)
                     )
 
-                    VStack(spacing: 16) {
-                        if let sessionStateMessage = viewModel.state.flatMap(stateMessage(from:)) {
-                            label(
-                                Text(sessionStateMessage),
-                                image: Image(systemName: "info.circle")
-                            )
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                        }
-                        
-                        if viewModel.showFeedbackOption {
-                            Button(action: viewModel.writeFeedbackTapped) {
-                                if viewModel.feedbackAlreadyWritten {
-                                    Text("Session.Detail.ChangeFeedback")
-                                } else {
-                                    Text("Session.Detail.AddFeedback")
-                                }
-                            }
-                            .buttonStyle(FilledButtonStyle())
+                    VStack(spacing: 0) {
+                        NavigationLink(
+                            destination: SessionDetailComposeController(viewModel: viewModel).frame(height: geometry.size.height)
+                        ) {
+                            Text("Try out in Compose for iOS!")
+                                .padding()
+                                .frame(maxWidth: .infinity)
                         }
 
-                        if let abstract = viewModel.abstract {
-                            label(
-                                Text(abstract),
-                                image: Image(systemName: "doc.text")
-                            )
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                        }
+                        VStack(alignment: .leading, spacing: 16) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(viewModel.title)
+                                    .font(.title2)
 
-                        VStack(spacing: 4) {
-                            Section(header: VStack(spacing: 4) {
-                                Text("Session.Detail.Speakers").font(.title2)
-                                Divider()
-                            }) {
-                                ForEach(viewModel.speakers) { speaker in
-                                    SpeakerListItemView(viewModel: speaker)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(12)
-                                        .contentShape(Rectangle())
-                                        .onTapGesture {
-                                            speaker.selected()
-                                        }
+                                Text(viewModel.info)
+                                    .font(.footnote)
+                            }
+                            .padding(.horizontal, 8)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                            if viewModel.state != .ended {
+                                Button(action: viewModel.attendingTapped) {
+                                    if viewModel.isAttendingLoading {
+                                        ProgressView()
+                                            .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                                    } else {
+                                        Image(systemName: viewModel.isAttending ? "checkmark" : "plus")
+                                            .resizable()
+                                            .foregroundColor(.black)
+                                    }
                                 }
+                                .frame(width: 16, height: 16)
+                                .padding(12)
+                                .background(Color("AttendButton"))
+                                .cornerRadius(.greatestFiniteMagnitude)
+                                .shadow(color: Color("Shadow"), radius: 2)
+                                .padding(.bottom, -36)
                             }
                         }
-                        .padding(4)
-                        .padding(.top)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(
+                            Color("ElevatedHeaderBackground")
+                                .shadow(color: Color("Shadow"), radius: 2, y: 1)
+                        )
+
+                        VStack(spacing: 16) {
+                            if let sessionStateMessage = viewModel.state.flatMap(stateMessage(from:)) {
+                                label(
+                                    Text(sessionStateMessage),
+                                    image: Image(systemName: "info.circle")
+                                )
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal)
+                            }
+
+                            if viewModel.showFeedbackOption {
+                                                        Button(action: viewModel.writeFeedbackTapped) {
+                                                            if viewModel.feedbackAlreadyWritten {
+                                                                Text("Session.Detail.ChangeFeedback")
+                                                            } else {
+                                                                Text("Session.Detail.AddFeedback")
+                                                            }
+                                                        }
+                                                        .buttonStyle(FilledButtonStyle())
+                                                    }
+
+                            if let abstract = viewModel.abstract {
+                                label(
+                                    Text(abstract),
+                                    image: Image(systemName: "doc.text")
+                                )
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal)
+                            }
+
+                            VStack(spacing: 4) {
+                                Section(header: VStack(spacing: 4) {
+                                    Text("Session.Detail.Speakers").font(.title2)
+                                    Divider()
+                                }) {
+                                    ForEach(viewModel.speakers) { speaker in
+                                        SpeakerListItemView(viewModel: speaker)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding(12)
+                                            .contentShape(Rectangle())
+                                            .onTapGesture {
+                                                speaker.selected()
+                                            }
+                                    }
+                                }
+                            }
+                            .padding(4)
+                            .padding(.top)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 32)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 32)
                 }
             }
             .present(item: $viewModel.presentedFeedback) { viewModel in
@@ -144,4 +154,15 @@ struct SessionDetailView_Previews: PreviewProvider {
 //        SessionDetailView()
         EmptyView()
     }
+}
+
+struct SessionDetailComposeController: UIViewControllerRepresentable {
+
+    let viewModel: SessionDetailViewModel
+
+    func makeUIViewController(context: Context) -> some UIViewController {
+        SessionDetailTestViewKt.getRootController(viewModel: viewModel)
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }

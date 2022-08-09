@@ -6,6 +6,7 @@ import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
+import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
 import co.touchlab.droidcon.ios.viewmodel.FeedbackDialogViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,6 +47,7 @@ class SessionDetailViewModel(
     private val observeTime by observe(::time)
 
     val title by observeItem.map { it.session.title }
+    val observeTitle by observe(::title)
     val info by observeItem.map {
         listOfNotNull(
             it.room?.name,
@@ -57,6 +59,7 @@ class SessionDetailViewModel(
             },
         ).joinToString()
     }
+    val observeInfo by observe(::info)
 
     val state: SessionState? by observeItem.flatMapLatest { item ->
         observeTime.map { now ->
@@ -68,9 +71,11 @@ class SessionDetailViewModel(
             }
         }
     }
-    private val observeState by observe(::state)
-
+    val observeState by observe(::state)
     val abstract by observeItem.map { it.session.description }
+    val observeAbstract by observe(::abstract)
+    val abstractLinks: List<WebLink> by observeItem.map { it.session.description?.let(::parseUrl) ?: emptyList() }
+    val observeAbstractLinks by observe(::abstractLinks)
 
     val speakers: List<SpeakerListItemViewModel> by managedList(
         observeItem.map {
@@ -81,8 +86,10 @@ class SessionDetailViewModel(
             }
         }
     )
+    val observeSpeakers by observe(::speakers)
 
     val isAttending by observeItem.map { it.session.rsvp.isAttending }
+    val observeIsAttending by observe(::isAttending)
     val isAttendingLoading by instanceLock.observeIsLocked
 
     var presentedSpeakerDetail: SpeakerDetailViewModel? by managed(null)
@@ -116,6 +123,12 @@ class SessionDetailViewModel(
                 presentedFeedback = null
             },
         )
+    }
+
+    private fun parseUrl(text: String): List<WebLink> {
+        val urlRegex =
+            "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)".toRegex()
+        return urlRegex.findAll(text).map { WebLink(it.range, it.value) }.toList()
     }
 
     enum class SessionState {
