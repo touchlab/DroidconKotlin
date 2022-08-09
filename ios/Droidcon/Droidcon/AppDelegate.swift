@@ -12,6 +12,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         FirebaseApp.configure()
+        AppInitKt.setupKermit()
+        
         startKoin()
 
         analytics.logEvent(name: AnalyticsServiceCompanion().EVENT_STARTED, params: [:])

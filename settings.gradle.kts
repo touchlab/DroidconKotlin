@@ -54,7 +54,7 @@ dependencyResolutionManagement {
             val datetimeRef = version("kotlinx-datetime", "0.3.2")
             val serializationRef = version("kotlinx-serialization", "1.3.2")
             val koinRef = version("koin", "3.1.5")
-            val kermitRef = version("kermit", "1.0.3")
+            val kermitRef = version("kermit", "1.1.3")
             val statelyRef = version("stately", "1.2.1")
             val ktorRef = version("ktor", "2.0.0-beta-1")
             val multiplatformSettingsRef = version("multiplatformSettings", "0.8.1")
@@ -91,6 +91,7 @@ dependencyResolutionManagement {
             alias("koin-test").to("io.insert-koin", "koin-test").versionRef(koinRef)
 
             alias("kermit").to("co.touchlab", "kermit").versionRef(kermitRef)
+            alias("kermit-crashlytics").to("co.touchlab", "kermit-crashlytics").versionRef(kermitRef)
             alias("stately-common").to("co.touchlab", "stately-common").versionRef(statelyRef)
 
             alias("sqldelight-runtime").to("com.squareup.sqldelight", "runtime").versionRef(sqldelightRef)

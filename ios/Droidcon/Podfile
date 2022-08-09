@@ -8,4 +8,5 @@ target 'Droidcon' do
     pod 'DroidconKit', :path => '../'
     pod 'Kingfisher', '~> 7.1.1'
     pod 'Firebase/Analytics'
+    pod 'Firebase/Crashlytics'
 end
