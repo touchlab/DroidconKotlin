@@ -16,17 +16,12 @@ class AboutViewModel(
     var itemViewModels: List<AboutItemViewModel> by published(emptyList())
     val observeItemViewModels by observe(::itemViewModels)
 
-    init {
-        MainScope().launch {
-            itemViewModels = aboutRepository.getAboutItems().map {
-                val links = parseUrl(it.detail)
-                AboutItemViewModel(it.title, it.detail, links, it.icon)
-            }
-        }
-    }
-
     override suspend fun whileAttached() {
         items = aboutRepository.getAboutItems()
+        itemViewModels = items.map {
+            val links = parseUrl(it.detail)
+            AboutItemViewModel(it.title, it.detail, links, it.icon)
+        }
     }
 
     private fun parseUrl(text: String): List<WebLink> {
