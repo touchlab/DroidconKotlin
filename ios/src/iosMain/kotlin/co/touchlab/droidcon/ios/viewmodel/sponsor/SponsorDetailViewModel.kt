@@ -23,8 +23,10 @@ class SponsorDetailViewModel(
     val abstract = sponsor.description
 
     val representatives: List<SpeakerListItemViewModel> by managedList(emptyList())
+    val observeRepresentatives by observe(::representatives)
 
     var presentedSpeakerDetail: SpeakerDetailViewModel? by managed(null)
+    val observePresentedSpeakerDetail by observe(::presentedSpeakerDetail)
 
     override suspend fun whileAttached() {
         sponsorGateway.getRepresentatives(sponsor.id).map { speaker ->

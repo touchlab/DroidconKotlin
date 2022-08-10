@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
@@ -22,24 +23,24 @@ import androidx.compose.ui.unit.dp
 import platform.UIKit.UIImage
 
 @Composable
-internal fun UIKitImage(imageName: String, modifier: Modifier = Modifier) {
+internal fun UIKitImage(imageName: String, modifier: Modifier = Modifier, contentDescription: String? = null) {
     val painter = remember { UIImage.imageNamed(imageName)?.toSkiaImage()?.toComposeImageBitmap()?.let(::BitmapPainter) }
     if (painter != null) {
         Image(
             modifier = modifier,
             painter = painter,
-            contentDescription = null,
+            contentDescription = contentDescription,
             contentScale = ContentScale.FillWidth,
         )
     } else {
         Row(
-            modifier = modifier.background(Color.Blue, RoundedCornerShape(8.dp)),
+            modifier = modifier.background(MaterialTheme.colors.primary, RoundedCornerShape(8.dp)),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.Warning,
-                contentDescription = null,
+                contentDescription = contentDescription,
                 modifier = Modifier.padding(8.dp),
                 tint = Color.White,
             )

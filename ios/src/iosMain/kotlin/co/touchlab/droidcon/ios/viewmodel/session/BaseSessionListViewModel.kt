@@ -21,6 +21,7 @@ abstract class BaseSessionListViewModel(
     var selectedDay: SessionDayViewModel? by managed(null)
 
     var presentedSessionDetail: SessionDetailViewModel? by managed(null)
+    val observePresentedSessionDetail by observe(::presentedSessionDetail)
 
     override suspend fun whileAttached() {
         val itemsFlow = if (attendingOnly) {

@@ -10,11 +10,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -22,30 +27,43 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
+import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.viewmodel.settings.SettingsViewModel
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 
 @Composable
-internal fun SettingsTestView(viewModel: SettingsViewModel) {
-    val scrollState = rememberScrollState()
-    Column(modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)) {
-        IconTextSwitchRow(
-            text = "Enable feedback",
-            image = Icons.Default.MailOutline,
-            checked = viewModel.observeIsFeedbackEnabled,
-        )
+internal fun SettingsView(viewModel: SettingsViewModel) {
+    Scaffold(
+        topBar = { TopAppBar(title = { Text("Settings") }) },
+    ) {
+        val scrollState = rememberScrollState()
+        Column(modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)) {
+            IconTextSwitchRow(
+                text = "Enable feedback",
+                image = Icons.Default.MailOutline,
+                checked = viewModel.observeIsFeedbackEnabled,
+            )
 
-        Divider()
+            Divider()
 
-        IconTextSwitchRow(
-            text = "Enable reminders",
-            image = Icons.Default.Notifications,
-            checked = viewModel.observeIsRemindersEnabled,
-        )
+            IconTextSwitchRow(
+                text = "Enable reminders",
+                image = Icons.Default.Notifications,
+                checked = viewModel.observeIsRemindersEnabled,
+            )
 
-        Divider()
+            Divider()
 
-        AboutView(viewModel.about)
+            IconTextSwitchRow(
+                text = "Use compose for iOS",
+                image = Icons.Default.Phone,
+                checked = viewModel.observeUseCompose,
+            )
+
+            Divider()
+
+            AboutView(viewModel.about)
+        }
     }
 }
 
@@ -73,8 +91,4 @@ private fun IconTextSwitchRow(text: String, image: ImageVector, checked: Mutable
             onCheckedChange = { checked.value = it },
         )
     }
-}
-
-fun getRootController(viewModel: SettingsViewModel) = Application("SettingsTestView") {
-    SettingsTestView(viewModel)
 }

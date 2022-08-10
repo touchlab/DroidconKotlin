@@ -42,8 +42,8 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                     val badgeColor = when {
                         !session.isAttending -> Color.Transparent
                         isInPast -> Color.Gray
-                        session.isInConflict -> Color.Red
-                        else -> Color.Cyan
+                        session.isInConflict -> Colors.orange
+                        else -> Colors.skyBlue
                     }
                     BadgedBox(
                         modifier = Modifier.padding(16.dp),

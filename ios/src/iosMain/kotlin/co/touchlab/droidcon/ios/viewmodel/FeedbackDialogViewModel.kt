@@ -18,10 +18,12 @@ class FeedbackDialogViewModel(
 
     val sessionTitle = session.title
     var rating: Rating? by published(session.feedback?.rating?.let(::feedbackRatingToRating))
-    private val observeRating by observe(::rating)
+    val observeRating by observe(::rating)
     var comment by published(session.feedback?.comment ?: "")
+    val observeComment by observe(::comment)
 
     val isSubmitDisabled by observeRating.map { it == null }
+    val observeIsSubmitDisabled by observe(::isSubmitDisabled)
 
     val showCloseAndDisableOption: Boolean = closeAndDisable != null
 

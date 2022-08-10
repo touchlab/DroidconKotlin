@@ -2,6 +2,7 @@ package co.touchlab.droidcon.ios.ui
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -50,7 +51,7 @@ internal fun WebLinkText(
     val uriHandler = LocalUriHandler.current
     val annotatedText = buildAnnotatedString {
         val linkStyle = SpanStyle(
-            color = Color.Blue,
+            color = MaterialTheme.colors.secondary,
             textDecoration = TextDecoration.Underline,
             fontSize = fontSize,
             fontStyle = fontStyle,

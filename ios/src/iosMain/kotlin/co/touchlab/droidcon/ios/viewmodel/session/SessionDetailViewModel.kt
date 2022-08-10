@@ -6,8 +6,8 @@ import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
-import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
 import co.touchlab.droidcon.ios.viewmodel.FeedbackDialogViewModel
+import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -93,6 +93,7 @@ class SessionDetailViewModel(
     val isAttendingLoading by instanceLock.observeIsLocked
 
     var presentedSpeakerDetail: SpeakerDetailViewModel? by managed(null)
+    val observePresentedSpeakerDetail by observe(::presentedSpeakerDetail)
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
 

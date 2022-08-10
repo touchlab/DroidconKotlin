@@ -31,6 +31,7 @@ class SponsorListViewModel(
     val observeSponsorGroups by observe(::sponsorGroups)
 
     var presentedSponsorDetail: SponsorDetailViewModel? by managed(null)
+    val observePresentedSponsorDetail by observe(::presentedSponsorDetail)
 
     class Factory(
         private val sponsorGateway: SponsorGateway,

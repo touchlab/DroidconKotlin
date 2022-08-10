@@ -5,9 +5,6 @@ import DroidconKit
 struct DroidconApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
-
-    @StateObject
-    private var viewModel = koin.applicationViewModel
     
     init() {
         setupNavBarAppearance()
@@ -16,11 +13,7 @@ struct DroidconApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if viewModel.useCompose {
-                ComposeController(viewModel: viewModel)
-            } else {
-                MainView(viewModel: koin.applicationViewModel)
-            }
+            SwitchingRootView(viewModel: koin.applicationViewModel)
         }
     }
 
@@ -52,6 +45,29 @@ struct DroidconApp: App {
         if #available(iOS 15.0, *) {
             UITabBar.appearance().scrollEdgeAppearance = UITabBarAppearance(barAppearance: appearance)
         }
+    }
+}
+
+struct SwitchingRootView: View {
+    
+    @ObservedObject
+    var viewModel: ApplicationViewModel
+    
+    var body: some View {
+        Group {
+            if viewModel.useCompose {
+                ZStack {
+                    Color("NavBar_Background")
+                        .ignoresSafeArea()
+                    
+                    ComposeController(viewModel: viewModel)
+                }
+            } else {
+                MainView(viewModel: viewModel)
+            }
+        }
+        .attach(viewModel: viewModel)
+        .onAppear(perform: viewModel.onAppear)
     }
 }
 

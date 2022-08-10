@@ -32,6 +32,7 @@ class ApplicationViewModel(
     val useCompose by collected(settingsGateway.settings()) { it.useComposeForIos }
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
+    val observePresentedFeedback by observe(::presentedFeedback)
 
     init {
         lifecycle.whileAttached {

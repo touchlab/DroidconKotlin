@@ -20,10 +20,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -32,31 +36,39 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
+import co.touchlab.droidcon.ios.NavigationController
+import co.touchlab.droidcon.ios.NavigationStack
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorListViewModel
 import com.seiko.imageloader.ImageLoaderBuilder
 import com.seiko.imageloader.LocalImageLoader
 import com.seiko.imageloader.rememberAsyncImagePainter
-import io.ktor.http.URLParserException
-import io.ktor.http.Url
 import kotlin.math.min
 
 @Composable
-internal fun SponsorsTestView(viewModel: SponsorListViewModel) {
-    val sponsorGroups by viewModel.observeSponsorGroups.observeAsState()
-
-    Column {
-        if (sponsorGroups.isEmpty()) {
-            EmptyView()
-        } else {
-            LazyColumn(contentPadding = PaddingValues(vertical = 4.dp)) {
-                items(sponsorGroups) { sponsorGroup ->
-                    SponsorGroupView(sponsorGroup)
+internal fun SponsorsView(viewModel: SponsorListViewModel) {
+    NavigationStack(links = {
+        NavigationLink(viewModel.observePresentedSponsorDetail) {
+            SponsorDetailView(viewModel = it)
+        }
+    }) {
+        Scaffold(
+            topBar = { TopAppBar(title = { Text("Sponsors") }) },
+        ) {
+            val sponsorGroups by viewModel.observeSponsorGroups.observeAsState()
+            Column {
+                if (sponsorGroups.isEmpty()) {
+                    EmptyView()
+                } else {
+                    LazyColumn(contentPadding = PaddingValues(vertical = 4.dp)) {
+                        items(sponsorGroups) { sponsorGroup ->
+                            SponsorGroupView(sponsorGroup)
+                        }
+                    }
                 }
             }
         }
@@ -162,8 +174,4 @@ private fun EmptyView() {
             textAlign = TextAlign.Center,
         )
     }
-}
-
-fun getRootController(viewModel: SponsorListViewModel) = Application("SponsorsTestView") {
-    SponsorsTestView(viewModel)
 }

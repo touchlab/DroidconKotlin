@@ -1,12 +1,10 @@
 package co.touchlab.droidcon.ios.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -15,9 +13,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -30,7 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
 import co.touchlab.droidcon.composite.Url
-import co.touchlab.droidcon.ios.viewmodel.session.SessionDetailViewModel
+import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.viewmodel.session.SpeakerDetailViewModel
 import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
 import com.seiko.imageloader.ImageLoaderBuilder
@@ -38,27 +41,43 @@ import com.seiko.imageloader.LocalImageLoader
 import com.seiko.imageloader.rememberAsyncImagePainter
 
 @Composable
-internal fun SpeakerDetailTestView(viewModel: SpeakerDetailViewModel) {
-    val scrollState = rememberScrollState()
-    Column(
-        modifier = Modifier.verticalScroll(scrollState),
+internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Speaker") },
+                navigationIcon = {
+                    IconButton(onClick = { NavigationController.root.handleBackPress() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                        )
+                    }
+                }
+            )
+        },
     ) {
-        HeaderView(viewModel.name, viewModel.position ?: "", viewModel.avatarUrl)
+        val scrollState = rememberScrollState()
+        Column(
+            modifier = Modifier.verticalScroll(scrollState),
+        ) {
+            HeaderView(viewModel.name, viewModel.position ?: "", viewModel.avatarUrl)
 
-        viewModel.socials.website?.let {
-            SocialView(WebLink.fromUrl(it), "globe")
-        }
-        viewModel.socials.twitter?.let {
-            SocialView(WebLink.fromUrl(it), "twitter")
-        }
-        viewModel.socials.linkedIn?.let {
-            SocialView(WebLink.fromUrl(it), "linked-in")
-        }
+            viewModel.socials.website?.let {
+                SocialView(WebLink.fromUrl(it), "globe")
+            }
+            viewModel.socials.twitter?.let {
+                SocialView(WebLink.fromUrl(it), "twitter")
+            }
+            viewModel.socials.linkedIn?.let {
+                SocialView(WebLink.fromUrl(it), "linked-in")
+            }
 
-        Divider()
+            Divider()
 
-        viewModel.bio?.let {
-            BioView(it, viewModel.bioWebLinks)
+            viewModel.bio?.let {
+                BioView(it, viewModel.bioWebLinks)
+            }
         }
     }
 }
@@ -158,8 +177,3 @@ private fun BioView(bio: String, webLinks: List<WebLink>) {
         )
     }
 }
-
-fun getRootController(viewModel: SpeakerDetailViewModel) =
-    Application("SpeakerDetailTestView") {
-        SpeakerDetailTestView(viewModel)
-    }

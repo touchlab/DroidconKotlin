@@ -19,10 +19,14 @@ import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
@@ -40,6 +44,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
+import co.touchlab.droidcon.ios.NavigationController
+import co.touchlab.droidcon.ios.NavigationStack
 import co.touchlab.droidcon.ios.viewmodel.session.SessionDetailViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.SpeakerListItemViewModel
 import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
@@ -48,61 +54,83 @@ import com.seiko.imageloader.LocalImageLoader
 import com.seiko.imageloader.rememberAsyncImagePainter
 
 @Composable
-internal fun SessionDetailTestView(viewModel: SessionDetailViewModel) {
-    val scrollState = rememberScrollState()
-    Column(modifier = Modifier.verticalScroll(scrollState)) {
-        val state by viewModel.observeState.observeAsState()
-        Box {
-            Column {
-                val title by viewModel.observeTitle.observeAsState()
-                val locationInfo by viewModel.observeInfo.observeAsState()
-                HeaderView(title, locationInfo)
-            }
-            if (state != SessionDetailViewModel.SessionState.Ended) {
-                val isAttending by viewModel.observeIsAttending.observeAsState()
-                FloatingActionButton(
-                    onClick = viewModel::attendingTapped,
-                    modifier = Modifier
-                        .padding(top = 136.dp, start = 16.dp)
-                        .size(44.dp),
-                ) {
-                    val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
-                    val description = if (isAttending) {
-                        "Do not attend"
-                    } else {
-                        "Attend"
+internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
+    NavigationStack(links = {
+        NavigationLink(viewModel.observePresentedSpeakerDetail) {
+            SpeakerDetailView(viewModel = it)
+        }
+    }) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Session") },
+                    navigationIcon = {
+                        IconButton(onClick = { NavigationController.root.handleBackPress() }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                            )
+                        }
                     }
-                    Icon(imageVector = icon, contentDescription = description)
+                )
+            },
+        ) {
+            val scrollState = rememberScrollState()
+            Column(modifier = Modifier.verticalScroll(scrollState)) {
+                val state by viewModel.observeState.observeAsState()
+                Box {
+                    Column {
+                        val title by viewModel.observeTitle.observeAsState()
+                        val locationInfo by viewModel.observeInfo.observeAsState()
+                        HeaderView(title, locationInfo)
+                    }
+                    if (state != SessionDetailViewModel.SessionState.Ended) {
+                        val isAttending by viewModel.observeIsAttending.observeAsState()
+                        FloatingActionButton(
+                            onClick = viewModel::attendingTapped,
+                            modifier = Modifier
+                                .padding(top = 136.dp, start = 16.dp)
+                                .size(44.dp),
+                        ) {
+                            val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
+                            val description = if (isAttending) {
+                                "Do not attend"
+                            } else {
+                                "Attend"
+                            }
+                            Icon(imageVector = icon, contentDescription = description)
+                        }
+                    }
+                }
+
+                val status = when (state) {
+                    SessionDetailViewModel.SessionState.InConflict -> "This session is in conflict with another session in your schedule."
+                    SessionDetailViewModel.SessionState.InProgress -> "This session is happening now."
+                    SessionDetailViewModel.SessionState.Ended -> "This session has already ended."
+                    null -> "This session hasn't started yet."
+                }
+                InfoView(status)
+
+                val description by viewModel.observeAbstract.observeAsState()
+                val descriptionLinks by viewModel.observeAbstractLinks.observeAsState()
+                description?.let {
+                    DescriptionView(it, descriptionLinks)
+                }
+
+                Text(
+                    text = "Speakers",
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    style = MaterialTheme.typography.h5,
+                    textAlign = TextAlign.Center,
+                )
+
+                Divider()
+
+                val speakers by viewModel.observeSpeakers.observeAsState()
+                speakers.forEach { speaker ->
+                    SpeakerView(speaker)
                 }
             }
-        }
-
-        val status = when (state) {
-            SessionDetailViewModel.SessionState.InConflict -> "This session is in conflict with another session in your schedule."
-            SessionDetailViewModel.SessionState.InProgress -> "This session is happening now."
-            SessionDetailViewModel.SessionState.Ended -> "This session has already ended."
-            null -> "This session hasn't started yet."
-        }
-        InfoView(status)
-
-        val description by viewModel.observeAbstract.observeAsState()
-        val descriptionLinks by viewModel.observeAbstractLinks.observeAsState()
-        description?.let {
-            DescriptionView(it, descriptionLinks)
-        }
-
-        Text(
-            text = "Speakers",
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
-            style = MaterialTheme.typography.h5,
-            textAlign = TextAlign.Center,
-        )
-
-        Divider()
-
-        val speakers by viewModel.observeSpeakers.observeAsState()
-        speakers.forEach { speaker ->
-            SpeakerView(speaker)
         }
     }
 }
@@ -209,7 +237,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
                             .padding(start = 16.dp, end = 16.dp, top = 8.dp)
                             .clip(CircleShape)
                             .aspectRatio(1f)
-                            .background(Color.Cyan),
+                            .background(MaterialTheme.colors.primary),
                     )
                 }
             }
@@ -234,8 +262,3 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
         )
     }
 }
-
-fun getRootController(viewModel: SessionDetailViewModel) =
-    Application("SessionDetailTestView") {
-        SessionDetailTestView(viewModel)
-    }
