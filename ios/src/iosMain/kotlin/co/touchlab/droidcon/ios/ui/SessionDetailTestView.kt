@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -27,31 +26,26 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
-import co.touchlab.droidcon.ios.viewmodel.session.BaseSessionListViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.SessionDetailViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.SpeakerListItemViewModel
 import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
 import com.seiko.imageloader.ImageLoaderBuilder
 import com.seiko.imageloader.LocalImageLoader
 import com.seiko.imageloader.rememberAsyncImagePainter
-import com.seiko.imageloader.size.Dimension
 
 @Composable
 internal fun SessionDetailTestView(viewModel: SessionDetailViewModel) {
@@ -62,7 +56,7 @@ internal fun SessionDetailTestView(viewModel: SessionDetailViewModel) {
             Column {
                 val title by viewModel.observeTitle.observeAsState()
                 val locationInfo by viewModel.observeInfo.observeAsState()
-                Header(title, locationInfo)
+                HeaderView(title, locationInfo)
             }
             if (state != SessionDetailViewModel.SessionState.Ended) {
                 val isAttending by viewModel.observeIsAttending.observeAsState()
@@ -89,12 +83,12 @@ internal fun SessionDetailTestView(viewModel: SessionDetailViewModel) {
             SessionDetailViewModel.SessionState.Ended -> "This session has already ended."
             null -> "This session hasn't started yet."
         }
-        Info(status)
+        InfoView(status)
 
         val description by viewModel.observeAbstract.observeAsState()
         val descriptionLinks by viewModel.observeAbstractLinks.observeAsState()
         description?.let {
-            Description(it, descriptionLinks)
+            DescriptionView(it, descriptionLinks)
         }
 
         Text(
@@ -108,13 +102,13 @@ internal fun SessionDetailTestView(viewModel: SessionDetailViewModel) {
 
         val speakers by viewModel.observeSpeakers.observeAsState()
         speakers.forEach { speaker ->
-            Speaker(speaker)
+            SpeakerView(speaker)
         }
     }
 }
 
 @Composable
-private fun Header(title: String, locationInfo: String) {
+private fun HeaderView(title: String, locationInfo: String) {
     Card(elevation = 4.dp, backgroundColor = Color.hsl(hue = 0f, saturation = 0f, lightness = 0.96f), shape = RectangleShape) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -144,7 +138,7 @@ private fun Header(title: String, locationInfo: String) {
 }
 
 @Composable
-private fun Info(status: String) {
+private fun InfoView(status: String) {
     Row(modifier = Modifier.fillMaxWidth().padding(top = 16.dp), verticalAlignment = Alignment.CenterVertically) {
         Icon(
             imageVector = Icons.Default.Info,
@@ -169,7 +163,7 @@ private fun Info(status: String) {
 }
 
 @Composable
-private fun Description(description: String, links: List<WebLink>) {
+private fun DescriptionView(description: String, links: List<WebLink>) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Icon(
             imageVector = Icons.Default.List,
@@ -191,7 +185,7 @@ private fun Description(description: String, links: List<WebLink>) {
 }
 
 @Composable
-private fun Speaker(speaker: SpeakerListItemViewModel) {
+private fun SpeakerView(speaker: SpeakerListItemViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -200,7 +194,6 @@ private fun Speaker(speaker: SpeakerListItemViewModel) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             val imageUrl = speaker.avatarUrl?.string
             if (imageUrl != null) {
-                println("Url: $imageUrl")
                 CompositionLocalProvider(
                     LocalImageLoader provides ImageLoaderBuilder().build(),
                 ) {
@@ -243,6 +236,6 @@ private fun Speaker(speaker: SpeakerListItemViewModel) {
 }
 
 fun getRootController(viewModel: SessionDetailViewModel) =
-    Application("SessionListTestView") {
+    Application("SessionDetailTestView") {
         SessionDetailTestView(viewModel)
     }
