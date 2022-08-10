@@ -9,6 +9,14 @@ struct SpeakerDetailView: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            NavigationLink(
+                destination: SpeakerDetailComposeController(viewModel: viewModel)
+            ) {
+                Text("Try out in Compose for iOS!")
+                    .padding()
+                    .frame(maxWidth: .infinity)
+            }
+            
             ScrollView {
                 HStack(spacing: 16) {
                     if let avatarUrl = viewModel.avatarUrl.flatMap({ URL(string: $0.string) }) {
@@ -111,4 +119,15 @@ struct SpeakerDetailView_Previews: PreviewProvider {
 //        SpeakerDetailView()
         EmptyView()
     }
+}
+
+struct SpeakerDetailComposeController: UIViewControllerRepresentable {
+    
+    let viewModel: SpeakerDetailViewModel
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        SpeakerDetailTestViewKt.getRootController(viewModel: viewModel)
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }

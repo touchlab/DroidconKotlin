@@ -16,7 +16,8 @@
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
 		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 		18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */; };
-		3E160FDC55470B05AD9C2767 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1562630A698D702F3ADBB9C1 /* Pods_Droidcon.framework */; };
+		3CCD42608DA8CE1E1B2ACD4D /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */; };
+		3E160FDC55470B05AD9C2767 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
 		681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C959C26C554E00011330B /* FeedbackDialog.swift */; };
 		681C95A126C555D90011330B /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95A026C555D90011330B /* VisualEffectView.swift */; };
@@ -50,7 +51,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
 		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
 		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
 		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
@@ -90,6 +90,7 @@
 		68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorDetailView.swift; sourceTree = "<group>"; };
 		68DCBC6326C51E260084C70D /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAnalyticsService.swift; sourceTree = "<group>"; };
+		9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E160FDC55470B05AD9C2767 /* Pods_Droidcon.framework in Frameworks */,
+				3E160FDC55470B05AD9C2767 /* BuildFile in Frameworks */,
+				3CCD42608DA8CE1E1B2ACD4D /* Pods_Droidcon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +235,7 @@
 		EA4A32E32829B6496044B105 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1562630A698D702F3ADBB9C1 /* Pods_Droidcon.framework */,
+				9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
