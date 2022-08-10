@@ -12,7 +12,7 @@ struct SettingsView: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 0) {
                             NavigationLink(
-                                destination: ComposeController(viewModel: viewModel)
+                                destination: SettingsComposeController(viewModel: viewModel)
                                     .frame(height: geometry.size.height)
                             ) {
                                 Text("Try out in Compose for iOS!")
@@ -30,6 +30,14 @@ struct SettingsView: View {
 
                             Toggle(isOn: $viewModel.isRemindersEnabled) {
                                 Label("Settings.Reminders", systemImage: "calendar")
+                            }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal)
+                            
+                            Divider().padding(.horizontal)
+
+                            Toggle(isOn: $viewModel.useCompose) {
+                                Label("Settings.Compose", systemImage: "doc.text.image")
                             }
                             .padding(.vertical, 8)
                             .padding(.horizontal)
@@ -55,7 +63,7 @@ struct SettingsView_Previews: PreviewProvider {
     }
 }
 
-struct ComposeController: UIViewControllerRepresentable {
+struct SettingsComposeController: UIViewControllerRepresentable {
     
     let viewModel: SettingsViewModel
     

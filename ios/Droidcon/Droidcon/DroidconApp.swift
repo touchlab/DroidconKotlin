@@ -1,10 +1,14 @@
 import SwiftUI
+import DroidconKit
 
 @main
 struct DroidconApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
 
+    @StateObject
+    private var viewModel = koin.applicationViewModel
+    
     init() {
         setupNavBarAppearance()
         setupTabBarAppearance()
@@ -12,7 +16,11 @@ struct DroidconApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView(viewModel: koin.applicationViewModel)
+            if viewModel.useCompose {
+                ComposeController(viewModel: viewModel)
+            } else {
+                MainView(viewModel: koin.applicationViewModel)
+            }
         }
     }
 
@@ -44,5 +52,18 @@ struct DroidconApp: App {
         if #available(iOS 15.0, *) {
             UITabBar.appearance().scrollEdgeAppearance = UITabBarAppearance(barAppearance: appearance)
         }
+    }
+}
+
+struct ComposeController: UIViewControllerRepresentable {
+    
+    let viewModel: ApplicationViewModel
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        MainComposeViewKt.getRootController(viewModel: viewModel)
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        uiViewController.view.setNeedsLayout()
     }
 }

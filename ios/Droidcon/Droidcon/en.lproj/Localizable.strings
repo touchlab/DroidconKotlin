@@ -35,6 +35,7 @@
 "Settings.TabItem.Title" = "Settings";
 "Settings.Feedback" = "Enable feedback";
 "Settings.Reminders" = "Enable reminders";
+"Settings.Compose" = "Use compose for iOS";
 "Settings.About" = "About";
 
 "About.Title" = "About";

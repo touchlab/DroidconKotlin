@@ -23,10 +23,13 @@ class ApplicationViewModel(
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
 ): BaseViewModel(), NotificationHandler {
+
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())
     val sponsors by managed(sponsorsFactory.create())
     val settings by managed(settingsFactory.create())
+
+    val useCompose by collected(settingsGateway.settings()) { it.useComposeForIos }
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
 
