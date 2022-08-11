@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.session
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
@@ -20,7 +19,6 @@ import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,9 +31,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Application
-import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.NavigationStack
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.session.BaseSessionListViewModel
 import co.touchlab.kermit.Logger
 
@@ -73,7 +71,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                             Tab(selected = selectedTabIndex == index, onClick = { selectedTabIndex = index }) {
                                 Text(
                                     text = daySchedule.day,
-                                    modifier = Modifier.padding(16.dp),
+                                    modifier = Modifier.padding(Dimensions.Padding.default),
                                     fontWeight = FontWeight.Bold,
                                 )
                             }
@@ -82,10 +80,15 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                     days?.forEachIndexed { index, _ ->
                         val state = rememberLazyListState()
                         if (index == selectedTabIndex) {
-                            LazyColumn(state = state, contentPadding = PaddingValues(vertical = 4.dp)) {
+                            LazyColumn(state = state, contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
                                 val daySchedule = days?.getOrNull(selectedTabIndex)?.blocks ?: emptyList()
                                 items(daySchedule) { hourBlock ->
-                                    Box(modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
+                                    Box(
+                                        modifier = Modifier.padding(
+                                            vertical = Dimensions.Padding.quarter,
+                                            horizontal = Dimensions.Padding.half,
+                                        ),
+                                    ) {
                                         SessionBlockView(hourBlock)
                                     }
                                 }
@@ -110,13 +113,13 @@ private fun EmptyView() {
             contentDescription = null,
             modifier = Modifier
                 .size(80.dp)
-                .padding(16.dp),
+                .padding(Dimensions.Padding.default),
             tint = Color.Yellow,
         )
 
         Text(
             text = "Sessions could not be loaded.",
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(Dimensions.Padding.default),
             textAlign = TextAlign.Center,
         )
     }

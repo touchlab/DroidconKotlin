@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.session
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,6 +46,9 @@ import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.NavigationStack
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.WebLinkText
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.session.SessionDetailViewModel
 import co.touchlab.droidcon.ios.viewmodel.session.SpeakerListItemViewModel
 import com.seiko.imageloader.ImageLoaderBuilder
@@ -88,7 +91,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                         FloatingActionButton(
                             onClick = viewModel::attendingTapped,
                             modifier = Modifier
-                                .padding(top = 136.dp, start = 16.dp)
+                                .padding(top = 136.dp, start = Dimensions.Padding.default)
                                 .size(44.dp),
                         ) {
                             val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
@@ -118,7 +121,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
 
                 Text(
                     text = "Speakers",
-                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
                     style = MaterialTheme.typography.h5,
                     textAlign = TextAlign.Center,
                 )
@@ -136,7 +139,9 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
 
 @Composable
 private fun HeaderView(title: String, locationInfo: String) {
-    Card(elevation = 4.dp, backgroundColor = Color.hsl(hue = 0f, saturation = 0f, lightness = 0.96f), shape = RectangleShape) {
+    Card(elevation = Dimensions.Padding.quarter,
+        backgroundColor = Color.hsl(hue = 0f, saturation = 0f, lightness = 0.96f),
+        shape = RectangleShape) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
@@ -147,17 +152,17 @@ private fun HeaderView(title: String, locationInfo: String) {
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(
-                    start = 32.dp,
-                    end = 32.dp,
-                    top = 16.dp,
+                    start = Dimensions.Padding.double,
+                    end = Dimensions.Padding.double,
+                    top = Dimensions.Padding.default,
                 ),
             )
             Text(
                 text = locationInfo,
                 modifier = Modifier.padding(
-                    start = 32.dp,
-                    end = 32.dp,
-                    bottom = 16.dp,
+                    start = Dimensions.Padding.double,
+                    end = Dimensions.Padding.double,
+                    bottom = Dimensions.Padding.default,
                 ),
             )
         }
@@ -166,12 +171,12 @@ private fun HeaderView(title: String, locationInfo: String) {
 
 @Composable
 private fun InfoView(status: String) {
-    Row(modifier = Modifier.fillMaxWidth().padding(top = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.default), verticalAlignment = Alignment.CenterVertically) {
         Icon(
             imageVector = Icons.Default.Info,
             contentDescription = "Info",
             modifier = Modifier
-                .padding(8.dp)
+                .padding(Dimensions.Padding.half)
                 .width(64.dp),
             tint = MaterialTheme.colors.onSurface,
         )
@@ -180,9 +185,9 @@ private fun InfoView(status: String) {
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Italic,
             modifier = Modifier.padding(
-                end = 16.dp,
-                top = 8.dp,
-                bottom = 8.dp,
+                end = Dimensions.Padding.default,
+                top = Dimensions.Padding.half,
+                bottom = Dimensions.Padding.half,
             ),
             color = MaterialTheme.colors.onSurface,
         )
@@ -196,16 +201,16 @@ private fun DescriptionView(description: String, links: List<WebLink>) {
             imageVector = Icons.Default.Description,
             contentDescription = "Description",
             modifier = Modifier
-                .padding(8.dp)
+                .padding(Dimensions.Padding.half)
                 .width(64.dp),
         )
         WebLinkText(
             text = description,
             links = links,
             modifier = Modifier.padding(
-                end = 16.dp,
-                top = 8.dp,
-                bottom = 8.dp,
+                end = Dimensions.Padding.default,
+                top = Dimensions.Padding.half,
+                bottom = Dimensions.Padding.half,
             ),
         )
     }
@@ -233,7 +238,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
                         painter = resource,
                         contentDescription = speaker.info,
                         modifier = Modifier.width(80.dp)
-                            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
+                            .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                             .clip(CircleShape)
                             .aspectRatio(1f)
                             .background(MaterialTheme.colors.primary),
@@ -245,9 +250,9 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
                 text = speaker.info,
                 color = Color.Gray,
                 modifier = Modifier.padding(
-                    end = 16.dp,
-                    top = 8.dp,
-                    bottom = 8.dp,
+                    end = Dimensions.Padding.default,
+                    top = Dimensions.Padding.half,
+                    bottom = Dimensions.Padding.half,
                 ),
             )
         }
@@ -255,8 +260,8 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
             text = speaker.bio ?: "",
             modifier = Modifier.padding(
                 start = 80.dp,
-                end = 16.dp,
-                bottom = 8.dp,
+                end = Dimensions.Padding.default,
+                bottom = Dimensions.Padding.half,
             ),
         )
     }

@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.session
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -34,6 +34,9 @@ import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ios.NavigationController
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.UIKitImage
+import co.touchlab.droidcon.ios.ui.util.WebLinkText
 import co.touchlab.droidcon.ios.viewmodel.session.SpeakerDetailViewModel
 import com.seiko.imageloader.ImageLoaderBuilder
 import com.seiko.imageloader.LocalImageLoader
@@ -83,7 +86,9 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
 
 @Composable
 private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
-    Card(elevation = 4.dp, backgroundColor = Color.hsl(hue = 0f, saturation = 0f, lightness = 0.96f), shape = RectangleShape) {
+    Card(elevation = Dimensions.Padding.quarter,
+        backgroundColor = Color.hsl(hue = 0f, saturation = 0f, lightness = 0.96f),
+        shape = RectangleShape) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -102,7 +107,7 @@ private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
                         contentDescription = name,
                         modifier = Modifier
                             .width(100.dp)
-                            .padding(16.dp)
+                            .padding(Dimensions.Padding.default)
                             .clip(CircleShape)
                             .aspectRatio(1f),
                     )
@@ -118,15 +123,15 @@ private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(
-                        end = 32.dp,
-                        top = 16.dp,
+                        end = Dimensions.Padding.double,
+                        top = Dimensions.Padding.default,
                     ),
                 )
                 Text(
                     text = tagLine,
                     modifier = Modifier.padding(
-                        end = 32.dp,
-                        bottom = 16.dp,
+                        end = Dimensions.Padding.double,
+                        bottom = Dimensions.Padding.default,
                     ),
                 )
             }
@@ -140,16 +145,16 @@ private fun SocialView(url: WebLink, iconName: String) {
         UIKitImage(
             imageName = iconName,
             modifier = Modifier
-                .padding(16.dp)
+                .padding(Dimensions.Padding.default)
                 .size(28.dp),
         )
         WebLinkText(
             text = url.link,
             links = listOf(url),
             modifier = Modifier.padding(
-                end = 16.dp,
-                top = 8.dp,
-                bottom = 8.dp,
+                end = Dimensions.Padding.default,
+                top = Dimensions.Padding.half,
+                bottom = Dimensions.Padding.half,
             ),
         )
     }
@@ -157,21 +162,21 @@ private fun SocialView(url: WebLink, iconName: String) {
 
 @Composable
 private fun BioView(bio: String, webLinks: List<WebLink>) {
-    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.Top) {
+    Row(modifier = Modifier.fillMaxWidth().padding(vertical = Dimensions.Padding.half), verticalAlignment = Alignment.Top) {
         Image(
             imageVector = Icons.Default.Description,
             contentDescription = null,
             modifier = Modifier
-                .padding(16.dp)
+                .padding(Dimensions.Padding.default)
                 .size(28.dp),
         )
         WebLinkText(
             text = bio,
             links = webLinks,
             modifier = Modifier.padding(
-                end = 16.dp,
-                top = 8.dp,
-                bottom = 8.dp,
+                end = Dimensions.Padding.default,
+                top = Dimensions.Padding.half,
+                bottom = Dimensions.Padding.half,
             ),
         )
     }

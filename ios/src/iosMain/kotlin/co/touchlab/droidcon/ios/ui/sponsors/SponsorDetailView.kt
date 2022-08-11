@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.sponsors
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,6 +36,9 @@ import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.NavigationStack
+import co.touchlab.droidcon.ios.ui.session.SpeakerDetailView
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.session.SpeakerListItemViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorDetailViewModel
 import com.seiko.imageloader.ImageLoaderBuilder
@@ -102,16 +105,16 @@ private fun HeaderView(name: String, groupTitle: String, imageUrl: Url?) {
                 overflow = TextOverflow.Ellipsis,
                 color = Color.White,
                 modifier = Modifier.padding(
-                    start = 32.dp,
-                    top = 16.dp,
+                    start = Dimensions.Padding.double,
+                    top = Dimensions.Padding.default,
                 ),
             )
             Text(
                 text = groupTitle,
                 color = Color.White,
                 modifier = Modifier.padding(
-                    start = 32.dp,
-                    bottom = 16.dp,
+                    start = Dimensions.Padding.double,
+                    bottom = Dimensions.Padding.default,
                 ),
             )
         }
@@ -130,7 +133,7 @@ private fun HeaderView(name: String, groupTitle: String, imageUrl: Url?) {
                     contentDescription = name,
                     modifier = Modifier
                         .width(120.dp)
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = Dimensions.Padding.default)
                         .clip(CircleShape)
                         .aspectRatio(1f),
                 )
@@ -142,7 +145,7 @@ private fun HeaderView(name: String, groupTitle: String, imageUrl: Url?) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .width(120.dp)
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = Dimensions.Padding.default)
                     .clip(CircleShape)
                     .aspectRatio(1f),
             )
@@ -157,15 +160,15 @@ private fun DescriptionView(description: String) {
             imageVector = Icons.Default.Description,
             contentDescription = null,
             modifier = Modifier
-                .padding(8.dp)
+                .padding(Dimensions.Padding.half)
                 .width(64.dp),
         )
         Text(
             text = description,
             modifier = Modifier.padding(
-                end = 16.dp,
-                top = 8.dp,
-                bottom = 8.dp,
+                end = Dimensions.Padding.default,
+                top = Dimensions.Padding.half,
+                bottom = Dimensions.Padding.half,
             ),
         )
     }
@@ -187,7 +190,7 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .width(80.dp)
-                        .padding(start = 16.dp, end = 16.dp, top = 8.dp)
+                        .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                         .clip(CircleShape)
                         .aspectRatio(1f)
                         .background(MaterialTheme.colors.primary),
@@ -206,7 +209,7 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
                         contentDescription = profile.info,
                         modifier = Modifier
                             .width(80.dp)
-                            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
+                            .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                             .clip(CircleShape)
                             .aspectRatio(1f)
                             .background(MaterialTheme.colors.primary),
@@ -218,9 +221,9 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
                 text = profile.info,
                 color = Color.Gray,
                 modifier = Modifier.padding(
-                    end = 16.dp,
-                    top = 8.dp,
-                    bottom = 8.dp,
+                    end = Dimensions.Padding.default,
+                    top = Dimensions.Padding.half,
+                    bottom = Dimensions.Padding.half,
                 ),
             )
         }
@@ -228,8 +231,8 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
             text = profile.bio ?: "",
             modifier = Modifier.padding(
                 start = 80.dp,
-                end = 16.dp,
-                bottom = 8.dp,
+                end = Dimensions.Padding.default,
+                bottom = Dimensions.Padding.half,
             ),
         )
     }

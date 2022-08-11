@@ -15,6 +15,10 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import co.touchlab.droidcon.ios.ui.session.SessionListView
+import co.touchlab.droidcon.ios.ui.settings.SettingsView
+import co.touchlab.droidcon.ios.ui.sponsors.SponsorsView
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.ApplicationViewModel
 
 @Composable

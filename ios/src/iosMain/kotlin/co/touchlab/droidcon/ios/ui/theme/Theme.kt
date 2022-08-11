@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

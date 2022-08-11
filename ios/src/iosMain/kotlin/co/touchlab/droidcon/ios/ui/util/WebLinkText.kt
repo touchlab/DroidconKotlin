@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.util
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.material.LocalTextStyle

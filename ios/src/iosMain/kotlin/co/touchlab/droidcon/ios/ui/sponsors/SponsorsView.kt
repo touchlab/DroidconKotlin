@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.sponsors
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -20,14 +20,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -39,9 +37,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Application
-import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.NavigationStack
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorListViewModel
 import com.seiko.imageloader.ImageLoaderBuilder
@@ -64,7 +62,7 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
                 if (sponsorGroups.isEmpty()) {
                     EmptyView()
                 } else {
-                    LazyColumn(contentPadding = PaddingValues(vertical = 4.dp)) {
+                    LazyColumn(contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
                         items(sponsorGroups) { sponsorGroup ->
                             SponsorGroupView(sponsorGroup)
                         }
@@ -79,7 +77,7 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
 private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
     Surface(
         shape = MaterialTheme.shapes.medium,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+        modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half),
         color = MaterialTheme.colors.background,
         elevation = 2.dp,
         border = if (MaterialTheme.colors.isLight) null else BorderStroke(1.dp, MaterialTheme.colors.surface),
@@ -88,10 +86,10 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
             Text(
                 text = sponsorGroup.title,
                 modifier = Modifier.padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    top = 16.dp,
-                    bottom = 4.dp,
+                    start = Dimensions.Padding.default,
+                    end = Dimensions.Padding.default,
+                    top = Dimensions.Padding.default,
+                    bottom = Dimensions.Padding.quarter,
                 ),
                 style = MaterialTheme.typography.h4,
             )
@@ -100,7 +98,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
             val sponsors by sponsorGroup.observeSponsors.observeAsState()
 
             repeat(sponsors.size / columnCount + if (sponsors.size % columnCount == 0) 0 else 1) { rowIndex ->
-                Row(modifier = Modifier.padding(horizontal = 8.dp)) {
+                Row(modifier = Modifier.padding(horizontal = Dimensions.Padding.half)) {
                     val startIndex = rowIndex * columnCount
                     val endIndex = min(startIndex + columnCount, sponsors.size)
                     sponsors.subList(startIndex, endIndex).forEach { sponsor ->
@@ -108,7 +106,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                             modifier = Modifier
                                 .weight(1f)
                                 .aspectRatio(1f)
-                                .padding(4.dp)
+                                .padding(Dimensions.Padding.quarter)
                                 .shadow(2.dp, CircleShape)
                                 .background(Color.White)
                                 .clickable {
@@ -134,7 +132,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                             } else {
                                 Text(
                                     text = sponsor.name,
-                                    modifier = Modifier.padding(8.dp),
+                                    modifier = Modifier.padding(Dimensions.Padding.half),
                                     textAlign = TextAlign.Center,
                                     overflow = TextOverflow.Ellipsis,
                                     maxLines = 3,
@@ -147,7 +145,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(Dimensions.Padding.default))
         }
     }
 }
@@ -164,13 +162,13 @@ private fun EmptyView() {
             contentDescription = null,
             modifier = Modifier
                 .size(80.dp)
-                .padding(16.dp),
+                .padding(Dimensions.Padding.default),
             tint = Color.Yellow,
         )
 
         Text(
             text = "Sponsors could not be loaded.",
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(Dimensions.Padding.default),
             textAlign = TextAlign.Center,
         )
     }

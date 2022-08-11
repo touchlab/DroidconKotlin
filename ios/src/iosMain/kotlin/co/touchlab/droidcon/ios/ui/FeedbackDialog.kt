@@ -34,16 +34,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.FeedbackDialogViewModel
 
 @Composable
 internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
     Box(modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.3f))
         .clickable(interactionSource = MutableInteractionSource(), indication = null) { }, contentAlignment = Alignment.Center) {
-        Card(modifier = Modifier.padding(32.dp)) {
+        Card(modifier = Modifier.padding(Dimensions.Padding.double)) {
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(Dimensions.Padding.default)
                     .verticalScroll(rememberScrollState()),
             ) {
                 Text(
@@ -69,7 +71,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                             imageVector = image,
                             modifier = Modifier
                                 .size(80.dp)
-                                .padding(16.dp)
+                                .padding(Dimensions.Padding.default)
                                 .clip(CircleShape)
                                 .clickable { feedback.rating = rating },
                             contentDescription = rating.name,

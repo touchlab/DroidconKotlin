@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.UIKitImage
+import co.touchlab.droidcon.ios.ui.util.WebLinkText
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.settings.AboutItemViewModel
 import co.touchlab.droidcon.ios.viewmodel.settings.AboutViewModel
 
@@ -29,7 +33,7 @@ internal fun AboutView(viewModel: AboutViewModel) {
 private fun AboutItemView(viewModel: AboutItemViewModel) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Icon(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(Dimensions.Padding.default),
             imageVector = Icons.Default.Info,
             contentDescription = viewModel.title,
         )
@@ -38,16 +42,16 @@ private fun AboutItemView(viewModel: AboutItemViewModel) {
                 text = viewModel.title,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(
-                    top = 16.dp,
-                    bottom = 16.dp,
-                    end = 16.dp,
+                    top = Dimensions.Padding.default,
+                    bottom = Dimensions.Padding.default,
+                    end = Dimensions.Padding.default,
                 ),
             )
 
             WebLinkText(
                 text = viewModel.detail,
                 links = viewModel.webLinks,
-                modifier = Modifier.padding(end = 16.dp),
+                modifier = Modifier.padding(end = Dimensions.Padding.default),
             )
 
             UIKitImage(
@@ -55,9 +59,9 @@ private fun AboutItemView(viewModel: AboutItemViewModel) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        end = 32.dp,
-                        top = 16.dp,
-                        bottom = 16.dp,
+                        end = Dimensions.Padding.double,
+                        top = Dimensions.Padding.default,
+                        bottom = Dimensions.Padding.default,
                     ),
             )
         }

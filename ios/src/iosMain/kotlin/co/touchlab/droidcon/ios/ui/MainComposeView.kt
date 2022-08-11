@@ -2,6 +2,7 @@ package co.touchlab.droidcon.ios.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Application
+import co.touchlab.droidcon.ios.ui.theme.DroidconTheme
 import co.touchlab.droidcon.ios.viewmodel.ApplicationViewModel
 
 @Composable

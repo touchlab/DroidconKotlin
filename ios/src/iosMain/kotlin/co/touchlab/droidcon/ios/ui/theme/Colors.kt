@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

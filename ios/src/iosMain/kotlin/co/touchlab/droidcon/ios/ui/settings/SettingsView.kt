@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.settings.SettingsViewModel
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 
@@ -73,7 +75,7 @@ private fun IconTextSwitchRow(text: String, image: ImageVector, checked: Mutable
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(Dimensions.Padding.default),
             imageVector = image,
             contentDescription = text,
         )
@@ -82,7 +84,7 @@ private fun IconTextSwitchRow(text: String, image: ImageVector, checked: Mutable
             text = text,
         )
         Switch(
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 24.dp),
+            modifier = Modifier.padding(vertical = Dimensions.Padding.half, horizontal = 24.dp),
             checked = isChecked,
             onCheckedChange = { checked.value = it },
         )

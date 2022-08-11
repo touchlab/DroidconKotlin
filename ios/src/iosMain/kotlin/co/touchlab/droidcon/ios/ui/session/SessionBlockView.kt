@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.session
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +21,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.ios.ui.theme.Colors
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import co.touchlab.droidcon.ios.viewmodel.session.SessionBlockViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -31,7 +34,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
             text = sessionsBlock.time,
             modifier = Modifier
                 .width(100.dp)
-                .padding(8.dp),
+                .padding(Dimensions.Padding.half),
             textAlign = TextAlign.End,
         )
 
@@ -46,8 +49,8 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                         else -> Colors.skyBlue
                     }
                     BadgedBox(
-                        modifier = Modifier.padding(16.dp),
-                        badge = { Badge(backgroundColor = badgeColor, modifier = Modifier.size(8.dp)) { } }
+                        modifier = Modifier.padding(Dimensions.Padding.default),
+                        badge = { Badge(backgroundColor = badgeColor, modifier = Modifier.size(Dimensions.Padding.half)) { } }
                     ) { }
 
                     val backgroundColor =
@@ -64,13 +67,13 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                         border = null,
                     ) {
                         Column {
-                            Text(text = session.title, modifier = Modifier.padding(8.dp), fontWeight = FontWeight.Bold)
+                            Text(text = session.title, modifier = Modifier.padding(Dimensions.Padding.half), fontWeight = FontWeight.Bold)
                             Text(
                                 text = session.speakers,
                                 modifier = Modifier.padding(
-                                    start = 8.dp,
-                                    end = 8.dp,
-                                    bottom = 8.dp,
+                                    start = Dimensions.Padding.half,
+                                    end = Dimensions.Padding.half,
+                                    bottom = Dimensions.Padding.half,
                                 ),
                             )
                         }

@@ -11,7 +11,7 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.fastMap
-import co.touchlab.droidcon.ios.ui.observeAsState
+import co.touchlab.droidcon.ios.ui.util.observeAsState
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.CancellationToken
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
