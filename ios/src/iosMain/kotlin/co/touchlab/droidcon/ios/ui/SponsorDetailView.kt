@@ -21,7 +21,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -154,7 +154,7 @@ private fun HeaderView(name: String, groupTitle: String, imageUrl: Url?) {
 private fun DescriptionView(description: String) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Icon(
-            imageVector = Icons.Default.Menu,
+            imageVector = Icons.Default.Description,
             contentDescription = null,
             modifier = Modifier
                 .padding(8.dp)

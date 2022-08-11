@@ -34,6 +34,10 @@ class ApplicationViewModel(
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
     val observePresentedFeedback by observe(::presentedFeedback)
 
+    val tabs = listOf(Tab.Schedule, Tab.MyAgenda, Tab.Sponsors, Tab.Settings)
+    var selectedTab: Tab by published(Tab.Schedule)
+    val observeSelectedTab by observe(::selectedTab)
+
     init {
         lifecycle.whileAttached {
             notificationSchedulingService.runScheduling()
@@ -79,5 +83,9 @@ class ApplicationViewModel(
                 },
             )
         }
+    }
+
+    enum class Tab {
+        Schedule, MyAgenda, Sponsors, Settings;
     }
 }

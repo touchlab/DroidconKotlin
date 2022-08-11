@@ -21,7 +21,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -31,7 +31,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Application
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.viewmodel.session.SpeakerDetailViewModel
@@ -160,7 +159,7 @@ private fun SocialView(url: WebLink, iconName: String) {
 private fun BioView(bio: String, webLinks: List<WebLink>) {
     Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.Top) {
         Image(
-            imageVector = Icons.Default.Menu,
+            imageVector = Icons.Default.Description,
             contentDescription = null,
             modifier = Modifier
                 .padding(16.dp)
