@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.viewmodel.settings
+package co.touchlab.droidcon.dto
 
 import co.touchlab.droidcon.composite.Url
 

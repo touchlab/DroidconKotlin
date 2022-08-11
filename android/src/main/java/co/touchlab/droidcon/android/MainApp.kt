@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
-import co.touchlab.droidcon.android.service.ParseUrlViewService
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
 import co.touchlab.droidcon.android.service.impl.DefaultDateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService

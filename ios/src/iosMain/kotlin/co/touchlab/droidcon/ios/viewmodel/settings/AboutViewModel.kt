@@ -2,12 +2,12 @@ package co.touchlab.droidcon.ios.viewmodel.settings
 
 import co.touchlab.droidcon.application.composite.AboutItem
 import co.touchlab.droidcon.application.repository.AboutRepository
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
+import co.touchlab.droidcon.service.ParseUrlViewService
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class AboutViewModel(
     private val aboutRepository: AboutRepository,
+    private val parseUrlViewService: ParseUrlViewService,
 ): BaseViewModel() {
 
     var items: List<AboutItem> by published(emptyList())
@@ -19,19 +19,13 @@ class AboutViewModel(
     override suspend fun whileAttached() {
         items = aboutRepository.getAboutItems()
         itemViewModels = items.map {
-            val links = parseUrl(it.detail)
+            val links = parseUrlViewService.parse(it.detail)
             AboutItemViewModel(it.title, it.detail, links, it.icon)
         }
     }
 
-    private fun parseUrl(text: String): List<WebLink> {
-        val urlRegex =
-            "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)".toRegex()
-        return urlRegex.findAll(text).map { WebLink(it.range, it.value) }.toList()
-    }
+    class Factory(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) {
 
-    class Factory(private val aboutRepository: AboutRepository) {
-
-        fun create() = AboutViewModel(aboutRepository)
+        fun create() = AboutViewModel(aboutRepository, parseUrlViewService)
     }
 }

@@ -5,6 +5,7 @@ import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
+import co.touchlab.droidcon.ios.service.DefaultParseUrlViewService
 import co.touchlab.droidcon.ios.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
 import co.touchlab.droidcon.ios.viewmodel.settings.AboutViewModel
@@ -25,6 +26,7 @@ import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorListViewModel
 import co.touchlab.droidcon.service.IOSNotificationService
 import co.touchlab.droidcon.service.NotificationHandler
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.util.BundleResourceReader
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -54,6 +56,8 @@ fun initKoinIos(
 
         single { analyticsService }
 
+        single<ParseUrlViewService> { DefaultParseUrlViewService() }
+
         // MARK: View model factories.
         single {
             ApplicationViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get())
@@ -66,10 +70,10 @@ fun initKoinIos(
         single { SessionDayViewModel.Factory(get(), get(), get()) }
         single { SessionListItemViewModel.Factory(get()) }
 
-        single { SessionDetailViewModel.Factory(get(), get(), get(), get(), get(), get(), get(), get()) }
+        single { SessionDetailViewModel.Factory(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
         single { SpeakerListItemViewModel.Factory() }
 
-        single { SpeakerDetailViewModel.Factory() }
+        single { SpeakerDetailViewModel.Factory(get()) }
 
         single { SponsorListViewModel.Factory(get(), get(), get()) }
         single { SponsorGroupViewModel.Factory(get()) }
@@ -77,7 +81,7 @@ fun initKoinIos(
         single { SponsorDetailViewModel.Factory(get(), get(), get()) }
 
         single { SettingsViewModel.Factory(get(), get()) }
-        single { AboutViewModel.Factory(get()) }
+        single { AboutViewModel.Factory(get(), get()) }
 
         single { FeedbackDialogViewModel.Factory(get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
     }

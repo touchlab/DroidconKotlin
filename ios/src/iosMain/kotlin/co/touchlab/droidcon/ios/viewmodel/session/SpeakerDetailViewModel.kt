@@ -2,10 +2,12 @@ package co.touchlab.droidcon.ios.viewmodel.session
 
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile
-import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
+import co.touchlab.droidcon.dto.WebLink
+import co.touchlab.droidcon.service.ParseUrlViewService
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SpeakerDetailViewModel(
+    private val parseUrlViewService: ParseUrlViewService,
     profile: Profile,
 ): BaseViewModel() {
 
@@ -21,13 +23,7 @@ class SpeakerDetailViewModel(
     )
 
     val bio = profile.bio
-    val bioWebLinks: List<WebLink> = bio?.let(::parseUrl) ?: emptyList()
-
-    private fun parseUrl(text: String): List<WebLink> {
-        val urlRegex =
-            "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)".toRegex()
-        return urlRegex.findAll(text).map { WebLink(it.range, it.value) }.toList()
-    }
+    val bioWebLinks: List<WebLink> = bio?.let(parseUrlViewService::parse) ?: emptyList()
 
     data class Socials(
         val website: Url?,
@@ -42,7 +38,8 @@ class SpeakerDetailViewModel(
         ).isEmpty()
     }
 
-    class Factory {
-        fun create(profile: Profile) = SpeakerDetailViewModel(profile)
+    class Factory(private val parseUrlViewService: ParseUrlViewService) {
+
+        fun create(profile: Profile) = SpeakerDetailViewModel(parseUrlViewService, profile)
     }
 }

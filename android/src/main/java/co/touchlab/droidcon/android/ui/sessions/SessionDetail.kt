@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.dto.WebLink
+import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.android.ui.feedback.Feedback
 import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Colors

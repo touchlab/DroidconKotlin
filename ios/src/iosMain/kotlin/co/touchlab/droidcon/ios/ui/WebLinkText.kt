@@ -25,7 +25,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
-import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
+import co.touchlab.droidcon.dto.WebLink
 
 @Composable
 internal fun WebLinkText(

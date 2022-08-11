@@ -4,10 +4,11 @@ import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ios.viewmodel.FeedbackDialogViewModel
-import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -32,6 +33,7 @@ class SessionDetailViewModel(
     private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
     private val dateFormatter: DateFormatter,
     private val dateTimeService: DateTimeService,
+    private val parseUrlViewService: ParseUrlViewService,
     private val feedbackService: FeedbackService,
     initialItem: ScheduleItem,
 ): BaseViewModel() {
@@ -74,7 +76,7 @@ class SessionDetailViewModel(
     val observeState by observe(::state)
     val abstract by observeItem.map { it.session.description }
     val observeAbstract by observe(::abstract)
-    val abstractLinks: List<WebLink> by observeItem.map { it.session.description?.let(::parseUrl) ?: emptyList() }
+    val abstractLinks: List<WebLink> by observeItem.map { it.session.description?.let(parseUrlViewService::parse) ?: emptyList() }
     val observeAbstractLinks by observe(::abstractLinks)
 
     val speakers: List<SpeakerListItemViewModel> by managedList(
@@ -144,6 +146,7 @@ class SessionDetailViewModel(
         private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
         private val dateFormatter: DateFormatter,
         private val dateTimeService: DateTimeService,
+        private val parseUrlViewService: ParseUrlViewService,
         private val feedbackService: FeedbackService,
     ) {
         fun create(
@@ -156,6 +159,7 @@ class SessionDetailViewModel(
             feedbackDialogFactory,
             dateFormatter,
             dateTimeService,
+            parseUrlViewService,
             feedbackService,
             item,
         )

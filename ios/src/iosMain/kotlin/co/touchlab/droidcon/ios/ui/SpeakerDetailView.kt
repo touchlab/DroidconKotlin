@@ -32,9 +32,9 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.composite.Url
+import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.viewmodel.session.SpeakerDetailViewModel
-import co.touchlab.droidcon.ios.viewmodel.settings.WebLink
 import com.seiko.imageloader.ImageLoaderBuilder
 import com.seiko.imageloader.LocalImageLoader
 import com.seiko.imageloader.rememberAsyncImagePainter

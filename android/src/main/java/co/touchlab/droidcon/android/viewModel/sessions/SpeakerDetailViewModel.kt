@@ -4,15 +4,14 @@ import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.dto.WebLink
-import co.touchlab.droidcon.android.service.ParseUrlViewService
+import co.touchlab.droidcon.dto.WebLink
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
