@@ -72,4 +72,9 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
             }
         }
     }
+
+    val feedback by viewModel.observePresentedFeedback.observeAsState()
+    feedback?.let {
+        FeedbackDialog(it)
+    }
 }
