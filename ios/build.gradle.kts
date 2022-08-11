@@ -36,14 +36,14 @@ kotlin {
         implementation(compose.ui)
         implementation(compose.foundation)
         implementation(compose.material)
+        implementation(compose.materialIconsExtended)
         implementation(compose.runtime)
 
         api(project(":shared"))
         api(libs.kermit)
         api(libs.hyperdrive.multiplatformx.api)
         implementation(libs.hyperdrive.multiplatformx.compose)
-        implementation("io.github.qdsfdhvh:image-loader:1.0.8")
-        implementation(compose.materialIconsExtended)
+        implementation(libs.imageLoader)
     }
 
     cocoapods {
