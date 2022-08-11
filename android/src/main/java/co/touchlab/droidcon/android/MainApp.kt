@@ -35,25 +35,25 @@ class MainApp: Application() {
                 single<SharedPreferences> {
                     get<Context>().getSharedPreferences("DROIDCON_SETTINGS", Context.MODE_PRIVATE)
                 }
-                single<ObservableSettings> { AndroidSettings(get()) }
+                single<ObservableSettings> { AndroidSettings(delegate = get()) }
 
                 single<ParseUrlViewService> {
                     DefaultParseUrlViewService()
                 }
 
                 single<DateTimeFormatterViewService> {
-                    DefaultDateTimeFormatterViewService(Constants.conferenceTimeZone)
+                    DefaultDateTimeFormatterViewService(conferenceTimeZone = Constants.conferenceTimeZone)
                 }
                 single<ResourceReader> {
                     ClasspathResourceReader()
                 }
 
                 single<NotificationSchedulingService.LocalizedStringFactory> {
-                    NotificationLocalizedStringFactory(get())
+                    NotificationLocalizedStringFactory(context = get())
                 }
 
                 single<AnalyticsService> {
-                    AndroidAnalyticsService(Firebase.analytics)
+                    AndroidAnalyticsService(firebaseAnalytics = Firebase.analytics)
                 }
             }
         )

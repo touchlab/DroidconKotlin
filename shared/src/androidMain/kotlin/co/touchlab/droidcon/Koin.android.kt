@@ -18,7 +18,7 @@ import org.koin.dsl.module
 @OptIn(ExperimentalSettingsApi::class, ExperimentalKermitApi::class)
 actual val platformModule: Module = module {
     single<SqlDriver> {
-        SqlDelightDriverFactory(get()).createDriver()
+        SqlDelightDriverFactory(context = get()).createDriver()
     }
 
     single<HttpClientEngine> {

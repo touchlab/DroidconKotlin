@@ -44,14 +44,14 @@ fun initKoinIos(
     analyticsService: AnalyticsService,
 ): KoinApplication = initKoin(
     module {
-        single { BundleProvider(NSBundle.mainBundle) }
-        single<ObservableSettings> { AppleSettings(userDefaults) }
-        single<ResourceReader> { BundleResourceReader(get<BundleProvider>().bundle) }
+        single { BundleProvider(bundle = NSBundle.mainBundle) }
+        single<ObservableSettings> { AppleSettings(delegate = userDefaults) }
+        single<ResourceReader> { BundleResourceReader(bundle = get<BundleProvider>().bundle) }
 
-        single { DateFormatter(get()) }
+        single { DateFormatter(dateTimeService = get()) }
 
         single<NotificationSchedulingService.LocalizedStringFactory> {
-            NotificationLocalizedStringFactory(get<BundleProvider>().bundle)
+            NotificationLocalizedStringFactory(bundle = get<BundleProvider>().bundle)
         }
 
         single { analyticsService }
@@ -60,30 +60,66 @@ fun initKoinIos(
 
         // MARK: View model factories.
         single {
-            ApplicationViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get())
+            ApplicationViewModel(
+                scheduleFactory = get(),
+                agendaFactory = get(),
+                sponsorsFactory = get(),
+                settingsFactory = get(),
+                feedbackDialogFactory = get(),
+                syncService = get(),
+                notificationSchedulingService = get(),
+                feedbackService = get(),
+                settingsGateway = get(),
+            )
                 .also { (get<NotificationService>() as IOSNotificationService).setHandler(it) }
         }
 
-        single { ScheduleViewModel.Factory(get(), get(), get(), get()) }
-        single { AgendaViewModel.Factory(get(), get(), get(), get()) }
-        single { SessionBlockViewModel.Factory(get(), get()) }
-        single { SessionDayViewModel.Factory(get(), get(), get()) }
-        single { SessionListItemViewModel.Factory(get()) }
+        single {
+            ScheduleViewModel.Factory(
+                sessionGateway = get(),
+                sessionDayFactory = get(),
+                sessionDetailFactory = get(),
+                dateTimeService = get(),
+            )
+        }
+        single {
+            AgendaViewModel.Factory(
+                sessionGateway = get(),
+                sessionDayFactory = get(),
+                sessionDetailFactory = get(),
+                dateTimeService = get(),
+            )
+        }
+        single { SessionBlockViewModel.Factory(sessionListItemFactory = get(), dateFormatter = get()) }
+        single { SessionDayViewModel.Factory(sessionBlockFactory = get(), dateFormatter = get(), dateTimeService = get()) }
+        single { SessionListItemViewModel.Factory(dateTimeService = get()) }
 
-        single { SessionDetailViewModel.Factory(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+        single {
+            SessionDetailViewModel.Factory(
+                sessionGateway = get(),
+                speakerListItemFactory = get(),
+                speakerDetailFactory = get(),
+                dateFormatter = get(),
+                dateTimeService = get(),
+                parseUrlViewService = get(),
+                settingsGateway = get(),
+                feedbackDialogFactory = get(),
+                feedbackService = get(),
+            )
+        }
         single { SpeakerListItemViewModel.Factory() }
 
-        single { SpeakerDetailViewModel.Factory(get()) }
+        single { SpeakerDetailViewModel.Factory(parseUrlViewService = get()) }
 
-        single { SponsorListViewModel.Factory(get(), get(), get()) }
-        single { SponsorGroupViewModel.Factory(get()) }
+        single { SponsorListViewModel.Factory(sponsorGateway = get(), sponsorGroupFactory = get(), sponsorDetailFactory = get()) }
+        single { SponsorGroupViewModel.Factory(sponsorGroupItemFactory = get()) }
         single { SponsorGroupItemViewModel.Factory() }
-        single { SponsorDetailViewModel.Factory(get(), get(), get()) }
+        single { SponsorDetailViewModel.Factory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get()) }
 
-        single { SettingsViewModel.Factory(get(), get()) }
-        single { AboutViewModel.Factory(get(), get()) }
+        single { SettingsViewModel.Factory(settingsGateway = get(), aboutFactory = get()) }
+        single { AboutViewModel.Factory(aboutRepository = get(), parseUrlViewService = get()) }
 
-        single { FeedbackDialogViewModel.Factory(get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
+        single { FeedbackDialogViewModel.Factory(sessionGateway = get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
     }
 )
 
