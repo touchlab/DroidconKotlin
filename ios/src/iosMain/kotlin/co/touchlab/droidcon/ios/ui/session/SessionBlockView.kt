@@ -54,7 +54,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                     ) { }
 
                     val backgroundColor =
-                        if (isInPast) Color.hsl(hue = 0f, saturation = 0f, lightness = 0.9f) else MaterialTheme.colors.background
+                        if (isInPast) MaterialTheme.colors.surface else MaterialTheme.colors.background
                     val isClickable = !session.isServiceSession
                     Card(
                         modifier = Modifier.weight(1f),

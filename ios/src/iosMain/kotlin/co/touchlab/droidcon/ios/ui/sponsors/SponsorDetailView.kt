@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -29,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -55,6 +57,8 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
         Scaffold(topBar = {
             TopAppBar(
                 title = { Text("Sponsor") },
+                elevation = 0.dp,
+                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
                 navigationIcon = {
                     IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                         Icon(

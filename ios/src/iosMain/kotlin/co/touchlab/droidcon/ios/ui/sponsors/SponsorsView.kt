@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -55,7 +56,13 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
         }
     }) {
         Scaffold(
-            topBar = { TopAppBar(title = { Text("Sponsors") }) },
+            topBar = {
+                TopAppBar(
+                    title = { Text("Sponsors") },
+                    elevation = 0.dp,
+                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                )
+            },
         ) {
             val sponsorGroups by viewModel.observeSponsorGroups.observeAsState()
             Column {

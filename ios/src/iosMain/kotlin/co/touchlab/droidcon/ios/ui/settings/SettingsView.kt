@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -22,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ios.ui.theme.Dimensions
@@ -32,7 +34,13 @@ import org.brightify.hyperdrive.multiplatformx.property.MutableObservablePropert
 @Composable
 internal fun SettingsView(viewModel: SettingsViewModel) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Settings") }) },
+        topBar = {
+            TopAppBar(
+                title = { Text("Settings") },
+                elevation = 0.dp,
+                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+            )
+        },
     ) {
         val scrollState = rememberScrollState()
         Column(modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)) {

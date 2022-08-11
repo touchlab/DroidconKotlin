@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ios.ui.session.SessionListView
 import co.touchlab.droidcon.ios.ui.settings.SettingsView
 import co.touchlab.droidcon.ios.ui.sponsors.SponsorsView
@@ -28,7 +29,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
     Scaffold(
         modifier = Modifier,
         bottomBar = {
-            BottomNavigation {
+            BottomNavigation(elevation = 0.dp) {
                 viewModel.tabs.forEach { tab ->
                     val (title, icon) = when (tab) {
                         ApplicationViewModel.Tab.Schedule -> "Schedule" to Icons.Filled.CalendarMonth

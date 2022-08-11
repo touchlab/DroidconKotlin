@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.FloatingActionButton
@@ -36,6 +37,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontStyle
@@ -66,6 +68,8 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
             topBar = {
                 TopAppBar(
                     title = { Text("Session") },
+                    elevation = 0.dp,
+                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
                     navigationIcon = {
                         IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                             Icon(
@@ -139,9 +143,11 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
 
 @Composable
 private fun HeaderView(title: String, locationInfo: String) {
-    Card(elevation = Dimensions.Padding.quarter,
-        backgroundColor = Color.hsl(hue = 0f, saturation = 0f, lightness = 0.96f),
-        shape = RectangleShape) {
+    Card(
+        elevation = Dimensions.Padding.quarter,
+        backgroundColor = MaterialTheme.colors.surface,
+        shape = RectangleShape,
+    ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,

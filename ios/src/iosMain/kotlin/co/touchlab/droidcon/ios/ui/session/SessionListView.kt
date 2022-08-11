@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
@@ -27,6 +29,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -47,7 +50,13 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
         }
     }) {
         Scaffold(
-            topBar = { TopAppBar(title = { Text("Droidcon Berlin 2022") }) },
+            topBar = {
+                TopAppBar(
+                    title = { Text("Droidcon Berlin 2022") },
+                    elevation = 0.dp,
+                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                )
+            },
         ) {
             Column {
                 val days by viewModel.observeDays.observeAsState()

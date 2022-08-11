@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -27,6 +28,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextOverflow
@@ -48,6 +50,8 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
         topBar = {
             TopAppBar(
                 title = { Text("Speaker") },
+                elevation = 0.dp,
+                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
                 navigationIcon = {
                     IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                         Icon(
@@ -86,9 +90,11 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
 
 @Composable
 private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
-    Card(elevation = Dimensions.Padding.quarter,
-        backgroundColor = Color.hsl(hue = 0f, saturation = 0f, lightness = 0.96f),
-        shape = RectangleShape) {
+    Card(
+        elevation = Dimensions.Padding.quarter,
+        backgroundColor = MaterialTheme.colors.surface,
+        shape = RectangleShape,
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -163,12 +169,13 @@ private fun SocialView(url: WebLink, iconName: String) {
 @Composable
 private fun BioView(bio: String, webLinks: List<WebLink>) {
     Row(modifier = Modifier.fillMaxWidth().padding(vertical = Dimensions.Padding.half), verticalAlignment = Alignment.Top) {
-        Image(
+        Icon(
             imageVector = Icons.Default.Description,
             contentDescription = null,
             modifier = Modifier
                 .padding(Dimensions.Padding.default)
                 .size(28.dp),
+            tint = MaterialTheme.colors.onSurface,
         )
         WebLinkText(
             text = bio,
