@@ -20,6 +20,8 @@
 "Session.Detail.State.Ended" = "This session has already ended.";
 "Session.Detail.State.Conflict" = "This session conflicts with another session in your schedule.";
 "Session.Detail.Speakers" = "Speakers";
+"Session.Detail.AddFeedback" = "Add feedback";
+"Session.Detail.ChangeFeedback" = "Change your feedback";
 
 "Speaker.Detail.Title" = "Speaker";
 

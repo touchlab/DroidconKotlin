@@ -2,22 +2,28 @@ package co.touchlab.droidcon.ios.viewmodel
 
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
+import co.touchlab.kermit.Logger
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.property.map
+import org.koin.core.parameter.parametersOf
 
 class FeedbackDialogViewModel(
     private val sessionGateway: SessionGateway,
     private val session: Session,
+    private val log: Logger,
     private val submit: suspend (Session.Feedback) -> Unit,
-    private val closeAndDisable: suspend () -> Unit,
+    private val closeAndDisable: (suspend () -> Unit)?,
     private val skip: suspend () -> Unit,
 ): BaseViewModel() {
+
     val sessionTitle = session.title
-    var rating: Rating? by published(null)
+    var rating: Rating? by published(session.feedback?.rating?.let(::feedbackRatingToRating))
     private val observeRating by observe(::rating)
-    var comment by published("")
+    var comment by published(session.feedback?.comment ?: "")
 
     val isSubmitDisabled by observeRating.map { it == null }
+
+    val showCloseAndDisableOption: Boolean = closeAndDisable != null
 
     fun submitTapped() = instanceLock.runExclusively {
         rating?.let {
@@ -25,9 +31,22 @@ class FeedbackDialogViewModel(
         }
     }
 
-    fun closeAndDisableTapped() = instanceLock.runExclusively(closeAndDisable::invoke)
+    fun closeAndDisableTapped() = instanceLock.runExclusively {
+        closeAndDisable?.invoke()
+    }
 
     fun skipTapped() = instanceLock.runExclusively(skip::invoke)
+
+    private fun feedbackRatingToRating(rating: Int): Rating? =
+        when (rating) {
+            Session.Feedback.Rating.DISSATISFIED -> Rating.Dissatisfied
+            Session.Feedback.Rating.NORMAL -> Rating.Normal
+            Session.Feedback.Rating.SATISFIED -> Rating.Satisfied
+            else -> {
+                log.w("Unknown feedback rating $rating.")
+                null
+            }
+        }
 
     enum class Rating {
         Dissatisfied, Normal, Satisfied;
@@ -42,12 +61,14 @@ class FeedbackDialogViewModel(
 
     class Factory(
         private val sessionGateway: SessionGateway,
+        private val log: Logger,
     ) {
+
         fun create(
             session: Session,
             submit: suspend (Session.Feedback) -> Unit,
-            closeAndDisable: suspend () -> Unit,
+            closeAndDisable: (suspend () -> Unit)?,
             skip: suspend () -> Unit,
-        ) = FeedbackDialogViewModel(sessionGateway, session, submit, closeAndDisable, skip)
+        ) = FeedbackDialogViewModel(sessionGateway, session, log, submit, closeAndDisable, skip)
     }
 }

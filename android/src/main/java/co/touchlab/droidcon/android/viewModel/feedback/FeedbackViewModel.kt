@@ -6,18 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.parameter.parametersOf
 
 class FeedbackViewModel(
     val session: MutableStateFlow<Session>,
     private val submitFeedback: suspend (Session, Session.Feedback) -> Unit,
-    private val closeAndDisableFeedback: suspend () -> Unit,
+    private val closeAndDisableFeedback: (suspend () -> Unit)? = null,
     private val skipFeedback: suspend (Session) -> Unit,
-): ViewModel() {
+): ViewModel(), KoinComponent {
+
+    private val log: Logger by inject(parameters = { parametersOf("FeedbackViewModel") })
 
     val title: Flow<String> = session.map { it.title }
     val reactions: List<Reaction> = listOf(Reaction.Bad, Reaction.Normal, Reaction.Good)
@@ -26,11 +32,13 @@ class FeedbackViewModel(
 
     val isSubmitDisabled: Flow<Boolean> = selectedReaction.map { it == null }
 
+    val showCloseAndDisableOption: Boolean = closeAndDisableFeedback != null
+
     init {
         viewModelScope.launch {
             session.collect {
-                comment.value = ""
-                selectedReaction.value = null
+                comment.value = it.feedback?.comment ?: ""
+                selectedReaction.value = it.feedback?.rating?.let(::feedbackRatingToReaction)
             }
         }
     }
@@ -45,7 +53,7 @@ class FeedbackViewModel(
 
     fun closeAndDisable() {
         viewModelScope.launch {
-            closeAndDisableFeedback()
+            closeAndDisableFeedback?.invoke()
         }
     }
 
@@ -60,6 +68,17 @@ class FeedbackViewModel(
             Reaction.Bad -> Session.Feedback.Rating.DISSATISFIED
             Reaction.Normal -> Session.Feedback.Rating.NORMAL
             Reaction.Good -> Session.Feedback.Rating.SATISFIED
+        }
+
+    private fun feedbackRatingToReaction(rating: Int): Reaction? =
+        when (rating) {
+            Session.Feedback.Rating.DISSATISFIED -> Reaction.Bad
+            Session.Feedback.Rating.NORMAL -> Reaction.Normal
+            Session.Feedback.Rating.SATISFIED -> Reaction.Good
+            else -> {
+                log.w("Unknown feedback rating $rating.")
+                null
+            }
         }
 
     sealed class Reaction(@StringRes val descriptionRes: Int, @DrawableRes val imageRes: Int) {
