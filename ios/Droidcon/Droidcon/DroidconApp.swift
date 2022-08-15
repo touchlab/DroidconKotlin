@@ -53,6 +53,8 @@ struct SwitchingRootView: View {
     @ObservedObject
     var viewModel: ApplicationViewModel
     
+    private let userDefaultsPublisher = NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
+    
     var body: some View {
         Group {
             if viewModel.useCompose {
@@ -68,6 +70,12 @@ struct SwitchingRootView: View {
         }
         .attach(viewModel: viewModel)
         .onAppear(perform: viewModel.onAppear)
+        .onReceive(userDefaultsPublisher) { _ in
+            viewModel.useCompose = SettingsBundleHelper.getUseComposeValue()
+        }
+        .onChange(of: viewModel.useCompose) { newValue in
+            SettingsBundleHelper.setUseComposeValue(newValue: newValue)
+        }
     }
 }
 

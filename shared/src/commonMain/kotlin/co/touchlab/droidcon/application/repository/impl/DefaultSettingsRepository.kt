@@ -15,6 +15,7 @@ class DefaultSettingsRepository(
     private companion object {
         private const val SETTINGS_FEEDBACK_ENABLED_KEY = "SETTINGS_FEEDBACK_ENABLED"
         private const val SETTINGS_REMINDERS_ENABLED_KEY = "SETTINGS_REMINDERS_ENABLED"
+        private const val SETTINGS_USE_COMPOSE_FOR_IOS_KEY = "SETTINGS_USE_COMPOSE_FOR_IOS"
     }
 
     private var isFeedbackEnabled: Boolean
@@ -29,7 +30,11 @@ class DefaultSettingsRepository(
             observableSettings[SETTINGS_REMINDERS_ENABLED_KEY] = value
         }
 
-    private var useComposeForIos: Boolean = false
+    private var useComposeForIos: Boolean
+        get() = observableSettings[SETTINGS_USE_COMPOSE_FOR_IOS_KEY, true]
+        set(value) {
+            observableSettings[SETTINGS_USE_COMPOSE_FOR_IOS_KEY] = value
+        }
 
     override val settings: MutableStateFlow<Settings> = MutableStateFlow(
         Settings(

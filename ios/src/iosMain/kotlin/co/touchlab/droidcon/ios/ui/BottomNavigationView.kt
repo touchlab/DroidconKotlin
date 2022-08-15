@@ -27,7 +27,6 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
 
     Scaffold(
-        modifier = Modifier,
         bottomBar = {
             BottomNavigation(elevation = 0.dp) {
                 viewModel.tabs.forEach { tab ->
