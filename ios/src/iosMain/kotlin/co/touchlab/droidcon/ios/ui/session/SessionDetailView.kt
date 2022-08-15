@@ -16,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AppBarDefaults
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.FloatingActionButton
@@ -48,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ios.NavigationController
 import co.touchlab.droidcon.ios.NavigationStack
+import co.touchlab.droidcon.ios.ui.FeedbackDialog
 import co.touchlab.droidcon.ios.ui.theme.Dimensions
 import co.touchlab.droidcon.ios.ui.util.WebLinkText
 import co.touchlab.droidcon.ios.ui.util.observeAsState
@@ -117,6 +119,24 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                 }
                 InfoView(status)
 
+                val showFeedbackOption by viewModel.observeShowFeedbackOption.observeAsState()
+                if (showFeedbackOption) {
+                    Button(
+                        onClick = viewModel::writeFeedbackTapped,
+                        modifier = Modifier
+                            .padding(Dimensions.Padding.default)
+                            .align(Alignment.CenterHorizontally),
+                    ) {
+                        val feedbackAlreadyWritten by viewModel.observeFeedbackAlreadyWritten.observeAsState()
+                        val text = if (feedbackAlreadyWritten) {
+                            "Change your feedback"
+                        } else {
+                            "Add feedback"
+                        }
+                        Text(text = text)
+                    }
+                }
+
                 val description by viewModel.observeAbstract.observeAsState()
                 val descriptionLinks by viewModel.observeAbstractLinks.observeAsState()
                 description?.let {
@@ -138,6 +158,11 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                 }
             }
         }
+    }
+
+    val feedback by viewModel.observePresentedFeedback.observeAsState()
+    feedback?.let {
+        FeedbackDialog(it)
     }
 }
 

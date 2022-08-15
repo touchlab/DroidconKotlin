@@ -46,6 +46,7 @@
 		68DCBC6226C512DD0084C70D /* SponsorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */; };
 		68DCBC6426C51E260084C70D /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6326C51E260084C70D /* TextView.swift */; };
 		8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */; };
+		A357C7EE28AA7861004EF059 /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */; };
 		A35DEF2228AA265C0072605A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A35DEF2128AA265C0072605A /* Settings.bundle */; };
 		A35DEF2428AA26C80072605A /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
@@ -93,6 +94,7 @@
 		68DCBC6326C51E260084C70D /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAnalyticsService.swift; sourceTree = "<group>"; };
 		9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
 		A35DEF2128AA265C0072605A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		684FAA7826B2A51100673AFF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */,
 				684FAA7D26B2A7B600673AFF /* RoundedCorners.swift */,
 				689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */,
 				689DD2FC26B40F8200A9B009 /* AssertionFailureView.swift */,
@@ -450,6 +453,7 @@
 				684FAA7426B2A4D400673AFF /* ScheduleView.swift in Sources */,
 				46B5284D249C5CF400A7725D /* Koin.swift in Sources */,
 				68DCBC6226C512DD0084C70D /* SponsorDetailView.swift in Sources */,
+				A357C7EE28AA7861004EF059 /* FilledButtonStyle.swift in Sources */,
 				684FAA8326B2B60300673AFF /* SessionDetailView.swift in Sources */,
 				681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */,
 				68DCBC6426C51E260084C70D /* TextView.swift in Sources */,

@@ -98,8 +98,10 @@ class SessionDetailViewModel(
     val observePresentedSpeakerDetail by observe(::presentedSpeakerDetail)
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
+    val observePresentedFeedback by observe(::presentedFeedback)
 
     val feedbackAlreadyWritten by observeItem.map { it.session.feedback != null }
+    val observeFeedbackAlreadyWritten by observe(::feedbackAlreadyWritten)
     val showFeedbackOption by collected(
         initialValue = false,
         settingsGateway.settings()
@@ -108,6 +110,7 @@ class SessionDetailViewModel(
                 feedbackEnabled && state == SessionState.Ended
             }
     )
+    val observeShowFeedbackOption by observe(::showFeedbackOption)
 
     fun attendingTapped() = instanceLock.runExclusively {
         sessionGateway.setAttending(item.session, attending = !isAttending)
