@@ -16,8 +16,9 @@
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
 		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 		18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */; };
-		3E160FDC55470B05AD9C2767 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1562630A698D702F3ADBB9C1 /* Pods_Droidcon.framework */; };
+		3E160FDC55470B05AD9C2767 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
+		5343CA73553816C905C7591B /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC067B94A1EFA0275797DBD8 /* Pods_Droidcon.framework */; };
 		681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C959C26C554E00011330B /* FeedbackDialog.swift */; };
 		681C95A126C555D90011330B /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95A026C555D90011330B /* VisualEffectView.swift */; };
 		681C95A326C56B100011330B /* CustomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95A226C56B100011330B /* CustomOverlayView.swift */; };
@@ -45,12 +46,12 @@
 		68DCBC6226C512DD0084C70D /* SponsorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */; };
 		68DCBC6426C51E260084C70D /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6326C51E260084C70D /* TextView.swift */; };
 		8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */; };
+		A357C7EC28AA74A4004EF059 /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357C7EB28AA74A4004EF059 /* FilledButtonStyle.swift */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
 		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
 		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
 		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
@@ -90,7 +91,9 @@
 		68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorDetailView.swift; sourceTree = "<group>"; };
 		68DCBC6326C51E260084C70D /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAnalyticsService.swift; sourceTree = "<group>"; };
+		A357C7EB28AA74A4004EF059 /* FilledButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
 		A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
+		DC067B94A1EFA0275797DBD8 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,7 +106,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E160FDC55470B05AD9C2767 /* Pods_Droidcon.framework in Frameworks */,
+				3E160FDC55470B05AD9C2767 /* (null) in Frameworks */,
+				5343CA73553816C905C7591B /* Pods_Droidcon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +163,7 @@
 		684FAA7826B2A51100673AFF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A357C7EB28AA74A4004EF059 /* FilledButtonStyle.swift */,
 				684FAA7D26B2A7B600673AFF /* RoundedCorners.swift */,
 				689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */,
 				689DD2FC26B40F8200A9B009 /* AssertionFailureView.swift */,
@@ -233,7 +238,7 @@
 		EA4A32E32829B6496044B105 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1562630A698D702F3ADBB9C1 /* Pods_Droidcon.framework */,
+				DC067B94A1EFA0275797DBD8 /* Pods_Droidcon.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -436,6 +441,7 @@
 				684FAA7726B2A4EA00673AFF /* SettingsView.swift in Sources */,
 				689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */,
 				689DD30526B438CA00A9B009 /* Avatar.swift in Sources */,
+				A357C7EC28AA74A4004EF059 /* FilledButtonStyle.swift in Sources */,
 				681C95A126C555D90011330B /* VisualEffectView.swift in Sources */,
 				1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */,
 				684FAA7426B2A4D400673AFF /* ScheduleView.swift in Sources */,
