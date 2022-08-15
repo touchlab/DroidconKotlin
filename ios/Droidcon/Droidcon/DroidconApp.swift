@@ -79,12 +79,41 @@ struct SwitchingRootView: View {
     }
 }
 
+class BackgroundCrashWorkaroundController: UIViewController {
+    
+    let viewModel: ApplicationViewModel
+    let composeController: UIViewController
+    
+    init(viewModel: ApplicationViewModel) {
+        self.viewModel = viewModel
+        
+        composeController = MainComposeViewKt.getRootController(viewModel: viewModel)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if composeController.parent == nil {
+            addChild(composeController)
+            composeController.view.frame = view.bounds
+            view.addSubview(composeController.view)
+            composeController.didMove(toParent: self)
+        }
+    }
+}
+
 struct ComposeController: UIViewControllerRepresentable {
     
     let viewModel: ApplicationViewModel
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        MainComposeViewKt.getRootController(viewModel: viewModel)
+        BackgroundCrashWorkaroundController(viewModel: viewModel)
     }
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
