@@ -9,6 +9,8 @@ struct DroidconApp: App {
     init() {
         setupNavBarAppearance()
         setupTabBarAppearance()
+        
+        SettingsBundleHelper.initialize()
     }
 
     var body: some Scene {
