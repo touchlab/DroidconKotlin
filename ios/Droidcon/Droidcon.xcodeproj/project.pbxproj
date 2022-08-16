@@ -47,6 +47,9 @@
 		68DCBC6426C51E260084C70D /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6326C51E260084C70D /* TextView.swift */; };
 		8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */; };
 		A357C7EE28AA7861004EF059 /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */; };
+		A35DC2DF28AB6B2600C7B298 /* SwitchingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */; };
+		A35DC2E128AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */; };
+		A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */; };
 		A35DEF2228AA265C0072605A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A35DEF2128AA265C0072605A /* Settings.bundle */; };
 		A35DEF2428AA26C80072605A /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
@@ -95,6 +98,9 @@
 		8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAnalyticsService.swift; sourceTree = "<group>"; };
 		9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
+		A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchingRootView.swift; sourceTree = "<group>"; };
+		A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCrashWorkaroundController.swift; sourceTree = "<group>"; };
+		A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeController.swift; sourceTree = "<group>"; };
 		A35DEF2128AA265C0072605A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
@@ -289,6 +295,9 @@
 				684FAA7826B2A51100673AFF /* Utils */,
 				A35DEF2128AA265C0072605A /* Settings.bundle */,
 				A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */,
+				A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */,
+				A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */,
+				A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */,
 			);
 			path = Droidcon;
 			sourceTree = "<group>";
@@ -438,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */,
+				A35DC2DF28AB6B2600C7B298 /* SwitchingRootView.swift in Sources */,
 				684FAA8626B2BD1300673AFF /* DaySelectionView.swift in Sources */,
 				6881CF6926C29B81002541F0 /* MainView.swift in Sources */,
 				681C95A326C56B100011330B /* CustomOverlayView.swift in Sources */,
@@ -449,6 +459,7 @@
 				689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */,
 				689DD30526B438CA00A9B009 /* Avatar.swift in Sources */,
 				681C95A126C555D90011330B /* VisualEffectView.swift in Sources */,
+				A35DC2E128AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift in Sources */,
 				1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */,
 				684FAA7426B2A4D400673AFF /* ScheduleView.swift in Sources */,
 				46B5284D249C5CF400A7725D /* Koin.swift in Sources */,
@@ -459,6 +470,7 @@
 				68DCBC6426C51E260084C70D /* TextView.swift in Sources */,
 				689DD30126B4279400A9B009 /* SpeakerDetailView.swift in Sources */,
 				689DD30326B431C300A9B009 /* SpeakerListItemView.swift in Sources */,
+				A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */,
 				6881CF6526BD6D75002541F0 /* SponsorGroupItemView.swift in Sources */,
 				6881CF6326BD60D4002541F0 /* SponsorListView.swift in Sources */,
 				6881CF6026BD3D22002541F0 /* SessionBlockItemView.swift in Sources */,
@@ -623,7 +635,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 40300;
-				DEVELOPMENT_TEAM = 8UD86646U9;
+				DEVELOPMENT_TEAM = 92JF4K58S2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -640,7 +652,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin.jj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -656,7 +668,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 40300;
-				DEVELOPMENT_TEAM = 8UD86646U9;
+				DEVELOPMENT_TEAM = 92JF4K58S2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -673,7 +685,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin.jj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
