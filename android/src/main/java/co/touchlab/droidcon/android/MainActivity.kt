@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Modifier
 // import androidx.compose.animation.Crossfade
 // import androidx.compose.foundation.Image
 // import androidx.compose.foundation.layout.fillMaxSize
@@ -19,9 +22,7 @@ import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
-import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.ui.main.Main
-import co.touchlab.droidcon.android.ui.theme.DroidconTheme
+import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.viewModel.MainViewModel
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
@@ -65,8 +66,10 @@ class MainActivity: ComponentActivity(), KoinComponent {
         root.addChild(applicationViewModel.lifecycle)
 
         setContent {
-            ProvideWindowInsets {
-                MainView(viewModel = applicationViewModel)
+            Box(modifier = Modifier.background(Colors.primary)) {
+                ProvideWindowInsets {
+                    MainView(viewModel = applicationViewModel)
+                }
             }
 
             // DroidconTheme {
