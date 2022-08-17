@@ -25,6 +25,7 @@ class SessionListItemViewModel(
             delay(10_000)
         }
     })
+    val observeIsInPast by observe(::isInPast)
 
     class Factory(
         private val dateTimeService: DateTimeService,

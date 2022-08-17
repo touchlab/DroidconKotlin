@@ -23,12 +23,29 @@ class ApplicationViewModel(
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
 ): BaseViewModel(), NotificationHandler {
+
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())
     val sponsors by managed(sponsorsFactory.create())
     val settings by managed(settingsFactory.create())
 
+    var useCompose: Boolean by binding(
+        settingsGateway.settings(),
+        mapping = { it.useComposeForIos },
+        set = { newValue ->
+            // TODO: Remove when `binding` supports suspend closures.
+            instanceLock.runExclusively {
+                settingsGateway.setUseComposeForIos(newValue)
+            }
+        }
+    )
+
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
+    val observePresentedFeedback by observe(::presentedFeedback)
+
+    val tabs = listOf(Tab.Schedule, Tab.MyAgenda, Tab.Sponsors, Tab.Settings)
+    var selectedTab: Tab by published(Tab.Schedule)
+    val observeSelectedTab by observe(::selectedTab)
 
     init {
         lifecycle.whileAttached {
@@ -75,5 +92,9 @@ class ApplicationViewModel(
                 },
             )
         }
+    }
+
+    enum class Tab {
+        Schedule, MyAgenda, Sponsors, Settings;
     }
 }

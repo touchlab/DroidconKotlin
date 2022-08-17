@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.util
 
 import kotlinx.cinterop.get
 import org.jetbrains.skia.ColorAlphaType

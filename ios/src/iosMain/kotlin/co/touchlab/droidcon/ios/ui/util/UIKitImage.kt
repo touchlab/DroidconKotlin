@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.util
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
@@ -19,31 +20,32 @@ import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.ios.ui.theme.Dimensions
 import platform.UIKit.UIImage
 
 @Composable
-internal fun UIKitImage(imageName: String, modifier: Modifier = Modifier) {
+internal fun UIKitImage(imageName: String, modifier: Modifier = Modifier, contentDescription: String? = null) {
     val painter = remember { UIImage.imageNamed(imageName)?.toSkiaImage()?.toComposeImageBitmap()?.let(::BitmapPainter) }
     if (painter != null) {
         Image(
             modifier = modifier,
             painter = painter,
-            contentDescription = null,
+            contentDescription = contentDescription,
             contentScale = ContentScale.FillWidth,
         )
     } else {
         Row(
-            modifier = modifier.background(Color.Blue, RoundedCornerShape(8.dp)),
+            modifier = modifier.background(MaterialTheme.colors.primary, RoundedCornerShape(Dimensions.Padding.half)),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.Warning,
-                contentDescription = null,
-                modifier = Modifier.padding(8.dp),
+                contentDescription = contentDescription,
+                modifier = Modifier.padding(Dimensions.Padding.half),
                 tint = Color.White,
             )
-            Text("Image not supported", modifier = Modifier.padding(16.dp), color = Color.White)
+            Text("Image not supported", modifier = Modifier.padding(Dimensions.Padding.default), color = Color.White)
             Spacer(modifier = Modifier.weight(1f))
         }
     }

@@ -16,10 +16,12 @@ abstract class BaseSessionListViewModel(
 
     var days: List<SessionDayViewModel>? by published(null)
         private set
+    val observeDays by observe(::days)
 
     var selectedDay: SessionDayViewModel? by managed(null)
 
     var presentedSessionDetail: SessionDetailViewModel? by managed(null)
+    val observePresentedSessionDetail by observe(::presentedSessionDetail)
 
     override suspend fun whileAttached() {
         val itemsFlow = if (attendingOnly) {

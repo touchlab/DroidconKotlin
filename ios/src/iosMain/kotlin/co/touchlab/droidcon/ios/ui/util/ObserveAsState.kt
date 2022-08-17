@@ -1,4 +1,4 @@
-package co.touchlab.droidcon.ios.ui
+package co.touchlab.droidcon.ios.ui.util
 
 import androidx.compose.runtime.*
 import org.brightify.hyperdrive.multiplatformx.ManageableViewModel

@@ -4,8 +4,10 @@ import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ios.viewmodel.FeedbackDialogViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +33,7 @@ class SessionDetailViewModel(
     private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
     private val dateFormatter: DateFormatter,
     private val dateTimeService: DateTimeService,
+    private val parseUrlViewService: ParseUrlViewService,
     private val feedbackService: FeedbackService,
     initialItem: ScheduleItem,
 ): BaseViewModel() {
@@ -46,6 +49,7 @@ class SessionDetailViewModel(
     private val observeTime by observe(::time)
 
     val title by observeItem.map { it.session.title }
+    val observeTitle by observe(::title)
     val info by observeItem.map {
         listOfNotNull(
             it.room?.name,
@@ -57,6 +61,7 @@ class SessionDetailViewModel(
             },
         ).joinToString()
     }
+    val observeInfo by observe(::info)
 
     val state: SessionState? by observeItem.flatMapLatest { item ->
         observeTime.map { now ->
@@ -68,9 +73,11 @@ class SessionDetailViewModel(
             }
         }
     }
-    private val observeState by observe(::state)
-
+    val observeState by observe(::state)
     val abstract by observeItem.map { it.session.description }
+    val observeAbstract by observe(::abstract)
+    val abstractLinks: List<WebLink> by observeItem.map { it.session.description?.let(parseUrlViewService::parse) ?: emptyList() }
+    val observeAbstractLinks by observe(::abstractLinks)
 
     val speakers: List<SpeakerListItemViewModel> by managedList(
         observeItem.map {
@@ -81,15 +88,20 @@ class SessionDetailViewModel(
             }
         }
     )
+    val observeSpeakers by observe(::speakers)
 
     val isAttending by observeItem.map { it.session.rsvp.isAttending }
+    val observeIsAttending by observe(::isAttending)
     val isAttendingLoading by instanceLock.observeIsLocked
 
     var presentedSpeakerDetail: SpeakerDetailViewModel? by managed(null)
+    val observePresentedSpeakerDetail by observe(::presentedSpeakerDetail)
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
+    val observePresentedFeedback by observe(::presentedFeedback)
 
     val feedbackAlreadyWritten by observeItem.map { it.session.feedback != null }
+    val observeFeedbackAlreadyWritten by observe(::feedbackAlreadyWritten)
     val showFeedbackOption by collected(
         initialValue = false,
         settingsGateway.settings()
@@ -98,6 +110,7 @@ class SessionDetailViewModel(
                 feedbackEnabled && state == SessionState.Ended
             }
     )
+    val observeShowFeedbackOption by observe(::showFeedbackOption)
 
     fun attendingTapped() = instanceLock.runExclusively {
         sessionGateway.setAttending(item.session, attending = !isAttending)
@@ -118,6 +131,12 @@ class SessionDetailViewModel(
         )
     }
 
+    private fun parseUrl(text: String): List<WebLink> {
+        val urlRegex =
+            "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)".toRegex()
+        return urlRegex.findAll(text).map { WebLink(it.range, it.value) }.toList()
+    }
+
     enum class SessionState {
         InConflict, InProgress, Ended
     }
@@ -130,6 +149,7 @@ class SessionDetailViewModel(
         private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
         private val dateFormatter: DateFormatter,
         private val dateTimeService: DateTimeService,
+        private val parseUrlViewService: ParseUrlViewService,
         private val feedbackService: FeedbackService,
     ) {
         fun create(
@@ -142,6 +162,7 @@ class SessionDetailViewModel(
             feedbackDialogFactory,
             dateFormatter,
             dateTimeService,
+            parseUrlViewService,
             feedbackService,
             item,
         )

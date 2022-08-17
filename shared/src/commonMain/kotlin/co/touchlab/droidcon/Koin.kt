@@ -104,22 +104,22 @@ private val coreModule = module {
     }
     single<ProfileRepository> {
         SqlDelightProfileRepository(
-            get<DroidconDatabase>().profileQueries,
-            get<DroidconDatabase>().sessionSpeakerQueries,
-            get<DroidconDatabase>().sponsorRepresentativeQueries,
+            profileQueries = get<DroidconDatabase>().profileQueries,
+            speakerQueries = get<DroidconDatabase>().sessionSpeakerQueries,
+            representativeQueries = get<DroidconDatabase>().sponsorRepresentativeQueries,
         )
     }
     single<SessionRepository> {
-        SqlDelightSessionRepository(get(), get<DroidconDatabase>().sessionQueries)
+        SqlDelightSessionRepository(dateTimeService = get(), sessionQueries = get<DroidconDatabase>().sessionQueries)
     }
     single<RoomRepository> {
-        SqlDelightRoomRepository(get<DroidconDatabase>().roomQueries)
+        SqlDelightRoomRepository(roomQueries = get<DroidconDatabase>().roomQueries)
     }
     single<SponsorRepository> {
-        SqlDelightSponsorRepository(get<DroidconDatabase>().sponsorQueries)
+        SqlDelightSponsorRepository(sponsorQueries = get<DroidconDatabase>().sponsorQueries)
     }
     single<SponsorGroupRepository> {
-        SqlDelightSponsorGroupRepository(get<DroidconDatabase>().sponsorGroupQueries)
+        SqlDelightSponsorGroupRepository(sponsorGroupQueries = get<DroidconDatabase>().sponsorGroupQueries)
     }
     single<SyncService> {
         DefaultSyncService(
@@ -134,7 +134,7 @@ private val coreModule = module {
             seedDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Seed)),
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
-            get()
+            db = get(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {

@@ -1,8 +1,8 @@
 package co.touchlab.droidcon.android.service.impl
 
 import android.util.Patterns
-import co.touchlab.droidcon.android.dto.WebLink
-import co.touchlab.droidcon.android.service.ParseUrlViewService
+import co.touchlab.droidcon.dto.WebLink
+import co.touchlab.droidcon.service.ParseUrlViewService
 
 class DefaultParseUrlViewService: ParseUrlViewService {
 

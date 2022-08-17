@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ios.viewmodel.settings
 
+import co.touchlab.droidcon.dto.WebLink
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class AboutItemViewModel(

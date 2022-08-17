@@ -17,6 +17,7 @@ class SponsorGroupViewModel(
             sponsorGroupItemFactory.create(sponsor, selected = { onSponsorSelected(sponsor) })
         }
     )
+    val observeSponsors by observe(::sponsors)
 
     class Factory(
         private val sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory,

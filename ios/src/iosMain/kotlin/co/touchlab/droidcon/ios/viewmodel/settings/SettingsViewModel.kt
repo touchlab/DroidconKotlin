@@ -32,12 +32,25 @@ class SettingsViewModel(
     )
     val observeIsRemindersEnabled by observe(::isRemindersEnabled)
 
-	val about by managed(aboutFactory.create())
+    val about by managed(aboutFactory.create())
+
+    var useCompose: Boolean by binding(
+        settingsGateway.settings(),
+        mapping = { it.useComposeForIos },
+        set = { newValue ->
+            // TODO: Remove when `binding` supports suspend closures.
+            instanceLock.runExclusively {
+                settingsGateway.setUseComposeForIos(newValue)
+            }
+        }
+    )
+    val observeUseCompose by observe(::useCompose)
 
     class Factory(
         private val settingsGateway: SettingsGateway,
         private val aboutFactory: AboutViewModel.Factory,
     ) {
+
         fun create() = SettingsViewModel(settingsGateway, aboutFactory)
     }
 }

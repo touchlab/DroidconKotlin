@@ -5,6 +5,7 @@ import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
+import co.touchlab.droidcon.ios.service.DefaultParseUrlViewService
 import co.touchlab.droidcon.ios.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.ios.util.formatter.DateFormatter
 import co.touchlab.droidcon.ios.viewmodel.settings.AboutViewModel
@@ -25,6 +26,7 @@ import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.ios.viewmodel.sponsor.SponsorListViewModel
 import co.touchlab.droidcon.service.IOSNotificationService
 import co.touchlab.droidcon.service.NotificationHandler
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.util.BundleResourceReader
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -42,44 +44,82 @@ fun initKoinIos(
     analyticsService: AnalyticsService,
 ): KoinApplication = initKoin(
     module {
-        single { BundleProvider(NSBundle.mainBundle) }
-        single<ObservableSettings> { AppleSettings(userDefaults) }
-        single<ResourceReader> { BundleResourceReader(get<BundleProvider>().bundle) }
+        single { BundleProvider(bundle = NSBundle.mainBundle) }
+        single<ObservableSettings> { AppleSettings(delegate = userDefaults) }
+        single<ResourceReader> { BundleResourceReader(bundle = get<BundleProvider>().bundle) }
 
-        single { DateFormatter(get()) }
+        single { DateFormatter(dateTimeService = get()) }
 
         single<NotificationSchedulingService.LocalizedStringFactory> {
-            NotificationLocalizedStringFactory(get<BundleProvider>().bundle)
+            NotificationLocalizedStringFactory(bundle = get<BundleProvider>().bundle)
         }
 
         single { analyticsService }
 
+        single<ParseUrlViewService> { DefaultParseUrlViewService() }
+
         // MARK: View model factories.
         single {
-            ApplicationViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get())
+            ApplicationViewModel(
+                scheduleFactory = get(),
+                agendaFactory = get(),
+                sponsorsFactory = get(),
+                settingsFactory = get(),
+                feedbackDialogFactory = get(),
+                syncService = get(),
+                notificationSchedulingService = get(),
+                feedbackService = get(),
+                settingsGateway = get(),
+            )
                 .also { (get<NotificationService>() as IOSNotificationService).setHandler(it) }
         }
 
-        single { ScheduleViewModel.Factory(get(), get(), get(), get()) }
-        single { AgendaViewModel.Factory(get(), get(), get(), get()) }
-        single { SessionBlockViewModel.Factory(get(), get()) }
-        single { SessionDayViewModel.Factory(get(), get(), get()) }
-        single { SessionListItemViewModel.Factory(get()) }
+        single {
+            ScheduleViewModel.Factory(
+                sessionGateway = get(),
+                sessionDayFactory = get(),
+                sessionDetailFactory = get(),
+                dateTimeService = get(),
+            )
+        }
+        single {
+            AgendaViewModel.Factory(
+                sessionGateway = get(),
+                sessionDayFactory = get(),
+                sessionDetailFactory = get(),
+                dateTimeService = get(),
+            )
+        }
+        single { SessionBlockViewModel.Factory(sessionListItemFactory = get(), dateFormatter = get()) }
+        single { SessionDayViewModel.Factory(sessionBlockFactory = get(), dateFormatter = get(), dateTimeService = get()) }
+        single { SessionListItemViewModel.Factory(dateTimeService = get()) }
 
-        single { SessionDetailViewModel.Factory(get(), get(), get(), get(), get(), get(), get(), get()) }
+        single {
+            SessionDetailViewModel.Factory(
+                sessionGateway = get(),
+                speakerListItemFactory = get(),
+                speakerDetailFactory = get(),
+                dateFormatter = get(),
+                dateTimeService = get(),
+                parseUrlViewService = get(),
+                settingsGateway = get(),
+                feedbackDialogFactory = get(),
+                feedbackService = get(),
+            )
+        }
         single { SpeakerListItemViewModel.Factory() }
 
-        single { SpeakerDetailViewModel.Factory() }
+        single { SpeakerDetailViewModel.Factory(parseUrlViewService = get()) }
 
-        single { SponsorListViewModel.Factory(get(), get(), get()) }
-        single { SponsorGroupViewModel.Factory(get()) }
+        single { SponsorListViewModel.Factory(sponsorGateway = get(), sponsorGroupFactory = get(), sponsorDetailFactory = get()) }
+        single { SponsorGroupViewModel.Factory(sponsorGroupItemFactory = get()) }
         single { SponsorGroupItemViewModel.Factory() }
-        single { SponsorDetailViewModel.Factory(get(), get(), get()) }
+        single { SponsorDetailViewModel.Factory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get()) }
 
-        single { SettingsViewModel.Factory(get(), get()) }
-        single { AboutViewModel.Factory(get()) }
+        single { SettingsViewModel.Factory(settingsGateway = get(), aboutFactory = get()) }
+        single { AboutViewModel.Factory(aboutRepository = get(), parseUrlViewService = get()) }
 
-        single { FeedbackDialogViewModel.Factory(get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
+        single { FeedbackDialogViewModel.Factory(sessionGateway = get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
     }
 )
 
