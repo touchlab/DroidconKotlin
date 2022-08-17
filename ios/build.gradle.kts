@@ -1,39 +1,45 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
+
+    id("org.jetbrains.compose") version "1.2.0-alpha01-dev755"
 }
 
 version = "1.0"
 
 kotlin {
-
     ios()
-    iosSimulatorArm64()
-    sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
-    sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
+    // iosSimulatorArm64()
+    // sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
+    // sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
 
     sourceSets {
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
     }
 
     sourceSets.matching { it.name.endsWith("Test") }
         .configureEach {
-            languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
+            languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
 
     sourceSets["iosMain"].dependencies {
-        api(project(":shared"))
+        implementation(compose.ui)
+        implementation(compose.foundation)
+        implementation(compose.material)
+        implementation(compose.runtime)
+
+        api(project(":shared-ui"))
         api(libs.kermit)
-        api(libs.hyperdrive.multiplatformx.api)
     }
 
     cocoapods {
@@ -43,6 +49,14 @@ kotlin {
         framework {
             baseName = "DroidconKit"
             isStatic = true
+            embedBitcode = BitcodeEmbeddingMode.DISABLE
+
+            freeCompilerArgs += listOf(
+                "-linker-option", "-framework", "-linker-option", "Metal",
+                "-linker-option", "-framework", "-linker-option", "CoreText",
+                "-linker-option", "-framework", "-linker-option", "CoreGraphics",
+                "-Xdisable-phases=VerifyBitcode"
+            )
         }
     }
 
@@ -53,6 +67,7 @@ kotlin {
             export(libs.kermit)
             export(libs.hyperdrive.multiplatformx.api)
             export(project(":shared"))
+            export(project(":shared-ui"))
         }
     }
 
@@ -65,3 +80,17 @@ kotlin {
     }
 }
 
+kotlin {
+    targets.withType<KotlinNativeTarget> {
+        binaries.all {
+            // TODO: the current compose binary surprises LLVM, so disable checks for now.
+            freeCompilerArgs += "-Xdisable-phases=VerifyBitcode"
+        }
+    }
+}
+
+afterEvaluate {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>() {
+        (compilerPluginClasspath as? Configuration)?.isTransitive = true
+    }
+}

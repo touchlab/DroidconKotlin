@@ -5,6 +5,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
     val kotlinVersion: String by settings
@@ -45,8 +46,8 @@ dependencyResolutionManagement {
         create("libs") {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
-            val composeRef = version("compose", "1.1.1")
-            val composeCompilerRef = version("compose-compiler", "1.2.0-alpha08")
+            val composeRef = version("compose", "1.2.1")
+            val composeCompilerRef = version("compose-compiler", "1.2.0")
             val composeActivityRef = version("composeActivity", "1.4.0")
             val composeNavigationRef = version("composeNavigation", "2.4.1")
             val splashcreenRef = version("splashscreen", "1.0.0-beta02")
@@ -69,6 +70,7 @@ dependencyResolutionManagement {
             val junitRef = version("junit", "4.13.2")
             val junitKtxRef = version("junitKtx", "1.1.3")
             val coroutinesTestRef = version("coroutinesTest", "1.6.0-native-mt")
+            val imageLoaderRef = version("imageLoader", "1.0.8")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
             alias("android-desugar").to("com.android.tools", "desugar_jdk_libs").version("1.1.5")
@@ -113,6 +115,7 @@ dependencyResolutionManagement {
             alias("accompanist-navigationAnimation").to("com.google.accompanist", "accompanist-navigation-animation").versionRef(accompanistNavigationAnimationRef)
 
             alias("hyperdrive-multiplatformx-api").to("org.brightify.hyperdrive", "multiplatformx-api").versionRef(hyperdriveRef)
+            alias("hyperdrive-multiplatformx-compose").to("org.brightify.hyperdrive", "multiplatformx-compose").versionRef(hyperdriveRef)
 
             alias("androidx-core").to("androidx.core", "core-ktx").versionRef(coreRef)
 
@@ -120,6 +123,8 @@ dependencyResolutionManagement {
             alias("firebase-crashlytics").to("com.google.firebase", "firebase-crashlytics-ktx").versionRef(firebaseCrashlyticsRef)
 
             alias("uuid").to("com.benasher44", "uuid").versionRef(uuidRef)
+
+            alias("imageLoader").to("io.github.qdsfdhvh", "image-loader").versionRef(imageLoaderRef)
 
             alias("test-junit").to("junit", "junit").versionRef(junitRef)
             alias("test-junitKtx").to("androidx.test.ext", "junit-ktx").versionRef(junitKtxRef)
@@ -156,6 +161,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":shared", ":android", ":ios")
+include(":shared", ":shared-ui", ":android", ":ios")
 
 rootProject.name = "Droidcon"

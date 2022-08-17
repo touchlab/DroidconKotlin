@@ -51,7 +51,7 @@ class IOSNotificationService(
         NotificationDelegate(notificationHandler)
     }
 
-    fun setHandler(notificationHandler: NotificationHandler) {
+    override fun setHandler(notificationHandler: NotificationHandler) {
         this.notificationHandler = notificationHandler
     }
 

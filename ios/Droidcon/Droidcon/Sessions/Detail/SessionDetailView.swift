@@ -62,7 +62,7 @@ struct SessionDetailView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         }
-                        
+
                         if viewModel.showFeedbackOption {
                             Button(action: viewModel.writeFeedbackTapped) {
                                 if viewModel.feedbackAlreadyWritten {

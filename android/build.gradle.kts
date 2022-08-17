@@ -71,25 +71,19 @@ android {
     buildFeatures {
         compose = true
     }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     packagingOptions {
         resources.excludes.add("META-INF/*.kotlin_module")
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
 }
 
 dependencies {
     implementation(project(":shared"))
+    implementation(project(":shared-ui"))
 
-    implementation(libs.bundles.androidx.compose)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
@@ -99,6 +93,10 @@ dependencies {
     implementation(libs.accompanist.navigationAnimation)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+
+    implementation(libs.hyperdrive.multiplatformx.api)
+
+    implementation(libs.bundles.androidx.compose)
 
     coreLibraryDesugaring(libs.android.desugar)
 }

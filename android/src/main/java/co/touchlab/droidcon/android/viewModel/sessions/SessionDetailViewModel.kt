@@ -3,9 +3,9 @@ package co.touchlab.droidcon.android.viewModel.sessions
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.dto.WebLink
+import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
-import co.touchlab.droidcon.android.service.ParseUrlViewService
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.android.viewModel.feedback.FeedbackViewModel
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.composite.ScheduleItem
