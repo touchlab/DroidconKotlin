@@ -43,6 +43,12 @@ class AndroidNotificationService(
         json.decodeFromString(it)
     } ?: mutableMapOf()
 
+    private var notificationHandler: NotificationHandler? = null
+
+    override fun setHandler(notificationHandler: NotificationHandler) {
+        this.notificationHandler = notificationHandler
+    }
+
     override suspend fun initialize(): Boolean {
         log.v { "Initializing." }
 
@@ -112,6 +118,8 @@ class AndroidNotificationService(
 
             saveRegisteredNotificationId(sessionId, dismissIntentId)
         }
+
+        notificationHandler?.notificationReceived(sessionId.value, type)
     }
 
     override suspend fun cancel(sessionIds: List<Session.Id>) {

@@ -55,11 +55,11 @@ import org.koin.core.qualifier.qualifier
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
-fun initKoin(appModule: Module): KoinApplication {
+fun initKoin(additionalModules: List<Module>): KoinApplication {
     val koinApplication = startKoin {
         modules(
-            appModule,
-            platformModule,
+            additionalModules +
+            platformModule +
             coreModule
         )
     }

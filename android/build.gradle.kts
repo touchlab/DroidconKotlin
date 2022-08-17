@@ -2,9 +2,11 @@ import java.util.Properties
 
 plugins {
     id("com.android.application")
-    kotlin("android")
+    kotlin("multiplatform")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+
+    id("org.jetbrains.compose") version "1.2.0-alpha01-dev750"
 }
 val releaseEnabled = file("./release.jks").exists()
 
@@ -69,36 +71,52 @@ android {
     }
 
     buildFeatures {
-        compose = true
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+        compose = false
     }
 
     packagingOptions {
         resources.excludes.add("META-INF/*.kotlin_module")
     }
+}
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+compose {
+    android {
+        useAndroidX = true
+        androidxVersion = "1.2.1"
+    }
+}
+
+kotlin {
+    android()
+
+    sourceSets {
+        val androidMain by getting {
+            dependencies {
+                implementation(project(":shared"))
+                implementation(project(":shared-ui"))
+
+                implementation(libs.androidx.core.splashscreen)
+                implementation(libs.koin.core)
+                implementation(libs.koin.android)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.accompanist.coil)
+                implementation(libs.accompanist.insets)
+                implementation(libs.accompanist.navigationAnimation)
+                implementation(libs.firebase.analytics)
+                implementation(libs.firebase.crashlytics)
+
+                implementation(libs.hyperdrive.multiplatformx.api)
+
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.materialIconsExtended)
+                implementation(compose.runtime)
+            }
+        }
     }
 }
 
 dependencies {
-    implementation(project(":shared"))
-
-    implementation(libs.bundles.androidx.compose)
-    implementation(libs.androidx.core.splashscreen)
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.accompanist.coil)
-    implementation(libs.accompanist.insets)
-    implementation(libs.accompanist.navigationAnimation)
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
-
     coreLibraryDesugaring(libs.android.desugar)
 }

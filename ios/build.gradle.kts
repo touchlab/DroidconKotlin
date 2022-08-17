@@ -39,11 +39,8 @@ kotlin {
         implementation(compose.materialIconsExtended)
         implementation(compose.runtime)
 
-        api(project(":shared"))
+        api(project(":shared-ui"))
         api(libs.kermit)
-        api(libs.hyperdrive.multiplatformx.api)
-        implementation(libs.hyperdrive.multiplatformx.compose)
-        implementation(libs.imageLoader)
     }
 
     cocoapods {
@@ -71,6 +68,7 @@ kotlin {
             export(libs.kermit)
             export(libs.hyperdrive.multiplatformx.api)
             export(project(":shared"))
+            export(project(":shared-ui"))
         }
     }
 
