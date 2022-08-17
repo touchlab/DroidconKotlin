@@ -62,7 +62,7 @@ class SpeakerDetailViewModel: ViewModel(), KoinComponent {
                     SpeakerInfo(
                         text = it.string,
                         links = parseUrlViewService.parse(it.string),
-                        iconRes = R.drawable.icon_twitter,
+                        iconRes = R.drawable.twitter,
                     )
                 )
             }
@@ -72,7 +72,7 @@ class SpeakerDetailViewModel: ViewModel(), KoinComponent {
                     SpeakerInfo(
                         text = it.string,
                         links = parseUrlViewService.parse(it.string),
-                        iconRes = R.drawable.icon_linkedin,
+                        iconRes = R.drawable.linkedin,
                     )
                 )
             }

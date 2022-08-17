@@ -9,7 +9,7 @@ class BackgroundCrashWorkaroundController: UIViewController {
     init(viewModel: ApplicationViewModel) {
         self.viewModel = viewModel
         
-        composeController = MainComposeViewKt.getRootController(viewModel: viewModel)
+        composeController = ComposeRootControllerKt.getRootController(viewModel: viewModel)
         
         super.init(nibName: nil, bundle: nil)
     }

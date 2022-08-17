@@ -43,6 +43,13 @@ class AndroidNotificationService(
         json.decodeFromString(it)
     } ?: mutableMapOf()
 
+    // TODO: Not called on Android.
+    private var notificationHandler: NotificationHandler? = null
+
+    override fun setHandler(notificationHandler: NotificationHandler) {
+        this.notificationHandler = notificationHandler
+    }
+
     override suspend fun initialize(): Boolean {
         log.v { "Initializing." }
 

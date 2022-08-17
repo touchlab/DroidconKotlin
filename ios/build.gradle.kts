@@ -7,7 +7,7 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
 
-    id("org.jetbrains.compose") version "1.2.0-alpha01-dev750"
+    id("org.jetbrains.compose") version "1.2.0-alpha01-dev755"
 }
 
 version = "1.0"
@@ -36,14 +36,10 @@ kotlin {
         implementation(compose.ui)
         implementation(compose.foundation)
         implementation(compose.material)
-        implementation(compose.materialIconsExtended)
         implementation(compose.runtime)
 
-        api(project(":shared"))
+        api(project(":shared-ui"))
         api(libs.kermit)
-        api(libs.hyperdrive.multiplatformx.api)
-        implementation(libs.hyperdrive.multiplatformx.compose)
-        implementation(libs.imageLoader)
     }
 
     cocoapods {
@@ -71,6 +67,7 @@ kotlin {
             export(libs.kermit)
             export(libs.hyperdrive.multiplatformx.api)
             export(project(":shared"))
+            export(project(":shared-ui"))
         }
     }
 

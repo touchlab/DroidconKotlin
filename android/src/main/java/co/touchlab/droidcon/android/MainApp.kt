@@ -15,6 +15,7 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
+import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.ClasspathResourceReader
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -55,7 +56,7 @@ class MainApp: Application() {
                 single<AnalyticsService> {
                     AndroidAnalyticsService(firebaseAnalytics = Firebase.analytics)
                 }
-            }
+            } + uiModule
         )
     }
 }
