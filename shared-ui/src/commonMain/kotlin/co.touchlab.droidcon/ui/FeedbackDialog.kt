@@ -2,12 +2,9 @@ package co.touchlab.droidcon.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,14 +32,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
+import co.touchlab.droidcon.ui.util.Dialog
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
 
 @Composable
 internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
-    Box(modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.3f))
-        .clickable(interactionSource = MutableInteractionSource(), indication = null) { }, contentAlignment = Alignment.Center) {
-        Card(modifier = Modifier.padding(Dimensions.Padding.double)) {
+    Dialog(dismiss = feedback::skipTapped) {
+        Card(modifier = Modifier.padding(Dimensions.Padding.double), backgroundColor = MaterialTheme.colors.background) {
             Column(
                 modifier = Modifier
                     .padding(Dimensions.Padding.default)
