@@ -6,7 +6,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 
-    id("org.jetbrains.compose") version "1.2.0-alpha01-dev750"
+    id("org.jetbrains.compose") version "1.2.0-alpha01-dev755"
 }
 val releaseEnabled = file("./release.jks").exists()
 

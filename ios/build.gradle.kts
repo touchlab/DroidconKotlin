@@ -7,7 +7,7 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
 
-    id("org.jetbrains.compose") version "1.2.0-alpha01-dev750"
+    id("org.jetbrains.compose") version "1.2.0-alpha01-dev755"
 }
 
 version = "1.0"

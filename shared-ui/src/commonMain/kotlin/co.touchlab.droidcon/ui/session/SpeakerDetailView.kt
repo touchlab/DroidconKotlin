@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ui.session
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -22,12 +23,15 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.Web
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.util.NavigationController
@@ -65,13 +69,13 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
             HeaderView(viewModel.name, viewModel.position ?: "", viewModel.avatarUrl)
 
             viewModel.socials.website?.let {
-                SocialView(WebLink.fromUrl(it), "globe")
+                SocialView(WebLink.fromUrl(it), Icons.Default.Language)
             }
             viewModel.socials.twitter?.let {
                 SocialView(WebLink.fromUrl(it), "twitter")
             }
             viewModel.socials.linkedIn?.let {
-                SocialView(WebLink.fromUrl(it), "linked-in")
+                SocialView(WebLink.fromUrl(it), "linkedin")
             }
 
             Divider()
@@ -139,6 +143,28 @@ private fun SocialView(url: WebLink, iconName: String) {
             modifier = Modifier
                 .padding(Dimensions.Padding.default)
                 .size(28.dp),
+        )
+        WebLinkText(
+            text = url.link,
+            links = listOf(url),
+            modifier = Modifier.padding(
+                end = Dimensions.Padding.default,
+                top = Dimensions.Padding.half,
+                bottom = Dimensions.Padding.half,
+            ),
+        )
+    }
+}
+
+@Composable
+private fun SocialView(url: WebLink, icon: ImageVector) {
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            imageVector = icon,
+            modifier = Modifier
+                .padding(Dimensions.Padding.default)
+                .size(28.dp),
+            contentDescription = null,
         )
         WebLinkText(
             text = url.link,
