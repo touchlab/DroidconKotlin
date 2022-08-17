@@ -29,6 +29,7 @@ import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.ui.util.MainView
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
+import co.touchlab.droidcon.util.NavigationController
 import com.google.accompanist.insets.ProvideWindowInsets
 import kotlinx.coroutines.awaitCancellation
 import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
@@ -118,5 +119,11 @@ class MainActivity: ComponentActivity(), KoinComponent {
     override fun onDestroy() {
         super.onDestroy()
         root.removeChild(applicationViewModel.lifecycle)
+    }
+
+    override fun onBackPressed() {
+        if (!NavigationController.root.handleBackPress()) {
+            super.onBackPressed()
+        }
     }
 }

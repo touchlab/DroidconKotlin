@@ -2,11 +2,9 @@ import java.util.Properties
 
 plugins {
     id("com.android.application")
-    kotlin("multiplatform")
+    kotlin("android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-
-    id("org.jetbrains.compose") version "1.2.0-alpha01-dev755"
 }
 val releaseEnabled = file("./release.jks").exists()
 
@@ -71,7 +69,10 @@ android {
     }
 
     buildFeatures {
-        compose = false
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     packagingOptions {
@@ -79,44 +80,23 @@ android {
     }
 }
 
-compose {
-    android {
-        useAndroidX = true
-        androidxVersion = "1.2.1"
-    }
-}
-
-kotlin {
-    android()
-
-    sourceSets {
-        val androidMain by getting {
-            dependencies {
-                implementation(project(":shared"))
-                implementation(project(":shared-ui"))
-
-                implementation(libs.androidx.core.splashscreen)
-                implementation(libs.koin.core)
-                implementation(libs.koin.android)
-                implementation(libs.kotlinx.datetime)
-                implementation(libs.accompanist.coil)
-                implementation(libs.accompanist.insets)
-                implementation(libs.accompanist.navigationAnimation)
-                implementation(libs.firebase.analytics)
-                implementation(libs.firebase.crashlytics)
-
-                implementation(libs.hyperdrive.multiplatformx.api)
-
-                implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                implementation(compose.materialIconsExtended)
-                implementation(compose.runtime)
-            }
-        }
-    }
-}
-
 dependencies {
+    implementation(project(":shared"))
+    implementation(project(":shared-ui"))
+
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.accompanist.coil)
+    implementation(libs.accompanist.insets)
+    implementation(libs.accompanist.navigationAnimation)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
+
+    implementation(libs.hyperdrive.multiplatformx.api)
+
+    implementation(libs.bundles.androidx.compose)
+
     coreLibraryDesugaring(libs.android.desugar)
 }

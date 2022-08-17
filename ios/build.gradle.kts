@@ -36,7 +36,6 @@ kotlin {
         implementation(compose.ui)
         implementation(compose.foundation)
         implementation(compose.material)
-        implementation(compose.materialIconsExtended)
         implementation(compose.runtime)
 
         api(project(":shared-ui"))

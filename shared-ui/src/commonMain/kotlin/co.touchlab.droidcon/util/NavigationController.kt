@@ -26,7 +26,7 @@ private val LocalNavigationViewDimensions = staticCompositionLocalOf<NavigationV
     error("NavigationView hasn't been used.")
 }
 
-internal class NavigationController: BaseViewModel() {
+class NavigationController : BaseViewModel() {
 
     private val stack = mutableListOf<NavigationStackItem>()
     private var stackTracking: MutableList<NavigationStackItem> by published(stack, equalityPolicy = neverEqualPolicy())
@@ -38,15 +38,15 @@ internal class NavigationController: BaseViewModel() {
         val root = NavigationController()
     }
 
-    sealed class NavigationStackItem {
-        class BackPressHandler(val onBackPressed: BackPressHandlerScope.() -> Unit): NavigationStackItem() {
+    internal sealed class NavigationStackItem {
+        class BackPressHandler(val onBackPressed: BackPressHandlerScope.() -> Unit) : NavigationStackItem() {
 
             override fun toString(): String {
                 return "BackPress@${hashCode().toUInt().toString(16)}"
             }
         }
 
-        class Push<T: Any>(val item: MutableObservableProperty<T?>, val content: @Composable (T) -> Unit): NavigationStackItem() {
+        class Push<T : Any>(val item: MutableObservableProperty<T?>, val content: @Composable (T) -> Unit) : NavigationStackItem() {
 
             override fun toString(): String {
                 return "Push(${item.value}@${item.hashCode().toUInt().toString(16)})@${hashCode().toUInt().toString(16)}"
@@ -107,7 +107,7 @@ internal class NavigationController: BaseViewModel() {
     }
 
     @Composable
-    fun PushedStack(itemModifier: Modifier = Modifier) {
+    internal fun PushedStack(itemModifier: Modifier = Modifier) {
         val currentStack by observeStack.observeAsState()
 
         var i = 0
@@ -132,7 +132,7 @@ internal class NavigationController: BaseViewModel() {
     }
 
     @Composable
-    fun <T: Any> Pushed(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit) {
+    internal fun <T : Any> Pushed(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit) {
         val refTracking = remember {
             val stackItem = NavigationStackItem.Push(item, content).also {
                 notifyingStackChange {
@@ -148,7 +148,7 @@ internal class NavigationController: BaseViewModel() {
     }
 
     @Composable
-    fun HandleBackPressEffect(onBackPressed: BackPressHandlerScope.() -> Unit) {
+    internal fun HandleBackPressEffect(onBackPressed: BackPressHandlerScope.() -> Unit) {
         val refTracking = remember {
             val stackItem = NavigationStackItem.BackPressHandler(onBackPressed).also {
                 stack.add(it)

@@ -21,10 +21,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Description
-import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.Web
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +33,9 @@ import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.dto.WebLink
+import co.touchlab.droidcon.ui.icons.ArrowBack
+import co.touchlab.droidcon.ui.icons.Description
+import co.touchlab.droidcon.ui.icons.Language
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.RemoteImage
