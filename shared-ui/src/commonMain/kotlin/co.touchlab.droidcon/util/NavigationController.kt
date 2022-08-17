@@ -1,11 +1,20 @@
 package co.touchlab.droidcon.util
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.with
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.RememberObserver
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
@@ -206,11 +215,38 @@ internal interface NavigationStackScope {
     fun <T: Any> NavigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
 }
 
+internal class NavigationLinkWrapper<T: Any>(
+    val index: Int,
+    private val value: T?,
+    private val reset: () -> Unit,
+    private val content: @Composable (T) -> Unit,
+) {
+
+    val body: (@Composable () -> Unit)?
+        get() = value?.let { value ->
+            @Composable {
+                BackPressHandler {
+                    reset()
+                }
+                content(value)
+            }
+        }
+
+    override fun equals(other: Any?): Boolean {
+        return (other as? NavigationLinkWrapper<*>)?.let { it.index == index && it.value == value } ?: false
+    }
+
+    override fun hashCode(): Int {
+        return listOfNotNull(index, value).hashCode()
+    }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 internal fun NavigationStack(vararg keys: Any?, links: NavigationStackScope.() -> Unit, content: @Composable () -> Unit) {
 
     val activeLinkComposables by remember(keys) {
-        val constructedLinks = mutableListOf<ObservableProperty<(@Composable () -> Unit)?>>()
+        val constructedLinks = mutableListOf<ObservableProperty<NavigationLinkWrapper<*>>>()
         val scope = object: NavigationStackScope {
             override fun <T: Any> NavigationLink(
                 item: MutableObservableProperty<T?>,
@@ -218,14 +254,15 @@ internal fun NavigationStack(vararg keys: Any?, links: NavigationStackScope.() -
             ) {
                 constructedLinks.add(
                     item.map {
-                        it?.let { value ->
-                            @Composable {
-                                BackPressHandler {
-                                    item.value = null
-                                }
-                                content(value)
-                            }
-                        }
+                        NavigationLinkWrapper(index = constructedLinks.size, value = it, reset = { item.value = null }, content)
+                        //                        it?.let { value ->
+                        //                            @Composable {
+                        //                                BackPressHandler {
+                        //                                    item.value = null
+                        //                                }
+                        //                                content(value)
+                        //                            }
+                        //                        }
                     }
                 )
             }
@@ -233,31 +270,44 @@ internal fun NavigationStack(vararg keys: Any?, links: NavigationStackScope.() -
         scope.links()
 
         combine(constructedLinks)
-            .map { linkComposables ->
-                linkComposables.mapIndexedNotNull { index, value ->
-                    value?.let { IndexedValue(index, it) }
-                }
-            }
     }.observeAsState()
 
-    SubcomposeLayout(measurePolicy = { constraints ->
-        val layoutWidth = constraints.maxWidth
-        val layoutHeight = constraints.maxHeight
-
-        val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
-
-        layout(layoutWidth, layoutHeight) {
-            val contentMeasurable = subcompose(-1, content)
-
-            val linkMeasurables = activeLinkComposables.map {
-                subcompose(it.index, it.value)
+    AnimatedContent(
+        targetState = activeLinkComposables, //.lastOrNull()?.index ?: -1,
+        transitionSpec = {
+            if (initialState.indexOfLast { it.body != null } < targetState.indexOfLast { it.body != null }) {
+                slideInHorizontally(initialOffsetX = { it }) with slideOutHorizontally(targetOffsetX = { -it })
+            } else {
+                slideInHorizontally(initialOffsetX = { -it }) with slideOutHorizontally(targetOffsetX = { it })
             }
+        },
+        contentAlignment = Alignment.BottomCenter,
+    ) { activeComposables ->
+        SubcomposeLayout(measurePolicy = { constraints ->
+            val layoutWidth = constraints.maxWidth
+            val layoutHeight = constraints.maxHeight
 
-            val activeMeasurables = linkMeasurables.lastOrNull() ?: contentMeasurable
+            val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
 
-            activeMeasurables.forEach {
-                it.measure(looseConstraints).place(x = 0, y = 0)
+            layout(layoutWidth, layoutHeight) {
+                val contentMeasurable = subcompose(-1, content)
+
+                val linkMeasurables = activeComposables.mapNotNull { wrapper ->
+                    wrapper.body?.let { subcompose(wrapper.index, it) }
+                }
+
+                val activeMeasurables = linkMeasurables.lastOrNull() ?: contentMeasurable
+                //                val activeMeasurables = visibleComposableIndex
+                //                    .takeIf { it >= 0 }
+                //                    ?.let { index ->
+                //                        linkMeasurables.firstOrNull { it.first == index }?.second
+                //                    }
+                //                    ?: contentMeasurable
+
+                activeMeasurables.forEach {
+                    it.measure(looseConstraints).place(x = 0, y = 0)
+                }
             }
-        }
-    })
+        })
+    }
 }

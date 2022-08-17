@@ -113,7 +113,8 @@ class MainActivity: ComponentActivity(), KoinComponent {
 
     override fun onResume() {
         super.onResume()
-        mainViewModel.initializeFeedbackObserving()
+        // mainViewModel.initializeFeedbackObserving()
+        applicationViewModel.onAppear()
     }
 
     override fun onDestroy() {
