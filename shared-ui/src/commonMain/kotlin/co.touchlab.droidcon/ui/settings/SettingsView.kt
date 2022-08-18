@@ -60,13 +60,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 
             Divider()
 
-            IconTextSwitchRow(
-                text = "Use compose for iOS",
-                image = Icons.Default.Aod,
-                checked = viewModel.observeUseCompose,
-            )
-
-            Divider()
+            PlatformSpecificSettingsView(viewModel = viewModel)
 
             AboutView(viewModel.about)
         }
@@ -74,7 +68,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 }
 
 @Composable
-private fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
+internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
     val isChecked by checked.observeAsState()
     Row(
         modifier = Modifier
