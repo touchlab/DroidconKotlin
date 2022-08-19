@@ -15,4 +15,6 @@ interface SessionGateway {
     suspend fun setAttending(session: Session, attending: Boolean)
 
     suspend fun setFeedback(session: Session, feedback: Session.Feedback)
+
+    suspend fun getScheduleItem(id: Session.Id): ScheduleItem?
 }
