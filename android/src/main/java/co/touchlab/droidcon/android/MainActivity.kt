@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,12 +26,15 @@ import androidx.lifecycle.lifecycleScope
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.viewModel.MainViewModel
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.service.AndroidNotificationService
 import co.touchlab.droidcon.util.AppChecker
 import co.touchlab.droidcon.ui.util.MainView
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.util.NavigationController
+import co.touchlab.kermit.Logger
 import com.google.accompanist.insets.ProvideWindowInsets
 import kotlinx.coroutines.awaitCancellation
 import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
@@ -57,6 +61,11 @@ class MainActivity: ComponentActivity(), KoinComponent {
 
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
+        if (applicationViewModel.lifecycle.isAttached) {
+            applicationViewModel.lifecycle.removeFromParent()
+        }
+        root.addChild(applicationViewModel.lifecycle)
+
         lifecycleScope.launchWhenCreated {
             notificationSchedulingService.runScheduling()
         }
@@ -65,9 +74,10 @@ class MainActivity: ComponentActivity(), KoinComponent {
             syncService.runSynchronization()
         }
 
+        handleNotificationDeeplink(intent)
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        root.addChild(applicationViewModel.lifecycle)
 
         setContent {
             Box(modifier = Modifier.background(Colors.primary)) {
@@ -112,6 +122,28 @@ class MainActivity: ComponentActivity(), KoinComponent {
                 cancelAttach.cancel()
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        intent?.let(::handleNotificationDeeplink)
+    }
+
+    private fun handleNotificationDeeplink(intent: Intent) {
+        val type = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_TYPE_EXTRA_KEY) ?: return
+        val sessionId = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_SESSION_ID_EXTRA_KEY) ?: return
+        applicationViewModel.notificationReceived(
+            sessionId,
+            when (type) {
+                AndroidNotificationService.NOTIFICATION_TYPE_EXTRA_REMINDER -> NotificationService.NotificationType.Reminder
+                AndroidNotificationService.NOTIFICATION_TYPE_EXTRA_FEEDBACK -> NotificationService.NotificationType.Feedback
+                else -> {
+                    Logger.w("Unknown notification type $type.")
+                    return
+                }
+            },
+        )
     }
 
     override fun onResume() {
