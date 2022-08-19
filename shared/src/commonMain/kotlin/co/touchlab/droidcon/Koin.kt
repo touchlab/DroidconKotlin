@@ -110,7 +110,7 @@ private val coreModule = module {
         )
     }
     single<SessionRepository> {
-        SqlDelightSessionRepository(dateTimeService = get(), sessionQueries = get<DroidconDatabase>().sessionQueries)
+        SqlDelightSessionRepository(sessionQueries = get<DroidconDatabase>().sessionQueries)
     }
     single<RoomRepository> {
         SqlDelightRoomRepository(roomQueries = get<DroidconDatabase>().roomQueries)

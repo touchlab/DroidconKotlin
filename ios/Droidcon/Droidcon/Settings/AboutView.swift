@@ -4,8 +4,17 @@ import DroidconKit
 struct AboutView: View {
     private static let iconSize: CGFloat = 32
 
+    private var component: AboutComponent
+    
     @ObservedObject
-    private(set) var viewModel: AboutViewModel
+    private var observableModel: ObservableValue<AboutComponent.Model>
+    
+    private var viewModel: AboutComponent.Model { observableModel.value }
+    
+    init(_ component: AboutComponent) {
+        self.component = component
+        self.observableModel = ObservableValue(component.model)
+    }
 
     var body: some View {
         VStack(spacing: 16) {

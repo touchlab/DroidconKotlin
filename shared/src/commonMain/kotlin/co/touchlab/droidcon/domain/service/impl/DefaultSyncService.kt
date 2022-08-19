@@ -224,7 +224,6 @@ class DefaultSyncService(
         val sessionsAndSpeakers = roomDtos.flatMap { room ->
             room.sessions.map { dto ->
                 Session(
-                    dateTimeService = dateTimeService,
                     id = Session.Id(dto.id),
                     title = dto.title,
                     description = dto.description,

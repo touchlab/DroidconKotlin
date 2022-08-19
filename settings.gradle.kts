@@ -59,7 +59,7 @@ dependencyResolutionManagement {
             val statelyRef = version("stately", "1.2.1")
             val ktorRef = version("ktor", "2.0.0-beta-1")
             val multiplatformSettingsRef = version("multiplatformSettings", "0.8.1")
-            val hyperdriveRef = version("hyperdrive", "0.1.139")
+            val decomposeRef = version("decompose", "1.0.0-alpha-04-native-compose")
             val accompanistCoilRef = version("accompanistCoil", "0.15.0")
             val accompanistInsetsRef = version("accompanistInsets", "0.23.1")
             val accompanistNavigationAnimationRef = version("accompanistNavigationAnimation", "0.24.6-alpha")
@@ -114,8 +114,8 @@ dependencyResolutionManagement {
             alias("accompanist-insets").to("com.google.accompanist", "accompanist-insets").versionRef(accompanistInsetsRef)
             alias("accompanist-navigationAnimation").to("com.google.accompanist", "accompanist-navigation-animation").versionRef(accompanistNavigationAnimationRef)
 
-            alias("hyperdrive-multiplatformx-api").to("org.brightify.hyperdrive", "multiplatformx-api").versionRef(hyperdriveRef)
-            alias("hyperdrive-multiplatformx-compose").to("org.brightify.hyperdrive", "multiplatformx-compose").versionRef(hyperdriveRef)
+            alias("decompose").to("com.arkivanov.decompose", "decompose").versionRef(decomposeRef)
+            alias("decompose-extensions-compose").to("com.arkivanov.decompose", "extensions-compose-jetbrains").versionRef(decomposeRef)
 
             alias("androidx-core").to("androidx.core", "core-ktx").versionRef(coreRef)
 

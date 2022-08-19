@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -71,6 +72,8 @@ kotlin {
 
                 implementation(libs.stately.common)
                 implementation(libs.koin.core)
+
+                implementation(libs.decompose)
             }
         }
         val commonTest by getting {

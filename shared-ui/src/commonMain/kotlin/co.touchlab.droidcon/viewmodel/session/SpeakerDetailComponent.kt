@@ -4,12 +4,12 @@ import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.service.ParseUrlViewService
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
-class SpeakerDetailViewModel(
+class SpeakerDetailComponent(
     private val parseUrlViewService: ParseUrlViewService,
     profile: Profile,
-): BaseViewModel() {
+    private val backPressed: () -> Unit,
+) {
 
     val avatarUrl = profile.profilePicture
 
@@ -24,6 +24,10 @@ class SpeakerDetailViewModel(
 
     val bio = profile.bio
     val bioWebLinks: List<WebLink> = bio?.let(parseUrlViewService::parse) ?: emptyList()
+
+    fun backTapped() {
+        backPressed()
+    }
 
     data class Socials(
         val website: Url?,
@@ -40,6 +44,9 @@ class SpeakerDetailViewModel(
 
     class Factory(private val parseUrlViewService: ParseUrlViewService) {
 
-        fun create(profile: Profile) = SpeakerDetailViewModel(parseUrlViewService, profile)
+        fun create(
+            profile: Profile,
+            backPressed: () -> Unit,
+        ) = SpeakerDetailComponent(parseUrlViewService, profile, backPressed)
     }
 }

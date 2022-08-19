@@ -3,40 +3,37 @@ import DroidconKit
 
 struct SwitchingRootView: View {
     
+    private let component: ApplicationComponent
+    
     @ObservedObject
-    var viewModel: ApplicationViewModel
+    private var observableModel: ObservableValue<ApplicationComponent.Model>
+    
+    private var model: ApplicationComponent.Model { observableModel.value }
     
     private let userDefaultsPublisher = NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
     
-    private let appActivePublisher = NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+    init(_ component: ApplicationComponent) {
+        self.component = component
+        self.observableModel = ObservableValue(component.model)
+    }
     
     var body: some View {
-        Group {
-            if viewModel.useCompose {
-                ZStack {
-                    Color("NavBar_Background")
-                        .ignoresSafeArea()
-                    
-                    ComposeController(viewModel: viewModel)
-                }
+        VStack {
+            if model.useComposeForIos {
+                // Uncomment after verifying Compose for iOS with Decompose
+//                ZStack {
+//                    Color("NavBar_Background")
+//                        .ignoresSafeArea()
+//
+//                    ComposeController(component: component)
+//                }
+
+                // Remove after verifyin Compose for iOS with Decompose
+                MainView(component)
             } else {
-                MainView(viewModel: viewModel)
+                MainView(component)
             }
         }
-        .attach(viewModel: viewModel)
-        .onAppear(perform: viewModel.onAppear)
-        .onReceive(userDefaultsPublisher) { _ in
-            let x = SettingsBundleHelper.getUseComposeValue()
-            viewModel.useCompose = x
-            print("Initial compose: \(x)")
-        }
-        .onChange(of: viewModel.useCompose) { newValue in
-            SettingsBundleHelper.setUseComposeValue(newValue: newValue)
-        }
-        .onReceive(appActivePublisher) { _ in
-            viewModel.onAppear()
-        }
-        
     }
 }
 

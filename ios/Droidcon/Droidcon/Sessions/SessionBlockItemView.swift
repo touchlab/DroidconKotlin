@@ -2,13 +2,10 @@ import SwiftUI
 import DroidconKit
 
 struct SessionBlockItemView: View {
-    @ObservedObject
-    private(set) var viewModel: SessionListItemViewModel
-
-    private(set) var showAttendingIndicators: Bool
-
+    private(set) var viewModel: SessionDayComponent.ModelItem
     private(set) var isFirstInBlock: Bool
     private(set) var isLastInBlock: Bool
+    private(set) var onTapped: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -71,9 +68,7 @@ struct SessionBlockItemView: View {
                 .background(backgroundColor)
             }
             .contentShape(Rectangle())
-            .onTapGesture {
-                viewModel.selected()
-            }
+            .onTapGesture(perform: onTapped)
             .zIndex(1)
 
             if isLastInBlock {
@@ -84,9 +79,9 @@ struct SessionBlockItemView: View {
         }
     }
 
-    private func attendanceIndicator(for session: SessionListItemViewModel) -> Color {
+    private func attendanceIndicator(for session: SessionDayComponent.ModelItem) -> Color {
         // `guard` instead of `if` to sidestep the issue of SwiftUI not rendering the dot at all.
-        guard showAttendingIndicators && !session.isServiceSession && session.isAttending else { return Color.clear }
+        guard !session.isServiceSession && session.isAttending else { return Color.clear }
 
         let colorName: String
         if session.isInPast {

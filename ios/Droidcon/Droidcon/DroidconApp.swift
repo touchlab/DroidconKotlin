@@ -9,13 +9,13 @@ struct DroidconApp: App {
     init() {
         setupNavBarAppearance()
         setupTabBarAppearance()
-        
-        SettingsBundleHelper.initialize()
     }
 
     var body: some Scene {
         WindowGroup {
-            SwitchingRootView(viewModel: koin.applicationViewModel)
+            SwitchingRootView(koin.applicationComponent)
+                .onAppear { LifecycleExtKt.resume(koin.applicationComponentLifecycle) }
+                .onDisappear { LifecycleExtKt.stop(koin.applicationComponentLifecycle) }
         }
     }
 

@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,11 +32,14 @@ import co.touchlab.droidcon.ui.icons.SentimentVeryDissatisfied
 import co.touchlab.droidcon.ui.icons.SentimentVerySatisfied
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.Dialog
-import co.touchlab.droidcon.ui.util.observeAsState
-import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
+import co.touchlab.droidcon.viewmodel.FeedbackDialogComponent
+import co.touchlab.droidcon.viewmodel.FeedbackDialogComponent.Rating
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 
 @Composable
-internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
+internal fun FeedbackDialog(feedback: FeedbackDialogComponent) {
+    val model by feedback.model.subscribeAsState()
+
     Dialog(dismiss = feedback::skipTapped) {
         Card(modifier = Modifier.padding(Dimensions.Padding.double), backgroundColor = MaterialTheme.colors.background) {
             Column(
@@ -46,7 +48,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     .verticalScroll(rememberScrollState()),
             ) {
                 Text(
-                    text = "What did you think of ${feedback.sessionTitle}",
+                    text = "What did you think of ${model.sessionTitle}",
                     color = MaterialTheme.colors.onBackground,
                     style = MaterialTheme.typography.subtitle1,
                     overflow = TextOverflow.Ellipsis,
@@ -56,13 +58,11 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
-                    val selected by feedback.observeRating.observeAsState()
-
-                    FeedbackDialogViewModel.Rating.values().forEach { rating ->
+                    Rating.values().forEach { rating ->
                         val image = when (rating) {
-                            FeedbackDialogViewModel.Rating.Dissatisfied -> Icons.Default.SentimentVeryDissatisfied
-                            FeedbackDialogViewModel.Rating.Normal -> Icons.Default.SentimentNeutral
-                            FeedbackDialogViewModel.Rating.Satisfied -> Icons.Default.SentimentVerySatisfied
+                            Rating.Dissatisfied -> Icons.Default.SentimentVeryDissatisfied
+                            Rating.Normal -> Icons.Default.SentimentNeutral
+                            Rating.Satisfied -> Icons.Default.SentimentVerySatisfied
                         }
                         Icon(
                             imageVector = image,
@@ -70,17 +70,16 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                                 .size(80.dp)
                                 .padding(Dimensions.Padding.default)
                                 .clip(CircleShape)
-                                .clickable { feedback.rating = rating },
+                                .clickable { feedback.setRating(rating) },
                             contentDescription = rating.name,
-                            tint = if (selected == rating) MaterialTheme.colors.primary else Color.Gray,
+                            tint = if (model.rating == rating) MaterialTheme.colors.primary else Color.Gray,
                         )
                     }
                 }
 
-                val comment by feedback.observeComment.observeAsState()
                 OutlinedTextField(
-                    value = comment,
-                    onValueChange = { feedback.comment = it },
+                    value = model.comment,
+                    onValueChange = feedback::setComment,
                     placeholder = {
                         Text(text = "(Optional) Suggest improvement", style = MaterialTheme.typography.body1)
                     },
@@ -98,7 +97,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.End,
                 ) {
-                    val isSubmitDisabled by feedback.observeIsSubmitDisabled.observeAsState()
+                    val isSubmitDisabled = model.isSubmitDisabled
                     TextButton(onClick = feedback::submitTapped, enabled = !isSubmitDisabled) {
                         Text(
                             text = "SUBMIT",

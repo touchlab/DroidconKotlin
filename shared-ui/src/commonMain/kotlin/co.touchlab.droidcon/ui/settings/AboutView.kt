@@ -16,29 +16,29 @@ import co.touchlab.droidcon.ui.icons.Info
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.WebLinkText
-import co.touchlab.droidcon.ui.util.observeAsState
-import co.touchlab.droidcon.viewmodel.settings.AboutItemViewModel
-import co.touchlab.droidcon.viewmodel.settings.AboutViewModel
+import co.touchlab.droidcon.viewmodel.settings.AboutComponent
+import co.touchlab.droidcon.viewmodel.settings.AboutComponent.Model
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 
 @Composable
-internal fun AboutView(viewModel: AboutViewModel) {
-    val items by viewModel.observeItemViewModels.observeAsState()
-    items.forEach { aboutItem ->
+internal fun AboutView(component: AboutComponent) {
+    val model by component.model.subscribeAsState()
+    model.items.forEach { aboutItem ->
         AboutItemView(aboutItem)
     }
 }
 
 @Composable
-private fun AboutItemView(viewModel: AboutItemViewModel) {
+private fun AboutItemView(item: Model.Item) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Icon(
             modifier = Modifier.padding(Dimensions.Padding.default),
             imageVector = Icons.Default.Info,
-            contentDescription = viewModel.title,
+            contentDescription = item.title,
         )
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = viewModel.title,
+                text = item.title,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(
                     top = Dimensions.Padding.default,
@@ -48,13 +48,13 @@ private fun AboutItemView(viewModel: AboutItemViewModel) {
             )
 
             WebLinkText(
-                text = viewModel.detail,
-                links = viewModel.webLinks,
+                text = item.detail,
+                links = item.webLinks,
                 modifier = Modifier.padding(end = Dimensions.Padding.default),
             )
 
             LocalImage(
-                imageResourceName = viewModel.icon,
+                imageResourceName = item.icon,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(

@@ -3,8 +3,8 @@ import Kingfisher
 import DroidconKit
 
 struct SponsorGroupItemView: View {
-    @ObservedObject
-    private(set) var viewModel: SponsorGroupItemViewModel
+    private(set) var viewModel: SponsorListComponent.ModelSponsor
+    private(set) var onTapped: () -> Void
 
     var body: some View {
         ZStack(alignment: .center) {
@@ -14,7 +14,7 @@ struct SponsorGroupItemView: View {
                 .cornerRadius(.greatestFiniteMagnitude)
                 .shadow(color: Color("Shadow"), radius: 2, y: 1)
 
-            if let imageUrl = URL(string: viewModel.imageUrl.string) {
+            if let imageUrl = viewModel.imageUrl.flatMap({ URL(string: $0) }) {
                 KFImage(imageUrl)
                     .placeholder {
                         placeholder
@@ -29,9 +29,7 @@ struct SponsorGroupItemView: View {
             }
         }
         .contentShape(Rectangle())
-        .onTapGesture {
-            viewModel.selected()
-        }
+        .onTapGesture(perform: onTapped)
     }
 
     @ViewBuilder

@@ -2,11 +2,20 @@ import SwiftUI
 import DroidconKit
 
 struct FeedbackDialog: View {
+    private var component: FeedbackDialogComponent
+    
     @ObservedObject
-    private(set) var viewModel: FeedbackDialogViewModel
+    private var observableModel: ObservableValue<FeedbackDialogComponent.Model>
+    
+    private var viewModel: FeedbackDialogComponent.Model { observableModel.value }
 
     @Environment(\.colorScheme)
     private var colorScheme
+    
+    init(_ component: FeedbackDialogComponent) {
+        self.component = component
+        observableModel = ObservableValue(component.model)
+    }
 
     var body: some View {
         ZStack {
@@ -20,13 +29,13 @@ struct FeedbackDialog: View {
                 .padding()
 
                 HStack(spacing: 16) {
-                    ForEach([FeedbackDialogViewModel.Rating.dissatisfied, FeedbackDialogViewModel.Rating.normal, FeedbackDialogViewModel.Rating.satisfied], id: \.self) { rating in
-                        ratingButton(rating: rating, selectedRating: $viewModel.rating)
+                    ForEach([FeedbackDialogComponent.Rating.dissatisfied, FeedbackDialogComponent.Rating.normal, FeedbackDialogComponent.Rating.satisfied], id: \.self) { rating in
+                        ratingButton(rating: rating, isSelected: rating == viewModel.rating, onTapped: { component.setRating(rating: rating) })
                     }
                 }
                 .padding([.horizontal, .bottom], 8)
 
-                TextView($viewModel.comment, placeholder: "Feedback.Dialog.Opinion.Placeholder")
+                TextView(Binding(get: { viewModel.comment }, set: component.setComment), placeholder: "Feedback.Dialog.Opinion.Placeholder")
                     .enableScrolling(true)
                     .frame(maxHeight: 100)
                     .padding(8)
@@ -36,7 +45,7 @@ struct FeedbackDialog: View {
                 Divider()
 
                 VStack(spacing: 0) {
-                    Button(action: viewModel.submitTapped) {
+                    Button(action: component.submitTapped) {
                         Text("Feedback.Dialog.Submit")
                             .font(.system(size: 18))
                             .fontWeight(.medium)
@@ -51,7 +60,7 @@ struct FeedbackDialog: View {
                     Divider()
 
                     if viewModel.showCloseAndDisableOption {
-                        Button(action: viewModel.closeAndDisableTapped) {
+                        Button(action: component.closeAndDisableTapped) {
                             Text("Feedback.Dialog.CloseAndDisable")
                                 .font(.system(size: 18))
                                 .fontWeight(.medium)
@@ -64,7 +73,7 @@ struct FeedbackDialog: View {
                         Divider()
                     }
 
-                    Button(action: viewModel.skipTapped) {
+                    Button(action: component.skipTapped) {
                         Text("Feedback.Dialog.Skip")
                             .font(.system(size: 18))
                             .fontWeight(.semibold)
@@ -82,7 +91,7 @@ struct FeedbackDialog: View {
         .padding(32)
     }
 
-    private func ratingButton(rating: FeedbackDialogViewModel.Rating, selectedRating: Binding<FeedbackDialogViewModel.Rating?>) -> some View {
+    private func ratingButton(rating: FeedbackDialogComponent.Rating, isSelected: Bool, onTapped: @escaping () -> Void) -> some View {
         let imageName: String
         switch rating {
         case .dissatisfied:
@@ -95,16 +104,12 @@ struct FeedbackDialog: View {
             fatalError("Unknown image for rating '\(rating)'.")
         }
 
-        let isSelected = selectedRating.wrappedValue == rating
-
         return Image(imageName)
             .frame(width: 44, height: 44)
             .padding(4)
             .background((isSelected ? Color("Accent") : .clear).cornerRadius(4))
             .foregroundColor(isSelected ? .white : .primary)
-            .onTapGesture {
-                selectedRating.wrappedValue = rating
-            }
+            .onTapGesture(perform: onTapped)
     }
 }
 
