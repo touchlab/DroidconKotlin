@@ -243,9 +243,8 @@ internal class NavigationLinkWrapper<T: Any>(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-internal fun NavigationStack(vararg keys: Any?, links: NavigationStackScope.() -> Unit, content: @Composable () -> Unit) {
-
-    val activeLinkComposables by remember(keys) {
+internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, content: @Composable () -> Unit) {
+    val activeLinkComposables by remember(key) {
         val constructedLinks = mutableListOf<ObservableProperty<NavigationLinkWrapper<*>>>()
         val scope = object: NavigationStackScope {
             override fun <T: Any> NavigationLink(
