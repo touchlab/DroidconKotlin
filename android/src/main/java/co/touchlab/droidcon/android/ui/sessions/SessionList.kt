@@ -35,10 +35,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.main.ScheduleScreen
-import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.viewModel.sessions.BaseSessionListViewModel
+import co.touchlab.droidcon.ui.theme.Colors
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 

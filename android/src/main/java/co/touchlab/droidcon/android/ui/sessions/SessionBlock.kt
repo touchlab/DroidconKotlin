@@ -24,10 +24,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.viewModel.sessions.SessionViewModel
 import co.touchlab.droidcon.android.viewModel.sessions.SessionsBlockViewModel
+import co.touchlab.droidcon.ui.theme.Colors
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

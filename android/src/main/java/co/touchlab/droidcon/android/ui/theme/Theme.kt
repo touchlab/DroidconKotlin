@@ -7,6 +7,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import co.touchlab.droidcon.ui.theme.Colors
 
 private val DarkColorPalette = darkColors(
     primary = Colors.primary,
