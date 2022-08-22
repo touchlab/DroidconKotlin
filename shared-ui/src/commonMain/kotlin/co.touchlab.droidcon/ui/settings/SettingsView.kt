@@ -23,16 +23,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.ui.icons.Aod
 import co.touchlab.droidcon.ui.icons.MailOutline
 import co.touchlab.droidcon.ui.icons.Notifications
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.observeAsState
-import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
-import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
+import co.touchlab.droidcon.viewmodel.settings.SettingsComponent
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 
 @Composable
-internal fun SettingsView(viewModel: SettingsViewModel) {
+internal fun SettingsView(component: SettingsComponent) {
+    val model by component.model.subscribeAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -47,7 +47,8 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
             IconTextSwitchRow(
                 text = "Enable feedback",
                 image = Icons.Default.MailOutline,
-                checked = viewModel.observeIsFeedbackEnabled,
+                isChecked = model.isFeedbackEnabled,
+                onCheckedChange = component::setFeedbackEnabled,
             )
 
             Divider()
@@ -55,25 +56,25 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
             IconTextSwitchRow(
                 text = "Enable reminders",
                 image = Icons.Default.Notifications,
-                checked = viewModel.observeIsRemindersEnabled,
+                isChecked = model.isRemindersEnabled,
+                onCheckedChange = component::setRemindersEnabled,
             )
 
             Divider()
 
-            PlatformSpecificSettingsView(viewModel = viewModel)
+            PlatformSpecificSettingsView(component = component)
 
-            AboutView(viewModel.about)
+            AboutView(component.about)
         }
     }
 }
 
 @Composable
-internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
-    val isChecked by checked.observeAsState()
+internal fun IconTextSwitchRow(text: String, image: ImageVector, isChecked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { checked.value = !checked.value },
+            .clickable { onCheckedChange(!isChecked) },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -88,7 +89,7 @@ internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: Mutabl
         Switch(
             modifier = Modifier.padding(vertical = Dimensions.Padding.half, horizontal = 24.dp),
             checked = isChecked,
-            onCheckedChange = { checked.value = it },
+            onCheckedChange = onCheckedChange,
         )
     }
 }

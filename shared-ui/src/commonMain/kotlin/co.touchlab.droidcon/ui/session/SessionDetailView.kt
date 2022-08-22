@@ -39,10 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.util.NavigationController
-import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.dto.WebLink
-import co.touchlab.droidcon.ui.FeedbackDialog
 import co.touchlab.droidcon.ui.icons.Add
 import co.touchlab.droidcon.ui.icons.ArrowBack
 import co.touchlab.droidcon.ui.icons.Check
@@ -51,114 +48,99 @@ import co.touchlab.droidcon.ui.icons.Info
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.RemoteImage
 import co.touchlab.droidcon.ui.util.WebLinkText
-import co.touchlab.droidcon.ui.util.observeAsState
-import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
-import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
+import co.touchlab.droidcon.viewmodel.session.SessionDetailComponent
+import co.touchlab.droidcon.viewmodel.session.SessionDetailComponent.Model
+import co.touchlab.droidcon.viewmodel.session.SessionDetailComponent.SessionState
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 
 @Composable
-internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
-    NavigationStack(links = {
-        NavigationLink(viewModel.observePresentedSpeakerDetail) {
-            SpeakerDetailView(viewModel = it)
-        }
-    }) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text("Session") },
-                    elevation = 0.dp,
-                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                    navigationIcon = {
-                        IconButton(onClick = { NavigationController.root.handleBackPress() }) {
-                            Icon(
-                                imageVector = Icons.Default.ArrowBack,
-                                contentDescription = "Back",
-                            )
-                        }
-                    }
-                )
-            },
-        ) {
-            val scrollState = rememberScrollState()
-            Column(modifier = Modifier.verticalScroll(scrollState)) {
-                val state by viewModel.observeState.observeAsState()
-                Box {
-                    Column {
-                        val title by viewModel.observeTitle.observeAsState()
-                        val locationInfo by viewModel.observeInfo.observeAsState()
-                        HeaderView(title, locationInfo)
-                    }
-                    if (state != SessionDetailViewModel.SessionState.Ended) {
-                        val isAttending by viewModel.observeIsAttending.observeAsState()
-                        FloatingActionButton(
-                            onClick = viewModel::attendingTapped,
-                            modifier = Modifier
-                                .padding(top = 136.dp, start = Dimensions.Padding.default)
-                                .size(44.dp),
-                        ) {
-                            val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
-                            val description = if (isAttending) {
-                                "Do not attend"
-                            } else {
-                                "Attend"
-                            }
-                            Icon(imageVector = icon, contentDescription = description)
-                        }
+internal fun SessionDetailView(component: SessionDetailComponent) {
+    val model by component.model.subscribeAsState()
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Session") },
+                elevation = 0.dp,
+                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                navigationIcon = {
+                    IconButton(onClick = component::backTapped) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                        )
                     }
                 }
-
-                val status = when (state) {
-                    SessionDetailViewModel.SessionState.InConflict -> "This session is in conflict with another session in your schedule."
-                    SessionDetailViewModel.SessionState.InProgress -> "This session is happening now."
-                    SessionDetailViewModel.SessionState.Ended -> "This session has already ended."
-                    null -> "This session hasn't started yet."
+            )
+        },
+    ) {
+        val scrollState = rememberScrollState()
+        Column(modifier = Modifier.verticalScroll(scrollState)) {
+            val state = model.state
+            Box {
+                Column {
+                    HeaderView(model.title, model.info)
                 }
-                InfoView(status)
-
-                val showFeedbackOption by viewModel.observeShowFeedbackOption.observeAsState()
-                if (showFeedbackOption) {
-                    Button(
-                        onClick = viewModel::writeFeedbackTapped,
+                if (state != SessionState.Ended) {
+                    val isAttending = model.isAttending
+                    FloatingActionButton(
+                        onClick = component::attendingTapped,
                         modifier = Modifier
-                            .padding(Dimensions.Padding.default)
-                            .align(Alignment.CenterHorizontally),
+                            .padding(top = 136.dp, start = Dimensions.Padding.default)
+                            .size(44.dp),
                     ) {
-                        val feedbackAlreadyWritten by viewModel.observeFeedbackAlreadyWritten.observeAsState()
-                        val text = if (feedbackAlreadyWritten) {
-                            "Change your feedback"
+                        val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
+                        val description = if (isAttending) {
+                            "Do not attend"
                         } else {
-                            "Add feedback"
+                            "Attend"
                         }
-                        Text(text = text)
+                        Icon(imageVector = icon, contentDescription = description)
                     }
-                }
-
-                val description by viewModel.observeAbstract.observeAsState()
-                val descriptionLinks by viewModel.observeAbstractLinks.observeAsState()
-                description?.let {
-                    DescriptionView(it, descriptionLinks)
-                }
-
-                Text(
-                    text = "Speakers",
-                    modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
-                    style = MaterialTheme.typography.h5,
-                    textAlign = TextAlign.Center,
-                )
-
-                Divider()
-
-                val speakers by viewModel.observeSpeakers.observeAsState()
-                speakers.forEach { speaker ->
-                    SpeakerView(speaker)
                 }
             }
-        }
-    }
 
-    val feedback by viewModel.observePresentedFeedback.observeAsState()
-    feedback?.let {
-        FeedbackDialog(it)
+            val status = when (state) {
+                SessionState.InConflict -> "This session is in conflict with another session in your schedule."
+                SessionState.InProgress -> "This session is happening now."
+                SessionState.Ended -> "This session has already ended."
+                SessionState.None -> "This session hasn't started yet."
+            }
+            InfoView(status)
+
+            if (model.showFeedbackOption) {
+                Button(
+                    onClick = component::writeFeedbackTapped,
+                    modifier = Modifier
+                        .padding(Dimensions.Padding.default)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    val text = if (model.feedbackAlreadyWritten) {
+                        "Change your feedback"
+                    } else {
+                        "Add feedback"
+                    }
+                    Text(text = text)
+                }
+            }
+
+            model.abstract?.let {
+                DescriptionView(it, model.abstractLinks)
+            }
+
+            Text(
+                text = "Speakers",
+                modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
+                style = MaterialTheme.typography.h5,
+                textAlign = TextAlign.Center,
+            )
+
+            Divider()
+
+            model.speakers.forEach { speaker ->
+                SpeakerView(speaker = speaker, onClick = { component.speakerTapped(speaker) })
+            }
+        }
     }
 }
 
@@ -244,11 +226,11 @@ private fun DescriptionView(description: String, links: List<WebLink>) {
 }
 
 @Composable
-private fun SpeakerView(speaker: SpeakerListItemViewModel) {
+private fun SpeakerView(speaker: Model.Speaker, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { speaker.selected() }
+            .clickable(onClick = onClick),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             val imageUrl = speaker.avatarUrl?.string

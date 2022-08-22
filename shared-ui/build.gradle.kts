@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.android.library")
+    id("kotlin-parcelize")
 
     id("org.jetbrains.compose") version "1.2.0-alpha01-dev755"
 }
@@ -86,8 +87,8 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.runtime)
 
-                implementation(libs.hyperdrive.multiplatformx.api)
-                // implementation(libs.hyperdrive.multiplatformx.compose)
+                implementation(libs.decompose)
+                implementation(libs.decompose.extensions.compose)
             }
         }
         val commonTest by getting {

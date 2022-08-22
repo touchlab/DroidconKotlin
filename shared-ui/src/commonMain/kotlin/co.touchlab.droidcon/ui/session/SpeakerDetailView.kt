@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.ui.session
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -30,7 +29,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ui.icons.ArrowBack
@@ -40,10 +38,10 @@ import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.RemoteImage
 import co.touchlab.droidcon.ui.util.WebLinkText
-import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
+import co.touchlab.droidcon.viewmodel.session.SpeakerDetailComponent
 
 @Composable
-internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
+internal fun SpeakerDetailView(component: SpeakerDetailComponent) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -51,7 +49,7 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
                 elevation = 0.dp,
                 modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
                 navigationIcon = {
-                    IconButton(onClick = { NavigationController.root.handleBackPress() }) {
+                    IconButton(onClick = component::backTapped) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back",
@@ -65,22 +63,22 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
         Column(
             modifier = Modifier.verticalScroll(scrollState),
         ) {
-            HeaderView(viewModel.name, viewModel.position ?: "", viewModel.avatarUrl)
+            HeaderView(component.name, component.position ?: "", component.avatarUrl)
 
-            viewModel.socials.website?.let {
+            component.socials.website?.let {
                 SocialView(WebLink.fromUrl(it), Icons.Default.Language)
             }
-            viewModel.socials.twitter?.let {
+            component.socials.twitter?.let {
                 SocialView(WebLink.fromUrl(it), "twitter")
             }
-            viewModel.socials.linkedIn?.let {
+            component.socials.linkedIn?.let {
                 SocialView(WebLink.fromUrl(it), "linkedin")
             }
 
             Divider()
 
-            viewModel.bio?.let {
-                BioView(it, viewModel.bioWebLinks)
+            component.bio?.let {
+                BioView(it, component.bioWebLinks)
             }
         }
     }

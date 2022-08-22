@@ -5,12 +5,13 @@ import DroidconKit
 struct SpeakerListItemView: View {
     private static let iconSize: CGFloat = 32
 
-    @ObservedObject
-    private(set) var viewModel: SpeakerListItemViewModel
+    private(set) var bio: String?
+    private(set) var avatarUrl: Url?
+    private(set) var info: String
 
     var body: some View {
-        HStack(alignment: viewModel.bio == nil ? .center : .top) {
-            if let avatarUrl = viewModel.avatarUrl.flatMap({ URL(string: $0.string) }) {
+        HStack(alignment: bio == nil ? .center : .top) {
+            if let avatarUrl = avatarUrl.flatMap({ URL(string: $0.string) }) {
                 Avatar(url: avatarUrl, size: Self.iconSize)
             } else {
                 Image(systemName: "face.dashed")
@@ -19,13 +20,13 @@ struct SpeakerListItemView: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                Text(viewModel.info)
+                Text(info)
                     .font(.footnote)
                     .lineLimit(2)
                     .foregroundColor(.gray)
                     .fixedSize(horizontal: false, vertical: true)
 
-                if let bio = viewModel.bio {
+                if let bio = bio {
                     Text(bio)
                         .font(.callout)
                         .fixedSize(horizontal: false, vertical: true)

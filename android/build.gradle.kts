@@ -94,7 +94,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
 
-    implementation(libs.hyperdrive.multiplatformx.api)
+    implementation(libs.decompose)
 
     implementation(libs.bundles.androidx.compose)
 

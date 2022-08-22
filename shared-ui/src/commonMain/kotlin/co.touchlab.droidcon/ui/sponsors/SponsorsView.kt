@@ -32,60 +32,46 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.icons.DateRange
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.RemoteImage
-import co.touchlab.droidcon.ui.util.observeAsState
-import co.touchlab.droidcon.util.NavigationStack
-import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupViewModel
-import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
+import co.touchlab.droidcon.viewmodel.sponsor.SponsorListComponent
+import co.touchlab.droidcon.viewmodel.sponsor.SponsorListComponent.Model
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import kotlin.math.min
 
 @Composable
-internal fun SponsorsView(viewModel: SponsorListViewModel) {
-    NavigationStack(links = {
-        NavigationLink(viewModel.observePresentedSponsorDetail) {
-            SponsorDetailView(viewModel = it)
-        }
-    }) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text("Sponsors") },
-                    elevation = 0.dp,
-                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                )
-            },
-        ) {
-            val uriHandler = LocalUriHandler.current
+internal fun SponsorsView(component: SponsorListComponent) {
+    val model by component.model.subscribeAsState()
 
-            val sponsorGroups by viewModel.observeSponsorGroups.observeAsState()
-            Column {
-                if (sponsorGroups.isEmpty()) {
-                    EmptyView()
-                } else {
-                    LazyColumn(contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
-                        items(sponsorGroups) { sponsorGroup ->
-                            SponsorGroupView(sponsorGroup)
-                        }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Sponsors") },
+                elevation = 0.dp,
+                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+            )
+        },
+    ) {
+        Column {
+            if (model.groups.isEmpty()) {
+                EmptyView()
+            } else {
+                LazyColumn(contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
+                    items(model.groups) { sponsorGroup ->
+                        SponsorGroupView(sponsorGroup = sponsorGroup, onSponsorClick = component::sponsorTapped)
                     }
                 }
-            }
-
-            val presentedUrl by viewModel.observePresentedUrl.observeAsState()
-            presentedUrl?.let {
-                uriHandler.openUri(it.string)
             }
         }
     }
 }
 
 @Composable
-private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
+private fun SponsorGroupView(sponsorGroup: Model.Group, onSponsorClick: (Model.Sponsor) -> Unit) {
     Surface(
         shape = MaterialTheme.shapes.medium,
         modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half),
@@ -106,7 +92,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
             )
             val columnCount = if (sponsorGroup.isProminent) 3 else 4
 
-            val sponsors by sponsorGroup.observeSponsors.observeAsState()
+            val sponsors = sponsorGroup.sponsors
 
             repeat(sponsors.size / columnCount + if (sponsors.size % columnCount == 0) 0 else 1) { rowIndex ->
                 Row(modifier = Modifier.padding(horizontal = Dimensions.Padding.half)) {
@@ -120,12 +106,10 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                                 .padding(Dimensions.Padding.quarter)
                                 .shadow(2.dp, CircleShape)
                                 .background(Color.White)
-                                .clickable {
-                                    sponsor.selected()
-                                },
+                                .clickable { onSponsorClick(sponsor) },
                             contentAlignment = Alignment.Center,
                         ) {
-                            val imageUrl = sponsor.validImageUrl
+                            val imageUrl = sponsor.imageUrl
                             if (imageUrl != null) {
                                 RemoteImage(
                                     imageUrl = imageUrl,

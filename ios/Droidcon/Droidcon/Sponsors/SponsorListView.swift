@@ -2,21 +2,23 @@ import SwiftUI
 import DroidconKit
 
 struct SponsorListView: View {
+    private var component: SponsorListComponent
+    
     @ObservedObject
-    private(set) var viewModel: SponsorListViewModel
-
-    private(set) var navigationTitle: LocalizedStringKey
+    private var observableModel: ObservableValue<SponsorListComponent.Model>
+    
+    private var viewModel: SponsorListComponent.Model { observableModel.value }
+    
+    init(_ component: SponsorListComponent) {
+        self.component = component
+        self.observableModel = ObservableValue(component.model)
+    }
 
     var body: some View {
         NavigationView {
             ScrollView {
-                SwitchingNavigationLink(
-                    selection: $viewModel.presentedSponsorDetail,
-                    content: SponsorDetailView.init(viewModel:)
-                )
-
                 VStack(spacing: 20) {
-                    ForEach(viewModel.sponsorGroups) { sponsorGroup in
+                    ForEach(viewModel.groups, id: \.self) { sponsorGroup in
                         VStack(spacing: 8) {
                             Text(sponsorGroup.title)
                                 .font(.title)
@@ -30,7 +32,7 @@ struct SponsorListView: View {
                                 spacing: 8
                             ) {
                                 ForEach(sponsorGroup.sponsors, id: \.self) { sponsor in
-                                    SponsorGroupItemView(viewModel: sponsor)
+                                    SponsorGroupItemView(viewModel: sponsor, onTapped: { component.sponsorTapped(sponsor: sponsor) })
                                 }
                             }
                         }
@@ -43,10 +45,8 @@ struct SponsorListView: View {
                 }
             }
             .frame(maxHeight: .infinity, alignment: .top)
-            .navigationTitle(navigationTitle)
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle(Text("Sponsors.Title"), displayMode: .inline)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -4,10 +4,8 @@ import DroidconKit
 struct SessionBlockView: View {
     static let cornerRadius: CGFloat = 8
 
-    @ObservedObject
-    private(set) var viewModel: SessionBlockViewModel
-
-    private(set) var showAttendingIndicators: Bool
+    private(set) var viewModel: SessionDayComponent.ModelBlock
+    private(set) var onSessionTapped: (SessionDayComponent.ModelItem) -> Void
 
     var body: some View {
         ZStack {
@@ -20,12 +18,12 @@ struct SessionBlockView: View {
                     .frame(width: 80, alignment: .trailing)
 
                 VStack(spacing: 0) {
-                    ForEach(Array(viewModel.sessions.enumerated()), id: \.element) { index, session in
+                    ForEach(Array(viewModel.items.enumerated()), id: \.element) { index, session in
                         SessionBlockItemView(
                             viewModel: session,
-                            showAttendingIndicators: showAttendingIndicators,
-                            isFirstInBlock: index == viewModel.sessions.startIndex,
-                            isLastInBlock: index == viewModel.sessions.endIndex - 1
+                            isFirstInBlock: index == viewModel.items.startIndex,
+                            isLastInBlock: index == viewModel.items.endIndex - 1,
+                            onTapped: { onSessionTapped(session) }
                         )
                     }
                 }

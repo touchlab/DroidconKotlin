@@ -35,53 +35,45 @@ import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.ui.icons.ArrowBack
 import co.touchlab.droidcon.ui.icons.Description
 import co.touchlab.droidcon.ui.icons.Person
-import co.touchlab.droidcon.ui.session.SpeakerDetailView
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.RemoteImage
-import co.touchlab.droidcon.ui.util.observeAsState
-import co.touchlab.droidcon.util.NavigationController
-import co.touchlab.droidcon.util.NavigationStack
-import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
-import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailViewModel
+import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailComponent
+import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailComponent.Model
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 
 @Composable
-internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
-    NavigationStack(links = {
-        NavigationLink(viewModel.observePresentedSpeakerDetail) {
-            SpeakerDetailView(viewModel = it)
-        }
-    }) {
-        Scaffold(topBar = {
-            TopAppBar(
-                title = { Text("Sponsor") },
-                elevation = 0.dp,
-                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                navigationIcon = {
-                    IconButton(onClick = { NavigationController.root.handleBackPress() }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                        )
-                    }
-                }
-            )
-        }) { paddingValues ->
-            val scrollState = rememberScrollState()
-            Column(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .verticalScroll(scrollState),
-            ) {
-                HeaderView(name = viewModel.name, groupTitle = viewModel.groupName, imageUrl = viewModel.imageUrl)
+internal fun SponsorDetailView(component: SponsorDetailComponent) {
+    val model by component.model.subscribeAsState()
 
-                viewModel.abstract?.let {
-                    DescriptionView(description = it)
+    Scaffold(topBar = {
+        TopAppBar(
+            title = { Text("Sponsor") },
+            elevation = 0.dp,
+            modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+            navigationIcon = {
+                IconButton(onClick = component::backTapped) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                    )
                 }
+            }
+        )
+    }) { paddingValues ->
+        val scrollState = rememberScrollState()
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .verticalScroll(scrollState),
+        ) {
+            HeaderView(name = model.name, groupTitle = model.groupName, imageUrl = model.imageUrl)
 
-                val representatives by viewModel.observeRepresentatives.observeAsState()
-                representatives.forEach {
-                    RepresentativeInfoView(profile = it)
-                }
+            model.abstract?.let {
+                DescriptionView(description = it)
+            }
+
+            model.representatives.forEach { profile ->
+                RepresentativeInfoView(profile = profile, onClick = { component.representativeTapped(profile) })
             }
         }
     }
@@ -167,11 +159,11 @@ private fun DescriptionView(description: String) {
 }
 
 @Composable
-private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
+private fun RepresentativeInfoView(profile: Model.Representative, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { profile.selected() },
+            .clickable(onClick = onClick),
     ) {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             val imageUrl = profile.avatarUrl

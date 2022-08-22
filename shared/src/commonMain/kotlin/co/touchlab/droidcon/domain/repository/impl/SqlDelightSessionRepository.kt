@@ -4,7 +4,6 @@ import co.touchlab.droidcon.db.SessionQueries
 import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.SessionRepository
-import co.touchlab.droidcon.domain.service.DateTimeService
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
@@ -14,7 +13,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.datetime.Instant
 
 class SqlDelightSessionRepository(
-    private val dateTimeService: DateTimeService,
     private val sessionQueries: SessionQueries,
 ): BaseRepository<Session.Id, Session>(), SessionRepository {
     override fun observe(id: Session.Id): Flow<Session> {
@@ -98,7 +96,6 @@ class SqlDelightSessionRepository(
         feedbackComment: String?,
         feedbackSent: Long,
     ) = Session(
-        dateTimeService = dateTimeService,
         id = Session.Id(id),
         title = title,
         description = description,

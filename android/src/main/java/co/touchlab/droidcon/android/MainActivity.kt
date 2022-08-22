@@ -1,12 +1,5 @@
 package co.touchlab.droidcon.android
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Modifier
 // import androidx.compose.animation.Crossfade
 // import androidx.compose.foundation.Image
 // import androidx.compose.foundation.layout.fillMaxSize
@@ -19,33 +12,53 @@ import androidx.compose.ui.Modifier
 // import androidx.compose.ui.Modifier
 // import androidx.compose.ui.res.painterResource
 // import androidx.compose.ui.unit.dp
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import co.touchlab.droidcon.android.ui.theme.Colors
+import co.touchlab.droidcon.android.util.DefaultUrlHandler
 import co.touchlab.droidcon.android.viewModel.MainViewModel
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.ui.util.MainView
-import co.touchlab.droidcon.viewmodel.ApplicationViewModel
-import co.touchlab.droidcon.util.NavigationController
+import co.touchlab.droidcon.util.UrlHandler
+import co.touchlab.droidcon.viewmodel.ApplicationComponent
+import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.defaultComponentContext
 import com.google.accompanist.insets.ProvideWindowInsets
-import kotlinx.coroutines.awaitCancellation
-import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
+import org.koin.dsl.module
 
 class MainActivity: ComponentActivity(), KoinComponent {
+
+    private val modules =
+        module {
+            single<ComponentContext> { defaultComponentContext() }
+            single<UrlHandler> { DefaultUrlHandler(this@MainActivity) }
+        } + uiModule
+
+    init {
+        loadKoinModules(modules)
+    }
 
     private val notificationSchedulingService: NotificationSchedulingService by inject()
     private val syncService: SyncService by inject()
     private val analyticsService: AnalyticsService by inject()
     private val mainViewModel: MainViewModel by viewModels()
 
-    private val applicationViewModel: ApplicationViewModel by inject()
-
-    private val root = LifecycleGraph.Root(this)
+    private val applicationComponent: ApplicationComponent by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,12 +77,10 @@ class MainActivity: ComponentActivity(), KoinComponent {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        root.addChild(applicationViewModel.lifecycle)
-
         setContent {
             Box(modifier = Modifier.background(Colors.primary)) {
                 ProvideWindowInsets {
-                    MainView(viewModel = applicationViewModel)
+                    MainView(component = applicationComponent)
                 }
             }
 
@@ -100,31 +111,11 @@ class MainActivity: ComponentActivity(), KoinComponent {
 
             // }
         }
-
-        lifecycleScope.launchWhenResumed {
-            val cancelAttach = root.attach(lifecycleScope)
-            try {
-                awaitCancellation()
-            } finally {
-                cancelAttach.cancel()
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // mainViewModel.initializeFeedbackObserving()
-        applicationViewModel.onAppear()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
-        root.removeChild(applicationViewModel.lifecycle)
-    }
+        unloadKoinModules(modules)
 
-    override fun onBackPressed() {
-        if (!NavigationController.root.handleBackPress()) {
-            super.onBackPressed()
-        }
+        super.onDestroy()
     }
 }

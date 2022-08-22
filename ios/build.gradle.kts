@@ -40,6 +40,7 @@ kotlin {
 
         api(project(":shared-ui"))
         api(libs.kermit)
+        api(libs.decompose)
     }
 
     cocoapods {
@@ -65,7 +66,7 @@ kotlin {
         binaries.withType<Framework> {
             linkerOpts.add("-lsqlite3")
             export(libs.kermit)
-            export(libs.hyperdrive.multiplatformx.api)
+            export(libs.decompose)
             export(project(":shared"))
             export(project(":shared-ui"))
         }

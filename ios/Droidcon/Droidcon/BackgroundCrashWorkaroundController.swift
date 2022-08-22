@@ -3,13 +3,13 @@ import DroidconKit
 
 class BackgroundCrashWorkaroundController: UIViewController {
     
-    let viewModel: ApplicationViewModel
+    let component: ApplicationComponent
     let composeController: UIViewController
     
-    init(viewModel: ApplicationViewModel) {
-        self.viewModel = viewModel
+    init(_ component: ApplicationComponent) {
+        self.component = component
         
-        composeController = ComposeRootControllerKt.getRootController(viewModel: viewModel)
+        composeController = ComposeRootControllerKt.getRootController(component: component)
         
         super.init(nibName: nil, bundle: nil)
     }

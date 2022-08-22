@@ -2,15 +2,24 @@ import SwiftUI
 import DroidconKit
 
 struct SettingsView: View {
+    private var component: SettingsComponent
+    
     @ObservedObject
-    private(set) var viewModel: SettingsViewModel
+    private var observableModel: ObservableValue<SettingsComponent.Model>
+    
+    private var viewModel: SettingsComponent.Model { observableModel.value }
+    
+    init(_ component: SettingsComponent) {
+        self.component = component
+        self.observableModel = ObservableValue(component.model)
+    }
 
     var body: some View {
         NavigationView {
             ZStack {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
-                        Toggle(isOn: $viewModel.isFeedbackEnabled) {
+                        Toggle(isOn: Binding(get: { viewModel.isFeedbackEnabled }, set: component.setFeedbackEnabled)) {
                             Label("Settings.Feedback", systemImage: "ellipsis.bubble")
                         }
                         .padding(.vertical, 8)
@@ -18,7 +27,7 @@ struct SettingsView: View {
 
                         Divider().padding(.horizontal)
 
-                        Toggle(isOn: $viewModel.isRemindersEnabled) {
+                        Toggle(isOn: Binding(get: { viewModel.isRemindersEnabled }, set: component.setRemindersEnabled)) {
                             Label("Settings.Reminders", systemImage: "calendar")
                         }
                         .padding(.vertical, 8)
@@ -26,7 +35,7 @@ struct SettingsView: View {
                         
                         Divider().padding(.horizontal)
 
-                        Toggle(isOn: $viewModel.useCompose) {
+                        Toggle(isOn: Binding(get: { viewModel.useComposeForIos }, set: component.setUseComposeForIos)) {
                             Label("Settings.Compose", systemImage: "doc.text.image")
                         }
                         .padding(.vertical, 8)
@@ -34,7 +43,7 @@ struct SettingsView: View {
 
                         Divider().padding(.horizontal)
 
-                        AboutView(viewModel: viewModel.about)
+                        AboutView(component.about)
                     }
                 }
             }

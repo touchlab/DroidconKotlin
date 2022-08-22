@@ -3,10 +3,10 @@ import DroidconKit
 
 struct ComposeController: UIViewControllerRepresentable {
     
-    let viewModel: ApplicationViewModel
+    let component: ApplicationComponent
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        BackgroundCrashWorkaroundController(viewModel: viewModel)
+        BackgroundCrashWorkaroundController(component)
     }
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
