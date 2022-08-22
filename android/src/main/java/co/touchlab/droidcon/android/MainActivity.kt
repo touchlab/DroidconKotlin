@@ -3,7 +3,6 @@ package co.touchlab.droidcon.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,23 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-// import androidx.compose.animation.Crossfade
-// import androidx.compose.foundation.Image
-// import androidx.compose.foundation.layout.fillMaxSize
-// import androidx.compose.foundation.layout.padding
-// import androidx.compose.material.MaterialTheme
-// import androidx.compose.material.Surface
-// import androidx.compose.runtime.LaunchedEffect
-// import androidx.compose.runtime.collectAsState
-// import androidx.compose.runtime.getValue
-// import androidx.compose.ui.Modifier
-// import androidx.compose.ui.res.painterResource
-// import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.viewModel.MainViewModel
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.SyncService
@@ -57,7 +43,6 @@ class MainActivity: ComponentActivity(), KoinComponent {
     private val notificationSchedulingService: NotificationSchedulingService by inject()
     private val syncService: SyncService by inject()
     private val analyticsService: AnalyticsService by inject()
-    private val mainViewModel: MainViewModel by viewModels()
 
     private val applicationViewModel: ApplicationViewModel by inject()
 
@@ -126,7 +111,6 @@ class MainActivity: ComponentActivity(), KoinComponent {
 
     override fun onResume() {
         super.onResume()
-        // mainViewModel.initializeFeedbackObserving()
         applicationViewModel.onAppear()
     }
 
