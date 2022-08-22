@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.viewModel.feedback.FeedbackViewModel
+import co.touchlab.droidcon.ui.theme.Colors
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
