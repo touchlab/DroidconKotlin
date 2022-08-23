@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.viewmodel.session
 
+import androidx.compose.foundation.ScrollState
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
@@ -25,6 +26,10 @@ class SessionDayViewModel(
                 sessionBlockFactory.create(startsAt, items, onScheduleItemSelected)
             }
     )
+
+    var scrollState = ScrollState(firstVisibleItemIndex = 0, firstVisibleItemScrollOffset = 0)
+
+    class ScrollState(val firstVisibleItemIndex: Int, val firstVisibleItemScrollOffset: Int)
 
     class Factory(
         private val sessionBlockFactory: SessionBlockViewModel.Factory,

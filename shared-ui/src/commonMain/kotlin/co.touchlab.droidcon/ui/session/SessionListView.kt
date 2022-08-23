@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -37,6 +40,8 @@ import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.BaseSessionListViewModel
+import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
+import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
 import co.touchlab.kermit.Logger
 
 @Composable
@@ -85,12 +90,20 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                             }
                         }
                     }
-                    days?.forEachIndexed { index, _ ->
-                        val state = rememberLazyListState()
+                    days?.forEachIndexed { index, day ->
+                        val state =
+                            rememberLazyListState(day.scrollState.firstVisibleItemIndex, day.scrollState.firstVisibleItemScrollOffset)
+                        if (
+                            day.scrollState.firstVisibleItemIndex != state.firstVisibleItemIndex ||
+                            day.scrollState.firstVisibleItemScrollOffset != state.firstVisibleItemScrollOffset
+                        ) {
+                            day.scrollState =
+                                SessionDayViewModel.ScrollState(state.firstVisibleItemIndex, state.firstVisibleItemScrollOffset)
+                        }
+
                         if (index == selectedTabIndex) {
                             LazyColumn(state = state, contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
-                                val daySchedule = days?.getOrNull(selectedTabIndex)?.blocks ?: emptyList()
-                                items(daySchedule) { hourBlock ->
+                                items(day.blocks) { hourBlock ->
                                     Box(
                                         modifier = Modifier.padding(
                                             vertical = Dimensions.Padding.quarter,
