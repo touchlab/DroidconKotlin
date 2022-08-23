@@ -46,7 +46,7 @@ import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailViewModel
 
 @Composable
 internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
-    NavigationStack(links = {
+    NavigationStack(key = viewModel, links = {
         NavigationLink(viewModel.observePresentedSpeakerDetail) {
             SpeakerDetailView(viewModel = it)
         }

@@ -43,7 +43,7 @@ import co.touchlab.kermit.Logger
 internal fun SessionListView(viewModel: BaseSessionListViewModel) {
     var selectedTabIndex by rememberSaveable { mutableStateOf(0) }
 
-    NavigationStack(links = {
+    NavigationStack(key = viewModel, links = {
         NavigationLink(viewModel.observePresentedSessionDetail) {
             SessionDetailView(viewModel = it)
         }

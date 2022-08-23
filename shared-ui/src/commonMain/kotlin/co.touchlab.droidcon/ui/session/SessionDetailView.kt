@@ -57,7 +57,7 @@ import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 
 @Composable
 internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
-    NavigationStack(links = {
+    NavigationStack(key = viewModel, links = {
         NavigationLink(viewModel.observePresentedSpeakerDetail) {
             SpeakerDetailView(viewModel = it)
         }
