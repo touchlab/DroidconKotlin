@@ -10,6 +10,8 @@ import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
+import co.touchlab.droidcon.service.NotificationHandler
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class ApplicationViewModel(
@@ -46,6 +48,8 @@ class ApplicationViewModel(
     val tabs = listOf(Tab.Schedule, Tab.MyAgenda, Tab.Sponsors, Tab.Settings)
     var selectedTab: Tab by published(Tab.Schedule)
     val observeSelectedTab by observe(::selectedTab)
+
+    val showSplashScreen = MutableStateFlow(true)
 
     init {
         lifecycle.whileAttached {
