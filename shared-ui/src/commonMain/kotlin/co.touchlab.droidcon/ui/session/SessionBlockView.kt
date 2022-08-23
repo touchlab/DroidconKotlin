@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ui.session
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -62,7 +63,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                         },
                         elevation = 2.dp,
                         enabled = isClickable,
-                        border = null,
+                        border = if (isInPast) null else BorderStroke(1.dp, MaterialTheme.colors.surface),
                     ) {
                         Column {
                             Text(text = session.title, modifier = Modifier.padding(Dimensions.Padding.half), fontWeight = FontWeight.Bold)
