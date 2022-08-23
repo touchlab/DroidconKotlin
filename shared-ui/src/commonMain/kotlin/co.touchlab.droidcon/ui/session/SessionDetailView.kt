@@ -68,6 +68,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                     title = { Text("Session") },
                     elevation = 0.dp,
                     modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                    backgroundColor = MaterialTheme.colors.primary,
                     navigationIcon = {
                         IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                             Icon(
@@ -82,8 +83,8 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
             val scrollState = rememberScrollState()
             Column(modifier = Modifier.verticalScroll(scrollState)) {
                 val state by viewModel.observeState.observeAsState()
-                Box {
-                    Column {
+                Box(contentAlignment = Alignment.BottomStart) {
+                    Column(modifier = Modifier.padding(bottom = 22.dp)) {
                         val title by viewModel.observeTitle.observeAsState()
                         val locationInfo by viewModel.observeInfo.observeAsState()
                         HeaderView(title, locationInfo)
@@ -93,7 +94,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                         FloatingActionButton(
                             onClick = viewModel::attendingTapped,
                             modifier = Modifier
-                                .padding(top = 136.dp, start = Dimensions.Padding.default)
+                                .padding(start = Dimensions.Padding.default)
                                 .size(44.dp),
                         ) {
                             val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
@@ -181,7 +182,7 @@ private fun HeaderView(title: String, locationInfo: String) {
                 modifier = Modifier.padding(
                     start = Dimensions.Padding.double,
                     end = Dimensions.Padding.double,
-                    top = Dimensions.Padding.default,
+                    top = Dimensions.Padding.double,
                 ),
             )
             Text(
@@ -189,7 +190,7 @@ private fun HeaderView(title: String, locationInfo: String) {
                 modifier = Modifier.padding(
                     start = Dimensions.Padding.double,
                     end = Dimensions.Padding.double,
-                    bottom = Dimensions.Padding.default,
+                    bottom = Dimensions.Padding.double,
                 ),
             )
         }
