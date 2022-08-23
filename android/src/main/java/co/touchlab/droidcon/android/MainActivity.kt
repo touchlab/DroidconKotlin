@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -76,12 +77,12 @@ class MainActivity: ComponentActivity(), KoinComponent {
                 }
             }
 
-            var showSplashScreen by remember(applicationViewModel) { mutableStateOf(true) }
+            val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
             Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
                 if (shouldShowSplashScreen) {
                     LaunchedEffect(applicationViewModel) {
                         delay(1_000)
-                        showSplashScreen = false
+                        applicationViewModel.showSplashScreen.value = false
                     }
                     Box(
                         modifier = Modifier
