@@ -52,6 +52,11 @@ fun Koin.get(objCClass: ObjCClass, qualifier: Qualifier?): Any {
     return get(kClazz, qualifier, null)
 }
 
+fun Koin.get(objCClass: ObjCClass): Any {
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCClass)) { "Could not get original kotlin class for $objCClass." }
+    return get(kClazz, null)
+}
+
 fun Koin.get(objCProtocol: ObjCProtocol, qualifier: Qualifier?): Any {
     val kClazz = requireNotNull(getOriginalKotlinClass(objCProtocol)) { "Could not get original kotlin class for $objCProtocol." }
     return get(kClazz, qualifier, null)
