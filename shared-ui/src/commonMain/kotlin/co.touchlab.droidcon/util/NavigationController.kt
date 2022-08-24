@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
+import co.touchlab.droidcon.ui.util.NavigationBackPressWrapper
 import co.touchlab.droidcon.ui.util.observeAsState
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.CancellationToken
@@ -228,7 +229,9 @@ internal class NavigationLinkWrapper<T: Any>(
                 BackPressHandler {
                     reset()
                 }
-                content(value)
+                NavigationBackPressWrapper {
+                    content(value)
+                }
             }
         }
 
