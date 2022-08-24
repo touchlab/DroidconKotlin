@@ -71,6 +71,7 @@ dependencyResolutionManagement {
             val junitKtxRef = version("junitKtx", "1.1.3")
             val coroutinesTestRef = version("coroutinesTest", "1.6.0-native-mt")
             val imageLoaderRef = version("imageLoader", "1.0.8")
+            val korioRef = version("korio", "2.7.0")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
             alias("android-desugar").to("com.android.tools", "desugar_jdk_libs").version("1.1.5")
@@ -125,6 +126,8 @@ dependencyResolutionManagement {
             alias("uuid").to("com.benasher44", "uuid").versionRef(uuidRef)
 
             alias("imageLoader").to("io.github.qdsfdhvh", "image-loader").versionRef(imageLoaderRef)
+
+            alias("korio").to("com.soywiz.korlibs.korio", "korio").versionRef(korioRef)
 
             alias("test-junit").to("junit", "junit").versionRef(junitRef)
             alias("test-junitKtx").to("androidx.test.ext", "junit-ktx").versionRef(junitKtxRef)

@@ -71,6 +71,7 @@ kotlin {
 
                 implementation(libs.stately.common)
                 implementation(libs.koin.core)
+                implementation(libs.korio)
             }
         }
         val commonTest by getting {

@@ -27,6 +27,7 @@ import co.touchlab.droidcon.android.viewModel.MainViewModel
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.util.AppChecker
 import co.touchlab.droidcon.ui.util.MainView
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.util.NavigationController
@@ -51,6 +52,8 @@ class MainActivity: ComponentActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
 
         installSplashScreen()
+
+        AppChecker.checkTimeZoneHash()
 
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
