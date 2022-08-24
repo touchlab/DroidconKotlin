@@ -26,9 +26,7 @@ struct SwitchingRootView: View {
         .attach(viewModel: viewModel)
         .onAppear(perform: viewModel.onAppear)
         .onReceive(userDefaultsPublisher) { _ in
-            let x = SettingsBundleHelper.getUseComposeValue()
-            viewModel.useCompose = x
-            print("Initial compose: \(x)")
+            viewModel.useCompose = SettingsBundleHelper.getUseComposeValue()
         }
         .onChange(of: viewModel.useCompose) { newValue in
             SettingsBundleHelper.setUseComposeValue(newValue: newValue)
