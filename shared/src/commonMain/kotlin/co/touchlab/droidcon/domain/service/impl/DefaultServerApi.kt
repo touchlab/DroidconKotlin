@@ -6,9 +6,9 @@ import co.touchlab.droidcon.domain.service.UserIdProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.forms.submitForm
-import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpMethod
 import io.ktor.http.Parameters
+import io.ktor.http.encodedPath
 import io.ktor.http.isSuccess
 import io.ktor.http.takeFrom
 import kotlinx.serialization.json.Json
@@ -25,15 +25,14 @@ class DefaultServerApi(
             "sessionizeUnrsvpEvent"
         }
 
-        return client.submitForm<HttpResponse> {
+        return client.submitForm {
             droidcon("/dataTest/$methodName/${sessionId.value}/${userIdProvider.getId()}")
             method = HttpMethod.Post
-            body = ""
         }.status.isSuccess()
     }
 
     override suspend fun setFeedback(sessionId: Session.Id, rating: Int, comment: String): Boolean {
-        return client.submitForm<HttpResponse>(formParameters = Parameters.build {
+        return client.submitForm(formParameters = Parameters.build {
             append("rating", rating.toString())
             append("comment", comment)
         }) {

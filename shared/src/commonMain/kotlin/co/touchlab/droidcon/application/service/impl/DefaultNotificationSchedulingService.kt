@@ -1,9 +1,9 @@
 package co.touchlab.droidcon.application.service.impl
 
+import co.touchlab.droidcon.application.composite.Settings
 import co.touchlab.droidcon.application.repository.SettingsRepository
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
-import  co.touchlab.droidcon.application.composite.Settings
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
@@ -12,10 +12,8 @@ import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.set
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
@@ -48,8 +46,7 @@ class DefaultNotificationSchedulingService(
         }
 
     override suspend fun runScheduling() {
-        val isNotificationsAuthorized = notificationService.initialize()
-
+        notificationService.initialize()
         coroutineScope {
             launch {
                 scheduleNotifications(

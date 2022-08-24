@@ -5,6 +5,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
     val kotlinVersion: String by settings
@@ -15,13 +16,13 @@ pluginManagement {
         kotlin("plugin.serialization") version kotlinVersion
         kotlin("native.cocoapods") version kotlinVersion
         id("com.squareup.sqldelight") version sqldelightVersion
-        id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
+        id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     }
 
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "com.android" || requested.id.id == "android-gradle") {
-                useModule("com.android.tools.build:gradle:7.0.2")
+                useModule("com.android.tools.build:gradle:7.0.4")
             }
 
             if (requested.id.id == "com.google.gms.google-services") {
@@ -29,12 +30,11 @@ pluginManagement {
             }
 
             if (requested.id.id == "com.google.firebase.crashlytics") {
-                useModule("com.google.firebase:firebase-crashlytics-gradle:2.7.1")
+                useModule("com.google.firebase:firebase-crashlytics-gradle:2.8.1")
             }
         }
     }
 }
-
 
 enableFeaturePreview("VERSION_CATALOGS")
 
@@ -46,26 +46,32 @@ dependencyResolutionManagement {
         create("libs") {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
-            val composeRef = version("compose", "1.0.2")
-            val composeCompilerRef = version("compose-compiler", "1.1.0-alpha04")
-            val composeActivityRef = version("composeActivity", "1.4.0-alpha02")
-            val composeNavigationRef = version("composeNavigation", "2.4.0-alpha09")
-            val splashcreenRef = version("splashscreen", "1.0.0-alpha02")
-            val coroutinesRef = version("kotlinx-coroutines", "1.5.2-native-mt")
-            val datetimeRef = version("kotlinx-datetime", "0.3.0")
-            val serializationRef = version("kotlinx-serialization", "1.2.1")
-            val koinRef = version("koin", "3.1.2")
-            val kermitRef = version("kermit", "0.1.9")
-            val statelyRef = version("stately", "1.1.10")
-            val ktorRef = version("ktor", "1.6.3")
+            val composeRef = version("compose", "1.2.1")
+            val composeCompilerRef = version("compose-compiler", "1.2.0")
+            val composeActivityRef = version("composeActivity", "1.4.0")
+            val composeNavigationRef = version("composeNavigation", "2.4.1")
+            val splashcreenRef = version("splashscreen", "1.0.0-beta02")
+            val coroutinesRef = version("kotlinx-coroutines", "1.6.0-native-mt")
+            val datetimeRef = version("kotlinx-datetime", "0.3.2")
+            val serializationRef = version("kotlinx-serialization", "1.3.2")
+            val koinRef = version("koin", "3.1.5")
+            val kermitRef = version("kermit", "1.1.3")
+            val statelyRef = version("stately", "1.2.1")
+            val ktorRef = version("ktor", "2.0.0-beta-1")
             val multiplatformSettingsRef = version("multiplatformSettings", "0.8.1")
-            val hyperdriveRef = version("hyperdrive", "0.1.110")
-            val accompanistCoilRef = version("accompanistCoil", "0.13.0")
-            val accompanistInsetsRef = version("accompanistInsets", "0.16.1")
-            val coreRef = version("androidx-core", "1.6.0")
-            val firebaseAnalyticsRef = version("firebase-analytics", "19.0.2")
-            val firebaseCrashlyticsRef = version("firebase-crashlytics", "18.2.3")
-            val uuidRef = version("uuid", "0.3.1")
+            val hyperdriveRef = version("hyperdrive", "0.1.139")
+            val accompanistCoilRef = version("accompanistCoil", "0.15.0")
+            val accompanistInsetsRef = version("accompanistInsets", "0.23.1")
+            val accompanistNavigationAnimationRef = version("accompanistNavigationAnimation", "0.24.6-alpha")
+            val coreRef = version("androidx-core", "1.7.0")
+            val firebaseAnalyticsRef = version("firebase-analytics", "20.1.2")
+            val firebaseCrashlyticsRef = version("firebase-crashlytics", "18.2.9")
+            val uuidRef = version("uuid", "0.4.0")
+            val junitRef = version("junit", "4.13.2")
+            val junitKtxRef = version("junitKtx", "1.1.3")
+            val coroutinesTestRef = version("coroutinesTest", "1.6.0-native-mt")
+            val imageLoaderRef = version("imageLoader", "1.0.8")
+            val korioRef = version("korio", "2.7.0")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
             alias("android-desugar").to("com.android.tools", "desugar_jdk_libs").version("1.1.5")
@@ -88,6 +94,7 @@ dependencyResolutionManagement {
             alias("koin-test").to("io.insert-koin", "koin-test").versionRef(koinRef)
 
             alias("kermit").to("co.touchlab", "kermit").versionRef(kermitRef)
+            alias("kermit-crashlytics").to("co.touchlab", "kermit-crashlytics").versionRef(kermitRef)
             alias("stately-common").to("co.touchlab", "stately-common").versionRef(statelyRef)
 
             alias("sqldelight-runtime").to("com.squareup.sqldelight", "runtime").versionRef(sqldelightRef)
@@ -106,8 +113,10 @@ dependencyResolutionManagement {
             alias("multiplatformSettings-test").to("com.russhwolf", "multiplatform-settings-test").versionRef(multiplatformSettingsRef)
             alias("accompanist-coil").to("com.google.accompanist", "accompanist-coil").versionRef(accompanistCoilRef)
             alias("accompanist-insets").to("com.google.accompanist", "accompanist-insets").versionRef(accompanistInsetsRef)
+            alias("accompanist-navigationAnimation").to("com.google.accompanist", "accompanist-navigation-animation").versionRef(accompanistNavigationAnimationRef)
 
             alias("hyperdrive-multiplatformx-api").to("org.brightify.hyperdrive", "multiplatformx-api").versionRef(hyperdriveRef)
+            alias("hyperdrive-multiplatformx-compose").to("org.brightify.hyperdrive", "multiplatformx-compose").versionRef(hyperdriveRef)
 
             alias("androidx-core").to("androidx.core", "core-ktx").versionRef(coreRef)
 
@@ -116,27 +125,45 @@ dependencyResolutionManagement {
 
             alias("uuid").to("com.benasher44", "uuid").versionRef(uuidRef)
 
-            bundle("androidx-compose", listOf(
-                "androidx-compose-ui-core",
-                "androidx-compose-ui-tooling",
-                "androidx-compose-foundation",
-                "androidx-compose-material",
-                "androidx-compose-activity",
-                "androidx-compose-navigation",
-            ))
-            bundle("ktor-common", listOf(
-                "ktor-client-core",
-                "ktor-client-json",
-                "ktor-client-logging",
-                "ktor-client-serialization",
-            ))
-            bundle("sqldelight-common", listOf(
-                "sqldelight-runtime",
-                "sqldelight-coroutines",
-            ))
+            alias("imageLoader").to("io.github.qdsfdhvh", "image-loader").versionRef(imageLoaderRef)
+
+            alias("korio").to("com.soywiz.korlibs.korio", "korio").versionRef(korioRef)
+
+            alias("test-junit").to("junit", "junit").versionRef(junitRef)
+            alias("test-junitKtx").to("androidx.test.ext", "junit-ktx").versionRef(junitKtxRef)
+            alias("test-coroutines").to("org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutinesTestRef)
+
+            bundle(
+                "androidx-compose",
+                listOf(
+                    "androidx-compose-ui-core",
+                    "androidx-compose-ui-tooling",
+                    "androidx-compose-foundation",
+                    "androidx-compose-material",
+                    "androidx-compose-activity",
+                    "androidx-compose-navigation",
+                )
+            )
+            bundle(
+                "ktor-common",
+                listOf(
+                    "ktor-client-core",
+                    "ktor-client-json",
+                    "ktor-client-logging",
+                    "ktor-client-serialization",
+                )
+            )
+            bundle(
+                "sqldelight-common",
+                listOf(
+                    "sqldelight-runtime",
+                    "sqldelight-coroutines",
+                )
+            )
         }
     }
 }
 
-include(":shared", ":android", ":ios")
+include(":shared", ":shared-ui", ":android", ":ios")
+
 rootProject.name = "Droidcon"

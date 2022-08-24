@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.BadgeBox
+import androidx.compose.material.Badge
+import androidx.compose.material.BadgedBox
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -18,8 +19,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.viewModel.sessions.SessionViewModel
@@ -48,9 +52,9 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                         session.isColliding -> Colors.orange
                         else -> Colors.skyBlue
                     }
-                    BadgeBox(
+                    BadgedBox(
                         modifier = Modifier.padding(Dimensions.Padding.default),
-                        backgroundColor = badgeColor,
+                        badge = { Badge(backgroundColor = badgeColor) { } }
                     ) { }
 
                     val backgroundColor = if (hasEnded) MaterialTheme.colors.surface else MaterialTheme.colors.background
@@ -67,15 +71,32 @@ fun SessionBlock(sessionsBlock: SessionsBlockViewModel, attendingOnly: Boolean, 
                         border = if (MaterialTheme.colors.isLight || hasEnded) null else BorderStroke(1.dp, MaterialTheme.colors.surface),
                     ) {
                         Column {
-                            Text(text = session.title, modifier = Modifier.padding(Dimensions.Padding.half))
                             Text(
-                                text = session.speakers,
-                                modifier = Modifier.padding(
-                                    start = Dimensions.Padding.half,
-                                    end = Dimensions.Padding.half,
-                                    bottom = Dimensions.Padding.half,
-                                ),
+                                text = session.title,
+                                modifier = Modifier.padding(Dimensions.Padding.half),
+                                fontWeight = FontWeight.Bold,
                             )
+                            session.room?.let { roomName ->
+                                Text(
+                                    text = stringResource(id = R.string.schedule_item_in_room).format(roomName),
+                                    modifier = Modifier.padding(
+                                        start = Dimensions.Padding.half,
+                                        bottom = Dimensions.Padding.half,
+                                    ),
+                                    style = MaterialTheme.typography.caption,
+                                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.8f),
+                                )
+                            }
+                            if (!session.isServiceSession && session.speakers.isNotEmpty()) {
+                                Text(
+                                    text = session.speakers,
+                                    modifier = Modifier.padding(
+                                        start = Dimensions.Padding.half,
+                                        end = Dimensions.Padding.half,
+                                        bottom = Dimensions.Padding.half,
+                                    ),
+                                )
+                            }
                         }
                     }
                 }

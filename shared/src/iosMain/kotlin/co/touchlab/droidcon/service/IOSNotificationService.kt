@@ -3,9 +3,8 @@ package co.touchlab.droidcon.service
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.util.wrapMultiThreadCallback
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.russhwolf.settings.ExperimentalSettingsApi
-import com.russhwolf.settings.ObservableSettings
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toNSDate
 import platform.Foundation.NSCalendar
@@ -39,7 +38,7 @@ import platform.darwin.NSObject
     ExperimentalSettingsApi::class,
 )
 class IOSNotificationService(
-    private val log: Kermit,
+    private val log: Logger,
 ): NotificationService {
     private val notificationCenter: UNUserNotificationCenter by lazy {
         val center = UNUserNotificationCenter.currentNotificationCenter()
@@ -52,7 +51,7 @@ class IOSNotificationService(
         NotificationDelegate(notificationHandler)
     }
 
-    fun setHandler(notificationHandler: NotificationHandler) {
+    override fun setHandler(notificationHandler: NotificationHandler) {
         this.notificationHandler = notificationHandler
     }
 

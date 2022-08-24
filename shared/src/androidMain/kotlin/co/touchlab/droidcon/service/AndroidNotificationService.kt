@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.service
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -11,11 +10,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.RemoteException
 import androidx.core.app.NotificationCompat
-import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.util.IdentifiableIntent
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
@@ -24,13 +23,12 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalSettingsApi::class)
 class AndroidNotificationService(
     private val context: Context,
     private val entrypointActivity: Class<out Activity>,
-    private val log: Kermit,
+    private val log: Logger,
     private val settings: ObservableSettings,
     private val json: Json,
 ): NotificationService {
@@ -44,6 +42,13 @@ class AndroidNotificationService(
     private val registeredNotifications: MutableMap<String, List<Int>> = settings.getStringOrNull(NOTIFICATION_ID_MAP_KEY)?.let {
         json.decodeFromString(it)
     } ?: mutableMapOf()
+
+    // TODO: Not called on Android.
+    private var notificationHandler: NotificationHandler? = null
+
+    override fun setHandler(notificationHandler: NotificationHandler) {
+        this.notificationHandler = notificationHandler
+    }
 
     override suspend fun initialize(): Boolean {
         log.v { "Initializing." }
@@ -67,7 +72,6 @@ class AndroidNotificationService(
         return true
     }
 
-    @ExperimentalTime
     override suspend fun schedule(type: NotificationService.NotificationType, sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at $delivery." }
         val deliveryTime = delivery.toEpochMilliseconds()
@@ -175,11 +179,13 @@ class AndroidNotificationService(
         settings[NOTIFICATION_ID_MAP_KEY] = json.encodeToString(registeredNotifications)
     }
 
+    /*
     private data class NotificationIds(
         var reminderId: Int?,
         var dismissId: Int?,
         var feedbackId: Int?,
     )
+     */
 
     companion object {
         private const val NOTIFICATION_CHANNEL_ID = "NOTIFICATION_CHANNEL_ID"

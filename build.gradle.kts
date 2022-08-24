@@ -11,6 +11,7 @@ allprojects {
         google()
         mavenCentral()
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 
@@ -26,11 +27,11 @@ subprojects {
         }
     }
 
-    afterEvaluate {
-        tasks.named("check") {
-            dependsOn(tasks.getByName("ktlintCheck"))
-        }
-    }
+    // afterEvaluate {
+    //     tasks.named("check") {
+    //         dependsOn(tasks.getByName("ktlintCheck"))
+    //     }
+    // }
 }
 
 tasks.register<Delete>("clean") {

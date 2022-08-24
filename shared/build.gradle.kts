@@ -51,60 +51,82 @@ android {
 
 kotlin {
     android()
-    // Revert to just ios() when gradle plugin can properly resolve it
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios")
-    } else {
-        iosX64("ios")
-    }
+    ios()
+    iosSimulatorArm64()
 
     version = "1.0"
 
     sourceSets {
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        val commonMain by getting {
+            dependencies {
+                api(libs.kermit)
+                api(libs.kermit.crashlytics)
+                api(libs.kotlinx.coroutines.core)
+                api(libs.kotlinx.datetime)
+                api(libs.multiplatformSettings.core)
+                api(libs.uuid)
+
+                implementation(libs.bundles.ktor.common)
+                implementation(libs.bundles.sqldelight.common)
+
+                implementation(libs.stately.common)
+                implementation(libs.koin.core)
+                implementation(libs.korio)
             }
         }
-    }
-
-    sourceSets["commonMain"].dependencies {
-        api(libs.kermit)
-        api(libs.kotlinx.coroutines.core)
-        api(libs.kotlinx.datetime)
-        api(libs.multiplatformSettings.core)
-        api(libs.uuid)
-
-        implementation(libs.bundles.ktor.common)
-        implementation(libs.bundles.sqldelight.common)
-
-        implementation(libs.stately.common)
-        implementation(libs.koin.core)
-    }
-
-    sourceSets["commonTest"].dependencies {
-        implementation(libs.multiplatformSettings.test)
-        implementation(libs.kotlin.test.common)
-        implementation(libs.koin.test)
-    }
-
-    sourceSets.matching { it.name.endsWith("Test") }
-        .configureEach {
-            languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.multiplatformSettings.test)
+                implementation(libs.kotlin.test.common)
+                implementation(libs.koin.test)
+            }
         }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.driver.android)
+                implementation(libs.kotlinx.coroutines.android)
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.androidx.core)
+            }
+        }
+        val androidTest by getting {
+            dependencies {
+                implementation(libs.test.junit)
+                implementation(libs.test.junitKtx)
+                implementation(libs.test.coroutines)
+            }
+        }
+        val iosMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.driver.ios)
+                implementation(libs.ktor.client.ios)
+            }
+        }
+        val iosTest by getting {}
 
-    sourceSets["androidMain"].dependencies {
-        implementation(libs.sqldelight.driver.android)
-        implementation(libs.kotlinx.coroutines.android)
-        implementation(libs.ktor.client.okhttp)
-        implementation(libs.androidx.core)
+        sourceSets["iosSimulatorArm64Main"].dependsOn(iosMain)
+        sourceSets["iosSimulatorArm64Test"].dependsOn(iosTest)
     }
 
-    sourceSets["iosMain"].dependencies {
-        implementation(libs.sqldelight.driver.ios)
-        implementation(libs.ktor.client.ios)
+    sourceSets.all {
+        languageSettings.apply {
+            optIn("kotlin.RequiresOptIn")
+            optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
+    }
+
+    sourceSets.matching { it.name.endsWith("Test") }.configureEach {
+        languageSettings.optIn("kotlin.time.ExperimentalTime")
+    }
+
+    // Enable concurrent sweep phase in new native memory manager. (This will be enabled by default in 1.7.0)
+    // https://kotlinlang.org/docs/whatsnew1620.html#concurrent-implementation-for-the-sweep-phase-in-new-memory-manager
+    // (This might not be necessary here since the other module creates the framework, but it's here as well just in case it matters for
+    //  test binaries)
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+        binaries.all {
+            freeCompilerArgs += "-Xgc=cms"
+        }
     }
 }
 

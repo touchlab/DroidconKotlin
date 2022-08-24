@@ -54,8 +54,8 @@ fun SessionList(navController: NavHostController, sessions: BaseSessionListViewM
         topBar = {
             Toolbar(titleRes = R.string.droidcon_title, navController = navController)
         }
-    ) {
-        Column {
+    ) { contentPadding ->
+        Column(modifier = Modifier.padding(contentPadding)) {
             if (days.isEmpty()) {
                 Empty(emptyRes)
             } else {
@@ -82,7 +82,7 @@ fun SessionList(navController: NavHostController, sessions: BaseSessionListViewM
                         }
                     }
                 }
-                days.forEachIndexed { index, daySchedule ->
+                days.forEachIndexed { index, _ ->
                     val state = rememberLazyListState()
                     if (index == selectedTabIndex) {
                         LazyColumn(state = state, contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {

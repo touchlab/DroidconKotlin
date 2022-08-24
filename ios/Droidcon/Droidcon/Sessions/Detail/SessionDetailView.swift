@@ -31,11 +31,11 @@ struct SessionDetailView: View {
                             Button(action: viewModel.attendingTapped) {
                                 if viewModel.isAttendingLoading {
                                     ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: Color("AttendButton_Foreground")))
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
                                 } else {
                                     Image(systemName: viewModel.isAttending ? "checkmark" : "plus")
                                         .resizable()
-                                        .foregroundColor(Color("AttendButton_Foreground"))
+                                        .foregroundColor(.black)
                                 }
                             }
                             .frame(width: 16, height: 16)
@@ -61,6 +61,17 @@ struct SessionDetailView: View {
                             )
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
+                        }
+
+                        if viewModel.showFeedbackOption {
+                            Button(action: viewModel.writeFeedbackTapped) {
+                                if viewModel.feedbackAlreadyWritten {
+                                    Text("Session.Detail.ChangeFeedback")
+                                } else {
+                                    Text("Session.Detail.AddFeedback")
+                                }
+                            }
+                            .buttonStyle(FilledButtonStyle())
                         }
 
                         if let abstract = viewModel.abstract {
@@ -94,6 +105,9 @@ struct SessionDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 32)
                 }
+            }
+            .present(item: $viewModel.presentedFeedback) { viewModel in
+                FeedbackDialog(viewModel: viewModel)
             }
         }
         .navigationTitle("Session.Detail.Title")

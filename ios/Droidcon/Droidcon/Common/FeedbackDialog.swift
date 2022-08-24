@@ -40,7 +40,7 @@ struct FeedbackDialog: View {
                         Text("Feedback.Dialog.Submit")
                             .font(.system(size: 18))
                             .fontWeight(.medium)
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color("Accent"))
                             .frame(maxWidth: .infinity)
                             .padding(12)
                     }
@@ -50,23 +50,25 @@ struct FeedbackDialog: View {
 
                     Divider()
 
-                    Button(action: viewModel.closeAndDisableTapped) {
-                        Text("Feedback.Dialog.CloseAndDisable")
-                            .font(.system(size: 18))
-                            .fontWeight(.medium)
-                            .foregroundColor(.blue)
-                            .frame(maxWidth: .infinity)
-                            .padding(12)
-                    }
-                    .padding(4)
+                    if viewModel.showCloseAndDisableOption {
+                        Button(action: viewModel.closeAndDisableTapped) {
+                            Text("Feedback.Dialog.CloseAndDisable")
+                                .font(.system(size: 18))
+                                .fontWeight(.medium)
+                                .foregroundColor(Color("Accent"))
+                                .frame(maxWidth: .infinity)
+                                .padding(12)
+                        }
+                        .padding(4)
 
-                    Divider()
+                        Divider()
+                    }
 
                     Button(action: viewModel.skipTapped) {
                         Text("Feedback.Dialog.Skip")
                             .font(.system(size: 18))
                             .fontWeight(.semibold)
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color("Accent"))
                             .frame(maxWidth: .infinity)
                             .padding(12)
                     }

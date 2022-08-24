@@ -13,12 +13,15 @@
 "Agenda.TabItem.Title" = "Agenda";
 
 "Session.List.Item.Speakers %@" = "by %@";
+"Session.List.Item.Room %@" = "in %@";
 
 "Session.Detail.Title" = "Session";
 "Session.Detail.State.InProgress" = "This session is happening now.";
 "Session.Detail.State.Ended" = "This session has already ended.";
 "Session.Detail.State.Conflict" = "This session conflicts with another session in your schedule.";
 "Session.Detail.Speakers" = "Speakers";
+"Session.Detail.AddFeedback" = "Add feedback";
+"Session.Detail.ChangeFeedback" = "Change your feedback";
 
 "Speaker.Detail.Title" = "Speaker";
 
@@ -32,6 +35,7 @@
 "Settings.TabItem.Title" = "Settings";
 "Settings.Feedback" = "Enable feedback";
 "Settings.Reminders" = "Enable reminders";
+"Settings.Compose" = "Use compose for iOS";
 "Settings.About" = "About";
 
 "About.Title" = "About";

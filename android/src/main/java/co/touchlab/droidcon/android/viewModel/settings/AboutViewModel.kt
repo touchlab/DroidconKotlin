@@ -3,7 +3,7 @@ package co.touchlab.droidcon.android.viewModel.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.android.util.NamedDrawable
-import co.touchlab.droidcon.android.service.ParseUrlViewService
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.application.repository.AboutRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

@@ -26,11 +26,11 @@ android {
 
     compileSdk = androidCompileSdk.toInt()
     defaultConfig {
-        applicationId = "co.touchlab.droidcon.london"
+        applicationId = "co.touchlab.droidcon.berlin"
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
-        versionCode = 20001
-        versionName = "2.0.1"
+        versionCode = 20008
+        versionName = "2.0.8"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {
@@ -40,9 +40,9 @@ android {
         signingConfigs {
             create("release") {
                 keyAlias = "key0"
-                keyPassword = "$releasePassword"
+                keyPassword = releasePassword
                 storeFile = file("./release.jks")
-                storePassword = "$releasePassword"
+                storePassword = releasePassword
             }
         }
     }
@@ -71,33 +71,32 @@ android {
     buildFeatures {
         compose = true
     }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     packagingOptions {
-        exclude("META-INF/*.kotlin_module")
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        resources.excludes.add("META-INF/*.kotlin_module")
     }
 }
 
 dependencies {
     implementation(project(":shared"))
+    implementation(project(":shared-ui"))
 
-    implementation(libs.bundles.androidx.compose)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.accompanist.coil)
     implementation(libs.accompanist.insets)
+    implementation(libs.accompanist.navigationAnimation)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+
+    implementation(libs.hyperdrive.multiplatformx.api)
+
+    implementation(libs.bundles.androidx.compose)
 
     coreLibraryDesugaring(libs.android.desugar)
 }

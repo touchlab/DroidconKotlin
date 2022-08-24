@@ -12,8 +12,10 @@
 		1821427D26B5418D0047DB71 /* speakers.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427926B5418D0047DB71 /* speakers.json */; };
 		1821427E26B5418D0047DB71 /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427A26B5418D0047DB71 /* schedule.json */; };
 		1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833220F26B0CF5600D79482 /* DroidconApp.swift */; };
+		18493C04282B5BA500D4D992 /* iosMain in Resources */ = {isa = PBXBuildFile; fileRef = 18493C03282B5BA500D4D992 /* iosMain */; };
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
-		40275E911EDC846356ECC704 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21650A71319A7F88D3721407 /* Pods_Droidcon.framework */; };
+		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
+		18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
 		681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C959C26C554E00011330B /* FeedbackDialog.swift */; };
 		681C95A126C555D90011330B /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95A026C555D90011330B /* VisualEffectView.swift */; };
@@ -41,24 +43,31 @@
 		68C86E9F26B31D6100008D15 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C86E9E26B31D6100008D15 /* LifecycleManager.swift */; };
 		68DCBC6226C512DD0084C70D /* SponsorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */; };
 		68DCBC6426C51E260084C70D /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCBC6326C51E260084C70D /* TextView.swift */; };
+		711787A7E84A5FBD2D9A2E28 /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */; };
 		8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */; };
-		8404D81226C6631C00AE200F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8404D81126C6631C00AE200F /* GoogleService-Info.plist */; };
+		A357C7EE28AA7861004EF059 /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */; };
+		A35DC2DF28AB6B2600C7B298 /* SwitchingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */; };
+		A35DC2E128AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */; };
+		A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */; };
+		A35DEF2228AA265C0072605A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A35DEF2128AA265C0072605A /* Settings.bundle */; };
+		A35DEF2428AA26C80072605A /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
-		F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
-		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
-		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
-		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
-		1821427A26B5418D0047DB71 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../../shared/src/commonMain/resources/schedule.json; sourceTree = "<group>"; };
+		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
+		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
+		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
+		1821427A26B5418D0047DB71 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../shared/src/commonMain/resources/schedule.json; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
-		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
-		21650A71319A7F88D3721407 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18493BFF282B5B5C00D4D992 /* commonMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = commonMain; path = ../../shared/src/commonMain; sourceTree = "<group>"; };
+		18493C00282B5B5C00D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../../shared/src/iosMain; sourceTree = "<group>"; };
+		18493C03282B5BA500D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../src/iosMain; sourceTree = "<group>"; };
+		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
+		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
-		6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
+		540A306F1CD61E1DFBEC756F /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
 		681C959C26C554E00011330B /* FeedbackDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackDialog.swift; sourceTree = "<group>"; };
 		681C95A026C555D90011330B /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		681C95A226C56B100011330B /* CustomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOverlayView.swift; sourceTree = "<group>"; };
@@ -86,7 +95,14 @@
 		68DCBC6126C512DD0084C70D /* SponsorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorDetailView.swift; sourceTree = "<group>"; };
 		68DCBC6326C51E260084C70D /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAnalyticsService.swift; sourceTree = "<group>"; };
-		8404D81126C6631C00AE200F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
+		A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchingRootView.swift; sourceTree = "<group>"; };
+		A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCrashWorkaroundController.swift; sourceTree = "<group>"; };
+		A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeController.swift; sourceTree = "<group>"; };
+		A35DEF2128AA265C0072605A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
+		A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,7 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40275E911EDC846356ECC704 /* Pods_Droidcon.framework in Frameworks */,
+				711787A7E84A5FBD2D9A2E28 /* Pods_Droidcon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,15 +131,24 @@
 				1821427926B5418D0047DB71 /* speakers.json */,
 				1821427826B5418D0047DB71 /* sponsor_sessions.json */,
 			);
-			path = Resources;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		6278498AD96A4D949D39BF44 /* Frameworks */ = {
+		18493C01282B5B8F00D4D992 /* shared */ = {
 			isa = PBXGroup;
 			children = (
-				21650A71319A7F88D3721407 /* Pods_Droidcon.framework */,
+				18493BFF282B5B5C00D4D992 /* commonMain */,
+				18493C00282B5B5C00D4D992 /* iosMain */,
 			);
-			name = Frameworks;
+			name = shared;
+			sourceTree = "<group>";
+		};
+		18493C02282B5B9A00D4D992 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				18493C03282B5BA500D4D992 /* iosMain */,
+			);
+			name = ios;
 			sourceTree = "<group>";
 		};
 		684FAA7226B2A4B400673AFF /* Schedule */ = {
@@ -146,6 +171,7 @@
 		684FAA7826B2A51100673AFF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */,
 				684FAA7D26B2A7B600673AFF /* RoundedCorners.swift */,
 				689DD2F626B40A9400A9B009 /* SwitchingNavigationLink.swift */,
 				689DD2FC26B40F8200A9B009 /* AssertionFailureView.swift */,
@@ -211,19 +237,29 @@
 		DF9BBECBCD175B90105DA8D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */,
-				6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */,
+				540A306F1CD61E1DFBEC756F /* Pods-Droidcon.debug.xcconfig */,
+				A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		EA4A32E32829B6496044B105 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F1465EF423AA94BF0055F7C3 = {
 			isa = PBXGroup;
 			children = (
+				18493C02282B5B9A00D4D992 /* ios */,
+				18493C01282B5B8F00D4D992 /* shared */,
 				F1465EFF23AA94BF0055F7C3 /* Droidcon */,
 				F1465EFE23AA94BF0055F7C3 /* Products */,
 				DF9BBECBCD175B90105DA8D9 /* Pods */,
-				6278498AD96A4D949D39BF44 /* Frameworks */,
+				EA4A32E32829B6496044B105 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,7 +274,7 @@
 		F1465EFF23AA94BF0055F7C3 /* Droidcon */ = {
 			isa = PBXGroup;
 			children = (
-				8404D81126C6631C00AE200F /* GoogleService-Info.plist */,
+				18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */,
 				1821427626B541720047DB71 /* Resources */,
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
 				46B5284C249C5CF400A7725D /* Koin.swift */,
@@ -255,6 +291,11 @@
 				6881CF6126BD607D002541F0 /* Sponsors */,
 				684FAA7526B2A4E200673AFF /* Settings */,
 				684FAA7826B2A51100673AFF /* Utils */,
+				A35DEF2128AA265C0072605A /* Settings.bundle */,
+				A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */,
+				A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */,
+				A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */,
+				A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */,
 			);
 			path = Droidcon;
 			sourceTree = "<group>";
@@ -271,6 +312,7 @@
 				F1465EFA23AA94BF0055F7C3 /* Frameworks */,
 				F1465EFB23AA94BF0055F7C3 /* Resources */,
 				F6AA88266EBC1B414A6C4232 /* [CP] Embed Pods Frameworks */,
+				A33EA3A8289D4DFD008850F7 /* Crashlytics Script */,
 			);
 			buildRules = (
 			);
@@ -319,21 +361,43 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */,
 				1821427D26B5418D0047DB71 /* speakers.json in Resources */,
-				8404D81226C6631C00AE200F /* GoogleService-Info.plist in Resources */,
 				1821427C26B5418D0047DB71 /* sponsor_sessions.json in Resources */,
+				18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */,
 				1821427B26B5418D0047DB71 /* about.json in Resources */,
 				1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */,
 				1821427E26B5418D0047DB71 /* schedule.json in Resources */,
 				684FAA8926B2C31800673AFF /* Localizable.strings in Resources */,
+				18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
+				A35DEF2228AA265C0072605A /* Settings.bundle in Resources */,
+				18493C04282B5BA500D4D992 /* iosMain in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		A33EA3A8289D4DFD008850F7 /* Crashlytics Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Crashlytics Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		DE3B37D33D11C1968D62DBBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */,
+				A35DC2DF28AB6B2600C7B298 /* SwitchingRootView.swift in Sources */,
 				684FAA8626B2BD1300673AFF /* DaySelectionView.swift in Sources */,
 				6881CF6926C29B81002541F0 /* MainView.swift in Sources */,
 				681C95A326C56B100011330B /* CustomOverlayView.swift in Sources */,
@@ -392,15 +457,18 @@
 				689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */,
 				689DD30526B438CA00A9B009 /* Avatar.swift in Sources */,
 				681C95A126C555D90011330B /* VisualEffectView.swift in Sources */,
+				A35DC2E128AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift in Sources */,
 				1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */,
 				684FAA7426B2A4D400673AFF /* ScheduleView.swift in Sources */,
 				46B5284D249C5CF400A7725D /* Koin.swift in Sources */,
 				68DCBC6226C512DD0084C70D /* SponsorDetailView.swift in Sources */,
+				A357C7EE28AA7861004EF059 /* FilledButtonStyle.swift in Sources */,
 				684FAA8326B2B60300673AFF /* SessionDetailView.swift in Sources */,
 				681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */,
 				68DCBC6426C51E260084C70D /* TextView.swift in Sources */,
 				689DD30126B4279400A9B009 /* SpeakerDetailView.swift in Sources */,
 				689DD30326B431C300A9B009 /* SpeakerListItemView.swift in Sources */,
+				A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */,
 				6881CF6526BD6D75002541F0 /* SponsorGroupItemView.swift in Sources */,
 				6881CF6326BD60D4002541F0 /* SponsorListView.swift in Sources */,
 				6881CF6026BD3D22002541F0 /* SessionBlockItemView.swift in Sources */,
@@ -408,6 +476,7 @@
 				68971CA426B313EC004B2763 /* BaseViewModel+ObservableObject.swift in Sources */,
 				689DD30826B4447B00A9B009 /* AboutView.swift in Sources */,
 				689DD2FD26B40F8200A9B009 /* AssertionFailureView.swift in Sources */,
+				A35DEF2428AA26C80072605A /* SettingsBundleHelper.swift in Sources */,
 				684FAA7E26B2A7B600673AFF /* RoundedCorners.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,20 +627,21 @@
 		};
 		F1465F2823AA94C00055F7C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 123B80CBDDCDED37BC525498 /* Pods-Droidcon.debug.xcconfig */;
+			baseConfigurationReference = 540A306F1CD61E1DFBEC756F /* Pods-Droidcon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40002;
-				DEVELOPMENT_TEAM = 8UD86646U9;
+				CURRENT_PROJECT_VERSION = 40300;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.2;
+				MARKETING_VERSION = 4.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -580,7 +650,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -590,20 +660,21 @@
 		};
 		F1465F2923AA94C00055F7C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6320A3BB8AB0074AF6CC3597 /* Pods-Droidcon.release.xcconfig */;
+			baseConfigurationReference = A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40002;
-				DEVELOPMENT_TEAM = 8UD86646U9;
+				CURRENT_PROJECT_VERSION = 40300;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.2;
+				MARKETING_VERSION = 4.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -612,7 +683,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

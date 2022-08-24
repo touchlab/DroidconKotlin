@@ -16,9 +16,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -39,7 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.dto.WebLink
+import co.touchlab.droidcon.dto.WebLink
+import co.touchlab.droidcon.android.ui.feedback.Feedback
 import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
@@ -48,13 +51,19 @@ import co.touchlab.droidcon.android.ui.theme.WebLinkText
 import co.touchlab.droidcon.android.viewModel.sessions.ProfileViewModel
 import co.touchlab.droidcon.android.viewModel.sessions.SessionDetailViewModel
 import co.touchlab.droidcon.domain.entity.Session
-import com.google.accompanist.coil.rememberCoilPainter
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
 
 @Composable
 fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
     val sessionDetail = viewModel<SessionDetailViewModel>()
     LaunchedEffect(sessionId) {
         sessionDetail.id.value = sessionId
+    }
+    val feedback by sessionDetail.showFeedback.collectAsState()
+    feedback?.let {
+        Feedback(it)
     }
 
     Scaffold(
@@ -95,6 +104,19 @@ fun SessionDetail(navController: NavHostController, sessionId: Session.Id) {
 
             val statusRes by sessionDetail.statusRes.collectAsState(null)
             Info(statusRes?.let { stringResource(id = it) } ?: "")
+
+            val showFeedbackOption by sessionDetail.showFeedbackOption.collectAsState()
+            if (showFeedbackOption) {
+                Button(
+                    onClick = sessionDetail::writeFeedbackTapped,
+                    modifier = Modifier
+                        .padding(Dimensions.Padding.default)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    val showFeedbackTitleRes by sessionDetail.showFeedbackTitleRes.collectAsState()
+                    Text(text = stringResource(id = showFeedbackTitleRes))
+                }
+            }
 
             val description by sessionDetail.description.collectAsState("" to emptyList())
             Description(description.first, description.second)
@@ -204,6 +226,7 @@ private fun Description(description: String, links: List<WebLink>) {
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun Speaker(speaker: ProfileViewModel, speakerTapped: () -> Unit) {
     Column(
@@ -212,7 +235,17 @@ private fun Speaker(speaker: ProfileViewModel, speakerTapped: () -> Unit) {
             .clickable { speakerTapped() }
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            val painter = speaker.imageUrl?.string?.let { rememberCoilPainter(request = it) }
+
+            val painter = speaker.imageUrl?.string?.let {
+                rememberImagePainter(
+                    data = it,
+                    imageLoader = LocalImageLoader.current,
+                    builder = {
+                        placeholder(0)
+                    }
+                )
+            }
+
             Image(
                 painter = painter ?: painterResource(id = R.drawable.ic_baseline_person_24),
                 contentDescription = speaker.name,

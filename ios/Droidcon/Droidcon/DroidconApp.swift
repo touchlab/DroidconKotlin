@@ -1,18 +1,21 @@
 import SwiftUI
+import DroidconKit
 
 @main
 struct DroidconApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
-
+    
     init() {
         setupNavBarAppearance()
         setupTabBarAppearance()
+        
+        SettingsBundleHelper.initialize()
     }
 
     var body: some Scene {
         WindowGroup {
-            MainView(viewModel: koin.applicationViewModel)
+            SwitchingRootView(viewModel: koin.applicationViewModel)
         }
     }
 

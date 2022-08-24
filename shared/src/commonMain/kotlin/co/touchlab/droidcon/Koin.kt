@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSettingsApi::class)
+
 package co.touchlab.droidcon
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
@@ -30,20 +32,20 @@ import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.domain.service.UserIdProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
-import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
-import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
-import co.touchlab.droidcon.domain.service.UserIdProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultFeedbackService
-import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
+import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
 import co.touchlab.droidcon.domain.service.impl.DefaultServerApi
+import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
+import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
+import com.russhwolf.settings.ExperimentalSettingsApi
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -53,11 +55,11 @@ import org.koin.core.qualifier.qualifier
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
-fun initKoin(appModule: Module): KoinApplication {
+fun initKoin(additionalModules: List<Module>): KoinApplication {
     val koinApplication = startKoin {
         modules(
-            appModule,
-            platformModule,
+            additionalModules +
+            platformModule +
             coreModule
         )
     }
@@ -102,22 +104,22 @@ private val coreModule = module {
     }
     single<ProfileRepository> {
         SqlDelightProfileRepository(
-            get<DroidconDatabase>().profileQueries,
-            get<DroidconDatabase>().sessionSpeakerQueries,
-            get<DroidconDatabase>().sponsorRepresentativeQueries,
+            profileQueries = get<DroidconDatabase>().profileQueries,
+            speakerQueries = get<DroidconDatabase>().sessionSpeakerQueries,
+            representativeQueries = get<DroidconDatabase>().sponsorRepresentativeQueries,
         )
     }
     single<SessionRepository> {
-        SqlDelightSessionRepository(get(), get<DroidconDatabase>().sessionQueries)
+        SqlDelightSessionRepository(dateTimeService = get(), sessionQueries = get<DroidconDatabase>().sessionQueries)
     }
     single<RoomRepository> {
-        SqlDelightRoomRepository(get<DroidconDatabase>().roomQueries)
+        SqlDelightRoomRepository(roomQueries = get<DroidconDatabase>().roomQueries)
     }
     single<SponsorRepository> {
-        SqlDelightSponsorRepository(get<DroidconDatabase>().sponsorQueries)
+        SqlDelightSponsorRepository(sponsorQueries = get<DroidconDatabase>().sponsorQueries)
     }
     single<SponsorGroupRepository> {
-        SqlDelightSponsorGroupRepository(get<DroidconDatabase>().sponsorGroupQueries)
+        SqlDelightSponsorGroupRepository(sponsorGroupQueries = get<DroidconDatabase>().sponsorGroupQueries)
     }
     single<SyncService> {
         DefaultSyncService(
@@ -132,7 +134,7 @@ private val coreModule = module {
             seedDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Seed)),
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
-            get()
+            db = get(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {
