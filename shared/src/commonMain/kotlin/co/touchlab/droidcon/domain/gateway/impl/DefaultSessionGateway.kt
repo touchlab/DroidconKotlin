@@ -43,7 +43,7 @@ class DefaultSessionGateway(
         ScheduleItem(
             session,
             scheduleService.isInConflict(session),
-            session.room?.let { roomRepository.get(it) },
+            session.room?.let { roomRepository.find(it) },
             profileRepository.getSpeakersBySession(session.id),
         )
 
