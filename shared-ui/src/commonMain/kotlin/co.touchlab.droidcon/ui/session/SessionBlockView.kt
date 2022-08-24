@@ -66,6 +66,17 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                     ) {
                         Column {
                             Text(text = session.title, modifier = Modifier.padding(Dimensions.Padding.half), fontWeight = FontWeight.Bold)
+                            session.room?.let { roomName ->
+                                Text(
+                                    text = "in $roomName",
+                                    modifier = Modifier.padding(
+                                        start = Dimensions.Padding.half,
+                                        bottom = Dimensions.Padding.half,
+                                    ),
+                                    style = MaterialTheme.typography.caption,
+                                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.8f),
+                                )
+                            }
                             Text(
                                 text = session.speakers,
                                 modifier = Modifier.padding(
