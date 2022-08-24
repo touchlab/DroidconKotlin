@@ -32,7 +32,7 @@ private val LightColorPalette = lightColors(
     background = Colors.lightGrey250,
     error = Colors.orange,
     onPrimary = Color.White,
-    onSecondary = Color.Black,
+    onSecondary = Color.White,
     onSurface = Color.Black,
     onBackground = Colors.darkGrey51,
 )
