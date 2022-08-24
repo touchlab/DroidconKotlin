@@ -58,9 +58,7 @@ class MainActivity: ComponentActivity(), KoinComponent {
 
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
-        if (applicationViewModel.lifecycle.isAttached) {
-            applicationViewModel.lifecycle.removeFromParent()
-        }
+        applicationViewModel.lifecycle.removeFromParent()
         root.addChild(applicationViewModel.lifecycle)
 
         lifecycleScope.launchWhenCreated {
