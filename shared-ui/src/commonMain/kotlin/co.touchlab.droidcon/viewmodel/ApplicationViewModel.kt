@@ -10,7 +10,6 @@ import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
-import co.touchlab.droidcon.service.NotificationHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
