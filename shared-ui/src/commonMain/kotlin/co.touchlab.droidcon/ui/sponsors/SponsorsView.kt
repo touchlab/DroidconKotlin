@@ -58,6 +58,7 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
                     title = { Text("Sponsors") },
                     elevation = 0.dp,
                     modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                    backgroundColor = MaterialTheme.colors.primary,
                 )
             },
         ) {
@@ -165,7 +166,7 @@ private fun EmptyView() {
             modifier = Modifier
                 .size(80.dp)
                 .padding(Dimensions.Padding.default),
-            tint = Color.Yellow,
+            tint = MaterialTheme.colors.secondary,
         )
 
         Text(

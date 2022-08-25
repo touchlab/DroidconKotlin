@@ -47,7 +47,7 @@ dependencyResolutionManagement {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
             val composeRef = version("compose", "1.2.1")
-            val composeCompilerRef = version("compose-compiler", "1.2.0")
+            val composeCompilerRef = version("compose-compiler", "1.3.0")
             val composeActivityRef = version("composeActivity", "1.4.0")
             val composeNavigationRef = version("composeNavigation", "2.4.1")
             val splashcreenRef = version("splashscreen", "1.0.0-beta02")
@@ -70,7 +70,7 @@ dependencyResolutionManagement {
             val junitRef = version("junit", "4.13.2")
             val junitKtxRef = version("junitKtx", "1.1.3")
             val coroutinesTestRef = version("coroutinesTest", "1.6.0-native-mt")
-            val imageLoaderRef = version("imageLoader", "1.0.8")
+            val imageLoaderRef = version("imageLoader", "1.1.4")
             val korioRef = version("korio", "2.7.0")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)

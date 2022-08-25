@@ -20,7 +20,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -44,13 +43,13 @@ import co.touchlab.droidcon.R
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.android.ui.feedback.Feedback
 import co.touchlab.droidcon.android.ui.main.ScheduleScreen
-import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.ui.theme.WebLinkText
 import co.touchlab.droidcon.android.viewModel.sessions.ProfileViewModel
 import co.touchlab.droidcon.android.viewModel.sessions.SessionDetailViewModel
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.ui.theme.Colors
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter

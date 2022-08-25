@@ -35,7 +35,7 @@ struct SessionDetailView: View {
                                 } else {
                                     Image(systemName: viewModel.isAttending ? "checkmark" : "plus")
                                         .resizable()
-                                        .foregroundColor(.black)
+                                        .foregroundColor(Color("AttendButton_Foreground"))
                                 }
                             }
                             .frame(width: 16, height: 16)

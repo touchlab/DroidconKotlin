@@ -633,7 +633,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 40300;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -650,7 +650,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.nyc2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -666,7 +666,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 40300;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -683,7 +683,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.berlin;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.nyc2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

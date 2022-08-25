@@ -43,7 +43,7 @@ class DefaultSessionGateway(
         ScheduleItem(
             session,
             scheduleService.isInConflict(session),
-            session.room?.let { roomRepository.get(it) },
+            session.room?.let { roomRepository.find(it) },
             profileRepository.getSpeakersBySession(session.id),
         )
 
@@ -53,5 +53,9 @@ class DefaultSessionGateway(
 
     override suspend fun setFeedback(session: Session, feedback: Session.Feedback) {
         sessionRepository.setFeedback(session.id, feedback)
+    }
+
+    override suspend fun getScheduleItem(id: Session.Id): ScheduleItem? {
+        return sessionRepository.find(id)?.let { scheduleItemForSession(it) }
     }
 }
