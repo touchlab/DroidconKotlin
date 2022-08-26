@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
@@ -39,6 +40,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
                 title = { Text("Settings") },
                 elevation = 0.dp,
                 modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                backgroundColor = MaterialTheme.colors.primary,
             )
         },
     ) {

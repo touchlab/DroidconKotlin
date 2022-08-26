@@ -56,6 +56,7 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
                 title = { Text("Sponsor") },
                 elevation = 0.dp,
                 modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                backgroundColor = MaterialTheme.colors.primary,
                 navigationIcon = {
                     IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                         Icon(

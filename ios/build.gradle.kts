@@ -7,17 +7,14 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
 
-    id("org.jetbrains.compose") version "1.2.0-alpha01-dev755"
+    id("org.jetbrains.compose") version "1.2.0-alpha01-dev770"
 }
 
 version = "1.0"
 
 kotlin {
     ios()
-    // iosSimulatorArm64()
-    // sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
-    // sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
-
+    iosSimulatorArm64()
     sourceSets {
         all {
             languageSettings.apply {
@@ -38,9 +35,12 @@ kotlin {
         implementation(compose.material)
         implementation(compose.runtime)
 
+        api(project(":shared"))
         api(project(":shared-ui"))
         api(libs.kermit)
     }
+    sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
+    sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
 
     cocoapods {
         summary = "Common library for the Droidcon app"

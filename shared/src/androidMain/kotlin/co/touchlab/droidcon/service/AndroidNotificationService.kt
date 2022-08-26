@@ -88,7 +88,17 @@ class AndroidNotificationService(
         val contentIntent = PendingIntent.getActivity(
             context,
             if (type == NotificationService.NotificationType.Feedback) NOTIFICATION_FEEDBACK_REQUEST_CODE else 0,
-            Intent(context, entrypointActivity),
+            Intent(context, entrypointActivity).apply {
+                putExtra(NOTIFICATION_SESSION_ID_EXTRA_KEY, sessionId.value)
+                putExtra(
+                    NOTIFICATION_TYPE_EXTRA_KEY,
+                    when (type) {
+                        NotificationService.NotificationType.Reminder -> NOTIFICATION_TYPE_EXTRA_REMINDER
+                        NotificationService.NotificationType.Feedback -> NOTIFICATION_TYPE_EXTRA_FEEDBACK
+                    }
+                )
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            },
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             } else {
@@ -199,6 +209,11 @@ class AndroidNotificationService(
 
         const val NOTIFICATION_ID_COUNTER_KEY = "NOTIFICATION_ID_COUNTER"
         const val NOTIFICATION_ID_MAP_KEY = "NOTIFICATION_ID_MAP"
+
+        const val NOTIFICATION_SESSION_ID_EXTRA_KEY = "SESSION_ID"
+        const val NOTIFICATION_TYPE_EXTRA_KEY = "TYPE"
+        const val NOTIFICATION_TYPE_EXTRA_FEEDBACK = "TYPE_FEEDBACK"
+        const val NOTIFICATION_TYPE_EXTRA_REMINDER = "TYPE_REMINDER"
 
         const val NOTIFICATION_FEEDBACK_REQUEST_CODE = 1
     }

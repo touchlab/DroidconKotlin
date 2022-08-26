@@ -46,11 +46,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.android.ui.main.SponsorsScreen
-import co.touchlab.droidcon.android.ui.theme.Colors
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
 import co.touchlab.droidcon.android.viewModel.sponsors.SponsorGroupViewModel
 import co.touchlab.droidcon.android.viewModel.sponsors.SponsorListViewModel
+import co.touchlab.droidcon.ui.theme.Colors
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter
 import coil.compose.LocalImageLoader

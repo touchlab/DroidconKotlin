@@ -54,4 +54,8 @@ class DefaultSessionGateway(
     override suspend fun setFeedback(session: Session, feedback: Session.Feedback) {
         sessionRepository.setFeedback(session.id, feedback)
     }
+
+    override suspend fun getScheduleItem(id: Session.Id): ScheduleItem? {
+        return sessionRepository.find(id)?.let { scheduleItemForSession(it) }
+    }
 }

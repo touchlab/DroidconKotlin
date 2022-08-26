@@ -5,11 +5,12 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.service.NotificationHandler
 import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
-import co.touchlab.droidcon.service.NotificationHandler
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class ApplicationViewModel(
@@ -47,6 +48,8 @@ class ApplicationViewModel(
     var selectedTab: Tab by published(Tab.Schedule)
     val observeSelectedTab by observe(::selectedTab)
 
+    val showSplashScreen = MutableStateFlow(true)
+
     init {
         lifecycle.whileAttached {
             notificationSchedulingService.runScheduling()
@@ -58,10 +61,15 @@ class ApplicationViewModel(
     }
 
     override fun notificationReceived(sessionId: String, notificationType: NotificationService.NotificationType) {
-        if (notificationType == NotificationService.NotificationType.Feedback) {
-            lifecycle.whileAttached {
-                // We're not checking whether feedback is enabled, because the user opened a feedback notification.
-                presentNextFeedback()
+        when (notificationType) {
+            NotificationService.NotificationType.Feedback ->
+                lifecycle.whileAttached {
+                    // We're not checking whether feedback is enabled, because the user opened a feedback notification.
+                    presentNextFeedback()
+                }
+            NotificationService.NotificationType.Reminder -> {
+                selectedTab = Tab.Schedule
+                schedule.openSessionDetail(sessionId)
             }
         }
     }

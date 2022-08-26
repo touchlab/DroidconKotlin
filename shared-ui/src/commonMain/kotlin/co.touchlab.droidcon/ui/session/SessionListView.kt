@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
@@ -56,9 +57,10 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Droidcon Berlin 2022") },
+                    title = { Text("Droidcon New York 2022") },
                     elevation = 0.dp,
                     modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                    backgroundColor = MaterialTheme.colors.primary,
                 )
             },
         ) {
@@ -69,6 +71,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                 } else {
                     TabRow(
                         selectedTabIndex = selectedTabIndex,
+                        backgroundColor = MaterialTheme.colors.primary,
                         indicator = { tabPositions ->
                             if (tabPositions.indices.contains(selectedTabIndex)) {
                                 TabRowDefaults.Indicator(
@@ -135,7 +138,7 @@ private fun EmptyView() {
             modifier = Modifier
                 .size(80.dp)
                 .padding(Dimensions.Padding.default),
-            tint = Color.Yellow,
+            tint = MaterialTheme.colors.secondary,
         )
 
         Text(
