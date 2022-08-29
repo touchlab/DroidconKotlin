@@ -12,7 +12,6 @@
 		1821427D26B5418D0047DB71 /* speakers.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427926B5418D0047DB71 /* speakers.json */; };
 		1821427E26B5418D0047DB71 /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427A26B5418D0047DB71 /* schedule.json */; };
 		1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833220F26B0CF5600D79482 /* DroidconApp.swift */; };
-		18493C04282B5BA500D4D992 /* iosMain in Resources */ = {isa = PBXBuildFile; fileRef = 18493C03282B5BA500D4D992 /* iosMain */; };
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
 		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 		18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */; };
@@ -61,9 +60,6 @@
 		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
 		1821427A26B5418D0047DB71 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../shared/src/commonMain/resources/schedule.json; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
-		18493BFF282B5B5C00D4D992 /* commonMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = commonMain; path = ../../shared/src/commonMain; sourceTree = "<group>"; };
-		18493C00282B5B5C00D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../../shared/src/iosMain; sourceTree = "<group>"; };
-		18493C03282B5BA500D4D992 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../src/iosMain; sourceTree = "<group>"; };
 		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
 		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
@@ -132,23 +128,6 @@
 				1821427826B5418D0047DB71 /* sponsor_sessions.json */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		18493C01282B5B8F00D4D992 /* shared */ = {
-			isa = PBXGroup;
-			children = (
-				18493BFF282B5B5C00D4D992 /* commonMain */,
-				18493C00282B5B5C00D4D992 /* iosMain */,
-			);
-			name = shared;
-			sourceTree = "<group>";
-		};
-		18493C02282B5B9A00D4D992 /* ios */ = {
-			isa = PBXGroup;
-			children = (
-				18493C03282B5BA500D4D992 /* iosMain */,
-			);
-			name = ios;
 			sourceTree = "<group>";
 		};
 		684FAA7226B2A4B400673AFF /* Schedule */ = {
@@ -254,8 +233,6 @@
 		F1465EF423AA94BF0055F7C3 = {
 			isa = PBXGroup;
 			children = (
-				18493C02282B5B9A00D4D992 /* ios */,
-				18493C01282B5B8F00D4D992 /* shared */,
 				F1465EFF23AA94BF0055F7C3 /* Droidcon */,
 				F1465EFE23AA94BF0055F7C3 /* Products */,
 				DF9BBECBCD175B90105DA8D9 /* Pods */,
@@ -371,7 +348,6 @@
 				18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
 				A35DEF2228AA265C0072605A /* Settings.bundle in Resources */,
-				18493C04282B5BA500D4D992 /* iosMain in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,7 +608,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40300;
+				CURRENT_PROJECT_VERSION = 50002;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
@@ -641,7 +618,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.3;
+				MARKETING_VERSION = 5.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -665,7 +642,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40300;
+				CURRENT_PROJECT_VERSION = 50002;
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
@@ -674,7 +651,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.3;
+				MARKETING_VERSION = 5.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
