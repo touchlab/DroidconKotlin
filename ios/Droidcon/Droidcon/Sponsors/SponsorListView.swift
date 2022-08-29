@@ -45,6 +45,13 @@ struct SponsorListView: View {
             .frame(maxHeight: .infinity, alignment: .top)
             .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
+            .onChange(of: viewModel.presentedUrl) { url in
+                guard let url = url else { return }
+                if let nativeUrl = URL(string: url.string) {
+                    UIApplication.shared.open(nativeUrl)
+                }
+                viewModel.presentedUrl = nil
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

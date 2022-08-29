@@ -5,7 +5,10 @@ import DroidconKit
 struct DroidconApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
-    
+
+    @StateObject
+    private var lifecycleManager = LifecycleManager()
+
     init() {
         setupNavBarAppearance()
         setupTabBarAppearance()
@@ -16,6 +19,7 @@ struct DroidconApp: App {
     var body: some Scene {
         WindowGroup {
             SwitchingRootView(viewModel: koin.applicationViewModel)
+                .environmentObject(lifecycleManager)
         }
     }
 

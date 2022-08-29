@@ -80,6 +80,7 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
             val presentedUrl by viewModel.observePresentedUrl.observeAsState()
             presentedUrl?.let {
                 uriHandler.openUri(it.string)
+                viewModel.presentedUrl = null
             }
         }
     }
