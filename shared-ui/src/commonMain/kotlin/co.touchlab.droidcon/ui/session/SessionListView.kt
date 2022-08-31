@@ -1,5 +1,8 @@
 package co.touchlab.droidcon.ui.session
 
+import androidx.compose.foundation.interaction.DragInteraction
+import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,12 +10,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -25,29 +28,40 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.icons.DateRange
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.BaseSessionListViewModel
-import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 @Composable
 internal fun SessionListView(viewModel: BaseSessionListViewModel) {
-    var selectedTabIndex by rememberSaveable { mutableStateOf(0) }
 
     NavigationStack(key = viewModel, links = {
         NavigationLink(viewModel.observePresentedSessionDetail) {
@@ -64,11 +78,16 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                 )
             },
         ) {
-            Column {
+            var size by remember { mutableStateOf(IntSize(0, 0)) }
+            Column(modifier = Modifier.onSizeChanged { size = it }) {
                 val days by viewModel.observeDays.observeAsState()
                 if (days?.isEmpty() != false) {
                     EmptyView()
                 } else {
+                    var selectedTabIndex by rememberSaveable { mutableStateOf(0) }
+                    val state = rememberLazyListState()
+                    val coroutineScope = rememberCoroutineScope()
+
                     TabRow(
                         selectedTabIndex = selectedTabIndex,
                         backgroundColor = MaterialTheme.colors.primary,
@@ -84,7 +103,13 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                         }
                     ) {
                         days?.forEachIndexed { index, daySchedule ->
-                            Tab(selected = selectedTabIndex == index, onClick = { selectedTabIndex = index }) {
+                            Tab(selected = selectedTabIndex == index, onClick = {
+                                selectedTabIndex = index
+
+                                coroutineScope.launch {
+                                    state.animateScrollToItem(index)
+                                }
+                            }) {
                                 Text(
                                     text = daySchedule.day,
                                     modifier = Modifier.padding(Dimensions.Padding.default),
@@ -93,19 +118,39 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                             }
                         }
                     }
-                    days?.forEachIndexed { index, day ->
-                        val state =
-                            rememberLazyListState(day.scrollState.firstVisibleItemIndex, day.scrollState.firstVisibleItemScrollOffset)
-                        if (
-                            day.scrollState.firstVisibleItemIndex != state.firstVisibleItemIndex ||
-                            day.scrollState.firstVisibleItemScrollOffset != state.firstVisibleItemScrollOffset
-                        ) {
-                            day.scrollState =
-                                SessionDayViewModel.ScrollState(state.firstVisibleItemIndex, state.firstVisibleItemScrollOffset)
-                        }
 
-                        if (index == selectedTabIndex) {
-                            LazyColumn(state = state, contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
+                    val interaction by state.interactionSource.interactions.collectAsState(null)
+                    if (interaction is DragInteraction.Stop) {
+                        val scrollToIndex = if (state.firstVisibleItemScrollOffset >= size.width / 2) {
+                            state.firstVisibleItemIndex + 1
+                        } else {
+                            state.firstVisibleItemIndex
+                        }
+                        LaunchedEffect(interaction) {
+                            state.animateScrollToItem(scrollToIndex)
+                        }
+                        selectedTabIndex = scrollToIndex
+                    }
+
+                    LazyRow(state = state) {
+                        items(days ?: emptyList()) { day ->
+                            val scrollState =
+                                rememberLazyListState(day.scrollState.firstVisibleItemIndex, day.scrollState.firstVisibleItemScrollOffset)
+                            if (
+                                day.scrollState.firstVisibleItemIndex != scrollState.firstVisibleItemIndex ||
+                                day.scrollState.firstVisibleItemScrollOffset != scrollState.firstVisibleItemScrollOffset
+                            ) {
+                                day.scrollState =
+                                    SessionDayViewModel.ScrollState(scrollState.firstVisibleItemIndex,
+                                        scrollState.firstVisibleItemScrollOffset)
+                            }
+
+                            val density = LocalDensity.current
+                            LazyColumn(
+                                state = scrollState,
+                                contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter),
+                                modifier = Modifier.width(with(density) { size.width.toDp() }),
+                            ) {
                                 items(day.blocks) { hourBlock ->
                                     Box(
                                         modifier = Modifier.padding(
