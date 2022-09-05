@@ -35,8 +35,10 @@ abstract class BaseSessionListViewModel(
                 items
                     .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).date }
                     .map { (date, items) ->
-                        sessionDayFactory.create(date, items) { item ->
-                            if (item.session.isServiceSession) { return@create }
+                        sessionDayFactory.create(date, attendingOnly, items) { item ->
+                            if (item.session.isServiceSession) {
+                                return@create
+                            }
                             presentedSessionDetail = sessionDetailFactory.create(item)
                         }
                     }
