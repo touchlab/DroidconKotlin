@@ -109,6 +109,8 @@ class SessionDetailViewModel(
     )
     val observeShowFeedbackOption by observe(::showFeedbackOption)
 
+    var scrollState: Int = 0
+
     fun attendingTapped() = instanceLock.runExclusively {
         sessionGateway.setAttending(item.session, attending = !isAttending)
     }
