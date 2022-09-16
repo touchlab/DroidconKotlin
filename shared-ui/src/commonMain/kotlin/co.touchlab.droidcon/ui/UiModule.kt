@@ -7,6 +7,7 @@ import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionBlockViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
+import co.touchlab.droidcon.viewmodel.session.SessionDetailScrollStateStorage
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionListItemViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
@@ -54,7 +55,14 @@ val uiModule = module {
         )
     }
     single { SessionBlockViewModel.Factory(sessionListItemFactory = get(), dateFormatter = get()) }
-    single { SessionDayViewModel.Factory(sessionBlockFactory = get(), dateFormatter = get(), dateTimeService = get()) }
+    single {
+        SessionDayViewModel.Factory(
+            sessionBlockFactory = get(),
+            dateFormatter = get(),
+            dateTimeService = get(),
+            sessionDetailScrollStateStorage = get(),
+        )
+    }
     single { SessionListItemViewModel.Factory(dateTimeService = get()) }
 
     single {
@@ -83,4 +91,6 @@ val uiModule = module {
     single { AboutViewModel.Factory(aboutRepository = get(), parseUrlViewService = get()) }
 
     single { FeedbackDialogViewModel.Factory(sessionGateway = get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
+
+    single { SessionDetailScrollStateStorage() }
 }

@@ -12,6 +12,7 @@ class SessionDayViewModel(
     sessionBlockFactory: SessionBlockViewModel.Factory,
     dateFormatter: DateFormatter,
     dateTimeService: DateTimeService,
+    private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     private val date: LocalDate,
     private val attendingOnly: Boolean,
     items: List<ScheduleItem>,
@@ -28,9 +29,9 @@ class SessionDayViewModel(
     )
 
     var scrollState: ScrollState
-        get() = SessionDetailScrollStateStorage.getScrollState(date, attendingOnly)
+        get() = sessionDetailScrollStateStorage.getScrollState(date, attendingOnly)
         set(value) {
-            SessionDetailScrollStateStorage.setScrollState(date, attendingOnly, value)
+            sessionDetailScrollStateStorage.setScrollState(date, attendingOnly, value)
         }
 
     class ScrollState(val firstVisibleItemIndex: Int, val firstVisibleItemScrollOffset: Int)
@@ -39,6 +40,7 @@ class SessionDayViewModel(
         private val sessionBlockFactory: SessionBlockViewModel.Factory,
         private val dateFormatter: DateFormatter,
         private val dateTimeService: DateTimeService,
+        private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     ) {
 
         fun create(
@@ -46,6 +48,15 @@ class SessionDayViewModel(
             attendingOnly: Boolean,
             items: List<ScheduleItem>,
             onScheduleItemSelected: (ScheduleItem) -> Unit,
-        ) = SessionDayViewModel(sessionBlockFactory, dateFormatter, dateTimeService, date, attendingOnly, items, onScheduleItemSelected)
+        ) = SessionDayViewModel(
+            sessionBlockFactory,
+            dateFormatter,
+            dateTimeService,
+            sessionDetailScrollStateStorage,
+            date,
+            attendingOnly,
+            items,
+            onScheduleItemSelected,
+        )
     }
 }

@@ -2,7 +2,7 @@ package co.touchlab.droidcon.viewmodel.session
 
 import kotlinx.datetime.LocalDate
 
-object SessionDetailScrollStateStorage {
+class SessionDetailScrollStateStorage {
 
     val scrollStates: MutableMap<LocalDate, SessionDayViewModel.ScrollState> = mutableMapOf()
     val agendaScrollStates: MutableMap<LocalDate, SessionDayViewModel.ScrollState> = mutableMapOf()
