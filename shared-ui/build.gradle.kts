@@ -3,7 +3,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.android.library")
 
-    id("org.jetbrains.compose") version "1.2.0-alpha01-dev770"
+    id("org.jetbrains.compose") version "1.2.0-beta01"
 }
 
 android {
@@ -117,9 +117,8 @@ kotlin {
         }
         val iosTest by getting {}
 
-        // TODO: Uncomment when image-loader dependency adds support for iosSimulatorArm64
-        // sourceSets["iosSimulatorArm64Main"].dependsOn(iosMain)
-        // sourceSets["iosSimulatorArm64Test"].dependsOn(iosTest)
+        sourceSets["iosSimulatorArm64Main"].dependsOn(iosMain)
+        sourceSets["iosSimulatorArm64Test"].dependsOn(iosTest)
     }
 
     sourceSets.all {

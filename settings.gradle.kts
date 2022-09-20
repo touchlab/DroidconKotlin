@@ -70,7 +70,7 @@ dependencyResolutionManagement {
             val junitRef = version("junit", "4.13.2")
             val junitKtxRef = version("junitKtx", "1.1.3")
             val coroutinesTestRef = version("coroutinesTest", "1.6.0-native-mt")
-            val imageLoaderRef = version("imageLoader", "1.1.4")
+            val imageLoaderRef = version("imageLoader", "1.1.9")
             val korioRef = version("korio", "2.7.0")
 
             alias("kotlin-test-common").to("org.jetbrains.kotlin", "kotlin-test-common").versionRef(kotlinRef)
