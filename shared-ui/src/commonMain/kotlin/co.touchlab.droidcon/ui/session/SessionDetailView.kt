@@ -140,18 +140,20 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                     DescriptionView(it, descriptionLinks)
                 }
 
-                Text(
-                    text = "Speakers",
-                    modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
-                    style = MaterialTheme.typography.h5,
-                    textAlign = TextAlign.Center,
-                )
-
-                Divider()
-
                 val speakers by viewModel.observeSpeakers.observeAsState()
-                speakers.forEach { speaker ->
-                    SpeakerView(speaker)
+                if (speakers.isNotEmpty()) {
+                    Text(
+                        text = "Speakers",
+                        modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
+                        style = MaterialTheme.typography.h5,
+                        textAlign = TextAlign.Center,
+                    )
+
+                    Divider()
+
+                    speakers.forEach { speaker ->
+                        SpeakerView(speaker)
+                    }
                 }
             }
         }
