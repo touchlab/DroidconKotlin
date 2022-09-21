@@ -4,7 +4,7 @@ app ready in the blink of an eye.
 - Change **colors** in `Colors.kt` (`shared-ui` module) and check `Theme.kt` if everything looks okay for Android
 - Change **colors** for iOS in `Assets.xcassets` through Xcode: `NavBar_Background.colorset`, `Accent.colorset`, `AttendButton.colorset`
   and `TabBar_Background.colorset`
-- Change app **name** in `strings.xml` and `SessionListView.kt`
+- Change app **name** `droidcon_title` in `strings.xml` and title text in `SessionListView.kt`
 - Change **Bundle Name** in `Info.plist` and **Bundle Identifier** in `project.pbxproj`
   - To avoid having to wait for the full verification process from apple use the already existing bundle id for the previous conference in
     the city
@@ -17,4 +17,5 @@ app ready in the blink of an eye.
   `AppIcon.appiconset` for iOS
 - Change **launch screen image** by changing `ic_splash_screen.xml` for Android and `LaunchScreen_Icon.imageset` and
   `LaunchScreen_Background.colorset` for iOS
-- Change `schedule.json`, `speakers.json`, `sponsor_sessions.json` and `sponsors.json`
+- Change `schedule.json`, `speakers.json`, `sponsor_sessions.json` and `sponsors.json` by replacing them with new versions from Sessionize
+  and Firebase
