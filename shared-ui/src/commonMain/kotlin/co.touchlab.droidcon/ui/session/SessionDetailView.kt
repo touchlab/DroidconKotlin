@@ -80,7 +80,12 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                 )
             },
         ) {
-            val scrollState = rememberScrollState()
+            val scrollState = rememberScrollState(viewModel.scrollState)
+
+            if (viewModel.scrollState != scrollState.value) {
+                viewModel.scrollState = scrollState.value
+            }
+
             Column(modifier = Modifier.verticalScroll(scrollState)) {
                 val state by viewModel.observeState.observeAsState()
                 Box(contentAlignment = Alignment.BottomStart) {
