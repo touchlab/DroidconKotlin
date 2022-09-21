@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.viewmodel.session
 
-import androidx.compose.foundation.ScrollState
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
@@ -13,7 +12,9 @@ class SessionDayViewModel(
     sessionBlockFactory: SessionBlockViewModel.Factory,
     dateFormatter: DateFormatter,
     dateTimeService: DateTimeService,
-    date: LocalDate,
+    private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
+    private val date: LocalDate,
+    private val attendingOnly: Boolean,
     items: List<ScheduleItem>,
     onScheduleItemSelected: (ScheduleItem) -> Unit,
 ): BaseViewModel() {
@@ -27,7 +28,11 @@ class SessionDayViewModel(
             }
     )
 
-    var scrollState = ScrollState(firstVisibleItemIndex = 0, firstVisibleItemScrollOffset = 0)
+    var scrollState: ScrollState
+        get() = sessionDetailScrollStateStorage.getScrollState(date, attendingOnly)
+        set(value) {
+            sessionDetailScrollStateStorage.setScrollState(date, attendingOnly, value)
+        }
 
     class ScrollState(val firstVisibleItemIndex: Int, val firstVisibleItemScrollOffset: Int)
 
@@ -35,12 +40,23 @@ class SessionDayViewModel(
         private val sessionBlockFactory: SessionBlockViewModel.Factory,
         private val dateFormatter: DateFormatter,
         private val dateTimeService: DateTimeService,
+        private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     ) {
 
         fun create(
             date: LocalDate,
+            attendingOnly: Boolean,
             items: List<ScheduleItem>,
             onScheduleItemSelected: (ScheduleItem) -> Unit,
-        ) = SessionDayViewModel(sessionBlockFactory, dateFormatter, dateTimeService, date, items, onScheduleItemSelected)
+        ) = SessionDayViewModel(
+            sessionBlockFactory,
+            dateFormatter,
+            dateTimeService,
+            sessionDetailScrollStateStorage,
+            date,
+            attendingOnly,
+            items,
+            onScheduleItemSelected,
+        )
     }
 }
