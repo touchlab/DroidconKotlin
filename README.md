@@ -4,6 +4,11 @@
 
 This project has a pair of native mobile applications backed by the Sessionize data api for use in events hosted by the Sessionize web application. These are specifically for Droidcon events, but can be forked and customized for anything run on Sessionize.
 
+> ## Subscribe!
+>
+> We build solutions that get teams started smoothly with Kotlin Multiplatform Mobile and ensure their success in production. Join our community to learn how your peers are adopting KMM.
+[Sign up here](https://go.touchlab.co/newsletter-gh)!
+
 ## Building
 
 The apps need a Firebase account set up to run. You'll need to get the `google-services.json` and put it in `android/google-services.json` for Android, and
