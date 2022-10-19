@@ -93,7 +93,7 @@ class MainActivity: ComponentActivity(), KoinComponent {
                     }
                     Box(
                         modifier = Modifier
-                            .background(Colors.secondary)
+                            .background(Colors.primary)
                             .fillMaxSize(),
                         contentAlignment = Alignment.Center,
                     ) {
