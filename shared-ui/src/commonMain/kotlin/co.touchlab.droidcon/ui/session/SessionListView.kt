@@ -60,7 +60,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Droidcon New York 2022") },
+                    title = { Text("Droidcon London 2022") },
                     elevation = 0.dp,
                     modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
                     backgroundColor = MaterialTheme.colors.primary,
