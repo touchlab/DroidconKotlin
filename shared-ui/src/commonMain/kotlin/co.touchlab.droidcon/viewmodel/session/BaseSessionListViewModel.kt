@@ -10,6 +10,7 @@ abstract class BaseSessionListViewModel(
     private val sessionGateway: SessionGateway,
     private val sessionDayFactory: SessionDayViewModel.Factory,
     private val sessionDetailFactory: SessionDetailViewModel.Factory,
+    private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     private val dateTimeService: DateTimeService,
     val attendingOnly: Boolean,
 ): BaseViewModel() {
@@ -18,10 +19,8 @@ abstract class BaseSessionListViewModel(
         private set
     val observeDays by observe(::days)
 
-    // used by SwiftUI day picker
-    var selectedDay: SessionDayViewModel? by managed(null)
-    var selectedDayIndex: Int by published(0)
-    val observeSelectedDayIndex by observe(::selectedDayIndex)
+    var selectedDay: SessionDayViewModel? by managed(days?.firstOrNull { it.date == sessionDetailScrollStateStorage.selectedDay })
+    val observeSelectedDay by observe(::selectedDay)
 
     var presentedSessionDetail: SessionDetailViewModel? by managed(null)
     val observePresentedSessionDetail by observe(::presentedSessionDetail)
@@ -48,7 +47,6 @@ abstract class BaseSessionListViewModel(
                     .also { newDays ->
                         days = newDays
                         selectedDay = newDays.firstOrNull { it.day == selectedDay?.day } ?: newDays.firstOrNull()
-                        selectedDayIndex = if (newDays.size < selectedDayIndex) selectedDayIndex else 0
                     }
             }
     }

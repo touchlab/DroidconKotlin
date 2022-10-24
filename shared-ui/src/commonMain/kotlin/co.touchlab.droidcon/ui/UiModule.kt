@@ -43,6 +43,7 @@ val uiModule = module {
             sessionGateway = get(),
             sessionDayFactory = get(),
             sessionDetailFactory = get(),
+            sessionDetailScrollStateStorage = get(),
             dateTimeService = get(),
         )
     }
@@ -51,6 +52,7 @@ val uiModule = module {
             sessionGateway = get(),
             sessionDayFactory = get(),
             sessionDetailFactory = get(),
+            sessionDetailScrollStateStorage = get(),
             dateTimeService = get(),
         )
     }

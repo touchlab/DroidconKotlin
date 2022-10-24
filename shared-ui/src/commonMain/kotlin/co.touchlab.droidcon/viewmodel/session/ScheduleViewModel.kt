@@ -9,11 +9,13 @@ class ScheduleViewModel(
     private val sessionGateway: SessionGateway,
     sessionDayFactory: SessionDayViewModel.Factory,
     private val sessionDetailFactory: SessionDetailViewModel.Factory,
+    sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     dateTimeService: DateTimeService,
 ): BaseSessionListViewModel(
     sessionGateway,
     sessionDayFactory,
     sessionDetailFactory,
+    sessionDetailScrollStateStorage,
     dateTimeService,
     attendingOnly = false,
 ) {
@@ -29,9 +31,11 @@ class ScheduleViewModel(
         private val sessionGateway: SessionGateway,
         private val sessionDayFactory: SessionDayViewModel.Factory,
         private val sessionDetailFactory: SessionDetailViewModel.Factory,
+        private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
         private val dateTimeService: DateTimeService,
     ) {
 
-        fun create() = ScheduleViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, dateTimeService)
+        fun create() =
+            ScheduleViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, sessionDetailScrollStateStorage, dateTimeService)
     }
 }

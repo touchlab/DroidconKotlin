@@ -6,6 +6,7 @@ class SessionDetailScrollStateStorage {
 
     val scrollStates: MutableMap<LocalDate, SessionDayViewModel.ScrollState> = mutableMapOf()
     val agendaScrollStates: MutableMap<LocalDate, SessionDayViewModel.ScrollState> = mutableMapOf()
+    var selectedDay: LocalDate? = null
 
     fun getScrollState(day: LocalDate, agenda: Boolean): SessionDayViewModel.ScrollState =
         if (agenda) {

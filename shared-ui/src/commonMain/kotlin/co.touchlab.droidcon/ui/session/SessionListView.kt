@@ -73,8 +73,9 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                 if (days?.isEmpty() != false) {
                     EmptyView()
                 } else {
-                    val selectedTabIndex by viewModel.observeSelectedDayIndex.observeAsState()
-                    val state = rememberLazyListState(initialFirstVisibleItemIndex = viewModel.selectedDayIndex)
+                    val selectedDay by viewModel.observeSelectedDay.observeAsState()
+                    val selectedTabIndex = viewModel.days?.indexOf(selectedDay) ?: 0
+                    val state = rememberLazyListState(initialFirstVisibleItemIndex = selectedTabIndex)
                     val coroutineScope = rememberCoroutineScope()
 
                     if (state.firstVisibleItemIndex != selectedTabIndex && !state.isScrollInProgress) {
@@ -99,7 +100,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                     ) {
                         days?.forEachIndexed { index, daySchedule ->
                             Tab(selected = selectedTabIndex == index, onClick = {
-                                viewModel.selectedDayIndex = index
+                                viewModel.selectedDay = daySchedule
 
                                 coroutineScope.launch {
                                     state.animateScrollToItem(index)
@@ -124,7 +125,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                         LaunchedEffect(interaction) {
                             state.animateScrollToItem(scrollToIndex)
                         }
-                        viewModel.selectedDayIndex = scrollToIndex
+                        viewModel.selectedDay = viewModel.days?.get(scrollToIndex)
                     }
 
                     LazyRow(state = state) {

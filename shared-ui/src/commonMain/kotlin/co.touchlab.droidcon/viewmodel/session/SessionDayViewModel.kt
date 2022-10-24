@@ -12,9 +12,9 @@ class SessionDayViewModel(
     sessionBlockFactory: SessionBlockViewModel.Factory,
     dateFormatter: DateFormatter,
     dateTimeService: DateTimeService,
-    private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
-    private val date: LocalDate,
+    val date: LocalDate,
     private val attendingOnly: Boolean,
+    private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     items: List<ScheduleItem>,
     onScheduleItemSelected: (ScheduleItem) -> Unit,
 ): BaseViewModel() {
@@ -52,9 +52,9 @@ class SessionDayViewModel(
             sessionBlockFactory,
             dateFormatter,
             dateTimeService,
-            sessionDetailScrollStateStorage,
             date,
             attendingOnly,
+            sessionDetailScrollStateStorage,
             items,
             onScheduleItemSelected,
         )

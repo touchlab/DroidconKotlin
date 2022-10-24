@@ -7,11 +7,13 @@ class AgendaViewModel(
     sessionGateway: SessionGateway,
     sessionDayFactory: SessionDayViewModel.Factory,
     sessionDetailFactory: SessionDetailViewModel.Factory,
+    sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     dateTimeService: DateTimeService,
 ): BaseSessionListViewModel(
     sessionGateway,
     sessionDayFactory,
     sessionDetailFactory,
+    sessionDetailScrollStateStorage,
     dateTimeService,
     attendingOnly = true,
 ) {
@@ -19,8 +21,11 @@ class AgendaViewModel(
         private val sessionGateway: SessionGateway,
         private val sessionDayFactory: SessionDayViewModel.Factory,
         private val sessionDetailFactory: SessionDetailViewModel.Factory,
+        private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
         private val dateTimeService: DateTimeService,
     ) {
-        fun create() = AgendaViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, dateTimeService)
+
+        fun create() =
+            AgendaViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, sessionDetailScrollStateStorage, dateTimeService)
     }
 }
