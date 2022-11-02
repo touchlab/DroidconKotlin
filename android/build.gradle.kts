@@ -29,8 +29,8 @@ android {
         applicationId = "co.touchlab.droidcon.london"
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
-        versionCode = 20008
-        versionName = "2.0.8"
+        versionCode = 20010
+        versionName = "2.0.10"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {
