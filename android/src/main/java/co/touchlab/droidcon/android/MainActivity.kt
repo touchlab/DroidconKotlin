@@ -65,10 +65,6 @@ class MainActivity: ComponentActivity(), KoinComponent {
         root.addChild(applicationViewModel.lifecycle)
 
         lifecycleScope.launchWhenCreated {
-            notificationSchedulingService.runScheduling()
-        }
-
-        lifecycleScope.launchWhenCreated {
             syncService.runSynchronization()
         }
 
