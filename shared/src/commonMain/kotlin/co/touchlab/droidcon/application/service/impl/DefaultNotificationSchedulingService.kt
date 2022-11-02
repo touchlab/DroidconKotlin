@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.plus
 import kotlinx.serialization.decodeFromString
@@ -88,27 +89,34 @@ class DefaultNotificationSchedulingService(
                     for (session in newSessions) {
                         if (isRemindersEnabled) {
                             val roomName = session.room?.let { roomRepository.get(it).name }
-                            val reminderDelivery = session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
-                            notificationService.schedule(
-                                type = NotificationService.NotificationType.Reminder,
-                                sessionId = session.id,
-                                title = localizedStringFactory.reminderTitle(roomName),
-                                body = localizedStringFactory.reminderBody(session.title),
-                                delivery = reminderDelivery,
-                                dismiss = reminderDelivery.plus(NotificationSchedulingService.REMINDER_DISMISS_OFFSET, DateTimeUnit.MINUTE),
-                            )
+                            val reminderDelivery =
+                                session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
+                            if (session.endsAt >= Clock.System.now()) {
+                                notificationService.schedule(
+                                    type = NotificationService.NotificationType.Reminder,
+                                    sessionId = session.id,
+                                    title = localizedStringFactory.reminderTitle(roomName),
+                                    body = localizedStringFactory.reminderBody(session.title),
+                                    delivery = reminderDelivery,
+                                    dismiss = reminderDelivery.plus(NotificationSchedulingService.REMINDER_DISMISS_OFFSET,
+                                        DateTimeUnit.MINUTE),
+                                )
+                            }
                         }
 
                         if (isFeedbackEnabled) {
-                            val feedbackDelivery = session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
-                            notificationService.schedule(
-                                type = NotificationService.NotificationType.Feedback,
-                                sessionId = session.id,
-                                title = localizedStringFactory.feedbackTitle(),
-                                body = localizedStringFactory.feedbackBody(),
-                                delivery = feedbackDelivery,
-                                dismiss = null,
-                            )
+                            val feedbackDelivery =
+                                session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
+                            if (feedbackDelivery.plus(24, DateTimeUnit.HOUR) >= Clock.System.now() && session.feedback == null) {
+                                notificationService.schedule(
+                                    type = NotificationService.NotificationType.Feedback,
+                                    sessionId = session.id,
+                                    title = localizedStringFactory.feedbackTitle(),
+                                    body = localizedStringFactory.feedbackBody(),
+                                    delivery = feedbackDelivery,
+                                    dismiss = null,
+                                )
+                            }
                         }
                     }
 
