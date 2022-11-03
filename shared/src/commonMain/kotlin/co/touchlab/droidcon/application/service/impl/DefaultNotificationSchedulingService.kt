@@ -7,6 +7,7 @@ import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
+import co.touchlab.droidcon.domain.service.DateTimeService
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.set
@@ -28,6 +29,7 @@ class DefaultNotificationSchedulingService(
     private val roomRepository: RoomRepository,
     private val settingsRepository: SettingsRepository,
     private val notificationService: NotificationService,
+    private val dateTimeService: DateTimeService,
     private val settings: ObservableSettings,
     private val json: Json,
     private val localizedStringFactory: NotificationSchedulingService.LocalizedStringFactory,
@@ -88,27 +90,34 @@ class DefaultNotificationSchedulingService(
                     for (session in newSessions) {
                         if (isRemindersEnabled) {
                             val roomName = session.room?.let { roomRepository.get(it).name }
-                            val reminderDelivery = session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
-                            notificationService.schedule(
-                                type = NotificationService.NotificationType.Reminder,
-                                sessionId = session.id,
-                                title = localizedStringFactory.reminderTitle(roomName),
-                                body = localizedStringFactory.reminderBody(session.title),
-                                delivery = reminderDelivery,
-                                dismiss = reminderDelivery.plus(NotificationSchedulingService.REMINDER_DISMISS_OFFSET, DateTimeUnit.MINUTE),
-                            )
+                            val reminderDelivery =
+                                session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
+                            if (session.endsAt >= dateTimeService.now()) {
+                                notificationService.schedule(
+                                    type = NotificationService.NotificationType.Reminder,
+                                    sessionId = session.id,
+                                    title = localizedStringFactory.reminderTitle(roomName),
+                                    body = localizedStringFactory.reminderBody(session.title),
+                                    delivery = reminderDelivery,
+                                    dismiss = reminderDelivery.plus(NotificationSchedulingService.REMINDER_DISMISS_OFFSET,
+                                        DateTimeUnit.MINUTE),
+                                )
+                            }
                         }
 
                         if (isFeedbackEnabled) {
-                            val feedbackDelivery = session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
-                            notificationService.schedule(
-                                type = NotificationService.NotificationType.Feedback,
-                                sessionId = session.id,
-                                title = localizedStringFactory.feedbackTitle(),
-                                body = localizedStringFactory.feedbackBody(),
-                                delivery = feedbackDelivery,
-                                dismiss = null,
-                            )
+                            val feedbackDelivery =
+                                session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
+                            if (feedbackDelivery.plus(24, DateTimeUnit.HOUR) >= dateTimeService.now() && session.feedback == null) {
+                                notificationService.schedule(
+                                    type = NotificationService.NotificationType.Feedback,
+                                    sessionId = session.id,
+                                    title = localizedStringFactory.feedbackTitle(),
+                                    body = localizedStringFactory.feedbackBody(),
+                                    delivery = feedbackDelivery,
+                                    dismiss = null,
+                                )
+                            }
                         }
                     }
 
