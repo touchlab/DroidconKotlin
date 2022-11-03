@@ -7,6 +7,7 @@ import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
+import co.touchlab.droidcon.domain.service.DateTimeService
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.set
@@ -16,7 +17,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.plus
 import kotlinx.serialization.decodeFromString
@@ -29,6 +29,7 @@ class DefaultNotificationSchedulingService(
     private val roomRepository: RoomRepository,
     private val settingsRepository: SettingsRepository,
     private val notificationService: NotificationService,
+    private val dateTimeService: DateTimeService,
     private val settings: ObservableSettings,
     private val json: Json,
     private val localizedStringFactory: NotificationSchedulingService.LocalizedStringFactory,
@@ -91,7 +92,7 @@ class DefaultNotificationSchedulingService(
                             val roomName = session.room?.let { roomRepository.get(it).name }
                             val reminderDelivery =
                                 session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
-                            if (session.endsAt >= Clock.System.now()) {
+                            if (session.endsAt >= dateTimeService.now()) {
                                 notificationService.schedule(
                                     type = NotificationService.NotificationType.Reminder,
                                     sessionId = session.id,
@@ -107,7 +108,7 @@ class DefaultNotificationSchedulingService(
                         if (isFeedbackEnabled) {
                             val feedbackDelivery =
                                 session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
-                            if (feedbackDelivery.plus(24, DateTimeUnit.HOUR) >= Clock.System.now() && session.feedback == null) {
+                            if (feedbackDelivery.plus(24, DateTimeUnit.HOUR) >= dateTimeService.now() && session.feedback == null) {
                                 notificationService.schedule(
                                     type = NotificationService.NotificationType.Feedback,
                                     sessionId = session.id,

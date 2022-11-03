@@ -194,6 +194,7 @@ private val coreModule = module {
             roomRepository = get(),
             settingsRepository = get(),
             notificationService = get(),
+            dateTimeService = get(),
             settings = get(),
             json = get(),
             localizedStringFactory = get(),
