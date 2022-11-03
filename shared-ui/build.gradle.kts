@@ -2,8 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.android.library")
-
-    id("org.jetbrains.compose") version "1.2.0-beta01"
+    id("org.jetbrains.compose")
 }
 
 android {
@@ -19,8 +18,8 @@ android {
     }
 
     lint {
-        isWarningsAsErrors = true
-        isAbortOnError = true
+        warningsAsErrors = true
+        abortOnError = true
     }
 
     sourceSets {
@@ -53,7 +52,7 @@ android {
 compose {
     android {
         useAndroidX = true
-        androidxVersion = "1.2.1"
+        androidxVersion = "1.3.0"
     }
 }
 
@@ -74,6 +73,8 @@ kotlin {
                 api(libs.kotlinx.coroutines.core)
                 api(libs.kotlinx.datetime)
                 api(libs.multiplatformSettings.core)
+                // this enforces new version of atomicfu, the older version from other libraries crashes iOS build
+                api(libs.atomicFu)
                 api(libs.uuid)
 
                 implementation(libs.bundles.ktor.common)
