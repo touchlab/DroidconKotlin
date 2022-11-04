@@ -46,27 +46,32 @@ import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailViewModel
 
 @Composable
 internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
-    NavigationStack(key = viewModel, links = {
-        NavigationLink(viewModel.observePresentedSpeakerDetail) {
-            SpeakerDetailView(viewModel = it)
+    NavigationStack(
+        key = viewModel,
+        links = {
+            NavigationLink(viewModel.observePresentedSpeakerDetail) {
+                SpeakerDetailView(viewModel = it)
+            }
         }
-    }) {
-        Scaffold(topBar = {
-            TopAppBar(
-                title = { Text("Sponsor") },
-                elevation = 0.dp,
-                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                backgroundColor = MaterialTheme.colors.primary,
-                navigationIcon = {
-                    IconButton(onClick = { NavigationController.root.handleBackPress() }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                        )
+    ) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Sponsor") },
+                    elevation = 0.dp,
+                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
+                    backgroundColor = MaterialTheme.colors.primary,
+                    navigationIcon = {
+                        IconButton(onClick = { NavigationController.root.handleBackPress() }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                            )
+                        }
                     }
-                }
-            )
-        }) { paddingValues ->
+                )
+            }
+        ) { paddingValues ->
             val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier

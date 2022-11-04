@@ -16,12 +16,12 @@ import kotlinx.datetime.Instant
 class SqlDelightSessionRepository(
     private val dateTimeService: DateTimeService,
     private val sessionQueries: SessionQueries,
-): BaseRepository<Session.Id, Session>(), SessionRepository {
+) : BaseRepository<Session.Id, Session>(), SessionRepository {
     override fun observe(id: Session.Id): Flow<Session> {
         return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOne()
     }
 
-    fun sessionById(id: Session.Id):Session? = sessionQueries.sessionById(id.value, ::sessionFactory).executeAsOneOrNull()
+    fun sessionById(id: Session.Id): Session? = sessionQueries.sessionById(id.value, ::sessionFactory).executeAsOneOrNull()
 
     override fun observeOrNull(id: Session.Id): Flow<Session?> {
         return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOneOrNull()
@@ -72,7 +72,7 @@ class SqlDelightSessionRepository(
             rsvpSent = entity.rsvp.isSent.toLong(),
             feedbackRating = entity.feedback?.rating,
             feedbackComment = entity.feedback?.comment,
-            feedbackSent = entity.feedback?.isSent?.toLong()?:0
+            feedbackSent = entity.feedback?.isSent?.toLong() ?: 0
         )
     }
 

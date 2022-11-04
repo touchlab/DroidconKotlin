@@ -8,4 +8,4 @@ class AboutItemViewModel(
     val detail: String,
     val webLinks: List<WebLink>,
     val icon: String,
-): BaseViewModel()
+) : BaseViewModel()

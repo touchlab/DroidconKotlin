@@ -44,4 +44,3 @@ actual val platformModule: Module = module {
     val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(LogcatWriter(), CrashlyticsLogWriter())), tag = "Droidcon")
     factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
 }
-

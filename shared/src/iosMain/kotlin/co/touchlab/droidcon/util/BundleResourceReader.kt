@@ -16,7 +16,7 @@ import platform.darwin.NSObjectMeta
 
 class BundleResourceReader(
     private val bundle: NSBundle = NSBundle.bundleForClass(BundleMarker)
-): ResourceReader {
+) : ResourceReader {
     override fun readResource(name: String): String {
         // TODO: Catch iOS-only exceptions and map them to common ones.
         val (filename, type) = when (val lastPeriodIndex = name.lastIndexOf('.')) {
@@ -42,7 +42,7 @@ class BundleResourceReader(
         }
     }
 
-    private class BundleMarker: NSObject() {
-        companion object: NSObjectMeta()
+    private class BundleMarker : NSObject() {
+        companion object : NSObjectMeta()
     }
 }

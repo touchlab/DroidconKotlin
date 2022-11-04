@@ -10,7 +10,7 @@ class SessionListItemViewModel(
     dateTimeService: DateTimeService,
     item: ScheduleItem,
     val selected: () -> Unit,
-): BaseViewModel() {
+) : BaseViewModel() {
     val title: String = item.session.title
     val isServiceSession: Boolean = item.session.isServiceSession
     val isAttending: Boolean = item.session.rsvp.isAttending
@@ -18,13 +18,16 @@ class SessionListItemViewModel(
     val speakers: String = item.speakers.joinToString { it.fullName }
     val room: String? = item.room?.name
 
-    val isInPast: Boolean by collected(dateTimeService.now() > item.session.endsAt, flow {
-        while (true) {
-            val isInPast = dateTimeService.now() > item.session.endsAt
-            emit(isInPast)
-            delay(10_000)
+    val isInPast: Boolean by collected(
+        dateTimeService.now() > item.session.endsAt,
+        flow {
+            while (true) {
+                val isInPast = dateTimeService.now() > item.session.endsAt
+                emit(isInPast)
+                delay(10_000)
+            }
         }
-    })
+    )
     val observeIsInPast by observe(::isInPast)
 
     class Factory(

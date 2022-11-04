@@ -52,9 +52,11 @@ fun SponsorDetail(navController: NavHostController, sponsorId: Sponsor.Id) {
         sponsorDetail.id.value = sponsorId
     }
 
-    Scaffold(topBar = {
-        Toolbar(titleRes = R.string.sponsor_title, navController = navController, showBackButton = true)
-    }) { paddingValues ->
+    Scaffold(
+        topBar = {
+            Toolbar(titleRes = R.string.sponsor_title, navController = navController, showBackButton = true)
+        }
+    ) { paddingValues ->
         val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
@@ -168,7 +170,6 @@ private fun RepresentativeInfo(profile: ProfileViewModel, representativeTapped: 
             .clickable { representativeTapped() },
     ) {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-
             val painter = profile.imageUrl?.string?.let {
                 rememberImagePainter(
                     data = it,

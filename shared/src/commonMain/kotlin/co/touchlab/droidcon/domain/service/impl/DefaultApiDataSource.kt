@@ -17,7 +17,7 @@ import kotlinx.serialization.json.Json
 class DefaultApiDataSource(
     private val client: HttpClient,
     private val json: Json,
-): DefaultSyncService.DataSource {
+) : DefaultSyncService.DataSource {
     override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto> {
         val jsonString = client.get {
             // We want to use the `sponsorsId` to get "speakers" for the sponsors as well as speakers for real sessions.

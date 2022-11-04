@@ -15,7 +15,7 @@ class DefaultSessionGateway(
     private val roomRepository: RoomRepository,
     private val profileRepository: ProfileRepository,
     private val scheduleService: ScheduleService,
-): SessionGateway {
+) : SessionGateway {
 
     override fun observeSchedule(): Flow<List<ScheduleItem>> {
         return sessionRepository.observeAll().map { sessions ->

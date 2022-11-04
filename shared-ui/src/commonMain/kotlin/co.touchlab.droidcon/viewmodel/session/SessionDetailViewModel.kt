@@ -32,17 +32,20 @@ class SessionDetailViewModel(
     private val parseUrlViewService: ParseUrlViewService,
     private val feedbackService: FeedbackService,
     initialItem: ScheduleItem,
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private val item by collected(initialItem, sessionGateway.observeScheduleItem(initialItem.session.id), identityEqualityPolicy())
     private val observeItem by observe(::item)
 
-    private val time: Instant by collected(dateTimeService.now(), flow {
-        while (true) {
-            emit(dateTimeService.now())
-            delay(10_000)
+    private val time: Instant by collected(
+        dateTimeService.now(),
+        flow {
+            while (true) {
+                emit(dateTimeService.now())
+                delay(10_000)
+            }
         }
-    })
+    )
     private val observeTime by observe(::time)
 
     val title by observeItem.map { it.session.title }
@@ -79,9 +82,12 @@ class SessionDetailViewModel(
     val speakers: List<SpeakerListItemViewModel> by managedList(
         observeItem.map {
             it.speakers.map { speaker ->
-                speakerListItemFactory.create(speaker, selected = {
-                    presentedSpeakerDetail = speakerDetailFactory.create(speaker)
-                })
+                speakerListItemFactory.create(
+                    speaker,
+                    selected = {
+                        presentedSpeakerDetail = speakerDetailFactory.create(speaker)
+                    }
+                )
             }
         }
     )

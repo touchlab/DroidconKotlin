@@ -1,6 +1,11 @@
 package co.touchlab.droidcon.ui.util
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.neverEqualPolicy
+import androidx.compose.runtime.remember
 import org.brightify.hyperdrive.multiplatformx.ManageableViewModel
 import org.brightify.hyperdrive.multiplatformx.ObservableObject
 import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
@@ -11,10 +16,10 @@ import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
  * Equivalent to [ObservableProperty.observeAsState] for observing all changes in a view model.
  */
 @Composable
-internal fun <T: ManageableViewModel> T.observeAsState(): State<T> {
+internal fun <T : ManageableViewModel> T.observeAsState(): State<T> {
     val result = remember(this) { mutableStateOf(this, neverEqualPolicy()) }
     val listener = remember(this) {
-        object: ObservableObject.ChangeTracking.Listener {
+        object : ObservableObject.ChangeTracking.Listener {
             override fun onObjectDidChange() {
                 result.value = this@observeAsState
             }
@@ -40,7 +45,7 @@ internal fun <T: ManageableViewModel> T.observeAsState(): State<T> {
 internal fun <T> ObservableProperty<T>.observeAsState(): State<T> {
     val result = remember(this) { mutableStateOf(value, neverEqualPolicy()) }
     val listener = remember(this) {
-        object: ObservableProperty.Listener<T> {
+        object : ObservableProperty.Listener<T> {
             override fun valueDidChange(oldValue: T, newValue: T) {
                 result.value = newValue
             }

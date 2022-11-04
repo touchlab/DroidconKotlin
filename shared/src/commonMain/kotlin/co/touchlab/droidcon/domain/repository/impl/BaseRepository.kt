@@ -4,9 +4,8 @@ import co.touchlab.droidcon.domain.entity.DomainEntity
 import co.touchlab.droidcon.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 
-abstract class BaseRepository<ID: Any, ENTITY: DomainEntity<ID>>: Repository<ID, ENTITY> {
+abstract class BaseRepository<ID : Any, ENTITY : DomainEntity<ID>> : Repository<ID, ENTITY> {
     override suspend fun get(id: ID): ENTITY {
         return observe(id).first()
     }

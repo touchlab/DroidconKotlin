@@ -7,7 +7,7 @@ import co.touchlab.droidcon.domain.entity.Sponsor
 
 class SponsorGroupItemViewModel(
     sponsor: Sponsor,
-): ViewModel() {
+) : ViewModel() {
 
     val id: Sponsor.Id = sponsor.id
     val name: String = sponsor.name

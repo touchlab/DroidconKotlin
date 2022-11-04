@@ -13,7 +13,7 @@ abstract class BaseSessionListViewModel(
     private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     private val dateTimeService: DateTimeService,
     val attendingOnly: Boolean,
-): BaseViewModel() {
+) : BaseViewModel() {
 
     var days: List<SessionDayViewModel>? by published(null)
         private set

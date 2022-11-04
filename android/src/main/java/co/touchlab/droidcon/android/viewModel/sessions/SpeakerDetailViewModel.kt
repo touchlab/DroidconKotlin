@@ -4,11 +4,11 @@ import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.dto.WebLink
-import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.repository.ProfileRepository
+import co.touchlab.droidcon.dto.WebLink
+import co.touchlab.droidcon.service.ParseUrlViewService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class SpeakerDetailViewModel: ViewModel(), KoinComponent {
+class SpeakerDetailViewModel : ViewModel(), KoinComponent {
 
     private val profileRepository by inject<ProfileRepository>()
     private val parseUrlViewService by inject<ParseUrlViewService>()

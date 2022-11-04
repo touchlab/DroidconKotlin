@@ -3,7 +3,7 @@ package co.touchlab.droidcon.domain.repository
 import co.touchlab.droidcon.domain.entity.Session
 import kotlinx.coroutines.flow.Flow
 
-interface SessionRepository: Repository<Session.Id, Session> {
+interface SessionRepository : Repository<Session.Id, Session> {
 
     fun observeAllAttending(): Flow<List<Session>>
 
@@ -17,7 +17,7 @@ interface SessionRepository: Repository<Session.Id, Session> {
 
     suspend fun setFeedbackSent(sessionId: Session.Id, isSent: Boolean)
 
-    fun allSync():List<Session>
+    fun allSync(): List<Session>
 
-    fun findSync(id:Session.Id):Session?
+    fun findSync(id: Session.Id): Session?
 }

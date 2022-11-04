@@ -7,7 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
-class MainScope(private val mainContext: CoroutineContext, private val log: Logger): CoroutineScope {
+class MainScope(private val mainContext: CoroutineContext, private val log: Logger) : CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler

@@ -3,7 +3,6 @@ package co.touchlab.droidcon.viewmodel.session
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
-import kotlinx.coroutines.flow.first
 
 class ScheduleViewModel(
     private val sessionGateway: SessionGateway,
@@ -11,7 +10,7 @@ class ScheduleViewModel(
     private val sessionDetailFactory: SessionDetailViewModel.Factory,
     sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     dateTimeService: DateTimeService,
-): BaseSessionListViewModel(
+) : BaseSessionListViewModel(
     sessionGateway,
     sessionDayFactory,
     sessionDetailFactory,

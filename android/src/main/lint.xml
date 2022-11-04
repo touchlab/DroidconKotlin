@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="UnusedResources">
+        <ignore regexp="about_droidcon.png|about_kotlin.png|about_touchlab.png" />
+    </issue>
+</lint>

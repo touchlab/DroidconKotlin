@@ -59,8 +59,8 @@ fun initKoin(additionalModules: List<Module>): KoinApplication {
     val koinApplication = startKoin {
         modules(
             additionalModules +
-            platformModule +
-            coreModule
+                platformModule +
+                coreModule
         )
     }
 

@@ -2,7 +2,6 @@ package co.touchlab.droidcon.android.service
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
 
 interface DateTimeFormatterViewService {
 

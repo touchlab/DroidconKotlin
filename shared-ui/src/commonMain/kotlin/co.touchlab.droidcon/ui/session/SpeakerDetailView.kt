@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.ui.session
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -30,7 +29,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ui.icons.ArrowBack
@@ -40,6 +38,7 @@ import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.RemoteImage
 import co.touchlab.droidcon.ui.util.WebLinkText
+import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
 
 @Composable

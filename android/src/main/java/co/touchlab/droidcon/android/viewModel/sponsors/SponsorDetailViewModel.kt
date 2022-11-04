@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.shareIn
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class SponsorDetailViewModel: ViewModel(), KoinComponent {
+class SponsorDetailViewModel : ViewModel(), KoinComponent {
 
     private val sponsorGateway by inject<SponsorGateway>()
 

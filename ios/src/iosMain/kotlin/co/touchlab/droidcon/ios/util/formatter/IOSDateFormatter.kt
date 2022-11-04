@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.ios.util.formatter
 
-import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -12,9 +11,7 @@ import platform.Foundation.NSDateFormatterShortStyle
 import platform.Foundation.NSLocale
 import platform.Foundation.currentLocale
 
-class IOSDateFormatter(
-    dateTimeService: DateTimeService,
-): DateFormatter {
+class IOSDateFormatter : DateFormatter {
 
     private val monthWithDay: NSDateFormatter by lazy {
         NSDateFormatter().also {
@@ -45,12 +42,13 @@ class IOSDateFormatter(
 
     override fun timeOnlyInterval(fromDateTime: LocalDateTime, toDateTime: LocalDateTime) = interval(
         fromDateTime.date()?.let { timeOnlyNoPeriod.stringFromDate(it) },
-        toDateTime.date()?.let { timeOnly.stringFromDate(it) },
+        toDateTime.date()?.let { timeOnly.stringFromDate(it) }
     )
 
     private fun LocalDate.date() = NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents())
 
-    private fun LocalDateTime.date() = NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents())//TODOKPG - Pretty sure this is device time zone, might be OK. Just for local formating
+    private fun LocalDateTime.date() =
+        NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents()) // TODOKPG - Pretty sure this is device time zone, might be OK. Just for local formating
 
     private fun interval(from: String?, to: String?) = listOfNotNull(from, to).joinToString(" – ")
 }

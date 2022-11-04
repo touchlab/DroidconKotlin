@@ -11,13 +11,16 @@ class SessionBlockViewModel(
     startsAt: LocalDateTime,
     items: List<ScheduleItem>,
     onScheduleItemSelected: (ScheduleItem) -> Unit,
-): BaseViewModel() {
+) : BaseViewModel() {
     val time: String = dateFormatter.timeOnly(startsAt) ?: ""
     val sessions: List<SessionListItemViewModel> by managedList(
         items.map { item ->
-            sessionListItemFactory.create(item, selected = {
-                onScheduleItemSelected(item)
-            })
+            sessionListItemFactory.create(
+                item,
+                selected = {
+                    onScheduleItemSelected(item)
+                }
+            )
         }
     )
 

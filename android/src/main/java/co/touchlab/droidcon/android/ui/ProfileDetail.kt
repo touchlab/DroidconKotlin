@@ -81,7 +81,6 @@ private fun Header(name: String, tagLine: String, imageUrl: Url?) {
             .background(color = MaterialTheme.colors.primary),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-
         val painter = imageUrl?.string?.let {
             rememberImagePainter(
                 data = it,

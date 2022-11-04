@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.ui.icons.Aod
 import co.touchlab.droidcon.ui.icons.MailOutline
 import co.touchlab.droidcon.ui.icons.Notifications
 import co.touchlab.droidcon.ui.theme.Dimensions

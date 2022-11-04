@@ -13,7 +13,7 @@ import org.koin.core.component.inject
 
 abstract class BaseSessionListViewModel(
     val attendingOnly: Boolean,
-): ViewModel(), KoinComponent {
+) : ViewModel(), KoinComponent {
 
     val days = MutableStateFlow(emptyList<SessionsDayViewModel>())
 

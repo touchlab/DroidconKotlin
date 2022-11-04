@@ -88,8 +88,12 @@ fun SessionList(navController: NavHostController, sessions: BaseSessionListViewM
                         LazyColumn(state = state, contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter)) {
                             val daySchedule = days.getOrNull(selectedTabIndex)?.blocks ?: emptyList()
                             items(daySchedule) { hourBlock ->
-                                Box(modifier = Modifier.padding(vertical = Dimensions.Padding.quarter,
-                                    horizontal = Dimensions.Padding.half)) {
+                                Box(
+                                    modifier = Modifier.padding(
+                                        vertical = Dimensions.Padding.quarter,
+                                        horizontal = Dimensions.Padding.half
+                                    )
+                                ) {
                                     SessionBlock(hourBlock, sessions.attendingOnly) { tappedSession ->
                                         navController.navigate(ScheduleScreen.SessionDetail.createRoute(tappedSession.id))
                                     }

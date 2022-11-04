@@ -1,10 +1,7 @@
 package co.touchlab.droidcon.util
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.with
@@ -96,13 +93,14 @@ class NavigationController : BaseViewModel() {
                     true
                 }
             }
-            is NavigationStackItem.Push<*> -> if (top.item.value != null) {
-                stack.removeAt(currentIndex)
-                top.item.value = null
-                true
-            } else {
-                pop(defer + 1)
-            }
+            is NavigationStackItem.Push<*> ->
+                if (top.item.value != null) {
+                    stack.removeAt(currentIndex)
+                    top.item.value = null
+                    true
+                } else {
+                    pop(defer + 1)
+                }
             null -> false
         }
     }
@@ -130,12 +128,12 @@ class NavigationController : BaseViewModel() {
     }
 
     @Composable
-    private fun <T: Any> PushedStackItem(item: NavigationStackItem.Push<T>, itemModifier: Modifier) {
+    private fun <T : Any> PushedStackItem(item: NavigationStackItem.Push<T>, itemModifier: Modifier) {
         println("$item")
         val itemValue by item.item.observeAsState()
 
         itemValue?.let {
-            Surface {
+            Surface(modifier = itemModifier) {
                 item.content(it)
             }
         }
@@ -143,7 +141,7 @@ class NavigationController : BaseViewModel() {
 
     @Composable
     internal fun <T : Any> Pushed(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit) {
-        val refTracking = remember {
+        remember {
             val stackItem = NavigationStackItem.Push(item, content).also {
                 notifyingStackChange {
                     stack.add(it)
@@ -159,7 +157,7 @@ class NavigationController : BaseViewModel() {
 
     @Composable
     internal fun HandleBackPressEffect(onBackPressed: BackPressHandlerScope.() -> Unit) {
-        val refTracking = remember {
+        remember {
             val stackItem = NavigationStackItem.BackPressHandler(onBackPressed).also {
                 stack.add(it)
             }
@@ -177,7 +175,7 @@ class NavigationController : BaseViewModel() {
 }
 
 internal data class NavigationViewDimensions(
-    val constraints: Constraints,
+    val constraints: Constraints
 )
 
 @Composable
@@ -185,7 +183,7 @@ internal fun rememberNavigationController(): NavigationController = remember {
     NavigationController()
 }
 
-private class ReferenceTracking(private val onDispose: () -> Unit): RememberObserver {
+private class ReferenceTracking(private val onDispose: () -> Unit) : RememberObserver {
 
     private var refCount: Int = 0
 
@@ -213,14 +211,14 @@ internal fun BackPressHandler(onBackPressed: NavigationController.BackPressHandl
 
 internal interface NavigationStackScope {
 
-    fun <T: Any> NavigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
+    fun <T : Any> NavigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
 }
 
-internal class NavigationLinkWrapper<T: Any>(
+internal class NavigationLinkWrapper<T : Any>(
     val index: Int,
     private val value: T?,
     private val reset: () -> Unit,
-    private val content: @Composable (T) -> Unit,
+    private val content: @Composable (T) -> Unit
 ) {
 
     val body: (@Composable () -> Unit)?
@@ -249,10 +247,10 @@ internal class NavigationLinkWrapper<T: Any>(
 internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, content: @Composable () -> Unit) {
     val activeLinkComposables by remember(key) {
         val constructedLinks = mutableListOf<ObservableProperty<NavigationLinkWrapper<*>>>()
-        val scope = object: NavigationStackScope {
-            override fun <T: Any> NavigationLink(
+        val scope = object : NavigationStackScope {
+            override fun <T : Any> NavigationLink(
                 item: MutableObservableProperty<T?>,
-                content: @Composable (T) -> Unit,
+                content: @Composable (T) -> Unit
             ) {
                 constructedLinks.add(
                     item.map {
@@ -275,27 +273,29 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
                 slideInHorizontally(initialOffsetX = { -it }) with slideOutHorizontally(targetOffsetX = { it })
             }
         },
-        contentAlignment = Alignment.BottomCenter,
+        contentAlignment = Alignment.BottomCenter
     ) { activeComposables ->
-        SubcomposeLayout(measurePolicy = { constraints ->
-            val layoutWidth = constraints.maxWidth
-            val layoutHeight = constraints.maxHeight
+        SubcomposeLayout(
+            measurePolicy = { constraints ->
+                val layoutWidth = constraints.maxWidth
+                val layoutHeight = constraints.maxHeight
 
-            val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
+                val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
 
-            layout(layoutWidth, layoutHeight) {
-                val contentMeasurable = subcompose(-1, content)
+                layout(layoutWidth, layoutHeight) {
+                    val contentMeasurable = subcompose(-1, content)
 
-                val linkMeasurables = activeComposables.mapNotNull { wrapper ->
-                    wrapper.body?.let { subcompose(wrapper.index, it) }
-                }
+                    val linkMeasurables = activeComposables.mapNotNull { wrapper ->
+                        wrapper.body?.let { subcompose(wrapper.index, it) }
+                    }
 
-                val activeMeasurables = linkMeasurables.lastOrNull() ?: contentMeasurable
+                    val activeMeasurables = linkMeasurables.lastOrNull() ?: contentMeasurable
 
-                activeMeasurables.forEach {
-                    it.measure(looseConstraints).place(x = 0, y = 0)
+                    activeMeasurables.forEach {
+                        it.measure(looseConstraints).place(x = 0, y = 0)
+                    }
                 }
             }
-        })
+        )
     }
 }

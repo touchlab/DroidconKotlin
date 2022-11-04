@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,20 +27,19 @@ import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.AndroidNotificationService
-import co.touchlab.droidcon.util.AppChecker
 import co.touchlab.droidcon.ui.theme.Colors
 import co.touchlab.droidcon.ui.util.MainView
-import co.touchlab.droidcon.viewmodel.ApplicationViewModel
+import co.touchlab.droidcon.util.AppChecker
 import co.touchlab.droidcon.util.NavigationController
+import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.kermit.Logger
-import com.google.accompanist.insets.ProvideWindowInsets
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class MainActivity: ComponentActivity(), KoinComponent {
+class MainActivity : ComponentActivity(), KoinComponent {
 
     private val notificationSchedulingService: NotificationSchedulingService by inject()
     private val syncService: SyncService by inject()
@@ -76,12 +73,9 @@ class MainActivity: ComponentActivity(), KoinComponent {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-
         setContent {
             Box(modifier = Modifier.background(Colors.primary)) {
-                ProvideWindowInsets {
-                    MainView(viewModel = applicationViewModel)
-                }
+                MainView(viewModel = applicationViewModel)
             }
 
             val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
@@ -95,12 +89,12 @@ class MainActivity: ComponentActivity(), KoinComponent {
                         modifier = Modifier
                             .background(Colors.primary)
                             .fillMaxSize(),
-                        contentAlignment = Alignment.Center,
+                        contentAlignment = Alignment.Center
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_splash_screen),
                             contentDescription = getString(R.string.droidcon_title),
-                            modifier = Modifier.padding(32.dp),
+                            modifier = Modifier.padding(32.dp)
                         )
                     }
                 }
@@ -135,7 +129,7 @@ class MainActivity: ComponentActivity(), KoinComponent {
                     Logger.w("Unknown notification type $type.")
                     return
                 }
-            },
+            }
         )
     }
 

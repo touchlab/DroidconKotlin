@@ -14,7 +14,7 @@ class Session(
     val room: Room.Id?,
     var rsvp: RSVP,
     var feedback: Feedback?,
-): DomainEntity<Session.Id>() {
+) : DomainEntity<Session.Id>() {
 
     val isAttendable: Boolean
         get() = dateTimeService.now() < endsAt

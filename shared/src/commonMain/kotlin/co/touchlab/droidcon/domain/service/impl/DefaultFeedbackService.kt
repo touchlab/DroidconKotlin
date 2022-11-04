@@ -6,12 +6,7 @@ import co.touchlab.droidcon.domain.service.FeedbackService
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.set
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -23,7 +18,7 @@ class DefaultFeedbackService(
     private val settings: ObservableSettings,
     private val json: Json,
     private val clock: Clock,
-): FeedbackService {
+) : FeedbackService {
     companion object {
         private const val COMPLETED_SESSION_FEEDBACKS_KEY = "COMPLETED_SESSION_FEEDBACKS"
     }

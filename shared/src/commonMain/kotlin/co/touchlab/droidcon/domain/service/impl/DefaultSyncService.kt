@@ -49,8 +49,8 @@ class DefaultSyncService(
     private val seedDataSource: DataSource,
     private val apiDataSource: DataSource,
     private val serverApi: ServerApi,
-    private val db:DroidconDatabase,
-): SyncService {
+    private val db: DroidconDatabase,
+) : SyncService {
     private companion object {
         // MARK: Settings keys
         private const val LOCAL_REPOSITORIES_SEEDED_KEY = "LOCAL_REPOSITORIES_SEEDED"
@@ -184,14 +184,14 @@ class DefaultSyncService(
         val days = dataSource.getSchedule()
         val sponsorSessionsGroups = dataSource.getSponsorSessions()
 
-        //DB Transactions for db mods are ridiculously faster than non-trans changes. Also, if something fails, thd db will roll back.
-        //The repo architecture will likely need to change. Everything is suspend and unconcerned with thread, but that's not good practice.
+        // DB Transactions for db mods are ridiculously faster than non-trans changes. Also, if something fails, thd db will roll back.
+        // The repo architecture will likely need to change. Everything is suspend and unconcerned with thread, but that's not good practice.
         db.transaction {
             updateSpeakersFromDataSource(speakerDtos)
             updateScheduleFromDataSource(days)
         }
 
-        //Sponsors may fail due to firebase errors, so we'll do this separate
+        // Sponsors may fail due to firebase errors, so we'll do this separate
         val sponsors = dataSource.getSponsors()
         db.transaction {
             updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors)
@@ -320,7 +320,7 @@ class DefaultSyncService(
     }
 
     private fun profileFactory(speakerDto: SpeakersDto.SpeakerDto): Profile {
-        val groupedLinks = speakerDto.links.filter { it.url.isNotBlank() } .groupBy { it.linkType }
+        val groupedLinks = speakerDto.links.filter { it.url.isNotBlank() }.groupBy { it.linkType }
         return Profile(
             id = Profile.Id(speakerDto.id),
             fullName = speakerDto.fullName,
@@ -331,7 +331,7 @@ class DefaultSyncService(
             linkedIn = groupedLinks[LinkType.LinkedIn]?.firstOrNull()?.url?.let(::Url),
             website = (
                 groupedLinks[LinkType.CompanyWebsite] ?: groupedLinks[LinkType.Blog] ?: groupedLinks[LinkType.Other]
-            )?.firstOrNull()?.url?.let(::Url),
+                )?.firstOrNull()?.url?.let(::Url),
         )
     }
 

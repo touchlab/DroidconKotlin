@@ -17,7 +17,7 @@ class DefaultServerApi(
     private val userIdProvider: UserIdProvider,
     private val client: HttpClient,
     private val json: Json,
-): ServerApi {
+) : ServerApi {
     override suspend fun setRsvp(sessionId: Session.Id, isAttending: Boolean): Boolean {
         val methodName = if (isAttending) {
             "sessionizeRsvpEvent"
@@ -32,10 +32,12 @@ class DefaultServerApi(
     }
 
     override suspend fun setFeedback(sessionId: Session.Id, rating: Int, comment: String): Boolean {
-        return client.submitForm(formParameters = Parameters.build {
-            append("rating", rating.toString())
-            append("comment", comment)
-        }) {
+        return client.submitForm(
+            formParameters = Parameters.build {
+                append("rating", rating.toString())
+                append("comment", comment)
+            }
+        ) {
             droidcon("/dataTest/sessionizeFeedbackEvent/${sessionId.value}/${userIdProvider.getId()}")
         }.status.isSuccess()
     }

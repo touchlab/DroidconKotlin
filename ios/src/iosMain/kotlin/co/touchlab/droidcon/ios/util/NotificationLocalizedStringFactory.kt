@@ -5,11 +5,10 @@ import kotlinx.cinterop.cstr
 import platform.Foundation.NSBundle
 import platform.Foundation.NSString
 import platform.Foundation.stringWithFormat
-import platform.Foundation.stringWithString
 
 class NotificationLocalizedStringFactory(
     private val bundle: NSBundle,
-): NotificationSchedulingService.LocalizedStringFactory {
+) : NotificationSchedulingService.LocalizedStringFactory {
 
     override fun reminderTitle(roomName: String?): String {
         val ending = roomName?.let { NSString.stringWithFormat(bundle.localizedStringForKey("Notification.Reminder.Title.InRoom", null, null).convertParametersForPrintf(), it.cstr) } ?: ""

@@ -14,7 +14,7 @@ class DefaultSponsorGateway(
     private val sponsorRepository: SponsorRepository,
     private val sponsorGroupRepository: SponsorGroupRepository,
     private val profileRepository: ProfileRepository,
-): SponsorGateway {
+) : SponsorGateway {
 
     override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> =
         sponsorGroupRepository.observeAll().map { groups ->
@@ -32,4 +32,3 @@ class DefaultSponsorGateway(
     override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> =
         profileRepository.getSponsorRepresentatives(sponsorId)
 }
-

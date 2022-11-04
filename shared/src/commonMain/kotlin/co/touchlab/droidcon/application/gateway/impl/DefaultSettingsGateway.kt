@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 class DefaultSettingsGateway(
     private val settingsRepository: SettingsRepository,
-): SettingsGateway {
+) : SettingsGateway {
 
     override fun settings(): StateFlow<Settings> = settingsRepository.settings
 

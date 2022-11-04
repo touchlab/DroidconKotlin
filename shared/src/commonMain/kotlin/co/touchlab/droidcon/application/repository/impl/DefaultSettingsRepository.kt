@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 @OptIn(ExperimentalSettingsApi::class)
 class DefaultSettingsRepository(
     private val observableSettings: ObservableSettings,
-): SettingsRepository {
+) : SettingsRepository {
     private companion object {
         private const val SETTINGS_FEEDBACK_ENABLED_KEY = "SETTINGS_FEEDBACK_ENABLED"
         private const val SETTINGS_REMINDERS_ENABLED_KEY = "SETTINGS_REMINDERS_ENABLED"

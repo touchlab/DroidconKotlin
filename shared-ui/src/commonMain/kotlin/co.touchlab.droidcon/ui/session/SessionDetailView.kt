@@ -39,8 +39,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.util.NavigationController
-import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ui.FeedbackDialog
 import co.touchlab.droidcon.ui.icons.Add
@@ -52,16 +50,21 @@ import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.RemoteImage
 import co.touchlab.droidcon.ui.util.WebLinkText
 import co.touchlab.droidcon.ui.util.observeAsState
+import co.touchlab.droidcon.util.NavigationController
+import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 
 @Composable
 internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
-    NavigationStack(key = viewModel, links = {
-        NavigationLink(viewModel.observePresentedSpeakerDetail) {
-            SpeakerDetailView(viewModel = it)
+    NavigationStack(
+        key = viewModel,
+        links = {
+            NavigationLink(viewModel.observePresentedSpeakerDetail) {
+                SpeakerDetailView(viewModel = it)
+            }
         }
-    }) {
+    ) {
         Scaffold(
             topBar = {
                 TopAppBar(

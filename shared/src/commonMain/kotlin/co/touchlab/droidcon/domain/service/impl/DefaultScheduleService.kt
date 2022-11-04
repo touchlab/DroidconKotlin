@@ -7,7 +7,7 @@ import kotlinx.datetime.Instant
 
 class DefaultScheduleService(
     private val sessionRepository: SessionRepository,
-): ScheduleService {
+) : ScheduleService {
 
     override suspend fun isInConflict(session: Session): Boolean {
         if (!session.rsvp.isAttending) {
@@ -20,7 +20,7 @@ class DefaultScheduleService(
     }
 
     private fun ClosedRange<Instant>.intersects(otherRange: ClosedRange<Instant>): Boolean {
-        return start.epochSeconds < otherRange.endInclusive.epochSeconds
-            && endInclusive.epochSeconds > otherRange.start.epochSeconds
+        return start.epochSeconds < otherRange.endInclusive.epochSeconds &&
+            endInclusive.epochSeconds > otherRange.start.epochSeconds
     }
 }

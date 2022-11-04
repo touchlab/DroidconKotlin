@@ -3,7 +3,6 @@ package co.touchlab.droidcon.domain.repository.impl
 import co.touchlab.droidcon.db.RoomQueries
 import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.repository.RoomRepository
-import co.touchlab.droidcon.domain.repository.impl.BaseRepository
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
@@ -12,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 class SqlDelightRoomRepository(
     private val roomQueries: RoomQueries,
-): BaseRepository<Room.Id, Room>(), RoomRepository {
+) : BaseRepository<Room.Id, Room>(), RoomRepository {
 
     override fun allSync(): List<Room> = roomQueries.selectAll(::roomFactory).executeAsList()
 

@@ -39,7 +39,7 @@ import platform.darwin.NSObject
 )
 class IOSNotificationService(
     private val log: Logger,
-): NotificationService {
+) : NotificationService {
     private val notificationCenter: UNUserNotificationCenter by lazy {
         val center = UNUserNotificationCenter.currentNotificationCenter()
         center.delegate = notificationDelegate
@@ -132,7 +132,7 @@ class IOSNotificationService(
     // Delegate necessary to show notification.
     private class NotificationDelegate(
         private val notificationHandler: NotificationHandler,
-    ): NSObject(), UNUserNotificationCenterDelegateProtocol {
+    ) : NSObject(), UNUserNotificationCenterDelegateProtocol {
         override fun userNotificationCenter(
             center: UNUserNotificationCenter,
             willPresentNotification: UNNotification,

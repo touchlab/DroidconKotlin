@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class MainViewModel: ViewModel(), KoinComponent {
+class MainViewModel : ViewModel(), KoinComponent {
 
     private val feedbackService: FeedbackService by inject()
     private val settingsGateway: SettingsGateway by inject()

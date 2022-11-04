@@ -9,7 +9,7 @@ import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 class SpeakerDetailViewModel(
     private val parseUrlViewService: ParseUrlViewService,
     profile: Profile,
-): BaseViewModel() {
+) : BaseViewModel() {
 
     val avatarUrl = profile.profilePicture
 

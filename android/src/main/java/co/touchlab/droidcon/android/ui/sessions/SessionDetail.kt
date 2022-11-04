@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.android.ui.feedback.Feedback
 import co.touchlab.droidcon.android.ui.main.ScheduleScreen
 import co.touchlab.droidcon.android.ui.theme.Dimensions
@@ -49,6 +48,7 @@ import co.touchlab.droidcon.android.ui.theme.WebLinkText
 import co.touchlab.droidcon.android.viewModel.sessions.ProfileViewModel
 import co.touchlab.droidcon.android.viewModel.sessions.SessionDetailViewModel
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ui.theme.Colors
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.LocalImageLoader
@@ -234,7 +234,6 @@ private fun Speaker(speaker: ProfileViewModel, speakerTapped: () -> Unit) {
             .clickable { speakerTapped() }
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-
             val painter = speaker.imageUrl?.string?.let {
                 rememberImagePainter(
                     data = it,

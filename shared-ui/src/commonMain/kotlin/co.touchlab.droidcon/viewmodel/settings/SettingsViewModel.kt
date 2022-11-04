@@ -6,7 +6,7 @@ import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 class SettingsViewModel(
     settingsGateway: SettingsGateway,
     private val aboutFactory: AboutViewModel.Factory,
-): BaseViewModel() {
+) : BaseViewModel() {
 
     var isFeedbackEnabled by binding(
         settingsGateway.settings(),

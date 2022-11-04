@@ -17,7 +17,7 @@ class SessionDayViewModel(
     private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     items: List<ScheduleItem>,
     onScheduleItemSelected: (ScheduleItem) -> Unit,
-): BaseViewModel() {
+) : BaseViewModel() {
 
     val day: String = dateFormatter.monthWithDay(date) ?: ""
     val blocks: List<SessionBlockViewModel> by managedList(

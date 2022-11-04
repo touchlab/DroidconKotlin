@@ -9,4 +9,4 @@ class AboutItemViewModel(
     val detail: String,
     val webLinks: List<WebLink>,
     val image: NamedDrawable,
-): ViewModel()
+) : ViewModel()

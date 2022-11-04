@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
-import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
 import co.touchlab.droidcon.android.service.impl.DefaultDateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
@@ -15,6 +14,7 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
+import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.ClasspathResourceReader
 import com.google.firebase.analytics.ktx.analytics
@@ -25,7 +25,7 @@ import com.russhwolf.settings.ObservableSettings
 import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsApi::class)
-class MainApp: Application() {
+class MainApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
