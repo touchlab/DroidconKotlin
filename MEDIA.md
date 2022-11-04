@@ -2,7 +2,9 @@
 
 A sample of blog posts and videos about the application project.
 
-[Medium - Droidcon NYC App!](https://medium.com/@kpgalligan/droidcon-nyc-app-da868bdef387)
+[Touchlab Blog - Droidcon NYC iOS app with Compose](https://touchlab.co/droidcon-nyc-ios-app-with-compose/)
+
+[Touchlab Blog - Compose UI for iOS](https://touchlab.co/compose-ui-for-ios/)
 
 [Medium - Droidcon NYC App!](https://medium.com/@kpgalligan/droidcon-nyc-app-da868bdef387)
 
