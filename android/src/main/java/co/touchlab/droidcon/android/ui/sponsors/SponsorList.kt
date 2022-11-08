@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.android.ui.sponsors
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -57,7 +56,6 @@ import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import kotlin.math.min
 
-@SuppressLint("DiscouragedApi")
 @Composable
 fun SponsorList(navController: NavHostController) {
     val sponsorList = viewModel<SponsorListViewModel>()

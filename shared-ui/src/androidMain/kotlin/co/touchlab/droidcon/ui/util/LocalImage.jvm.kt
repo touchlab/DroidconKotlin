@@ -20,6 +20,8 @@ import androidx.compose.ui.res.painterResource
 import co.touchlab.droidcon.ui.icons.Warning
 import co.touchlab.droidcon.ui.theme.Dimensions
 
+// Use of the function getIdentifier is discouraged, but we need to use it since the drawable names are defined in the common code for both
+// platforms and on each platform we need to get the drawable according to provided name.
 @SuppressLint("ComposableNaming", "DiscouragedApi")
 @Composable
 internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, contentDescription: String?) {

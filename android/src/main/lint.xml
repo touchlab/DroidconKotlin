@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <!-- These resources are used in runtime, common code provides their names and they are found and used according to that. -->
     <issue id="UnusedResources">
         <ignore regexp="about_droidcon.png|about_kotlin.png|about_touchlab.png" />
     </issue>

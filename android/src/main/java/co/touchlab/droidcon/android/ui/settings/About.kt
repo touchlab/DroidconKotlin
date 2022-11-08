@@ -33,6 +33,8 @@ fun About() {
     }
 }
 
+// Use of the function getIdentifier is discouraged, but we need to use it since the drawable names are defined in the common code for both
+// platforms and on each platform we need to get the drawable according to provided name.
 @SuppressLint("DiscouragedApi")
 @Composable
 fun AboutSection(aboutItem: AboutItemViewModel) {

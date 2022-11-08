@@ -22,7 +22,6 @@ subprojects {
         version.set("0.37.2")
         enableExperimentalRules.set(true)
         verbose.set(true)
-        debug.set(true)
         filter {
             exclude { it.file.path.contains("build/") }
         }
