@@ -17,7 +17,7 @@ pluginManagement {
         kotlin("native.cocoapods") version kotlinVersion
         id("com.squareup.sqldelight") version sqldelightVersion
         id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
-        id("org.jetbrains.compose") version "1.2.0"
+        id("org.jetbrains.compose") version "1.3.0-alpha01-dev853"
     }
 
     resolutionStrategy {
