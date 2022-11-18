@@ -7,7 +7,7 @@ plugins {
     id("com.google.firebase.crashlytics") apply false
     id("org.jlleitschuh.gradle.ktlint") version libs.versions.ktlint.get()
     id("org.jetbrains.compose") version (libs.versions.jetbrainsCompose.get()) apply false
-    id("com.squareup.sqldelight") version (libs.versions.sqldelight.get()) apply false
+    id("app.cash.sqldelight") version (libs.versions.sqldelight.get()) apply false
     id("com.github.gmazzo.buildconfig") version (libs.versions.buildConfig.get()) apply false
     id("de.undercouch.download") version (libs.versions.download.get()) apply false
 }

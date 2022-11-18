@@ -2,6 +2,7 @@
 
 package co.touchlab.droidcon
 
+import app.cash.sqldelight.adapter.primitive.IntColumnAdapter
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.gateway.impl.DefaultSettingsGateway
 import co.touchlab.droidcon.application.repository.AboutRepository
@@ -12,6 +13,7 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.impl.DefaultNotificationSchedulingService
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.db.SessionTable
+import co.touchlab.droidcon.db.SponsorGroupTable
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.domain.gateway.impl.DefaultSessionGateway
@@ -74,7 +76,11 @@ private val coreModule = module {
             sessionTableAdapter = SessionTable.Adapter(
                 startsAtAdapter = InstantSqlDelightAdapter,
                 endsAtAdapter = InstantSqlDelightAdapter,
+                feedbackRatingAdapter = IntColumnAdapter
             ),
+            sponsorGroupTableAdapter = SponsorGroupTable.Adapter(
+                displayPriorityAdapter = IntColumnAdapter
+            )
         )
     }
     single<Clock> { Clock.System }

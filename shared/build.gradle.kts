@@ -5,7 +5,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.android.library")
-    id("com.squareup.sqldelight")
+    id("app.cash.sqldelight")
     id("com.github.gmazzo.buildconfig")
     id("de.undercouch.download")
     id("multiplatform-resources")

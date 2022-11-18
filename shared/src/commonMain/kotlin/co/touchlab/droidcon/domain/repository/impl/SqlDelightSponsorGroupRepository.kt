@@ -1,30 +1,31 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import co.touchlab.droidcon.db.SponsorGroupQueries
 import co.touchlab.droidcon.domain.entity.SponsorGroup
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
-import com.squareup.sqldelight.runtime.coroutines.mapToOne
-import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
 class SqlDelightSponsorGroupRepository(
-    private val sponsorGroupQueries: SponsorGroupQueries,
+    private val sponsorGroupQueries: SponsorGroupQueries
 ) : BaseRepository<SponsorGroup.Id, SponsorGroup>(), SponsorGroupRepository {
 
     override fun allSync(): List<SponsorGroup> = sponsorGroupQueries.selectAll(::sponsorGroupFactory).executeAsList()
 
     override fun observe(id: SponsorGroup.Id): Flow<SponsorGroup> {
-        return sponsorGroupQueries.sponsorGroupByName(id.value, ::sponsorGroupFactory).asFlow().mapToOne()
+        return sponsorGroupQueries.sponsorGroupByName(id.value, ::sponsorGroupFactory).asFlow().mapToOne(Dispatchers.Default)
     }
 
     override fun observeOrNull(id: SponsorGroup.Id): Flow<SponsorGroup?> {
-        return sponsorGroupQueries.sponsorGroupByName(id.value, ::sponsorGroupFactory).asFlow().mapToOneOrNull()
+        return sponsorGroupQueries.sponsorGroupByName(id.value, ::sponsorGroupFactory).asFlow().mapToOneOrNull(Dispatchers.Default)
     }
 
     override fun observeAll(): Flow<List<SponsorGroup>> {
-        return sponsorGroupQueries.selectAll(::sponsorGroupFactory).asFlow().mapToList()
+        return sponsorGroupQueries.selectAll(::sponsorGroupFactory).asFlow().mapToList(Dispatchers.Default)
     }
 
     override fun contains(id: SponsorGroup.Id): Boolean {

@@ -1,29 +1,30 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.db.SponsorQueries
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.repository.SponsorRepository
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
-import com.squareup.sqldelight.runtime.coroutines.mapToOne
-import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
 class SqlDelightSponsorRepository(
-    private val sponsorQueries: SponsorQueries,
+    private val sponsorQueries: SponsorQueries
 ) : BaseRepository<Sponsor.Id, Sponsor>(), SponsorRepository {
 
     override fun observe(id: Sponsor.Id): Flow<Sponsor> {
-        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOne()
+        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOne(Dispatchers.Default)
     }
 
     override fun observeOrNull(id: Sponsor.Id): Flow<Sponsor?> {
-        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOneOrNull()
+        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOneOrNull(Dispatchers.Default)
     }
 
     override fun observeAll(): Flow<List<Sponsor>> {
-        return sponsorQueries.selectAll(::sponsorFactory).asFlow().mapToList()
+        return sponsorQueries.selectAll(::sponsorFactory).asFlow().mapToList(Dispatchers.Default)
     }
 
     override fun contains(id: Sponsor.Id): Boolean {
