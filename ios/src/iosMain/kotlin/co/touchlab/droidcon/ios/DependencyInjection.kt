@@ -24,14 +24,14 @@ import platform.Foundation.NSUserDefaults
 @OptIn(ExperimentalSettingsApi::class)
 fun initKoinIos(
     userDefaults: NSUserDefaults,
-    analyticsService: AnalyticsService,
+    analyticsService: AnalyticsService
 ): KoinApplication = initKoin(
     module {
         single { BundleProvider(bundle = NSBundle.mainBundle) }
         single<ObservableSettings> { AppleSettings(delegate = userDefaults) }
         single<ResourceReader> { BundleResourceReader(bundle = get<BundleProvider>().bundle) }
 
-        single<DateFormatter> { IOSDateFormatter(dateTimeService = get()) }
+        single<DateFormatter> { IOSDateFormatter() }
 
         single<NotificationSchedulingService.LocalizedStringFactory> {
             NotificationLocalizedStringFactory(bundle = get<BundleProvider>().bundle)
@@ -40,7 +40,6 @@ fun initKoinIos(
         single { analyticsService }
 
         single<ParseUrlViewService> { DefaultParseUrlViewService() }
-
     } + uiModule
 )
 

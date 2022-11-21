@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
@@ -25,10 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.android.ui.main.SettingsScreen
 import co.touchlab.droidcon.android.ui.theme.Dimensions
 import co.touchlab.droidcon.android.ui.theme.Toolbar
-import co.touchlab.droidcon.android.viewModel.settings.AboutViewModel
 import co.touchlab.droidcon.android.viewModel.settings.SettingsViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -36,9 +33,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 fun Settings(navController: NavHostController) {
     val settings = viewModel<SettingsViewModel>()
 
-    Scaffold(topBar = {
-        Toolbar(titleRes = R.string.settings_title, navController = navController)
-    }) {
+    Scaffold(
+        topBar = {
+            Toolbar(titleRes = R.string.settings_title, navController = navController)
+        }
+    ) {
         val scrollState = rememberScrollState()
         Column(modifier = Modifier.fillMaxSize().padding(it).verticalScroll(scrollState)) {
             IconTextSwitchRow(

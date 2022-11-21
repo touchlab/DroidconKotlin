@@ -13,7 +13,7 @@ class SponsorDetailViewModel(
     private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
     private val sponsor: Sponsor,
     val groupName: String,
-): BaseViewModel() {
+) : BaseViewModel() {
 
     val name = sponsor.name
     val imageUrl = sponsor.icon
@@ -28,9 +28,12 @@ class SponsorDetailViewModel(
 
     override suspend fun whileAttached() {
         sponsorGateway.getRepresentatives(sponsor.id).map { speaker ->
-            speakerListItemFactory.create(speaker, selected = {
-                presentedSpeakerDetail = speakerDetailFactory.create(speaker)
-            })
+            speakerListItemFactory.create(
+                speaker,
+                selected = {
+                    presentedSpeakerDetail = speakerDetailFactory.create(speaker)
+                }
+            )
         }
     }
 

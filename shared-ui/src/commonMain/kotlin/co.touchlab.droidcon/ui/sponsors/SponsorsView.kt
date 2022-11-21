@@ -47,11 +47,14 @@ import kotlin.math.min
 
 @Composable
 internal fun SponsorsView(viewModel: SponsorListViewModel) {
-    NavigationStack(key = viewModel, links = {
-        NavigationLink(viewModel.observePresentedSponsorDetail) {
-            SponsorDetailView(viewModel = it)
+    NavigationStack(
+        key = viewModel,
+        links = {
+            NavigationLink(viewModel.observePresentedSponsorDetail) {
+                SponsorDetailView(viewModel = it)
+            }
         }
-    }) {
+    ) {
         Scaffold(
             topBar = {
                 TopAppBar(

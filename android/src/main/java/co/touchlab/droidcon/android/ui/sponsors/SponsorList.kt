@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -57,7 +56,6 @@ import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import kotlin.math.min
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SponsorList(navController: NavHostController) {
     val sponsorList = viewModel<SponsorListViewModel>()
@@ -69,10 +67,12 @@ fun SponsorList(navController: NavHostController) {
         selectedTabIndex = selectedTabIndex.coerceIn(sponsorGroups.indices.takeUnless { it.isEmpty() } ?: IntRange(0, 0))
     }
 
-    Scaffold(topBar = {
-        Toolbar(titleRes = R.string.sponsors_title, navController = navController)
-    }) {
-        Column {
+    Scaffold(
+        topBar = {
+            Toolbar(titleRes = R.string.sponsors_title, navController = navController)
+        }
+    ) { contentPadding ->
+        Column(modifier = Modifier.padding(contentPadding)) {
             if (sponsorGroups.isEmpty()) {
                 Empty()
             } else {
@@ -96,7 +96,7 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
         modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half),
         color = MaterialTheme.colors.background,
         elevation = 2.dp,
-        border = if (MaterialTheme.colors.isLight) null else BorderStroke(1.dp, MaterialTheme.colors.surface),
+        border = if (MaterialTheme.colors.isLight) null else BorderStroke(1.dp, MaterialTheme.colors.surface)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
@@ -105,9 +105,9 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                     start = Dimensions.Padding.default,
                     end = Dimensions.Padding.default,
                     top = Dimensions.Padding.default,
-                    bottom = Dimensions.Padding.quarter,
+                    bottom = Dimensions.Padding.quarter
                 ),
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h4
             )
             val columnCount = if (sponsorGroup.isProminent) 3 else 4
 
@@ -141,7 +141,7 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                                         uriHandler.openUri(sponsor.url.string)
                                     }
                                 },
-                            contentAlignment = Alignment.Center,
+                            contentAlignment = Alignment.Center
                         ) {
                             if (resource.state !is ImagePainter.State.Success) {
                                 Text(
@@ -149,12 +149,12 @@ private fun SponsorGroup(sponsorGroup: SponsorGroupViewModel, navController: Nav
                                     modifier = Modifier.padding(Dimensions.Padding.half),
                                     textAlign = TextAlign.Center,
                                     overflow = TextOverflow.Ellipsis,
-                                    maxLines = 3,
+                                    maxLines = 3
                                 )
                             }
                             Image(
                                 painter = resource,
-                                contentDescription = sponsor.name,
+                                contentDescription = sponsor.name
                             )
                         }
                     }
@@ -173,7 +173,7 @@ private fun Empty() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_baseline_calendar_today_24),
@@ -181,13 +181,13 @@ private fun Empty() {
             modifier = Modifier
                 .size(80.dp)
                 .padding(Dimensions.Padding.default),
-            tint = Colors.lightYellow,
+            tint = Colors.lightYellow
         )
 
         Text(
             text = stringResource(id = R.string.sponsors_empty),
             modifier = Modifier.padding(Dimensions.Padding.default),
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
     }
 }

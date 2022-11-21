@@ -31,7 +31,7 @@ class AndroidNotificationService(
     private val log: Logger,
     private val settings: ObservableSettings,
     private val json: Json,
-): NotificationService {
+) : NotificationService {
 
     private var notificationIdCounter: Int
         get() = settings[NOTIFICATION_ID_COUNTER_KEY, 0]

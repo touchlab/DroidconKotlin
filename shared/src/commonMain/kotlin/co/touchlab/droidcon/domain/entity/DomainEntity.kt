@@ -1,6 +1,6 @@
 package co.touchlab.droidcon.domain.entity
 
-abstract class DomainEntity<ID: Any> {
+abstract class DomainEntity<ID : Any> {
     abstract val id: ID
 
     override fun hashCode(): Int = id.hashCode()

@@ -18,7 +18,7 @@ class SqlDelightProfileRepository(
     private val profileQueries: ProfileQueries,
     private val speakerQueries: SessionSpeakerQueries,
     private val representativeQueries: SponsorRepresentativeQueries,
-): BaseRepository<Profile.Id, Profile>(), ProfileRepository {
+) : BaseRepository<Profile.Id, Profile>(), ProfileRepository {
 
     override suspend fun getSpeakersBySession(id: Session.Id): List<Profile> {
         return profileQueries.selectBySession(id.value, ::profileFactory).executeAsList()

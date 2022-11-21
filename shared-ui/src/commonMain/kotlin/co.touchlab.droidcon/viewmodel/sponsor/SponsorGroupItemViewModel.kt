@@ -8,7 +8,7 @@ import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 class SponsorGroupItemViewModel(
     private val sponsor: Sponsor,
     val selected: () -> Unit,
-): BaseViewModel() {
+) : BaseViewModel() {
 
     val name = sponsor.name
     val imageUrl = sponsor.icon

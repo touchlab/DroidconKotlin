@@ -3,9 +3,7 @@ package co.touchlab.droidcon.android.viewModel.sessions
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.R
-import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
-import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.android.viewModel.feedback.FeedbackViewModel
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.composite.ScheduleItem
@@ -13,6 +11,8 @@ import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
+import co.touchlab.droidcon.dto.WebLink
+import co.touchlab.droidcon.service.ParseUrlViewService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
@@ -35,7 +35,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class SessionDetailViewModel: ViewModel(), KoinComponent {
+class SessionDetailViewModel : ViewModel(), KoinComponent {
 
     private val sessionGateway by inject<SessionGateway>()
     private val dateTimeFormatter by inject<DateTimeFormatterViewService>()

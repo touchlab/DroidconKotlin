@@ -9,4 +9,3 @@ interface FeedbackService {
 
     suspend fun skip(session: Session)
 }
-

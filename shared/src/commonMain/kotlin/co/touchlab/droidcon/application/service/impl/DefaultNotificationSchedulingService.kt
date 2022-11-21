@@ -33,7 +33,7 @@ class DefaultNotificationSchedulingService(
     private val settings: ObservableSettings,
     private val json: Json,
     private val localizedStringFactory: NotificationSchedulingService.LocalizedStringFactory,
-): NotificationSchedulingService {
+) : NotificationSchedulingService {
     private companion object {
         // MARK: Settings keys
         private const val SCHEDULED_NOTIFICATIONS_KEY = "SCHEDULED_NOTIFICATIONS_KEY"
@@ -99,8 +99,10 @@ class DefaultNotificationSchedulingService(
                                     title = localizedStringFactory.reminderTitle(roomName),
                                     body = localizedStringFactory.reminderBody(session.title),
                                     delivery = reminderDelivery,
-                                    dismiss = reminderDelivery.plus(NotificationSchedulingService.REMINDER_DISMISS_OFFSET,
-                                        DateTimeUnit.MINUTE),
+                                    dismiss = reminderDelivery.plus(
+                                        NotificationSchedulingService.REMINDER_DISMISS_OFFSET,
+                                        DateTimeUnit.MINUTE
+                                    ),
                                 )
                             }
                         }

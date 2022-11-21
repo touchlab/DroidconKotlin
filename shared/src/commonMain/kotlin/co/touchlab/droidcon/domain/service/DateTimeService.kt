@@ -20,4 +20,3 @@ fun Instant.toConferenceDateTime(dateTimeService: DateTimeService): LocalDateTim
 fun LocalDateTime.fromConferenceDateTime(dateTimeService: DateTimeService): Instant = with(dateTimeService) {
     fromConferenceDateTime()
 }
-

@@ -12,9 +12,7 @@ val properties = Properties()
 try {
 
     properties.load(project.rootProject.file("local.properties").bufferedReader())
-}
-catch(e:Exception) {
-
+} catch (e: Exception) {
 }
 
 val releasePassword = properties.getProperty("releasePassword", "")
@@ -36,7 +34,7 @@ android {
     packagingOptions {
         resources.excludes.add("META-INF/*.kotlin_module")
     }
-    if(releaseEnabled) {
+    if (releaseEnabled) {
         signingConfigs {
             create("release") {
                 keyAlias = "key0"
@@ -47,7 +45,7 @@ android {
         }
     }
     buildTypes {
-        if(releaseEnabled) {
+        if (releaseEnabled) {
             getByName("release") {
                 isMinifyEnabled = false
                 proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -89,7 +87,6 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.accompanist.coil)
-    implementation(libs.accompanist.insets)
     implementation(libs.accompanist.navigationAnimation)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)

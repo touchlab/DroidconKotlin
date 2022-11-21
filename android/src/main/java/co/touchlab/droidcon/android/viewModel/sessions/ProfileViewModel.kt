@@ -5,7 +5,7 @@ import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile
 import org.koin.core.component.KoinComponent
 
-class ProfileViewModel(profile: Profile): ViewModel(), KoinComponent {
+class ProfileViewModel(profile: Profile) : ViewModel(), KoinComponent {
 
     val id: Profile.Id = profile.id
 

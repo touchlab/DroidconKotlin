@@ -4,19 +4,15 @@ import co.touchlab.droidcon.Constants.conferenceTimeZone
 import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.atTime
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toJavaInstant
-import kotlinx.datetime.toJavaLocalDateTime
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class AndroidDateFormatter(private val dateTimeService: DateTimeService): DateFormatter {
+class AndroidDateFormatter(private val dateTimeService: DateTimeService) : DateFormatter {
 
-    //TODOKPG - May not need to set timezone. Java date has no TZ
+    // TODOKPG - May not need to set timezone. Java date has no TZ
     private val shortDateFormat =
         SimpleDateFormat("MMM d", Locale.getDefault()).apply { timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone.id) }
     private val minuteHourTimeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault())

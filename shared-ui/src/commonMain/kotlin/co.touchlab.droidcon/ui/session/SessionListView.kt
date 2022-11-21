@@ -52,11 +52,14 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun SessionListView(viewModel: BaseSessionListViewModel) {
-    NavigationStack(key = viewModel, links = {
-        NavigationLink(viewModel.observePresentedSessionDetail) {
-            SessionDetailView(viewModel = it)
+    NavigationStack(
+        key = viewModel,
+        links = {
+            NavigationLink(viewModel.observePresentedSessionDetail) {
+                SessionDetailView(viewModel = it)
+            }
         }
-    }) {
+    ) {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -99,13 +102,16 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                         }
                     ) {
                         days?.forEachIndexed { index, daySchedule ->
-                            Tab(selected = selectedTabIndex == index, onClick = {
-                                viewModel.selectedDay = daySchedule
+                            Tab(
+                                selected = selectedTabIndex == index,
+                                onClick = {
+                                    viewModel.selectedDay = daySchedule
 
-                                coroutineScope.launch {
-                                    state.animateScrollToItem(index)
+                                    coroutineScope.launch {
+                                        state.animateScrollToItem(index)
+                                    }
                                 }
-                            }) {
+                            ) {
                                 Text(
                                     text = daySchedule.day,
                                     modifier = Modifier.padding(Dimensions.Padding.default),

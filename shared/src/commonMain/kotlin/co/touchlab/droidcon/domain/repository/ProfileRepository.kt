@@ -4,7 +4,7 @@ import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.entity.Sponsor
 
-interface ProfileRepository: Repository<Profile.Id, Profile> {
+interface ProfileRepository : Repository<Profile.Id, Profile> {
 
     suspend fun getSpeakersBySession(id: Session.Id): List<Profile>
 
@@ -14,5 +14,5 @@ interface ProfileRepository: Repository<Profile.Id, Profile> {
 
     suspend fun getSponsorRepresentatives(sponsorId: Sponsor.Id): List<Profile>
 
-    fun allSync():List<Profile>
+    fun allSync(): List<Profile>
 }

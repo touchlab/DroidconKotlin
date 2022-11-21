@@ -6,9 +6,8 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -30,7 +29,6 @@ import co.touchlab.droidcon.android.ui.agenda.MyAgenda
 import co.touchlab.droidcon.android.ui.feedback.Feedback
 import co.touchlab.droidcon.android.ui.schedule.Schedule
 import co.touchlab.droidcon.android.ui.sessions.SessionDetail
-import co.touchlab.droidcon.android.ui.settings.About
 import co.touchlab.droidcon.android.ui.settings.Settings
 import co.touchlab.droidcon.android.ui.sponsors.SponsorDetail
 import co.touchlab.droidcon.android.ui.sponsors.SponsorList
@@ -38,44 +36,43 @@ import co.touchlab.droidcon.android.viewModel.MainViewModel
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.entity.Sponsor
-import com.google.accompanist.insets.systemBarsPadding
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 sealed class MainTab(val route: String, @StringRes val titleRes: Int, @DrawableRes val image: Int) {
-    object Schedule: MainTab("schedule", R.string.schedule_title, R.drawable.menu_schedule)
-    object MyAgenda: MainTab("myAgenda", R.string.my_agenda_title, R.drawable.menu_my_agenda)
-    object Sponsors: MainTab("sponsors", R.string.sponsors_title, R.drawable.menu_sponsor)
-    object Settings: MainTab("settings", R.string.settings_title, R.drawable.menu_settings)
+    object Schedule : MainTab("schedule", R.string.schedule_title, R.drawable.menu_schedule)
+    object MyAgenda : MainTab("myAgenda", R.string.my_agenda_title, R.drawable.menu_my_agenda)
+    object Sponsors : MainTab("sponsors", R.string.sponsors_title, R.drawable.menu_sponsor)
+    object Settings : MainTab("settings", R.string.settings_title, R.drawable.menu_settings)
 }
 
 sealed class SettingsScreen(val route: String) {
-    object Main: SettingsScreen("settings/main")
-    object About: SettingsScreen("settings/about")
+    object Main : SettingsScreen("settings/main")
+    object About : SettingsScreen("settings/about")
 }
 
 sealed class ScheduleScreen(val route: String) {
-    object Main: ScheduleScreen("schedule/main")
-    object SessionDetail: ScheduleScreen("schedule/sessionDetail-{sessionId}") {
+    object Main : ScheduleScreen("schedule/main")
+    object SessionDetail : ScheduleScreen("schedule/sessionDetail-{sessionId}") {
 
         fun createRoute(sessionId: Session.Id) = "schedule/sessionDetail-${sessionId.value}"
     }
 
-    object SpeakerDetail: ScheduleScreen("schedule/speakerDetail-{speakerId}") {
+    object SpeakerDetail : ScheduleScreen("schedule/speakerDetail-{speakerId}") {
 
         fun createRoute(speakerId: Profile.Id) = "schedule/speakerDetail-${speakerId.value}"
     }
 }
 
 sealed class SponsorsScreen(val route: String) {
-    object Main: SponsorsScreen("sponsors/main")
-    object Detail: SponsorsScreen("sponsors/detail/{sponsorGroup}-{sponsorName}") {
+    object Main : SponsorsScreen("sponsors/main")
+    object Detail : SponsorsScreen("sponsors/detail/{sponsorGroup}-{sponsorName}") {
 
         fun createRoute(sponsorId: Sponsor.Id) = "sponsors/detail/${sponsorId.group}-${sponsorId.name}"
     }
 
-    object RepresentativeDetail: ScheduleScreen("sponsors/representativeDetail-{representativeId}") {
+    object RepresentativeDetail : ScheduleScreen("sponsors/representativeDetail-{representativeId}") {
 
         fun createRoute(representativeId: Profile.Id) = "sponsors/representativeDetail-${representativeId.value}"
     }
@@ -139,7 +136,7 @@ fun Main(main: MainViewModel) {
                         } else {
                             fadeOut()
                         }
-                    },
+                    }
                 ) { backStackEntry ->
                     val sessionId = backStackEntry.arguments?.getString("sessionId")
                     requireNotNull(sessionId) { "Parameter sessionId not found." }
@@ -160,7 +157,7 @@ fun Main(main: MainViewModel) {
                         } else {
                             fadeOut()
                         }
-                    },
+                    }
                 ) { backStackEntry ->
                     val speakerId = backStackEntry.arguments?.getString("speakerId")
                     requireNotNull(speakerId) { "Parameter speakerId not found." }
@@ -187,7 +184,7 @@ fun Main(main: MainViewModel) {
                         } else {
                             fadeOut()
                         }
-                    },
+                    }
                 ) { backStackEntry ->
                     val sponsorName = requireNotNull(backStackEntry.arguments?.getString("sponsorName")) {
                         "Parameter sponsorName not found."
@@ -213,7 +210,7 @@ fun Main(main: MainViewModel) {
                         } else {
                             fadeOut()
                         }
-                    },
+                    }
                 ) { backStackEntry ->
                     val representativeId = backStackEntry.arguments?.getString("representativeId")
                     requireNotNull(representativeId) { "Parameter representativeId not found." }

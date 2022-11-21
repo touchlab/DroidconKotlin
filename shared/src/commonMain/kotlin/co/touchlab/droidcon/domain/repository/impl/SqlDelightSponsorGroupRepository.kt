@@ -1,12 +1,8 @@
 package co.touchlab.droidcon.domain.repository.impl
 
-import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.db.SponsorGroupQueries
-import co.touchlab.droidcon.db.SponsorQueries
-import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.entity.SponsorGroup
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
-import co.touchlab.droidcon.domain.repository.SponsorRepository
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
@@ -15,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 class SqlDelightSponsorGroupRepository(
     private val sponsorGroupQueries: SponsorGroupQueries,
-): BaseRepository<SponsorGroup.Id, SponsorGroup>(), SponsorGroupRepository {
+) : BaseRepository<SponsorGroup.Id, SponsorGroup>(), SponsorGroupRepository {
 
     override fun allSync(): List<SponsorGroup> = sponsorGroupQueries.selectAll(::sponsorGroupFactory).executeAsList()
 

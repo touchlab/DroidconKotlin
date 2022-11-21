@@ -9,7 +9,7 @@ class AgendaViewModel(
     sessionDetailFactory: SessionDetailViewModel.Factory,
     sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     dateTimeService: DateTimeService,
-): BaseSessionListViewModel(
+) : BaseSessionListViewModel(
     sessionGateway,
     sessionDayFactory,
     sessionDetailFactory,

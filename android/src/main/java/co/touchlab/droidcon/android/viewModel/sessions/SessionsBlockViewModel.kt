@@ -7,7 +7,6 @@ import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -16,7 +15,7 @@ class SessionsBlockViewModel(
     startsAt: Instant,
     endsAt: Instant,
     items: List<ScheduleItem>,
-): ViewModel(), KoinComponent {
+) : ViewModel(), KoinComponent {
 
     private val dateTimeFormatter by inject<DateTimeFormatterViewService>()
 

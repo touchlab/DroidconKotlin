@@ -7,7 +7,7 @@ class IdentifiableIntent(
     private val id: String,
     packageContext: Context,
     cls: Class<*>,
-): Intent(packageContext, cls) {
+) : Intent(packageContext, cls) {
 
     override fun filterEquals(other: Intent?): Boolean {
         if (this === other) return true

@@ -3,7 +3,7 @@ package co.touchlab.droidcon.domain.repository
 import co.touchlab.droidcon.domain.entity.DomainEntity
 import kotlinx.coroutines.flow.Flow
 
-interface Repository<ID: Any, ENTITY: DomainEntity<ID>> {
+interface Repository<ID : Any, ENTITY : DomainEntity<ID>> {
     suspend fun get(id: ID): ENTITY
 
     suspend fun find(id: ID): ENTITY?

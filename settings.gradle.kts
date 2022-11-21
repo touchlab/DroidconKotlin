@@ -62,7 +62,6 @@ dependencyResolutionManagement {
             val multiplatformSettingsRef = version("multiplatformSettings", "0.9")
             val hyperdriveRef = version("hyperdrive", "0.1.139")
             val accompanistCoilRef = version("accompanistCoil", "0.15.0")
-            val accompanistInsetsRef = version("accompanistInsets", "0.27.0")
             val accompanistNavigationAnimationRef = version("accompanistNavigationAnimation", "0.27.0")
             val coreRef = version("androidx-core", "1.9.0")
             val firebaseAnalyticsRef = version("firebase-analytics", "21.2.0")
@@ -114,7 +113,6 @@ dependencyResolutionManagement {
             alias("multiplatformSettings-core").to("com.russhwolf", "multiplatform-settings").versionRef(multiplatformSettingsRef)
             alias("multiplatformSettings-test").to("com.russhwolf", "multiplatform-settings-test").versionRef(multiplatformSettingsRef)
             alias("accompanist-coil").to("com.google.accompanist", "accompanist-coil").versionRef(accompanistCoilRef)
-            alias("accompanist-insets").to("com.google.accompanist", "accompanist-insets").versionRef(accompanistInsetsRef)
             alias("accompanist-navigationAnimation").to("com.google.accompanist", "accompanist-navigation-animation").versionRef(accompanistNavigationAnimationRef)
 
             alias("hyperdrive-multiplatformx-api").to("org.brightify.hyperdrive", "multiplatformx-api").versionRef(hyperdriveRef)
@@ -143,7 +141,7 @@ dependencyResolutionManagement {
                     "androidx-compose-foundation",
                     "androidx-compose-material",
                     "androidx-compose-activity",
-                    "androidx-compose-navigation",
+                    "androidx-compose-navigation"
                 )
             )
             bundle(
@@ -152,14 +150,14 @@ dependencyResolutionManagement {
                     "ktor-client-core",
                     "ktor-client-json",
                     "ktor-client-logging",
-                    "ktor-client-serialization",
+                    "ktor-client-serialization"
                 )
             )
             bundle(
                 "sqldelight-common",
                 listOf(
                     "sqldelight-runtime",
-                    "sqldelight-coroutines",
+                    "sqldelight-coroutines"
                 )
             )
         }

@@ -11,7 +11,7 @@ import kotlinx.datetime.toLocalDateTime
 class DefaultDateTimeService(
     private val clock: Clock,
     private val conferenceTimeZone: TimeZone,
-): DateTimeService {
+) : DateTimeService {
 
     override fun now(): Instant = clock.now()
 

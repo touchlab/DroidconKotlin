@@ -9,7 +9,7 @@ import co.touchlab.kermit.NSLogWriter
 import co.touchlab.kermit.StaticConfig
 import com.squareup.sqldelight.db.SqlDriver
 import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.engine.ios.Ios
+import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.ObjCClass
 import kotlinx.cinterop.ObjCProtocol
 import kotlinx.cinterop.getOriginalKotlinClass
@@ -22,12 +22,12 @@ actual val platformModule = module {
     single<SqlDriver> { SqlDelightDriverFactory().createDriver() }
 
     single<HttpClientEngine> {
-        Ios.create {}
+        Darwin.create {}
     }
 
     single<NotificationService> {
         IOSNotificationService(
-            log = getWith("IOSNotificationService"),
+            log = getWith("IOSNotificationService")
         )
     }
 
@@ -61,4 +61,3 @@ fun Koin.get(objCProtocol: ObjCProtocol, qualifier: Qualifier?): Any {
     val kClazz = requireNotNull(getOriginalKotlinClass(objCProtocol)) { "Could not get original kotlin class for $objCProtocol." }
     return get(kClazz, qualifier, null)
 }
-

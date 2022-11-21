@@ -9,7 +9,7 @@ import kotlinx.serialization.builtins.ListSerializer
 
 class JsonSeedResourceDataSource(
     private val jsonResourceReader: JsonResourceReader
-): DefaultSyncService.DataSource {
+) : DefaultSyncService.DataSource {
 
     override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto> {
         return jsonResourceReader.readAndDecodeResource("speakers.json", ListSerializer(SpeakersDto.SpeakerDto.serializer()))

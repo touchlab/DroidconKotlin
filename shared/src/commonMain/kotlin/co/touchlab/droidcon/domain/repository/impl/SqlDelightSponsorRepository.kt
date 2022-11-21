@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 
 class SqlDelightSponsorRepository(
     private val sponsorQueries: SponsorQueries,
-): BaseRepository<Sponsor.Id, Sponsor>(), SponsorRepository {
+) : BaseRepository<Sponsor.Id, Sponsor>(), SponsorRepository {
 
     override fun observe(id: Sponsor.Id): Flow<Sponsor> {
         return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOne()

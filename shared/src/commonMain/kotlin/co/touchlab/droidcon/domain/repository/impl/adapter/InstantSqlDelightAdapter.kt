@@ -3,7 +3,7 @@ package co.touchlab.droidcon.domain.repository.impl.adapter
 import com.squareup.sqldelight.ColumnAdapter
 import kotlinx.datetime.Instant
 
-object InstantSqlDelightAdapter: ColumnAdapter<Instant, Long> {
+object InstantSqlDelightAdapter : ColumnAdapter<Instant, Long> {
 
     override fun decode(databaseValue: Long): Instant = Instant.fromEpochMilliseconds(databaseValue)
 

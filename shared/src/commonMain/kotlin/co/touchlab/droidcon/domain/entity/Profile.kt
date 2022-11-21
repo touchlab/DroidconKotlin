@@ -12,6 +12,6 @@ class Profile(
     val twitter: Url?,
     val linkedIn: Url?,
     val website: Url?,
-): DomainEntity<Profile.Id>() {
+) : DomainEntity<Profile.Id>() {
     data class Id(val value: String)
 }

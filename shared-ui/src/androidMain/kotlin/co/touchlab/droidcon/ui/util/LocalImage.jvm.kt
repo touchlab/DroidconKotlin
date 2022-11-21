@@ -1,5 +1,6 @@
-package co.touchlab.droidcon.ui.util
+package co.touchlab.droidcon.ui.util // ktlint-disable filename
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,9 @@ import androidx.compose.ui.res.painterResource
 import co.touchlab.droidcon.ui.icons.Warning
 import co.touchlab.droidcon.ui.theme.Dimensions
 
+// Use of the function getIdentifier is discouraged, but we need to use it since the drawable names are defined in the common code for both
+// platforms and on each platform we need to get the drawable according to provided name.
+@SuppressLint("ComposableNaming", "DiscouragedApi")
 @Composable
 internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, contentDescription: String?) {
     val context = LocalContext.current
@@ -28,19 +32,19 @@ internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, 
             modifier = modifier,
             painter = painterResource(id = imageRes),
             contentDescription = contentDescription,
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.FillWidth
         )
     } else {
         Row(
             modifier = modifier.background(MaterialTheme.colors.primary, RoundedCornerShape(Dimensions.Padding.half)),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.Warning,
                 contentDescription = contentDescription,
                 modifier = Modifier.padding(Dimensions.Padding.half),
-                tint = Color.White,
+                tint = Color.White
             )
             Text("Image not supported", modifier = Modifier.padding(Dimensions.Padding.default), color = Color.White)
             Spacer(modifier = Modifier.weight(1f))

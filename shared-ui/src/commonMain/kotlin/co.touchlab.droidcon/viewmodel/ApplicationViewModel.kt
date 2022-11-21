@@ -23,7 +23,7 @@ class ApplicationViewModel(
     private val notificationSchedulingService: NotificationSchedulingService,
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
-): BaseViewModel(), NotificationHandler {
+) : BaseViewModel(), NotificationHandler {
 
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())

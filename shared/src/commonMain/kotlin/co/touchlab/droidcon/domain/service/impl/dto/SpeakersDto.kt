@@ -67,7 +67,7 @@ object SpeakersDto {
     }
 
     @Serializable
-    data class SessionDto (
+    data class SessionDto(
         val id: Long,
         val name: String
     )

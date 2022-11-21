@@ -6,7 +6,7 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 
 class NotificationLocalizedStringFactory(
     private val context: Context,
-): NotificationSchedulingService.LocalizedStringFactory {
+) : NotificationSchedulingService.LocalizedStringFactory {
 
     override fun reminderTitle(roomName: String?): String {
         val ending = roomName?.let { context.getString(R.string.notification_reminder_title_in_room, it) } ?: ""
