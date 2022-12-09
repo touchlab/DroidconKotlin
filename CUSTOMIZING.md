@@ -17,14 +17,12 @@ Just follow these steps:
 - Change **applicationId** in `build.gradle.kts` (android module)
     - To avoid having to wait for the full verification process from google use the already existing app id for the previous conference in
       the city
-- Change conference **time zone** and **time zone hash** in `Constants.kt`
-- Change **sponsors collection name** and **Sessionize ids** in `Constants.kt`
+- Change conference **time zone** and **time zone hash** in `gradle.properties`
+- Change **sponsors collection name** and **Sessionize ids** in `gradle.properties`
 - Change **icon** by changing `ic_launcher_foreground.xml`, `ic_launcher_background.xml` and `ic_launcher-playstore.png` for Android and
   `AppIcon.appiconset` for iOS
 - Change **launch screen image** by changing `ic_splash_screen.xml` for Android and `LaunchScreen_Icon.imageset` and
   `LaunchScreen_Background.colorset` for iOS
-- Change `schedule.json`, `speakers.json`, `sponsor_sessions.json` and `sponsors.json` by replacing them with new versions from Sessionize
-  and Firebase
 
 It would be super great if you could keep us in the about section of your app, though. We're a consulting company that turns
 project revenue into open source stuff, so we need eyeballs. Thanks XOXO. Speaking of...

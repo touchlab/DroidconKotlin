@@ -7,6 +7,7 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("org.jetbrains.compose")
+    id("co.touchlab.crashkios.crashlyticslink") version "0.8.1"
 }
 
 version = "1.0"
@@ -42,12 +43,14 @@ kotlin {
     sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
 
     cocoapods {
+        noPodspec()
         summary = "Common library for the Droidcon app"
         homepage = "https://github.com/touchlab/DroidconKotlin"
         name = "DroidconKit"
+        extraSpecAttributes += "resource_bundle" to "{ 'KotlinResources' => ['build/downloadedResources/schedule.json'] }"
         framework {
             baseName = "DroidconKit"
-            isStatic = true
+            isStatic = false
             embedBitcode = BitcodeEmbeddingMode.DISABLE
 
             freeCompilerArgs += listOf(
@@ -91,5 +94,21 @@ kotlin {
 afterEvaluate {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>() {
         (compilerPluginClasspath as? Configuration)?.isTransitive = true
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink> {
+    if (outputKind == org.jetbrains.kotlin.konan.target.CompilerOutputKind.FRAMEWORK) {
+        doLast {
+            val x = outputFile.get().resolve("Test.bundle")
+            x.mkdirs()
+            x.resolve("myJson.json").writeText("{\"name\": \"name\"}")
+        }
+    }
+}
+
+afterEvaluate {
+    tasks.named("syncFramework").configure {
+        println("XXX " + (this as org.gradle.api.internal.AbstractTask).taskIdentity.taskType.canonicalName)
     }
 }

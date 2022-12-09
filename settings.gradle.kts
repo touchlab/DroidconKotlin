@@ -18,6 +18,8 @@ pluginManagement {
         id("com.squareup.sqldelight") version sqldelightVersion
         id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
         id("org.jetbrains.compose") version "1.2.0"
+        id("de.undercouch.download") version "5.3.0"
+        id("com.github.gmazzo.buildconfig") version "3.1.0"
     }
 
     resolutionStrategy {

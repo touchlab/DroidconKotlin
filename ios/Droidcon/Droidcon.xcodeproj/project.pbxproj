@@ -8,11 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1821427B26B5418D0047DB71 /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427726B5418D0047DB71 /* about.json */; };
-		1821427C26B5418D0047DB71 /* sponsor_sessions.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427826B5418D0047DB71 /* sponsor_sessions.json */; };
-		1821427D26B5418D0047DB71 /* speakers.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427926B5418D0047DB71 /* speakers.json */; };
-		1821427E26B5418D0047DB71 /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427A26B5418D0047DB71 /* schedule.json */; };
 		1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833220F26B0CF5600D79482 /* DroidconApp.swift */; };
-		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
 		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 		18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
@@ -56,11 +52,7 @@
 
 /* Begin PBXFileReference section */
 		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
-		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
-		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
-		1821427A26B5418D0047DB71 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../shared/src/commonMain/resources/schedule.json; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
-		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
 		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
 		540A306F1CD61E1DFBEC756F /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,11 +113,7 @@
 		1821427626B541720047DB71 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1871C5FB26C5C7A400E51894 /* sponsors.json */,
 				1821427726B5418D0047DB71 /* about.json */,
-				1821427A26B5418D0047DB71 /* schedule.json */,
-				1821427926B5418D0047DB71 /* speakers.json */,
-				1821427826B5418D0047DB71 /* sponsor_sessions.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -290,6 +278,7 @@
 				F1465EFB23AA94BF0055F7C3 /* Resources */,
 				F6AA88266EBC1B414A6C4232 /* [CP] Embed Pods Frameworks */,
 				A33EA3A8289D4DFD008850F7 /* Crashlytics Script */,
+				2C45B91A6D041A0DC04983D5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -338,12 +327,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1821427D26B5418D0047DB71 /* speakers.json in Resources */,
-				1821427C26B5418D0047DB71 /* sponsor_sessions.json in Resources */,
 				18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */,
 				1821427B26B5418D0047DB71 /* about.json in Resources */,
-				1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */,
-				1821427E26B5418D0047DB71 /* schedule.json in Resources */,
 				684FAA8926B2C31800673AFF /* Localizable.strings in Resources */,
 				18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
@@ -354,6 +339,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2C45B91A6D041A0DC04983D5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A33EA3A8289D4DFD008850F7 /* Crashlytics Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

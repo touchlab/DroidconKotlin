@@ -16,49 +16,47 @@ import kotlinx.serialization.json.Json
 
 class DefaultApiDataSource(
     private val client: HttpClient,
-    private val json: Json,
+    private val json: Json
 ) : DefaultSyncService.DataSource {
     override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto> {
         val jsonString = client.get {
             // We want to use the `sponsorsId` to get "speakers" for the sponsors as well as speakers for real sessions.
-            sessionize("/api/v2/${Constants.Sessionize.sponsorsId}/view/speakers")
+            sessionize("/api/v2/${Constants.sessionizeSponsorsId}/view/speakers")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(SpeakersDto.SpeakerDto.serializer()), jsonString)
     }
 
     override suspend fun getSchedule(): List<ScheduleDto.DayDto> {
         val jsonString = client.get {
-            sessionize("/api/v2/${Constants.Sessionize.scheduleId}/view/gridtable")
+            sessionize("/api/v2/${Constants.sessionizeScheduleId}/view/gridtable")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(ScheduleDto.DayDto.serializer()), jsonString)
     }
 
     override suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto> {
         val jsonString = client.get {
-            sessionize("/api/v2/${Constants.Sessionize.sponsorsId}/view/sessions")
+            sessionize("/api/v2/${Constants.sessionizeSponsorsId}/view/sessions")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(SponsorSessionsDto.SessionGroupDto.serializer()), jsonString)
     }
 
     override suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto {
         val jsonString = client.get {
-            with(Constants.Firestore) {
-                firestore("/v1/projects/$projectId/databases/$databaseName/documents/$collectionName?key=$apiKey")
-            }
+            firestore("/v1/projects/${Constants.firestoreProjectId}/databases/${Constants.firestoreDatabaseName}/documents/${Constants.firestoreCollectionName}?key=${Constants.firestoreApiKey}")
         }.bodyAsText()
         return json.decodeFromString(SponsorsDto.SponsorCollectionDto.serializer(), jsonString)
     }
 
     private fun HttpRequestBuilder.sessionize(path: String) {
         url {
-            takeFrom("https://sessionize.com")
+            takeFrom(Constants.sessionizeUrl)
             encodedPath = path
         }
     }
 
     private fun HttpRequestBuilder.firestore(path: String) {
         url {
-            takeFrom("https://firestore.googleapis.com")
+            takeFrom(Constants.firestoreUrl)
             encodedPath = path
         }
     }

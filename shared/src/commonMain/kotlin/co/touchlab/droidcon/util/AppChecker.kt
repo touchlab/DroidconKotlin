@@ -10,7 +10,7 @@ object AppChecker {
      */
     @Throws(IllegalStateException::class)
     fun checkTimeZoneHash() {
-        check(Constants.conferenceTimeZoneHash == toMD5("${Constants.conferenceTimeZone.id}|${Constants.Sessionize.scheduleId}")) {
+        check(Constants.conferenceTimeZoneHash == toMD5("${Constants.conferenceTimeZone.id}|${Constants.sessionizeScheduleId}")) {
             "TimeZone hash is incorrect."
         }
     }
