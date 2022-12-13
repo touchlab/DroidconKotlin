@@ -40,7 +40,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
             textAlign = TextAlign.End,
         )
 
-        Column(modifier = Modifier.padding(start = 72.dp)) {
+        Column(modifier = Modifier.padding(start = 72.dp), verticalArrangement = Arrangement.spacedBy(Dimensions.Padding.quarter)) {
             sessionsBlock.sessions.forEach { session ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     val isInPast by session.observeIsInPast.observeAsState()
