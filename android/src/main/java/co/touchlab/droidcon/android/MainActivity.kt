@@ -136,7 +136,10 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
     override fun onDestroy() {
         super.onDestroy()
-        root.removeChild(applicationViewModel.lifecycle)
+        // Workaround for a crash we could not reproduce: https://console.firebase.google.com/project/droidcon-148cc/crashlytics/app/android:co.touchlab.droidcon.london/issues/8c559569e69164d7109bd6b1be99ade5
+        if (root.hasChild(applicationViewModel.lifecycle)) {
+            root.removeChild(applicationViewModel.lifecycle)
+        }
     }
 
     override fun onBackPressed() {
