@@ -8,6 +8,7 @@ plugins {
     id("com.squareup.sqldelight")
     id("com.github.gmazzo.buildconfig")
     id("de.undercouch.download")
+    id("multiplatform-resources")
 }
 
 val conferenceTimeZone = project.properties["co.touchlab.droidcon.constants.conferenceTimeZone"]
@@ -37,8 +38,6 @@ buildConfig {
 }
 
 val downloadedResourcesDir = layout.buildDirectory.dir("droidcon/downloadedResources")
-
-// version = "1.0"
 
 android {
     val androidMinSdk: String by project

@@ -8,6 +8,8 @@ pluginManagement {
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
+    includeBuild("build-setup")
+
     val kotlinVersion: String by settings
     val sqldelightVersion: String by settings
     plugins {
