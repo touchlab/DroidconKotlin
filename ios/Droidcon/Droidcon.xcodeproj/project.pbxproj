@@ -45,11 +45,7 @@
 		A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */; };
 		A35DEF2228AA265C0072605A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A35DEF2128AA265C0072605A /* Settings.bundle */; };
 		A35DEF2428AA26C80072605A /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */; };
-		DCC61046294BA4D1000BD3AD /* speakers.json in Resources */ = {isa = PBXBuildFile; fileRef = DCC61041294BA4D1000BD3AD /* speakers.json */; };
-		DCC61047294BA4D1000BD3AD /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = DCC61042294BA4D1000BD3AD /* sponsors.json */; };
-		DCC61048294BA4D1000BD3AD /* sponsor_sessions.json in Resources */ = {isa = PBXBuildFile; fileRef = DCC61043294BA4D1000BD3AD /* sponsor_sessions.json */; };
-		DCC61049294BA4D1000BD3AD /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = DCC61044294BA4D1000BD3AD /* about.json */; };
-		DCC6104A294BA4D1000BD3AD /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = DCC61045294BA4D1000BD3AD /* schedule.json */; };
+		DC6D8D43294C6A4500CBBAF4 /* KotlinResourcesForXcode in Resources */ = {isa = PBXBuildFile; fileRef = DC6D8D42294C6A4500CBBAF4 /* KotlinResourcesForXcode */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -94,11 +90,7 @@
 		A35DEF2128AA265C0072605A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
-		DCC61041294BA4D1000BD3AD /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../build/bin/iosArm64/podDebugFramework/resources/speakers.json; sourceTree = "<group>"; };
-		DCC61042294BA4D1000BD3AD /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../build/bin/iosArm64/podDebugFramework/resources/sponsors.json; sourceTree = "<group>"; };
-		DCC61043294BA4D1000BD3AD /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../build/bin/iosArm64/podDebugFramework/resources/sponsor_sessions.json; sourceTree = "<group>"; };
-		DCC61044294BA4D1000BD3AD /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../build/bin/iosArm64/podDebugFramework/resources/about.json; sourceTree = "<group>"; };
-		DCC61045294BA4D1000BD3AD /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../build/bin/iosArm64/podDebugFramework/resources/schedule.json; sourceTree = "<group>"; };
+		DC6D8D42294C6A4500CBBAF4 /* KotlinResourcesForXcode */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KotlinResourcesForXcode; path = ../../build/KotlinResourcesForXcode; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,18 +110,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1821427626B541720047DB71 /* GeneratedResources */ = {
-			isa = PBXGroup;
-			children = (
-				DCC61044294BA4D1000BD3AD /* about.json */,
-				DCC61045294BA4D1000BD3AD /* schedule.json */,
-				DCC61041294BA4D1000BD3AD /* speakers.json */,
-				DCC61043294BA4D1000BD3AD /* sponsor_sessions.json */,
-				DCC61042294BA4D1000BD3AD /* sponsors.json */,
-			);
-			name = GeneratedResources;
-			sourceTree = "<group>";
-		};
 		684FAA7226B2A4B400673AFF /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,8 +231,8 @@
 		F1465EFF23AA94BF0055F7C3 /* Droidcon */ = {
 			isa = PBXGroup;
 			children = (
+				DC6D8D42294C6A4500CBBAF4 /* KotlinResourcesForXcode */,
 				18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */,
-				1821427626B541720047DB71 /* GeneratedResources */,
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
 				46B5284C249C5CF400A7725D /* Koin.swift */,
 				8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */,
@@ -340,15 +320,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */,
-				DCC61046294BA4D1000BD3AD /* speakers.json in Resources */,
-				DCC61049294BA4D1000BD3AD /* about.json in Resources */,
+				DC6D8D43294C6A4500CBBAF4 /* KotlinResourcesForXcode in Resources */,
 				684FAA8926B2C31800673AFF /* Localizable.strings in Resources */,
 				18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
-				DCC6104A294BA4D1000BD3AD /* schedule.json in Resources */,
-				DCC61047294BA4D1000BD3AD /* sponsors.json in Resources */,
 				A35DEF2228AA265C0072605A /* Settings.bundle in Resources */,
-				DCC61048294BA4D1000BD3AD /* sponsor_sessions.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,7 +367,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ../..; ./gradlew :ios:extractResourcesPodDebugFrameworkIosArm64\n";
+			shellScript = "cd ../..; ./gradlew :ios:extractKotlinResourcesForXcode\n";
 		};
 		DE3B37D33D11C1968D62DBBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

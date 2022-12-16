@@ -95,3 +95,8 @@ afterEvaluate {
         (compilerPluginClasspath as? Configuration)?.isTransitive = true
     }
 }
+
+tasks.register("extractKotlinResourcesForXcode", Copy::class) {
+    from(tasks.named("extractResourcesPodDebugFrameworkIosArm64"))
+    into(layout.buildDirectory.dir("KotlinResourcesForXcode"))
+}
