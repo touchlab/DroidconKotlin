@@ -23,14 +23,13 @@ import platform.Foundation.NSUserDefaults
 
 @OptIn(ExperimentalSettingsApi::class)
 fun initKoinIos(
-    resourceBundle: NSBundle,
     userDefaults: NSUserDefaults,
     analyticsService: AnalyticsService
 ): KoinApplication = initKoin(
     module {
         single { BundleProvider(bundle = NSBundle.mainBundle) }
         single<ObservableSettings> { AppleSettings(delegate = userDefaults) }
-        single<ResourceReader> { BundleResourceReader(bundle = resourceBundle) }
+        single<ResourceReader> { BundleResourceReader(bundle = get<BundleProvider>().bundle) }
 
         single<DateFormatter> { IOSDateFormatter() }
 

@@ -4,7 +4,7 @@ import DroidconKit
 func startKoin() {
     let userDefaults = UserDefaults(suiteName: "DROIDCON_SETTINGS")!
 
-    let koinApplication = DependencyInjectionKt.doInitKoinIos(resourceBundle: Bundle(for: Koin_coreKoin.self), userDefaults: userDefaults, analyticsService: IOSAnalyticsService())
+    let koinApplication = DependencyInjectionKt.doInitKoinIos(userDefaults: userDefaults, analyticsService: IOSAnalyticsService())
     _koin = koinApplication.koin
 }
 

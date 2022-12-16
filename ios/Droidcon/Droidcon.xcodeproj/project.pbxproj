@@ -45,7 +45,11 @@
 		A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */; };
 		A35DEF2228AA265C0072605A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A35DEF2128AA265C0072605A /* Settings.bundle */; };
 		A35DEF2428AA26C80072605A /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */; };
-		DC6D8D43294C6A4500CBBAF4 /* KotlinResourcesForXcode in Resources */ = {isa = PBXBuildFile; fileRef = DC6D8D42294C6A4500CBBAF4 /* KotlinResourcesForXcode */; };
+		A3899F13294C6C5B0089691E /* sponsor_sessions.json in Resources */ = {isa = PBXBuildFile; fileRef = A3899F0E294C6C5B0089691E /* sponsor_sessions.json */; };
+		A3899F14294C6C5B0089691E /* about.json in Resources */ = {isa = PBXBuildFile; fileRef = A3899F0F294C6C5B0089691E /* about.json */; };
+		A3899F15294C6C5B0089691E /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = A3899F10294C6C5B0089691E /* schedule.json */; };
+		A3899F16294C6C5B0089691E /* speakers.json in Resources */ = {isa = PBXBuildFile; fileRef = A3899F11294C6C5B0089691E /* speakers.json */; };
+		A3899F17294C6C5B0089691E /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = A3899F12294C6C5B0089691E /* sponsors.json */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -89,8 +93,12 @@
 		A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeController.swift; sourceTree = "<group>"; };
 		A35DEF2128AA265C0072605A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
+		A3899F0E294C6C5B0089691E /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../build/KotlinResourcesForXcode/sponsor_sessions.json; sourceTree = "<group>"; };
+		A3899F0F294C6C5B0089691E /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../build/KotlinResourcesForXcode/about.json; sourceTree = "<group>"; };
+		A3899F10294C6C5B0089691E /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../build/KotlinResourcesForXcode/schedule.json; sourceTree = "<group>"; };
+		A3899F11294C6C5B0089691E /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../build/KotlinResourcesForXcode/speakers.json; sourceTree = "<group>"; };
+		A3899F12294C6C5B0089691E /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../build/KotlinResourcesForXcode/sponsors.json; sourceTree = "<group>"; };
 		A399EE7D791E7ABC935DC78D /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
-		DC6D8D42294C6A4500CBBAF4 /* KotlinResourcesForXcode */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KotlinResourcesForXcode; path = ../../build/KotlinResourcesForXcode; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -193,6 +201,18 @@
 			path = Speaker;
 			sourceTree = "<group>";
 		};
+		A3899F0D294C6C330089691E /* KotlinResourcesForXcode */ = {
+			isa = PBXGroup;
+			children = (
+				A3899F0F294C6C5B0089691E /* about.json */,
+				A3899F10294C6C5B0089691E /* schedule.json */,
+				A3899F11294C6C5B0089691E /* speakers.json */,
+				A3899F0E294C6C5B0089691E /* sponsor_sessions.json */,
+				A3899F12294C6C5B0089691E /* sponsors.json */,
+			);
+			path = KotlinResourcesForXcode;
+			sourceTree = "<group>";
+		};
 		DF9BBECBCD175B90105DA8D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,7 +251,7 @@
 		F1465EFF23AA94BF0055F7C3 /* Droidcon */ = {
 			isa = PBXGroup;
 			children = (
-				DC6D8D42294C6A4500CBBAF4 /* KotlinResourcesForXcode */,
+				A3899F0D294C6C330089691E /* KotlinResourcesForXcode */,
 				18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */,
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
 				46B5284C249C5CF400A7725D /* Koin.swift */,
@@ -320,11 +340,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */,
-				DC6D8D43294C6A4500CBBAF4 /* KotlinResourcesForXcode in Resources */,
+				A3899F14294C6C5B0089691E /* about.json in Resources */,
+				A3899F15294C6C5B0089691E /* schedule.json in Resources */,
 				684FAA8926B2C31800673AFF /* Localizable.strings in Resources */,
 				18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
 				A35DEF2228AA265C0072605A /* Settings.bundle in Resources */,
+				A3899F16294C6C5B0089691E /* speakers.json in Resources */,
+				A3899F17294C6C5B0089691E /* sponsors.json in Resources */,
+				A3899F13294C6C5B0089691E /* sponsor_sessions.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +629,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 50003;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 8UD86646U9;
+				DEVELOPMENT_TEAM = 92JF4K58S2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -622,7 +646,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -638,7 +662,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 50003;
-				DEVELOPMENT_TEAM = 8UD86646U9;
+				DEVELOPMENT_TEAM = 92JF4K58S2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -655,7 +679,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
