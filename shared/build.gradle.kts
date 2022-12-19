@@ -40,14 +40,10 @@ buildConfig {
 val downloadedResourcesDir = layout.buildDirectory.dir("droidcon/downloadedResources")
 
 android {
-    val androidMinSdk: String by project
-    val androidCompileSdk: String by project
-    val androidTargetSdk: String by project
-
-    compileSdk = androidCompileSdk.toInt()
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {
-        minSdk = androidMinSdk.toInt()
-        targetSdk = androidTargetSdk.toInt()
+        minSdk = libs.versions.androidMinSdk.get().toInt()
+        targetSdk = libs.versions.androidTargetSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

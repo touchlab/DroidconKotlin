@@ -18,15 +18,11 @@ try {
 val releasePassword = properties.getProperty("releasePassword", "")
 
 android {
-    val androidMinSdk: String by project
-    val androidCompileSdk: String by project
-    val androidTargetSdk: String by project
-
-    compileSdk = androidCompileSdk.toInt()
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {
         applicationId = "co.touchlab.droidcon.london"
-        minSdk = androidMinSdk.toInt()
-        targetSdk = androidTargetSdk.toInt()
+        minSdk = libs.versions.androidMinSdk.get().toInt()
+        targetSdk = libs.versions.androidTargetSdk.get().toInt()
         versionCode = 20010
         versionName = "2.0.10"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -70,7 +66,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
     packagingOptions {

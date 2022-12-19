@@ -1,9 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
+    kotlin("multiplatform") version libs.versions.kotlin.get() apply false
+    kotlin("plugin.serialization") version (libs.versions.kotlin.get()) apply false
     id("android-gradle") apply false
     id("com.google.firebase.crashlytics") apply false
-    kotlin("multiplatform") apply false
-    id("org.jlleitschuh.gradle.ktlint")
+    id("org.jlleitschuh.gradle.ktlint") version libs.versions.ktlint.get()
+    id("org.jetbrains.compose") version (libs.versions.jetbrainsCompose.get()) apply false
+    id("com.squareup.sqldelight") version (libs.versions.sqldelight.get()) apply false
+    id("com.github.gmazzo.buildconfig") version (libs.versions.buildConfig.get()) apply false
+    id("de.undercouch.download") version (libs.versions.download.get()) apply false
 }
 
 allprojects {
