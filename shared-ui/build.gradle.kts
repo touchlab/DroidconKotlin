@@ -50,10 +50,10 @@ android {
 }
 
 compose {
-    android {
+    /*android {
         useAndroidX = true
         androidxVersion = "1.3.0"
-    }
+    }*/
 }
 
 kotlin {
