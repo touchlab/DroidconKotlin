@@ -17,7 +17,7 @@ pluginManagement {
         kotlin("native.cocoapods") version kotlinVersion
         id("com.squareup.sqldelight") version sqldelightVersion
         id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
-        id("org.jetbrains.compose") version "1.2.0"
+        id("org.jetbrains.compose") version "1.4.0"
     }
 
     resolutionStrategy {
@@ -43,12 +43,15 @@ dependencyResolutionManagement {
     val kotlinVersion: String by settings
     val sqldelightVersion: String by settings
 
+    // kotlin.version=1.8.20
+    // agp.version=7.4.2
+    // compose.version=1.4.0
     versionCatalogs {
         create("libs") {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
-            val composeRef = version("compose", "1.3.0")
-            val composeCompilerRef = version("compose-compiler", "1.3.2")
+            val composeRef = version("compose", "1.4.0")
+            val composeCompilerRef = version("compose-compiler", "1.4.0")
             val composeActivityRef = version("composeActivity", "1.6.1")
             val composeNavigationRef = version("composeNavigation", "2.5.3")
             val splashcreenRef = version("splashscreen", "1.0.0")
