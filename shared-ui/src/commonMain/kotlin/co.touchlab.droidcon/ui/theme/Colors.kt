@@ -4,13 +4,12 @@ import androidx.compose.ui.graphics.Color
 
 object Colors {
 
-    val primary = Color(0xFF7de1c3)
-    val secondary = Color(0xFF0014e6)
-    val secondaryLighter = Color(0xFF0014e6)
+    val primary = Color(0xFF202020)
+    val secondary = Color(0xFFfc8167)
+    val secondaryLighter = Color(0xFFfa9a86)
 
-    val teal = Color(0xFF14A1B6)
+    val imageBackground = Color(0xFF999999)
     val darkBlue = Color(0xFF0E65B1)
-    val lightYellow = Color(0xFFFED050)
     val skyBlue = Color(0xFF68d1fd)
     val orange = Color(0xFFf1582c)
 

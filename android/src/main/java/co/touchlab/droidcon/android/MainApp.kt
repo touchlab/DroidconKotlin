@@ -34,7 +34,7 @@ class MainApp : Application() {
                 single<Context> { this@MainApp }
                 single<Class<out Activity>> { MainActivity::class.java }
                 single<SharedPreferences> {
-                    get<Context>().getSharedPreferences("DROIDCON_SETTINGS", Context.MODE_PRIVATE)
+                    get<Context>().getSharedPreferences("DROIDCON_SETTINGS_2023", Context.MODE_PRIVATE)
                 }
                 single<ObservableSettings> { AndroidSettings(delegate = get()) }
 

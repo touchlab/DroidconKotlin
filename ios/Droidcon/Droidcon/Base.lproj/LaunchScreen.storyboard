@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-ED-diD">
-                                <rect key="frame" x="48.666666666666657" y="187" width="292.66666666666674" height="480"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="LaunchScreen_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="0IB-ED-diD">
+                                <rect key="frame" x="41" y="102" width="308" height="640"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="0IB-ED-diD" secondAttribute="height" multiplier="850:1395" id="Vc0-BB-0qz"/>
                                 </constraints>
@@ -28,7 +28,6 @@
                         <color key="backgroundColor" name="LaunchScreen_Background"/>
                         <constraints>
                             <constraint firstItem="0IB-ED-diD" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="20" id="3vk-mZ-Hfl"/>
-                            <constraint firstItem="0IB-ED-diD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="B8m-gl-UsN"/>
                             <constraint firstItem="0IB-ED-diD" firstAttribute="width" relation="lessThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.75" id="JW2-eP-WpG"/>
                             <constraint firstItem="0IB-ED-diD" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tg9-6c-cLR"/>
                             <constraint firstItem="0IB-ED-diD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lgz-oM-RlH"/>
@@ -39,13 +38,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.307692307692307" y="374.64454976303318"/>
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreen_Icon" width="426.66665649414062" height="640"/>
+        <image name="LaunchScreen_Icon" width="295.33334350585938" height="331"/>
         <namedColor name="LaunchScreen_Background">
-            <color red="0.98039215686274506" green="0.43137254901960786" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.0078431372549019607" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

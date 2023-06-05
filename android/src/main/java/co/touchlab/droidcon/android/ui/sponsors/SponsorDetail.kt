@@ -189,7 +189,7 @@ private fun RepresentativeInfo(profile: ProfileViewModel, representativeTapped: 
                     .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                     .clip(CircleShape)
                     .aspectRatio(1f)
-                    .background(Colors.teal),
+                    .background(Colors.imageBackground),
             )
 
             Text(

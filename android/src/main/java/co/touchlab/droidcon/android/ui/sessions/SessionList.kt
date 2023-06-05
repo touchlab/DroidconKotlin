@@ -120,7 +120,7 @@ private fun Empty(@StringRes textRes: Int) {
             modifier = Modifier
                 .size(80.dp)
                 .padding(Dimensions.Padding.default),
-            tint = Colors.lightYellow,
+            tint = Colors.imageBackground,
         )
 
         Text(

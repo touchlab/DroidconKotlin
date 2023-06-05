@@ -10,6 +10,7 @@ pluginManagement {
 
     val kotlinVersion: String by settings
     val sqldelightVersion: String by settings
+    val composeVersion: String by settings
     plugins {
         kotlin("multiplatform") version kotlinVersion
         kotlin("android") version kotlinVersion
@@ -17,7 +18,7 @@ pluginManagement {
         kotlin("native.cocoapods") version kotlinVersion
         id("com.squareup.sqldelight") version sqldelightVersion
         id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
-        id("org.jetbrains.compose") version "1.5.0-dev1049"
+        id("org.jetbrains.compose") version composeVersion
     }
 
     resolutionStrategy {
@@ -42,16 +43,14 @@ enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
     val kotlinVersion: String by settings
     val sqldelightVersion: String by settings
+    val composeVersion: String by settings
 
-    // kotlin.version=1.8.20
-    // agp.version=7.4.2
-    // compose.version=1.5.0-dev1049
     versionCatalogs {
         create("libs") {
             val kotlinRef = version("kotlin", kotlinVersion)
             val sqldelightRef = version("sqldelight", sqldelightVersion)
-            val composeRef = version("compose", "1.5.0-dev1049")
-            val composeCompilerRef = version("compose-compiler", "1.5.0-dev1049")
+            val composeRef = version("compose", composeVersion)
+            val composeCompilerRef = version("compose-compiler", composeVersion)
             val composeActivityRef = version("composeActivity", "1.6.1")
             val composeNavigationRef = version("composeNavigation", "2.5.3")
             val splashcreenRef = version("splashscreen", "1.0.0")
