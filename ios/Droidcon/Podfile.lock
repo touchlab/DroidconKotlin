@@ -100,7 +100,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.11.5):
     - GoogleUtilities/Logger
-  - Kingfisher (7.1.2)
+  - Kingfisher (7.8.1)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -114,7 +114,7 @@ DEPENDENCIES:
   - DroidconKit (from `../`)
   - Firebase/Analytics
   - Firebase/Crashlytics
-  - Kingfisher (~> 7.1.1)
+  - Kingfisher (~> 7.8.1)
 
 SPEC REPOS:
   trunk:
@@ -151,11 +151,11 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 7fee012a868315d418f365fbc8d394d8e020e749
   GoogleDataTransport: 54dee9d48d14580407f8f5fbf2f496e92437a2f2
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
-  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
+  Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
 
-PODFILE CHECKSUM: d9f1c56384375cdf655573e2af96ddc97d745493
+PODFILE CHECKSUM: 985d3b9cbc157b9c35aee865f42c33cf368f621a
 
 COCOAPODS: 1.12.1
