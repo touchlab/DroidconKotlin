@@ -12,8 +12,8 @@
     </style>
 
     <style name="Theme.Droidcon" parent="Theme.Material.DayNight.NoActionBar">
-        <item name="android:statusBarColor">#33202020</item>
-        <item name="android:navigationBarColor">#33202020</item>
+        <item name="android:statusBarColor">#33fa6e50</item>
+        <item name="android:navigationBarColor">#33fa6e50</item>
     </style>
 
     <style name="Theme.Material.DayNight.NoActionBar" parent="@android:style/Theme.Material.Light.NoActionBar" />
