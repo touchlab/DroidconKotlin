@@ -42,9 +42,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreen_Icon" width="295.33334350585938" height="331"/>
+        <image name="LaunchScreen_Icon" width="426.66665649414062" height="640"/>
         <namedColor name="LaunchScreen_Background">
-            <color red="0.0" green="0.0078431372549019607" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98039215686274506" green="0.43137254901960786" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
