@@ -91,8 +91,6 @@ struct FeedbackDialog: View {
             imageName = "Feedback_Normal"
         case .satisfied:
             imageName = "Feedback_Satisfied"
-        default:
-            fatalError("Unknown image for rating '\(rating)'.")
         }
 
         let isSelected = selectedRating.wrappedValue == rating

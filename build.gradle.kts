@@ -4,6 +4,7 @@ plugins {
     id("com.google.firebase.crashlytics") apply false
     kotlin("multiplatform") apply false
     id("org.jlleitschuh.gradle.ktlint")
+    id("org.jetbrains.compose") apply false
 }
 
 allprojects {
