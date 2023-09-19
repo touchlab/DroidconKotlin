@@ -49,8 +49,6 @@ struct MainView: View {
                         Text("Settings.TabItem.Title")
                     }
                     .tag(tab);
-                default:
-                    fatalError("Unknown tab \(tab).")
                 }
             }
         }

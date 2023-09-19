@@ -135,8 +135,6 @@ struct SessionDetailView: View {
             return "Session.Detail.State.InProgress"
         case .ended:
             return "Session.Detail.State.Ended"
-        default:
-            return nil
         }
     }
 }
