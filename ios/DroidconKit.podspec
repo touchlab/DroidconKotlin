@@ -35,5 +35,5 @@ Pod::Spec.new do |spec|
             SCRIPT
         }
     ]
-                
+    spec.resources = ['build/compose/ios/DroidconKit/compose-resources']
 end

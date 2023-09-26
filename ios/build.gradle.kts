@@ -7,7 +7,7 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("org.jetbrains.compose")
-    id("co.touchlab.skie") version "0.4.15"
+    id("co.touchlab.skie") version "0.4.20"
 }
 
 version = "1.0"
