@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.splash_screen_dcny),
+                            painter = painterResource(id = R.drawable.ic_splash_screen),
                             contentDescription = getString(R.string.droidcon_title),
                             modifier = Modifier.padding(32.dp)
                         )
