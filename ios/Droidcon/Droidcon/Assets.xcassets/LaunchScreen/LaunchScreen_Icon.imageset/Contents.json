@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "dcnyc-splash screen.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "dcnyc-splash screen 1.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "dcnyc-splash screen 2.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "london23-splash-screen.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {
