@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("android-gradle") apply false
+    id("com.android.application") apply false
+    id("com.android.library") apply false
     id("com.google.firebase.crashlytics") apply false
     kotlin("multiplatform") apply false
     id("org.jlleitschuh.gradle.ktlint")
@@ -31,6 +34,12 @@ subprojects {
     afterEvaluate {
         tasks.named("check") {
             dependsOn(tasks.getByName("ktlintCheck"))
+        }
+    }
+
+    tasks.withType(KotlinCompile::class).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
         }
     }
 }
