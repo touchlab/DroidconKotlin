@@ -38,7 +38,7 @@ import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class MainActivity : ComponentActivity(), KoinComponent {
+class MainActivity: ComponentActivity(), KoinComponent {
 
     private val notificationSchedulingService: NotificationSchedulingService by inject()
     private val syncService: SyncService by inject()

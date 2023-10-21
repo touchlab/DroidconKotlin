@@ -85,7 +85,8 @@ kotlin {
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
-                implementation(compose.material)
+                implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
                 implementation(compose.runtime)
 
                 implementation(libs.hyperdrive.multiplatformx.api)

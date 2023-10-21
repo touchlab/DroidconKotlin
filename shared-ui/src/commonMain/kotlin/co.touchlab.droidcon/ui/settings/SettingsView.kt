@@ -8,21 +8,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AppBarDefaults
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Switch
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.icons.MailOutline
 import co.touchlab.droidcon.ui.icons.Notifications
@@ -31,20 +32,26 @@ import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SettingsView(viewModel: SettingsViewModel) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = { Text("Settings") },
-                elevation = 0.dp,
-                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                backgroundColor = MaterialTheme.colors.primary,
+                scrollBehavior = scrollBehavior
             )
         },
-    ) {
+    ) { paddingValues ->
         val scrollState = rememberScrollState()
-        Column(modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)) {
+        Column(
+            modifier = Modifier
+                .padding(top = paddingValues.calculateTopPadding())
+                .fillMaxHeight()
+                .verticalScroll(scrollState)
+        ) {
             IconTextSwitchRow(
                 text = "Enable feedback",
                 image = Icons.Default.MailOutline,

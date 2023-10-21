@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,7 +62,7 @@ internal actual fun NavigationBackPressWrapper(content: @Composable () -> Unit) 
                 imageVector = Icons.Default.KeyboardArrowLeft,
                 contentDescription = null,
                 modifier = Modifier.size(60.dp),
-                tint = MaterialTheme.colors.onBackground,
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
     }
