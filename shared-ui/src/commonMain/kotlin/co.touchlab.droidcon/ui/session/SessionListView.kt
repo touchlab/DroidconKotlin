@@ -190,8 +190,8 @@ private fun TabIndicator(modifier: Modifier = Modifier) {
     Box(
         modifier
             .fillMaxWidth()
-            .padding(horizontal = 36.dp)
-            .height(4.dp)
+            .padding(horizontal = 64.dp)
+            .height(2.dp)
             .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
             .background(MaterialTheme.colorScheme.primary)
     )
