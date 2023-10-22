@@ -15,6 +15,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BookmarkAdded
+import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,9 +43,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ui.FeedbackDialog
-import co.touchlab.droidcon.ui.icons.Add
 import co.touchlab.droidcon.ui.icons.ArrowBack
-import co.touchlab.droidcon.ui.icons.Check
 import co.touchlab.droidcon.ui.icons.Description
 import co.touchlab.droidcon.ui.icons.Info
 import co.touchlab.droidcon.ui.theme.Dimensions
@@ -113,7 +113,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             containerColor = MaterialTheme.colorScheme.secondaryContainer,
                             contentColor = MaterialTheme.colorScheme.secondary
                         ) {
-                            val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
+                            val icon = if (isAttending) Icons.Default.BookmarkAdded else Icons.Outlined.BookmarkAdd
                             val description = if (isAttending) {
                                 "Do not attend"
                             } else {
