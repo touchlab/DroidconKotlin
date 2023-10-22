@@ -26,7 +26,6 @@ import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -81,7 +80,6 @@ class DefaultSyncService(
             settings[LAST_SESSIONIZE_SYNC_KEY] = value?.toEpochMilliseconds()
         }
 
-    @OptIn(FlowPreview::class)
     override suspend fun runSynchronization() {
         seedLocalRepositoriesIfNeeded()
 
