@@ -110,7 +110,8 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             modifier = Modifier
                                 .padding(start = Dimensions.Padding.default)
                                 .size(44.dp),
-                            containerColor = MaterialTheme.colorScheme.primary
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.secondary
                         ) {
                             val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
                             val description = if (isAttending) {
