@@ -68,7 +68,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
             }
         }
     ) {
-        val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+        val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
@@ -121,6 +121,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                                         state.animateScrollToItem(index)
                                     }
                                 },
+                                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                             ) {
                                 Text(
                                     text = daySchedule.day,

@@ -82,6 +82,7 @@ internal fun DroidconTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
+        typography = Typography.typography,
         content = content,
     )
 }

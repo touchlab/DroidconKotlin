@@ -69,9 +69,7 @@ class MainActivity: ComponentActivity(), KoinComponent {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            Box(modifier = Modifier.background(Colors.primary)) {
-                MainView(viewModel = applicationViewModel)
-            }
+            MainView(viewModel = applicationViewModel)
 
             val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
             Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
