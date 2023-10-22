@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.icons.CalendarMonth
 import co.touchlab.droidcon.ui.icons.LocalFireDepartment
 import co.touchlab.droidcon.ui.icons.Schedule

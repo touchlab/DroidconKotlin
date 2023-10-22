@@ -33,7 +33,7 @@ private val LocalNavigationViewDimensions = staticCompositionLocalOf<NavigationV
     error("NavigationView hasn't been used.")
 }
 
-class NavigationController: BaseViewModel() {
+class NavigationController : BaseViewModel() {
 
     private val stack = mutableListOf<NavigationStackItem>()
     private var stackTracking: MutableList<NavigationStackItem> by published(stack, equalityPolicy = neverEqualPolicy())
@@ -46,14 +46,14 @@ class NavigationController: BaseViewModel() {
     }
 
     internal sealed class NavigationStackItem {
-        class BackPressHandler(val onBackPressed: BackPressHandlerScope.() -> Unit): NavigationStackItem() {
+        class BackPressHandler(val onBackPressed: BackPressHandlerScope.() -> Unit) : NavigationStackItem() {
 
             override fun toString(): String {
                 return "BackPress@${hashCode().toUInt().toString(16)}"
             }
         }
 
-        class Push<T: Any>(val item: MutableObservableProperty<T?>, val content: @Composable (T) -> Unit): NavigationStackItem() {
+        class Push<T : Any>(val item: MutableObservableProperty<T?>, val content: @Composable (T) -> Unit) : NavigationStackItem() {
 
             override fun toString(): String {
                 return "Push(${item.value}@${item.hashCode().toUInt().toString(16)})@${hashCode().toUInt().toString(16)}"
@@ -130,7 +130,7 @@ class NavigationController: BaseViewModel() {
     }
 
     @Composable
-    private fun <T: Any> PushedStackItem(item: NavigationStackItem.Push<T>, itemModifier: Modifier) {
+    private fun <T : Any> PushedStackItem(item: NavigationStackItem.Push<T>, itemModifier: Modifier) {
         println("$item")
         val itemValue by item.item.observeAsState()
 
@@ -142,7 +142,7 @@ class NavigationController: BaseViewModel() {
     }
 
     @Composable
-    internal fun <T: Any> Pushed(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit) {
+    internal fun <T : Any> Pushed(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit) {
         remember {
             val stackItem = NavigationStackItem.Push(item, content).also {
                 notifyingStackChange {
@@ -185,7 +185,7 @@ internal fun rememberNavigationController(): NavigationController = remember {
     NavigationController()
 }
 
-private class ReferenceTracking(private val onDispose: () -> Unit): RememberObserver {
+private class ReferenceTracking(private val onDispose: () -> Unit) : RememberObserver {
 
     private var refCount: Int = 0
 
@@ -213,10 +213,10 @@ internal fun BackPressHandler(onBackPressed: NavigationController.BackPressHandl
 
 internal interface NavigationStackScope {
 
-    fun <T: Any> NavigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
+    fun <T : Any> NavigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
 }
 
-internal class NavigationLinkWrapper<T: Any>(
+internal class NavigationLinkWrapper<T : Any>(
     val index: Int,
     private val value: T?,
     private val reset: () -> Unit,
@@ -249,8 +249,8 @@ internal class NavigationLinkWrapper<T: Any>(
 internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, content: @Composable () -> Unit) {
     val activeLinkComposables by remember(key) {
         val constructedLinks = mutableListOf<ObservableProperty<NavigationLinkWrapper<*>>>()
-        val scope = object: NavigationStackScope {
-            override fun <T: Any> NavigationLink(
+        val scope = object : NavigationStackScope {
+            override fun <T : Any> NavigationLink(
                 item: MutableObservableProperty<T?>,
                 content: @Composable (T) -> Unit,
             ) {
