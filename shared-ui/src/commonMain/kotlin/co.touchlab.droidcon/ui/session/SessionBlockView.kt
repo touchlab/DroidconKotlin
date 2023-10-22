@@ -60,7 +60,12 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                         enabled = isClickable,
                     ) {
                         Column {
-                            Text(text = session.title, modifier = Modifier.padding(Dimensions.Padding.half), fontWeight = FontWeight.Bold)
+                            Text(
+                                text = session.title,
+                                modifier = Modifier.padding(Dimensions.Padding.half),
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
                             session.room?.let { roomName ->
                                 Text(
                                     text = "in $roomName",
