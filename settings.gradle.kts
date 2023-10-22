@@ -62,7 +62,7 @@ dependencyResolutionManagement {
             val statelyRef = version("stately", "1.2.2")
             val ktorRef = version("ktor", "2.1.3")
             val multiplatformSettingsRef = version("multiplatformSettings", "0.9")
-            val hyperdriveRef = version("hyperdrive", "0.1.139")
+            val hyperdriveRef = version("hyperdrive", "0.1.148")
             val accompanistCoilRef = version("accompanistCoil", "0.15.0")
             val accompanistNavigationAnimationRef = version("accompanistNavigationAnimation", "0.27.0")
             val coreRef = version("androidx-core", "1.9.0")

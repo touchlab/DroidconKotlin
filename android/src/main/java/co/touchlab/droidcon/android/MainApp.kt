@@ -4,10 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import co.touchlab.droidcon.Constants
-import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
-import co.touchlab.droidcon.android.service.impl.DefaultDateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
 import co.touchlab.droidcon.android.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
@@ -42,9 +39,6 @@ class MainApp : Application() {
                     DefaultParseUrlViewService()
                 }
 
-                single<DateTimeFormatterViewService> {
-                    DefaultDateTimeFormatterViewService(conferenceTimeZone = Constants.conferenceTimeZone)
-                }
                 single<ResourceReader> {
                     ClasspathResourceReader()
                 }
