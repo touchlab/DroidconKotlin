@@ -13,12 +13,7 @@ struct SwitchingRootView: View {
     var body: some View {
         Group {
             if viewModel.useCompose {
-                ZStack {
-                    Color("NavBar_Background")
-                        .ignoresSafeArea()
-                    
-                    ComposeController(viewModel: viewModel)
-                }
+                ComposeController(viewModel: viewModel)
             } else {
                 MainView(viewModel: viewModel)
             }
