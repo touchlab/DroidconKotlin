@@ -22,12 +22,13 @@ android {
     val androidCompileSdk: String by project
     val androidTargetSdk: String by project
 
+    namespace = "co.touchlab.droidcon"
     compileSdk = androidCompileSdk.toInt()
     defaultConfig {
         applicationId = "co.touchlab.droidcon.london"
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
-        versionCode = 20200
+        versionCode = 20201
         versionName = "2.2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -78,6 +79,10 @@ android {
     }
 }
 
+kotlin {
+    jvmToolchain(libs.versions.java.get().toInt())
+}
+
 dependencies {
     implementation(project(":shared"))
     implementation(project(":shared-ui"))
@@ -88,6 +93,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.accompanist.coil)
     implementation(libs.accompanist.navigationAnimation)
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
 

@@ -10,6 +10,7 @@ android {
     val androidCompileSdk: String by project
     val androidTargetSdk: String by project
 
+    namespace = "co.touchlab.droidcon.shared"
     compileSdk = androidCompileSdk.toInt()
     defaultConfig {
         minSdk = androidMinSdk.toInt()
