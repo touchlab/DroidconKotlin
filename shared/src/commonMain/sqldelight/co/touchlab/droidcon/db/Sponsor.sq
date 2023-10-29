@@ -1,3 +1,5 @@
+import kotlin.Boolean;
+
 CREATE TABLE sponsorTable(
     name TEXT NOT NULL,
     groupName TEXT NOT NULL,

@@ -16,7 +16,7 @@ class IOSDateFormatter : DateFormatter {
     private val monthWithDay: NSDateFormatter by lazy {
         NSDateFormatter().also {
             val dateTemplate = "MMM d"
-            it.dateFormat = NSDateFormatter.dateFormatFromTemplate(dateTemplate, 0, NSLocale.currentLocale)!!
+            it.dateFormat = NSDateFormatter.dateFormatFromTemplate(dateTemplate, 0.toULong(), NSLocale.currentLocale)!!
         }
     }
 
@@ -30,7 +30,7 @@ class IOSDateFormatter : DateFormatter {
     private val timeOnlyNoPeriod: NSDateFormatter by lazy {
         NSDateFormatter().also {
             val dateTemplate = "hh:mm"
-            it.dateFormat = NSDateFormatter.dateFormatFromTemplate(dateTemplate, 0, NSLocale.currentLocale)!!
+            it.dateFormat = NSDateFormatter.dateFormatFromTemplate(dateTemplate, 0.toULong(), NSLocale.currentLocale)!!
         }
     }
 

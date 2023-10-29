@@ -1,3 +1,6 @@
+import kotlin.Boolean;
+import kotlin.Int;
+
 CREATE TABLE sponsorGroupTable(
     name TEXT NOT NULL PRIMARY KEY,
     displayPriority INTEGER AS Int NOT NULL,

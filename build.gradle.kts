@@ -1,10 +1,18 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("android-gradle") apply false
-    id("com.google.firebase.crashlytics") apply false
-    kotlin("multiplatform") apply false
-    id("org.jlleitschuh.gradle.ktlint")
-    id("org.jetbrains.compose") apply false
+    id("com.google.firebase.crashlytics") version libs.versions.firebase.crashlytics.gradle.get() apply false
+    id("com.google.gms.google-services") version libs.versions.gms.google.services.get() apply false
+    id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
+
+    val kotlinVersion = libs.versions.kotlin.get()
+
+    kotlin("multiplatform") version kotlinVersion apply false
+    kotlin("android") version kotlinVersion apply false
+    kotlin("plugin.serialization") version kotlinVersion apply false
+    kotlin("native.cocoapods") version kotlinVersion apply false
+    id("app.cash.sqldelight") version libs.versions.sqlDelight.get() apply false
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0" apply false
+    id("org.jetbrains.compose") version libs.versions.compose.jb.get() apply false
 }
 
 allprojects {
@@ -19,14 +27,14 @@ allprojects {
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    ktlint {
-        version.set("0.37.2")
-        enableExperimentalRules.set(true)
-        verbose.set(true)
-        filter {
-            exclude { it.file.path.contains("build/") }
-        }
-    }
+    // ktlint {
+    //     version.set("0.37.2")
+    //     enableExperimentalRules.set(true)
+    //     verbose.set(true)
+    //     filter {
+    //         exclude { it.file.path.contains("build/") }
+    //     }
+    // }
 
     afterEvaluate {
         tasks.named("check") {

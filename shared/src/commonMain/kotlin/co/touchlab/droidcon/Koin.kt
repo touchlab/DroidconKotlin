@@ -2,6 +2,7 @@
 
 package co.touchlab.droidcon
 
+import app.cash.sqldelight.ColumnAdapter
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.gateway.impl.DefaultSettingsGateway
 import co.touchlab.droidcon.application.repository.AboutRepository
@@ -12,6 +13,7 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.impl.DefaultNotificationSchedulingService
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.db.SessionTable
+import co.touchlab.droidcon.db.SponsorGroupTable
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.domain.gateway.impl.DefaultSessionGateway
@@ -67,14 +69,27 @@ fun initKoin(additionalModules: List<Module>): KoinApplication {
     return koinApplication
 }
 
+val intToLongAdapter = object: ColumnAdapter<Int, Long> {
+    override fun decode(databaseValue: Long): Int {
+        return databaseValue.toInt()
+    }
+
+    override fun encode(value: Int): Long {
+        return value.toLong()
+    }
+}
 private val coreModule = module {
     single {
-        DroidconDatabase(
+        DroidconDatabase.invoke(
             driver = get(),
             sessionTableAdapter = SessionTable.Adapter(
                 startsAtAdapter = InstantSqlDelightAdapter,
                 endsAtAdapter = InstantSqlDelightAdapter,
+                feedbackRatingAdapter = intToLongAdapter
             ),
+            sponsorGroupTableAdapter = SponsorGroupTable.Adapter(
+                intToLongAdapter
+            )
         )
     }
     single<Clock> { Clock.System }

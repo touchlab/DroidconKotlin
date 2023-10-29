@@ -8,10 +8,11 @@ import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.repository.ProfileRepository
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
-import com.squareup.sqldelight.runtime.coroutines.mapToOne
-import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
+import app.cash.sqldelight.coroutines.mapToOneOrNull
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
 class SqlDelightProfileRepository(
@@ -57,15 +58,15 @@ class SqlDelightProfileRepository(
     }
 
     override fun observe(id: Profile.Id): Flow<Profile> {
-        return profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOne()
+        return profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOne(Dispatchers.Main)
     }
 
     override fun observeOrNull(id: Profile.Id): Flow<Profile?> {
-        return profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOneOrNull()
+        return profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
     }
 
     override fun observeAll(): Flow<List<Profile>> {
-        return profileQueries.selectAll(::profileFactory).asFlow().mapToList()
+        return profileQueries.selectAll(::profileFactory).asFlow().mapToList(Dispatchers.Main)
     }
 
     override fun doUpsert(entity: Profile) {

@@ -6,11 +6,12 @@ plugins {
 }
 
 android {
-    val androidMinSdk: String by project
-    val androidCompileSdk: String by project
-    val androidTargetSdk: String by project
+    val androidMinSdk = libs.versions.minSdk.get()
+    val androidCompileSdk = libs.versions.compileSdk.get()
+    val androidTargetSdk = libs.versions.targetSdk.get()
 
     compileSdk = androidCompileSdk.toInt()
+    namespace = "co.touchlab.droidcon.shared-ui"
     defaultConfig {
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
@@ -104,7 +105,7 @@ kotlin {
                 implementation(libs.accompanist.coil)
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation(libs.test.junit)
                 implementation(libs.test.junitKtx)

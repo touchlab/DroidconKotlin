@@ -6,13 +6,13 @@ class LifecycleManager: SwiftUI.ObservableObject {
     var managedViewModel: BaseViewModel? {
         willSet {
             if let managedViewModel = managedViewModel {
-                LoggerKt.d { [root] in "Detaching VM: \(managedViewModel.lifecycle) from \(root)" }
+                Logger.companion.d { [root] in "Detaching VM: \(managedViewModel.lifecycle) from \(root)" }
                 managedViewModel.lifecycle.removeFromParent()
             }
         }
         didSet {
             if let managedViewModel = managedViewModel {
-                LoggerKt.d { [root] in "Attaching VM: \(managedViewModel.lifecycle) to \(root)" }
+                Logger.companion.d { [root] in "Attaching VM: \(managedViewModel.lifecycle) to \(root)" }
                 root.addChild(child: managedViewModel.lifecycle)
             }
         }
@@ -22,13 +22,13 @@ class LifecycleManager: SwiftUI.ObservableObject {
     private let cancelAttach: CancellationToken
 
     init() {
-        LoggerKt.i { [root] in "Initializing LifecycleManager with root: \(root)" }
+        Logger.companion.i { [root] in "Initializing LifecycleManager with root: \(root)" }
 
         cancelAttach = root.attachToMainScope()
     }
 
     deinit {
-        LoggerKt.i { [root] in "Destroying LifecycleManager with root: \(root)" }
+        Logger.companion.i { [root] in "Destroying LifecycleManager with root: \(root)" }
 
         cancelAttach.cancel()
     }

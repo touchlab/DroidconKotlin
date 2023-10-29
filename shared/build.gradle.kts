@@ -2,15 +2,16 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.android.library")
-    id("com.squareup.sqldelight")
+    id("app.cash.sqldelight")
 }
 
 android {
-    val androidMinSdk: String by project
-    val androidCompileSdk: String by project
-    val androidTargetSdk: String by project
+    val androidMinSdk = libs.versions.minSdk.get()
+    val androidCompileSdk = libs.versions.compileSdk.get()
+    val androidTargetSdk = libs.versions.targetSdk.get()
 
     compileSdk = androidCompileSdk.toInt()
+    namespace = "co.touchlab.droidcon.shared"
     defaultConfig {
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
@@ -89,7 +90,7 @@ kotlin {
                 implementation(libs.androidx.core)
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation(libs.test.junit)
                 implementation(libs.test.junitKtx)
@@ -131,7 +132,7 @@ kotlin {
 }
 
 sqldelight {
-    database("DroidconDatabase") {
-        packageName = "co.touchlab.droidcon.db"
+    databases.create("DroidconDatabase") {
+        packageName.set("co.touchlab.droidcon.db")
     }
 }

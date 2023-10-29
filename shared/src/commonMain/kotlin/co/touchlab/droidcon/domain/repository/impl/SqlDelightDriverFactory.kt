@@ -1,6 +1,6 @@
 package co.touchlab.droidcon.domain.repository.impl
 
-import com.squareup.sqldelight.db.SqlDriver
+import app.cash.sqldelight.db.SqlDriver
 
 expect class SqlDelightDriverFactory {
     fun createDriver(): SqlDriver
