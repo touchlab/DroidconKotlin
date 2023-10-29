@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ui.util
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.get
 import org.jetbrains.skia.ColorAlphaType
 import org.jetbrains.skia.ColorType
@@ -20,6 +21,7 @@ import platform.CoreGraphics.CGImageGetWidth
 import platform.UIKit.UIImage
 
 // TODO: Add support for remaining color spaces when the Skia library supports them.
+@ExperimentalForeignApi
 internal fun UIImage.toSkiaImage(): Image? {
     val imageRef = CGImageCreateCopyWithColorSpace(this.CGImage, CGColorSpaceCreateDeviceRGB()) ?: return null
 

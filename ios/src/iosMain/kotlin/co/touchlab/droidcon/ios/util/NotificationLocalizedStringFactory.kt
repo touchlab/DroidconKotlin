@@ -6,6 +6,7 @@ import platform.Foundation.NSBundle
 import platform.Foundation.NSString
 import platform.Foundation.stringWithFormat
 
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 class NotificationLocalizedStringFactory(
     private val bundle: NSBundle,
 ) : NotificationSchedulingService.LocalizedStringFactory {

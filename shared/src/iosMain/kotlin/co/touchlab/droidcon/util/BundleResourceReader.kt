@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.util
 
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
+import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ObjCObjectVar
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.memScoped
@@ -14,6 +15,8 @@ import platform.Foundation.stringWithContentsOfFile
 import platform.darwin.NSObject
 import platform.darwin.NSObjectMeta
 
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+@BetaInteropApi
 class BundleResourceReader(
     private val bundle: NSBundle = NSBundle.bundleForClass(BundleMarker)
 ) : ResourceReader {

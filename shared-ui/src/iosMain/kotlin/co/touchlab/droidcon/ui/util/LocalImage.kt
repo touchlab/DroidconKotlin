@@ -21,6 +21,7 @@ import co.touchlab.droidcon.ui.icons.Warning
 import co.touchlab.droidcon.ui.theme.Dimensions
 import platform.UIKit.UIImage
 
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 @Composable
 internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, contentDescription: String?) {
     val painter = remember { UIImage.imageNamed(imageResourceName)?.toSkiaImage()?.toComposeImageBitmap()?.let(::BitmapPainter) }

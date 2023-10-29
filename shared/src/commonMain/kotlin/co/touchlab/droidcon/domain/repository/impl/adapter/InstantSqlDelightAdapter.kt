@@ -1,6 +1,6 @@
 package co.touchlab.droidcon.domain.repository.impl.adapter
 
-import com.squareup.sqldelight.ColumnAdapter
+import app.cash.sqldelight.ColumnAdapter
 import kotlinx.datetime.Instant
 
 object InstantSqlDelightAdapter : ColumnAdapter<Instant, Long> {

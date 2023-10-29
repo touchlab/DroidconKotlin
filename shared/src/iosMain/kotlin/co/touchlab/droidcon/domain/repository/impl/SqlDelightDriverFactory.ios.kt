@@ -1,8 +1,8 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.droidcon.db.DroidconDatabase
-import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
 actual class SqlDelightDriverFactory {
     actual fun createDriver(): SqlDriver {

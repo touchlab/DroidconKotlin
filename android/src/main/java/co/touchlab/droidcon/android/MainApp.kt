@@ -4,10 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import co.touchlab.droidcon.Constants
-import co.touchlab.droidcon.android.service.DateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
-import co.touchlab.droidcon.android.service.impl.DefaultDateTimeFormatterViewService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
 import co.touchlab.droidcon.android.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
@@ -19,9 +16,9 @@ import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.ClasspathResourceReader
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
+import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsApi::class)
@@ -36,15 +33,12 @@ class MainApp : Application() {
                 single<SharedPreferences> {
                     get<Context>().getSharedPreferences("DROIDCON_SETTINGS_2023", Context.MODE_PRIVATE)
                 }
-                single<ObservableSettings> { AndroidSettings(delegate = get()) }
+                single<ObservableSettings> { SharedPreferencesSettings(delegate = get()) }
 
                 single<ParseUrlViewService> {
                     DefaultParseUrlViewService()
                 }
 
-                single<DateTimeFormatterViewService> {
-                    DefaultDateTimeFormatterViewService(conferenceTimeZone = Constants.conferenceTimeZone)
-                }
                 single<ResourceReader> {
                     ClasspathResourceReader()
                 }

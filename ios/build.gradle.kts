@@ -7,14 +7,17 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("org.jetbrains.compose")
-    id("co.touchlab.skie") version "0.4.15"
+    id("co.touchlab.skie") version libs.versions.skie
 }
 
 version = "1.0"
 
 kotlin {
+    applyDefaultHierarchyTemplate()
+
     ios()
     iosSimulatorArm64()
+
     sourceSets {
         all {
             languageSettings.apply {
@@ -38,6 +41,7 @@ kotlin {
         api(project(":shared"))
         api(project(":shared-ui"))
         api(libs.kermit)
+        api(libs.kermit.simple)
     }
     sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
     sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
@@ -65,6 +69,7 @@ kotlin {
         binaries.withType<Framework> {
             linkerOpts.add("-lsqlite3")
             export(libs.kermit)
+            export(libs.kermit.simple)
             export(libs.hyperdrive.multiplatformx.api)
             export(project(":shared"))
             export(project(":shared-ui"))

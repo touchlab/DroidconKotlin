@@ -3,7 +3,6 @@ package co.touchlab.droidcon.viewmodel.session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
-import kotlinx.coroutines.flow.collect
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 abstract class BaseSessionListViewModel(

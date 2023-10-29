@@ -18,12 +18,13 @@ try {
 val releasePassword = properties.getProperty("releasePassword", "")
 
 android {
-    val androidMinSdk: String by project
-    val androidCompileSdk: String by project
-    val androidTargetSdk: String by project
+    val androidMinSdk = libs.versions.minSdk.get()
+    val androidCompileSdk = libs.versions.compileSdk.get()
+    val androidTargetSdk = libs.versions.targetSdk.get()
 
     namespace = "co.touchlab.droidcon"
     compileSdk = androidCompileSdk.toInt()
+
     defaultConfig {
         applicationId = "co.touchlab.droidcon.london"
         minSdk = androidMinSdk.toInt()
