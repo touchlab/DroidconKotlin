@@ -12,7 +12,7 @@ android {
 
     namespace = "co.touchlab.droidcon.sharedui"
     compileSdk = androidCompileSdk.toInt()
-    namespace = "co.touchlab.droidcon.shared.ui"
+
     defaultConfig {
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
