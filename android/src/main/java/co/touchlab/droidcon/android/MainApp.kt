@@ -16,9 +16,9 @@ import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.ClasspathResourceReader
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
+import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsApi::class)
@@ -33,7 +33,7 @@ class MainApp : Application() {
                 single<SharedPreferences> {
                     get<Context>().getSharedPreferences("DROIDCON_SETTINGS_2023", Context.MODE_PRIVATE)
                 }
-                single<ObservableSettings> { AndroidSettings(delegate = get()) }
+                single<ObservableSettings> { SharedPreferencesSettings(delegate = get()) }
 
                 single<ParseUrlViewService> {
                     DefaultParseUrlViewService()

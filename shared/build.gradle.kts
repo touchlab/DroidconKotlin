@@ -10,6 +10,7 @@ android {
     val androidCompileSdk = libs.versions.compileSdk.get()
     val androidTargetSdk = libs.versions.targetSdk.get()
 
+    namespace = "co.touchlab.droidcon.shared"
     compileSdk = androidCompileSdk.toInt()
     namespace = "co.touchlab.droidcon.shared"
     defaultConfig {

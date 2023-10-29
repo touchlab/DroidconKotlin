@@ -55,8 +55,6 @@ kotlin {
             isStatic = true
             embedBitcode = BitcodeEmbeddingMode.DISABLE
 
-            export(libs.kermit.simple)
-
             freeCompilerArgs += listOf(
                 "-linker-option", "-framework", "-linker-option", "Metal",
                 "-linker-option", "-framework", "-linker-option", "CoreText",
@@ -71,6 +69,7 @@ kotlin {
         binaries.withType<Framework> {
             linkerOpts.add("-lsqlite3")
             export(libs.kermit)
+            export(libs.kermit.simple)
             export(libs.hyperdrive.multiplatformx.api)
             export(project(":shared"))
             export(project(":shared-ui"))

@@ -10,8 +10,9 @@ android {
     val androidCompileSdk = libs.versions.compileSdk.get()
     val androidTargetSdk = libs.versions.targetSdk.get()
 
+    namespace = "co.touchlab.droidcon.sharedui"
     compileSdk = androidCompileSdk.toInt()
-    namespace = "co.touchlab.droidcon.shared-ui"
+    namespace = "co.touchlab.droidcon.shared.ui"
     defaultConfig {
         minSdk = androidMinSdk.toInt()
         targetSdk = androidTargetSdk.toInt()
@@ -74,8 +75,6 @@ kotlin {
                 api(libs.kotlinx.coroutines.core)
                 api(libs.kotlinx.datetime)
                 api(libs.multiplatformSettings.core)
-                // this enforces new version of atomicfu, the older version from other libraries crashes iOS build
-                api(libs.atomicFu)
                 api(libs.uuid)
 
                 implementation(libs.bundles.ktor.common)

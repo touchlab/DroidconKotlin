@@ -13,6 +13,7 @@ kotlinx-datetime = "0.4.1"
 ktor = "2.3.4"
 
 stately = "2.0.5"
+java = "17"
 kermit = "2.0.1"
 skie = "0.5.1-preview.1.9.20-RC2"
 
@@ -20,14 +21,14 @@ hyperdrive = "0.1.148"
 
 multiplatformSettings = "1.0.0"
 sqlDelight = "2.0.0"
+firebase-bom = "32.3.1"
 firebase-analytics = "21.4.0"
 firebase-crashlytics = "18.5.1"
 firebase-crashlytics-gradle = "2.9.9"
 gms-google-services = "4.4.0"
 
 compose-main = "1.5.4"
-compose-compiler = "1.5.3"
-composeActivity = "1.6.1"
+compose-compiler = "1.5.4-dev-k1.9.20-RC2-93f1625925e"
 composeNavigation = "2.7.4"
 compose-jb = "1.5.10-rc02"
 
@@ -58,8 +59,9 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 
 accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanistCoil" }
 accompanist-navigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanistNavigationAnimation" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytics" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version = "_" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "_" }
 hyperdrive-multiplatformx-api = { module = "org.brightify.hyperdrive:multiplatformx-api", version.ref = "hyperdrive" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
@@ -122,7 +124,7 @@ androidx-compose-ui-core = { module = "androidx.compose.ui:ui", version.ref = "c
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-main" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose-main" }
 androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "compose-main" }
-androidx-compose-activity = { module = "androidx.compose.activity:activity-compose", version.ref = "composeActivity" }
+androidx-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 androidx-compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 
 [bundles]
