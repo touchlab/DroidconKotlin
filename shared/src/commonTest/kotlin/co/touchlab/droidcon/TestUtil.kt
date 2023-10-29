@@ -1,8 +1,8 @@
 package co.touchlab.droidcon
 
+import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.kermit.Logger
 import com.russhwolf.settings.Settings
-import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.withTimeout
 import kotlinx.datetime.Clock

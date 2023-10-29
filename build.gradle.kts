@@ -13,7 +13,7 @@ plugins {
     kotlin("plugin.serialization") version kotlinVersion apply false
     kotlin("native.cocoapods") version kotlinVersion apply false
     id("app.cash.sqldelight") version libs.versions.sqlDelight.get() apply false
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0" apply false
+    id("org.jlleitschuh.gradle.ktlint") version libs.versions.ktlint.get()
     id("org.jetbrains.compose") version libs.versions.compose.jb.get() apply false
 }
 
@@ -30,14 +30,14 @@ allprojects {
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    // ktlint {
-    //     version.set("0.37.2")
-    //     enableExperimentalRules.set(true)
-    //     verbose.set(true)
-    //     filter {
-    //         exclude { it.file.path.contains("build/") }
-    //     }
-    // }
+    ktlint {
+        version.set("0.37.2")
+        enableExperimentalRules.set(true)
+        verbose.set(true)
+        filter {
+            exclude { it.file.path.contains("build/") }
+        }
+    }
 
     afterEvaluate {
         tasks.named("check") {

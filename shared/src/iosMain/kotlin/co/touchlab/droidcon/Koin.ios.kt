@@ -1,5 +1,6 @@
 package co.touchlab.droidcon
 
+import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.droidcon.service.IOSNotificationService
@@ -7,7 +8,6 @@ import co.touchlab.droidcon.util.AppChecker
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.NSLogWriter
 import co.touchlab.kermit.StaticConfig
-import app.cash.sqldelight.db.SqlDriver
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.BetaInteropApi

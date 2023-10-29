@@ -1,10 +1,10 @@
 package co.touchlab.droidcon
 
-import co.touchlab.droidcon.db.DroidconDatabase
-import co.touchlab.sqliter.DatabaseConfiguration
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.drivers.native.NativeSqliteDriver
 import app.cash.sqldelight.drivers.native.wrapConnection
+import co.touchlab.droidcon.db.DroidconDatabase
+import co.touchlab.sqliter.DatabaseConfiguration
 
 internal actual fun testDbConnection(): SqlDriver {
     val schema = DroidconDatabase.Schema

@@ -12,8 +12,8 @@ import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.BundleResourceReader
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
-import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.ObservableSettings
 import org.koin.core.Koin
 import org.koin.core.KoinApplication

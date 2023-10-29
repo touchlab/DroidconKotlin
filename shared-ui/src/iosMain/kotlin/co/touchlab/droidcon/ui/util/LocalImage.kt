@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import co.touchlab.droidcon.ui.icons.Warning
 import co.touchlab.droidcon.ui.theme.Dimensions
-import kotlinx.cinterop.ExperimentalForeignApi
 import platform.UIKit.UIImage
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)

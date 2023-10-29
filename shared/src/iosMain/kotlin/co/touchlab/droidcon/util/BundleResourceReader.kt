@@ -2,7 +2,6 @@ package co.touchlab.droidcon.util
 
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import kotlinx.cinterop.BetaInteropApi
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.memScoped

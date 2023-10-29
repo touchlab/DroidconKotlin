@@ -53,6 +53,8 @@ uuid = "0.5.0"
 sharedlib = "0.4.+"
 atomicFu = "0.22.0"
 
+ktlint = "11.0.0"
+
 [libraries]
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
