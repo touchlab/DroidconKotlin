@@ -14,6 +14,7 @@ struct SwitchingRootView: View {
         Group {
             if viewModel.useCompose {
                 ComposeController(viewModel: viewModel)
+                .ignoresSafeArea()
             } else {
                 MainView(viewModel: viewModel)
             }

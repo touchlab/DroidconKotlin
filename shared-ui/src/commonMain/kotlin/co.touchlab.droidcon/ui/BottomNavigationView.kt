@@ -3,7 +3,6 @@ package co.touchlab.droidcon.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -24,7 +23,6 @@ import co.touchlab.droidcon.ui.sponsors.SponsorsView
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()

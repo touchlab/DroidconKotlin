@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,7 +46,6 @@
 		8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */; };
 		A357C7EE28AA7861004EF059 /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */; };
 		A35DC2DF28AB6B2600C7B298 /* SwitchingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */; };
-		A35DC2E128AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */; };
 		A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */; };
 		A35DEF2228AA265C0072605A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A35DEF2128AA265C0072605A /* Settings.bundle */; };
 		A35DEF2428AA26C80072605A /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */; };
@@ -94,7 +93,6 @@
 		9EBC9F516E487D20266C9746 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A357C7ED28AA7860004EF059 /* FilledButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
 		A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchingRootView.swift; sourceTree = "<group>"; };
-		A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundCrashWorkaroundController.swift; sourceTree = "<group>"; };
 		A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeController.swift; sourceTree = "<group>"; };
 		A35DEF2128AA265C0072605A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 				A35DEF2128AA265C0072605A /* Settings.bundle */,
 				A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */,
 				A35DC2DE28AB6B2600C7B298 /* SwitchingRootView.swift */,
-				A35DC2E028AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift */,
 				A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */,
 			);
 			path = Droidcon;
@@ -451,7 +448,6 @@
 				689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */,
 				689DD30526B438CA00A9B009 /* Avatar.swift in Sources */,
 				681C95A126C555D90011330B /* VisualEffectView.swift in Sources */,
-				A35DC2E128AB6BF700C7B298 /* BackgroundCrashWorkaroundController.swift in Sources */,
 				1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */,
 				684FAA7426B2A4D400673AFF /* ScheduleView.swift in Sources */,
 				46B5284D249C5CF400A7725D /* Koin.swift in Sources */,
