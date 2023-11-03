@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.ui.sponsors
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,20 +17,23 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.AppBarDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -45,6 +47,7 @@ import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
 import kotlin.math.min
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SponsorsView(viewModel: SponsorListViewModel) {
     NavigationStack(
@@ -55,20 +58,20 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
             }
         }
     ) {
+        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
         Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 TopAppBar(
                     title = { Text("Sponsors") },
-                    elevation = 0.dp,
-                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                    backgroundColor = MaterialTheme.colors.primary,
+                    scrollBehavior = scrollBehavior
                 )
             },
-        ) {
+        ) { paddingValues ->
             val uriHandler = LocalUriHandler.current
 
             val sponsorGroups by viewModel.observeSponsorGroups.observeAsState()
-            Column {
+            Column(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
                 if (sponsorGroups.isEmpty()) {
                     EmptyView()
                 } else {
@@ -91,12 +94,8 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
 
 @Composable
 private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
-    Surface(
-        shape = MaterialTheme.shapes.medium,
-        modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half),
-        color = MaterialTheme.colors.background,
-        elevation = 2.dp,
-        border = if (MaterialTheme.colors.isLight) null else BorderStroke(1.dp, MaterialTheme.colors.surface),
+    Card(
+        modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
@@ -107,7 +106,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                     top = Dimensions.Padding.default,
                     bottom = Dimensions.Padding.quarter,
                 ),
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.headlineLarge,
             )
             val columnCount = if (sponsorGroup.isProminent) 3 else 4
 
@@ -123,7 +122,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                                 .weight(1f)
                                 .aspectRatio(1f)
                                 .padding(Dimensions.Padding.quarter)
-                                .shadow(2.dp, CircleShape)
+                                .clip(CircleShape)
                                 .background(Color.White)
                                 .clickable {
                                     sponsor.selected()
@@ -170,7 +169,7 @@ private fun EmptyView() {
             modifier = Modifier
                 .size(80.dp)
                 .padding(Dimensions.Padding.default),
-            tint = MaterialTheme.colors.secondary,
+            tint = MaterialTheme.colorScheme.secondary,
         )
 
         Text(

@@ -13,20 +13,19 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AppBarDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -44,6 +43,7 @@ import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
     NavigationStack(
@@ -58,9 +58,6 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
             topBar = {
                 TopAppBar(
                     title = { Text("Sponsor") },
-                    elevation = 0.dp,
-                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                    backgroundColor = MaterialTheme.colors.primary,
                     navigationIcon = {
                         IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                             Icon(
@@ -99,7 +96,7 @@ private fun HeaderView(name: String, groupTitle: String, imageUrl: Url?) {
         Modifier
             .fillMaxWidth()
             .heightIn(min = 160.dp)
-            .background(color = MaterialTheme.colors.primary),
+            .background(color = MaterialTheme.colorScheme.primary),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(
@@ -107,7 +104,7 @@ private fun HeaderView(name: String, groupTitle: String, imageUrl: Url?) {
         ) {
             Text(
                 text = name,
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.headlineSmall,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 color = Color.White,
@@ -191,7 +188,7 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
                         .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                         .clip(CircleShape)
                         .aspectRatio(1f)
-                        .background(MaterialTheme.colors.primary),
+                        .background(MaterialTheme.colorScheme.primary),
                 )
             } else {
                 RemoteImage(
@@ -202,7 +199,7 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
                         .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                         .clip(CircleShape)
                         .aspectRatio(1f)
-                        .background(MaterialTheme.colors.primary),
+                        .background(MaterialTheme.colorScheme.primary),
                 )
             }
 

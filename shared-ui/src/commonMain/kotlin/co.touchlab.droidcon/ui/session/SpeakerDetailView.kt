@@ -10,23 +10,23 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AppBarDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.composite.Url
@@ -41,15 +41,15 @@ import co.touchlab.droidcon.ui.util.WebLinkText
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = { Text("Speaker") },
-                elevation = 0.dp,
-                modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                backgroundColor = MaterialTheme.colors.primary,
                 navigationIcon = {
                     IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                         Icon(
@@ -57,13 +57,14 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
                             contentDescription = "Back",
                         )
                     }
-                }
+                },
+                scrollBehavior = scrollBehavior
             )
         },
-    ) {
+    ) { paddingValues ->
         val scrollState = rememberScrollState()
         Column(
-            modifier = Modifier.verticalScroll(scrollState),
+            modifier = Modifier.verticalScroll(scrollState).padding(paddingValues),
         ) {
             HeaderView(viewModel.name, viewModel.position ?: "", viewModel.avatarUrl)
 
@@ -88,48 +89,42 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
 
 @Composable
 private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
-    Card(
-        elevation = Dimensions.Padding.quarter,
-        backgroundColor = MaterialTheme.colors.surface,
-        shape = RectangleShape,
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            if (imageUrl != null) {
-                RemoteImage(
-                    imageUrl = imageUrl.string,
-                    contentDescription = name,
-                    modifier = Modifier
-                        .width(100.dp)
-                        .padding(Dimensions.Padding.default)
-                        .clip(CircleShape)
-                        .aspectRatio(1f),
-                )
-            }
+        if (imageUrl != null) {
+            RemoteImage(
+                imageUrl = imageUrl.string,
+                contentDescription = name,
+                modifier = Modifier
+                    .width(100.dp)
+                    .padding(Dimensions.Padding.default)
+                    .clip(CircleShape)
+                    .aspectRatio(1f),
+            )
+        }
 
-            Column(
-                modifier = Modifier.weight(1f),
-            ) {
-                Text(
-                    text = name,
-                    style = MaterialTheme.typography.h5,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(
-                        end = Dimensions.Padding.double,
-                        top = Dimensions.Padding.default,
-                    ),
-                )
-                Text(
-                    text = tagLine,
-                    modifier = Modifier.padding(
-                        end = Dimensions.Padding.double,
-                        bottom = Dimensions.Padding.default,
-                    ),
-                )
-            }
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(
+                text = name,
+                style = MaterialTheme.typography.headlineSmall,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(
+                    end = Dimensions.Padding.double,
+                    top = Dimensions.Padding.default,
+                ),
+            )
+            Text(
+                text = tagLine,
+                modifier = Modifier.padding(
+                    end = Dimensions.Padding.double,
+                    bottom = Dimensions.Padding.default,
+                ),
+            )
         }
     }
 }
@@ -186,7 +181,7 @@ private fun BioView(bio: String, webLinks: List<WebLink>) {
             modifier = Modifier
                 .padding(Dimensions.Padding.default)
                 .size(28.dp),
-            tint = MaterialTheme.colors.onSurface,
+            tint = MaterialTheme.colorScheme.onSurface,
         )
         WebLinkText(
             text = bio,

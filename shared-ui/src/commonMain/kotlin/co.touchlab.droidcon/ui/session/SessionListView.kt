@@ -1,11 +1,14 @@
 package co.touchlab.droidcon.ui.session
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -13,17 +16,20 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.AppBarDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.TabRowDefaults
-import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -34,7 +40,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -50,6 +57,7 @@ import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SessionListView(viewModel: BaseSessionListViewModel) {
     NavigationStack(
@@ -60,18 +68,22 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
             }
         }
     ) {
+        val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
         Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                TopAppBar(
+                CenterAlignedTopAppBar(
                     title = { Text("Droidcon London 2023") },
-                    elevation = 0.dp,
-                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                    backgroundColor = MaterialTheme.colors.primary,
+                    scrollBehavior = scrollBehavior
                 )
             },
-        ) {
+        ) { paddingValues ->
             var size by remember { mutableStateOf(IntSize(0, 0)) }
-            Column(modifier = Modifier.onSizeChanged { size = it }) {
+            Column(
+                modifier = Modifier
+                    .onSizeChanged { size = it }
+                    .padding(top = paddingValues.calculateTopPadding())
+            ) {
                 val days by viewModel.observeDays.observeAsState()
                 if (days?.isEmpty() != false) {
                     EmptyView()
@@ -89,10 +101,9 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
 
                     TabRow(
                         selectedTabIndex = selectedTabIndex,
-                        backgroundColor = MaterialTheme.colors.primary,
                         indicator = { tabPositions ->
                             if (tabPositions.indices.contains(selectedTabIndex)) {
-                                TabRowDefaults.Indicator(
+                                TabIndicator(
                                     Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex])
                                 )
                             } else {
@@ -110,7 +121,8 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                                     coroutineScope.launch {
                                         state.animateScrollToItem(index)
                                     }
-                                }
+                                },
+                                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                             ) {
                                 Text(
                                     text = daySchedule.day,
@@ -174,6 +186,18 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
 }
 
 @Composable
+private fun TabIndicator(modifier: Modifier = Modifier) {
+    Box(
+        modifier
+            .fillMaxWidth()
+            .padding(horizontal = 64.dp)
+            .height(2.dp)
+            .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+            .background(MaterialTheme.colorScheme.primary)
+    )
+}
+
+@Composable
 private fun EmptyView() {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -186,7 +210,7 @@ private fun EmptyView() {
             modifier = Modifier
                 .size(80.dp)
                 .padding(Dimensions.Padding.default),
-            tint = MaterialTheme.colors.secondary,
+            tint = MaterialTheme.colorScheme.secondary,
         )
 
         Text(

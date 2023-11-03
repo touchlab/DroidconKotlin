@@ -11,14 +11,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -35,10 +36,13 @@ import co.touchlab.droidcon.ui.util.Dialog
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
     Dialog(dismiss = feedback::skipTapped) {
-        Card(modifier = Modifier.padding(Dimensions.Padding.double), backgroundColor = MaterialTheme.colors.background) {
+        Card(
+            modifier = Modifier.padding(Dimensions.Padding.double)
+        ) {
             Column(
                 modifier = Modifier
                     .padding(Dimensions.Padding.default)
@@ -46,11 +50,10 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
             ) {
                 Text(
                     text = "What did you think of ${feedback.sessionTitle}",
-                    color = MaterialTheme.colors.onBackground,
-                    style = MaterialTheme.typography.subtitle1,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = MaterialTheme.typography.titleMedium,
                     overflow = TextOverflow.Ellipsis,
                 )
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
@@ -71,7 +74,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                                 .clip(CircleShape)
                                 .clickable { feedback.rating = rating },
                             contentDescription = rating.name,
-                            tint = if (selected == rating) MaterialTheme.colors.primary else Color.Gray,
+                            tint = if (selected == rating) MaterialTheme.colorScheme.primary else Color.Gray,
                         )
                     }
                 }
@@ -81,15 +84,15 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     value = comment,
                     onValueChange = { feedback.comment = it },
                     placeholder = {
-                        Text(text = "(Optional) Suggest improvement", style = MaterialTheme.typography.body1)
+                        Text(text = "(Optional) Suggest improvement", style = MaterialTheme.typography.bodyLarge)
                     },
-                    textStyle = MaterialTheme.typography.body1,
+                    textStyle = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
                         .height(160.dp)
                         .fillMaxWidth(),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        cursorColor = MaterialTheme.colors.primary,
-                        focusedBorderColor = MaterialTheme.colors.primary,
+                        cursorColor = MaterialTheme.colorScheme.primary,
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
                     ),
                 )
 
@@ -101,14 +104,14 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     TextButton(onClick = feedback::submitTapped, enabled = !isSubmitDisabled) {
                         Text(
                             text = "SUBMIT",
-                            color = if (isSubmitDisabled) MaterialTheme.colors.onSurface else MaterialTheme.colors.primary,
+                            color = if (isSubmitDisabled) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.primary,
                         )
                     }
                     TextButton(onClick = feedback::closeAndDisableTapped) {
-                        Text(text = "CLOSE AND DISABLE FEEDBACK", color = MaterialTheme.colors.primary)
+                        Text(text = "CLOSE AND DISABLE FEEDBACK", color = MaterialTheme.colorScheme.primary)
                     }
                     TextButton(onClick = feedback::skipTapped) {
-                        Text(text = "SKIP FEEDBACK", color = MaterialTheme.colors.primary)
+                        Text(text = "SKIP FEEDBACK", color = MaterialTheme.colorScheme.primary)
                     }
                 }
             }

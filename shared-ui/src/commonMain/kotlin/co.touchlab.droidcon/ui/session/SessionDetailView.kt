@@ -14,26 +14,28 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AppBarDefaults
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BookmarkAdded
+import androidx.compose.material.icons.outlined.BookmarkAdd
+import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,9 +43,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ui.FeedbackDialog
-import co.touchlab.droidcon.ui.icons.Add
 import co.touchlab.droidcon.ui.icons.ArrowBack
-import co.touchlab.droidcon.ui.icons.Check
 import co.touchlab.droidcon.ui.icons.Description
 import co.touchlab.droidcon.ui.icons.Info
 import co.touchlab.droidcon.ui.theme.Dimensions
@@ -55,6 +55,7 @@ import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
     NavigationStack(
@@ -65,13 +66,12 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
             }
         }
     ) {
+        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
         Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 TopAppBar(
                     title = { Text("Session") },
-                    elevation = 0.dp,
-                    modifier = Modifier.shadow(AppBarDefaults.TopAppBarElevation),
-                    backgroundColor = MaterialTheme.colors.primary,
                     navigationIcon = {
                         IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                             Icon(
@@ -79,23 +79,29 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                                 contentDescription = "Back",
                             )
                         }
-                    }
+                    },
+                    scrollBehavior = scrollBehavior
                 )
             },
-        ) {
+        ) { paddingValues ->
             val scrollState = rememberScrollState(viewModel.scrollState)
 
             if (viewModel.scrollState != scrollState.value) {
                 viewModel.scrollState = scrollState.value
             }
 
-            Column(modifier = Modifier.verticalScroll(scrollState)) {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(scrollState)
+                    .padding(top = paddingValues.calculateTopPadding())
+            ) {
                 val state by viewModel.observeState.observeAsState()
                 Box(contentAlignment = Alignment.BottomStart) {
                     Column(modifier = Modifier.padding(bottom = 22.dp)) {
                         val title by viewModel.observeTitle.observeAsState()
                         val locationInfo by viewModel.observeInfo.observeAsState()
                         HeaderView(title, locationInfo)
+                        Divider()
                     }
                     if (state != SessionDetailViewModel.SessionState.Ended) {
                         val isAttending by viewModel.observeIsAttending.observeAsState()
@@ -104,8 +110,10 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             modifier = Modifier
                                 .padding(start = Dimensions.Padding.default)
                                 .size(44.dp),
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.secondary
                         ) {
-                            val icon = if (isAttending) Icons.Default.Check else Icons.Default.Add
+                            val icon = if (isAttending) Icons.Default.BookmarkAdded else Icons.Outlined.BookmarkAdd
                             val description = if (isAttending) {
                                 "Do not attend"
                             } else {
@@ -153,7 +161,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                     Text(
                         text = "Speakers",
                         modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
-                        style = MaterialTheme.typography.h5,
+                        style = MaterialTheme.typography.headlineSmall,
                         textAlign = TextAlign.Center,
                     )
 
@@ -175,35 +183,29 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
 
 @Composable
 private fun HeaderView(title: String, locationInfo: String) {
-    Card(
-        elevation = Dimensions.Padding.quarter,
-        backgroundColor = MaterialTheme.colors.surface,
-        shape = RectangleShape,
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.h5,
-                maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(
-                    start = Dimensions.Padding.double,
-                    end = Dimensions.Padding.double,
-                    top = Dimensions.Padding.double,
-                ),
-            )
-            Text(
-                text = locationInfo,
-                modifier = Modifier.padding(
-                    start = Dimensions.Padding.double,
-                    end = Dimensions.Padding.double,
-                    bottom = Dimensions.Padding.double,
-                ),
-            )
-        }
+        Text(
+            text = title,
+            style = MaterialTheme.typography.headlineSmall,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(
+                start = Dimensions.Padding.double,
+                end = Dimensions.Padding.double,
+                top = Dimensions.Padding.double,
+            ),
+        )
+        Text(
+            text = locationInfo,
+            modifier = Modifier.padding(
+                start = Dimensions.Padding.double,
+                end = Dimensions.Padding.double,
+                bottom = Dimensions.Padding.double,
+            ),
+        )
     }
 }
 
@@ -216,7 +218,7 @@ private fun InfoView(status: String) {
             modifier = Modifier
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
-            tint = MaterialTheme.colors.onSurface,
+            tint = MaterialTheme.colorScheme.onSurface,
         )
         Text(
             text = status,
@@ -227,7 +229,7 @@ private fun InfoView(status: String) {
                 top = Dimensions.Padding.half,
                 bottom = Dimensions.Padding.half,
             ),
-            color = MaterialTheme.colors.onSurface,
+            color = MaterialTheme.colorScheme.onSurface,
         )
     }
 }
@@ -271,7 +273,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
                         .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
                         .clip(CircleShape)
                         .aspectRatio(1f)
-                        .background(MaterialTheme.colors.primary),
+                        .background(MaterialTheme.colorScheme.primary),
                 )
             }
 

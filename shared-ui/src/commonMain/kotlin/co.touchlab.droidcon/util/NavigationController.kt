@@ -5,7 +5,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.with
-import androidx.compose.material.Surface
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.RememberObserver
 import androidx.compose.runtime.getValue
@@ -93,6 +93,7 @@ class NavigationController : BaseViewModel() {
                     true
                 }
             }
+
             is NavigationStackItem.Push<*> ->
                 if (top.item.value != null) {
                     stack.removeAt(currentIndex)
@@ -101,6 +102,7 @@ class NavigationController : BaseViewModel() {
                 } else {
                     pop(defer + 1)
                 }
+
             null -> false
         }
     }
@@ -175,7 +177,7 @@ class NavigationController : BaseViewModel() {
 }
 
 internal data class NavigationViewDimensions(
-    val constraints: Constraints
+    val constraints: Constraints,
 )
 
 @Composable
@@ -218,7 +220,7 @@ internal class NavigationLinkWrapper<T : Any>(
     val index: Int,
     private val value: T?,
     private val reset: () -> Unit,
-    private val content: @Composable (T) -> Unit
+    private val content: @Composable (T) -> Unit,
 ) {
 
     val body: (@Composable () -> Unit)?
@@ -250,7 +252,7 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
         val scope = object : NavigationStackScope {
             override fun <T : Any> NavigationLink(
                 item: MutableObservableProperty<T?>,
-                content: @Composable (T) -> Unit
+                content: @Composable (T) -> Unit,
             ) {
                 constructedLinks.add(
                     item.map {

@@ -38,12 +38,33 @@ captures/
 *.iml
 .gradle
 /local.properties
-.idea
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/encodings.xml
+.idea/saveactions_settings.xml
+.idea/deploymentTargetDropDown.xml
+.idea/gradle.xml
+.idea/misc.xml
+.DS_Store
+/build
+/captures
 .externalNativeBuild
 .cxx
 
 # Keystore files
 *.jks
+
+# Eclipse project files
+.classpath
+.project
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
 
 # fastlane
 #
@@ -57,10 +78,16 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 
+#Because ugh
+.DS_Store
+
 buildboth.sh
 google-services.json
 GoogleService-Info.plist
+GoogleService-Info.plist
 Pods/
 *.xcworkspace
-
-.DS_Store
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/dictionaries/matyas.xml
+/.idea/
