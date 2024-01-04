@@ -3,14 +3,13 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.crashlytics)
 }
 val releaseEnabled = file("./release.jks").exists()
 
 val properties = Properties()
 try {
-
     properties.load(project.rootProject.file("local.properties").bufferedReader())
 } catch (e: Exception) {
 }
@@ -18,22 +17,18 @@ try {
 val releasePassword = properties.getProperty("releasePassword", "")
 
 android {
-    val androidMinSdk = libs.versions.minSdk.get()
-    val androidCompileSdk = libs.versions.compileSdk.get()
-    val androidTargetSdk = libs.versions.targetSdk.get()
-
     namespace = "co.touchlab.droidcon"
-    compileSdk = androidCompileSdk.toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "co.touchlab.droidcon.london"
-        minSdk = androidMinSdk.toInt()
-        targetSdk = androidTargetSdk.toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 20201
         versionName = "2.2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    packagingOptions {
+    packaging {
         resources.excludes.add("META-INF/*.kotlin_module")
     }
     if (releaseEnabled) {
@@ -73,10 +68,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
-
-    packagingOptions {
-        resources.excludes.add("META-INF/*.kotlin_module")
     }
 }
 

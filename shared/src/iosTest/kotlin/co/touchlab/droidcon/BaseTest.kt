@@ -1,5 +1,6 @@
 package co.touchlab.droidcon
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +11,7 @@ import platform.CoreFoundation.CFRunLoopRun
 import platform.CoreFoundation.CFRunLoopStop
 
 actual abstract class BaseTest {
-    @OptIn(DelicateCoroutinesApi::class)
+    @OptIn(DelicateCoroutinesApi::class, ExperimentalForeignApi::class)
     actual fun <T> runTest(block: suspend CoroutineScope.() -> T) {
         var error: Throwable? = null
         GlobalScope.launch(Dispatchers.Main) {

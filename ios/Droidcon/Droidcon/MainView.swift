@@ -20,7 +20,7 @@ struct MainView: View {
                         Text("Schedule.TabItem.Title")
                     }
                     .tag(tab);
-                case ApplicationViewModel.Tab.myagenda:
+                case ApplicationViewModel.Tab.myAgenda:
                     ScheduleView(
                         viewModel: viewModel.agenda,
                         navigationTitle: "Agenda.Title"
