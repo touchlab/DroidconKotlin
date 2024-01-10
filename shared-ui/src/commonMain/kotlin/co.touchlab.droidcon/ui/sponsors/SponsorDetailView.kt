@@ -14,6 +14,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,17 +34,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.composite.Url
-import co.touchlab.droidcon.ui.icons.ArrowBack
-import co.touchlab.droidcon.ui.icons.Description
-import co.touchlab.droidcon.ui.icons.Person
 import co.touchlab.droidcon.ui.session.SpeakerDetailView
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.RemoteImage
+import co.touchlab.droidcon.ui.util.DcAsyncImage
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailViewModel
+
+private const val LOG_TAG = "SponsorDetailView"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +63,7 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
                     navigationIcon = {
                         IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                             Icon(
-                                imageVector = Icons.Default.ArrowBack,
+                                imageVector = Icons.Filled.ArrowBack,
                                 contentDescription = "Back",
                             )
                         }
@@ -75,7 +77,11 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
                     .padding(paddingValues)
                     .verticalScroll(scrollState),
             ) {
-                HeaderView(name = viewModel.name, groupTitle = viewModel.groupName, imageUrl = viewModel.imageUrl)
+                HeaderView(
+                    name = viewModel.name,
+                    groupTitle = viewModel.groupName,
+                    imageUrl = viewModel.imageUrl
+                )
 
                 viewModel.abstract?.let {
                     DescriptionView(description = it)
@@ -124,8 +130,9 @@ private fun HeaderView(name: String, groupTitle: String, imageUrl: Url?) {
         }
 
         if (imageUrl != null) {
-            RemoteImage(
-                imageUrl = imageUrl.string,
+            DcAsyncImage(
+                logTag = LOG_TAG,
+                model = imageUrl.string,
                 modifier = Modifier
                     .width(120.dp)
                     .padding(horizontal = Dimensions.Padding.default)
@@ -185,18 +192,27 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .width(80.dp)
-                        .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
+                        .padding(
+                            start = Dimensions.Padding.default,
+                            end = Dimensions.Padding.default,
+                            top = Dimensions.Padding.half
+                        )
                         .clip(CircleShape)
                         .aspectRatio(1f)
                         .background(MaterialTheme.colorScheme.primary),
                 )
             } else {
-                RemoteImage(
-                    imageUrl = imageUrl.string,
+                DcAsyncImage(
+                    logTag = LOG_TAG,
+                    model = imageUrl.string,
                     contentDescription = profile.info,
                     modifier = Modifier
                         .width(80.dp)
-                        .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
+                        .padding(
+                            start = Dimensions.Padding.default,
+                            end = Dimensions.Padding.default,
+                            top = Dimensions.Padding.half
+                        )
                         .clip(CircleShape)
                         .aspectRatio(1f)
                         .background(MaterialTheme.colorScheme.primary),

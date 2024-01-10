@@ -1,10 +1,12 @@
 package co.touchlab.droidcon.ui.settings
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,13 +14,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import co.touchlab.droidcon.ui.icons.Info
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.WebLinkText
+import co.touchlab.droidcon.ui.util.DcDrawableResource
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.settings.AboutItemViewModel
 import co.touchlab.droidcon.viewmodel.settings.AboutViewModel
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 internal fun AboutView(viewModel: AboutViewModel) {
@@ -28,6 +31,7 @@ internal fun AboutView(viewModel: AboutViewModel) {
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun AboutItemView(viewModel: AboutItemViewModel) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
@@ -53,8 +57,9 @@ private fun AboutItemView(viewModel: AboutItemViewModel) {
                 modifier = Modifier.padding(end = Dimensions.Padding.default),
             )
 
-            LocalImage(
-                imageResourceName = viewModel.icon,
+            Image(
+                painter = painterResource(DcDrawableResource(viewModel.icon)),
+                contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(

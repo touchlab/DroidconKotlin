@@ -80,6 +80,9 @@ kotlin {
                 api(libs.multiplatformSettings.core)
                 api(libs.uuid)
 
+                implementation(libs.coil.compose)
+                implementation(libs.coil.network)
+
                 implementation(libs.bundles.ktor.common)
                 implementation(libs.bundles.sqldelight.common)
 
@@ -97,6 +100,8 @@ kotlin {
 
                 implementation(libs.hyperdrive.multiplatformx.api)
                 // implementation(libs.hyperdrive.multiplatformx.compose)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
             }
         }
         commonTest {
@@ -104,11 +109,6 @@ kotlin {
                 implementation(libs.multiplatformSettings.test)
                 implementation(libs.kotlin.test.common)
                 implementation(libs.koin.test)
-            }
-        }
-        androidMain {
-            dependencies {
-                implementation(libs.accompanist.coil)
             }
         }
         val androidUnitTest by getting {

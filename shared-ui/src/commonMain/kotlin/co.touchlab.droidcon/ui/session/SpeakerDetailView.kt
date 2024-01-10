@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ui.session
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -11,6 +12,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,15 +35,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.dto.WebLink
-import co.touchlab.droidcon.ui.icons.ArrowBack
-import co.touchlab.droidcon.ui.icons.Description
-import co.touchlab.droidcon.ui.icons.Language
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.LocalImage
-import co.touchlab.droidcon.ui.util.RemoteImage
+import co.touchlab.droidcon.ui.util.DcAsyncImage
+import co.touchlab.droidcon.ui.util.DcDrawableResource
+import co.touchlab.droidcon.ui.util.DrawableType
 import co.touchlab.droidcon.ui.util.WebLinkText
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
+
+private const val LOG_TAG = "SpeakerDetailView"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,7 +59,7 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
                 navigationIcon = {
                     IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back",
                         )
                     }
@@ -94,14 +100,15 @@ private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (imageUrl != null) {
-            RemoteImage(
-                imageUrl = imageUrl.string,
+            DcAsyncImage(
+                logTag = LOG_TAG,
+                model = imageUrl.string,
                 contentDescription = name,
                 modifier = Modifier
                     .width(100.dp)
                     .padding(Dimensions.Padding.default)
                     .clip(CircleShape)
-                    .aspectRatio(1f),
+                    .aspectRatio(1f)
             )
         }
 
@@ -129,14 +136,16 @@ private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun SocialView(url: WebLink, iconName: String) {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        LocalImage(
-            imageResourceName = iconName,
+        Image(
+            painter = painterResource(DcDrawableResource(iconName, DrawableType.VECTOR)),
+            contentDescription = null,
             modifier = Modifier
                 .padding(Dimensions.Padding.default)
-                .size(28.dp),
+                .size(28.dp)
         )
         WebLinkText(
             text = url.link,
@@ -174,7 +183,10 @@ private fun SocialView(url: WebLink, icon: ImageVector) {
 
 @Composable
 private fun BioView(bio: String, webLinks: List<WebLink>) {
-    Row(modifier = Modifier.fillMaxWidth().padding(vertical = Dimensions.Padding.half), verticalAlignment = Alignment.Top) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = Dimensions.Padding.half),
+        verticalAlignment = Alignment.Top
+    ) {
         Icon(
             imageVector = Icons.Default.Description,
             contentDescription = null,
