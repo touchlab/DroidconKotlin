@@ -66,7 +66,7 @@ fun initKoin(additionalModules: List<Module>): KoinApplication {
     return koinApplication
 }
 
-val intToLongAdapter = object: ColumnAdapter<Int, Long> {
+val intToLongAdapter = object : ColumnAdapter<Int, Long> {
     override fun decode(databaseValue: Long): Int {
         return databaseValue.toInt()
     }
@@ -122,7 +122,10 @@ private val coreModule = module {
         )
     }
     single<SessionRepository> {
-        SqlDelightSessionRepository(dateTimeService = get(), sessionQueries = get<DroidconDatabase>().sessionQueries)
+        SqlDelightSessionRepository(
+            dateTimeService = get(),
+            sessionQueries = get<DroidconDatabase>().sessionQueries
+        )
     }
     single<RoomRepository> {
         SqlDelightRoomRepository(roomQueries = get<DroidconDatabase>().roomQueries)
