@@ -2,33 +2,20 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("com.google.firebase.crashlytics") version libs.versions.firebase.crashlytics.gradle.get() apply false
-    id("com.google.gms.google-services") version libs.versions.gms.google.services.get() apply false
-    id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
-
-    val kotlinVersion = libs.versions.kotlin.get()
-
-    kotlin("multiplatform") version kotlinVersion apply false
-    kotlin("android") version kotlinVersion apply false
-    kotlin("plugin.serialization") version kotlinVersion apply false
-    kotlin("native.cocoapods") version kotlinVersion apply false
-    id("app.cash.sqldelight") version libs.versions.sqlDelight.get() apply false
-    id("org.jlleitschuh.gradle.ktlint") version libs.versions.ktlint.get()
-    id("org.jetbrains.compose") version libs.versions.compose.jb.get() apply false
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://oss.sonatype.org/content/repositories/snapshots/")
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        maven("https://androidx.dev/storage/compose-compiler/repository/")
-    }
+    alias(libs.plugins.crashlytics).apply(false)
+    alias(libs.plugins.googleServices).apply(false)
+    alias(libs.plugins.kotlinMultiplatform).apply(false)
+    alias(libs.plugins.androidLibrary).apply(false)
+    alias(libs.plugins.sqlDelight).apply(false)
+    alias(libs.plugins.jetbrains.compose).apply(false)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.serialization).apply(false)
+    alias(libs.plugins.cocoapods).apply(false)
+    alias(libs.plugins.skie).apply(false)
 }
 
 subprojects {
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = rootProject.libs.plugins.ktlint.get().pluginId)
 
     ktlint {
         version.set("0.37.2")
@@ -53,5 +40,5 @@ subprojects {
 }
 
 tasks.register<Delete>("clean") {
-    delete(rootProject.buildDir)
+    delete(rootProject.layout.buildDirectory)
 }

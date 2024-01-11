@@ -1,7 +1,7 @@
 package co.touchlab.droidcon.util
 
 import co.touchlab.droidcon.Constants
-import com.soywiz.krypto.md5
+import korlibs.crypto.md5
 
 object AppChecker {
 

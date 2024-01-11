@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalSettingsApi::class)
-
 package co.touchlab.droidcon
 
 import app.cash.sqldelight.ColumnAdapter
@@ -45,7 +43,6 @@ import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
-import com.russhwolf.settings.ExperimentalSettingsApi
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Clock
 import kotlinx.serialization.json.Json
@@ -69,7 +66,7 @@ fun initKoin(additionalModules: List<Module>): KoinApplication {
     return koinApplication
 }
 
-val intToLongAdapter = object: ColumnAdapter<Int, Long> {
+val intToLongAdapter = object : ColumnAdapter<Int, Long> {
     override fun decode(databaseValue: Long): Int {
         return databaseValue.toInt()
     }
@@ -125,7 +122,10 @@ private val coreModule = module {
         )
     }
     single<SessionRepository> {
-        SqlDelightSessionRepository(dateTimeService = get(), sessionQueries = get<DroidconDatabase>().sessionQueries)
+        SqlDelightSessionRepository(
+            dateTimeService = get(),
+            sessionQueries = get<DroidconDatabase>().sessionQueries
+        )
     }
     single<RoomRepository> {
         SqlDelightRoomRepository(roomQueries = get<DroidconDatabase>().roomQueries)

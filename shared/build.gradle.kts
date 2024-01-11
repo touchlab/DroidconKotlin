@@ -1,25 +1,23 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+
 plugins {
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
-    id("com.android.library")
-    id("app.cash.sqldelight")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.sqlDelight)
 }
 
 android {
-    val androidMinSdk = libs.versions.minSdk.get()
-    val androidCompileSdk = libs.versions.compileSdk.get()
-    val androidTargetSdk = libs.versions.targetSdk.get()
-
     namespace = "co.touchlab.droidcon.shared"
-    compileSdk = androidCompileSdk.toInt()
-    namespace = "co.touchlab.droidcon.shared"
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = androidMinSdk.toInt()
-        targetSdk = androidTargetSdk.toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     lint {
+        targetSdk = libs.versions.targetSdk.get().toInt()
         warningsAsErrors = true
         abortOnError = true
     }
@@ -52,14 +50,22 @@ android {
 }
 
 kotlin {
-    android()
-    ios()
+    compilerOptions {
+        // common compiler options applied to all Kotlin source sets
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        unitTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+    }
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     version = "1.0"
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(libs.kermit)
                 api(libs.kermit.crashlytics)
@@ -76,14 +82,14 @@ kotlin {
                 implementation(libs.korio)
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(libs.multiplatformSettings.test)
                 implementation(libs.kotlin.test.common)
                 implementation(libs.koin.test)
             }
         }
-        val androidMain by getting {
+        androidMain {
             dependencies {
                 implementation(libs.sqldelight.driver.android)
                 implementation(libs.kotlinx.coroutines.android)
@@ -98,16 +104,13 @@ kotlin {
                 implementation(libs.test.coroutines)
             }
         }
-        val iosMain by getting {
+        iosMain {
             dependencies {
                 implementation(libs.sqldelight.driver.ios)
+                implementation(libs.sqliter)
                 implementation(libs.ktor.client.ios)
             }
         }
-        val iosTest by getting {}
-
-        sourceSets["iosSimulatorArm64Main"].dependsOn(iosMain)
-        sourceSets["iosSimulatorArm64Test"].dependsOn(iosTest)
     }
 
     sourceSets.all {
@@ -119,16 +122,6 @@ kotlin {
 
     sourceSets.matching { it.name.endsWith("Test") }.configureEach {
         languageSettings.optIn("kotlin.time.ExperimentalTime")
-    }
-
-    // Enable concurrent sweep phase in new native memory manager. (This will be enabled by default in 1.7.0)
-    // https://kotlinlang.org/docs/whatsnew1620.html#concurrent-implementation-for-the-sweep-phase-in-new-memory-manager
-    // (This might not be necessary here since the other module creates the framework, but it's here as well just in case it matters for
-    //  test binaries)
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        binaries.all {
-            freeCompilerArgs += "-Xgc=cms"
-        }
     }
 }
 

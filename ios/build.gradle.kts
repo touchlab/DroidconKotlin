@@ -3,19 +3,18 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    kotlin("plugin.serialization")
-    id("org.jetbrains.compose")
-    id("co.touchlab.skie") version libs.versions.skie
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.cocoapods)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.skie)
 }
 
 version = "1.0"
 
 kotlin {
-    applyDefaultHierarchyTemplate()
-
-    ios()
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     sourceSets {
@@ -25,26 +24,25 @@ kotlin {
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
+        iosMain {
+            dependencies {
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.runtime)
+
+                api(project(":shared"))
+                api(project(":shared-ui"))
+                api(libs.kermit)
+                api(libs.kermit.simple)
+            }
+        }
     }
 
     sourceSets.matching { it.name.endsWith("Test") }
         .configureEach {
             languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
-
-    sourceSets["iosMain"].dependencies {
-        implementation(compose.ui)
-        implementation(compose.foundation)
-        implementation(compose.material)
-        implementation(compose.runtime)
-
-        api(project(":shared"))
-        api(project(":shared-ui"))
-        api(libs.kermit)
-        api(libs.kermit.simple)
-    }
-    sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
-    sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
 
     cocoapods {
         summary = "Common library for the Droidcon app"
@@ -53,7 +51,7 @@ kotlin {
         framework {
             baseName = "DroidconKit"
             isStatic = true
-            embedBitcode = BitcodeEmbeddingMode.DISABLE
+            embedBitcodeMode = BitcodeEmbeddingMode.DISABLE
 
             freeCompilerArgs += listOf(
                 "-linker-option", "-framework", "-linker-option", "Metal",

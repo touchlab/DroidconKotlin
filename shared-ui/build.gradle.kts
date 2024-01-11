@@ -1,25 +1,24 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+
 plugins {
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
-    id("com.android.library")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrains.compose)
 }
 
 android {
-    val androidMinSdk = libs.versions.minSdk.get()
-    val androidCompileSdk = libs.versions.compileSdk.get()
-    val androidTargetSdk = libs.versions.targetSdk.get()
-
     namespace = "co.touchlab.droidcon.sharedui"
-    compileSdk = androidCompileSdk.toInt()
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = androidMinSdk.toInt()
-        targetSdk = androidTargetSdk.toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     lint {
+        targetSdk = libs.versions.targetSdk.get().toInt()
         warningsAsErrors = true
         abortOnError = true
     }
@@ -59,14 +58,18 @@ compose {
 }
 
 kotlin {
-    android()
-    ios()
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        unitTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+    }
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     version = "1.0"
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(project(":shared"))
 
@@ -87,20 +90,23 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material3)
                 implementation(compose.materialIconsExtended)
-                implementation(compose.runtime)
+                // Moved from implementation to api due to below issue
+                // https://issuetracker.google.com/issues/294869453
+                // https://github.com/JetBrains/compose-multiplatform/issues/3927
+                api(compose.runtime)
 
                 implementation(libs.hyperdrive.multiplatformx.api)
                 // implementation(libs.hyperdrive.multiplatformx.compose)
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(libs.multiplatformSettings.test)
                 implementation(libs.kotlin.test.common)
                 implementation(libs.koin.test)
             }
         }
-        val androidMain by getting {
+        androidMain {
             dependencies {
                 implementation(libs.accompanist.coil)
             }
@@ -112,15 +118,11 @@ kotlin {
                 implementation(libs.test.coroutines)
             }
         }
-        val iosMain by getting {
+        iosMain {
             dependencies {
                 implementation(libs.imageLoader)
             }
         }
-        val iosTest by getting {}
-
-        sourceSets["iosSimulatorArm64Main"].dependsOn(iosMain)
-        sourceSets["iosSimulatorArm64Test"].dependsOn(iosTest)
     }
 
     sourceSets.all {
@@ -132,15 +134,5 @@ kotlin {
 
     sourceSets.matching { it.name.endsWith("Test") }.configureEach {
         languageSettings.optIn("kotlin.time.ExperimentalTime")
-    }
-
-    // Enable concurrent sweep phase in new native memory manager. (This will be enabled by default in 1.7.0)
-    // https://kotlinlang.org/docs/whatsnew1620.html#concurrent-implementation-for-the-sweep-phase-in-new-memory-manager
-    // (This might not be necessary here since the other module creates the framework, but it's here as well just in case it matters for
-    //  test binaries)
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        binaries.all {
-            freeCompilerArgs += "-Xgc=cms"
-        }
     }
 }
