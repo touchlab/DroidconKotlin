@@ -59,7 +59,7 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
                 navigationIcon = {
                     IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBack,
+                            imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back",
                         )
                     }
