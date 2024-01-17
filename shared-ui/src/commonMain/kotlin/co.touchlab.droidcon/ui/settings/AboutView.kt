@@ -15,8 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.WebLinkText
 import co.touchlab.droidcon.ui.util.DcDrawableResource
+import co.touchlab.droidcon.ui.util.WebLinkText
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.settings.AboutItemViewModel
 import co.touchlab.droidcon.viewmodel.settings.AboutViewModel

@@ -25,13 +25,10 @@ import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.setSingletonImageLoaderFactory
-import droidcon.generated.resources.Res
-import org.jetbrains.compose.resources.vectorResource
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
-
     setSingletonImageLoaderFactory { context ->
         dcImageLoader(context, true)
     }
