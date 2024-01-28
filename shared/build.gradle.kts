@@ -50,6 +50,7 @@ android {
 }
 
 kotlin {
+    @Suppress("OPT_IN_USAGE")
     compilerOptions {
         // common compiler options applied to all Kotlin source sets
         freeCompilerArgs.add("-Xexpect-actual-classes")
@@ -65,51 +66,41 @@ kotlin {
     version = "1.0"
 
     sourceSets {
-        commonMain {
-            dependencies {
-                api(libs.kermit)
-                api(libs.kermit.crashlytics)
-                api(libs.kotlinx.coroutines.core)
-                api(libs.kotlinx.datetime)
-                api(libs.multiplatformSettings.core)
-                api(libs.uuid)
+        commonMain.dependencies {
+            api(libs.kermit)
+            api(libs.kermit.crashlytics)
+            api(libs.kotlinx.coroutines.core)
+            api(libs.kotlinx.datetime)
+            api(libs.multiplatformSettings.core)
+            api(libs.uuid)
 
-                implementation(libs.bundles.ktor.common)
-                implementation(libs.bundles.sqldelight.common)
+            implementation(libs.bundles.ktor.common)
+            implementation(libs.bundles.sqldelight.common)
 
-                implementation(libs.stately.common)
-                implementation(libs.koin.core)
-                implementation(libs.korio)
-            }
+            implementation(libs.stately.common)
+            implementation(libs.koin.core)
+            implementation(libs.korio)
         }
-        commonTest {
-            dependencies {
-                implementation(libs.multiplatformSettings.test)
-                implementation(libs.kotlin.test.common)
-                implementation(libs.koin.test)
-            }
+        commonTest.dependencies {
+            implementation(libs.multiplatformSettings.test)
+            implementation(libs.kotlin.test.common)
+            implementation(libs.koin.test)
         }
-        androidMain {
-            dependencies {
-                implementation(libs.sqldelight.driver.android)
-                implementation(libs.kotlinx.coroutines.android)
-                implementation(libs.ktor.client.okhttp)
-                implementation(libs.androidx.core)
-            }
+        androidMain.dependencies {
+            implementation(libs.sqldelight.driver.android)
+            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.androidx.core)
         }
-        val androidUnitTest by getting {
-            dependencies {
-                implementation(libs.test.junit)
-                implementation(libs.test.junitKtx)
-                implementation(libs.test.coroutines)
-            }
+        getByName("androidUnitTest").dependencies {
+            implementation(libs.test.junit)
+            implementation(libs.test.junitKtx)
+            implementation(libs.test.coroutines)
         }
-        iosMain {
-            dependencies {
-                implementation(libs.sqldelight.driver.ios)
-                implementation(libs.sqliter)
-                implementation(libs.ktor.client.ios)
-            }
+        iosMain.dependencies {
+            implementation(libs.sqldelight.driver.ios)
+            implementation(libs.sqliter)
+            implementation(libs.ktor.client.ios)
         }
     }
 

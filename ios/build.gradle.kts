@@ -24,18 +24,16 @@ kotlin {
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
-        iosMain {
-            dependencies {
-                implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                implementation(compose.runtime)
+        iosMain.dependencies {
+            implementation(compose.ui)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.runtime)
 
-                api(project(":shared"))
-                api(project(":shared-ui"))
-                api(libs.kermit)
-                api(libs.kermit.simple)
-            }
+            api(project(":shared"))
+            api(project(":shared-ui"))
+            api(libs.kermit)
+            api(libs.kermit.simple)
         }
     }
 

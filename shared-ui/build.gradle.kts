@@ -69,59 +69,51 @@ kotlin {
     version = "1.0"
 
     sourceSets {
-        commonMain {
-            dependencies {
-                implementation(project(":shared"))
+        commonMain.dependencies {
+            implementation(project(":shared"))
 
-                api(libs.kermit)
-                api(libs.kermit.crashlytics)
-                api(libs.kotlinx.coroutines.core)
-                api(libs.kotlinx.datetime)
-                api(libs.multiplatformSettings.core)
-                api(libs.uuid)
+            api(libs.kermit)
+            api(libs.kermit.crashlytics)
+            api(libs.kotlinx.coroutines.core)
+            api(libs.kotlinx.datetime)
+            api(libs.multiplatformSettings.core)
+            api(libs.uuid)
 
-                implementation(libs.coil.compose)
-                implementation(libs.coil.network)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network)
 
-                implementation(libs.bundles.ktor.common)
-                implementation(libs.bundles.sqldelight.common)
+            implementation(libs.bundles.ktor.common)
+            implementation(libs.bundles.sqldelight.common)
 
-                implementation(libs.stately.common)
-                implementation(libs.koin.core)
+            implementation(libs.stately.common)
+            implementation(libs.koin.core)
 
-                implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.materialIconsExtended)
-                // Moved from implementation to api due to below issue
-                // https://issuetracker.google.com/issues/294869453
-                // https://github.com/JetBrains/compose-multiplatform/issues/3927
-                api(compose.runtime)
+            implementation(compose.ui)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            // Moved from implementation to api due to below issue
+            // https://issuetracker.google.com/issues/294869453
+            // https://github.com/JetBrains/compose-multiplatform/issues/3927
+            api(compose.runtime)
 
-                implementation(libs.hyperdrive.multiplatformx.api)
-                // implementation(libs.hyperdrive.multiplatformx.compose)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
-            }
+            implementation(libs.hyperdrive.multiplatformx.api)
+            // implementation(libs.hyperdrive.multiplatformx.compose)
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.components.resources)
         }
-        commonTest {
-            dependencies {
-                implementation(libs.multiplatformSettings.test)
-                implementation(libs.kotlin.test.common)
-                implementation(libs.koin.test)
-            }
+        commonTest.dependencies {
+            implementation(libs.multiplatformSettings.test)
+            implementation(libs.kotlin.test.common)
+            implementation(libs.koin.test)
         }
-        val androidUnitTest by getting {
-            dependencies {
-                implementation(libs.test.junit)
-                implementation(libs.test.junitKtx)
-                implementation(libs.test.coroutines)
-            }
+        getByName("androidUnitTest").dependencies {
+            implementation(libs.test.junit)
+            implementation(libs.test.junitKtx)
+            implementation(libs.test.coroutines)
         }
-        iosMain {
-            dependencies {
-                implementation(libs.imageLoader)
-            }
+        iosMain.dependencies {
+            implementation(libs.imageLoader)
         }
     }
 
