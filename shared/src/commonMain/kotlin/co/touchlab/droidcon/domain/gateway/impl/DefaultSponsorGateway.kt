@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 
 class DefaultSponsorGateway(
     private val sponsorRepository: SponsorRepository,
@@ -61,14 +62,15 @@ class DefaultSponsorGateway(
     }
 
     override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> {
-        val conferenceId = conferenceConfigProvider.getConferenceId()
-            ?: throw IllegalStateException("Conference ID is not available")
-        return sponsorRepository.observe(id, conferenceId)
+        return conferenceConfigProvider.observeChanges()
+            .filterNotNull()
+            .flatMapLatest { conference ->
+            sponsorRepository.observe(id, conference.id)
+        }
     }
 
     override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> {
         val conferenceId = conferenceConfigProvider.getConferenceId()
-            ?: throw IllegalStateException("Conference ID is not available")
         return profileRepository.getSponsorRepresentatives(sponsorId, conferenceId)
     }
 }
