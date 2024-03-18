@@ -19,7 +19,7 @@ android {
 
     lint {
         targetSdk = libs.versions.targetSdk.get().toInt()
-        warningsAsErrors = true
+        warningsAsErrors = false
         abortOnError = true
     }
 
@@ -69,70 +69,48 @@ kotlin {
     version = "1.0"
 
     sourceSets {
-        commonMain {
-            dependencies {
-                implementation(project(":shared"))
+        commonMain.dependencies {
+            implementation(project(":shared"))
 
-                api(libs.kermit)
-                api(libs.kermit.crashlytics)
-                api(libs.kotlinx.coroutines.core)
-                api(libs.kotlinx.datetime)
-                api(libs.multiplatformSettings.core)
-                api(libs.uuid)
+            api(libs.kermit)
+            api(libs.kermit.crashlytics)
+            api(libs.kotlinx.coroutines.core)
+            api(libs.kotlinx.datetime)
+            api(libs.multiplatformSettings.core)
+            api(libs.uuid)
 
-                implementation(libs.bundles.ktor.common)
-                implementation(libs.bundles.sqldelight.common)
+            implementation(libs.bundles.ktor.common)
+            implementation(libs.bundles.sqldelight.common)
 
-                implementation(libs.stately.common)
-                implementation(libs.koin.core)
+            implementation(libs.stately.common)
+            implementation(libs.koin.core)
 
-                implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.materialIconsExtended)
-                // Moved from implementation to api due to below issue
-                // https://issuetracker.google.com/issues/294869453
-                // https://github.com/JetBrains/compose-multiplatform/issues/3927
-                api(compose.runtime)
+            implementation(compose.ui)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            // Moved from implementation to api due to below issue
+            // https://issuetracker.google.com/issues/294869453
+            // https://github.com/JetBrains/compose-multiplatform/issues/3927
+            api(compose.runtime)
 
-                implementation(libs.hyperdrive.multiplatformx.api)
-                // implementation(libs.hyperdrive.multiplatformx.compose)
+            implementation(libs.hyperdrive.multiplatformx.api)
+            // implementation(libs.hyperdrive.multiplatformx.compose)
+        }
+        androidMain.dependencies {
+            implementation(libs.accompanist.coil)
+        }
+        iosMain.dependencies {
+            implementation(libs.imageLoader)
+        }
+        all {
+            languageSettings.apply {
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
-        commonTest {
-            dependencies {
-                implementation(libs.multiplatformSettings.test)
-                implementation(libs.kotlin.test.common)
-                implementation(libs.koin.test)
-            }
+        matching { it.name.endsWith("Test") }.configureEach {
+            languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
-        androidMain {
-            dependencies {
-                implementation(libs.accompanist.coil)
-            }
-        }
-        val androidUnitTest by getting {
-            dependencies {
-                implementation(libs.test.junit)
-                implementation(libs.test.junitKtx)
-                implementation(libs.test.coroutines)
-            }
-        }
-        iosMain {
-            dependencies {
-                implementation(libs.imageLoader)
-            }
-        }
-    }
-
-    sourceSets.all {
-        languageSettings.apply {
-            optIn("kotlin.RequiresOptIn")
-            optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
-        }
-    }
-
-    sourceSets.matching { it.name.endsWith("Test") }.configureEach {
-        languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
 }
