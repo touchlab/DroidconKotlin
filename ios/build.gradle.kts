@@ -7,15 +7,14 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.jetbrains.compose)
-    alias(libs.plugins.skie)
 }
 
 version = "1.0"
 
 kotlin {
     iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+     iosArm64()
+     iosSimulatorArm64()
 
     sourceSets {
         all {

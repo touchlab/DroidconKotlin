@@ -20,7 +20,7 @@ struct MainView: View {
                         Text("Schedule.TabItem.Title")
                     }
                     .tag(tab);
-                case ApplicationViewModel.Tab.myAgenda:
+                case ApplicationViewModel.Tab.myagenda:
                     ScheduleView(
                         viewModel: viewModel.agenda,
                         navigationTitle: "Agenda.Title"
@@ -49,6 +49,8 @@ struct MainView: View {
                         Text("Settings.TabItem.Title")
                     }
                     .tag(tab);
+                default:
+                    fatalError("Unknown tab \(tab).")
                 }
             }
         }
