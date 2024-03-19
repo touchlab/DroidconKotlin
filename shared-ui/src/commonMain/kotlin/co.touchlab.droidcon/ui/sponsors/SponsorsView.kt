@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -38,14 +39,15 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.ui.icons.DateRange
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.RemoteImage
+import co.touchlab.droidcon.ui.util.DcAsyncImage
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
 import kotlin.math.min
+
+private const val LOG_TAG = "SponsorsView"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -95,7 +97,10 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
 @Composable
 private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
     Card(
-        modifier = Modifier.padding(vertical = Dimensions.Padding.quarter, horizontal = Dimensions.Padding.half)
+        modifier = Modifier.padding(
+            vertical = Dimensions.Padding.quarter,
+            horizontal = Dimensions.Padding.half
+        )
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
@@ -131,8 +136,9 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                         ) {
                             val imageUrl = sponsor.validImageUrl
                             if (imageUrl != null) {
-                                RemoteImage(
-                                    imageUrl = imageUrl,
+                                DcAsyncImage(
+                                    logTag = LOG_TAG,
+                                    model = imageUrl,
                                     contentDescription = sponsor.name,
                                 )
                             } else {

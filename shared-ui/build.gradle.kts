@@ -78,6 +78,8 @@ kotlin {
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
             api(libs.uuid)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network)
 
             implementation(libs.bundles.ktor.common)
             implementation(libs.bundles.sqldelight.common)
@@ -96,9 +98,6 @@ kotlin {
 
             implementation(libs.hyperdrive.multiplatformx.api)
             // implementation(libs.hyperdrive.multiplatformx.compose)
-        }
-        androidMain.dependencies {
-            implementation(libs.accompanist.coil)
         }
         iosMain.dependencies {
             implementation(libs.imageLoader)

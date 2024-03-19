@@ -15,7 +15,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.BookmarkAdded
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
@@ -43,17 +46,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ui.FeedbackDialog
-import co.touchlab.droidcon.ui.icons.ArrowBack
-import co.touchlab.droidcon.ui.icons.Description
-import co.touchlab.droidcon.ui.icons.Info
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.RemoteImage
+import co.touchlab.droidcon.ui.util.DcAsyncImage
 import co.touchlab.droidcon.ui.util.WebLinkText
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
+
+private const val LOG_TAG = "SessionDetailView"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,7 +77,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                     navigationIcon = {
                         IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                             Icon(
-                                imageVector = Icons.Default.ArrowBack,
+                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
                                 contentDescription = "Back",
                             )
                         }
@@ -113,7 +115,8 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             containerColor = MaterialTheme.colorScheme.secondaryContainer,
                             contentColor = MaterialTheme.colorScheme.secondary
                         ) {
-                            val icon = if (isAttending) Icons.Default.BookmarkAdded else Icons.Outlined.BookmarkAdd
+                            val icon =
+                                if (isAttending) Icons.Default.BookmarkAdded else Icons.Outlined.BookmarkAdd
                             val description = if (isAttending) {
                                 "Do not attend"
                             } else {
@@ -211,7 +214,10 @@ private fun HeaderView(title: String, locationInfo: String) {
 
 @Composable
 private fun InfoView(status: String) {
-    Row(modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.default), verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.default),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Icon(
             imageVector = Icons.Default.Info,
             contentDescription = "Info",
@@ -266,11 +272,16 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             val imageUrl = speaker.avatarUrl?.string
             if (imageUrl != null) {
-                RemoteImage(
-                    imageUrl = imageUrl,
+                DcAsyncImage(
+                    logTag = LOG_TAG,
+                    model = imageUrl,
                     contentDescription = speaker.info,
                     modifier = Modifier.width(80.dp)
-                        .padding(start = Dimensions.Padding.default, end = Dimensions.Padding.default, top = Dimensions.Padding.half)
+                        .padding(
+                            start = Dimensions.Padding.default,
+                            end = Dimensions.Padding.default,
+                            top = Dimensions.Padding.half
+                        )
                         .clip(CircleShape)
                         .aspectRatio(1f)
                         .background(MaterialTheme.colorScheme.primary),
