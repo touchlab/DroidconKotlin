@@ -7,43 +7,6 @@
     <string name="notification_feedback_title">Feedback Time!</string>
     <string name="notification_feedback_body">Your Feedback is Requested.</string>
 
-    <string name="schedule_title">Schedule</string>
     <string name="droidcon_title">Droidcon London 2023</string>
-    <string name="schedule_session_detail_title">Session</string>
-    <string name="schedule_session_detail_status_future">This session hasn\'t started yet.</string>
-    <string name="schedule_session_detail_status_in_progress">This session is happening now.</string>
-    <string name="schedule_session_detail_status_past">This session has already ended.</string>
-    <string name="schedule_session_detail_status_conflict">This session conflicts with another session in your schedule.</string>
-    <string name="schedule_session_detail_is_attending_action_description">Do not attend</string>
-    <string name="schedule_session_detail_is_not_attending_action_description">Attend</string>
-    <string name="schedule_session_detail_info_description">Info</string>
-    <string name="schedule_session_detail_description_description">Description</string>
-    <string name="schedule_speaker_detail_title">Speaker</string>
-    <string name="schedule_speaker_detail_info_description">Info</string>
-    <string name="schedule_empty">There are no sessions planned.</string>
-    <string name="schedule_item_in_room">in %s</string>
 
-    <string name="my_agenda_title">My Agenda</string>
-    <string name="my_agenda_empty">You are not attending any sessions.</string>
-
-    <string name="sponsors_title">Sponsors</string>
-    <string name="sponsors_empty">Sponsors could not be loaded.</string>
-    <string name="sponsor_title">Sponsor</string>
-    <string name="sponsor_detail_description_description">Description</string>
-
-    <string name="settings_title">Settings</string>
-    <string name="settings_enable_feedback_title">Enable feedback</string>
-    <string name="settings_enable_reminders_title">Enable reminders</string>
-
-    <string name="feedback_title">What did you think of \"%s\"?</string>
-    <string name="feedback_opinion_placeholder">(Optional) Suggest improvements</string>
-    <string name="feedback_reaction_bad_description">Bad</string>
-    <string name="feedback_reaction_normal_description">Normal</string>
-    <string name="feedback_reaction_good_description">Good</string>
-    <string name="feedback_submit">Submit</string>
-    <string name="feedback_close_and_disable">Close and disable feedback</string>
-    <string name="feedback_skip">Skip feedback</string>
-
-    <string name="feedback_add_title">Add feedback</string>
-    <string name="feedback_change_title">Change your feedback</string>
 </resources>

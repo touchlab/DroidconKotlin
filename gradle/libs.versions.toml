@@ -29,7 +29,6 @@ compose-compiler = "1.5.11-dev-k2.0.0-Beta4-21f5e479a96"
 composeNavigation = "2.7.7"
 compose-jb = "1.6.1"
 
-accompanistCoil = "0.15.0"
 accompanistNavigationAnimation = "0.34.0"
 splashscreen = "1.0.1"
 junit = "4.13.2"
@@ -45,13 +44,15 @@ android-desugaring = "2.0.4"
 koin = "3.5.3"
 uuid = "0.8.3"
 ktlint = "11.0.0"
+coil = "3.0.0-alpha04"
 
 [libraries]
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
 sqliter = { module = "co.touchlab:sqliter-driver", version.ref = "sqliter" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 
-accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanistCoil" }
 accompanist-navigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanistNavigationAnimation" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version = "_" }

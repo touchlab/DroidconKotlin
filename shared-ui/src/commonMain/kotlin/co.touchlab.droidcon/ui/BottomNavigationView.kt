@@ -3,6 +3,10 @@ package co.touchlab.droidcon.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -13,10 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import co.touchlab.droidcon.ui.icons.CalendarMonth
-import co.touchlab.droidcon.ui.icons.LocalFireDepartment
-import co.touchlab.droidcon.ui.icons.Schedule
-import co.touchlab.droidcon.ui.icons.Settings
 import co.touchlab.droidcon.ui.session.SessionListView
 import co.touchlab.droidcon.ui.settings.SettingsView
 import co.touchlab.droidcon.ui.sponsors.SponsorsView
