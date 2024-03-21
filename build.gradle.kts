@@ -11,7 +11,6 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.serialization).apply(false)
     alias(libs.plugins.cocoapods).apply(false)
-    alias(libs.plugins.skie).apply(false)
 }
 
 subprojects {

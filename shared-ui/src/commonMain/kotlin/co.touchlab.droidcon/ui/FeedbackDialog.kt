@@ -12,6 +12,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.SentimentNeutral
+import androidx.compose.material.icons.filled.SentimentVeryDissatisfied
+import androidx.compose.material.icons.filled.SentimentVerySatisfied
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -28,9 +31,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.ui.icons.SentimentNeutral
-import co.touchlab.droidcon.ui.icons.SentimentVeryDissatisfied
-import co.touchlab.droidcon.ui.icons.SentimentVerySatisfied
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.Dialog
 import co.touchlab.droidcon.ui.util.observeAsState
@@ -60,7 +60,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                 ) {
                     val selected by feedback.observeRating.observeAsState()
 
-                    FeedbackDialogViewModel.Rating.values().forEach { rating ->
+                    FeedbackDialogViewModel.Rating.entries.forEach { rating ->
                         val image = when (rating) {
                             FeedbackDialogViewModel.Rating.Dissatisfied -> Icons.Default.SentimentVeryDissatisfied
                             FeedbackDialogViewModel.Rating.Normal -> Icons.Default.SentimentNeutral
@@ -84,7 +84,10 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     value = comment,
                     onValueChange = { feedback.comment = it },
                     placeholder = {
-                        Text(text = "(Optional) Suggest improvement", style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            text = "(Optional) Suggest improvement",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     },
                     textStyle = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
@@ -108,7 +111,10 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                         )
                     }
                     TextButton(onClick = feedback::closeAndDisableTapped) {
-                        Text(text = "CLOSE AND DISABLE FEEDBACK", color = MaterialTheme.colorScheme.primary)
+                        Text(
+                            text = "CLOSE AND DISABLE FEEDBACK",
+                            color = MaterialTheme.colorScheme.primary
+                        )
                     }
                     TextButton(onClick = feedback::skipTapped) {
                         Text(text = "SKIP FEEDBACK", color = MaterialTheme.colorScheme.primary)

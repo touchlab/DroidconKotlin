@@ -5,33 +5,31 @@ targetSdk = "34"
 compileSdk = "34"
 
 # Dependencies
-kotlin = "1.9.22"
-android-gradle-plugin = "8.2.1"
-coroutines = "1.7.3"
-kotlinx-datetime = "0.5.0"
-ktor = "2.3.7"
+kotlin = "2.0.0-Beta4"
+android-gradle-plugin = "8.2.2"
+coroutines = "1.8.0"
+kotlinx-datetime = "0.6.0-RC.2"
+ktor = "2.3.9"
 
-stately = "2.0.5"
+stately = "2.0.6"
 java = "17"
-kermit = "2.0.2"
-skie = "0.6.1"
+kermit = "2.0.3"
 sqliter = "1.3.1"
 
 hyperdrive = "0.1.148"
 
 multiplatformSettings = "1.1.1"
 sqlDelight = "2.0.1"
-firebase-bom = "32.4.1"
+firebase-bom = "32.7.4"
 firebase-crashlytics-gradle = "2.9.9"
-gms-google-services = "4.4.0"
+gms-google-services = "4.4.1"
 
-compose-main = "1.5.4"
-compose-compiler = "1.5.8-dev-k1.9.22-42b6ec2b037"
-composeNavigation = "2.7.6"
-compose-jb = "1.6.0-dev1357"
+compose-androidx-ui = "1.6.3"
+compose-compiler = "1.5.11-dev-k2.0.0-Beta4-21f5e479a96"
+composeNavigation = "2.7.7"
+compose-jb = "1.6.1"
 
-accompanistCoil = "0.15.0"
-accompanistNavigationAnimation = "0.32.0"
+accompanistNavigationAnimation = "0.34.0"
 splashscreen = "1.0.1"
 junit = "4.13.2"
 junitKtx = "1.1.5"
@@ -40,19 +38,21 @@ korio = "4.0.10"
 
 # Sample - Android
 androidx-core = "1.12.0"
-androidx-lifecycle = "2.6.2"
+androidx-lifecycle = "2.7.0"
 androidx-activity-compose = "1.8.2"
 android-desugaring = "2.0.4"
 koin = "3.5.3"
-uuid = "0.8.2"
+uuid = "0.8.3"
 ktlint = "11.0.0"
+coil = "3.0.0-alpha04"
 
 [libraries]
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
 sqliter = { module = "co.touchlab:sqliter-driver", version.ref = "sqliter" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 
-accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanistCoil" }
 accompanist-navigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanistNavigationAnimation" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version = "_" }
@@ -61,7 +61,6 @@ hyperdrive-multiplatformx-api = { module = "org.brightify.hyperdrive:multiplatfo
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 korio = { module = "com.soywiz.korlibs.korio:korio", version.ref = "korio" }
-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
 test-junit = { module = "junit:junit", version.ref = "junit" }
 test-junitKtx = { module = "androidx.test.ext:junit-ktx", version.ref = "junitKtx" }
 test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -98,10 +97,10 @@ androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-kt
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-main" }
-compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-main" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose-main" }
-compose-material = { module = "androidx.compose.material:material", version.ref = "compose-main" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-androidx-ui" }
+compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-androidx-ui" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose-androidx-ui" }
+compose-material = { module = "androidx.compose.material:material", version.ref = "compose-androidx-ui" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 
@@ -119,7 +118,6 @@ jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-jb" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
-skie = { id = "co.touchlab.skie", version.ref = "skie" }
 
 [bundles]
 ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serialization", "ktor-client-contentNegotiation"]

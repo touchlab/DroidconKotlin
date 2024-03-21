@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.cocoapods)
     alias(libs.plugins.jetbrains.compose)
-    alias(libs.plugins.skie)
 }
 
 version = "1.0"
@@ -17,6 +16,8 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    applyDefaultHierarchyTemplate()
+
     sourceSets {
         all {
             languageSettings.apply {
@@ -24,25 +25,24 @@ kotlin {
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
-        iosMain {
-            dependencies {
-                implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                implementation(compose.runtime)
+        iosMain.dependencies {
+            implementation(compose.ui)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.runtime)
 
-                api(project(":shared"))
-                api(project(":shared-ui"))
-                api(libs.kermit)
-                api(libs.kermit.simple)
+            api(project(":shared"))
+            api(project(":shared-ui"))
+            api(libs.kermit)
+            api(libs.kermit.simple)
+            api(libs.hyperdrive.multiplatformx.api)
+        }
+
+        matching { it.name.endsWith("Test") }
+            .configureEach {
+                languageSettings.optIn("kotlin.time.ExperimentalTime")
             }
-        }
     }
-
-    sourceSets.matching { it.name.endsWith("Test") }
-        .configureEach {
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
-        }
 
     cocoapods {
         summary = "Common library for the Droidcon app"
