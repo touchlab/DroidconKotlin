@@ -1,20 +1,20 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.cocoapods)
     alias(libs.plugins.jetbrains.compose)
 }
 
 version = "1.0"
 
 kotlin {
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    val targets = listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    )
 
     applyDefaultHierarchyTemplate()
 
@@ -44,33 +44,26 @@ kotlin {
             }
     }
 
-    cocoapods {
-        summary = "Common library for the Droidcon app"
-        homepage = "https://github.com/touchlab/DroidconKotlin"
-        name = "DroidconKit"
-        framework {
-            baseName = "DroidconKit"
-            isStatic = true
-            embedBitcodeMode = BitcodeEmbeddingMode.DISABLE
+    targets.forEach { iosTarget ->
+        iosTarget.binaries {
+            framework {
+                baseName = "DroidconKit"
+                isStatic = true
+                embedBitcodeMode = BitcodeEmbeddingMode.DISABLE
 
-            freeCompilerArgs += listOf(
-                "-linker-option", "-framework", "-linker-option", "Metal",
-                "-linker-option", "-framework", "-linker-option", "CoreText",
-                "-linker-option", "-framework", "-linker-option", "CoreGraphics",
-                "-Xdisable-phases=VerifyBitcode"
-            )
-        }
-    }
-
-    // Configure the framework which is generated internally by cocoapods plugin
-    targets.withType<KotlinNativeTarget> {
-        binaries.withType<Framework> {
-            linkerOpts.add("-lsqlite3")
-            export(libs.kermit)
-            export(libs.kermit.simple)
-            export(libs.hyperdrive.multiplatformx.api)
-            export(project(":shared"))
-            export(project(":shared-ui"))
+                freeCompilerArgs += listOf(
+                    "-linker-option", "-framework", "-linker-option", "Metal",
+                    "-linker-option", "-framework", "-linker-option", "CoreText",
+                    "-linker-option", "-framework", "-linker-option", "CoreGraphics",
+                    "-Xdisable-phases=VerifyBitcode"
+                )
+                linkerOpts.add("-lsqlite3")
+                export(libs.kermit)
+                export(libs.kermit.simple)
+                export(libs.hyperdrive.multiplatformx.api)
+                export(project(":shared"))
+                export(project(":shared-ui"))
+            }
         }
     }
 }

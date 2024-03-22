@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.jetbrains.compose).apply(false)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.serialization).apply(false)
-    alias(libs.plugins.cocoapods).apply(false)
 }
 
 subprojects {
