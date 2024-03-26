@@ -44,6 +44,7 @@ import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
 import io.ktor.client.HttpClient
+import io.sentry.kotlin.multiplatform.Sentry
 import kotlinx.datetime.Clock
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication
@@ -54,7 +55,12 @@ import org.koin.core.qualifier.qualifier
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
+expect val sentryDsn: String
+
 fun initKoin(additionalModules: List<Module>): KoinApplication {
+    Sentry.init {
+        it.dsn = sentryDsn
+    }
     val koinApplication = startKoin {
         modules(
             additionalModules +
