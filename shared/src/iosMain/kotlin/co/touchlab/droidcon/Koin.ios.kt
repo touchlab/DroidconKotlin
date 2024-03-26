@@ -68,3 +68,5 @@ fun Koin.get(objCProtocol: ObjCProtocol, qualifier: Qualifier?): Any {
     val kClazz = requireNotNull(getOriginalKotlinClass(objCProtocol)) { "Could not get original kotlin class for $objCProtocol." }
     return get(kClazz, qualifier, null)
 }
+
+actual val sentryDsn = "https://5678e5aebe72952167c6fb89bbad02e3@o4506955696766976.ingest.us.sentry.io/4506973278961664"

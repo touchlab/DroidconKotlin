@@ -4,7 +4,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     alias(libs.plugins.googleServices)
-    alias(libs.plugins.crashlytics)
 }
 val releaseEnabled = file("./release.jks").exists()
 
@@ -87,7 +86,6 @@ dependencies {
     implementation(libs.accompanist.navigationAnimation)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
 
     implementation(libs.hyperdrive.multiplatformx.api)
 

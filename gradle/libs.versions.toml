@@ -21,7 +21,6 @@ hyperdrive = "0.1.148"
 multiplatformSettings = "1.1.1"
 sqlDelight = "2.0.1"
 firebase-bom = "32.7.4"
-firebase-crashlytics-gradle = "2.9.9"
 gms-google-services = "4.4.1"
 
 compose-androidx-ui = "1.6.3"
@@ -56,7 +55,6 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 accompanist-navigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanistNavigationAnimation" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version = "_" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "_" }
 hyperdrive-multiplatformx-api = { module = "org.brightify.hyperdrive:multiplatformx-api", version.ref = "hyperdrive" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
@@ -70,6 +68,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+
+sentry = { module = "io.sentry:sentry-kotlin-multiplatform", version = "0.5.0" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
@@ -88,7 +88,6 @@ sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sq
 
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
-kermit-crashlytics = { module = "co.touchlab:kermit-crashlytics", version.ref = "kermit" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "stately" }
 
 # Sample - Android
@@ -109,7 +108,6 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
 [plugins]
-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "gms-google-services" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "android-gradle-plugin" }

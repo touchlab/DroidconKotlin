@@ -73,7 +73,6 @@ kotlin {
             implementation(project(":shared"))
 
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
