@@ -1,4 +1,6 @@
 import UIKit
+import FirebaseAuth
+import GoogleSignIn
 import Firebase
 import DroidconKit
 
@@ -8,6 +10,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     lazy var analytics = koin.get(objCProtocol: AnalyticsService.self, qualifier: nil) as! AnalyticsService
     lazy var appChecker = koin.get(objCClass: AppChecker.self) as! AppChecker
 
+    var firebaseAuthListener:AuthStateDidChangeListenerHandle?
+    
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -21,7 +25,33 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         analytics.logEvent(name: AnalyticsServiceCompanion().EVENT_STARTED, params: [:])
 
+    
+        firebaseAuthListener = Auth.auth().addStateDidChangeListener() { auth, user in
+            // TODO
+            if let user {
+                _ = UserContext(
+                    isAuthenticated: false,
+                    userData: UserData(id: user.uid, name: user.displayName, email: user.email, pictureUrl: user.photoURL?.absoluteString)
+                )
+            } else {
+                _ = UserContext(isAuthenticated: false, userData: nil)
+            }
+        }
+        
         log.v(message: { "App Started" })
         return true
     }
+    
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance.handle(url)
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        if let firebaseAuthListener {
+            Auth.auth().removeStateDidChangeListener(firebaseAuthListener)
+        }
+    }
+    
 }

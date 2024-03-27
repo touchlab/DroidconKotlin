@@ -8,4 +8,6 @@ target 'Droidcon' do
     pod 'Kingfisher', '~> 7.8.1'
     pod 'Firebase/Analytics'
     pod 'Firebase/Crashlytics'
+    pod 'GoogleSignIn'
+    pod 'FirebaseAuth'
 end
