@@ -57,6 +57,10 @@ accompanist-navigationAnimation = { module = "com.google.accompanist:accompanist
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version = "_" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "_" }
+firebase-auth = { module = "com.google.firebase:firebase-auth", version = "_" }
+playservices-auth = { module = "com.google.android.gms:play-services-auth", version = "21.0.0" }
+
+
 hyperdrive-multiplatformx-api = { module = "org.brightify.hyperdrive:multiplatformx-api", version.ref = "hyperdrive" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,7 +35,11 @@ import org.brightify.hyperdrive.multiplatformx.property.MutableObservablePropert
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SettingsView(viewModel: SettingsViewModel) {
+internal fun SettingsView(
+    viewModel: SettingsViewModel,
+    isAuthenticated: Boolean,
+    onAuthRequest: () -> Unit
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -68,6 +73,16 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 
             Divider()
 
+            Button(onClick = onAuthRequest) {
+                if (isAuthenticated) {
+                    Text("Sign Out")
+                } else {
+                    Text("Sign In")
+                }
+            }
+
+            Divider()
+
             PlatformSpecificSettingsView(viewModel = viewModel)
 
             AboutView(viewModel.about)
@@ -76,7 +91,11 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 }
 
 @Composable
-internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
+internal fun IconTextSwitchRow(
+    text: String,
+    image: ImageVector,
+    checked: MutableObservableProperty<Boolean>
+) {
     val isChecked by checked.observeAsState()
     Row(
         modifier = Modifier

@@ -10,11 +10,16 @@ import coil3.compose.setSingletonImageLoaderFactory
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-internal fun MainComposeView(viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
+internal fun MainComposeView(
+    viewModel: ApplicationViewModel,
+    isAuthenticated: Boolean,
+    onAuthRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     setSingletonImageLoaderFactory { context ->
         dcImageLoader(context, true)
     }
     DroidconTheme {
-        BottomNavigationView(viewModel = viewModel, modifier = modifier)
+        BottomNavigationView(viewModel = viewModel, modifier = modifier, isAuthenticated, onAuthRequest)
     }
 }

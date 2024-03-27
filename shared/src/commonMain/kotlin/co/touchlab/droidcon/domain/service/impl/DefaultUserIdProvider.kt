@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.domain.service.impl
 
+import co.touchlab.droidcon.UserContext
 import co.touchlab.droidcon.domain.service.UserIdProvider
 import com.benasher44.uuid.uuid4
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -22,5 +23,9 @@ class DefaultUserIdProvider(
             observableSettings[USER_ID_KEY] = id
         }
         return id
+    }
+
+    override fun saveUserContext(userContext: UserContext) {
+        // TODO
     }
 }

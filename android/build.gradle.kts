@@ -21,12 +21,15 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "co.touchlab.droidcon.london"
+        applicationId = "co.touchlab.droidconauthtest"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 20201
         versionName = "2.2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val clientId = properties.getProperty("clientId", "")
+        buildConfigField("String", "CLIENT_ID", clientId)
     }
     packaging {
         resources.excludes.add("META-INF/*.kotlin_module")
@@ -34,6 +37,7 @@ android {
     if (releaseEnabled) {
         signingConfigs {
             create("release") {
+
                 keyAlias = "key0"
                 keyPassword = releasePassword
                 storeFile = file("./release.jks")
@@ -65,10 +69,12 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
+
 }
 
 kotlin {
@@ -88,6 +94,9 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+
+    implementation(libs.firebase.auth)
+    implementation(libs.playservices.auth)
 
     implementation(libs.hyperdrive.multiplatformx.api)
 

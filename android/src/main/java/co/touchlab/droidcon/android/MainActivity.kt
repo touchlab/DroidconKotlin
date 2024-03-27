@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,6 +35,12 @@ import co.touchlab.droidcon.util.AppChecker
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.kermit.Logger
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
@@ -39,20 +48,45 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class MainActivity : ComponentActivity(), KoinComponent {
-
+    
     private val notificationSchedulingService: NotificationSchedulingService by inject()
     private val syncService: SyncService by inject()
     private val analyticsService: AnalyticsService by inject()
 
     private val applicationViewModel: ApplicationViewModel by inject()
-
     private val root = LifecycleGraph.Root(this)
+    private val firebaseService: FirebaseService by inject()
+
+    // Firebase Auth
+    private lateinit var auth: FirebaseAuth
+
+    private val isAuthenticated: Boolean
+        get() = auth.currentUser != null
+
+    private val firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+        firebaseService.saveCredentials(firebaseAuth.currentUser)
+    }
+
+    private val firebaseIntentResultLauncher: ActivityResultLauncher<IntentSenderRequest> =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            val logger = Logger.withTag("Authentication")
+            try {
+                val oneTapClient = Identity.getSignInClient(baseContext)
+                val credential = oneTapClient.getSignInCredentialFromIntent(result.data)
+                val firebaseCredential =
+                    GoogleAuthProvider.getCredential(credential.googleIdToken, null)
+                auth.signInWithCredential(firebaseCredential)
+                    .addOnCompleteListener(this) { firebaseService.handleResultTask(it) }
+            } catch (e: ApiException) {
+                logger.e(e) { "NO ID Token" }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        auth = Firebase.auth
+        auth.addAuthStateListener(firebaseAuthListener)
         installSplashScreen()
-
         AppChecker.checkTimeZoneHash()
 
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
@@ -69,7 +103,14 @@ class MainActivity : ComponentActivity(), KoinComponent {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            MainView(viewModel = applicationViewModel)
+            MainView(viewModel = applicationViewModel, isAuthenticated = isAuthenticated) {
+                if (isAuthenticated) firebaseService.performLogout()
+                else
+                firebaseService.performGoogleLogin(
+                    this,
+                    firebaseIntentResultLauncher,
+                )
+            }
 
             val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
             Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
@@ -111,8 +152,12 @@ class MainActivity : ComponentActivity(), KoinComponent {
     }
 
     private fun handleNotificationDeeplink(intent: Intent) {
-        val type = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_TYPE_EXTRA_KEY) ?: return
-        val sessionId = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_SESSION_ID_EXTRA_KEY) ?: return
+        val type =
+            intent.getStringExtra(AndroidNotificationService.NOTIFICATION_TYPE_EXTRA_KEY)
+                ?: return
+        val sessionId =
+            intent.getStringExtra(AndroidNotificationService.NOTIFICATION_SESSION_ID_EXTRA_KEY)
+                ?: return
         applicationViewModel.notificationReceived(
             sessionId,
             when (type) {
@@ -133,6 +178,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
     override fun onDestroy() {
         super.onDestroy()
+        auth.removeAuthStateListener(firebaseAuthListener)
         // Workaround for a crash we could not reproduce: https://console.firebase.google.com/project/droidcon-148cc/crashlytics/app/android:co.touchlab.droidcon.london/issues/8c559569e69164d7109bd6b1be99ade5
         if (root.hasChild(applicationViewModel.lifecycle)) {
             root.removeChild(applicationViewModel.lifecycle)

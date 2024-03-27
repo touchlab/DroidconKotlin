@@ -7,6 +7,15 @@ import co.touchlab.droidcon.ui.MainComposeView
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 
 @Composable
-fun MainView(viewModel: ApplicationViewModel) {
-    MainComposeView(viewModel = viewModel, modifier = Modifier.systemBarsPadding())
+fun MainView(
+    viewModel: ApplicationViewModel,
+    isAuthenticated: Boolean,
+    onAuthRequest: () -> Unit,
+) {
+    MainComposeView(
+        viewModel = viewModel,
+        isAuthenticated,
+        onAuthRequest,
+        modifier = Modifier.systemBarsPadding(),
+    )
 }
