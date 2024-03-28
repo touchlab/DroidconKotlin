@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private lateinit var auth: FirebaseAuth
 
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-        firebaseAuth.currentUser?.let {  user ->
+        firebaseAuth.currentUser?.let { user ->
             firebaseService.setCredentials(
                 id = user.uid,
                 name = user.displayName,

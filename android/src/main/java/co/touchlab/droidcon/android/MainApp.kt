@@ -16,7 +16,6 @@ import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.ClasspathResourceReader
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
@@ -56,7 +55,7 @@ class MainApp : Application() {
                     AndroidAnalyticsService(firebaseAnalytics = Firebase.analytics)
                 }
 
-                single<AuthenticationService>{
+                single<AuthenticationService> {
                     FirebaseService()
                 }
             } + uiModule
