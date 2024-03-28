@@ -14,7 +14,7 @@ import DroidconKit
 
 class FirebaseService : AuthenticationService {
 
-    let logger = Logger.companion.withTag(tag: "Authentication")
+    let logger = Logger.companion.withTag(tag: "AuthenticationService")
 
     init() {
         super.init(isSignedIn: Auth.auth().currentUser != nil)
@@ -54,11 +54,10 @@ class FirebaseService : AuthenticationService {
             Auth.auth().signIn(with: credential) { result, error in
                 if let error {
                     self.logger.e(message: { error.localizedDescription })
-                    self.updateCredentials(isAuthenticated: false, id: "", name: nil, email: nil, pictureUrl: nil)
+                    self.clearCredentials()
                 } else {
                     self.logger.v(message: { "Got results from Auth!" })
-                    self.updateCredentials(
-                        isAuthenticated: true,
+                    self.setCredentials(
                         id: result?.user.uid ?? "",
                         name: result?.user.displayName,
                         email: result?.user.email,

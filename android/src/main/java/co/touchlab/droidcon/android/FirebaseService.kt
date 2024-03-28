@@ -16,7 +16,7 @@ import org.brightify.hyperdrive.utils.WeakReference
 
 class FirebaseService : AuthenticationService(FirebaseAuth.getInstance().currentUser != null) {
 
-    private val logger = Logger.withTag("Authentication")
+    private val logger = Logger.withTag("AuthenticationService")
     private val clientId = BuildConfig.CLIENT_ID
 
     private lateinit var weakActivity: WeakReference<Activity>

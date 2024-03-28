@@ -16,31 +16,36 @@ abstract class AuthenticationService(isSignedIn: Boolean) : KoinComponent {
 
     abstract fun performGoogleLogin(): Boolean
     open fun performLogout(): Boolean {
-        updateCredentials(false, "", null, null, null)
+        clearCredentials()
         return true
     }
 
-    fun updateCredentials(
-        isAuthenticated: Boolean,
+    fun setCredentials(
         id: String,
         name: String?,
         email: String?,
         pictureUrl: String?,
     ) {
-        _isAuthenticated.update { isAuthenticated }
+        _isAuthenticated.update { true }
         userIdProvider.saveUserContext(
             UserContext(
-                isAuthenticated = isAuthenticated,
-                userData = if (isAuthenticated) {
-                    UserData(
-                        id = id,
-                        name = name,
-                        email = email,
-                        pictureUrl = pictureUrl,
-                    )
-                } else {
-                    null
-                }
+                isAuthenticated = true,
+                userData = UserData(
+                    id = id,
+                    name = name,
+                    email = email,
+                    pictureUrl = pictureUrl,
+                )
+            )
+        )
+    }
+
+    fun clearCredentials() {
+        _isAuthenticated.update { false }
+        userIdProvider.saveUserContext(
+            UserContext(
+                isAuthenticated = false,
+                userData = null
             )
         )
     }

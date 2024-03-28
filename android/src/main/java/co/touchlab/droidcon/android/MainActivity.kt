@@ -58,22 +58,17 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private val root = LifecycleGraph.Root(this)
     private val firebaseService: AuthenticationService by inject()
 
-    // Firebase Auth
     private lateinit var auth: FirebaseAuth
 
-    private val isAuthenticated: Boolean
-        get() = auth.currentUser != null
-
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-        with(firebaseAuth) {
-            firebaseService.updateCredentials(
-                isAuthenticated = currentUser != null,
-                id = currentUser?.uid ?: "",
-                name = currentUser?.displayName,
-                email = currentUser?.email,
-                pictureUrl = currentUser?.photoUrl?.toString(),
+        firebaseAuth.currentUser?.let {  user ->
+            firebaseService.setCredentials(
+                id = user.uid,
+                name = user.displayName,
+                email = user.email,
+                pictureUrl = user.photoUrl?.toString(),
             )
-        }
+        } ?: run { firebaseService.clearCredentials() }
     }
 
     private val firebaseIntentResultLauncher: ActivityResultLauncher<IntentSenderRequest> =
@@ -89,8 +84,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
                         if (task.isSuccessful) {
                             logger.d { "signInWithCredential:success" }
                             auth.currentUser?.let { user ->
-                                firebaseService.updateCredentials(
-                                    isAuthenticated = true,
+                                firebaseService.setCredentials(
                                     id = user.uid,
                                     name = user.displayName,
                                     email = user.email,
