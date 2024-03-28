@@ -1,10 +1,12 @@
 package co.touchlab.droidcon.viewmodel.settings
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
+import co.touchlab.droidcon.domain.service.AuthenticationService
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SettingsViewModel(
     settingsGateway: SettingsGateway,
+    private val authenticationService: AuthenticationService,
     private val aboutFactory: AboutViewModel.Factory,
 ) : BaseViewModel() {
 
@@ -46,11 +48,22 @@ class SettingsViewModel(
     )
     val observeUseCompose by observe(::useCompose)
 
+    var isAuthenticated: Boolean by binding(
+        authenticationService.isAuthenticated,
+        mapping = { it },
+        set = { }
+    )
+    val observeIsAuthenticated by observe(::isAuthenticated)
+
+    fun signIn() = authenticationService.performGoogleLogin()
+    fun signOut() = authenticationService.performLogout()
+
     class Factory(
         private val settingsGateway: SettingsGateway,
+        private val authenticationService: AuthenticationService,
         private val aboutFactory: AboutViewModel.Factory,
     ) {
 
-        fun create() = SettingsViewModel(settingsGateway, aboutFactory)
+        fun create() = SettingsViewModel(settingsGateway, authenticationService, aboutFactory)
     }
 }

@@ -27,6 +27,7 @@ import co.touchlab.droidcon.R
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.AnalyticsService
+import co.touchlab.droidcon.domain.service.AuthenticationService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.AndroidNotificationService
 import co.touchlab.droidcon.ui.theme.Colors
@@ -48,14 +49,14 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class MainActivity : ComponentActivity(), KoinComponent {
-    
+
     private val notificationSchedulingService: NotificationSchedulingService by inject()
     private val syncService: SyncService by inject()
     private val analyticsService: AnalyticsService by inject()
 
     private val applicationViewModel: ApplicationViewModel by inject()
     private val root = LifecycleGraph.Root(this)
-    private val firebaseService: FirebaseService by inject()
+    private val firebaseService: AuthenticationService by inject()
 
     // Firebase Auth
     private lateinit var auth: FirebaseAuth
@@ -64,7 +65,15 @@ class MainActivity : ComponentActivity(), KoinComponent {
         get() = auth.currentUser != null
 
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-        firebaseService.saveCredentials(firebaseAuth.currentUser)
+        with(firebaseAuth) {
+            firebaseService.updateCredentials(
+                isAuthenticated = currentUser != null,
+                id = currentUser?.uid ?: "",
+                name = currentUser?.displayName,
+                email = currentUser?.email,
+                pictureUrl = currentUser?.photoUrl?.toString(),
+            )
+        }
     }
 
     private val firebaseIntentResultLauncher: ActivityResultLauncher<IntentSenderRequest> =
@@ -76,7 +85,22 @@ class MainActivity : ComponentActivity(), KoinComponent {
                 val firebaseCredential =
                     GoogleAuthProvider.getCredential(credential.googleIdToken, null)
                 auth.signInWithCredential(firebaseCredential)
-                    .addOnCompleteListener(this) { firebaseService.handleResultTask(it) }
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            logger.d { "signInWithCredential:success" }
+                            auth.currentUser?.let { user ->
+                                firebaseService.updateCredentials(
+                                    isAuthenticated = true,
+                                    id = user.uid,
+                                    name = user.displayName,
+                                    email = user.email,
+                                    pictureUrl = user.photoUrl?.toString(),
+                                )
+                            }
+                        } else {
+                            logger.e(task.exception) { "signInWithCredential:failure" }
+                        }
+                    }
             } catch (e: ApiException) {
                 logger.e(e) { "NO ID Token" }
             }
@@ -89,6 +113,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
         installSplashScreen()
         AppChecker.checkTimeZoneHash()
 
+        (firebaseService as FirebaseService).setActivity(this, firebaseIntentResultLauncher)
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
         applicationViewModel.lifecycle.removeFromParent()
@@ -103,15 +128,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            MainView(viewModel = applicationViewModel, isAuthenticated = isAuthenticated) {
-                if (isAuthenticated) firebaseService.performLogout()
-                else
-                firebaseService.performGoogleLogin(
-                    this,
-                    firebaseIntentResultLauncher,
-                )
-            }
-
+            MainView(viewModel = applicationViewModel)
             val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
             Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
                 if (shouldShowSplashScreen) {

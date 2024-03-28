@@ -37,9 +37,8 @@ import org.brightify.hyperdrive.multiplatformx.property.MutableObservablePropert
 @Composable
 internal fun SettingsView(
     viewModel: SettingsViewModel,
-    isAuthenticated: Boolean,
-    onAuthRequest: () -> Unit
 ) {
+    val isAuthenticated by viewModel.observeIsAuthenticated.observeAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -73,7 +72,11 @@ internal fun SettingsView(
 
             Divider()
 
-            Button(onClick = onAuthRequest) {
+            Button(
+                onClick = {
+                    if (isAuthenticated) viewModel.signOut() else viewModel.signIn()
+                }
+            ) {
                 if (isAuthenticated) {
                     Text("Sign Out")
                 } else {

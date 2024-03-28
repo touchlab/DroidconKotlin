@@ -5,7 +5,6 @@ import DroidconKit
 struct SettingsView: View {
     @ObservedObject
     private(set) var viewModel: SettingsViewModel
-    private let firebaseService = FirebaseService()
     
     @State var errorMessage: String = ""
     @State var showingAlert: Bool = false
@@ -39,19 +38,25 @@ struct SettingsView: View {
 
                         Divider().padding(.horizontal)
 
-                        if Auth.auth().currentUser != nil {
+                        if viewModel.isAuthenticated {
                             Button("Settings.SignOut"){
-                                if let error = firebaseService.signOut() {
-                                    errorMessage = error
+                                if viewModel.signOut() {
+                                    errorMessage = ""
+                                    showingAlert = false
+                                } else {
+                                    errorMessage = "Failed to Sign Out"
                                     showingAlert = true
                                 }
                             }
                         } else {
                             Button("Settings.SignIn"){
-                                firebaseService.signIn(onError: { error in
-                                    errorMessage = error
+                                if viewModel.signIn() {
+                                    errorMessage = ""
+                                    showingAlert = false
+                                } else {
+                                    errorMessage = "Failed To Sign In"
                                     showingAlert = true
-                                })
+                                }
                             }
                         }
                         

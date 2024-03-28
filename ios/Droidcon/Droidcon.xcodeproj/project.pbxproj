@@ -168,7 +168,6 @@
 				68DCBC6326C51E260084C70D /* TextView.swift */,
 				681C95A026C555D90011330B /* VisualEffectView.swift */,
 				681C95A226C56B100011330B /* CustomOverlayView.swift */,
-				F127D3582BB46A0A00E08281 /* FirebaseService.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -257,6 +256,7 @@
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
 				46B5284C249C5CF400A7725D /* Koin.swift */,
 				8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */,
+				F127D3582BB46A0A00E08281 /* FirebaseService.swift */,
 				F1465F0923AA94BF0055F7C3 /* Assets.xcassets */,
 				F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */,
 				F1465F0E23AA94BF0055F7C3 /* Info.plist */,
@@ -649,7 +649,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidconauthtest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -686,7 +686,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidconauthtest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

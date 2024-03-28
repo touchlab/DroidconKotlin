@@ -27,8 +27,6 @@ import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 internal fun BottomNavigationView(
     viewModel: ApplicationViewModel,
     modifier: Modifier = Modifier,
-    isAuthenticated: Boolean,
-    onAuthRequest: () -> Unit,
 ) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
 
@@ -67,8 +65,6 @@ internal fun BottomNavigationView(
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
                 ApplicationViewModel.Tab.Settings -> SettingsView(
                     viewModel.settings,
-                    isAuthenticated,
-                    onAuthRequest
                 )
             }
         }
