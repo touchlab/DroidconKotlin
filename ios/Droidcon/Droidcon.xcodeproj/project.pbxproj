@@ -49,7 +49,7 @@
 		A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */; };
 		A35DEF2228AA265C0072605A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A35DEF2128AA265C0072605A /* Settings.bundle */; };
 		A35DEF2428AA26C80072605A /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */; };
-		F127D3592BB46A0A00E08281 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F127D3582BB46A0A00E08281 /* FirebaseService.swift */; };
+		F127D3592BB46A0A00E08281 /* IOSGoogleSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F127D3582BB46A0A00E08281 /* IOSGoogleSignInService.swift */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -98,7 +98,7 @@
 		A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		DD90C0C0A4D331CEBDBE69E8 /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
 		EBA278C64D82609BA00FE2A5 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F127D3582BB46A0A00E08281 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		F127D3582BB46A0A00E08281 /* IOSGoogleSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSGoogleSignInService.swift; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
 				46B5284C249C5CF400A7725D /* Koin.swift */,
 				8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */,
-				F127D3582BB46A0A00E08281 /* FirebaseService.swift */,
+				F127D3582BB46A0A00E08281 /* IOSGoogleSignInService.swift */,
 				F1465F0923AA94BF0055F7C3 /* Assets.xcassets */,
 				F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */,
 				F1465F0E23AA94BF0055F7C3 /* Info.plist */,
@@ -450,7 +450,7 @@
 				684FAA7726B2A4EA00673AFF /* SettingsView.swift in Sources */,
 				689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */,
 				689DD30526B438CA00A9B009 /* Avatar.swift in Sources */,
-				F127D3592BB46A0A00E08281 /* FirebaseService.swift in Sources */,
+				F127D3592BB46A0A00E08281 /* IOSGoogleSignInService.swift in Sources */,
 				681C95A126C555D90011330B /* VisualEffectView.swift in Sources */,
 				1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */,
 				684FAA7426B2A4D400673AFF /* ScheduleView.swift in Sources */,

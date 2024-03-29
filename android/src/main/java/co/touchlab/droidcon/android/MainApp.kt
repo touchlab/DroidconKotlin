@@ -5,11 +5,12 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
+import co.touchlab.droidcon.android.service.impl.AndroidGoogleSignInService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
 import co.touchlab.droidcon.android.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
-import co.touchlab.droidcon.domain.service.AuthenticationService
+import co.touchlab.droidcon.domain.service.GoogleSignInService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.service.ParseUrlViewService
@@ -55,8 +56,8 @@ class MainApp : Application() {
                     AndroidAnalyticsService(firebaseAnalytics = Firebase.analytics)
                 }
 
-                single<AuthenticationService> {
-                    FirebaseService()
+                single<GoogleSignInService> {
+                    AndroidGoogleSignInService()
                 }
             } + uiModule
         )

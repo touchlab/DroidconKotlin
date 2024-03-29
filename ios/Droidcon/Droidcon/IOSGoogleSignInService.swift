@@ -12,15 +12,11 @@ import GoogleSignIn
 import FirebaseAuth
 import DroidconKit
 
-class FirebaseService : AuthenticationService {
+class IOSGoogleSignInService : GoogleSignInService {
 
-    let logger = Logger.companion.withTag(tag: "AuthenticationService")
-
-    init() {
-        super.init(isSignedIn: Auth.auth().currentUser != nil)
-    }
+    let logger = Logger.companion.withTag(tag: "IOSGoogleSignInService")
     
-    override func performGoogleLogin() -> Bool {
+    func performGoogleLogin() -> Bool {
         logger.i(message: { "Performing Google Login" })
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             logger.e(message: { "No ClientId" })
@@ -54,28 +50,21 @@ class FirebaseService : AuthenticationService {
             Auth.auth().signIn(with: credential) { result, error in
                 if let error {
                     self.logger.e(message: { error.localizedDescription })
-                    self.clearCredentials()
                 } else {
                     self.logger.v(message: { "Got results from Auth!" })
-                    self.setCredentials(
-                        id: result?.user.uid ?? "",
-                        name: result?.user.displayName,
-                        email: result?.user.email,
-                        pictureUrl: result?.user.photoURL?.absoluteString
-                    )
                 }
             }
         }
         return true
     }
     
-    override func performLogout() -> Bool {
+    func performGoogleLogout() -> Bool {
         do {
             self.logger.v(message: { "Performing Logout" })
             try Auth.auth().signOut()
-            return super.performLogout()
+            return true
         } catch let signOutError as NSError {
-            self.logger.v(message: { "Error occured signing out" })
+            self.logger.e(message: { "Error occured signing out: \(signOutError.localizedDescription)" })
             return false
         }
     }

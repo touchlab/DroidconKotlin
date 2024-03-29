@@ -24,10 +24,12 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.android.service.impl.AndroidGoogleSignInService
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.AuthenticationService
+import co.touchlab.droidcon.domain.service.GoogleSignInService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.AndroidNotificationService
 import co.touchlab.droidcon.ui.theme.Colors
@@ -56,19 +58,20 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
     private val applicationViewModel: ApplicationViewModel by inject()
     private val root = LifecycleGraph.Root(this)
-    private val firebaseService: AuthenticationService by inject()
+    private val authenticationService: AuthenticationService by inject()
+    private val googleSignInService: GoogleSignInService by inject()
 
     private lateinit var auth: FirebaseAuth
 
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
         firebaseAuth.currentUser?.let { user ->
-            firebaseService.setCredentials(
+            authenticationService.setCredentials(
                 id = user.uid,
                 name = user.displayName,
                 email = user.email,
                 pictureUrl = user.photoUrl?.toString(),
             )
-        } ?: run { firebaseService.clearCredentials() }
+        } ?: run { authenticationService.clearCredentials() }
     }
 
     private val firebaseIntentResultLauncher: ActivityResultLauncher<IntentSenderRequest> =
@@ -84,7 +87,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
                         if (task.isSuccessful) {
                             logger.d { "signInWithCredential:success" }
                             auth.currentUser?.let { user ->
-                                firebaseService.setCredentials(
+                                authenticationService.setCredentials(
                                     id = user.uid,
                                     name = user.displayName,
                                     email = user.email,
@@ -107,7 +110,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
         installSplashScreen()
         AppChecker.checkTimeZoneHash()
 
-        (firebaseService as FirebaseService).setActivity(this, firebaseIntentResultLauncher)
+        (googleSignInService as AndroidGoogleSignInService).setActivity(this, firebaseIntentResultLauncher)
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
         applicationViewModel.lifecycle.removeFromParent()

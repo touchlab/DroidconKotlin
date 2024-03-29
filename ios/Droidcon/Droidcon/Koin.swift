@@ -7,7 +7,7 @@ func startKoin() {
     let koinApplication = DependencyInjectionKt.doInitKoinIos(
         userDefaults: userDefaults,
         analyticsService: IOSAnalyticsService(),
-        authenticationService: FirebaseService()
+        googleSignInService: IOSGoogleSignInService()
     )
     _koin = koinApplication.koin
 }

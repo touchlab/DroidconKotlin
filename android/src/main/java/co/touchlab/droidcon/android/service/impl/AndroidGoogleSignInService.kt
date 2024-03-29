@@ -1,20 +1,20 @@
-package co.touchlab.droidcon.android
+package co.touchlab.droidcon.android.service.impl
 
 import android.app.Activity
 import android.content.IntentSender
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import co.touchlab.droidcon.BuildConfig
-import co.touchlab.droidcon.domain.service.AuthenticationService
+import co.touchlab.droidcon.domain.service.GoogleSignInService
 import co.touchlab.kermit.Logger
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import org.brightify.hyperdrive.utils.WeakReference
+import org.koin.core.component.KoinComponent
 
-class FirebaseService : AuthenticationService(FirebaseAuth.getInstance().currentUser != null) {
+class AndroidGoogleSignInService : GoogleSignInService, KoinComponent {
 
     private val logger = Logger.withTag("AuthenticationService")
     private val clientId = BuildConfig.CLIENT_ID
@@ -64,8 +64,8 @@ class FirebaseService : AuthenticationService(FirebaseAuth.getInstance().current
         return false
     }
 
-    override fun performLogout(): Boolean {
+    override fun performGoogleLogout(): Boolean {
         Firebase.auth.signOut()
-        return super.performLogout()
+        return true
     }
 }

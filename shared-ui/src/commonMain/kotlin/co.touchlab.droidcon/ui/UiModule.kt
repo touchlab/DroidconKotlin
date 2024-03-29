@@ -105,6 +105,7 @@ val uiModule = module {
         SettingsViewModel.Factory(
             settingsGateway = get(),
             authenticationService = get(),
+            googleSignInService = get(),
             aboutFactory = get()
         )
     }
