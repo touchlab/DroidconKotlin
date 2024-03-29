@@ -9,7 +9,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     lazy var log = koin.get(objCClass: Logger.self, parameter: "AppDelegate") as! Logger
     lazy var analytics = koin.get(objCProtocol: AnalyticsService.self, qualifier: nil) as! AnalyticsService
     lazy var appChecker = koin.get(objCClass: AppChecker.self) as! AppChecker
-    lazy var firebaseService = koin.get(objCClass: AuthenticationService.self, qualifier: nil) as! AuthenticationService
+    lazy var authenticationService = koin.get(objCProtocol: AuthenticationService.self, qualifier: nil) as! AuthenticationService
 
     var firebaseAuthListener:AuthStateDidChangeListenerHandle?
     
@@ -29,14 +29,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
         firebaseAuthListener = Auth.auth().addStateDidChangeListener() { auth, user in
             if let user {
-                self.firebaseService.setCredentials(
+                self.authenticationService.setCredentials(
                     id: user.uid,
                     name: user.displayName,
                     email: user.email,
                     pictureUrl: user.photoURL?.absoluteString
                 )
             } else {
-                self.firebaseService.clearCredentials()
+                self.authenticationService.clearCredentials()
             }
         }
         

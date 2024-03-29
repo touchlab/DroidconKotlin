@@ -48,8 +48,9 @@ struct SettingsView: View {
                                     showingAlert = true
                                 }
                             }
+                            .buttonStyle(FilledButtonStyle())
                         } else {
-                            Button("Settings.SignIn"){
+                            Button(action: { 
                                 if viewModel.signIn() {
                                     errorMessage = ""
                                     showingAlert = false
@@ -57,7 +58,9 @@ struct SettingsView: View {
                                     errorMessage = "Failed To Sign In"
                                     showingAlert = true
                                 }
-                            }
+                            }, label: {
+                                Image("continue_with_google_rd")
+                            })
                         }
                         
                         AboutView(viewModel: viewModel.about)

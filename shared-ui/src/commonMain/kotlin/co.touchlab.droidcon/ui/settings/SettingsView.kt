@@ -1,7 +1,9 @@
 package co.touchlab.droidcon.ui.settings
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -25,10 +28,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
+import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
@@ -75,12 +80,16 @@ internal fun SettingsView(
             Button(
                 onClick = {
                     if (isAuthenticated) viewModel.signOut() else viewModel.signIn()
-                }
+                },
+                contentPadding = PaddingValues(),
             ) {
                 if (isAuthenticated) {
-                    Text("Sign Out")
+                    Text("Sign Out", modifier = Modifier.padding(horizontal = 20.dp))
                 } else {
-                    Text("Sign In")
+                    LocalImage(
+                        imageResourceName = "continue_with_google_rd",
+                        modifier = Modifier
+                    )
                 }
             }
 
