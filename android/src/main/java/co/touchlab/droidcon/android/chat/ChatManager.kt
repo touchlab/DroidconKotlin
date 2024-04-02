@@ -31,7 +31,6 @@ object ChatManager {
     ) {
         if (!isConnected) {
             chatLogger.i { "Initializing Chat" }
-            // 1 - Set up the OfflinePlugin for offline storage
             val offlinePluginFactory = StreamOfflinePluginFactory(appContext = applicationContext)
             val statePluginFactory =
                 StreamStatePluginFactory(
@@ -39,44 +38,42 @@ object ChatManager {
                     appContext = applicationContext
                 )
 
-            // 2 - Set up the client for API calls and with the plugin for offline storage
             val client = ChatClient.Builder("3rbey5kf2r9z", applicationContext)
                 .withPlugins(offlinePluginFactory, statePluginFactory)
-                .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
+                .logLevel(ChatLogLevel.ALL) // TODO: Set to NOTHING in prod
                 .build()
 
-            chatLogger.i { "Built the client, adding user" }
-            // 3 - Authenticate and connect the user
+            chatLogger.v { "Built the client, adding user" }
             val user = User(
                 id = userData.id,
                 name = userData.name ?: "Unknown Name",
                 image = userData.pictureUrl ?: "",
                 role = "ADMIN",
             )
-            chatLogger.v { "Creating Dev Token" }
-            val token = client.devToken(user.id)
+            val token = client.devToken(user.id) // TODO: Replace
 
-            chatLogger.i { "CONNECTING USER!" }
+            chatLogger.v { "Connecting User" }
             client.connectUser(user = user, token = token).enqueue(
                 onSuccess = {
-                    chatLogger.i { "SUCCESS! $it" }
+                    chatLogger.v { "Successfully Connected!" }
                     isConnected = true
                     joinDefaultChannels(user.id)
                 }, onError = {
-                    chatLogger.i { "ERROR! $it" }
+                    chatLogger.e { "Error Connecting! $it" }
                     isConnected = false
                 })
         }
     }
 
     private fun joinDefaultChannels(id: String) {
+        chatLogger.i { "Joining the General Channel" }
         val channelClient = ChatClient.instance().channel("messaging", "general")
         channelClient.addMembers(listOf(id)).enqueue(
             onSuccess = {
-                Logger.withTag("KevinChat").i { "SUCCESS $it" }
+                chatLogger.v { "Successfully Joined The General channel" }
             },
             onError = {
-                Logger.withTag("KevinChat").i { "ERROR $it" }
+                chatLogger.e { "Error Joining the General channel $it" }
             })
     }
 }
