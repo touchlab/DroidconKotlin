@@ -19,6 +19,10 @@ Additionally for Firebase Authentication you'll need to pass in your client ID i
 For Android you'll need to add a `clientId` property to your `local.properties`.
 For iOS you'll need to pass the clientId into your [URL Types](https://firebase.google.com/docs/auth/ios/google-signin#implement_google_sign-in).
 
+## Customization
+
+To customize the app, view the [Customizing Guide](CUSTOMIZING.md) for more details.
+
 ## Compose UI for both!
 
 We're running a very early version of Compose UI for iOS as the iOS interface. It mostly shares the screen code with the Android app. While Native Compose UI is obviously experimental, it works surprisingly well.
