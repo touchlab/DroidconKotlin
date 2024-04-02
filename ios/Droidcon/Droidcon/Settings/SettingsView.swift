@@ -38,11 +38,18 @@ struct SettingsView: View {
                         
                         Divider().padding(.horizontal)
                         HStack{
-                            Label("Settings.Account", systemImage: "person.fill")
-                                .padding(.horizontal)
+                            Image(systemName: "person.fill")
+                                .padding(EdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 0))
+                            VStack(alignment: .leading) {
+                                Text("Settings.Account")
+                                if viewModel.email != nil {
+                                    Text(viewModel.email ?? "")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+                            }
                             Spacer()
                             if viewModel.isAuthenticated {
-                                
                                 Button(action: {
                                     if viewModel.signOut() {
                                         errorMessage = ""
