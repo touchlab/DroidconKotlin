@@ -44,6 +44,8 @@ internal fun ChatView() {
                 InitializationState.COMPLETE -> {
                     ChannelsScreen(
                         title = stringResource(id = R.string.app_name),
+                        isShowingHeader = false,
+                        isShowingSearch = true,
                         onItemClick = { channel ->
                             startActivity(
                                 context,
