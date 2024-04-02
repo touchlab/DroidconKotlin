@@ -102,4 +102,10 @@ dependencies {
     implementation(libs.bundles.androidx.compose)
 
     coreLibraryDesugaring(libs.android.desugar)
+
+
+    implementation("io.getstream:stream-chat-android-compose:6.0.8")
+    implementation("io.getstream:stream-chat-android-offline:6.0.8")
+
+    implementation("androidx.compose.material:material-icons-extended:1.6.0-alpha08")
 }

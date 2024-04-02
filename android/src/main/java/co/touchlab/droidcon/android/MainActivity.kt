@@ -13,12 +13,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -44,8 +46,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import io.getstream.chat.android.client.ChatClient
+import io.getstream.chat.android.client.logger.ChatLogLevel
+import io.getstream.chat.android.compose.ui.channels.ChannelsScreen
+import io.getstream.chat.android.compose.ui.theme.ChatTheme
+import io.getstream.chat.android.models.Channel
+import io.getstream.chat.android.models.InitializationState
+import io.getstream.chat.android.models.User
+import io.getstream.chat.android.offline.plugin.factory.StreamOfflinePluginFactory
+import io.getstream.chat.android.state.plugin.config.StatePluginConfig
+import io.getstream.chat.android.state.plugin.factory.StreamStatePluginFactory
+import io.getstream.result.call.enqueue
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -62,10 +76,17 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private val googleSignInService: GoogleSignInService by inject()
 
     private lateinit var auth: FirebaseAuth
+    private val chatLogger: Logger = Logger.withTag("KevinChat")
 
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
         firebaseAuth.currentUser?.let { user ->
             authenticationService.setCredentials(
+                id = user.uid,
+                name = user.displayName,
+                email = user.email,
+                pictureUrl = user.photoUrl?.toString(),
+            )
+            initChat(
                 id = user.uid,
                 name = user.displayName,
                 email = user.email,
@@ -105,12 +126,45 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*
+                setContent {
+                    // Observe the client connection state
+                    val clientInitialisationState by client.clientState.initializationState.collectAsState()
+
+                    ChatTheme {
+                        when (clientInitialisationState) {
+                            InitializationState.COMPLETE -> {
+                                ChannelsScreen(
+                                    title = stringResource(id = R.string.app_name),
+                                    isShowingSearch = true,
+                                    onItemClick = { channel ->
+                                        startActivity(ChannelActivity.getIntent(this, channel.cid))
+                                    },
+                                    onBackPressed = { finish() }
+                                )
+                            }
+
+                            InitializationState.INITIALIZING -> {
+                                Text(text = "Initialising...")
+                            }
+
+                            InitializationState.NOT_INITIALIZED -> {
+                                Text(text = "Not initialized...")
+                            }
+                        }
+                    }
+                }*/
+
+
         auth = Firebase.auth
         auth.addAuthStateListener(firebaseAuthListener)
         installSplashScreen()
         AppChecker.checkTimeZoneHash()
 
-        (googleSignInService as AndroidGoogleSignInService).setActivity(this, firebaseIntentResultLauncher)
+        (googleSignInService as AndroidGoogleSignInService).setActivity(
+            this,
+            firebaseIntentResultLauncher
+        )
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
         applicationViewModel.lifecycle.removeFromParent()
@@ -158,6 +212,66 @@ class MainActivity : ComponentActivity(), KoinComponent {
             }
         }
     }
+
+    private fun initChat(
+        id: String,
+        name: String?,
+        email: String?,
+        pictureUrl: String?,
+    ) {
+        chatLogger.i { "Initializing Chat" }
+        // 1 - Set up the OfflinePlugin for offline storage
+        val offlinePluginFactory = StreamOfflinePluginFactory(appContext = applicationContext)
+        val statePluginFactory =
+            StreamStatePluginFactory(config = StatePluginConfig(), appContext = this)
+
+        // 2 - Set up the client for API calls and with the plugin for offline storage
+        val client = ChatClient.Builder("3rbey5kf2r9z", applicationContext)
+            .withPlugins(offlinePluginFactory, statePluginFactory)
+            .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
+            .build()
+
+
+        chatLogger.i { "Built the client, adding user" }
+        // 3 - Authenticate and connect the user
+        val user = User( // TODO: Two devices create a Channel
+            id = id,
+            name = name ?: "Unknown Name",
+            image = pictureUrl ?: "",
+        )
+        chatLogger.v { "Creating Dev Token" }
+        val token = client.devToken(user.id)
+
+        lifecycleScope.launch {
+            Logger.i(tag = "KEVINUSER", messageString = "CONNECTING USER!")
+            client.connectUser(
+                user = user,
+                token = token
+            ).enqueue(onSuccess = {
+                Logger.i(tag = "KEVINUSER", messageString = "SUCCESS!")
+
+
+                client.createChannel(
+                    channelType = "messaging",
+                    channelId = "",
+                    memberIds = listOf(user.id, "test"),
+                    extraData = emptyMap()
+                ).enqueue { result ->
+                    if (result.isSuccess) {
+                        Logger.i(tag = "KEVIN", messageString = "SIGNED IN ")
+                    } else {
+                        Logger.i(
+                            tag = "KEVIN",
+                            messageString = result.errorOrNull()?.toString() ?: "ERROR"
+                        )
+                    }
+                }
+            }, onError = {
+                Logger.i(tag = "KEVINUSER", messageString = "ERROR!")
+            })
+        }
+    }
+
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
