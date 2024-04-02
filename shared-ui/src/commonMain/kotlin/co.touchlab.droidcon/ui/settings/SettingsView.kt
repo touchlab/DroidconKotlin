@@ -34,9 +34,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
+import co.touchlab.droidcon.ui.theme.Typography
 import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
@@ -48,6 +51,7 @@ internal fun SettingsView(
     viewModel: SettingsViewModel,
 ) {
     val isAuthenticated by viewModel.observeIsAuthenticated.observeAsState()
+    val email by viewModel.observeEmail.observeAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -83,6 +87,7 @@ internal fun SettingsView(
 
             SettingRow(
                 text = "Account",
+                subtext = email,
                 image = Icons.Default.Person,
             ) {
                 if (isAuthenticated) {
@@ -135,6 +140,7 @@ internal fun IconTextSwitchRow(
 private fun SettingRow(
     text: String,
     image: ImageVector,
+    subtext: String? = null,
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {
@@ -149,10 +155,20 @@ private fun SettingRow(
             imageVector = image,
             contentDescription = text,
         )
-        Text(
+        Column(
             modifier = Modifier.weight(1f),
-            text = text,
-        )
+        ) {
+            Text(
+                text = text,
+            )
+            subtext?.let {
+                Text(
+                    text = it,
+                    color = Color.Gray,
+                    style = Typography.typography.labelMedium,
+                )
+            }
+        }
         content()
     }
 }

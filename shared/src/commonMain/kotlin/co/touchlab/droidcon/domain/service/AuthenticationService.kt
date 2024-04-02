@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface AuthenticationService {
     val isAuthenticated: StateFlow<Boolean>
+    val email: StateFlow<String?>
 
     fun setCredentials(
         id: String,

@@ -57,6 +57,14 @@ class SettingsViewModel(
     )
     val observeIsAuthenticated by observe(::isAuthenticated)
 
+
+    var email: String? by binding(
+        authenticationService.email,
+        mapping = { it },
+        set = { }
+    )
+    val observeEmail by observe(::email)
+
     fun signIn() = googleSignInService.performGoogleLogin()
     fun signOut() = googleSignInService.performGoogleLogout()
 
