@@ -17,6 +17,9 @@ class DefaultAuthenticationService : AuthenticationService, KoinComponent {
     private val _isAuthenticated = MutableStateFlow(false)
     override val isAuthenticated: StateFlow<Boolean> = _isAuthenticated
 
+    private val _email = MutableStateFlow<String?>(null)
+    override val email: StateFlow<String?> = _email
+
     override fun setCredentials(
         id: String,
         name: String?,
@@ -24,6 +27,7 @@ class DefaultAuthenticationService : AuthenticationService, KoinComponent {
         pictureUrl: String?,
     ) {
         _isAuthenticated.update { true }
+        _email.update { email }
         userIdProvider.saveUserContext(
             UserContext(
                 isAuthenticated = true,
@@ -39,6 +43,7 @@ class DefaultAuthenticationService : AuthenticationService, KoinComponent {
 
     override fun clearCredentials() {
         _isAuthenticated.update { false }
+        _email.update { null }
         userIdProvider.saveUserContext(
             UserContext(
                 isAuthenticated = false,

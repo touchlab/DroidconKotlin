@@ -48,6 +48,7 @@ internal fun SettingsView(
     viewModel: SettingsViewModel,
 ) {
     val isAuthenticated by viewModel.observeIsAuthenticated.observeAsState()
+    val email by viewModel.observeEmail.observeAsState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -82,7 +83,7 @@ internal fun SettingsView(
             Divider()
 
             SettingRow(
-                text = "Account",
+                text = email ?: "Account",
                 image = Icons.Default.Person,
             ) {
                 if (isAuthenticated) {
