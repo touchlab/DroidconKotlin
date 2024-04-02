@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.ChatBubble
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Settings
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import co.touchlab.droidcon.ui.chat.ChatView
 import co.touchlab.droidcon.ui.session.SessionListView
 import co.touchlab.droidcon.ui.settings.SettingsView
 import co.touchlab.droidcon.ui.sponsors.SponsorsView
@@ -40,6 +42,7 @@ internal fun BottomNavigationView(
                         ApplicationViewModel.Tab.MyAgenda -> "My Agenda" to Icons.Filled.Schedule
                         ApplicationViewModel.Tab.Sponsors -> "Sponsors" to Icons.Filled.LocalFireDepartment
                         ApplicationViewModel.Tab.Settings -> "Settings" to Icons.Filled.Settings
+                        ApplicationViewModel.Tab.Chat -> "Chat" to Icons.Filled.ChatBubble
                     }
                     NavigationBarItem(
                         icon = { Icon(imageVector = icon, contentDescription = null) },
@@ -66,6 +69,7 @@ internal fun BottomNavigationView(
                 ApplicationViewModel.Tab.Settings -> SettingsView(
                     viewModel.settings,
                 )
+                ApplicationViewModel.Tab.Chat -> ChatView()
             }
         }
     }

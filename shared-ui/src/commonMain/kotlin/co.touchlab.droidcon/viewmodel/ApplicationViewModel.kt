@@ -103,6 +103,6 @@ class ApplicationViewModel(
     }
 
     enum class Tab {
-        Schedule, MyAgenda, Sponsors, Settings;
+        Schedule, MyAgenda, Sponsors, Settings, Chat;
     }
 }
