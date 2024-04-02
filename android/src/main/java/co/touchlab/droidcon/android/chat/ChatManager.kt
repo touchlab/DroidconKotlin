@@ -25,8 +25,6 @@ object ChatManager {
     var isConnected: Boolean = false
         private set
 
-    private val scope = CoroutineScope(Dispatchers.Default)
-
     fun initChat(
         applicationContext: Context,
         userData: UserData,
@@ -63,22 +61,22 @@ object ChatManager {
                 onSuccess = {
                     chatLogger.i { "SUCCESS! $it" }
                     isConnected = true
+                    joinDefaultChannels(user.id)
                 }, onError = {
                     chatLogger.i { "ERROR! $it" }
                     isConnected = false
                 })
         }
     }
-}
 
-suspend fun <T : Any> Call<T>.enqueueAsync(): T {
-    return suspendCoroutine { continuation ->
-        this.enqueue(onSuccess = { result: T ->
-            continuation.resumeWith(Result.success(result))
-        }, onError = { error: Error ->
-            continuation.resumeWith(
-                Result.failure(error.extractCause() ?: Throwable(message = error.message))
-            )
-        })
+    private fun joinDefaultChannels(id: String) {
+        val channelClient = ChatClient.instance().channel("messaging", "general")
+        channelClient.addMembers(listOf(id)).enqueue(
+            onSuccess = {
+                Logger.withTag("KevinChat").i { "SUCCESS $it" }
+            },
+            onError = {
+                Logger.withTag("KevinChat").i { "ERROR $it" }
+            })
     }
 }

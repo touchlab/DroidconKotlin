@@ -16,9 +16,14 @@ import androidx.core.content.ContextCompat.startActivity
 import co.touchlab.droidcon.R
 import co.touchlab.kermit.Logger
 import io.getstream.chat.android.client.ChatClient
+import io.getstream.chat.android.client.api.models.QueryChannelRequest
+import io.getstream.chat.android.client.api.models.QueryChannelsRequest
 import io.getstream.chat.android.client.extensions.internal.addMember
 import io.getstream.chat.android.compose.ui.channels.ChannelsScreen
 import io.getstream.chat.android.compose.ui.theme.ChatTheme
+import io.getstream.chat.android.models.ContainsFilterObject
+import io.getstream.chat.android.models.FilterObject
+import io.getstream.chat.android.models.Filters
 import io.getstream.chat.android.models.InitializationState
 import io.getstream.chat.android.models.Message
 import io.getstream.result.call.enqueue
@@ -28,7 +33,7 @@ internal fun ChatView() {
 
     val client = ChatClient.instance()
 
-    val context:Context = LocalContext.current
+    val context: Context = LocalContext.current
 
     Column(modifier = Modifier.fillMaxSize()) {
         // Observe the client connection state
