@@ -9,9 +9,11 @@ import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 @Composable
 fun MainView(
     viewModel: ApplicationViewModel,
+    chatView: @Composable () -> Unit,
 ) {
     MainComposeView(
         viewModel = viewModel,
+        chatView = chatView,
         modifier = Modifier.systemBarsPadding(),
     )
 }

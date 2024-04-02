@@ -12,12 +12,17 @@ import coil3.compose.setSingletonImageLoaderFactory
 @Composable
 internal fun MainComposeView(
     viewModel: ApplicationViewModel,
+    chatView: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     setSingletonImageLoaderFactory { context ->
         dcImageLoader(context, true)
     }
     DroidconTheme {
-        BottomNavigationView(viewModel = viewModel, modifier = modifier)
+        BottomNavigationView(
+            viewModel = viewModel,
+            chatView = chatView,
+            modifier = modifier
+        )
     }
 }

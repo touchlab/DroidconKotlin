@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import co.touchlab.droidcon.ui.chat.ChatView
 import co.touchlab.droidcon.ui.session.SessionListView
 import co.touchlab.droidcon.ui.settings.SettingsView
 import co.touchlab.droidcon.ui.sponsors.SponsorsView
@@ -28,6 +27,7 @@ import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 @Composable
 internal fun BottomNavigationView(
     viewModel: ApplicationViewModel,
+    chatView: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
@@ -69,7 +69,7 @@ internal fun BottomNavigationView(
                 ApplicationViewModel.Tab.Settings -> SettingsView(
                     viewModel.settings,
                 )
-                ApplicationViewModel.Tab.Chat -> ChatView()
+                ApplicationViewModel.Tab.Chat -> chatView()
             }
         }
     }
