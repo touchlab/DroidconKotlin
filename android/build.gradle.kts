@@ -30,6 +30,9 @@ android {
 
         val clientId = properties.getProperty("clientId", "")
         buildConfigField("String", "CLIENT_ID", clientId)
+
+        val apiKey = properties.getProperty("streamApiKey", "")
+        buildConfigField("String", "STREAM_API_KEY", apiKey)
     }
     packaging {
         resources.excludes.add("META-INF/*.kotlin_module")

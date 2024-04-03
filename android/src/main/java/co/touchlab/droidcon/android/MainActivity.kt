@@ -26,6 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.UserData
 import co.touchlab.droidcon.android.chat.ChatManager
+import co.touchlab.droidcon.android.chat.ChatView
 import co.touchlab.droidcon.android.service.impl.AndroidGoogleSignInService
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
@@ -46,17 +47,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import io.getstream.chat.android.client.ChatClient
-import io.getstream.chat.android.client.logger.ChatLogLevel
-import io.getstream.chat.android.compose.viewmodel.channels.ChannelListViewModel
-import io.getstream.chat.android.models.User
-import io.getstream.chat.android.offline.plugin.factory.StreamOfflinePluginFactory
-import io.getstream.chat.android.state.plugin.config.StatePluginConfig
-import io.getstream.chat.android.state.plugin.factory.StreamStatePluginFactory
-import io.getstream.result.call.enqueue
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

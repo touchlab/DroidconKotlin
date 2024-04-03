@@ -1,23 +1,16 @@
 package co.touchlab.droidcon.android.chat
 
 import android.content.Context
+import co.touchlab.droidcon.BuildConfig
 import co.touchlab.droidcon.UserData
 import co.touchlab.kermit.Logger
 import io.getstream.chat.android.client.ChatClient
-import io.getstream.chat.android.client.extensions.internal.addMember
 import io.getstream.chat.android.client.logger.ChatLogLevel
 import io.getstream.chat.android.models.User
 import io.getstream.chat.android.offline.plugin.factory.StreamOfflinePluginFactory
 import io.getstream.chat.android.state.plugin.config.StatePluginConfig
 import io.getstream.chat.android.state.plugin.factory.StreamStatePluginFactory
-import io.getstream.result.Error
-import io.getstream.result.call.Call
 import io.getstream.result.call.enqueue
-import io.getstream.result.extractCause
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.coroutines.suspendCoroutine
 
 object ChatManager {
     private val chatLogger: Logger = Logger.withTag("ChatManager")
@@ -38,7 +31,7 @@ object ChatManager {
                     appContext = applicationContext
                 )
 
-            val client = ChatClient.Builder("3rbey5kf2r9z", applicationContext)
+            val client = ChatClient.Builder(BuildConfig.STREAM_API_KEY, applicationContext)
                 .withPlugins(offlinePluginFactory, statePluginFactory)
                 .logLevel(ChatLogLevel.ALL) // TODO: Set to NOTHING in prod
                 .build()
@@ -50,7 +43,7 @@ object ChatManager {
                 image = userData.pictureUrl ?: "",
                 role = "ADMIN",
             )
-            val token = client.devToken(user.id) // TODO: Replace
+            val token = client.devToken(user.id) // TODO: Replace with Token from backend
 
             chatLogger.v { "Connecting User" }
             client.connectUser(user = user, token = token).enqueue(
@@ -67,6 +60,8 @@ object ChatManager {
 
     private fun joinDefaultChannels(id: String) {
         chatLogger.i { "Joining the General Channel" }
+
+        // TODO: Make the Auto-Join Channel(s) configurable
         val channelClient = ChatClient.instance().channel("messaging", "general")
         channelClient.addMembers(listOf(id)).enqueue(
             onSuccess = {
