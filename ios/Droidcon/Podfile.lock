@@ -131,6 +131,9 @@ PODS:
   - PromisesSwift (2.3.1):
     - PromisesObjC (= 2.3.1)
   - RecaptchaInterop (100.0.0)
+  - StreamChat (4.51.0)
+  - StreamChatSwiftUI (4.51.0):
+    - StreamChat (~> 4.51.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -138,6 +141,7 @@ DEPENDENCIES:
   - FirebaseAuth
   - GoogleSignIn
   - Kingfisher (~> 7.8.1)
+  - StreamChatSwiftUI
 
 SPEC REPOS:
   trunk:
@@ -163,6 +167,8 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - RecaptchaInterop
+    - StreamChat
+    - StreamChatSwiftUI
 
 SPEC CHECKSUMS:
   AppAuth: a13994980c1ec792f7e2e665acd4d4aa6be43240
@@ -187,7 +193,9 @@ SPEC CHECKSUMS:
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  StreamChat: ec4b3bf014aef91417e3117a9090987478e6708b
+  StreamChatSwiftUI: 861470d3b75a7573bee6b1e4f31b556d9163c382
 
-PODFILE CHECKSUM: 2e35e57413390790899d1dead666725334a49b5b
+PODFILE CHECKSUM: 5385fc47730b8ffff7a3248b155c4616b8bd8842
 
 COCOAPODS: 1.15.2
