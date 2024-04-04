@@ -14,6 +14,7 @@ class ChannelActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val channelId = intent.getStringExtra(KEY_CHANNEL_ID)!!
+        actionBar?.hide()
 
         setContent {
             ChatTheme {
