@@ -45,7 +45,7 @@ class ChatManager {
                 name: userData.name,
                 imageURL: userData.url
             ),
-            token: .development(userId: userData.id)
+            token: .development(userId: userData.id) // TODO: Replace with Token from backend
         ) { error in
             if let error = error {
                 // Some very basic error handling only logging the error.
