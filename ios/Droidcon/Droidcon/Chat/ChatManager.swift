@@ -52,7 +52,7 @@ class ChatManager {
                 log.error("connecting the user failed \(error)")
                 return
             } else {
-                joinDefaultChannels(id: userData.id)
+                self.joinDefaultChannels(id: userData.id)
             }
         }
     }
