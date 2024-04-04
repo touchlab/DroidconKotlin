@@ -58,7 +58,7 @@ class ChatManager {
     }
     
     private func joinDefaultChannels(id: String) {
-        log.error("Joining the General Channel")
+        log.debug("Joining the General Channel")
 
         // TODO: Make the Auto-Join Channel(s) configurable
         let controller = chatClient.channelController(for: .init(type: .messaging, id: "general"))
