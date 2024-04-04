@@ -39,7 +39,7 @@ internal fun BottomNavigationView(
                 viewModel.tabs.forEach { tab ->
                     val (title, icon) = when (tab) {
                         ApplicationViewModel.Tab.Schedule -> "Schedule" to Icons.Filled.CalendarMonth
-                        ApplicationViewModel.Tab.MyAgenda -> "My Agenda" to Icons.Filled.Schedule
+                        ApplicationViewModel.Tab.MyAgenda -> "Agenda" to Icons.Filled.Schedule
                         ApplicationViewModel.Tab.Sponsors -> "Sponsors" to Icons.Filled.LocalFireDepartment
                         ApplicationViewModel.Tab.Settings -> "Settings" to Icons.Filled.Settings
                         ApplicationViewModel.Tab.Chat -> "Chat" to Icons.Filled.ChatBubble

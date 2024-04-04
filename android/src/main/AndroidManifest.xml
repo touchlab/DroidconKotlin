@@ -26,6 +26,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".android.chat.ChannelActivity"
+            android:windowSoftInputMode="adjustResize"/>
+
         <receiver android:name="co.touchlab.droidcon.service.NotificationPublisher" />
 
         <receiver
