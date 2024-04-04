@@ -9,6 +9,8 @@ import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -17,7 +19,7 @@ import kotlinx.datetime.Instant
 class SqlDelightSessionRepository(
     private val dateTimeService: DateTimeService,
     private val sessionQueries: SessionQueries,
-) : BaseRepository<Session.Id, Session>(), SessionRepository {
+    ) : BaseRepository<Session.Id, Session>(), SessionRepository {
     override fun observe(id: Session.Id): Flow<Session> {
         return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
     }
@@ -37,7 +39,8 @@ class SqlDelightSessionRepository(
     }
 
     override suspend fun setRsvp(sessionId: Session.Id, rsvp: Session.RSVP) {
-        sessionQueries.updateRsvp(rsvp.isAttending.toLong(), sessionId.value)
+        Logger.withTag("KEVINTEST").i { "Setting RSVP" }
+        sessionQueries.updateRsvp(rsvp.isAttending.toLong(), sessionId.value) // SQL
     }
 
     override suspend fun setRsvpSent(sessionId: Session.Id, isSent: Boolean) {

@@ -18,6 +18,9 @@ object Constants {
 
         // Known variants: "sponsors", "sponsors-lisbon-2019", "sponsors-sf-2019", "sponsors-sf-2022", "sponsors-berlin-2022", "sponsors-nyc-2022"
         const val collectionName = "sponsors-london-2023"
+
+        // Known variants: "rsvps-nyc-2024"
+        const val rsvpName = "rsvps-nyc-2024"
         const val apiKey = "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0"
     }
 

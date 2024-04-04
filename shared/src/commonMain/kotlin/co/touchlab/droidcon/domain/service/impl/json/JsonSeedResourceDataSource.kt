@@ -1,6 +1,8 @@
 package co.touchlab.droidcon.domain.service.impl.json
 
+import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
+import co.touchlab.droidcon.domain.service.impl.dto.RSVPSDto
 import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
@@ -31,5 +33,16 @@ class JsonSeedResourceDataSource(
             "sponsors.json",
             SponsorsDto.SponsorCollectionDto.serializer(),
         )
+    }
+
+    override suspend fun getRSVPs(userId: String): RSVPSDto.RSVPsCollectionDto {
+        return jsonResourceReader.readAndDecodeResource(
+            "rsvps.json",
+            RSVPSDto.RSVPsCollectionDto.serializer(),
+        )
+    }
+
+    override suspend fun setRSVPs(userId: String, sessionId: Session.Id, rsvp: Boolean) {
+
     }
 }

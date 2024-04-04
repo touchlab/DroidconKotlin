@@ -140,7 +140,7 @@ private val coreModule = module {
     }
     single<SyncService> {
         DefaultSyncService(
-            log = getWith("SyncService"),
+            log = getWith("KEVINTEST"),
             settings = get(),
             dateTimeService = get(),
             profileRepository = get(),
@@ -152,6 +152,7 @@ private val coreModule = module {
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
             db = get(),
+            userIdProvider = get(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {

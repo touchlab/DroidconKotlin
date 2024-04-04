@@ -15,7 +15,9 @@ import co.touchlab.droidcon.domain.repository.SponsorRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.domain.service.UserIdProvider
 import co.touchlab.droidcon.domain.service.fromConferenceDateTime
+import co.touchlab.droidcon.domain.service.impl.dto.RSVPSDto
 import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
@@ -49,6 +51,7 @@ class DefaultSyncService(
     private val apiDataSource: DataSource,
     private val serverApi: ServerApi,
     private val db: DroidconDatabase,
+    private val userIdProvider: UserIdProvider,
 ) : SyncService {
     private companion object {
         // MARK: Settings keys
@@ -62,8 +65,10 @@ class DefaultSyncService(
         private const val SESSIONIZE_SYNC_SINCE_LAST_MINUTES = 15
 
         private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 1L * 60L * 60L * 1000L
+
         // 5 minutes
         private const val RSVP_SYNC_DELAY: Long = 5L * 60L * 1000L
+
         // 5 minutes
         private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
@@ -75,7 +80,8 @@ class DefaultSyncService(
         }
 
     private var lastSessionizeSync: Instant?
-        get() = settings.getLongOrNull(LAST_SESSIONIZE_SYNC_KEY)?.let { Instant.fromEpochMilliseconds(it) }
+        get() = settings.getLongOrNull(LAST_SESSIONIZE_SYNC_KEY)
+            ?.let { Instant.fromEpochMilliseconds(it) }
         set(value) {
             settings[LAST_SESSIONIZE_SYNC_KEY] = value?.toEpochMilliseconds()
         }
@@ -88,7 +94,9 @@ class DefaultSyncService(
                 while (isActive) {
                     val lastSessionizeSync = lastSessionizeSync
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
-                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)) {
+                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now()
+                            .minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
+                    ) {
                         log.d { "Will sync all repositories from API data source." }
                         try {
                             updateRepositoriesFromDataSource(apiDataSource)
@@ -108,6 +116,7 @@ class DefaultSyncService(
             }
 
             launch {
+                log.i { "Observing Session Repos" }
                 sessionRepository.observeAll()
                     .collect { sessions ->
                         sessions
@@ -120,11 +129,20 @@ class DefaultSyncService(
                                 }
                             }
                             .forEach { (sessionId, isAttending) ->
+
+                                log.i { "For Each Called: $isActive" }
                                 while (isActive) {
                                     try {
-                                        val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
+                                        val isRsvpSent = true//serverApi.setRsvp(sessionId, isAttending)
                                         if (isRsvpSent) {
+                                            log.i { "Sending RSVP to Repo" }
                                             sessionRepository.setRsvpSent(sessionId, isAttending)
+                                            log.i { "Sending RSVP to Api Data Source" }
+                                            apiDataSource.setRSVPs(
+                                                userId = userIdProvider.getId(),
+                                                sessionId,
+                                                isAttending
+                                            )
                                         }
                                         break
                                     } catch (e: Exception) {
@@ -151,9 +169,16 @@ class DefaultSyncService(
                             .forEach { (sessionId, feedback) ->
                                 while (isActive) {
                                     try {
-                                        val isFeedbackSent = serverApi.setFeedback(sessionId, feedback.rating, feedback.comment)
+                                        val isFeedbackSent = serverApi.setFeedback(
+                                            sessionId,
+                                            feedback.rating,
+                                            feedback.comment
+                                        )
                                         if (isFeedbackSent) {
-                                            sessionRepository.setFeedbackSent(sessionId, isFeedbackSent)
+                                            sessionRepository.setFeedbackSent(
+                                                sessionId,
+                                                isFeedbackSent
+                                            )
                                         }
                                         break
                                     } catch (e: Exception) {
@@ -194,6 +219,10 @@ class DefaultSyncService(
         db.transaction {
             updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors)
         }
+
+
+        val rsvps = dataSource.getRSVPs(userIdProvider.getId())
+        updateRSVPsFromDataSource(rsvps)
     }
 
     private fun updateSpeakersFromDataSource(speakerDtos: List<SpeakersDto.SpeakerDto>) {
@@ -226,8 +255,10 @@ class DefaultSyncService(
                     id = Session.Id(dto.id),
                     title = dto.title,
                     description = dto.description,
-                    startsAt = LocalDateTime.parse(dto.startsAt).fromConferenceDateTime(dateTimeService),
-                    endsAt = LocalDateTime.parse(dto.endsAt).fromConferenceDateTime(dateTimeService),
+                    startsAt = LocalDateTime.parse(dto.startsAt)
+                        .fromConferenceDateTime(dateTimeService),
+                    endsAt = LocalDateTime.parse(dto.endsAt)
+                        .fromConferenceDateTime(dateTimeService),
                     isServiceSession = dto.isServiceSession,
                     room = Room.Id(dto.roomID),
                     rsvp = Session.RSVP(
@@ -268,7 +299,10 @@ class DefaultSyncService(
         }
     }
 
-    private fun updateSponsorsFromDataSource(sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>, sponsors: SponsorsDto.SponsorCollectionDto) {
+    private fun updateSponsorsFromDataSource(
+        sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
+        sponsors: SponsorsDto.SponsorCollectionDto
+    ) {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
@@ -283,20 +317,23 @@ class DefaultSyncService(
             ) to group.fields.sponsors.arrayValue.values.map { it.mapValue.fields }
         }
 
-        val sponsorsAndRepresentativeIds = sponsorGroupsToSponsorDtos.flatMap { (group, sponsorDtos) ->
-            sponsorDtos.map { sponsorDto ->
-                val sponsorSession = sponsorDto.sponsorId?.stringValue?.let(sponsorSessions::get)
-                val representativeIds = sponsorSession?.speakers?.map { Profile.Id(it.id) } ?: emptyList()
+        val sponsorsAndRepresentativeIds =
+            sponsorGroupsToSponsorDtos.flatMap { (group, sponsorDtos) ->
+                sponsorDtos.map { sponsorDto ->
+                    val sponsorSession =
+                        sponsorDto.sponsorId?.stringValue?.let(sponsorSessions::get)
+                    val representativeIds =
+                        sponsorSession?.speakers?.map { Profile.Id(it.id) } ?: emptyList()
 
-                Sponsor(
-                    id = Sponsor.Id(sponsorDto.name.stringValue, group.name),
-                    hasDetail = sponsorSession != null,
-                    description = sponsorSession?.description,
-                    icon = Url(sponsorDto.icon.stringValue),
-                    url = Url(sponsorDto.url.stringValue),
-                ) to representativeIds
+                    Sponsor(
+                        id = Sponsor.Id(sponsorDto.name.stringValue, group.name),
+                        hasDetail = sponsorSession != null,
+                        description = sponsorSession?.description,
+                        icon = Url(sponsorDto.icon.stringValue),
+                        url = Url(sponsorDto.url.stringValue),
+                    ) to representativeIds
+                }
             }
-        }
 
         sponsorRepository.allSync().map { it.id }
             .subtract(sponsorsAndRepresentativeIds.map { it.first.id })
@@ -317,6 +354,15 @@ class DefaultSyncService(
         }
     }
 
+    private suspend fun updateRSVPsFromDataSource(rsvpDto: RSVPSDto.RSVPsCollectionDto) {
+        rsvpDto.groups.sessions.forEach {
+            sessionRepository.setRsvp(
+                Session.Id(it),
+                Session.RSVP(isAttending = true, isSent = true),
+            )
+        }
+    }
+
     private fun profileFactory(speakerDto: SpeakersDto.SpeakerDto): Profile {
         val groupedLinks = speakerDto.links.filter { it.url.isNotBlank() }.groupBy { it.linkType }
         return Profile(
@@ -328,8 +374,9 @@ class DefaultSyncService(
             twitter = groupedLinks[LinkType.Twitter]?.firstOrNull()?.url?.let(::Url),
             linkedIn = groupedLinks[LinkType.LinkedIn]?.firstOrNull()?.url?.let(::Url),
             website = (
-                groupedLinks[LinkType.CompanyWebsite] ?: groupedLinks[LinkType.Blog] ?: groupedLinks[LinkType.Other]
-                )?.firstOrNull()?.url?.let(::Url),
+                    groupedLinks[LinkType.CompanyWebsite] ?: groupedLinks[LinkType.Blog]
+                    ?: groupedLinks[LinkType.Other]
+                    )?.firstOrNull()?.url?.let(::Url),
         )
     }
 
@@ -345,5 +392,10 @@ class DefaultSyncService(
         suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto>
 
         suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto
+
+        suspend fun getRSVPs(userId: String): RSVPSDto.RSVPsCollectionDto
+
+        suspend fun setRSVPs(userId: String, sessionId: Session.Id, rsvp: Boolean)
+
     }
 }

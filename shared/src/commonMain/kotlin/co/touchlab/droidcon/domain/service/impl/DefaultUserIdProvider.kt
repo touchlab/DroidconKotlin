@@ -14,18 +14,28 @@ class DefaultUserIdProvider(
 ) : UserIdProvider {
     companion object {
         const val USER_ID_KEY = "USER_ID_KEY"
+        const val FIREBASE_USER_ID_KEY = "FIREBASE_USER_ID_KEY"
     }
 
     override suspend fun getId(): String {
-        var id = observableSettings.get<String>(USER_ID_KEY)
-        if (id == null) {
-            id = uuid4().toString()
-            observableSettings[USER_ID_KEY] = id
+        var localId = observableSettings.get<String>(USER_ID_KEY)
+        val firebaseId = observableSettings.get<String>(FIREBASE_USER_ID_KEY)
+
+        if (firebaseId != null && firebaseId != localId) {
+            // TODO: Update RSVPs and Feedback calls with new ID
+            observableSettings[USER_ID_KEY] = firebaseId
+            localId = firebaseId
+        } else if (localId == null) {
+            localId = uuid4().toString()
+            observableSettings[USER_ID_KEY] = localId
         }
-        return id
+        return localId
     }
 
     override fun saveUserContext(userContext: UserContext) {
-        // TODO
+        userContext.userData?.let {
+            observableSettings[FIREBASE_USER_ID_KEY] = it.id
+            observableSettings[USER_ID_KEY] = it.id
+        }
     }
 }
