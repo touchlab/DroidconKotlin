@@ -41,7 +41,6 @@ object ChatManager {
                 id = userData.id,
                 name = userData.name ?: "Unknown Name",
                 image = userData.pictureUrl ?: "",
-                role = "ADMIN",
             )
             val token = client.devToken(user.id) // TODO: Replace with Token from backend
 

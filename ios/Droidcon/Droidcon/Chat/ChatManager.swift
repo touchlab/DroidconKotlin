@@ -51,8 +51,27 @@ class ChatManager {
                 // Some very basic error handling only logging the error.
                 log.error("connecting the user failed \(error)")
                 return
+            } else {
+                joinDefaultChannels(id: userData.id)
             }
         }
+    }
+    
+    private func joinDefaultChannels(id: String) {
+        log.error("Joining the General Channel")
+
+        // TODO: Make the Auto-Join Channel(s) configurable
+        let controller = chatClient.channelController(for: .init(type: .messaging, id: "general"))
+        controller.addMembers(
+            userIds: [id],
+            completion: { error in
+                if let error = error {
+                    // Some very basic error handling only logging the error.
+                    log.error("adding the member failed \(error)")
+                    return
+                }
+            }
+        )
     }
 
 }
