@@ -17,7 +17,7 @@ class ChatManager {
     var chatClient: ChatClient = {
         
         guard let infoDictionary: [String: Any] = Bundle.main.infoDictionary,
-            let key = infoDictionary["StreamApiKey"] as? String,
+            let key = infoDictionary["streamApiKey"] as? String,
             !key.isEmpty else {
             fatalError("Stream Api Key is missing")
         }

@@ -34,7 +34,7 @@ Just follow these steps:
 
 ### Chat
 
-We are using [Stream](https://getstream.io/chat/) for chat features. In order to support them in your app you'll need to register for an App and update. 
+We are using [Stream](https://getstream.io/chat/) for chat features. In order to support them in your app you'll need to register for an App. From the [Stream Dashboard](https://dashboard.getstream.io/) you can customize your channels, chat types and various chat features.
 
 ##### Helpful Tips
 
