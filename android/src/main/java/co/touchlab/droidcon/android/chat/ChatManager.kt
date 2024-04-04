@@ -50,10 +50,12 @@ object ChatManager {
                     chatLogger.v { "Successfully Connected!" }
                     isConnected = true
                     joinDefaultChannels(user.id)
-                }, onError = {
+                },
+                onError = {
                     chatLogger.e { "Error Connecting! $it" }
                     isConnected = false
-                })
+                }
+            )
         }
     }
 
