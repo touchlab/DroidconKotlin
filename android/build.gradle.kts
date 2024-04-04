@@ -106,7 +106,6 @@ dependencies {
 
     coreLibraryDesugaring(libs.android.desugar)
 
-
     implementation("io.getstream:stream-chat-android-compose:6.0.8")
     implementation("io.getstream:stream-chat-android-offline:6.0.8")
 
