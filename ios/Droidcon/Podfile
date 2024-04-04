@@ -10,4 +10,6 @@ target 'Droidcon' do
     pod 'Firebase/Crashlytics'
     pod 'GoogleSignIn'
     pod 'FirebaseAuth'
+    pod 'StreamChatSwiftUI'
+
 end

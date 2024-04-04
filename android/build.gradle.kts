@@ -30,6 +30,9 @@ android {
 
         val clientId = properties.getProperty("clientId", "")
         buildConfigField("String", "CLIENT_ID", clientId)
+
+        val apiKey = properties.getProperty("streamApiKey", "")
+        buildConfigField("String", "STREAM_API_KEY", apiKey)
     }
     packaging {
         resources.excludes.add("META-INF/*.kotlin_module")
@@ -102,4 +105,9 @@ dependencies {
     implementation(libs.bundles.androidx.compose)
 
     coreLibraryDesugaring(libs.android.desugar)
+
+    implementation("io.getstream:stream-chat-android-compose:6.0.8")
+    implementation("io.getstream:stream-chat-android-offline:6.0.8")
+
+    implementation("androidx.compose.material:material-icons-extended:1.6.0-alpha08")
 }

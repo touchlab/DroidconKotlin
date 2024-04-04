@@ -47,3 +47,5 @@
 "Feedback.Dialog.Submit" = "Submit";
 "Feedback.Dialog.CloseAndDisable" = "Close and disable feedback";
 "Feedback.Dialog.Skip" = "Skip feedback";
+
+"Chat.TabItem.Title" = "Chat";

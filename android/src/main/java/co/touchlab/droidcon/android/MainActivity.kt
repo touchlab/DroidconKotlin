@@ -24,6 +24,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import co.touchlab.droidcon.R
+import co.touchlab.droidcon.UserData
+import co.touchlab.droidcon.android.chat.ChatManager
+import co.touchlab.droidcon.android.chat.ChatView
 import co.touchlab.droidcon.android.service.impl.AndroidGoogleSignInService
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
@@ -71,6 +74,17 @@ class MainActivity : ComponentActivity(), KoinComponent {
                 email = user.email,
                 pictureUrl = user.photoUrl?.toString(),
             )
+            if (!ChatManager.isConnected) {
+                ChatManager.initChat(
+                    applicationContext = applicationContext,
+                    userData = UserData(
+                        id = user.uid,
+                        name = user.displayName,
+                        email = user.email,
+                        pictureUrl = user.photoUrl?.toString(),
+                    ),
+                )
+            }
         } ?: run { authenticationService.clearCredentials() }
     }
 
@@ -105,12 +119,16 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         auth = Firebase.auth
         auth.addAuthStateListener(firebaseAuthListener)
         installSplashScreen()
         AppChecker.checkTimeZoneHash()
 
-        (googleSignInService as AndroidGoogleSignInService).setActivity(this, firebaseIntentResultLauncher)
+        (googleSignInService as AndroidGoogleSignInService).setActivity(
+            this,
+            firebaseIntentResultLauncher
+        )
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
         applicationViewModel.lifecycle.removeFromParent()
@@ -125,7 +143,9 @@ class MainActivity : ComponentActivity(), KoinComponent {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            MainView(viewModel = applicationViewModel)
+            MainView(viewModel = applicationViewModel) {
+                ChatView()
+            }
             val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
             Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
                 if (shouldShowSplashScreen) {

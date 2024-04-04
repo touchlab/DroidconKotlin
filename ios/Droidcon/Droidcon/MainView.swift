@@ -49,6 +49,13 @@ struct MainView: View {
                         Text("Settings.TabItem.Title")
                     }
                     .tag(tab);
+                case ApplicationViewModel.Tab.chat:
+                    ChatView()
+                    .tabItem {
+                        Image(systemName: "message.fill")
+                        Text("Chat.TabItem.Title")
+                    }
+                    .tag(tab);
                 default:
                     fatalError("Unknown tab \(tab).")
                 }

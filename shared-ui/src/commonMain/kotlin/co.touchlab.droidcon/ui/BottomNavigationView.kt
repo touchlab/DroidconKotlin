@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.ChatBubble
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Settings
@@ -26,6 +27,7 @@ import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 @Composable
 internal fun BottomNavigationView(
     viewModel: ApplicationViewModel,
+    chatView: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
@@ -37,9 +39,10 @@ internal fun BottomNavigationView(
                 viewModel.tabs.forEach { tab ->
                     val (title, icon) = when (tab) {
                         ApplicationViewModel.Tab.Schedule -> "Schedule" to Icons.Filled.CalendarMonth
-                        ApplicationViewModel.Tab.MyAgenda -> "My Agenda" to Icons.Filled.Schedule
+                        ApplicationViewModel.Tab.MyAgenda -> "Agenda" to Icons.Filled.Schedule
                         ApplicationViewModel.Tab.Sponsors -> "Sponsors" to Icons.Filled.LocalFireDepartment
                         ApplicationViewModel.Tab.Settings -> "Settings" to Icons.Filled.Settings
+                        ApplicationViewModel.Tab.Chat -> "Chat" to Icons.Filled.ChatBubble
                     }
                     NavigationBarItem(
                         icon = { Icon(imageVector = icon, contentDescription = null) },
@@ -66,6 +69,7 @@ internal fun BottomNavigationView(
                 ApplicationViewModel.Tab.Settings -> SettingsView(
                     viewModel.settings,
                 )
+                ApplicationViewModel.Tab.Chat -> chatView()
             }
         }
     }

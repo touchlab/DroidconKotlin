@@ -35,6 +35,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                     email: user.email,
                     pictureUrl: user.photoURL?.absoluteString
                 )
+                ChatManager.instance.connectUser(
+                    userData:
+                        UserData(
+                            id: user.uid,
+                            name: user.displayName,
+                            email: user.email,
+                            pictureUrl: user.photoURL?.absoluteString
+                        )
+                )
             } else {
                 self.authenticationService.clearCredentials()
             }
