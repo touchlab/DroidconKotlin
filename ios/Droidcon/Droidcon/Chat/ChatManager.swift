@@ -15,7 +15,14 @@ class ChatManager {
     static let instance = ChatManager()
 
     var chatClient: ChatClient = {
-        var config = ChatClientConfig(apiKey: .init("3rbey5kf2r9z"))
+        
+        guard let infoDictionary: [String: Any] = Bundle.main.infoDictionary,
+            let key = infoDictionary["StreamApiKey"] as? String,
+            !key.isEmpty else {
+            fatalError("Stream Api Key is missing")
+        }
+        
+        var config = ChatClientConfig(apiKey: .init(key))
         config.isLocalStorageEnabled = true
         config.applicationGroupIdentifier = "co.touchlab.droidconauthtest"
 
