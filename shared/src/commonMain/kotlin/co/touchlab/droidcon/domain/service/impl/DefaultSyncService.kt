@@ -133,7 +133,7 @@ class DefaultSyncService(
                                 log.i { "For Each Called: $isActive" }
                                 while (isActive) {
                                     try {
-                                        val isRsvpSent = true//serverApi.setRsvp(sessionId, isAttending)
+                                        val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
                                         if (isRsvpSent) {
                                             log.i { "Sending RSVP to Repo" }
                                             sessionRepository.setRsvpSent(sessionId, isAttending)
@@ -355,7 +355,7 @@ class DefaultSyncService(
     }
 
     private suspend fun updateRSVPsFromDataSource(rsvpDto: RSVPSDto.RSVPsCollectionDto) {
-        rsvpDto.groups.sessions.forEach {
+        rsvpDto.sessionStringList.forEach {
             sessionRepository.setRsvp(
                 Session.Id(it),
                 Session.RSVP(isAttending = true, isSent = true),

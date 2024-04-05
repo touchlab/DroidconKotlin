@@ -62,11 +62,9 @@ class DefaultApiDataSource(
     }
 
     override suspend fun getRSVPs(userId: String): RSVPSDto.RSVPsCollectionDto {
-        val logger = Logger.withTag("KEVINTEST")
-        logger.
         val jsonString = client.get {
             with(Constants.Firestore) {
-                firestore("/v1/projects/$projectId/databases/$databaseName/documents/$collectionName/$userId?key=$apiKey")
+                firestore("/v1/projects/$projectId/databases/$databaseName/documents/$rsvpName/$userId?key=$apiKey")
             }
         }.bodyAsText()
         return json.decodeFromString(RSVPSDto.RSVPsCollectionDto.serializer(), jsonString)
@@ -77,17 +75,11 @@ class DefaultApiDataSource(
         val logger = Logger.withTag("KEVINTEST")
         logger.i { "Setting RSVP" }
 
-        var rsvps = getRSVPs(userId)
-        val sessions = rsvps.groups.sessions.toMutableList()
-        sessions.removeAll { it == sessionId.value }
-        if(rsvp) sessions.add(sessionId.value)
-        rsvps = rsvps.copy(groups = RSVPSDto.SponsorGroupDto(sessions))
+        val rsvps = getRSVPs(userId).copyWithSession(sessionId.value, rsvp)
         logger.i { "Posting to Client" }
-
-        client.post {
+        val response = client.post {
             with(Constants.Firestore) {
-                logger.i { "/v1/projects/$projectId/databases/$databaseName/documents/$collectionName/$userId?key=$apiKey" }
-                firestore("/v1/projects/$projectId/databases/$databaseName/documents/$collectionName/$userId?key=$apiKey")
+                firestore("/v1/projects/$projectId/databases/$databaseName/documents/$rsvpName/$userId?key=$apiKey")
             }
             setBody(
                 json.encodeToString(RSVPSDto.RSVPsCollectionDto.serializer(), rsvps)

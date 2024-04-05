@@ -20,7 +20,7 @@ object Constants {
         const val collectionName = "sponsors-london-2023"
 
         // Known variants: "rsvps-nyc-2024"
-        const val rsvpName = "rsvps-nyc-2024"
+        const val rsvpName = "rsvps-nyc-2023"
         const val apiKey = "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0"
     }
 
