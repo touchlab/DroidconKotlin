@@ -39,7 +39,6 @@ class SqlDelightSessionRepository(
     }
 
     override suspend fun setRsvp(sessionId: Session.Id, rsvp: Session.RSVP) {
-        Logger.withTag("KEVINTEST").i { "Setting RSVP" }
         sessionQueries.updateRsvp(rsvp.isAttending.toLong(), sessionId.value) // SQL
     }
 

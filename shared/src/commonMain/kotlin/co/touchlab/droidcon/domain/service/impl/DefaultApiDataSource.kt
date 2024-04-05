@@ -72,12 +72,9 @@ class DefaultApiDataSource(
 
 
     override suspend fun setRSVPs(userId: String, sessionId: Session.Id, rsvp: Boolean) {
-        val logger = Logger.withTag("KEVINTEST")
-        logger.i { "Setting RSVP" }
 
         val rsvps = getRSVPs(userId).copyWithSession(sessionId.value, rsvp)
-        logger.i { "Posting to Client" }
-        val response = client.post {
+        client.post {
             with(Constants.Firestore) {
                 firestore("/v1/projects/$projectId/databases/$databaseName/documents/$rsvpName/$userId?key=$apiKey")
             }

@@ -140,7 +140,7 @@ private val coreModule = module {
     }
     single<SyncService> {
         DefaultSyncService(
-            log = getWith("KEVINTEST"),
+            log = getWith("SyncService"),
             settings = get(),
             dateTimeService = get(),
             profileRepository = get(),
