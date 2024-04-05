@@ -39,7 +39,7 @@ class SqlDelightSessionRepository(
     }
 
     override suspend fun setRsvp(sessionId: Session.Id, rsvp: Session.RSVP) {
-        sessionQueries.updateRsvp(rsvp.isAttending.toLong(), sessionId.value) // SQL
+        sessionQueries.updateRsvp(rsvp.isAttending.toLong(), sessionId.value)
     }
 
     override suspend fun setRsvpSent(sessionId: Session.Id, isSent: Boolean) {

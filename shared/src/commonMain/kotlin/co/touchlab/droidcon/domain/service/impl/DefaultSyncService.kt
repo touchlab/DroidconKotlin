@@ -116,7 +116,6 @@ class DefaultSyncService(
             }
 
             launch {
-                log.i { "Observing Session Repos" }
                 sessionRepository.observeAll()
                     .collect { sessions ->
                         sessions
@@ -129,15 +128,11 @@ class DefaultSyncService(
                                 }
                             }
                             .forEach { (sessionId, isAttending) ->
-
-                                log.i { "For Each Called: $isActive" }
                                 while (isActive) {
                                     try {
                                         val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
                                         if (isRsvpSent) {
-                                            log.i { "Sending RSVP to Repo" }
                                             sessionRepository.setRsvpSent(sessionId, isAttending)
-                                            log.i { "Sending RSVP to Api Data Source" }
                                             apiDataSource.setRSVPs(
                                                 userId = userIdProvider.getId(),
                                                 sessionId,
