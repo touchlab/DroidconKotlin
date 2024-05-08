@@ -6,6 +6,6 @@ install! 'cocoapods', :deterministic_uuids => false
 
 target 'Droidcon' do
     pod 'Kingfisher', '~> 7.8.1'
+    pod 'Sentry', '~> 8.20.0'
     pod 'Firebase/Analytics'
-    pod 'Firebase/Crashlytics'
 end

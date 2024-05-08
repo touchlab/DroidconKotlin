@@ -16,12 +16,10 @@ import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.ClasspathResourceReader
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.dsl.module
 
-@OptIn(ExperimentalSettingsApi::class)
 class MainApp : Application() {
 
     override fun onCreate() {
