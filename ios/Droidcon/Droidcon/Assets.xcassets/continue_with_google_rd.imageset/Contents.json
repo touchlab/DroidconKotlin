@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "android_neutral_rd_ctn.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

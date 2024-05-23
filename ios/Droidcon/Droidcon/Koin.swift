@@ -4,7 +4,11 @@ import DroidconKit
 func startKoin() {
     let userDefaults = UserDefaults(suiteName: "DROIDCON2023_SETTINGS")!
 
-    let koinApplication = DependencyInjectionKt.doInitKoinIos(userDefaults: userDefaults, analyticsService: IOSAnalyticsService())
+    let koinApplication = DependencyInjectionKt.doInitKoinIos(
+        userDefaults: userDefaults,
+        analyticsService: IOSAnalyticsService(),
+        googleSignInService: IOSGoogleSignInService()
+    )
     _koin = koinApplication.koin
 }
 

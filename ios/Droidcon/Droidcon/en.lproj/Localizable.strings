@@ -37,6 +37,8 @@
 "Settings.Reminders" = "Enable reminders";
 "Settings.Compose" = "Use compose for iOS";
 "Settings.About" = "About";
+"Settings.SignOut" = "Sign Out";
+"Settings.Account" = "Account";
 
 "About.Title" = "About";
 

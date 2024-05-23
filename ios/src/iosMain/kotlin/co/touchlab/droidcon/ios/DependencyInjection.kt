@@ -2,6 +2,7 @@ package co.touchlab.droidcon.ios
 
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
+import co.touchlab.droidcon.domain.service.GoogleSignInService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.ios.service.DefaultParseUrlViewService
@@ -24,7 +25,8 @@ import platform.Foundation.NSUserDefaults
 @OptIn(ExperimentalSettingsApi::class)
 fun initKoinIos(
     userDefaults: NSUserDefaults,
-    analyticsService: AnalyticsService
+    analyticsService: AnalyticsService,
+    googleSignInService: GoogleSignInService,
 ): KoinApplication = initKoin(
     module {
         single { BundleProvider(bundle = NSBundle.mainBundle) }
@@ -38,6 +40,7 @@ fun initKoinIos(
         }
 
         single { analyticsService }
+        single { googleSignInService }
 
         single<ParseUrlViewService> { DefaultParseUrlViewService() }
     } + uiModule

@@ -10,7 +10,10 @@ import coil3.compose.setSingletonImageLoaderFactory
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-internal fun MainComposeView(viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
+internal fun MainComposeView(
+    viewModel: ApplicationViewModel,
+    modifier: Modifier = Modifier,
+) {
     setSingletonImageLoaderFactory { context ->
         dcImageLoader(context, true)
     }

@@ -14,6 +14,11 @@ This project has a pair of native mobile applications backed by the Sessionize d
 The apps need a Firebase account set up to run. You'll need to get the `google-services.json` and put it in `android/google-services.json` for Android, and
 the `GoogleService-Info.plist` and put that in `ios/Droidcon/Droidcon/GoogleService-Info.plist` for iOS.
 
+Additionally for Firebase Authentication you'll need to pass in your client ID into the project.
+
+For Android you'll need to add a `clientId` property to your `local.properties`.
+For iOS you'll need to pass the clientId into your [URL Types](https://firebase.google.com/docs/auth/ios/google-signin#implement_google_sign-in).
+
 ## Compose UI for both!
 
 We're running a very early version of Compose UI for iOS as the iOS interface. It mostly shares the screen code with the Android app. While Native Compose UI is obviously experimental, it works surprisingly well.

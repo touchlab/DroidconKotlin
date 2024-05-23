@@ -24,7 +24,10 @@ import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 
 @Composable
-internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
+internal fun BottomNavigationView(
+    viewModel: ApplicationViewModel,
+    modifier: Modifier = Modifier,
+) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
 
     Scaffold(
@@ -60,7 +63,9 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
                 ApplicationViewModel.Tab.Schedule -> SessionListView(viewModel.schedule)
                 ApplicationViewModel.Tab.MyAgenda -> SessionListView(viewModel.agenda)
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
-                ApplicationViewModel.Tab.Settings -> SettingsView(viewModel.settings)
+                ApplicationViewModel.Tab.Settings -> SettingsView(
+                    viewModel.settings,
+                )
             }
         }
     }
