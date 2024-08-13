@@ -16,7 +16,11 @@ class IOSDateFormatter : DateFormatter {
     private val monthWithDay: NSDateFormatter by lazy {
         NSDateFormatter().also {
             val dateTemplate = "MMM d"
-            it.dateFormat = NSDateFormatter.dateFormatFromTemplate(dateTemplate, 0.toULong(), NSLocale.currentLocale)!!
+            it.dateFormat = NSDateFormatter.dateFormatFromTemplate(
+                dateTemplate,
+                0.toULong(),
+                NSLocale.currentLocale
+            )!!
         }
     }
 
@@ -30,7 +34,11 @@ class IOSDateFormatter : DateFormatter {
     private val timeOnlyNoPeriod: NSDateFormatter by lazy {
         NSDateFormatter().also {
             val dateTemplate = "hh:mm"
-            it.dateFormat = NSDateFormatter.dateFormatFromTemplate(dateTemplate, 0.toULong(), NSLocale.currentLocale)!!
+            it.dateFormat = NSDateFormatter.dateFormatFromTemplate(
+                dateTemplate,
+                0.toULong(),
+                NSLocale.currentLocale
+            )!!
         }
     }
 
@@ -40,12 +48,14 @@ class IOSDateFormatter : DateFormatter {
     override fun timeOnly(dateTime: LocalDateTime) =
         dateTime.date()?.let { timeOnly.stringFromDate(it) }
 
-    override fun timeOnlyInterval(fromDateTime: LocalDateTime, toDateTime: LocalDateTime) = interval(
-        fromDateTime.date()?.let { timeOnlyNoPeriod.stringFromDate(it) },
-        toDateTime.date()?.let { timeOnly.stringFromDate(it) }
-    )
+    override fun timeOnlyInterval(fromDateTime: LocalDateTime, toDateTime: LocalDateTime) =
+        interval(
+            fromDateTime.date()?.let { timeOnlyNoPeriod.stringFromDate(it) },
+            toDateTime.date()?.let { timeOnly.stringFromDate(it) }
+        )
 
-    private fun LocalDate.date() = NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents())
+    private fun LocalDate.date() =
+        NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents())
 
     private fun LocalDateTime.date() =
         NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents()) // TODOKPG - Pretty sure this is device time zone, might be OK. Just for local formating

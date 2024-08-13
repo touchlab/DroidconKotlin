@@ -21,9 +21,9 @@ import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -103,7 +103,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                         val title by viewModel.observeTitle.observeAsState()
                         val locationInfo by viewModel.observeInfo.observeAsState()
                         HeaderView(title, locationInfo)
-                        Divider()
+                        HorizontalDivider()
                     }
                     if (state != SessionDetailViewModel.SessionState.Ended) {
                         val isAttending by viewModel.observeIsAttending.observeAsState()
@@ -168,7 +168,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                         textAlign = TextAlign.Center,
                     )
 
-                    Divider()
+                    HorizontalDivider()
 
                     speakers.forEach { speaker ->
                         SpeakerView(speaker)

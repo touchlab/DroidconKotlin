@@ -78,7 +78,7 @@ kotlin {
 }
 
 afterEvaluate {
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>() {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile> {
         (compilerPluginClasspath as? Configuration)?.isTransitive = true
     }
 }

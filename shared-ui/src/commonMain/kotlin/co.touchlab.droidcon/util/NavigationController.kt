@@ -4,7 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.RememberObserver
@@ -270,9 +270,9 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
         targetState = activeLinkComposables,
         transitionSpec = {
             if (initialState.indexOfLast { it.body != null } < targetState.indexOfLast { it.body != null }) {
-                slideInHorizontally(initialOffsetX = { it }) with slideOutHorizontally(targetOffsetX = { -it })
+                slideInHorizontally(initialOffsetX = { it }) togetherWith slideOutHorizontally(targetOffsetX = { -it })
             } else {
-                slideInHorizontally(initialOffsetX = { -it }) with slideOutHorizontally(targetOffsetX = { it })
+                slideInHorizontally(initialOffsetX = { -it }) togetherWith slideOutHorizontally(targetOffsetX = { it })
             }
         },
         contentAlignment = Alignment.BottomCenter
