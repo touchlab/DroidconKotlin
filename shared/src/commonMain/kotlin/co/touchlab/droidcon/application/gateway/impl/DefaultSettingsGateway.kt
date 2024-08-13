@@ -18,8 +18,4 @@ class DefaultSettingsGateway(
     override suspend fun setRemindersEnabled(enabled: Boolean) {
         settingsRepository.setRemindersEnabled(enabled)
     }
-
-    override suspend fun setUseComposeForIos(useCompose: Boolean) {
-        settingsRepository.setUseComposeForIos(useCompose)
-    }
 }

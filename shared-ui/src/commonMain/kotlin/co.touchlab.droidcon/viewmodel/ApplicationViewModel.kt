@@ -30,17 +30,6 @@ class ApplicationViewModel(
     val sponsors by managed(sponsorsFactory.create())
     val settings by managed(settingsFactory.create())
 
-    var useCompose: Boolean by binding(
-        settingsGateway.settings(),
-        mapping = { it.useComposeForIos },
-        set = { newValue ->
-            // TODO: Remove when `binding` supports suspend closures.
-            instanceLock.runExclusively {
-                settingsGateway.setUseComposeForIos(newValue)
-            }
-        }
-    )
-
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
     val observePresentedFeedback by observe(::presentedFeedback)
 

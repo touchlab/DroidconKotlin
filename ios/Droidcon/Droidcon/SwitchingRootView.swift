@@ -12,21 +12,10 @@ struct SwitchingRootView: View {
     
     var body: some View {
         Group {
-            if viewModel.useCompose {
-                ComposeController(viewModel: viewModel)
-                .ignoresSafeArea()
-            } else {
-                MainView(viewModel: viewModel)
-            }
+            ComposeController(viewModel: viewModel).ignoresSafeArea()
         }
         .attach(viewModel: viewModel)
         .onAppear(perform: viewModel.onAppear)
-        .onReceive(userDefaultsPublisher) { _ in
-            viewModel.useCompose = SettingsBundleHelper.getUseComposeValue()
-        }
-        .onChange(of: viewModel.useCompose) { newValue in
-            SettingsBundleHelper.setUseComposeValue(newValue: newValue)
-        }
         .onReceive(appActivePublisher) { _ in
             viewModel.onAppear()
         }

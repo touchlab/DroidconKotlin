@@ -68,8 +68,6 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 
             Divider()
 
-            PlatformSpecificSettingsView(viewModel = viewModel)
-
             AboutView(viewModel.about)
         }
     }

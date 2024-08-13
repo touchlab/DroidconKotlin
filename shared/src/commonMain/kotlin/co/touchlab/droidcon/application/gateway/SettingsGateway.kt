@@ -10,6 +10,4 @@ interface SettingsGateway {
     suspend fun setFeedbackEnabled(enabled: Boolean)
 
     suspend fun setRemindersEnabled(enabled: Boolean)
-
-    suspend fun setUseComposeForIos(useCompose: Boolean)
 }
