@@ -129,14 +129,12 @@ struct SessionDetailView: View {
 
     private func stateMessage(from state: SessionDetailViewModel.SessionState) -> LocalizedStringKey? {
         switch state {
-        case .inconflict:
+        case .inConflict:
             return "Session.Detail.State.Conflict"
-        case .inprogress:
+        case .inProgress:
             return "Session.Detail.State.InProgress"
         case .ended:
             return "Session.Detail.State.Ended"
-        default:
-            return nil
         }
     }
 }

@@ -44,7 +44,7 @@ class ApplicationViewModel(
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
     val observePresentedFeedback by observe(::presentedFeedback)
 
-    val tabs = listOf(Tab.Schedule, Tab.MyAgenda, Tab.Sponsors, Tab.Settings)
+    val tabs = listOf(Tab.Schedule, Tab.MyAgenda, Tab.Venue, Tab.Sponsors, Tab.Settings)
     var selectedTab: Tab by published(Tab.Schedule)
     val observeSelectedTab by observe(::selectedTab)
 
@@ -103,6 +103,6 @@ class ApplicationViewModel(
     }
 
     enum class Tab {
-        Schedule, MyAgenda, Sponsors, Settings;
+        Schedule, MyAgenda, Venue, Sponsors, Settings;
     }
 }

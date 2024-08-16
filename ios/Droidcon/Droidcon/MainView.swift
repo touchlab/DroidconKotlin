@@ -10,7 +10,7 @@ struct MainView: View {
         TabView(selection: $viewModel.selectedTab) {
             ForEach(viewModel.tabs, id: \.self) { tab in
                 switch (tab) {
-                case ApplicationViewModel.Tab.schedule:
+                case .schedule:
                     ScheduleView(
                         viewModel: viewModel.schedule,
                         navigationTitle: "Schedule.Title"
@@ -20,7 +20,7 @@ struct MainView: View {
                         Text("Schedule.TabItem.Title")
                     }
                     .tag(tab);
-                case ApplicationViewModel.Tab.myagenda:
+                case .myAgenda:
                     ScheduleView(
                         viewModel: viewModel.agenda,
                         navigationTitle: "Agenda.Title"
@@ -30,7 +30,7 @@ struct MainView: View {
                         Text("Agenda.TabItem.Title")
                     }
                     .tag(tab);
-                case ApplicationViewModel.Tab.sponsors:
+                case .sponsors:
                     SponsorListView(
                         viewModel: viewModel.sponsors,
                         navigationTitle: "Sponsors.Title"
@@ -40,7 +40,7 @@ struct MainView: View {
                         Text("Sponsors.TabItem.Title")
                     }
                     .tag(tab);
-                case ApplicationViewModel.Tab.settings:
+                case .settings:
                     SettingsView(
                         viewModel: viewModel.settings
                     )
@@ -49,8 +49,12 @@ struct MainView: View {
                         Text("Settings.TabItem.Title")
                     }
                     .tag(tab);
-                default:
-                    fatalError("Unknown tab \(tab).")
+                case .venue:
+                    EmptyView()
+                        .tabItem {
+                            Image(systemName: "map")
+                            Text("venue.TabItem.Title")
+                        }
                 }
             }
         }

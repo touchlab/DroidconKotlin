@@ -96,12 +96,12 @@ kotlin {
             // https://issuetracker.google.com/issues/294869453
             // https://github.com/JetBrains/compose-multiplatform/issues/3927
             api(compose.runtime)
+            implementation(compose.components.resources)
+
+            implementation(libs.zoomimage.composeResources)
 
             implementation(libs.hyperdrive.multiplatformx.api)
             // implementation(libs.hyperdrive.multiplatformx.compose)
-        }
-        iosMain.dependencies {
-            implementation(libs.imageLoader)
         }
         all {
             languageSettings.apply {

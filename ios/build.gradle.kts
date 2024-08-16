@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.skie)
 }
 
 version = "1.0"
