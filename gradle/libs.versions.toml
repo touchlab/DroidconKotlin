@@ -5,46 +5,48 @@ targetSdk = "34"
 compileSdk = "34"
 
 # Dependencies
-kotlin = "2.0.0-Beta4"
+kotlin = "2.0.10"
 android-gradle-plugin = "8.2.2"
-coroutines = "1.8.0"
-kotlinx-datetime = "0.6.0-RC.2"
-ktor = "2.3.9"
+coroutines = "1.8.1"
+kotlinx-datetime = "0.6.0"
+ktor = "2.3.11"
 
 stately = "2.0.6"
 java = "17"
-kermit = "2.0.3"
+kermit = "2.0.4"
 sqliter = "1.3.1"
 
 hyperdrive = "0.1.148"
 
 multiplatformSettings = "1.1.1"
 sqlDelight = "2.0.1"
-firebase-bom = "32.7.4"
-firebase-crashlytics-gradle = "2.9.9"
-gms-google-services = "4.4.1"
+firebase-bom = "33.1.2"
+firebase-crashlytics-gradle = "3.0.2"
+gms-google-services = "4.4.2"
 
-compose-androidx-ui = "1.6.3"
-compose-compiler = "1.5.11-dev-k2.0.0-Beta4-21f5e479a96"
+compose-androidx-ui = "1.6.8"
+compose-compiler = "1.5.15"
 composeNavigation = "2.7.7"
-compose-jb = "1.6.1"
+compose-jb = "1.6.11"
 
 accompanistNavigationAnimation = "0.34.0"
 splashscreen = "1.0.1"
 junit = "4.13.2"
-junitKtx = "1.1.5"
+junitKtx = "1.2.1"
 imageLoader = "1.2.2.1"
 korio = "4.0.10"
 
 # Sample - Android
-androidx-core = "1.12.0"
-androidx-lifecycle = "2.7.0"
-androidx-activity-compose = "1.8.2"
+androidx-core = "1.13.1"
+androidx-lifecycle = "2.8.4"
+androidx-activity-compose = "1.9.1"
 android-desugaring = "2.0.4"
 koin = "3.5.3"
 uuid = "0.8.3"
 ktlint = "11.0.0"
 coil = "3.0.0-alpha04"
+zoomimage = "1.1.0-alpha06"
+skie = "0.9.0-RC.1"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
@@ -108,15 +110,19 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
+zoomimage-composeResources = { module = "io.github.panpf.zoomimage:zoomimage-compose-resources", version.ref = "zoomimage" }
+
 [plugins]
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "gms-google-services" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-jb" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
-jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-jb" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+skie = { id = "co.touchlab.skie", version.ref = "skie" }
 
 [bundles]
 ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serialization", "ktor-client-contentNegotiation"]

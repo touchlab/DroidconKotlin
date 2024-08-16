@@ -104,10 +104,10 @@ class MainActivity : ComponentActivity(), KoinComponent {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
-        intent?.let(::handleNotificationDeeplink)
+        handleNotificationDeeplink(intent)
     }
 
     private fun handleNotificationDeeplink(intent: Intent) {

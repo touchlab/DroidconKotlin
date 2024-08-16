@@ -5,6 +5,8 @@ plugins {
     kotlin("android")
     alias(libs.plugins.googleServices)
     alias(libs.plugins.crashlytics)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
 }
 val releaseEnabled = file("./release.jks").exists()
 
@@ -63,9 +65,6 @@ android {
         abortOnError = false
     }
 
-    buildFeatures {
-        compose = true
-    }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }

@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.serialization)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
 }
 
 android {

@@ -4,7 +4,8 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
 }
 
 version = "1.0"
@@ -15,8 +16,6 @@ kotlin {
         iosArm64(),
         iosSimulatorArm64()
     )
-
-    applyDefaultHierarchyTemplate()
 
     sourceSets {
         all {
