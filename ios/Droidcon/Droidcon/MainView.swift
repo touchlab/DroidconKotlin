@@ -50,10 +50,10 @@ struct MainView: View {
                     }
                     .tag(tab);
                 case .venue:
-                    EmptyView()
+                    VenueView()
                         .tabItem {
                             Image(systemName: "map")
-                            Text("venue.TabItem.Title")
+                            Text("Venue.TabItem.Title")
                         }
                 }
             }

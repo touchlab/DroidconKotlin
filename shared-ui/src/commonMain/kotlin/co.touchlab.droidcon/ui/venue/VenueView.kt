@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ui.venue
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,10 +26,17 @@ fun VenueView() {
             )
         },
     ) { paddingValues ->
-        ZoomImage(
-            painter = painterResource(droidcon.shared_ui.generated.resources.Res.drawable.venue_map_1),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize().padding(paddingValues),
+        VenueBodyView(
+            modifier = Modifier.padding(paddingValues)
         )
     }
+}
+
+@Composable
+fun VenueBodyView(modifier: Modifier = Modifier) {
+    ZoomImage(
+        painter = painterResource(droidcon.shared_ui.generated.resources.Res.drawable.venue_map_1),
+        contentDescription = null,
+        modifier = modifier.fillMaxSize(),
+    )
 }

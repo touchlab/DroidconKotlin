@@ -13,6 +13,7 @@
 		1821427E26B5418D0047DB71 /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427A26B5418D0047DB71 /* schedule.json */; };
 		18240FAC2C6FD05F0099E416 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 18240FAB2C6FD05F0099E416 /* FirebaseAnalytics */; };
 		18240FAE2C6FD05F0099E416 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 18240FAD2C6FD05F0099E416 /* FirebaseCrashlytics */; };
+		18240FB52C6FEA630099E416 /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18240FB42C6FEA630099E416 /* VenueView.swift */; };
 		1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833220F26B0CF5600D79482 /* DroidconApp.swift */; };
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
 		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
@@ -59,6 +60,7 @@
 		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
 		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
 		1821427A26B5418D0047DB71 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../shared/src/commonMain/resources/schedule.json; sourceTree = "<group>"; };
+		18240FB42C6FEA630099E416 /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
 		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
 		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -125,6 +127,14 @@
 				1821427826B5418D0047DB71 /* sponsor_sessions.json */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		18240FB32C6FE9A90099E416 /* Venue */ = {
+			isa = PBXGroup;
+			children = (
+				18240FB42C6FEA630099E416 /* VenueView.swift */,
+			);
+			path = Venue;
 			sourceTree = "<group>";
 		};
 		684FAA7226B2A4B400673AFF /* Schedule */ = {
@@ -244,6 +254,7 @@
 				684FAA7926B2A55500673AFF /* Sessions */,
 				684FAA7226B2A4B400673AFF /* Schedule */,
 				6881CF6126BD607D002541F0 /* Sponsors */,
+				18240FB32C6FE9A90099E416 /* Venue */,
 				684FAA7526B2A4E200673AFF /* Settings */,
 				684FAA7826B2A51100673AFF /* Utils */,
 				A35DEF2128AA265C0072605A /* Settings.bundle */,
@@ -390,6 +401,7 @@
 				68C86E9F26B31D6100008D15 /* LifecycleManager.swift in Sources */,
 				689DD2F726B40A9400A9B009 /* SwitchingNavigationLink.swift in Sources */,
 				684FAA7B26B2A55C00673AFF /* SessionListView.swift in Sources */,
+				18240FB52C6FEA630099E416 /* VenueView.swift in Sources */,
 				689DD2F926B40B3800A9B009 /* SessionBlockView.swift in Sources */,
 				684FAA7726B2A4EA00673AFF /* SettingsView.swift in Sources */,
 				689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */,
