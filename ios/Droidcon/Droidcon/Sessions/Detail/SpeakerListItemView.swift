@@ -1,5 +1,4 @@
 import SwiftUI
-import Kingfisher
 import DroidconKit
 
 struct SpeakerListItemView: View {

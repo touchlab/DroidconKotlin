@@ -1,5 +1,4 @@
 import SwiftUI
-import Kingfisher
 import DroidconKit
 
 struct SponsorGroupItemView: View {
@@ -15,11 +14,11 @@ struct SponsorGroupItemView: View {
                 .shadow(color: Color("Shadow"), radius: 2, y: 1)
 
             if let imageUrl = URL(string: viewModel.imageUrl.string) {
-                KFImage(imageUrl)
-                    .placeholder {
+                AsyncImage(url: imageUrl) { image in
+                        image.resizable()
+                    } placeholder: {
                         placeholder
                     }
-                    .resizable()
                     .scaledToFit()
                     .cornerRadius(.greatestFiniteMagnitude)
                     .padding(4)
