@@ -61,8 +61,16 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
     ) { paddingValues ->
         Box(modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())) {
             when (selectedTab) {
-                ApplicationViewModel.Tab.Schedule -> SessionListView(viewModel.schedule, "Fluttercon USA 2024")
-                ApplicationViewModel.Tab.MyAgenda -> SessionListView(viewModel.agenda, "Agenda")
+                ApplicationViewModel.Tab.Schedule -> SessionListView(
+                    viewModel = viewModel.schedule,
+                    title = "Fluttercon USA 2024",
+                    emptyText = "Sessions could not be loaded.",
+                )
+                ApplicationViewModel.Tab.MyAgenda -> SessionListView(
+                    viewModel = viewModel.agenda,
+                    title = "Agenda",
+                    emptyText = "Add sessions to your agenda from session detail in schedule.",
+                )
                 ApplicationViewModel.Tab.Venue -> VenueView()
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
                 ApplicationViewModel.Tab.Settings -> SettingsView(viewModel.settings)

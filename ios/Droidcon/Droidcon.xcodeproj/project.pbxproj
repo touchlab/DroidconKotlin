@@ -586,7 +586,7 @@
 				CODE_SIGN_ENTITLEMENTS = Droidcon/Droidcon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60008;
+				CURRENT_PROJECT_VERSION = 60009;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
@@ -608,7 +608,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.nyc2019;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.fluttercon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -623,7 +623,7 @@
 				CODE_SIGN_ENTITLEMENTS = Droidcon/Droidcon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60008;
+				CURRENT_PROJECT_VERSION = 60009;
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -644,7 +644,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.nyc2019;
+				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.fluttercon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
