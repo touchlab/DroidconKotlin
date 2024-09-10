@@ -61,7 +61,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
     ) { paddingValues ->
         Box(modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())) {
             when (selectedTab) {
-                ApplicationViewModel.Tab.Schedule -> SessionListView(viewModel.schedule, "Schedule")
+                ApplicationViewModel.Tab.Schedule -> SessionListView(viewModel.schedule, "Droidcon NYC 2024")
                 ApplicationViewModel.Tab.MyAgenda -> SessionListView(viewModel.agenda, "Agenda")
                 ApplicationViewModel.Tab.Venue -> VenueView()
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
