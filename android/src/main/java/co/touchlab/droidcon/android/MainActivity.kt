@@ -19,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -104,7 +105,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
                     }
                     Box(
                         modifier = Modifier
-                            .background(Colors.primary)
+                            .background(Color.White)
                             .fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {

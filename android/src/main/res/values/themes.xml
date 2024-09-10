@@ -3,7 +3,7 @@
 
     <style name="Theme.Droidcon.Starting" parent="Theme.SplashScreen">
         <!-- Set the splash screen background. -->
-        <item name="windowSplashScreenBackground">@color/background</item>
+        <item name="windowSplashScreenBackground">@android:color/white</item>
 
         <!-- Use windowSplashScreenAnimatedIcon to add either a drawable. -->
         <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>

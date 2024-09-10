@@ -23,7 +23,7 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "co.touchlab.droidcon.nyc2019"
+        applicationId = "co.touchlab.fluttercon"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 60007
