@@ -1,9 +1,13 @@
 package co.touchlab.droidcon.android
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,9 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
@@ -34,6 +41,7 @@ import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -43,10 +51,17 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private val notificationSchedulingService: NotificationSchedulingService by inject()
     private val syncService: SyncService by inject()
     private val analyticsService: AnalyticsService by inject()
+    private val notificationService: AndroidNotificationService by inject()
 
     private val applicationViewModel: ApplicationViewModel by inject()
 
     private val root = LifecycleGraph.Root(this)
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,11 +75,15 @@ class MainActivity : ComponentActivity(), KoinComponent {
         applicationViewModel.lifecycle.removeFromParent()
         root.addChild(applicationViewModel.lifecycle)
 
-        lifecycleScope.launchWhenCreated {
-            syncService.runSynchronization()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                syncService.runSynchronization()
+            }
         }
 
-        handleNotificationDeeplink(intent)
+        lifecycleScope.launch {
+            notificationService.handleNotificationDeeplink(intent)
+        }
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -72,6 +91,11 @@ class MainActivity : ComponentActivity(), KoinComponent {
             MainView(viewModel = applicationViewModel)
 
             val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
+            if (!showSplashScreen) {
+                LaunchedEffect(Unit) {
+                    askNotificationPermission()
+                }
+            }
             Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
                 if (shouldShowSplashScreen) {
                     LaunchedEffect(applicationViewModel) {
@@ -107,23 +131,9 @@ class MainActivity : ComponentActivity(), KoinComponent {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
-        handleNotificationDeeplink(intent)
-    }
-
-    private fun handleNotificationDeeplink(intent: Intent) {
-        val type = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_TYPE_EXTRA_KEY) ?: return
-        val sessionId = intent.getStringExtra(AndroidNotificationService.NOTIFICATION_SESSION_ID_EXTRA_KEY) ?: return
-        applicationViewModel.notificationReceived(
-            sessionId,
-            when (type) {
-                AndroidNotificationService.NOTIFICATION_TYPE_EXTRA_REMINDER -> NotificationService.NotificationType.Reminder
-                AndroidNotificationService.NOTIFICATION_TYPE_EXTRA_FEEDBACK -> NotificationService.NotificationType.Feedback
-                else -> {
-                    Logger.w("Unknown notification type $type.")
-                    return
-                }
-            }
-        )
+        lifecycleScope.launch {
+            notificationService.handleNotificationDeeplink(intent)
+        }
     }
 
     override fun onResume() {
@@ -142,6 +152,21 @@ class MainActivity : ComponentActivity(), KoinComponent {
     override fun onBackPressed() {
         if (!NavigationController.root.handleBackPress()) {
             super.onBackPressed()
+        }
+    }
+
+    private fun askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+
+            } else if (false && shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                // TODO: display an educational UI explaining to the user the features that will be enabled
+                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+                //       If the user selects "No thanks," allow the user to continue without notifications.
+            } else {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
 }

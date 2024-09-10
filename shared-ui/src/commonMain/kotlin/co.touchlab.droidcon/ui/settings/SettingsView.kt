@@ -11,8 +11,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -41,7 +43,10 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
         topBar = {
             TopAppBar(
                 title = { Text("Settings") },
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                actions = {
+                    PlatformSwitchApp()
+                }
             )
         },
     ) { paddingValues ->
@@ -58,7 +63,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
                 checked = viewModel.observeIsFeedbackEnabled,
             )
 
-            Divider()
+            HorizontalDivider()
 
             IconTextSwitchRow(
                 text = "Enable reminders",
@@ -66,7 +71,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
                 checked = viewModel.observeIsRemindersEnabled,
             )
 
-            Divider()
+            HorizontalDivider()
 
             PlatformSpecificSettingsView(viewModel = viewModel)
 

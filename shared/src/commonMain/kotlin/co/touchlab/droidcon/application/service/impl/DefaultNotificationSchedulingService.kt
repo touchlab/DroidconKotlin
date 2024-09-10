@@ -2,6 +2,7 @@ package co.touchlab.droidcon.application.service.impl
 
 import co.touchlab.droidcon.application.composite.Settings
 import co.touchlab.droidcon.application.repository.SettingsRepository
+import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
@@ -22,7 +23,6 @@ import kotlinx.datetime.plus
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-@OptIn(ExperimentalSettingsApi::class)
 class DefaultNotificationSchedulingService(
     private val sessionRepository: SessionRepository,
     private val roomRepository: RoomRepository,
@@ -93,8 +93,9 @@ class DefaultNotificationSchedulingService(
                                 session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
                             if (session.endsAt >= dateTimeService.now()) {
                                 notificationService.schedule(
-                                    type = NotificationService.NotificationType.Reminder,
-                                    sessionId = session.id,
+                                    notification = Notification.Local.Reminder(
+                                        sessionId = session.id,
+                                    ),
                                     title = localizedStringFactory.reminderTitle(roomName),
                                     body = localizedStringFactory.reminderBody(session.title),
                                     delivery = reminderDelivery,
@@ -111,8 +112,9 @@ class DefaultNotificationSchedulingService(
                                 session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
                             if (feedbackDelivery.plus(24, DateTimeUnit.HOUR) >= dateTimeService.now() && session.feedback == null) {
                                 notificationService.schedule(
-                                    type = NotificationService.NotificationType.Feedback,
-                                    sessionId = session.id,
+                                    notification = Notification.Local.Feedback(
+                                        sessionId = session.id,
+                                    ),
                                     title = localizedStringFactory.feedbackTitle(),
                                     body = localizedStringFactory.feedbackBody(),
                                     delivery = feedbackDelivery,

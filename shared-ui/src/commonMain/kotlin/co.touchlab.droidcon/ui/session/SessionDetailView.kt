@@ -112,8 +112,8 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             modifier = Modifier
                                 .padding(start = Dimensions.Padding.default)
                                 .size(44.dp),
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                            contentColor = MaterialTheme.colorScheme.secondary
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary,
                         ) {
                             val icon =
                                 if (isAttending) Icons.Default.BookmarkAdded else Icons.Outlined.BookmarkAdd
@@ -253,6 +253,7 @@ private fun DescriptionView(description: String, links: List<WebLink>) {
         WebLinkText(
             text = description,
             links = links,
+            fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(
                 end = Dimensions.Padding.default,
                 top = Dimensions.Padding.half,
@@ -290,7 +291,8 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
 
             Text(
                 text = speaker.info,
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(
                     end = Dimensions.Padding.default,
                     top = Dimensions.Padding.half,
@@ -300,6 +302,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
         }
         Text(
             text = speaker.bio ?: "",
+            fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(
                 start = 80.dp,
                 end = Dimensions.Padding.default,

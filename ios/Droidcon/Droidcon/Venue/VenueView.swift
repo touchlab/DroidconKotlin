@@ -3,11 +3,7 @@ import DroidconKit
 
 struct VenueView: View {
     var body: some View {
-        NavigationView {
-            VenueBodyView()
-                .navigationTitle("Venue.Title")
-                .navigationBarTitleDisplayMode(.inline)
-        }
+        VenueBodyView()
     }
 }
 

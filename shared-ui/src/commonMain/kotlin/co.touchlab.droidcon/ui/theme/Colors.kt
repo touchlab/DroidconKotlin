@@ -4,9 +4,9 @@ import androidx.compose.ui.graphics.Color
 
 object Colors {
 
-    val primary = Color(0xFF7DE1C3)
-    val secondary = Color(0xFF0014E6)
-    val secondaryLighter = Color(0xFF0014E6)
+    val primary = Color(0xFFfa6e50)
+    val secondary = Color(0xFF0014e6)
+    val secondaryLighter = Color(0xFF4757FF)
 
     val imageBackground = Color(0xFF999999)
     val darkBlue = Color(0xFF0E65B1)
