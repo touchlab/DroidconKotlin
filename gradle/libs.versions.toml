@@ -6,10 +6,10 @@ compileSdk = "34"
 
 # Dependencies
 kotlin = "2.0.10"
-android-gradle-plugin = "8.2.2"
+android-gradle-plugin = "8.5.0"
 coroutines = "1.8.1"
 kotlinx-datetime = "0.6.0"
-ktor = "2.3.11"
+ktor = "2.3.12"
 
 stately = "2.0.6"
 java = "17"
@@ -20,13 +20,13 @@ hyperdrive = "0.1.148"
 
 multiplatformSettings = "1.1.1"
 sqlDelight = "2.0.1"
-firebase-bom = "33.1.2"
+firebase-bom = "33.4.0"
 firebase-crashlytics-gradle = "3.0.2"
 gms-google-services = "4.4.2"
 
-compose-androidx-ui = "1.6.8"
+compose-androidx-ui = "1.7.3"
 compose-compiler = "1.5.15"
-composeNavigation = "2.7.7"
+composeNavigation = "2.8.2"
 compose-jb = "1.6.11"
 
 accompanistNavigationAnimation = "0.34.0"
@@ -38,9 +38,9 @@ korio = "4.0.10"
 
 # Sample - Android
 androidx-core = "1.13.1"
-androidx-lifecycle = "2.8.4"
-androidx-activity-compose = "1.9.1"
-android-desugaring = "2.0.4"
+androidx-lifecycle = "2.8.6"
+androidx-activity-compose = "1.9.2"
+android-desugaring = "2.1.2"
 koin = "3.5.3"
 uuid = "0.8.3"
 ktlint = "11.0.0"
