@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.viewmodel.session
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
+import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
@@ -31,6 +32,7 @@ class SessionDetailViewModel(
     private val dateTimeService: DateTimeService,
     private val parseUrlViewService: ParseUrlViewService,
     private val feedbackService: FeedbackService,
+    private val notificationService: NotificationService,
     initialItem: ScheduleItem,
 ) : BaseViewModel() {
 
@@ -126,6 +128,7 @@ class SessionDetailViewModel(
             item.session,
             submit = { feedback ->
                 feedbackService.submit(item.session, feedback)
+                notificationService.cancel(listOf(item.session.id))
                 presentedFeedback = null
             },
             closeAndDisable = null,
@@ -156,6 +159,7 @@ class SessionDetailViewModel(
         private val dateTimeService: DateTimeService,
         private val parseUrlViewService: ParseUrlViewService,
         private val feedbackService: FeedbackService,
+        private val notificationService: NotificationService,
     ) {
 
         fun create(
@@ -170,6 +174,7 @@ class SessionDetailViewModel(
             dateTimeService,
             parseUrlViewService,
             feedbackService,
+            notificationService,
             item,
         )
     }

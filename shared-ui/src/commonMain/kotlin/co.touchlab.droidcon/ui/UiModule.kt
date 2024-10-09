@@ -32,6 +32,7 @@ val uiModule = module {
             feedbackDialogFactory = get(),
             syncService = get(),
             notificationSchedulingService = get(),
+            notificationService = get(),
             feedbackService = get(),
             settingsGateway = get(),
         )
@@ -78,6 +79,7 @@ val uiModule = module {
             settingsGateway = get(),
             feedbackDialogFactory = get(),
             feedbackService = get(),
+            notificationService = get(),
         )
     }
     single { SpeakerListItemViewModel.Factory() }
