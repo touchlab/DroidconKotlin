@@ -6,7 +6,7 @@ compileSdk = "34"
 
 # Dependencies
 kotlin = "2.0.10"
-android-gradle-plugin = "8.7.0"
+android-gradle-plugin = "8.5.2"
 coroutines = "1.8.1"
 kotlinx-datetime = "0.6.0"
 ktor = "2.3.12"
