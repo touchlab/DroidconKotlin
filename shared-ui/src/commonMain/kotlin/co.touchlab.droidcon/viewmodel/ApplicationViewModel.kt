@@ -3,6 +3,7 @@ package co.touchlab.droidcon.viewmodel
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.DeepLinkNotificationHandler
@@ -21,6 +22,7 @@ class ApplicationViewModel(
     private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
     private val syncService: SyncService,
     private val notificationSchedulingService: NotificationSchedulingService,
+    private val notificationService: NotificationService,
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
 ) : BaseViewModel(), DeepLinkNotificationHandler {
@@ -88,6 +90,7 @@ class ApplicationViewModel(
                 session,
                 submit = { feedback ->
                     feedbackService.submit(session, feedback)
+                    notificationService.cancel(listOf(session.id))
                     presentNextFeedback()
                 },
                 closeAndDisable = {
