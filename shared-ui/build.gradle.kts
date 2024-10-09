@@ -87,7 +87,6 @@ kotlin {
 
             implementation(libs.stately.common)
             implementation(libs.koin.core)
-
             implementation(compose.ui)
             implementation(compose.foundation)
             implementation(compose.material3)

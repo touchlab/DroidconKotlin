@@ -9,7 +9,6 @@ import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
-import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.set
 import kotlinx.coroutines.coroutineScope

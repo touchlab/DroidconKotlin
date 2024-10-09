@@ -5,18 +5,18 @@ import co.touchlab.droidcon.domain.entity.Session
 sealed interface Notification {
     sealed interface DeepLink : Notification
 
-    sealed interface Local: Notification {
+    sealed interface Local : Notification {
         data class Reminder(
             val sessionId: Session.Id,
-        ): Local, DeepLink
+        ) : Local, DeepLink
 
         data class Feedback(
             val sessionId: Session.Id,
-        ): Local, DeepLink
+        ) : Local, DeepLink
     }
 
-    sealed interface Remote: Notification {
-        data object RefreshData: Remote
+    sealed interface Remote : Notification {
+        data object RefreshData : Remote
     }
 
     object Keys {

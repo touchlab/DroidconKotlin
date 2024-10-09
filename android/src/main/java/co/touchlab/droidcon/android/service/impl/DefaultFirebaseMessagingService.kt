@@ -1,7 +1,6 @@
 package co.touchlab.droidcon.android.service.impl
 
 import android.app.NotificationManager
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import co.touchlab.droidcon.application.service.Notification
@@ -13,7 +12,7 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.component.inject
 
-class DefaultFirebaseMessagingService: FirebaseMessagingService() {
+class DefaultFirebaseMessagingService : FirebaseMessagingService() {
     private val notificationService: AndroidNotificationService by inject()
 
     override fun onNewToken(token: String) {

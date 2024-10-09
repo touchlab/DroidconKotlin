@@ -17,7 +17,6 @@ import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.util.IdentifiableIntent
 import co.touchlab.kermit.Logger
-import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
