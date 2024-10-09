@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.util
 
-import co.touchlab.stately.freeze
 import kotlinx.coroutines.CompletableDeferred
 
 // Closures crash because of multi-thread execution, these methods prevent that.
