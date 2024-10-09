@@ -44,6 +44,7 @@ struct SettingsView: View {
                 Button("Open \(Constants.SisterApp.shared.name)") {
                     openSisterApp()
                 }
+                .buttonStyle(BorderedProminentButtonStyle())
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

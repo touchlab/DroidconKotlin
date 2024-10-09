@@ -60,7 +60,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String) {
+internal fun SessionListView(
+    viewModel: BaseSessionListViewModel,
+    title: String,
+    emptyText: String,
+) {
     NavigationStack(
         key = viewModel,
         links = {
@@ -87,7 +91,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String)
             ) {
                 val days by viewModel.observeDays.observeAsState()
                 if (days?.isEmpty() != false) {
-                    EmptyView()
+                    EmptyView(emptyText)
                 } else {
                     val selectedDay by viewModel.observeSelectedDay.observeAsState()
                     val selectedTabIndex = viewModel.days?.indexOf(selectedDay) ?: 0
@@ -194,7 +198,7 @@ private fun TabIndicator(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun EmptyView() {
+private fun EmptyView(text: String) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -210,7 +214,7 @@ private fun EmptyView() {
         )
 
         Text(
-            text = "Sessions could not be loaded.",
+            text = text,
             modifier = Modifier.padding(Dimensions.Padding.default),
             textAlign = TextAlign.Center,
         )

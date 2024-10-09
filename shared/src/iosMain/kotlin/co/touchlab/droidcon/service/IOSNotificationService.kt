@@ -93,7 +93,7 @@ class IOSNotificationService(
         content.setUserInfo(
             mapOf(
                 Notification.Keys.notificationType to typeValue,
-                Notification.Keys.sessionId to sessionId,
+                Notification.Keys.sessionId to sessionId.value,
             )
         )
 
