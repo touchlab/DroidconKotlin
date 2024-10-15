@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
-import kotlinx.coroutines.currentCoroutineContext
 
 @Composable
 internal actual fun PlatformSpecificSettingsView(viewModel: SettingsViewModel) {

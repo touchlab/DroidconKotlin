@@ -29,7 +29,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
-import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.AndroidNotificationService
@@ -38,7 +37,6 @@ import co.touchlab.droidcon.ui.util.MainView
 import co.touchlab.droidcon.util.AppChecker
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -60,7 +58,6 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -158,7 +155,6 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-
             } else if (false && shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
                 // TODO: display an educational UI explaining to the user the features that will be enabled
                 //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
