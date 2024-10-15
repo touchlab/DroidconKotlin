@@ -6,9 +6,13 @@ compileSdk = "34"
 
 # Dependencies
 kotlin = "2.0.10"
+
+## Gradle Plugin version must be compatible with Multiplatform
+## https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 android-gradle-plugin = "8.5.2"
-coroutines = "1.8.1"
+coroutines = "1.9.0"
 kotlinx-datetime = "0.6.0"
+# TODO: Update Ktor library to 3.0
 ktor = "2.3.12"
 
 stately = "2.0.6"
@@ -19,11 +23,12 @@ sqliter = "1.3.1"
 hyperdrive = "0.1.148"
 
 multiplatformSettings = "1.1.1"
-sqlDelight = "2.0.1"
+sqlDelight = "2.0.2"
 firebase-bom = "33.4.0"
 firebase-crashlytics-gradle = "3.0.2"
 gms-google-services = "4.4.2"
 
+# TODO: Update Compose libraries. There is currently a conflicing issue with the HorizontalPager
 compose-androidx-ui = "1.6.8"
 compose-compiler = "1.5.15"
 composeNavigation = "2.7.7"
@@ -43,7 +48,8 @@ androidx-activity-compose = "1.9.2"
 android-desugaring = "2.1.2"
 koin = "3.5.3"
 uuid = "0.8.3"
-ktlint = "11.0.0"
+ktlint = "12.1.1"
+# TODO: Update Coil library when Ktor is updated to 3.0
 coil = "3.0.0-alpha04"
 zoomimage = "1.1.0-alpha06"
 skie = "0.9.0-RC.1"
