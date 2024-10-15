@@ -3,7 +3,6 @@ package co.touchlab.droidcon.ui.settings
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Aod
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
