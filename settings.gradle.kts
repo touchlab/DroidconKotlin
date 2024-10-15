@@ -24,3 +24,5 @@ plugins {
 include(":shared", ":shared-ui", ":android", ":ios")
 
 rootProject.name = "Droidcon"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
