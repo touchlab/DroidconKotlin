@@ -586,7 +586,7 @@
 				CODE_SIGN_ENTITLEMENTS = Droidcon/Droidcon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60009;
+				CURRENT_PROJECT_VERSION = 60106;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
@@ -599,7 +599,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.5;
+				MARKETING_VERSION = 6.1.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -623,7 +623,7 @@
 				CODE_SIGN_ENTITLEMENTS = Droidcon/Droidcon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60009;
+				CURRENT_PROJECT_VERSION = 60106;
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -635,7 +635,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.5;
+				MARKETING_VERSION = 6.1.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
