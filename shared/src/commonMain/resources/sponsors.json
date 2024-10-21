@@ -1,7 +1,7 @@
 {
   "documents": [
     {
-      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-nyc-2024/gold",
+      "name": "projects/droidcon-148cc/databases/(default)/documents/sponsors-london-2024/gold",
       "fields": {
         "displayOrder": {
           "integerValue": "0"
@@ -16,7 +16,7 @@
                       "stringValue": "Touchlab"
                     },
                     "icon": {
-                      "stringValue": "https://nyc.droidcon.com/wp-content/uploads/sites/2/2023/08/touchlab.png"
+                      "stringValue": "https://london.droidcon.com/wp-content/uploads/sites/2/2023/08/touchlab.png"
                     },
                     "url": {
                       "stringValue": "https://touchlab.co/"

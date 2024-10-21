@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "dcnyc24-splash screen-iOS.svg",
+      "filename" : "london23-splash-screen.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }
