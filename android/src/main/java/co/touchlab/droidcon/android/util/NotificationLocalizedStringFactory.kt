@@ -9,9 +9,7 @@ class NotificationLocalizedStringFactory(
 ) : NotificationSchedulingService.LocalizedStringFactory {
 
     override fun reminderTitle(roomName: String?): String {
-        val ending = roomName?.let {
-            context.getString(R.string.notification_reminder_title_in_room, it)
-        } ?: ""
+        val ending = roomName?.let { context.getString(R.string.notification_reminder_title_in_room, it) } ?: ""
         return context.getString(R.string.notification_reminder_title_base, ending)
     }
 

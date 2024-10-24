@@ -36,11 +36,7 @@ class SessionDetailViewModel(
     initialItem: ScheduleItem,
 ) : BaseViewModel() {
 
-    private val item by collected(
-        initialItem,
-        sessionGateway.observeScheduleItem(initialItem.session.id),
-        identityEqualityPolicy()
-    )
+    private val item by collected(initialItem, sessionGateway.observeScheduleItem(initialItem.session.id), identityEqualityPolicy())
     private val observeItem by observe(::item)
 
     private val time: Instant by collected(
@@ -82,11 +78,7 @@ class SessionDetailViewModel(
     val observeState by observe(::state)
     val abstract by observeItem.map { it.session.description }
     val observeAbstract by observe(::abstract)
-    val abstractLinks: List<WebLink> by observeItem.map {
-        it.session.description?.let(
-            parseUrlViewService::parse
-        ) ?: emptyList()
-    }
+    val abstractLinks: List<WebLink> by observeItem.map { it.session.description?.let(parseUrlViewService::parse) ?: emptyList() }
     val observeAbstractLinks by observe(::abstractLinks)
 
     val speakers: List<SpeakerListItemViewModel> by managedList(
@@ -149,7 +141,7 @@ class SessionDetailViewModel(
 
     private fun parseUrl(text: String): List<WebLink> {
         val urlRegex =
-            "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)".toRegex() // ktlint-disable max-line-length
+            "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)".toRegex()
         return urlRegex.findAll(text).map { WebLink(it.range, it.value) }.toList()
     }
 

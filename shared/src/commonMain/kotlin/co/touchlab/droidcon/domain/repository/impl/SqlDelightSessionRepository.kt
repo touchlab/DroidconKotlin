@@ -19,21 +19,17 @@ class SqlDelightSessionRepository(
     private val sessionQueries: SessionQueries,
 ) : BaseRepository<Session.Id, Session>(), SessionRepository {
     override fun observe(id: Session.Id): Flow<Session> {
-        return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow()
-            .mapToOne(Dispatchers.Main)
+        return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
     }
 
-    fun sessionById(id: Session.Id): Session? =
-        sessionQueries.sessionById(id.value, ::sessionFactory).executeAsOneOrNull()
+    fun sessionById(id: Session.Id): Session? = sessionQueries.sessionById(id.value, ::sessionFactory).executeAsOneOrNull()
 
     override fun observeOrNull(id: Session.Id): Flow<Session?> {
-        return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow()
-            .mapToOneOrNull(Dispatchers.Main)
+        return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
     }
 
     override fun observeAllAttending(): Flow<List<Session>> {
-        return sessionQueries.attendingSessions(::sessionFactory).asFlow()
-            .mapToList(Dispatchers.Main)
+        return sessionQueries.attendingSessions(::sessionFactory).asFlow().mapToList(Dispatchers.Main)
     }
 
     override suspend fun allAttending(): List<Session> {
@@ -56,11 +52,9 @@ class SqlDelightSessionRepository(
         sessionQueries.updateFeedBackSent(if (isSent) 1 else 0, sessionId.value)
     }
 
-    override fun allSync(): List<Session> =
-        sessionQueries.allSessions(::sessionFactory).executeAsList()
+    override fun allSync(): List<Session> = sessionQueries.allSessions(::sessionFactory).executeAsList()
 
-    override fun findSync(id: Session.Id): Session? =
-        sessionQueries.sessionById(id.value, mapper = ::sessionFactory).executeAsOneOrNull()
+    override fun findSync(id: Session.Id): Session? = sessionQueries.sessionById(id.value, mapper = ::sessionFactory).executeAsOneOrNull()
 
     override fun observeAll(): Flow<List<Session>> {
         return sessionQueries.allSessions(::sessionFactory).asFlow().mapToList(Dispatchers.Main)

@@ -9,12 +9,7 @@ import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
 
 @OptIn(ExperimentalKermitApi::class)
 fun setupKermit() {
-    Logger.addLogWriter(
-        CrashlyticsLogWriter(
-            minSeverity = Severity.Info,
-            minCrashSeverity = Severity.Warn
-        )
-    )
+    Logger.addLogWriter(CrashlyticsLogWriter(minSeverity = Severity.Info, minCrashSeverity = Severity.Warn))
     enableCrashlytics()
     setCrashlyticsUnhandledExceptionHook()
 }

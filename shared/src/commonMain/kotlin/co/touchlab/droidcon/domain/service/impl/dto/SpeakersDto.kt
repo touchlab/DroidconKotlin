@@ -53,10 +53,7 @@ object SpeakersDto {
 
             override val descriptor: SerialDescriptor
                 get() {
-                    return PrimitiveSerialDescriptor(
-                        "co.touchlab.droidcon.domain.service.impl.dto.LinkType",
-                        PrimitiveKind.STRING
-                    )
+                    return PrimitiveSerialDescriptor("co.touchlab.droidcon.domain.service.impl.dto.LinkType", PrimitiveKind.STRING)
                 }
 
             override fun deserialize(decoder: Decoder): LinkType = decoder.decodeString().let {

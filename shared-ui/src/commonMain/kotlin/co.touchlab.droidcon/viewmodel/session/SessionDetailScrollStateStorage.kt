@@ -13,16 +13,9 @@ class SessionDetailScrollStateStorage {
             agendaScrollStates[day]
         } else {
             scrollStates[day]
-        } ?: SessionDayViewModel.ScrollState(
-            firstVisibleItemIndex = 0,
-            firstVisibleItemScrollOffset = 0
-        )
+        } ?: SessionDayViewModel.ScrollState(firstVisibleItemIndex = 0, firstVisibleItemScrollOffset = 0)
 
-    fun setScrollState(
-        day: LocalDate,
-        agenda: Boolean,
-        scrollState: SessionDayViewModel.ScrollState
-    ) {
+    fun setScrollState(day: LocalDate, agenda: Boolean, scrollState: SessionDayViewModel.ScrollState) {
         if (agenda) {
             agendaScrollStates[day] = scrollState
         } else {

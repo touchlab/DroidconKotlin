@@ -14,22 +14,18 @@ class SqlDelightSponsorGroupRepository(
     private val sponsorGroupQueries: SponsorGroupQueries,
 ) : BaseRepository<SponsorGroup.Id, SponsorGroup>(), SponsorGroupRepository {
 
-    override fun allSync(): List<SponsorGroup> =
-        sponsorGroupQueries.selectAll(::sponsorGroupFactory).executeAsList()
+    override fun allSync(): List<SponsorGroup> = sponsorGroupQueries.selectAll(::sponsorGroupFactory).executeAsList()
 
     override fun observe(id: SponsorGroup.Id): Flow<SponsorGroup> {
-        return sponsorGroupQueries.sponsorGroupByName(id.value, ::sponsorGroupFactory).asFlow()
-            .mapToOne(Dispatchers.Main)
+        return sponsorGroupQueries.sponsorGroupByName(id.value, ::sponsorGroupFactory).asFlow().mapToOne(Dispatchers.Main)
     }
 
     override fun observeOrNull(id: SponsorGroup.Id): Flow<SponsorGroup?> {
-        return sponsorGroupQueries.sponsorGroupByName(id.value, ::sponsorGroupFactory).asFlow()
-            .mapToOneOrNull(Dispatchers.Main)
+        return sponsorGroupQueries.sponsorGroupByName(id.value, ::sponsorGroupFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
     }
 
     override fun observeAll(): Flow<List<SponsorGroup>> {
-        return sponsorGroupQueries.selectAll(::sponsorGroupFactory).asFlow()
-            .mapToList(Dispatchers.Main)
+        return sponsorGroupQueries.selectAll(::sponsorGroupFactory).asFlow().mapToList(Dispatchers.Main)
     }
 
     override fun contains(id: SponsorGroup.Id): Boolean {

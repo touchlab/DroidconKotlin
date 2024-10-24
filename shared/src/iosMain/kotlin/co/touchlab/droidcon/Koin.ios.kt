@@ -38,8 +38,7 @@ actual val platformModule = module {
         get<IOSNotificationService>()
     }
 
-    val baseKermit =
-        Logger(config = StaticConfig(logWriterList = listOf(NSLogWriter())), tag = "Droidcon")
+    val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(NSLogWriter())), tag = "Droidcon")
     factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
 
     single { AppChecker }
@@ -47,54 +46,35 @@ actual val platformModule = module {
 
 @BetaInteropApi
 fun Koin.get(objCClass: ObjCClass, qualifier: Qualifier?, parameter: Any): Any {
-    val kClazz =
-        requireNotNull(getOriginalKotlinClass(objCClass)) {
-            "Could not get original kotlin class for $objCClass."
-        }
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCClass)) { "Could not get original kotlin class for $objCClass." }
     return get(kClazz, qualifier) { parametersOf(parameter) }
 }
 
 @BetaInteropApi
 fun Koin.get(objCClass: ObjCClass, parameter: Any): Any {
-    val kClazz =
-        requireNotNull(getOriginalKotlinClass(objCClass)) {
-            "Could not get original kotlin class for $objCClass."
-        }
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCClass)) { "Could not get original kotlin class for $objCClass." }
     return get(kClazz, null) { parametersOf(parameter) }
 }
 
 @BetaInteropApi
 fun Koin.get(objCClass: ObjCClass, qualifier: Qualifier?): Any {
-    val kClazz =
-        requireNotNull(getOriginalKotlinClass(objCClass)) {
-            "Could not get original kotlin class for $objCClass."
-        }
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCClass)) { "Could not get original kotlin class for $objCClass." }
     return get(kClazz, qualifier, null)
 }
 
 @BetaInteropApi
 fun Koin.get(objCClass: ObjCClass): Any {
-    val kClazz =
-        requireNotNull(getOriginalKotlinClass(objCClass)) {
-            "Could not get original kotlin class for $objCClass."
-        }
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCClass)) { "Could not get original kotlin class for $objCClass." }
     return get(kClazz, null)
 }
 
 @BetaInteropApi
 fun Koin.get(objCProtocol: ObjCProtocol, qualifier: Qualifier?): Any {
-    val kClazz =
-        requireNotNull(getOriginalKotlinClass(objCProtocol)) {
-            "Could not get original kotlin class for $objCProtocol."
-        }
+    val kClazz = requireNotNull(getOriginalKotlinClass(objCProtocol)) { "Could not get original kotlin class for $objCProtocol." }
     return get(kClazz, qualifier, null)
 }
 
-fun Koin.getAny(
-    objCObject: ObjCObject,
-    qualifier: Qualifier?,
-    parameters: ParametersDefinition?
-): Any {
+fun Koin.getAny(objCObject: ObjCObject, qualifier: Qualifier?, parameters: ParametersDefinition?): Any {
     val kclass = when (objCObject) {
         is ObjCClass -> getOriginalKotlinClass(objCObject)
         is ObjCProtocol -> getOriginalKotlinClass(objCObject)

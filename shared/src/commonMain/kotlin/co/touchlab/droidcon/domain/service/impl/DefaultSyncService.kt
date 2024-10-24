@@ -60,10 +60,8 @@ class DefaultSyncService(
         private const val SESSIONIZE_SYNC_SINCE_LAST_MINUTES = 15
 
         private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 1L * 60L * 60L * 1000L
-
         // 5 minutes
         private const val RSVP_SYNC_DELAY: Long = 5L * 60L * 1000L
-
         // 5 minutes
         private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
@@ -75,8 +73,7 @@ class DefaultSyncService(
         }
 
     private var lastSessionizeSync: Instant?
-        get() = settings.getLongOrNull(LAST_SESSIONIZE_SYNC_KEY)
-            ?.let { Instant.fromEpochMilliseconds(it) }
+        get() = settings.getLongOrNull(LAST_SESSIONIZE_SYNC_KEY)?.let { Instant.fromEpochMilliseconds(it) }
         set(value) {
             settings[LAST_SESSIONIZE_SYNC_KEY] = value?.toEpochMilliseconds()
         }
@@ -89,9 +86,7 @@ class DefaultSyncService(
                 while (isActive) {
                     val lastSessionizeSync = lastSessionizeSync
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
-                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now()
-                        .minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
-                    ) {
+                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)) {
                         try {
                             runApiDataSourcesSynchronization()
                         } catch (e: Exception) {
@@ -99,16 +94,10 @@ class DefaultSyncService(
                             delay(SESSIONIZE_SYNC_POLL_DELAY)
                             continue
                         }
-                        log.d {
-                            "Sync successful, " +
-                                "waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms."
-                        }
+                        log.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
                         delay(SESSIONIZE_SYNC_NEXT_DELAY)
                     } else {
-                        log.d {
-                            "The sync didn't happen, so we'll try again " +
-                                "in a short while ($SESSIONIZE_SYNC_POLL_DELAY ms)."
-                        }
+                        log.d { "The sync didn't happen, so we'll try again in a short while ($SESSIONIZE_SYNC_POLL_DELAY ms)." }
                         delay(SESSIONIZE_SYNC_POLL_DELAY)
                     }
                 }
@@ -158,16 +147,9 @@ class DefaultSyncService(
                             .forEach { (sessionId, feedback) ->
                                 while (isActive) {
                                     try {
-                                        val isFeedbackSent = serverApi.setFeedback(
-                                            sessionId,
-                                            feedback.rating,
-                                            feedback.comment
-                                        )
+                                        val isFeedbackSent = serverApi.setFeedback(sessionId, feedback.rating, feedback.comment)
                                         if (isFeedbackSent) {
-                                            sessionRepository.setFeedbackSent(
-                                                sessionId,
-                                                isFeedbackSent
-                                            )
+                                            sessionRepository.setFeedbackSent(sessionId, isFeedbackSent)
                                         }
                                         break
                                     } catch (e: Exception) {
@@ -256,10 +238,8 @@ class DefaultSyncService(
                     id = Session.Id(dto.id),
                     title = dto.title,
                     description = dto.description,
-                    startsAt = LocalDateTime.parse(dto.startsAt)
-                        .fromConferenceDateTime(dateTimeService),
-                    endsAt = LocalDateTime.parse(dto.endsAt)
-                        .fromConferenceDateTime(dateTimeService),
+                    startsAt = LocalDateTime.parse(dto.startsAt).fromConferenceDateTime(dateTimeService),
+                    endsAt = LocalDateTime.parse(dto.endsAt).fromConferenceDateTime(dateTimeService),
                     isServiceSession = dto.isServiceSession,
                     room = Room.Id(dto.roomID),
                     rsvp = Session.RSVP(
@@ -300,17 +280,12 @@ class DefaultSyncService(
         }
     }
 
-    private fun updateSponsorsFromDataSource(
-        sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
-        sponsors: SponsorsDto.SponsorCollectionDto
-    ) {
+    private fun updateSponsorsFromDataSource(sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>, sponsors: SponsorsDto.SponsorCollectionDto) {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
                 .split(' ').joinToString(" ") {
-                    it.replaceFirstChar { s ->
-                        if (s.isLowerCase()) s.titlecase() else s.toString()
-                    }
+                    it.replaceFirstChar { s -> if (s.isLowerCase()) s.titlecase() else s.toString() }
                 }
 
             SponsorGroup(
@@ -320,23 +295,20 @@ class DefaultSyncService(
             ) to group.fields.sponsors.arrayValue.values.map { it.mapValue.fields }
         }
 
-        val sponsorsAndRepresentativeIds =
-            sponsorGroupsToSponsorDtos.flatMap { (group, sponsorDtos) ->
-                sponsorDtos.map { sponsorDto ->
-                    val sponsorSession =
-                        sponsorDto.sponsorId?.stringValue?.let(sponsorSessions::get)
-                    val representativeIds =
-                        sponsorSession?.speakers?.map { Profile.Id(it.id) } ?: emptyList()
+        val sponsorsAndRepresentativeIds = sponsorGroupsToSponsorDtos.flatMap { (group, sponsorDtos) ->
+            sponsorDtos.map { sponsorDto ->
+                val sponsorSession = sponsorDto.sponsorId?.stringValue?.let(sponsorSessions::get)
+                val representativeIds = sponsorSession?.speakers?.map { Profile.Id(it.id) } ?: emptyList()
 
-                    Sponsor(
-                        id = Sponsor.Id(sponsorDto.name.stringValue, group.name),
-                        hasDetail = sponsorSession != null,
-                        description = sponsorSession?.description,
-                        icon = Url(sponsorDto.icon.stringValue),
-                        url = Url(sponsorDto.url.stringValue),
-                    ) to representativeIds
-                }
+                Sponsor(
+                    id = Sponsor.Id(sponsorDto.name.stringValue, group.name),
+                    hasDetail = sponsorSession != null,
+                    description = sponsorSession?.description,
+                    icon = Url(sponsorDto.icon.stringValue),
+                    url = Url(sponsorDto.url.stringValue),
+                ) to representativeIds
             }
+        }
 
         sponsorRepository.allSync().map { it.id }
             .subtract(sponsorsAndRepresentativeIds.map { it.first.id }.toSet())
@@ -368,8 +340,7 @@ class DefaultSyncService(
             twitter = groupedLinks[LinkType.Twitter]?.firstOrNull()?.url?.let(::Url),
             linkedIn = groupedLinks[LinkType.LinkedIn]?.firstOrNull()?.url?.let(::Url),
             website = (
-                groupedLinks[LinkType.CompanyWebsite] ?: groupedLinks[LinkType.Blog]
-                    ?: groupedLinks[LinkType.Other]
+                groupedLinks[LinkType.CompanyWebsite] ?: groupedLinks[LinkType.Blog] ?: groupedLinks[LinkType.Other]
                 )?.firstOrNull()?.url?.let(::Url),
         )
     }

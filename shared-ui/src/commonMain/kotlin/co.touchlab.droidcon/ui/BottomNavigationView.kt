@@ -35,13 +35,11 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
             NavigationBar {
                 viewModel.tabs.forEach { tab ->
                     val (title, icon) = when (tab) {
-                        ApplicationViewModel.Tab.Schedule ->
-                            "Schedule" to Icons.Filled.CalendarMonth
+                        ApplicationViewModel.Tab.Schedule -> "Schedule" to Icons.Filled.CalendarMonth
                         // FIXME: Was originally "My agenda" but then it doesn't seem to fit.
                         ApplicationViewModel.Tab.MyAgenda -> "Agenda" to Icons.Filled.Schedule
                         ApplicationViewModel.Tab.Venue -> "Venue" to Icons.Filled.Map
-                        ApplicationViewModel.Tab.Sponsors ->
-                            "Sponsors" to Icons.Filled.LocalFireDepartment
+                        ApplicationViewModel.Tab.Sponsors -> "Sponsors" to Icons.Filled.LocalFireDepartment
                         ApplicationViewModel.Tab.Settings -> "Settings" to Icons.Filled.Settings
                     }
                     NavigationBarItem(
@@ -68,13 +66,11 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
                     title = "Droidcon NYC 2024",
                     emptyText = "Sessions could not be loaded.",
                 )
-
                 ApplicationViewModel.Tab.MyAgenda -> SessionListView(
                     viewModel = viewModel.agenda,
                     title = "Agenda",
                     emptyText = "Add sessions to your agenda from session detail in schedule.",
                 )
-
                 ApplicationViewModel.Tab.Venue -> VenueView()
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
                 ApplicationViewModel.Tab.Settings -> SettingsView(viewModel.settings)

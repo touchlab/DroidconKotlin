@@ -42,9 +42,7 @@ class IOSNotificationService(
     override suspend fun initialize(): Boolean {
         log.d { "Initializing." }
 
-        val notificationSettings = wrapMultiThreadCallback(
-            notificationCenter::getNotificationSettingsWithCompletionHandler
-        )
+        val notificationSettings = wrapMultiThreadCallback(notificationCenter::getNotificationSettingsWithCompletionHandler)
         if (notificationSettings == null) {
             log.i { "Failed to get current notification authorization." }
             return false
@@ -52,39 +50,25 @@ class IOSNotificationService(
         when (notificationSettings.authorizationStatus) {
             UNAuthorizationStatusNotDetermined -> {
                 val requestOptions = UNAuthorizationOptionAlert or UNAuthorizationOptionSound
-                val (isAuthorized, error) = wrapMultiThreadCallback<Boolean, NSError?> {
-                    notificationCenter.requestAuthorizationWithOptions(
-                        requestOptions,
-                        it
-                    )
-                }
+                val (isAuthorized, error) = wrapMultiThreadCallback<Boolean, NSError?> { notificationCenter.requestAuthorizationWithOptions(requestOptions, it) }
                 if (error != null) {
                     log.i { "Notifications authorization request failed with '$error'." }
                 }
                 return isAuthorized
             }
-
             UNAuthorizationStatusDenied -> {
                 log.i { "Notifications not authorized." }
                 return false
             }
-
             UNAuthorizationStatusAuthorized -> {
                 log.i { "Notifications authorized." }
                 return true
             }
-
             else -> return false
         }
     }
 
-    override suspend fun schedule(
-        notification: Notification.Local,
-        title: String,
-        body: String,
-        delivery: Instant,
-        dismiss: Instant?
-    ) {
+    override suspend fun schedule(notification: Notification.Local, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at ${delivery.toNSDate().description}." }
         val deliveryDate = delivery.toNSDate()
         val allUnits = NSCalendarUnitSecond or
@@ -96,21 +80,15 @@ class IOSNotificationService(
             NSCalendarUnitTimeZone
         val dateComponents = NSCalendar.currentCalendar.components(allUnits, deliveryDate)
 
-        val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(
-            dateComponents,
-            repeats = false
-        )
+        val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(dateComponents, repeats = false)
 
         val content = UNMutableNotificationContent()
         content.setTitle(title)
         content.setBody(body)
         content.setSound(UNNotificationSound.defaultSound)
         val (typeValue, sessionId) = when (notification) {
-            is Notification.Local.Feedback ->
-                Notification.Values.feedbackType to notification.sessionId
-
-            is Notification.Local.Reminder ->
-                Notification.Values.reminderType to notification.sessionId
+            is Notification.Local.Feedback -> Notification.Values.feedbackType to notification.sessionId
+            is Notification.Local.Reminder -> Notification.Values.reminderType to notification.sessionId
         }
         content.setUserInfo(
             mapOf(
@@ -119,18 +97,9 @@ class IOSNotificationService(
             )
         )
 
-        val request = UNNotificationRequest.requestWithIdentifier(
-            "${sessionId.value}-$typeValue",
-            content,
-            trigger
-        )
+        val request = UNNotificationRequest.requestWithIdentifier("${sessionId.value}-$typeValue", content, trigger)
 
-        val error = wrapMultiThreadCallback<NSError?> {
-            notificationCenter.addNotificationRequest(
-                request,
-                it
-            )
-        }
+        val error = wrapMultiThreadCallback<NSError?> { notificationCenter.addNotificationRequest(request, it) }
         if (error == null) {
             log.v { "Scheduling notification complete." }
         } else {
@@ -139,14 +108,9 @@ class IOSNotificationService(
     }
 
     override suspend fun cancel(sessionIds: List<Session.Id>) {
-        if (sessionIds.isEmpty()) {
-            return
-        }
-        log.v {
-            "Cancelling scheduled notifications with IDs: [${sessionIds.joinToString { it.value }}]"
-        }
-        notificationCenter
-            .removePendingNotificationRequestsWithIdentifiers(sessionIds.map { it.value })
+        if (sessionIds.isEmpty()) { return }
+        log.v { "Cancelling scheduled notifications with IDs: [${sessionIds.joinToString { it.value }}]" }
+        notificationCenter.removePendingNotificationRequestsWithIdentifiers(sessionIds.map { it.value })
     }
 
     @Suppress("unused")
@@ -174,7 +138,6 @@ class IOSNotificationService(
                     log.w { "notificationHandler not registered when received $notification" }
                 }
             }
-
             Notification.Remote.RefreshData -> syncService.forceSynchronize()
         }
     }
@@ -193,9 +156,7 @@ class IOSNotificationService(
 
     private fun Map<Any?, *>.parseReminderNotification(): Notification.Local.Reminder? {
         val sessionId = this[Notification.Keys.sessionId] as? String ?: run {
-            log.e {
-                "Couldn't parse reminder notification. Session ID doesn't exist or isn't String."
-            }
+            log.e { "Couldn't parse reminder notification. Session ID doesn't exist or isn't String." }
             return null
         }
 
@@ -206,9 +167,7 @@ class IOSNotificationService(
 
     private fun Map<Any?, *>.parseFeedbackNotification(): Notification.Local.Feedback? {
         val sessionId = this[Notification.Keys.sessionId] as? String ?: run {
-            log.e {
-                "Couldn't parse feedback notification. Session ID doesn't exist or isn't String."
-            }
+            log.e { "Couldn't parse feedback notification. Session ID doesn't exist or isn't String." }
             return null
         }
 

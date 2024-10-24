@@ -18,11 +18,7 @@ abstract class BaseSessionListViewModel(
         private set
     val observeDays by observe(::days)
 
-    var selectedDay: SessionDayViewModel? by managed(
-        days?.firstOrNull {
-            it.date == sessionDetailScrollStateStorage.selectedDay
-        }
-    )
+    var selectedDay: SessionDayViewModel? by managed(days?.firstOrNull { it.date == sessionDetailScrollStateStorage.selectedDay })
     val observeSelectedDay by observe(::selectedDay)
 
     var presentedSessionDetail: SessionDetailViewModel? by managed(null)
@@ -49,8 +45,7 @@ abstract class BaseSessionListViewModel(
                     }
                     .also { newDays ->
                         days = newDays
-                        selectedDay = newDays.firstOrNull { it.day == selectedDay?.day }
-                            ?: newDays.firstOrNull()
+                        selectedDay = newDays.firstOrNull { it.day == selectedDay?.day } ?: newDays.firstOrNull()
                     }
             }
     }

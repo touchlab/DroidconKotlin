@@ -45,14 +45,6 @@ actual val platformModule: Module = module {
         AndroidDateFormatter(dateTimeService = get())
     }
 
-    val baseKermit = Logger(
-        config = StaticConfig(
-            logWriterList = listOf(
-                LogcatWriter(),
-                CrashlyticsLogWriter()
-            )
-        ),
-        tag = "Droidcon"
-    )
+    val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(LogcatWriter(), CrashlyticsLogWriter())), tag = "Droidcon")
     factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
 }

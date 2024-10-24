@@ -39,10 +39,9 @@ class AndroidNotificationService(
             settings[NOTIFICATION_ID_COUNTER_KEY] = value
         }
 
-    private val registeredNotifications: MutableMap<String, List<Int>> =
-        settings.getStringOrNull(NOTIFICATION_ID_MAP_KEY)?.let {
-            json.decodeFromString(it)
-        } ?: mutableMapOf()
+    private val registeredNotifications: MutableMap<String, List<Int>> = settings.getStringOrNull(NOTIFICATION_ID_MAP_KEY)?.let {
+        json.decodeFromString(it)
+    } ?: mutableMapOf()
 
     // TODO: Not called on Android.
     private var notificationHandler: DeepLinkNotificationHandler? = null
@@ -73,13 +72,7 @@ class AndroidNotificationService(
         return true
     }
 
-    override suspend fun schedule(
-        notification: Notification.Local,
-        title: String,
-        body: String,
-        delivery: Instant,
-        dismiss: Instant?
-    ) {
+    override suspend fun schedule(notification: Notification.Local, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at $delivery." }
         val deliveryTime = delivery.toEpochMilliseconds()
 
@@ -141,20 +134,14 @@ class AndroidNotificationService(
                 putExtra(NOTIFICATION_PAYLOAD_ID, intentId)
                 putExtra(NOTIFICATION_PAYLOAD_TYPE, NOTIFICATION_TYPE_DISMISS)
             }
-            alarmManager.set(
-                AlarmManager.RTC_WAKEUP,
-                dismiss.toEpochMilliseconds(),
-                dismissPendingIntent
-            )
+            alarmManager.set(AlarmManager.RTC_WAKEUP, dismiss.toEpochMilliseconds(), dismissPendingIntent)
 
             saveRegisteredNotificationId(sessionId, dismissIntentId)
         }
     }
 
     override suspend fun cancel(sessionIds: List<Session.Id>) {
-        if (sessionIds.isEmpty()) {
-            return
-        }
+        if (sessionIds.isEmpty()) { return }
 
         log.v { "Cancelling scheduled notifications with IDs: [${sessionIds.joinToString { it.value }}]" }
 
@@ -191,7 +178,6 @@ class AndroidNotificationService(
                     log.w { "notificationHandler not registered when received $notification" }
                 }
             }
-
             Notification.Remote.RefreshData -> syncService.forceSynchronize()
         }
     }
@@ -231,13 +217,8 @@ class AndroidNotificationService(
         )
     }
 
-    private fun createPendingIntent(
-        id: Int,
-        intentTransform: Intent.() -> Unit = {}
-    ): PendingIntent {
-        val intent = IdentifiableIntent("$id", context, NotificationPublisher::class.java).apply(
-            intentTransform
-        )
+    private fun createPendingIntent(id: Int, intentTransform: Intent.() -> Unit = {}): PendingIntent {
+        val intent = IdentifiableIntent("$id", context, NotificationPublisher::class.java).apply(intentTransform)
         return PendingIntent.getBroadcast(
             context,
             id,
@@ -257,8 +238,7 @@ class AndroidNotificationService(
     }
 
     private fun saveRegisteredNotificationId(sessionId: Session.Id, notificationId: Int) {
-        val currentNotificationIds =
-            (registeredNotifications[sessionId.value] ?: emptyList()).toMutableList()
+        val currentNotificationIds = (registeredNotifications[sessionId.value] ?: emptyList()).toMutableList()
         currentNotificationIds.add(notificationId)
         registeredNotifications[sessionId.value] = currentNotificationIds
         saveRegisteredNotifications()

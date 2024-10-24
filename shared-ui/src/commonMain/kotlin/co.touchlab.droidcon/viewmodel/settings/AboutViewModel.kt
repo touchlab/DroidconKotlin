@@ -24,10 +24,7 @@ class AboutViewModel(
         }
     }
 
-    class Factory(
-        private val aboutRepository: AboutRepository,
-        private val parseUrlViewService: ParseUrlViewService
-    ) {
+    class Factory(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) {
 
         fun create() = AboutViewModel(aboutRepository, parseUrlViewService)
     }

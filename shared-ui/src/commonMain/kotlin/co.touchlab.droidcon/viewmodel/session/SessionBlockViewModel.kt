@@ -32,12 +32,6 @@ class SessionBlockViewModel(
             startsAt: LocalDateTime,
             items: List<ScheduleItem>,
             onScheduleItemSelected: (ScheduleItem) -> Unit,
-        ) = SessionBlockViewModel(
-            sessionListItemFactory,
-            dateFormatter,
-            startsAt,
-            items,
-            onScheduleItemSelected
-        )
+        ) = SessionBlockViewModel(sessionListItemFactory, dateFormatter, startsAt, items, onScheduleItemSelected)
     }
 }

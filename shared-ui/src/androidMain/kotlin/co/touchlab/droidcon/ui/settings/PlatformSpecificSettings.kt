@@ -19,10 +19,7 @@ internal actual fun PlatformSwitchApp() {
     val context = LocalContext.current
     Button(
         onClick = {
-            val intent =
-                context
-                    .packageManager
-                    .getLaunchIntentForPackage(Constants.SisterApp.androidPackageName)
+            val intent = context.packageManager.getLaunchIntentForPackage(Constants.SisterApp.androidPackageName)
             if (intent != null) {
                 context.startActivity(intent)
             } else {
