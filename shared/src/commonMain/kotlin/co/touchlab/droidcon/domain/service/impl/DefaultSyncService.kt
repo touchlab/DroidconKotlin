@@ -168,14 +168,12 @@ class DefaultSyncService(
         }
     }
 
-    override suspend fun forceSynchronize(): Boolean {
-        return try {
-            runApiDataSourcesSynchronization()
-            true
-        } catch (e: Exception) {
-            log.e(e) { "Failed to update repositories from API data source." }
-            false
-        }
+    override suspend fun forceSynchronize(): Boolean = try {
+        runApiDataSourcesSynchronization()
+        true
+    } catch (e: Exception) {
+        log.e(e) { "Failed to update repositories from API data source." }
+        false
     }
 
     private suspend fun seedLocalRepositoriesIfNeeded() {
@@ -356,7 +354,8 @@ class DefaultSyncService(
 
     interface DataSource {
         enum class Kind {
-            Seed, Api
+            Seed,
+            Api,
         }
 
         suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>

@@ -38,19 +38,21 @@ class FeedbackDialogViewModel(
 
     fun skipTapped() = instanceLock.runExclusively(skip::invoke)
 
-    private fun feedbackRatingToRating(rating: Int): Rating? =
-        when (rating) {
-            Session.Feedback.Rating.DISSATISFIED -> Rating.Dissatisfied
-            Session.Feedback.Rating.NORMAL -> Rating.Normal
-            Session.Feedback.Rating.SATISFIED -> Rating.Satisfied
-            else -> {
-                log.w("Unknown feedback rating $rating.")
-                null
-            }
+    private fun feedbackRatingToRating(rating: Int): Rating? = when (rating) {
+        Session.Feedback.Rating.DISSATISFIED -> Rating.Dissatisfied
+        Session.Feedback.Rating.NORMAL -> Rating.Normal
+        Session.Feedback.Rating.SATISFIED -> Rating.Satisfied
+        else -> {
+            log.w("Unknown feedback rating $rating.")
+            null
         }
+    }
 
     enum class Rating {
-        Dissatisfied, Normal, Satisfied;
+        Dissatisfied,
+        Normal,
+        Satisfied,
+        ;
 
         val entityValue: Int
             get() = when (this) {
@@ -60,10 +62,7 @@ class FeedbackDialogViewModel(
             }
     }
 
-    class Factory(
-        private val sessionGateway: SessionGateway,
-        private val log: Logger,
-    ) {
+    class Factory(private val sessionGateway: SessionGateway, private val log: Logger) {
 
         fun create(
             session: Session,

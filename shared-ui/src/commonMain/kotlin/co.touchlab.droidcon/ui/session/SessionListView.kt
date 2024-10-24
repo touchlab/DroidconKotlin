@@ -60,15 +60,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-internal fun SessionListView(
-    viewModel: BaseSessionListViewModel,
-    title: String,
-    emptyText: String,
-) {
+internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String, emptyText: String) {
     NavigationStack(
         key = viewModel,
         links = {
-            NavigationLink(viewModel.observePresentedSessionDetail) {
+            navigationLink(viewModel.observePresentedSessionDetail) {
                 SessionDetailView(viewModel = it)
             }
         },

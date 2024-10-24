@@ -6,13 +6,13 @@ sealed interface Notification {
     sealed interface DeepLink : Notification
 
     sealed interface Local : Notification {
-        data class Reminder(
-            val sessionId: Session.Id,
-        ) : Local, DeepLink
+        data class Reminder(val sessionId: Session.Id) :
+            Local,
+            DeepLink
 
-        data class Feedback(
-            val sessionId: Session.Id,
-        ) : Local, DeepLink
+        data class Feedback(val sessionId: Session.Id) :
+            Local,
+            DeepLink
     }
 
     sealed interface Remote : Notification {
@@ -20,13 +20,13 @@ sealed interface Notification {
     }
 
     object Keys {
-        const val notificationType = "notification_type"
-        const val sessionId = "session_id"
+        const val NOTIFICATION_TYPE = "notification_type"
+        const val SESSION_ID = "session_id"
     }
 
     object Values {
-        const val reminderType = "reminder"
-        const val feedbackType = "feedback"
-        const val refreshDataType = "refresh_data"
+        const val REMINDER_TYPE = "reminder"
+        const val FEEDBACK_TYPE = "feedback"
+        const val REFRESH_DATA_TYPE = "refresh_data"
     }
 }

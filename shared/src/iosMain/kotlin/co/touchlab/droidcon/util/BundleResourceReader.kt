@@ -17,9 +17,7 @@ import platform.darwin.NSObjectMeta
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 @BetaInteropApi
-class BundleResourceReader(
-    private val bundle: NSBundle = NSBundle.bundleForClass(BundleMarker),
-) : ResourceReader {
+class BundleResourceReader(private val bundle: NSBundle = NSBundle.bundleForClass(BundleMarker)) : ResourceReader {
     override fun readResource(name: String): String {
         // TODO: Catch iOS-only exceptions and map them to common ones.
         val (filename, type) = when (val lastPeriodIndex = name.lastIndexOf('.')) {

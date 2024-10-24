@@ -43,20 +43,16 @@ class SessionDayViewModel(
         private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     ) {
 
-        fun create(
-            date: LocalDate,
-            attendingOnly: Boolean,
-            items: List<ScheduleItem>,
-            onScheduleItemSelected: (ScheduleItem) -> Unit,
-        ) = SessionDayViewModel(
-            sessionBlockFactory,
-            dateFormatter,
-            dateTimeService,
-            date,
-            attendingOnly,
-            sessionDetailScrollStateStorage,
-            items,
-            onScheduleItemSelected,
-        )
+        fun create(date: LocalDate, attendingOnly: Boolean, items: List<ScheduleItem>, onScheduleItemSelected: (ScheduleItem) -> Unit) =
+            SessionDayViewModel(
+                sessionBlockFactory,
+                dateFormatter,
+                dateTimeService,
+                date,
+                attendingOnly,
+                sessionDetailScrollStateStorage,
+                items,
+                onScheduleItemSelected,
+            )
     }
 }

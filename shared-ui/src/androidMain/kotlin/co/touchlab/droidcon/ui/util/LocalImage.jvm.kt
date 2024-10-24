@@ -1,4 +1,6 @@
-package co.touchlab.droidcon.ui.util // ktlint-disable filename
+@file:Suppress("ktlint:standard:filename")
+
+package co.touchlab.droidcon.ui.util
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

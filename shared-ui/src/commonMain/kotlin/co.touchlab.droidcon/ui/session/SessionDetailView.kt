@@ -62,7 +62,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
     NavigationStack(
         key = viewModel,
         links = {
-            NavigationLink(viewModel.observePresentedSpeakerDetail) {
+            navigationLink(viewModel.observePresentedSpeakerDetail) {
                 SpeakerDetailView(viewModel = it)
             }
         },

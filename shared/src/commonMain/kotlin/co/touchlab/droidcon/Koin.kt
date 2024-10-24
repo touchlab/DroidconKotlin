@@ -67,13 +67,9 @@ fun initKoin(additionalModules: List<Module>): KoinApplication {
 }
 
 val intToLongAdapter = object : ColumnAdapter<Int, Long> {
-    override fun decode(databaseValue: Long): Int {
-        return databaseValue.toInt()
-    }
+    override fun decode(databaseValue: Long): Int = databaseValue.toInt()
 
-    override fun encode(value: Int): Long {
-        return value.toLong()
-    }
+    override fun encode(value: Int): Long = value.toLong()
 }
 private val coreModule = module {
     single {
@@ -237,8 +233,6 @@ private val coreModule = module {
     }
 }
 
-internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {
-    return get(parameters = { parametersOf(*params) })
-}
+internal inline fun <reified T> Scope.getWith(vararg params: Any?): T = get(parameters = { parametersOf(*params) })
 
 expect val platformModule: Module

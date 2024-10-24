@@ -34,21 +34,18 @@ class IOSDateFormatter : DateFormatter {
         }
     }
 
-    override fun monthWithDay(date: LocalDate) =
-        date.date()?.let { monthWithDay.stringFromDate(it) }
+    override fun monthWithDay(date: LocalDate) = date.date()?.let { monthWithDay.stringFromDate(it) }
 
-    override fun timeOnly(dateTime: LocalDateTime) =
-        dateTime.date()?.let { timeOnly.stringFromDate(it) }
+    override fun timeOnly(dateTime: LocalDateTime) = dateTime.date()?.let { timeOnly.stringFromDate(it) }
 
     override fun timeOnlyInterval(fromDateTime: LocalDateTime, toDateTime: LocalDateTime) = interval(
         fromDateTime.date()?.let { timeOnlyNoPeriod.stringFromDate(it) },
-        toDateTime.date()?.let { timeOnly.stringFromDate(it) }
+        toDateTime.date()?.let { timeOnly.stringFromDate(it) },
     )
 
     private fun LocalDate.date() = NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents())
 
-    private fun LocalDateTime.date() =
-        // TODOKPG - Pretty sure this is device time zone, might be OK. Just for local formating
+    private fun LocalDateTime.date() = // TODOKPG - Pretty sure this is device time zone, might be OK. Just for local formating
         NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents())
 
     private fun interval(from: String?, to: String?) = listOfNotNull(from, to).joinToString(" – ")

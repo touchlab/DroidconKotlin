@@ -146,7 +146,9 @@ class SessionDetailViewModel(
     }
 
     enum class SessionState {
-        InConflict, InProgress, Ended
+        InConflict,
+        InProgress,
+        Ended,
     }
 
     class Factory(
@@ -162,9 +164,7 @@ class SessionDetailViewModel(
         private val notificationService: NotificationService,
     ) {
 
-        fun create(
-            item: ScheduleItem,
-        ) = SessionDetailViewModel(
+        fun create(item: ScheduleItem) = SessionDetailViewModel(
             sessionGateway,
             settingsGateway,
             speakerListItemFactory,

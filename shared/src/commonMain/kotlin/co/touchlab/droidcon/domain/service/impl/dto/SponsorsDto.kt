@@ -12,60 +12,32 @@ object SponsorsDto {
     )
 
     @Serializable
-    data class SponsorGroupDto(
-        val name: String,
-        val fields: DocumentFields,
-        val createTime: String,
-        val updateTime: String,
-    )
+    data class SponsorGroupDto(val name: String, val fields: DocumentFields, val createTime: String, val updateTime: String)
 
     @Serializable
-    data class DocumentFields(
-        val displayOrder: DisplayOrder,
-        val sponsors: Sponsors,
-        val prominent: BooleanValue? = null,
-    )
+    data class DocumentFields(val displayOrder: DisplayOrder, val sponsors: Sponsors, val prominent: BooleanValue? = null)
 
     @Serializable
-    data class DisplayOrder(
-        val integerValue: String,
-    )
+    data class DisplayOrder(val integerValue: String)
 
     @Serializable
-    data class Sponsors(
-        val arrayValue: ArrayValue,
-    )
+    data class Sponsors(val arrayValue: ArrayValue)
 
     @Serializable
-    data class ArrayValue(
-        val values: List<Value>,
-    )
+    data class ArrayValue(val values: List<Value>)
 
     @Serializable
-    data class Value(
-        val mapValue: MapValue,
-    )
+    data class Value(val mapValue: MapValue)
 
     @Serializable
-    data class MapValue(
-        val fields: MapValueFields,
-    )
+    data class MapValue(val fields: MapValueFields)
 
     @Serializable
-    data class MapValueFields(
-        val sponsorId: StringValue? = null,
-        val name: StringValue,
-        val icon: StringValue,
-        val url: StringValue,
-    )
+    data class MapValueFields(val sponsorId: StringValue? = null, val name: StringValue, val icon: StringValue, val url: StringValue)
 
     @Serializable
-    data class StringValue(
-        val stringValue: String,
-    )
+    data class StringValue(val stringValue: String)
 
     @Serializable
-    data class BooleanValue(
-        val booleanValue: Boolean,
-    )
+    data class BooleanValue(val booleanValue: Boolean)
 }

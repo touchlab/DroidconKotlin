@@ -8,7 +8,5 @@ class DefaultParseUrlViewService : ParseUrlViewService {
 
     private val urlRegex = Patterns.WEB_URL.toRegex()
 
-    override fun parse(text: String): List<WebLink> {
-        return urlRegex.findAll(text).map { WebLink(it.range, it.value) }.toList()
-    }
+    override fun parse(text: String): List<WebLink> = urlRegex.findAll(text).map { WebLink(it.range, it.value) }.toList()
 }

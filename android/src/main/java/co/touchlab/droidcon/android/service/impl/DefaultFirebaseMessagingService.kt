@@ -21,7 +21,7 @@ class DefaultFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        if (message.data.isNotEmpty() && message.data[Notification.Keys.notificationType] == Notification.Values.refreshDataType) {
+        if (message.data.isNotEmpty() && message.data[Notification.Keys.NOTIFICATION_TYPE] == Notification.Values.REFRESH_DATA_TYPE) {
             MainScope().launch {
                 notificationService.handleNotification(
                     Notification.Remote.RefreshData,

@@ -5,21 +5,11 @@ import kotlinx.serialization.Serializable
 object SponsorSessionsDto {
 
     @Serializable
-    data class SessionGroupDto(
-        val sessions: List<SessionDto>,
-    )
+    data class SessionGroupDto(val sessions: List<SessionDto>)
 
     @Serializable
-    data class SessionDto(
-        val id: String,
-        val title: String,
-        val description: String?,
-        val speakers: List<SpeakerReferenceDto>,
-    )
+    data class SessionDto(val id: String, val title: String, val description: String?, val speakers: List<SpeakerReferenceDto>)
 
     @Serializable
-    data class SpeakerReferenceDto(
-        val id: String,
-        val name: String,
-    )
+    data class SpeakerReferenceDto(val id: String, val name: String)
 }

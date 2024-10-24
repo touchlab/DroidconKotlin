@@ -7,17 +7,10 @@ import kotlinx.serialization.json.JsonArray
 object ScheduleDto {
 
     @Serializable
-    data class DayDto(
-        val date: String,
-        val rooms: List<RoomDto>,
-    )
+    data class DayDto(val date: String, val rooms: List<RoomDto>)
 
     @Serializable
-    data class RoomDto(
-        val id: Long,
-        val name: String,
-        val sessions: List<SessionDto>,
-    )
+    data class RoomDto(val id: Long, val name: String, val sessions: List<SessionDto>)
 
     @Serializable
     data class SessionDto(
@@ -39,10 +32,7 @@ object ScheduleDto {
     )
 
     @Serializable
-    data class SpeakerDto(
-        val id: String,
-        val name: String,
-    )
+    data class SpeakerDto(val id: String, val name: String)
 
     fun List<DayDto>.sessions(): List<SessionDto> = flatMap { day ->
         day.rooms.flatMap { room ->

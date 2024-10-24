@@ -18,12 +18,8 @@ class SponsorGroupViewModel(
     )
     val observeSponsors by observe(::sponsors)
 
-    class Factory(
-        private val sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory,
-    ) {
-        fun create(
-            sponsorGroup: SponsorGroupWithSponsors,
-            onSponsorSelected: (Sponsor) -> Unit,
-        ) = SponsorGroupViewModel(sponsorGroupItemFactory, sponsorGroup, onSponsorSelected)
+    class Factory(private val sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory) {
+        fun create(sponsorGroup: SponsorGroupWithSponsors, onSponsorSelected: (Sponsor) -> Unit) =
+            SponsorGroupViewModel(sponsorGroupItemFactory, sponsorGroup, onSponsorSelected)
     }
 }

@@ -14,6 +14,7 @@ private val DarkColorScheme = darkColorScheme(
     primary = Colors.primary,
 )
 
+@Suppress("ktlint:standard:backing-property-naming")
 private val _LightColorScheme = lightColorScheme(
     primary = Colors.primary,
     onPrimary = Colors.droidcon_theme_light_onPrimary,
@@ -46,6 +47,7 @@ private val _LightColorScheme = lightColorScheme(
     onSurfaceVariant = Colors.droidcon_theme_light_onSurfaceVariant,
 )
 
+@Suppress("ktlint:standard:backing-property-naming")
 private val _DarkColorScheme = darkColorScheme(
     primary = Colors.droidcon_theme_dark_primary,
     onPrimary = Colors.droidcon_theme_dark_onPrimary,
@@ -79,10 +81,7 @@ private val _DarkColorScheme = darkColorScheme(
 )
 
 @Composable
-internal fun DroidconTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit,
-) {
+internal fun DroidconTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colorScheme = when {
         darkTheme -> DarkColorScheme
         else -> LightColorScheme

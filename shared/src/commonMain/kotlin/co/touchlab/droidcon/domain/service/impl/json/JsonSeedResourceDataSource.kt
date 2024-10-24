@@ -7,29 +7,21 @@ import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
 import kotlinx.serialization.builtins.ListSerializer
 
-class JsonSeedResourceDataSource(
-    private val jsonResourceReader: JsonResourceReader,
-) : DefaultSyncService.DataSource {
+class JsonSeedResourceDataSource(private val jsonResourceReader: JsonResourceReader) : DefaultSyncService.DataSource {
 
-    override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto> {
-        return jsonResourceReader.readAndDecodeResource("speakers.json", ListSerializer(SpeakersDto.SpeakerDto.serializer()))
-    }
+    override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto> =
+        jsonResourceReader.readAndDecodeResource("speakers.json", ListSerializer(SpeakersDto.SpeakerDto.serializer()))
 
-    override suspend fun getSchedule(): List<ScheduleDto.DayDto> {
-        return jsonResourceReader.readAndDecodeResource("schedule.json", ListSerializer(ScheduleDto.DayDto.serializer()))
-    }
+    override suspend fun getSchedule(): List<ScheduleDto.DayDto> =
+        jsonResourceReader.readAndDecodeResource("schedule.json", ListSerializer(ScheduleDto.DayDto.serializer()))
 
-    override suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto> {
-        return jsonResourceReader.readAndDecodeResource(
-            "sponsor_sessions.json",
-            ListSerializer(SponsorSessionsDto.SessionGroupDto.serializer()),
-        )
-    }
+    override suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto> = jsonResourceReader.readAndDecodeResource(
+        "sponsor_sessions.json",
+        ListSerializer(SponsorSessionsDto.SessionGroupDto.serializer()),
+    )
 
-    override suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto {
-        return jsonResourceReader.readAndDecodeResource(
-            "sponsors.json",
-            SponsorsDto.SponsorCollectionDto.serializer(),
-        )
-    }
+    override suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto = jsonResourceReader.readAndDecodeResource(
+        "sponsors.json",
+        SponsorsDto.SponsorCollectionDto.serializer(),
+    )
 }

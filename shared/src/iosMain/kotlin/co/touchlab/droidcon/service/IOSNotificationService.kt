@@ -28,10 +28,7 @@ import platform.UserNotifications.UNNotificationRequest
 import platform.UserNotifications.UNNotificationSound
 import platform.UserNotifications.UNUserNotificationCenter
 
-class IOSNotificationService(
-    private val log: Logger,
-    private val syncService: SyncService,
-) : NotificationService {
+class IOSNotificationService(private val log: Logger, private val syncService: SyncService) : NotificationService {
     private val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()
     private var notificationHandler: DeepLinkNotificationHandler? = null
 
@@ -92,13 +89,13 @@ class IOSNotificationService(
         content.setBody(body)
         content.setSound(UNNotificationSound.defaultSound)
         val (typeValue, sessionId) = when (notification) {
-            is Notification.Local.Feedback -> Notification.Values.feedbackType to notification.sessionId
-            is Notification.Local.Reminder -> Notification.Values.reminderType to notification.sessionId
+            is Notification.Local.Feedback -> Notification.Values.FEEDBACK_TYPE to notification.sessionId
+            is Notification.Local.Reminder -> Notification.Values.REMINDER_TYPE to notification.sessionId
         }
         content.setUserInfo(
             mapOf(
-                Notification.Keys.notificationType to typeValue,
-                Notification.Keys.sessionId to sessionId.value,
+                Notification.Keys.NOTIFICATION_TYPE to typeValue,
+                Notification.Keys.SESSION_ID to sessionId.value,
             ),
         )
 
@@ -150,20 +147,19 @@ class IOSNotificationService(
         }
     }
 
-    private fun Map<Any?, *>.parseNotification(): Notification? {
-        return when (val typeValue = this[Notification.Keys.notificationType] as? String) {
-            Notification.Values.reminderType -> this.parseReminderNotification()
-            Notification.Values.feedbackType -> this.parseFeedbackNotification()
-            Notification.Values.refreshDataType -> Notification.Remote.RefreshData
+    private fun Map<Any?, *>.parseNotification(): Notification? =
+        when (val typeValue = this[Notification.Keys.NOTIFICATION_TYPE] as? String) {
+            Notification.Values.REMINDER_TYPE -> this.parseReminderNotification()
+            Notification.Values.FEEDBACK_TYPE -> this.parseFeedbackNotification()
+            Notification.Values.REFRESH_DATA_TYPE -> Notification.Remote.RefreshData
             else -> {
                 log.e { "Unknown notification type <$typeValue>, ignoring." }
                 null
             }
         }
-    }
 
     private fun Map<Any?, *>.parseReminderNotification(): Notification.Local.Reminder? {
-        val sessionId = this[Notification.Keys.sessionId] as? String ?: run {
+        val sessionId = this[Notification.Keys.SESSION_ID] as? String ?: run {
             log.e { "Couldn't parse reminder notification. Session ID doesn't exist or isn't String." }
             return null
         }
@@ -174,7 +170,7 @@ class IOSNotificationService(
     }
 
     private fun Map<Any?, *>.parseFeedbackNotification(): Notification.Local.Feedback? {
-        val sessionId = this[Notification.Keys.sessionId] as? String ?: run {
+        val sessionId = this[Notification.Keys.SESSION_ID] as? String ?: run {
             log.e { "Couldn't parse feedback notification. Session ID doesn't exist or isn't String." }
             return null
         }

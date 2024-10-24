@@ -3,10 +3,7 @@ package co.touchlab.droidcon.viewmodel.settings
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
-class SettingsViewModel(
-    settingsGateway: SettingsGateway,
-    private val aboutFactory: AboutViewModel.Factory,
-) : BaseViewModel() {
+class SettingsViewModel(settingsGateway: SettingsGateway, private val aboutFactory: AboutViewModel.Factory) : BaseViewModel() {
 
     var isFeedbackEnabled by binding(
         settingsGateway.settings(),
@@ -46,10 +43,7 @@ class SettingsViewModel(
     )
     val observeUseCompose by observe(::useCompose)
 
-    class Factory(
-        private val settingsGateway: SettingsGateway,
-        private val aboutFactory: AboutViewModel.Factory,
-    ) {
+    class Factory(private val settingsGateway: SettingsGateway, private val aboutFactory: AboutViewModel.Factory) {
 
         fun create() = SettingsViewModel(settingsGateway, aboutFactory)
     }
