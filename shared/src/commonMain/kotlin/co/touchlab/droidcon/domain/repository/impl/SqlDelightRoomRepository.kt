@@ -10,9 +10,7 @@ import co.touchlab.droidcon.domain.repository.RoomRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
-class SqlDelightRoomRepository(private val roomQueries: RoomQueries) :
-    BaseRepository<Room.Id, Room>(),
-    RoomRepository {
+class SqlDelightRoomRepository(private val roomQueries: RoomQueries) : BaseRepository<Room.Id, Room>(), RoomRepository {
 
     override fun allSync(): List<Room> = roomQueries.selectAll(::roomFactory).executeAsList()
 

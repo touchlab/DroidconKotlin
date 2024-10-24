@@ -2,12 +2,14 @@ root = true
 
 [*.{kt,kts}]
 end_of_line = lf
+class-signature = false
 ij_kotlin_packages_to_use_import_on_demand = true
 ij_kotlin_allow_trailing_comma = true
 ij_kotlin_allow_trailing_comma_on_call_site = true
 ij_kotlin_imports_layout = *
 ij_kotlin_indent_before_arrow_on_new_line = false
 ij_kotlin_line_break_after_multiline_when_entry = true
+ij_kotlin_wrap_super_type_list = false
 indent_size = 4
 indent_style = space
 insert_final_newline = true

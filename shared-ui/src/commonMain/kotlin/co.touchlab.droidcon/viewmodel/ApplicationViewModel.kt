@@ -25,8 +25,7 @@ class ApplicationViewModel(
     private val notificationService: NotificationService,
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
-) : BaseViewModel(),
-    DeepLinkNotificationHandler {
+) : BaseViewModel(), DeepLinkNotificationHandler {
 
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())
