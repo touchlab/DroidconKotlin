@@ -59,7 +59,7 @@ fun initKoin(additionalModules: List<Module>): KoinApplication {
         modules(
             additionalModules +
                 platformModule +
-                coreModule
+                coreModule,
         )
     }
 
@@ -67,13 +67,9 @@ fun initKoin(additionalModules: List<Module>): KoinApplication {
 }
 
 val intToLongAdapter = object : ColumnAdapter<Int, Long> {
-    override fun decode(databaseValue: Long): Int {
-        return databaseValue.toInt()
-    }
+    override fun decode(databaseValue: Long): Int = databaseValue.toInt()
 
-    override fun encode(value: Int): Long {
-        return value.toLong()
-    }
+    override fun encode(value: Int): Long = value.toLong()
 }
 private val coreModule = module {
     single {
@@ -82,11 +78,11 @@ private val coreModule = module {
             sessionTableAdapter = SessionTable.Adapter(
                 startsAtAdapter = InstantSqlDelightAdapter,
                 endsAtAdapter = InstantSqlDelightAdapter,
-                feedbackRatingAdapter = intToLongAdapter
+                feedbackRatingAdapter = intToLongAdapter,
             ),
             sponsorGroupTableAdapter = SponsorGroupTable.Adapter(
-                intToLongAdapter
-            )
+                intToLongAdapter,
+            ),
         )
     }
     single<Clock> { Clock.System }
@@ -124,7 +120,7 @@ private val coreModule = module {
     single<SessionRepository> {
         SqlDelightSessionRepository(
             dateTimeService = get(),
-            sessionQueries = get<DroidconDatabase>().sessionQueries
+            sessionQueries = get<DroidconDatabase>().sessionQueries,
         )
     }
     single<RoomRepository> {
@@ -185,12 +181,12 @@ private val coreModule = module {
     }
     single<SettingsGateway> {
         DefaultSettingsGateway(
-            settingsRepository = get()
+            settingsRepository = get(),
         )
     }
     single<SettingsRepository> {
         DefaultSettingsRepository(
-            observableSettings = get()
+            observableSettings = get(),
         )
     }
     single {
@@ -237,8 +233,6 @@ private val coreModule = module {
     }
 }
 
-internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {
-    return get(parameters = { parametersOf(*params) })
-}
+internal inline fun <reified T> Scope.getWith(vararg params: Any?): T = get(parameters = { parametersOf(*params) })
 
 expect val platformModule: Module

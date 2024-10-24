@@ -44,7 +44,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
                 scrollBehavior = scrollBehavior,
                 actions = {
                     PlatformSwitchApp()
-                }
+                },
             )
         },
     ) { paddingValues ->
@@ -53,7 +53,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
             modifier = Modifier
                 .padding(top = paddingValues.calculateTopPadding())
                 .fillMaxHeight()
-                .verticalScroll(scrollState)
+                .verticalScroll(scrollState),
         ) {
             IconTextSwitchRow(
                 text = "Enable feedback",

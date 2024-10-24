@@ -15,7 +15,5 @@ object AppChecker {
         }
     }
 
-    private fun toMD5(text: String): String {
-        return text.encodeToByteArray().md5().hex
-    }
+    private fun toMD5(text: String): String = text.encodeToByteArray().md5().hex
 }

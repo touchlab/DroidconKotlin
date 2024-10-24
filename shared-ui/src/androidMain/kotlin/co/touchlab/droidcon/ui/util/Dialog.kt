@@ -2,8 +2,8 @@ package co.touchlab.droidcon.ui.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.Dialog as AndroidXComposeDialog
+import androidx.compose.ui.window.DialogProperties
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

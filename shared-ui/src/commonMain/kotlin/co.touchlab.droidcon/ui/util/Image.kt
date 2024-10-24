@@ -10,12 +10,7 @@ import coil3.request.crossfade
 import coil3.util.DebugLogger
 
 @Composable
-fun DcAsyncImage(
-    logTag: String,
-    model: Any?,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-) {
+fun DcAsyncImage(logTag: String, model: Any?, contentDescription: String?, modifier: Modifier = Modifier) {
     AsyncImage(
         modifier = modifier,
         model = model,
@@ -24,22 +19,17 @@ fun DcAsyncImage(
             Logger.e(
                 messageString = logTag,
                 throwable = it.result.throwable,
-                tag = "AsyncImage OnError Request = ${it.result.request}\n"
+                tag = "AsyncImage OnError Request = ${it.result.request}\n",
             )
         },
     )
 }
 
-fun dcImageLoader(
-    context: PlatformContext,
-    debug: Boolean = false,
-): ImageLoader {
-    return ImageLoader.Builder(context)
-        .crossfade(true)
-        .apply {
-            if (debug) {
-                logger(DebugLogger())
-            }
+fun dcImageLoader(context: PlatformContext, debug: Boolean = false): ImageLoader = ImageLoader.Builder(context)
+    .crossfade(true)
+    .apply {
+        if (debug) {
+            logger(DebugLogger())
         }
-        .build()
-}
+    }
+    .build()

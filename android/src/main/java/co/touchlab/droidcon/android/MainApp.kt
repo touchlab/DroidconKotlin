@@ -50,7 +50,7 @@ class MainApp : Application() {
                 single<AnalyticsService> {
                     AndroidAnalyticsService(firebaseAnalytics = Firebase.analytics)
                 }
-            } + uiModule
+            } + uiModule,
         )
     }
 }

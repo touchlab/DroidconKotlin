@@ -56,7 +56,7 @@ internal actual fun NavigationBackPressWrapper(content: @Composable () -> Unit) 
         AnimatedVisibility(
             visible = dragDistance > triggerBackPressDragDistance,
             enter = slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(durationMillis = 100)),
-            exit = slideOutHorizontally(targetOffsetX = { -it })
+            exit = slideOutHorizontally(targetOffsetX = { -it }),
         ) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowLeft,

@@ -10,64 +10,64 @@ internal object Typography {
         headlineLarge = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 32.sp
+            fontSize = 32.sp,
         ),
         headlineMedium = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 28.sp
+            fontSize = 28.sp,
         ),
         headlineSmall = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 22.sp,
-            letterSpacing = 0.15.sp
+            letterSpacing = 0.15.sp,
         ),
         titleLarge = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 20.sp
+            fontSize = 20.sp,
         ),
         titleMedium = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 16.sp
+            fontSize = 16.sp,
         ),
         titleSmall = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 14.sp
+            fontSize = 14.sp,
         ),
         bodyLarge = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 16.sp
+            fontSize = 16.sp,
         ),
         bodyMedium = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 14.sp
+            fontSize = 14.sp,
         ),
         bodySmall = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 12.sp
+            fontSize = 12.sp,
         ),
         labelLarge = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 12.sp
+            fontSize = 12.sp,
         ),
         labelMedium = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 12.sp
+            fontSize = 12.sp,
         ),
         labelSmall = TextStyle(
             fontFamily = montserratFontFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 10.sp,
-            letterSpacing = 1.5.sp
-        )
+            letterSpacing = 1.5.sp,
+        ),
     )
 }

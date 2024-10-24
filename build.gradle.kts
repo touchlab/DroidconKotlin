@@ -37,6 +37,9 @@ subprojects {
             jvmTarget = "1.8"
         }
     }
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.4.0")
+    }
 }
 
 tasks.register<Delete>("clean") {

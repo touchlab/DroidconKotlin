@@ -26,11 +26,9 @@ class DefaultFeedbackService(
         json.decodeFromString(it)
     } ?: emptySet()
 
-    override suspend fun next(): Session? {
-        return sessionGateway.observeAgenda().first()
-            .firstOrNull { it.session.endsAt < clock.now() && !completedSessionIds.contains(it.session.id.value) }
-            ?.session
-    }
+    override suspend fun next(): Session? = sessionGateway.observeAgenda().first()
+        .firstOrNull { it.session.endsAt < clock.now() && !completedSessionIds.contains(it.session.id.value) }
+        ?.session
 
     override suspend fun submit(session: Session, feedback: Session.Feedback) {
         sessionGateway.setFeedback(session, feedback)

@@ -32,7 +32,7 @@ class SponsorDetailViewModel(
                 speaker,
                 selected = {
                     presentedSpeakerDetail = speakerDetailFactory.create(speaker)
-                }
+                },
             )
         }
     }

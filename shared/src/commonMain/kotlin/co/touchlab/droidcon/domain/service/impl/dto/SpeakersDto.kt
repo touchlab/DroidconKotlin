@@ -28,11 +28,7 @@ object SpeakersDto {
     )
 
     @Serializable
-    data class LinkDto(
-        val title: String,
-        val url: String,
-        val linkType: LinkType
-    )
+    data class LinkDto(val title: String, val url: String, val linkType: LinkType)
 
     @Serializable(with = LinkType.Companion::class)
     data class LinkType(val value: String) {
@@ -67,8 +63,5 @@ object SpeakersDto {
     }
 
     @Serializable
-    data class SessionDto(
-        val id: Long,
-        val name: String
-    )
+    data class SessionDto(val id: Long, val name: String)
 }

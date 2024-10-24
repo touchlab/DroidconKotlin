@@ -7,7 +7,7 @@ class Sponsor(
     val hasDetail: Boolean,
     val description: String?,
     val icon: Url,
-    val url: Url,
+    val url: Url
 ) : DomainEntity<Sponsor.Id>() {
 
     val name: String

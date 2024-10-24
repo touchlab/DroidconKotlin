@@ -5,9 +5,7 @@ import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.repository.SettingsRepository
 import kotlinx.coroutines.flow.StateFlow
 
-class DefaultSettingsGateway(
-    private val settingsRepository: SettingsRepository,
-) : SettingsGateway {
+class DefaultSettingsGateway(private val settingsRepository: SettingsRepository) : SettingsGateway {
 
     override fun settings(): StateFlow<Settings> = settingsRepository.settings
 

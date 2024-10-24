@@ -16,5 +16,5 @@ actual val montserratFontFamily: FontFamily = FontFamily(
     montserratRegularFont,
     montserratMediumFont,
     montserratSemiBoldFont,
-    montserratBoldFont
+    montserratBoldFont,
 )

@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:filename")
+
 package co.touchlab.droidcon.util
 
 import kotlinx.datetime.LocalDateTime

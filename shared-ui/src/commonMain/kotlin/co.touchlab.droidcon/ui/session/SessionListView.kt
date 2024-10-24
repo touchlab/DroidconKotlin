@@ -60,18 +60,14 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-internal fun SessionListView(
-    viewModel: BaseSessionListViewModel,
-    title: String,
-    emptyText: String,
-) {
+internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String, emptyText: String) {
     NavigationStack(
         key = viewModel,
         links = {
-            NavigationLink(viewModel.observePresentedSessionDetail) {
+            navigationLink(viewModel.observePresentedSessionDetail) {
                 SessionDetailView(viewModel = it)
             }
-        }
+        },
     ) {
         val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
         Scaffold(
@@ -79,7 +75,7 @@ internal fun SessionListView(
             topBar = {
                 CenterAlignedTopAppBar(
                     title = { Text(title) },
-                    scrollBehavior = scrollBehavior
+                    scrollBehavior = scrollBehavior,
                 )
             },
         ) { paddingValues ->
@@ -87,7 +83,7 @@ internal fun SessionListView(
             Column(
                 modifier = Modifier
                     .onSizeChanged { size = it }
-                    .padding(top = paddingValues.calculateTopPadding())
+                    .padding(top = paddingValues.calculateTopPadding()),
             ) {
                 val days by viewModel.observeDays.observeAsState()
                 if (days?.isEmpty() != false) {
@@ -109,13 +105,16 @@ internal fun SessionListView(
                         indicator = { tabPositions ->
                             if (tabPositions.indices.contains(pagerState.currentPage)) {
                                 TabIndicator(
-                                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage])
+                                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                                 )
                             } else {
-                                Logger.w("SessionList TabRow requested an indicator for selectedTabIndex: ${pagerState.currentPage}, but only got ${tabPositions.count()} tabs.")
+                                Logger.w(
+                                    "SessionList TabRow requested an indicator for selectedTabIndex: " +
+                                        "${pagerState.currentPage}, but only got ${tabPositions.count()} tabs.",
+                                )
                                 TabRowDefaults.SecondaryIndicator()
                             }
-                        }
+                        },
                     ) {
                         days?.forEachIndexed { index, daySchedule ->
                             Tab(
@@ -127,7 +126,7 @@ internal fun SessionListView(
                                         pagerState.animateScrollToPage(index)
                                     }
                                 },
-                                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             ) {
                                 Text(
                                     text = daySchedule.day,
@@ -157,7 +156,7 @@ internal fun SessionListView(
                         ) {
                             day.scrollState = SessionDayViewModel.ScrollState(
                                 scrollState.firstVisibleItemIndex,
-                                scrollState.firstVisibleItemScrollOffset
+                                scrollState.firstVisibleItemScrollOffset,
                             )
                         }
 
@@ -193,7 +192,7 @@ private fun TabIndicator(modifier: Modifier = Modifier) {
             .padding(horizontal = 64.dp)
             .height(2.dp)
             .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-            .background(MaterialTheme.colorScheme.primary)
+            .background(MaterialTheme.colorScheme.primary),
     )
 }
 

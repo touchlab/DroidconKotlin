@@ -25,7 +25,7 @@ class SessionDayViewModel(
             .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).startOfMinute }
             .map { (startsAt, items) ->
                 sessionBlockFactory.create(startsAt, items, onScheduleItemSelected)
-            }
+            },
     )
 
     var scrollState: ScrollState
@@ -43,20 +43,16 @@ class SessionDayViewModel(
         private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     ) {
 
-        fun create(
-            date: LocalDate,
-            attendingOnly: Boolean,
-            items: List<ScheduleItem>,
-            onScheduleItemSelected: (ScheduleItem) -> Unit,
-        ) = SessionDayViewModel(
-            sessionBlockFactory,
-            dateFormatter,
-            dateTimeService,
-            date,
-            attendingOnly,
-            sessionDetailScrollStateStorage,
-            items,
-            onScheduleItemSelected,
-        )
+        fun create(date: LocalDate, attendingOnly: Boolean, items: List<ScheduleItem>, onScheduleItemSelected: (ScheduleItem) -> Unit) =
+            SessionDayViewModel(
+                sessionBlockFactory,
+                dateFormatter,
+                dateTimeService,
+                date,
+                attendingOnly,
+                sessionDetailScrollStateStorage,
+                items,
+                onScheduleItemSelected,
+            )
     }
 }

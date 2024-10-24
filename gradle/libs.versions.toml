@@ -49,7 +49,7 @@ android-desugaring = "2.1.2"
 koin = "3.5.3"
 uuid = "0.8.3"
 # TODO: Update Ktlint when fix is available
-ktlint = "11.0.0"
+ktlint = "12.1.1"
 # TODO: Update Coil library when Ktor is updated to 3.0
 coil = "3.0.0-alpha04"
 zoomimage = "1.1.0-alpha06"

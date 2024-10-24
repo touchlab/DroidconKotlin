@@ -7,7 +7,7 @@ import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class AboutViewModel(
     private val aboutRepository: AboutRepository,
-    private val parseUrlViewService: ParseUrlViewService,
+    private val parseUrlViewService: ParseUrlViewService
 ) : BaseViewModel() {
 
     var items: List<AboutItem> by published(emptyList())

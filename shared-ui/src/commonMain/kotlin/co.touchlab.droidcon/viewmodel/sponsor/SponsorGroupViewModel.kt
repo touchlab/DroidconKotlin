@@ -7,23 +7,19 @@ import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 class SponsorGroupViewModel(
     sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory,
     sponsorGroup: SponsorGroupWithSponsors,
-    onSponsorSelected: (Sponsor) -> Unit
+    onSponsorSelected: (Sponsor) -> Unit,
 ) : BaseViewModel() {
     val title = sponsorGroup.group.name
     val isProminent = sponsorGroup.group.isProminent
     val sponsors by managedList(
         sponsorGroup.sponsors.map { sponsor ->
             sponsorGroupItemFactory.create(sponsor, selected = { onSponsorSelected(sponsor) })
-        }
+        },
     )
     val observeSponsors by observe(::sponsors)
 
-    class Factory(
-        private val sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory,
-    ) {
-        fun create(
-            sponsorGroup: SponsorGroupWithSponsors,
-            onSponsorSelected: (Sponsor) -> Unit,
-        ) = SponsorGroupViewModel(sponsorGroupItemFactory, sponsorGroup, onSponsorSelected)
+    class Factory(private val sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory) {
+        fun create(sponsorGroup: SponsorGroupWithSponsors, onSponsorSelected: (Sponsor) -> Unit) =
+            SponsorGroupViewModel(sponsorGroupItemFactory, sponsorGroup, onSponsorSelected)
     }
 }

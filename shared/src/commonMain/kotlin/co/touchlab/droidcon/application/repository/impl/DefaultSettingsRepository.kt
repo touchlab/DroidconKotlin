@@ -9,9 +9,7 @@ import com.russhwolf.settings.set
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @OptIn(ExperimentalSettingsApi::class)
-class DefaultSettingsRepository(
-    private val observableSettings: ObservableSettings,
-) : SettingsRepository {
+class DefaultSettingsRepository(private val observableSettings: ObservableSettings) : SettingsRepository {
     private companion object {
         private const val SETTINGS_FEEDBACK_ENABLED_KEY = "SETTINGS_FEEDBACK_ENABLED"
         private const val SETTINGS_REMINDERS_ENABLED_KEY = "SETTINGS_REMINDERS_ENABLED"
@@ -41,7 +39,7 @@ class DefaultSettingsRepository(
             isFeedbackEnabled = isFeedbackEnabled,
             isRemindersEnabled = isRemindersEnabled,
             useComposeForIos = useComposeForIos,
-        )
+        ),
     )
 
     override suspend fun set(settings: Settings) {

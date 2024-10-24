@@ -13,11 +13,7 @@ import io.ktor.http.isSuccess
 import io.ktor.http.takeFrom
 import kotlinx.serialization.json.Json
 
-class DefaultServerApi(
-    private val userIdProvider: UserIdProvider,
-    private val client: HttpClient,
-    private val json: Json,
-) : ServerApi {
+class DefaultServerApi(private val userIdProvider: UserIdProvider, private val client: HttpClient, private val json: Json) : ServerApi {
     override suspend fun setRsvp(sessionId: Session.Id, isAttending: Boolean): Boolean {
         val methodName = if (isAttending) {
             "sessionizeRsvpEvent"
@@ -31,16 +27,14 @@ class DefaultServerApi(
         }.status.isSuccess()
     }
 
-    override suspend fun setFeedback(sessionId: Session.Id, rating: Int, comment: String): Boolean {
-        return client.submitForm(
-            formParameters = Parameters.build {
-                append("rating", rating.toString())
-                append("comment", comment)
-            }
-        ) {
-            droidcon("/dataTest/sessionizeFeedbackEvent/${sessionId.value}/${userIdProvider.getId()}")
-        }.status.isSuccess()
-    }
+    override suspend fun setFeedback(sessionId: Session.Id, rating: Int, comment: String): Boolean = client.submitForm(
+        formParameters = Parameters.build {
+            append("rating", rating.toString())
+            append("comment", comment)
+        },
+    ) {
+        droidcon("/dataTest/sessionizeFeedbackEvent/${sessionId.value}/${userIdProvider.getId()}")
+    }.status.isSuccess()
 
     private fun HttpRequestBuilder.droidcon(path: String) {
         url {

@@ -8,9 +8,7 @@ import com.russhwolf.settings.get
 import com.russhwolf.settings.set
 
 @OptIn(ExperimentalSettingsApi::class)
-class DefaultUserIdProvider(
-    private val observableSettings: ObservableSettings,
-) : UserIdProvider {
+class DefaultUserIdProvider(private val observableSettings: ObservableSettings) : UserIdProvider {
     companion object {
         const val USER_ID_KEY = "USER_ID_KEY"
     }

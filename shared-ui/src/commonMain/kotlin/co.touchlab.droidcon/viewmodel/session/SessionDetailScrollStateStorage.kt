@@ -8,12 +8,11 @@ class SessionDetailScrollStateStorage {
     val agendaScrollStates: MutableMap<LocalDate, SessionDayViewModel.ScrollState> = mutableMapOf()
     var selectedDay: LocalDate? = null
 
-    fun getScrollState(day: LocalDate, agenda: Boolean): SessionDayViewModel.ScrollState =
-        if (agenda) {
-            agendaScrollStates[day]
-        } else {
-            scrollStates[day]
-        } ?: SessionDayViewModel.ScrollState(firstVisibleItemIndex = 0, firstVisibleItemScrollOffset = 0)
+    fun getScrollState(day: LocalDate, agenda: Boolean): SessionDayViewModel.ScrollState = if (agenda) {
+        agendaScrollStates[day]
+    } else {
+        scrollStates[day]
+    } ?: SessionDayViewModel.ScrollState(firstVisibleItemIndex = 0, firstVisibleItemScrollOffset = 0)
 
     fun setScrollState(day: LocalDate, agenda: Boolean, scrollState: SessionDayViewModel.ScrollState) {
         if (agenda) {

@@ -30,7 +30,7 @@ android {
             listOf(
                 "src/androidMain/resources",
                 "src/commonMain/resources",
-            )
+            ),
         )
         main.manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }

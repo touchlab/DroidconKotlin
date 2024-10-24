@@ -26,10 +26,10 @@ class SponsorListViewModel(
                                     // UIApplication.sharedApplication.openURL(NSURL(string = sponsor.url.string))
                                     presentedUrl = sponsor.url
                                 }
-                            }
+                            },
                         )
                     }
-            }
+            },
     )
     val observeSponsorGroups by observe(::sponsorGroups)
 
