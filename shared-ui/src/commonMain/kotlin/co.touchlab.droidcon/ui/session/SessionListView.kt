@@ -112,7 +112,10 @@ internal fun SessionListView(
                                     Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage])
                                 )
                             } else {
-                                Logger.w("SessionList TabRow requested an indicator for selectedTabIndex: ${pagerState.currentPage}, but only got ${tabPositions.count()} tabs.")
+                                Logger.w(
+                                    "SessionList TabRow requested an indicator for selectedTabIndex: " +
+                                        "${pagerState.currentPage}, but only got ${tabPositions.count()} tabs."
+                                )
                                 TabRowDefaults.SecondaryIndicator()
                             }
                         }

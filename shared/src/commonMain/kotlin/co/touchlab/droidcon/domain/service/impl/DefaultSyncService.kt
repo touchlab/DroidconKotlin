@@ -86,7 +86,10 @@ class DefaultSyncService(
                 while (isActive) {
                     val lastSessionizeSync = lastSessionizeSync
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
-                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)) {
+                    if (
+                        lastSessionizeSync == null ||
+                        lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
+                    ) {
                         try {
                             runApiDataSourcesSynchronization()
                         } catch (e: Exception) {
@@ -280,7 +283,10 @@ class DefaultSyncService(
         }
     }
 
-    private fun updateSponsorsFromDataSource(sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>, sponsors: SponsorsDto.SponsorCollectionDto) {
+    private fun updateSponsorsFromDataSource(
+        sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
+        sponsors: SponsorsDto.SponsorCollectionDto
+    ) {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
