@@ -36,6 +36,6 @@
       android:fillType="nonZero"/>
   <path
       android:pathData="M163.66,63.06C163.66,67.87 159.77,71.76 154.96,71.76C150.15,71.76 146.26,67.87 146.26,63.06C146.26,58.25 150.15,54.36 154.96,54.36C159.77,54.36 163.66,58.25 163.66,63.06"
-      android:fillColor="#FA6E50"
+      android:fillColor="#3FE4C5"
       android:fillType="nonZero"/>
 </vector>

@@ -23,11 +23,11 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "co.touchlab.droidcon.nyc2019"
+        applicationId = "co.touchlab.droidcon.london"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 60008
-        versionName = "6.0.6"
+        versionCode = 60106
+        versionName = "6.1.6"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {

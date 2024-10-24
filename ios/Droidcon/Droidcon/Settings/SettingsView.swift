@@ -41,10 +41,12 @@ struct SettingsView: View {
             .navigationTitle("Settings.Title")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                Button("Open \(Constants.SisterApp.shared.name)") {
-                    openSisterApp()
+                if(Constants.SisterApp.shared.showLaunchButton){
+                    Button("Open \(Constants.SisterApp.shared.name)") {
+                        openSisterApp()
+                    }
+                    .buttonStyle(BorderedProminentButtonStyle())
                 }
-                .buttonStyle(BorderedProminentButtonStyle())
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

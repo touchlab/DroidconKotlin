@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.viewmodel
 
+import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
@@ -46,7 +47,13 @@ class ApplicationViewModel(
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
     val observePresentedFeedback by observe(::presentedFeedback)
 
-    val tabs = listOf(Tab.Schedule, Tab.MyAgenda, Tab.Venue, Tab.Sponsors, Tab.Settings)
+    val tabs = listOfNotNull(
+        Tab.Schedule,
+        Tab.MyAgenda,
+        if (Constants.showVenueMap) Tab.Venue else null,
+        Tab.Sponsors,
+        Tab.Settings
+    )
     var selectedTab: Tab by published(Tab.Schedule)
     val observeSelectedTab by observe(::selectedTab)
 
@@ -69,6 +76,7 @@ class ApplicationViewModel(
                     // We're not checking whether feedback is enabled, because the user opened a feedback notification.
                     presentNextFeedback()
                 }
+
             is Notification.Local.Reminder -> {
                 selectedTab = Tab.Schedule
                 schedule.openSessionDetail(notification.sessionId)
