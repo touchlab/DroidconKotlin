@@ -286,7 +286,7 @@ class DefaultSyncService(
     private fun updateSponsorsFromDataSource(
         sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
         sponsors: SponsorsDto.SponsorCollectionDto
-    ) {
+    ): String {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
@@ -333,6 +333,7 @@ class DefaultSyncService(
 
             profileRepository.setSponsorRepresentatives(sponsor, representativeIds)
         }
+        return ""
     }
 
     private fun profileFactory(speakerDto: SpeakersDto.SpeakerDto): Profile {

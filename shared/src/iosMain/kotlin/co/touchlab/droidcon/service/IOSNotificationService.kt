@@ -50,7 +50,9 @@ class IOSNotificationService(
         when (notificationSettings.authorizationStatus) {
             UNAuthorizationStatusNotDetermined -> {
                 val requestOptions = UNAuthorizationOptionAlert or UNAuthorizationOptionSound
-                val (isAuthorized, error) = wrapMultiThreadCallback<Boolean, NSError?> { notificationCenter.requestAuthorizationWithOptions(requestOptions, it) }
+                val (isAuthorized, error) = wrapMultiThreadCallback<Boolean, NSError?> {
+                    notificationCenter.requestAuthorizationWithOptions(requestOptions, it)
+                }
                 if (error != null) {
                     log.i { "Notifications authorization request failed with '$error'." }
                 }
