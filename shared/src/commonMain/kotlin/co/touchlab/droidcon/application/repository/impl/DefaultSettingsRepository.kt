@@ -41,7 +41,7 @@ class DefaultSettingsRepository(
             isFeedbackEnabled = isFeedbackEnabled,
             isRemindersEnabled = isRemindersEnabled,
             useComposeForIos = useComposeForIos,
-        )
+        ),
     )
 
     override suspend fun set(settings: Settings) {

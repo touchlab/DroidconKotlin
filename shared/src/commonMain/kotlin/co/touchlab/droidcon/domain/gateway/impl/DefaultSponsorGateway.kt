@@ -21,7 +21,7 @@ class DefaultSponsorGateway(
             groups.map { group ->
                 SponsorGroupWithSponsors(
                     group,
-                    sponsorRepository.allByGroupName(group.name)
+                    sponsorRepository.allByGroupName(group.name),
                 )
             }
         }

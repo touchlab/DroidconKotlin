@@ -98,7 +98,7 @@ class SqlDelightProfileRepository(
         profilePicture: String?,
         twitter: String?,
         linkedIn: String?,
-        website: String?
+        website: String?,
     ) = Profile(
         id = Profile.Id(id),
         fullName = fullName,

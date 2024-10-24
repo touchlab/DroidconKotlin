@@ -36,7 +36,7 @@ class DefaultServerApi(
             formParameters = Parameters.build {
                 append("rating", rating.toString())
                 append("comment", comment)
-            }
+            },
         ) {
             droidcon("/dataTest/sessionizeFeedbackEvent/${sessionId.value}/${userIdProvider.getId()}")
         }.status.isSuccess()

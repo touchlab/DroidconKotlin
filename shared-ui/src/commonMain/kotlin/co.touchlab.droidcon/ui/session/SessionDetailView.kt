@@ -65,7 +65,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
             NavigationLink(viewModel.observePresentedSpeakerDetail) {
                 SpeakerDetailView(viewModel = it)
             }
-        }
+        },
     ) {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
         Scaffold(
@@ -81,7 +81,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             )
                         }
                     },
-                    scrollBehavior = scrollBehavior
+                    scrollBehavior = scrollBehavior,
                 )
             },
         ) { paddingValues ->
@@ -94,7 +94,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
             Column(
                 modifier = Modifier
                     .verticalScroll(scrollState)
-                    .padding(top = paddingValues.calculateTopPadding())
+                    .padding(top = paddingValues.calculateTopPadding()),
             ) {
                 val state by viewModel.observeState.observeAsState()
                 Box(contentAlignment = Alignment.BottomStart) {
@@ -215,7 +215,7 @@ private fun HeaderView(title: String, locationInfo: String) {
 private fun InfoView(status: String) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.default),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = Icons.Default.Info,
@@ -267,7 +267,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { speaker.selected() }
+            .clickable { speaker.selected() },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             val imageUrl = speaker.avatarUrl?.string
@@ -280,7 +280,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
                         .padding(
                             start = Dimensions.Padding.default,
                             end = Dimensions.Padding.default,
-                            top = Dimensions.Padding.half
+                            top = Dimensions.Padding.half,
                         )
                         .clip(CircleShape)
                         .aspectRatio(1f)

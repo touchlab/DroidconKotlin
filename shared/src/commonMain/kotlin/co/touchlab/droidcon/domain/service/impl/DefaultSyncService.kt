@@ -60,8 +60,10 @@ class DefaultSyncService(
         private const val SESSIONIZE_SYNC_SINCE_LAST_MINUTES = 15
 
         private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 1L * 60L * 60L * 1000L
+
         // 5 minutes
         private const val RSVP_SYNC_DELAY: Long = 5L * 60L * 1000L
+
         // 5 minutes
         private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
@@ -285,7 +287,7 @@ class DefaultSyncService(
 
     private fun updateSponsorsFromDataSource(
         sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
-        sponsors: SponsorsDto.SponsorCollectionDto
+        sponsors: SponsorsDto.SponsorCollectionDto,
     ): String {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
@@ -297,7 +299,7 @@ class DefaultSyncService(
             SponsorGroup(
                 id = SponsorGroup.Id(groupName),
                 displayPriority = group.fields.displayOrder.integerValue.toInt(),
-                isProminent = group.fields.prominent?.booleanValue ?: false
+                isProminent = group.fields.prominent?.booleanValue ?: false,
             ) to group.fields.sponsors.arrayValue.values.map { it.mapValue.fields }
         }
 

@@ -23,6 +23,7 @@ sealed interface Notification {
         const val notificationType = "notification_type"
         const val sessionId = "session_id"
     }
+
     object Values {
         const val reminderType = "reminder"
         const val feedbackType = "feedback"

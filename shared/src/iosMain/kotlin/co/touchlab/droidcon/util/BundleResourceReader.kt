@@ -18,7 +18,7 @@ import platform.darwin.NSObjectMeta
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 @BetaInteropApi
 class BundleResourceReader(
-    private val bundle: NSBundle = NSBundle.bundleForClass(BundleMarker)
+    private val bundle: NSBundle = NSBundle.bundleForClass(BundleMarker),
 ) : ResourceReader {
     override fun readResource(name: String): String {
         // TODO: Catch iOS-only exceptions and map them to common ones.
@@ -26,15 +26,17 @@ class BundleResourceReader(
             0 -> {
                 null to name.drop(1)
             }
+
             in 1..Int.MAX_VALUE -> {
                 name.take(lastPeriodIndex) to name.drop(lastPeriodIndex + 1)
             }
+
             else -> {
                 name to null
             }
         }
         val path = bundle.pathForResource(filename, type) ?: error(
-            "Couldn't get path of $name (parsed as: ${listOfNotNull(filename, type).joinToString(".")})"
+            "Couldn't get path of $name (parsed as: ${listOfNotNull(filename, type).joinToString(".")})",
         )
 
         return memScoped {

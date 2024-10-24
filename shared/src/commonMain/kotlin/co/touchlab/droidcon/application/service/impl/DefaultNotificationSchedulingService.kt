@@ -69,7 +69,7 @@ class DefaultNotificationSchedulingService(
         sessionFlow
             .combine(
                 settingsFlow,
-                transform = { agenda, settings -> Triple(agenda, settings.isRemindersEnabled, settings.isFeedbackEnabled) }
+                transform = { agenda, settings -> Triple(agenda, settings.isRemindersEnabled, settings.isFeedbackEnabled) },
             )
             .distinctUntilChanged()
             .collect { (agenda, isRemindersEnabled, isFeedbackEnabled) ->
@@ -100,7 +100,7 @@ class DefaultNotificationSchedulingService(
                                     delivery = reminderDelivery,
                                     dismiss = reminderDelivery.plus(
                                         NotificationSchedulingService.REMINDER_DISMISS_OFFSET,
-                                        DateTimeUnit.MINUTE
+                                        DateTimeUnit.MINUTE,
                                     ),
                                 )
                             }

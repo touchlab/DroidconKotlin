@@ -59,7 +59,7 @@ fun initKoin(additionalModules: List<Module>): KoinApplication {
         modules(
             additionalModules +
                 platformModule +
-                coreModule
+                coreModule,
         )
     }
 
@@ -82,11 +82,11 @@ private val coreModule = module {
             sessionTableAdapter = SessionTable.Adapter(
                 startsAtAdapter = InstantSqlDelightAdapter,
                 endsAtAdapter = InstantSqlDelightAdapter,
-                feedbackRatingAdapter = intToLongAdapter
+                feedbackRatingAdapter = intToLongAdapter,
             ),
             sponsorGroupTableAdapter = SponsorGroupTable.Adapter(
-                intToLongAdapter
-            )
+                intToLongAdapter,
+            ),
         )
     }
     single<Clock> { Clock.System }
@@ -124,7 +124,7 @@ private val coreModule = module {
     single<SessionRepository> {
         SqlDelightSessionRepository(
             dateTimeService = get(),
-            sessionQueries = get<DroidconDatabase>().sessionQueries
+            sessionQueries = get<DroidconDatabase>().sessionQueries,
         )
     }
     single<RoomRepository> {
@@ -185,12 +185,12 @@ private val coreModule = module {
     }
     single<SettingsGateway> {
         DefaultSettingsGateway(
-            settingsRepository = get()
+            settingsRepository = get(),
         )
     }
     single<SettingsRepository> {
         DefaultSettingsRepository(
-            observableSettings = get()
+            observableSettings = get(),
         )
     }
     single {

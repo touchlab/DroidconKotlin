@@ -112,7 +112,7 @@ class AndroidNotificationService(
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             } else {
                 PendingIntent.FLAG_UPDATE_CURRENT
-            }
+            },
         )
         builder.setContentIntent(contentIntent)
 
@@ -141,7 +141,9 @@ class AndroidNotificationService(
     }
 
     override suspend fun cancel(sessionIds: List<Session.Id>) {
-        if (sessionIds.isEmpty()) { return }
+        if (sessionIds.isEmpty()) {
+            return
+        }
 
         log.v { "Cancelling scheduled notifications with IDs: [${sessionIds.joinToString { it.value }}]" }
 
@@ -178,6 +180,7 @@ class AndroidNotificationService(
                     log.w { "notificationHandler not registered when received $notification" }
                 }
             }
+
             Notification.Remote.RefreshData -> syncService.forceSynchronize()
         }
     }

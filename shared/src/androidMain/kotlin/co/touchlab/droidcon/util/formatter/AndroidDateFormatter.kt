@@ -20,13 +20,13 @@ class AndroidDateFormatter(private val dateTimeService: DateTimeService) : DateF
 
     override fun monthWithDay(date: LocalDate): String {
         return shortDateFormat.format(
-            Date(with(dateTimeService) { date.atTime(0, 0).fromConferenceDateTime() }.toEpochMilliseconds())
+            Date(with(dateTimeService) { date.atTime(0, 0).fromConferenceDateTime() }.toEpochMilliseconds()),
         ).uppercase()
     }
 
     override fun timeOnly(dateTime: LocalDateTime): String? {
         return minuteHourTimeFormat.format(
-            Date(with(dateTimeService) { dateTime.fromConferenceDateTime() }.toEpochMilliseconds())
+            Date(with(dateTimeService) { dateTime.fromConferenceDateTime() }.toEpochMilliseconds()),
         )
     }
 

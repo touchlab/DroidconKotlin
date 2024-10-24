@@ -8,7 +8,7 @@ import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
 import kotlinx.serialization.builtins.ListSerializer
 
 class JsonSeedResourceDataSource(
-    private val jsonResourceReader: JsonResourceReader
+    private val jsonResourceReader: JsonResourceReader,
 ) : DefaultSyncService.DataSource {
 
     override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto> {
@@ -22,7 +22,7 @@ class JsonSeedResourceDataSource(
     override suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto> {
         return jsonResourceReader.readAndDecodeResource(
             "sponsor_sessions.json",
-            ListSerializer(SponsorSessionsDto.SessionGroupDto.serializer())
+            ListSerializer(SponsorSessionsDto.SessionGroupDto.serializer()),
         )
     }
 

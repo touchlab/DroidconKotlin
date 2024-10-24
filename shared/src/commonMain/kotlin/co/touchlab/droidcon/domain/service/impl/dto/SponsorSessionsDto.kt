@@ -6,7 +6,7 @@ object SponsorSessionsDto {
 
     @Serializable
     data class SessionGroupDto(
-        val sessions: List<SessionDto>
+        val sessions: List<SessionDto>,
     )
 
     @Serializable

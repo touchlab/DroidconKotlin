@@ -58,14 +58,17 @@ class IOSNotificationService(
                 }
                 return isAuthorized
             }
+
             UNAuthorizationStatusDenied -> {
                 log.i { "Notifications not authorized." }
                 return false
             }
+
             UNAuthorizationStatusAuthorized -> {
                 log.i { "Notifications authorized." }
                 return true
             }
+
             else -> return false
         }
     }
@@ -96,7 +99,7 @@ class IOSNotificationService(
             mapOf(
                 Notification.Keys.notificationType to typeValue,
                 Notification.Keys.sessionId to sessionId.value,
-            )
+            ),
         )
 
         val request = UNNotificationRequest.requestWithIdentifier("${sessionId.value}-$typeValue", content, trigger)
@@ -110,7 +113,9 @@ class IOSNotificationService(
     }
 
     override suspend fun cancel(sessionIds: List<Session.Id>) {
-        if (sessionIds.isEmpty()) { return }
+        if (sessionIds.isEmpty()) {
+            return
+        }
         log.v { "Cancelling scheduled notifications with IDs: [${sessionIds.joinToString { it.value }}]" }
         notificationCenter.removePendingNotificationRequestsWithIdentifiers(sessionIds.map { it.value })
     }
@@ -140,6 +145,7 @@ class IOSNotificationService(
                     log.w { "notificationHandler not registered when received $notification" }
                 }
             }
+
             Notification.Remote.RefreshData -> syncService.forceSynchronize()
         }
     }

@@ -31,7 +31,7 @@ object SpeakersDto {
     data class LinkDto(
         val title: String,
         val url: String,
-        val linkType: LinkType
+        val linkType: LinkType,
     )
 
     @Serializable(with = LinkType.Companion::class)
@@ -69,6 +69,6 @@ object SpeakersDto {
     @Serializable
     data class SessionDto(
         val id: Long,
-        val name: String
+        val name: String,
     )
 }
