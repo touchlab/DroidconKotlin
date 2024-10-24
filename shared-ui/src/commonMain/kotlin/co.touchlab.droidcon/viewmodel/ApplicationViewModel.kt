@@ -40,7 +40,7 @@ class ApplicationViewModel(
             instanceLock.runExclusively {
                 settingsGateway.setUseComposeForIos(newValue)
             }
-        }
+        },
     )
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
@@ -69,6 +69,7 @@ class ApplicationViewModel(
                     // We're not checking whether feedback is enabled, because the user opened a feedback notification.
                     presentNextFeedback()
                 }
+
             is Notification.Local.Reminder -> {
                 selectedTab = Tab.Schedule
                 schedule.openSessionDetail(notification.sessionId)

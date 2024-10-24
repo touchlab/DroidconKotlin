@@ -19,9 +19,9 @@ class SessionBlockViewModel(
                 item,
                 selected = {
                     onScheduleItemSelected(item)
-                }
+                },
             )
-        }
+        },
     )
 
     class Factory(

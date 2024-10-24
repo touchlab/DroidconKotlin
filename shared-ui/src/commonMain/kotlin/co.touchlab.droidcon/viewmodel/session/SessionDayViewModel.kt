@@ -25,7 +25,7 @@ class SessionDayViewModel(
             .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).startOfMinute }
             .map { (startsAt, items) ->
                 sessionBlockFactory.create(startsAt, items, onScheduleItemSelected)
-            }
+            },
     )
 
     var scrollState: ScrollState

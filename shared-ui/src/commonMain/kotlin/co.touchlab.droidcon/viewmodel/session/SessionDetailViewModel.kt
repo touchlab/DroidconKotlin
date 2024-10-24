@@ -46,7 +46,7 @@ class SessionDetailViewModel(
                 emit(dateTimeService.now())
                 delay(10_000)
             }
-        }
+        },
     )
     private val observeTime by observe(::time)
 
@@ -88,10 +88,10 @@ class SessionDetailViewModel(
                     speaker,
                     selected = {
                         presentedSpeakerDetail = speakerDetailFactory.create(speaker)
-                    }
+                    },
                 )
             }
-        }
+        },
     )
     val observeSpeakers by observe(::speakers)
 
@@ -113,7 +113,7 @@ class SessionDetailViewModel(
             .map { it.isFeedbackEnabled }
             .combine(observeState.asFlow()) { feedbackEnabled, state ->
                 feedbackEnabled && state == SessionState.Ended
-            }
+            },
     )
     val observeShowFeedbackOption by observe(::showFeedbackOption)
 

@@ -257,7 +257,7 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
                 constructedLinks.add(
                     item.map {
                         NavigationLinkWrapper(index = constructedLinks.size, value = it, reset = { item.value = null }, content)
-                    }
+                    },
                 )
             }
         }
@@ -275,7 +275,7 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
                 slideInHorizontally(initialOffsetX = { -it }) with slideOutHorizontally(targetOffsetX = { it })
             }
         },
-        contentAlignment = Alignment.BottomCenter
+        contentAlignment = Alignment.BottomCenter,
     ) { activeComposables ->
         SubcomposeLayout(
             measurePolicy = { constraints ->
@@ -297,7 +297,7 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
                         it.measure(looseConstraints).place(x = 0, y = 0)
                     }
                 }
-            }
+            },
         )
     }
 }

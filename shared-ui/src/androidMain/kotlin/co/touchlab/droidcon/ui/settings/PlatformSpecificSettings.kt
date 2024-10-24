@@ -26,11 +26,11 @@ internal actual fun PlatformSwitchApp() {
                 context.startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=${Constants.SisterApp.androidPackageName}")
-                    )
+                        Uri.parse("market://details?id=${Constants.SisterApp.androidPackageName}"),
+                    ),
                 )
             }
-        }
+        },
     ) {
         Text("Open ${Constants.SisterApp.name}")
     }

@@ -54,7 +54,7 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
             NavigationLink(viewModel.observePresentedSpeakerDetail) {
                 SpeakerDetailView(viewModel = it)
             }
-        }
+        },
     ) {
         Scaffold(
             topBar = {
@@ -67,9 +67,9 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
                                 contentDescription = "Back",
                             )
                         }
-                    }
+                    },
                 )
-            }
+            },
         ) { paddingValues ->
             val scrollState = rememberScrollState()
             Column(
@@ -80,7 +80,7 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
                 HeaderView(
                     name = viewModel.name,
                     groupTitle = viewModel.groupName,
-                    imageUrl = viewModel.imageUrl
+                    imageUrl = viewModel.imageUrl,
                 )
 
                 viewModel.abstract?.let {
@@ -195,7 +195,7 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
                         .padding(
                             start = Dimensions.Padding.default,
                             end = Dimensions.Padding.default,
-                            top = Dimensions.Padding.half
+                            top = Dimensions.Padding.half,
                         )
                         .clip(CircleShape)
                         .aspectRatio(1f)
@@ -211,7 +211,7 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
                         .padding(
                             start = Dimensions.Padding.default,
                             end = Dimensions.Padding.default,
-                            top = Dimensions.Padding.half
+                            top = Dimensions.Padding.half,
                         )
                         .clip(CircleShape)
                         .aspectRatio(1f)

@@ -24,7 +24,7 @@ fun DcAsyncImage(
             Logger.e(
                 messageString = logTag,
                 throwable = it.result.throwable,
-                tag = "AsyncImage OnError Request = ${it.result.request}\n"
+                tag = "AsyncImage OnError Request = ${it.result.request}\n",
             )
         },
     )

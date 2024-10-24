@@ -41,7 +41,7 @@ import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
 internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
     Dialog(dismiss = feedback::skipTapped) {
         Card(
-            modifier = Modifier.padding(Dimensions.Padding.double)
+            modifier = Modifier.padding(Dimensions.Padding.double),
         ) {
             Column(
                 modifier = Modifier
@@ -86,7 +86,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     placeholder = {
                         Text(
                             text = "(Optional) Suggest improvement",
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
                         )
                     },
                     textStyle = MaterialTheme.typography.bodyLarge,
@@ -113,7 +113,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     TextButton(onClick = feedback::closeAndDisableTapped) {
                         Text(
                             text = "CLOSE AND DISABLE FEEDBACK",
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.primary,
                         )
                     }
                     TextButton(onClick = feedback::skipTapped) {

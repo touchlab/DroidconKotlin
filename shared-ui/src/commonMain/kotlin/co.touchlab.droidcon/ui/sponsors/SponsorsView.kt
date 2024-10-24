@@ -58,7 +58,7 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
             NavigationLink(viewModel.observePresentedSponsorDetail) {
                 SponsorDetailView(viewModel = it)
             }
-        }
+        },
     ) {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
         Scaffold(
@@ -66,7 +66,7 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
             topBar = {
                 TopAppBar(
                     title = { Text("Sponsors") },
-                    scrollBehavior = scrollBehavior
+                    scrollBehavior = scrollBehavior,
                 )
             },
         ) { paddingValues ->
@@ -99,8 +99,8 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
     Card(
         modifier = Modifier.padding(
             vertical = Dimensions.Padding.quarter,
-            horizontal = Dimensions.Padding.half
-        )
+            horizontal = Dimensions.Padding.half,
+        ),
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(

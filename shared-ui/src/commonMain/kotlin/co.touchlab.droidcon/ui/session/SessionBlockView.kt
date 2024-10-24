@@ -65,7 +65,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                                 modifier = Modifier.padding(Dimensions.Padding.half),
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface,
-                                style = MaterialTheme.typography.titleMedium
+                                style = MaterialTheme.typography.titleMedium,
                             )
                             session.room?.let { roomName ->
                                 Text(
@@ -85,7 +85,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                                     end = Dimensions.Padding.half,
                                     bottom = Dimensions.Padding.half,
                                 ),
-                                style = MaterialTheme.typography.titleSmall
+                                style = MaterialTheme.typography.titleSmall,
                             )
                         }
                     }

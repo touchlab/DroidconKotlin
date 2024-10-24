@@ -26,7 +26,7 @@ class SessionListItemViewModel(
                 emit(isInPast)
                 delay(10_000)
             }
-        }
+        },
     )
     val observeIsInPast by observe(::isInPast)
 

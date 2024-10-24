@@ -27,7 +27,7 @@ internal actual fun PlatformSwitchApp() {
     Button(
         onClick = {
             openSisterApp()
-        }
+        },
     ) {
         Text("Open ${Constants.SisterApp.name}")
     }

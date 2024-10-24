@@ -16,7 +16,7 @@ class SettingsViewModel(
             instanceLock.runExclusively {
                 settingsGateway.setFeedbackEnabled(newValue)
             }
-        }
+        },
     )
     val observeIsFeedbackEnabled by observe(::isFeedbackEnabled)
 
@@ -28,7 +28,7 @@ class SettingsViewModel(
             instanceLock.runExclusively {
                 settingsGateway.setRemindersEnabled(newValue)
             }
-        }
+        },
     )
     val observeIsRemindersEnabled by observe(::isRemindersEnabled)
 
@@ -42,7 +42,7 @@ class SettingsViewModel(
             instanceLock.runExclusively {
                 settingsGateway.setUseComposeForIos(newValue)
             }
-        }
+        },
     )
     val observeUseCompose by observe(::useCompose)
 

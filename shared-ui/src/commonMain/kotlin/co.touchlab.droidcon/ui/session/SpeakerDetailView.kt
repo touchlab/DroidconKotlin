@@ -60,7 +60,7 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
                         )
                     }
                 },
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
             )
         },
     ) { paddingValues ->
@@ -104,7 +104,7 @@ private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
                     .width(100.dp)
                     .padding(Dimensions.Padding.default)
                     .clip(CircleShape)
-                    .aspectRatio(1f)
+                    .aspectRatio(1f),
             )
         }
 
@@ -140,7 +140,7 @@ private fun SocialView(url: WebLink, iconName: String) {
             contentDescription = null,
             modifier = Modifier
                 .padding(Dimensions.Padding.default)
-                .size(28.dp)
+                .size(28.dp),
         )
         WebLinkText(
             text = url.link,
@@ -180,7 +180,7 @@ private fun SocialView(url: WebLink, icon: ImageVector) {
 private fun BioView(bio: String, webLinks: List<WebLink>) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = Dimensions.Padding.half),
-        verticalAlignment = Alignment.Top
+        verticalAlignment = Alignment.Top,
     ) {
         Icon(
             imageVector = Icons.Default.Description,
