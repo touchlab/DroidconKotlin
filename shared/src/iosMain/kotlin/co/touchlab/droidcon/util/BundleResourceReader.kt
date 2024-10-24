@@ -33,10 +33,8 @@ class BundleResourceReader(
                 name to null
             }
         }
-        val path = bundle
-            .pathForResource(filename, type) ?: error(
-            "Couldn't get path of $name (parsed as: ${listOfNotNull(filename, type)
-                .joinToString(".")})"
+        val path = bundle.pathForResource(filename, type) ?: error(
+            "Couldn't get path of $name (parsed as: ${listOfNotNull(filename, type).joinToString(".")})"
         )
 
         return memScoped {
