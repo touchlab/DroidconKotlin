@@ -1,7 +1,7 @@
 [*.{kt,kts}]
 end_of_line = lf
-ij_kotlin_allow_trailing_comma = false
-ij_kotlin_allow_trailing_comma_on_call_site = false
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
 ij_kotlin_imports_layout = *
 ij_kotlin_indent_before_arrow_on_new_line = false
 ij_kotlin_line_break_after_multiline_when_entry = true
@@ -18,4 +18,4 @@ ktlint_function_naming_ignore_when_annotated_with = [unset]
 ktlint_function_signature_body_expression_wrapping = default
 ktlint_function_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than = unset
 ktlint_ignore_back_ticked_identifier = false
-max_line_length = 100
+max_line_length = 140
