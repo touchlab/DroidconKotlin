@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
@@ -43,7 +44,9 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
                 title = { Text("Settings") },
                 scrollBehavior = scrollBehavior,
                 actions = {
-                    PlatformSwitchApp()
+                    if (Constants.SisterApp.showLaunchButton) {
+                        PlatformSwitchApp()
+                    }
                 }
             )
         },
@@ -79,7 +82,11 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 }
 
 @Composable
-internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
+internal fun IconTextSwitchRow(
+    text: String,
+    image: ImageVector,
+    checked: MutableObservableProperty<Boolean>
+) {
     val isChecked by checked.observeAsState()
     Row(
         modifier = Modifier

@@ -10,6 +10,7 @@ object Constants {
      * When time zone is changed, generate a new hash by running `md5 -s "${timeZoneString}|${Sessionize.scheduleId}"` in command line
      */
     val conferenceTimeZoneHash = "7f5ba3fbad43896bad6847f6e8c662ac"
+    val showVenueMap:Boolean = false
 
     object Firestore {
 
@@ -28,6 +29,7 @@ object Constants {
     }
 
     object SisterApp {
+        val showLaunchButton: Boolean = false
         const val name = "Fluttercon"
         const val androidPackageName = "co.touchlab.fluttercon"
         const val iosUrlString = "fluttercon://open"
