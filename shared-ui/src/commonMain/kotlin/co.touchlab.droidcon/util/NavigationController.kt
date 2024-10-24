@@ -36,7 +36,10 @@ private val LocalNavigationViewDimensions = staticCompositionLocalOf<NavigationV
 class NavigationController : BaseViewModel() {
 
     private val stack = mutableListOf<NavigationStackItem>()
-    private var stackTracking: MutableList<NavigationStackItem> by published(stack, equalityPolicy = neverEqualPolicy())
+    private var stackTracking: MutableList<NavigationStackItem> by published(
+        stack,
+        equalityPolicy = neverEqualPolicy()
+    )
     private val observeStack by observe(::stackTracking)
     private var activeChild: NavigationController? = null
 
@@ -46,17 +49,23 @@ class NavigationController : BaseViewModel() {
     }
 
     internal sealed class NavigationStackItem {
-        class BackPressHandler(val onBackPressed: BackPressHandlerScope.() -> Unit) : NavigationStackItem() {
+        class BackPressHandler(val onBackPressed: BackPressHandlerScope.() -> Unit) :
+            NavigationStackItem() {
 
             override fun toString(): String {
                 return "BackPress@${hashCode().toUInt().toString(16)}"
             }
         }
 
-        class Push<T : Any>(val item: MutableObservableProperty<T?>, val content: @Composable (T) -> Unit) : NavigationStackItem() {
+        class Push<T : Any>(
+            val item: MutableObservableProperty<T?>,
+            val content: @Composable (T) -> Unit
+        ) : NavigationStackItem() {
 
             override fun toString(): String {
-                return "Push(${item.value}@${item.hashCode().toUInt().toString(16)})@${hashCode().toUInt().toString(16)}"
+                return "Push(${item.value}@${
+                item.hashCode().toUInt().toString(16)
+                })@${hashCode().toUInt().toString(16)}"
             }
         }
     }
@@ -130,7 +139,10 @@ class NavigationController : BaseViewModel() {
     }
 
     @Composable
-    private fun <T : Any> PushedStackItem(item: NavigationStackItem.Push<T>, itemModifier: Modifier) {
+    private fun <T : Any> PushedStackItem(
+        item: NavigationStackItem.Push<T>,
+        itemModifier: Modifier
+    ) {
         println("$item")
         val itemValue by item.item.observeAsState()
 
@@ -142,7 +154,10 @@ class NavigationController : BaseViewModel() {
     }
 
     @Composable
-    internal fun <T : Any> Pushed(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit) {
+    internal fun <T : Any> Pushed(
+        item: MutableObservableProperty<T?>,
+        content: @Composable (T) -> Unit
+    ) {
         remember {
             val stackItem = NavigationStackItem.Push(item, content).also {
                 notifyingStackChange {
@@ -206,14 +221,19 @@ private class ReferenceTracking(private val onDispose: () -> Unit) : RememberObs
 }
 
 @Composable
-internal fun BackPressHandler(onBackPressed: NavigationController.BackPressHandlerScope.() -> Unit) {
+internal fun BackPressHandler(
+    onBackPressed: NavigationController.BackPressHandlerScope.() -> Unit
+) {
     val navigationController = LocalNavigationController.current
     navigationController.HandleBackPressEffect(onBackPressed)
 }
 
 internal interface NavigationStackScope {
 
-    fun <T : Any> NavigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
+    fun <T : Any> NavigationLink(
+        item: MutableObservableProperty<T?>,
+        content: @Composable (T) -> Unit
+    )
 }
 
 internal class NavigationLinkWrapper<T : Any>(
@@ -236,7 +256,8 @@ internal class NavigationLinkWrapper<T : Any>(
         }
 
     override fun equals(other: Any?): Boolean {
-        return (other as? NavigationLinkWrapper<*>)?.let { it.index == index && it.value == value } ?: false
+        return (other as? NavigationLinkWrapper<*>)?.let { it.index == index && it.value == value }
+            ?: false
     }
 
     override fun hashCode(): Int {
@@ -246,7 +267,11 @@ internal class NavigationLinkWrapper<T : Any>(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, content: @Composable () -> Unit) {
+internal fun NavigationStack(
+    key: Any?,
+    links: NavigationStackScope.() -> Unit,
+    content: @Composable () -> Unit
+) {
     val activeLinkComposables by remember(key) {
         val constructedLinks = mutableListOf<ObservableProperty<NavigationLinkWrapper<*>>>()
         val scope = object : NavigationStackScope {
@@ -256,7 +281,12 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
             ) {
                 constructedLinks.add(
                     item.map {
-                        NavigationLinkWrapper(index = constructedLinks.size, value = it, reset = { item.value = null }, content)
+                        NavigationLinkWrapper(
+                            index = constructedLinks.size,
+                            value = it,
+                            reset = { item.value = null },
+                            content
+                        )
                     }
                 )
             }
@@ -269,10 +299,15 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
     AnimatedContent(
         targetState = activeLinkComposables,
         transitionSpec = {
-            if (initialState.indexOfLast { it.body != null } < targetState.indexOfLast { it.body != null }) {
-                slideInHorizontally(initialOffsetX = { it }) with slideOutHorizontally(targetOffsetX = { -it })
+            if (
+                initialState.indexOfLast { it.body != null } <
+                targetState.indexOfLast { it.body != null }
+            ) {
+                slideInHorizontally(initialOffsetX = { it }) with
+                    slideOutHorizontally(targetOffsetX = { -it })
             } else {
-                slideInHorizontally(initialOffsetX = { -it }) with slideOutHorizontally(targetOffsetX = { it })
+                slideInHorizontally(initialOffsetX = { -it }) with
+                    slideOutHorizontally(targetOffsetX = { it })
             }
         },
         contentAlignment = Alignment.BottomCenter

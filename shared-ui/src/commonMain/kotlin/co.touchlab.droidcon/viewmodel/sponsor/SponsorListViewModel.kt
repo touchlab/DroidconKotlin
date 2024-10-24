@@ -21,7 +21,10 @@ class SponsorListViewModel(
                             sponsorGroup,
                             onSponsorSelected = { sponsor ->
                                 if (sponsor.hasDetail) {
-                                    presentedSponsorDetail = sponsorDetailFactory.create(sponsor, sponsorGroup.group.name)
+                                    presentedSponsorDetail = sponsorDetailFactory.create(
+                                        sponsor,
+                                        sponsorGroup.group.name
+                                    )
                                 } else {
                                     // UIApplication.sharedApplication.openURL(NSURL(string = sponsor.url.string))
                                     presentedUrl = sponsor.url
@@ -45,6 +48,7 @@ class SponsorListViewModel(
         private val sponsorDetailFactory: SponsorDetailViewModel.Factory,
     ) {
 
-        fun create() = SponsorListViewModel(sponsorGateway, sponsorGroupFactory, sponsorDetailFactory)
+        fun create() =
+            SponsorListViewModel(sponsorGateway, sponsorGroupFactory, sponsorDetailFactory)
     }
 }

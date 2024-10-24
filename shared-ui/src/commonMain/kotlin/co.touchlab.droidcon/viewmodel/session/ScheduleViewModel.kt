@@ -35,6 +35,12 @@ class ScheduleViewModel(
     ) {
 
         fun create() =
-            ScheduleViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, sessionDetailScrollStateStorage, dateTimeService)
+            ScheduleViewModel(
+                sessionGateway,
+                sessionDayFactory,
+                sessionDetailFactory,
+                sessionDetailScrollStateStorage,
+                dateTimeService
+            )
     }
 }

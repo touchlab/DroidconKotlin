@@ -23,8 +23,15 @@ import platform.UIKit.UIImage
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 @Composable
-internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, contentDescription: String?) {
-    val painter = remember { UIImage.imageNamed(imageResourceName)?.toSkiaImage()?.toComposeImageBitmap()?.let(::BitmapPainter) }
+internal actual fun __LocalImage(
+    imageResourceName: String,
+    modifier: Modifier,
+    contentDescription: String?
+) {
+    val painter = remember {
+        UIImage.imageNamed(imageResourceName)?.toSkiaImage()?.toComposeImageBitmap()
+            ?.let(::BitmapPainter)
+    }
     if (painter != null) {
         androidx.compose.foundation.Image(
             modifier = modifier,
@@ -34,7 +41,10 @@ internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, 
         )
     } else {
         Row(
-            modifier = modifier.background(MaterialTheme.colorScheme.primary, RoundedCornerShape(Dimensions.Padding.half)),
+            modifier = modifier.background(
+                MaterialTheme.colorScheme.primary,
+                RoundedCornerShape(Dimensions.Padding.half)
+            ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Spacer(modifier = Modifier.weight(1f))
@@ -44,7 +54,11 @@ internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, 
                 modifier = Modifier.padding(Dimensions.Padding.half),
                 tint = Color.White,
             )
-            Text("Image not supported", modifier = Modifier.padding(Dimensions.Padding.default), color = Color.White)
+            Text(
+                "Image not supported",
+                modifier = Modifier.padding(Dimensions.Padding.default),
+                color = Color.White
+            )
             Spacer(modifier = Modifier.weight(1f))
         }
     }

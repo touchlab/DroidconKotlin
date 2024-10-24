@@ -79,7 +79,11 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 }
 
 @Composable
-internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
+internal fun IconTextSwitchRow(
+    text: String,
+    image: ImageVector,
+    checked: MutableObservableProperty<Boolean>
+) {
     val isChecked by checked.observeAsState()
     Row(
         modifier = Modifier

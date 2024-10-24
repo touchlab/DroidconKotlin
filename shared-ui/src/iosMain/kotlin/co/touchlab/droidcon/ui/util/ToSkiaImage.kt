@@ -23,7 +23,8 @@ import platform.UIKit.UIImage
 // TODO: Add support for remaining color spaces when the Skia library supports them.
 @ExperimentalForeignApi
 internal fun UIImage.toSkiaImage(): Image? {
-    val imageRef = CGImageCreateCopyWithColorSpace(this.CGImage, CGColorSpaceCreateDeviceRGB()) ?: return null
+    val imageRef =
+        CGImageCreateCopyWithColorSpace(this.CGImage, CGColorSpaceCreateDeviceRGB()) ?: return null
 
     val width = CGImageGetWidth(imageRef).toInt()
     val height = CGImageGetHeight(imageRef).toInt()
@@ -35,9 +36,16 @@ internal fun UIImage.toSkiaImage(): Image? {
     val alphaInfo = CGImageGetAlphaInfo(imageRef)
 
     val alphaType = when (alphaInfo) {
-        CGImageAlphaInfo.kCGImageAlphaPremultipliedFirst, CGImageAlphaInfo.kCGImageAlphaPremultipliedLast -> ColorAlphaType.PREMUL
-        CGImageAlphaInfo.kCGImageAlphaFirst, CGImageAlphaInfo.kCGImageAlphaLast -> ColorAlphaType.UNPREMUL
-        CGImageAlphaInfo.kCGImageAlphaNone, CGImageAlphaInfo.kCGImageAlphaNoneSkipFirst, CGImageAlphaInfo.kCGImageAlphaNoneSkipLast -> ColorAlphaType.OPAQUE
+        CGImageAlphaInfo.kCGImageAlphaPremultipliedFirst,
+        CGImageAlphaInfo.kCGImageAlphaPremultipliedLast -> ColorAlphaType.PREMUL
+
+        CGImageAlphaInfo.kCGImageAlphaFirst,
+        CGImageAlphaInfo.kCGImageAlphaLast -> ColorAlphaType.UNPREMUL
+
+        CGImageAlphaInfo.kCGImageAlphaNone,
+        CGImageAlphaInfo.kCGImageAlphaNoneSkipFirst,
+        CGImageAlphaInfo.kCGImageAlphaNoneSkipLast -> ColorAlphaType.OPAQUE
+
         else -> ColorAlphaType.UNKNOWN
     }
 
@@ -48,7 +56,12 @@ internal fun UIImage.toSkiaImage(): Image? {
     CFRelease(imageRef)
 
     return Image.makeRaster(
-        imageInfo = ImageInfo(width = width, height = height, colorType = ColorType.RGBA_8888, alphaType = alphaType),
+        imageInfo = ImageInfo(
+            width = width,
+            height = height,
+            colorType = ColorType.RGBA_8888,
+            alphaType = alphaType
+        ),
         bytes = byteArray,
         rowBytes = bytesPerRow.toInt(),
     )

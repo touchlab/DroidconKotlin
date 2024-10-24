@@ -24,9 +24,15 @@ import co.touchlab.droidcon.ui.theme.Dimensions
 // platforms and on each platform we need to get the drawable according to provided name.
 @SuppressLint("ComposableNaming", "DiscouragedApi")
 @Composable
-internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, contentDescription: String?) {
+internal actual fun __LocalImage(
+    imageResourceName: String,
+    modifier: Modifier,
+    contentDescription: String?
+) {
     val context = LocalContext.current
-    val imageRes = context.resources.getIdentifier(imageResourceName, "drawable", context.packageName).takeIf { it != 0 }
+    val imageRes =
+        context.resources.getIdentifier(imageResourceName, "drawable", context.packageName)
+            .takeIf { it != 0 }
     if (imageRes != null) {
         androidx.compose.foundation.Image(
             modifier = modifier,
@@ -36,7 +42,10 @@ internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, 
         )
     } else {
         Row(
-            modifier = modifier.background(MaterialTheme.colorScheme.primary, RoundedCornerShape(Dimensions.Padding.half)),
+            modifier = modifier.background(
+                MaterialTheme.colorScheme.primary,
+                RoundedCornerShape(Dimensions.Padding.half)
+            ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.weight(1f))
@@ -46,7 +55,11 @@ internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, 
                 modifier = Modifier.padding(Dimensions.Padding.half),
                 tint = Color.White
             )
-            Text("Image not supported", modifier = Modifier.padding(Dimensions.Padding.default), color = Color.White)
+            Text(
+                "Image not supported",
+                modifier = Modifier.padding(Dimensions.Padding.default),
+                color = Color.White
+            )
             Spacer(modifier = Modifier.weight(1f))
         }
     }

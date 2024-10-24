@@ -65,11 +65,20 @@ class DefaultNotificationSchedulingService(
         )
     }
 
-    private suspend fun scheduleNotifications(sessionFlow: Flow<List<Session>>, settingsFlow: Flow<Settings>) {
+    private suspend fun scheduleNotifications(
+        sessionFlow: Flow<List<Session>>,
+        settingsFlow: Flow<Settings>
+    ) {
         sessionFlow
             .combine(
                 settingsFlow,
-                transform = { agenda, settings -> Triple(agenda, settings.isRemindersEnabled, settings.isFeedbackEnabled) }
+                transform = { agenda, settings ->
+                    Triple(
+                        agenda,
+                        settings.isRemindersEnabled,
+                        settings.isFeedbackEnabled
+                    )
+                }
             )
             .distinctUntilChanged()
             .collect { (agenda, isRemindersEnabled, isFeedbackEnabled) ->
@@ -80,7 +89,8 @@ class DefaultNotificationSchedulingService(
                     val oldSessionIds = scheduledSessionIds.filterNot { sessionId ->
                         agenda.map { it.id.value }.contains(sessionId.value)
                     }
-                    scheduledNotifications = scheduledNotifications.filterNot { oldSessionIds.contains(it) }
+                    scheduledNotifications =
+                        scheduledNotifications.filterNot { oldSessionIds.contains(it) }
                     notificationService.cancel(oldSessionIds)
 
                     // Schedule new upcoming sessions.
@@ -89,7 +99,10 @@ class DefaultNotificationSchedulingService(
                         if (isRemindersEnabled) {
                             val roomName = session.room?.let { roomRepository.get(it).name }
                             val reminderDelivery =
-                                session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
+                                session.startsAt.plus(
+                                    NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET,
+                                    DateTimeUnit.MINUTE
+                                )
                             if (session.endsAt >= dateTimeService.now()) {
                                 notificationService.schedule(
                                     notification = Notification.Local.Reminder(
@@ -108,8 +121,15 @@ class DefaultNotificationSchedulingService(
 
                         if (isFeedbackEnabled) {
                             val feedbackDelivery =
-                                session.endsAt.plus(NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET, DateTimeUnit.MINUTE)
-                            if (feedbackDelivery.plus(24, DateTimeUnit.HOUR) >= dateTimeService.now() && session.feedback == null) {
+                                session.endsAt.plus(
+                                    NotificationSchedulingService.FEEDBACK_DISMISS_END_OFFSET,
+                                    DateTimeUnit.MINUTE
+                                )
+                            if (feedbackDelivery.plus(
+                                24,
+                                DateTimeUnit.HOUR
+                            ) >= dateTimeService.now() && session.feedback == null
+                            ) {
                                 notificationService.schedule(
                                     notification = Notification.Local.Feedback(
                                         sessionId = session.id,

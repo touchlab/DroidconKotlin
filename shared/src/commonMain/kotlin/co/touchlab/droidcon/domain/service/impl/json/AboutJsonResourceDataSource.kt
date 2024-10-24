@@ -6,6 +6,9 @@ import kotlinx.serialization.builtins.ListSerializer
 class AboutJsonResourceDataSource(private val jsonResourceReader: JsonResourceReader) {
 
     fun getAboutItems(): List<AboutDto.AboutItemDto> {
-        return jsonResourceReader.readAndDecodeResource("about.json", ListSerializer(AboutDto.AboutItemDto.serializer()))
+        return jsonResourceReader.readAndDecodeResource(
+            "about.json",
+            ListSerializer(AboutDto.AboutItemDto.serializer())
+        )
     }
 }

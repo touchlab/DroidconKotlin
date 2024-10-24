@@ -22,7 +22,10 @@ class DefaultFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        if (message.data.isNotEmpty() && message.data[Notification.Keys.notificationType] == Notification.Values.refreshDataType) {
+        if (
+            message.data.isNotEmpty() &&
+            message.data[Notification.Keys.notificationType] == Notification.Values.refreshDataType
+        ) {
             MainScope().launch {
                 notificationService.handleNotification(
                     Notification.Remote.RefreshData
@@ -32,7 +35,10 @@ class DefaultFirebaseMessagingService : FirebaseMessagingService() {
 
         // If we have notification, we're running in foreground and should show it ourselves.
         val originalNotification = message.notification ?: return
-        val notification = NotificationCompat.Builder(this, message.notification?.channelId ?: "")
+        val notification = NotificationCompat.Builder(
+            this,
+            message.notification?.channelId ?: ""
+        )
             .setContentTitle(originalNotification.title)
             .setContentText(originalNotification.body)
             .apply {

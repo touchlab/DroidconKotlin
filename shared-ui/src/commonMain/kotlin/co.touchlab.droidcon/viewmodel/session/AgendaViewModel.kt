@@ -26,6 +26,12 @@ class AgendaViewModel(
     ) {
 
         fun create() =
-            AgendaViewModel(sessionGateway, sessionDayFactory, sessionDetailFactory, sessionDetailScrollStateStorage, dateTimeService)
+            AgendaViewModel(
+                sessionGateway,
+                sessionDayFactory,
+                sessionDetailFactory,
+                sessionDetailScrollStateStorage,
+                dateTimeService
+            )
     }
 }

@@ -44,6 +44,12 @@ class SponsorDetailViewModel(
     ) {
 
         fun create(sponsor: Sponsor, groupName: String) =
-            SponsorDetailViewModel(sponsorGateway, speakerListItemFactory, speakerDetailFactory, sponsor, groupName)
+            SponsorDetailViewModel(
+                sponsorGateway,
+                speakerListItemFactory,
+                speakerDetailFactory,
+                sponsor,
+                groupName
+            )
     }
 }

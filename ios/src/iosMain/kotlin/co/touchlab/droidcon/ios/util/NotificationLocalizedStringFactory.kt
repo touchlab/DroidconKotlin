@@ -12,12 +12,32 @@ class NotificationLocalizedStringFactory(
 ) : NotificationSchedulingService.LocalizedStringFactory {
 
     override fun reminderTitle(roomName: String?): String {
-        val ending = roomName?.let { NSString.stringWithFormat(bundle.localizedStringForKey("Notification.Reminder.Title.InRoom", null, null).convertParametersForPrintf(), it.cstr) } ?: ""
-        return NSString.stringWithFormat(bundle.localizedStringForKey("Notification.Reminder.Title.Base", null, null).convertParametersForPrintf(), ending.cstr)
+        val ending = roomName?.let {
+            NSString.stringWithFormat(
+                bundle.localizedStringForKey("Notification.Reminder.Title.InRoom", null, null)
+                    .convertParametersForPrintf(),
+                it.cstr
+            )
+        } ?: ""
+        return NSString.stringWithFormat(
+            bundle.localizedStringForKey(
+                "Notification.Reminder.Title.Base",
+                null,
+                null
+            ).convertParametersForPrintf(),
+            ending.cstr
+        )
     }
 
     override fun reminderBody(sessionTitle: String): String {
-        return NSString.stringWithFormat(bundle.localizedStringForKey("Notification.Reminder.Body", null, null).convertParametersForPrintf(), sessionTitle.cstr)
+        return NSString.stringWithFormat(
+            bundle.localizedStringForKey(
+                "Notification.Reminder.Body",
+                null,
+                null
+            ).convertParametersForPrintf(),
+            sessionTitle.cstr
+        )
     }
 
     override fun feedbackTitle(): String {

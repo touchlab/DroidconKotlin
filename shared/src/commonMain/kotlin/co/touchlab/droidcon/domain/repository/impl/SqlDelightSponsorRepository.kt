@@ -16,11 +16,13 @@ class SqlDelightSponsorRepository(
 ) : BaseRepository<Sponsor.Id, Sponsor>(), SponsorRepository {
 
     override fun observe(id: Sponsor.Id): Flow<Sponsor> {
-        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOne(Dispatchers.Main)
+        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow()
+            .mapToOne(Dispatchers.Main)
     }
 
     override fun observeOrNull(id: Sponsor.Id): Flow<Sponsor?> {
-        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
+        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow()
+            .mapToOneOrNull(Dispatchers.Main)
     }
 
     override fun observeAll(): Flow<List<Sponsor>> {
@@ -35,7 +37,8 @@ class SqlDelightSponsorRepository(
         return sponsorQueries.sponsorsByGroup(group, ::sponsorFactory).executeAsList()
     }
 
-    override fun allSync(): List<Sponsor> = sponsorQueries.selectAll(::sponsorFactory).executeAsList()
+    override fun allSync(): List<Sponsor> =
+        sponsorQueries.selectAll(::sponsorFactory).executeAsList()
 
     override fun doUpsert(entity: Sponsor) {
         sponsorQueries.upsert(

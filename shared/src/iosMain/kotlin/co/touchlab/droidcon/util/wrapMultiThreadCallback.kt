@@ -10,9 +10,10 @@ suspend fun <T> wrapMultiThreadCallback(call: (callback: (T) -> Unit) -> Unit): 
     return completable.await()
 }
 
-suspend fun <T1, T2> wrapMultiThreadCallback(call: (callback: (T1, T2) -> Unit) -> Unit): Pair<T1, T2> {
-    val completable = CompletableDeferred<Pair<T1, T2>>()
-    val closure: (T1, T2) -> Unit = { t1, t2 -> completable.complete(t1 to t2) }
-    call(closure)
-    return completable.await()
-}
+suspend fun <T1, T2> wrapMultiThreadCallback(call: (callback: (T1, T2) -> Unit) -> Unit):
+    Pair<T1, T2> {
+        val completable = CompletableDeferred<Pair<T1, T2>>()
+        val closure: (T1, T2) -> Unit = { t1, t2 -> completable.complete(t1 to t2) }
+        call(closure)
+        return completable.await()
+    }
