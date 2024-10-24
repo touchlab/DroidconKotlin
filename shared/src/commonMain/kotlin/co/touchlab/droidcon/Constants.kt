@@ -10,7 +10,7 @@ object Constants {
      * When time zone is changed, generate a new hash by running `md5 -s "${timeZoneString}|${Sessionize.scheduleId}"` in command line
      */
     val conferenceTimeZoneHash = "7f5ba3fbad43896bad6847f6e8c662ac"
-    val showVenueMap:Boolean = false
+    val showVenueMap: Boolean = false
 
     object Firestore {
 
