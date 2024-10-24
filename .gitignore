@@ -96,3 +96,5 @@ Pods/
 *.xcworkspace
 
 .kotlin
+.idea/runConfigurations.xml
+.idea/vcs.xml
