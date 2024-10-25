@@ -6,6 +6,6 @@ import co.touchlab.droidcon.db.DroidconDatabase
 
 actual class SqlDelightDriverFactory {
     actual fun createDriver(): SqlDriver {
-        return NativeSqliteDriver(DroidconDatabase.Schema, "droidcon2023.db")
+        return NativeSqliteDriver(DroidconDatabase.Schema, "droidcon2024.db")
     }
 }
