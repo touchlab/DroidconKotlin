@@ -26,8 +26,8 @@ android {
         applicationId = "co.touchlab.droidcon.london"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 60106
-        versionName = "6.1.6"
+        versionCode = 60107
+        versionName = "6.1.7"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
