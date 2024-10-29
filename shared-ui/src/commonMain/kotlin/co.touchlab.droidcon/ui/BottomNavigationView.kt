@@ -63,7 +63,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
             when (selectedTab) {
                 ApplicationViewModel.Tab.Schedule -> SessionListView(
                     viewModel = viewModel.schedule,
-                    title = "Droidcon NYC 2024",
+                    title = "Droidcon London 2024",
                     emptyText = "Sessions could not be loaded.",
                 )
 
