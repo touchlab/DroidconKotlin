@@ -11,7 +11,9 @@ import co.touchlab.droidcon.domain.repository.SponsorRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
-class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) : BaseRepository<Sponsor.Id, Sponsor>(), SponsorRepository {
+class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
+    BaseRepository<Sponsor.Id, Sponsor>(),
+    SponsorRepository {
 
     override fun observe(id: Sponsor.Id): Flow<Sponsor> =
         sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOne(Dispatchers.Main)

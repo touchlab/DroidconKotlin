@@ -10,9 +10,9 @@ import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
-class SqlDelightSponsorGroupRepository(
-    private val sponsorGroupQueries: SponsorGroupQueries
-) : BaseRepository<SponsorGroup.Id, SponsorGroup>(), SponsorGroupRepository {
+class SqlDelightSponsorGroupRepository(private val sponsorGroupQueries: SponsorGroupQueries) :
+    BaseRepository<SponsorGroup.Id, SponsorGroup>(),
+    SponsorGroupRepository {
 
     override fun allSync(): List<SponsorGroup> = sponsorGroupQueries.selectAll(::sponsorGroupFactory).executeAsList()
 

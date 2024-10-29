@@ -2,6 +2,7 @@ package co.touchlab.droidcon
 
 import kotlinx.datetime.TimeZone
 
+@Suppress("ktlint:standard:property-naming")
 object Constants {
     val conferenceTimeZone = TimeZone.of("Europe/London")
 

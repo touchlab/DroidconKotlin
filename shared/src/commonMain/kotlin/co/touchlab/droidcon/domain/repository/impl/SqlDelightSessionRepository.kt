@@ -14,10 +14,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.datetime.Instant
 
-class SqlDelightSessionRepository(
-    private val dateTimeService: DateTimeService,
-    private val sessionQueries: SessionQueries
-) : BaseRepository<Session.Id, Session>(), SessionRepository {
+class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, private val sessionQueries: SessionQueries) :
+    BaseRepository<Session.Id, Session>(),
+    SessionRepository {
     override fun observe(id: Session.Id): Flow<Session> =
         sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
 

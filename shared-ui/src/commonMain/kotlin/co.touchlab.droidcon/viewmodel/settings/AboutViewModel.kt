@@ -5,10 +5,7 @@ import co.touchlab.droidcon.application.repository.AboutRepository
 import co.touchlab.droidcon.service.ParseUrlViewService
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
-class AboutViewModel(
-    private val aboutRepository: AboutRepository,
-    private val parseUrlViewService: ParseUrlViewService
-) : BaseViewModel() {
+class AboutViewModel(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) : BaseViewModel() {
 
     var items: List<AboutItem> by published(emptyList())
         private set

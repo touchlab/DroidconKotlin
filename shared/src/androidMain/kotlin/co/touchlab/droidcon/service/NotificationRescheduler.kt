@@ -9,7 +9,9 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class NotificationRescheduler : BroadcastReceiver(), KoinComponent {
+class NotificationRescheduler :
+    BroadcastReceiver(),
+    KoinComponent {
     private val notificationSchedulingService by inject<NotificationSchedulingService>()
 
     override fun onReceive(context: Context?, intent: Intent?) {
