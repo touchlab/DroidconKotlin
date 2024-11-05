@@ -11,29 +11,22 @@ import co.touchlab.droidcon.domain.repository.SponsorRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
-class SqlDelightSponsorRepository(
-    private val sponsorQueries: SponsorQueries,
-) : BaseRepository<Sponsor.Id, Sponsor>(), SponsorRepository {
+class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
+    BaseRepository<Sponsor.Id, Sponsor>(),
+    SponsorRepository {
 
-    override fun observe(id: Sponsor.Id): Flow<Sponsor> {
-        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOne(Dispatchers.Main)
-    }
+    override fun observe(id: Sponsor.Id): Flow<Sponsor> =
+        sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    override fun observeOrNull(id: Sponsor.Id): Flow<Sponsor?> {
-        return sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
-    }
+    override fun observeOrNull(id: Sponsor.Id): Flow<Sponsor?> =
+        sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
 
-    override fun observeAll(): Flow<List<Sponsor>> {
-        return sponsorQueries.selectAll(::sponsorFactory).asFlow().mapToList(Dispatchers.Main)
-    }
+    override fun observeAll(): Flow<List<Sponsor>> = sponsorQueries.selectAll(::sponsorFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun contains(id: Sponsor.Id): Boolean {
-        return sponsorQueries.existsById(id.name, id.group).executeAsOne().toBoolean()
-    }
+    override fun contains(id: Sponsor.Id): Boolean = sponsorQueries.existsById(id.name, id.group).executeAsOne().toBoolean()
 
-    override suspend fun allByGroupName(group: String): List<Sponsor> {
-        return sponsorQueries.sponsorsByGroup(group, ::sponsorFactory).executeAsList()
-    }
+    override suspend fun allByGroupName(group: String): List<Sponsor> =
+        sponsorQueries.sponsorsByGroup(group, ::sponsorFactory).executeAsList()
 
     override fun allSync(): List<Sponsor> = sponsorQueries.selectAll(::sponsorFactory).executeAsList()
 
@@ -52,18 +45,12 @@ class SqlDelightSponsorRepository(
         sponsorQueries.deleteById(id.name, id.group)
     }
 
-    private fun sponsorFactory(
-        name: String,
-        groupName: String,
-        hasDetail: Boolean,
-        description: String?,
-        iconUrl: String,
-        url: String,
-    ) = Sponsor(
-        id = Sponsor.Id(name, groupName),
-        hasDetail = hasDetail,
-        description = description,
-        icon = Url(iconUrl),
-        url = Url(url),
-    )
+    private fun sponsorFactory(name: String, groupName: String, hasDetail: Boolean, description: String?, iconUrl: String, url: String) =
+        Sponsor(
+            id = Sponsor.Id(name, groupName),
+            hasDetail = hasDetail,
+            description = description,
+            icon = Url(iconUrl),
+            url = Url(url),
+        )
 }

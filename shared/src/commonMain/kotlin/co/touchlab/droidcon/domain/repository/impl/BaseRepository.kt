@@ -6,21 +6,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
 abstract class BaseRepository<ID : Any, ENTITY : DomainEntity<ID>> : Repository<ID, ENTITY> {
-    override suspend fun get(id: ID): ENTITY {
-        return observe(id).first()
-    }
+    override suspend fun get(id: ID): ENTITY = observe(id).first()
 
-    override suspend fun find(id: ID): ENTITY? {
-        return observeOrNull(id).first()
-    }
+    override suspend fun find(id: ID): ENTITY? = observeOrNull(id).first()
 
-    override fun observe(entity: ENTITY): Flow<ENTITY> {
-        return observe(entity.id)
-    }
+    override fun observe(entity: ENTITY): Flow<ENTITY> = observe(entity.id)
 
-    override suspend fun all(): List<ENTITY> {
-        return observeAll().first()
-    }
+    override suspend fun all(): List<ENTITY> = observeAll().first()
 
     override fun add(entity: ENTITY) {
         if (!contains(entity.id)) {

@@ -2,10 +2,10 @@ package co.touchlab.droidcon
 
 import co.touchlab.droidcon.util.printThrowable
 import co.touchlab.kermit.Logger
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import kotlin.coroutines.CoroutineContext
 
 class MainScope(private val mainContext: CoroutineContext, private val log: Logger) : CoroutineScope {
 

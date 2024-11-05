@@ -26,7 +26,8 @@ class ApplicationViewModel(
     private val notificationService: NotificationService,
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
-) : BaseViewModel(), DeepLinkNotificationHandler {
+) : BaseViewModel(),
+    DeepLinkNotificationHandler {
 
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())
@@ -41,7 +42,7 @@ class ApplicationViewModel(
             instanceLock.runExclusively {
                 settingsGateway.setUseComposeForIos(newValue)
             }
-        }
+        },
     )
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
@@ -52,7 +53,7 @@ class ApplicationViewModel(
         Tab.MyAgenda,
         if (Constants.showVenueMap) Tab.Venue else null,
         Tab.Sponsors,
-        Tab.Settings
+        Tab.Settings,
     )
     var selectedTab: Tab by published(Tab.Schedule)
     val observeSelectedTab by observe(::selectedTab)
@@ -114,6 +115,10 @@ class ApplicationViewModel(
     }
 
     enum class Tab {
-        Schedule, MyAgenda, Venue, Sponsors, Settings;
+        Schedule,
+        MyAgenda,
+        Venue,
+        Sponsors,
+        Settings,
     }
 }

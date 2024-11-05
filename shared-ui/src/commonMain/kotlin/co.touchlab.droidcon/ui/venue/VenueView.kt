@@ -13,7 +13,7 @@ import org.jetbrains.compose.resources.painterResource
 fun VenueView() {
     Scaffold { paddingValues ->
         VenueBodyView(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier.padding(paddingValues),
         )
     }
 }

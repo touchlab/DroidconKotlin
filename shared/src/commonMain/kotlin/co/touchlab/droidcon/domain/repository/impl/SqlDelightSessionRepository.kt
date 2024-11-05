@@ -14,27 +14,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.datetime.Instant
 
-class SqlDelightSessionRepository(
-    private val dateTimeService: DateTimeService,
-    private val sessionQueries: SessionQueries,
-) : BaseRepository<Session.Id, Session>(), SessionRepository {
-    override fun observe(id: Session.Id): Flow<Session> {
-        return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
-    }
+class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, private val sessionQueries: SessionQueries) :
+    BaseRepository<Session.Id, Session>(),
+    SessionRepository {
+    override fun observe(id: Session.Id): Flow<Session> =
+        sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
 
     fun sessionById(id: Session.Id): Session? = sessionQueries.sessionById(id.value, ::sessionFactory).executeAsOneOrNull()
 
-    override fun observeOrNull(id: Session.Id): Flow<Session?> {
-        return sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
-    }
+    override fun observeOrNull(id: Session.Id): Flow<Session?> =
+        sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
 
-    override fun observeAllAttending(): Flow<List<Session>> {
-        return sessionQueries.attendingSessions(::sessionFactory).asFlow().mapToList(Dispatchers.Main)
-    }
+    override fun observeAllAttending(): Flow<List<Session>> =
+        sessionQueries.attendingSessions(::sessionFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override suspend fun allAttending(): List<Session> {
-        return observeAllAttending().first()
-    }
+    override suspend fun allAttending(): List<Session> = observeAllAttending().first()
 
     override suspend fun setRsvp(sessionId: Session.Id, rsvp: Session.RSVP) {
         sessionQueries.updateRsvp(rsvp.isAttending.toLong(), sessionId.value)
@@ -56,9 +50,7 @@ class SqlDelightSessionRepository(
 
     override fun findSync(id: Session.Id): Session? = sessionQueries.sessionById(id.value, mapper = ::sessionFactory).executeAsOneOrNull()
 
-    override fun observeAll(): Flow<List<Session>> {
-        return sessionQueries.allSessions(::sessionFactory).asFlow().mapToList(Dispatchers.Main)
-    }
+    override fun observeAll(): Flow<List<Session>> = sessionQueries.allSessions(::sessionFactory).asFlow().mapToList(Dispatchers.Main)
 
     override fun doUpsert(entity: Session) {
         sessionQueries.upsert(
@@ -73,17 +65,13 @@ class SqlDelightSessionRepository(
             rsvpSent = entity.rsvp.isSent.toLong(),
             feedbackRating = entity.feedback?.rating,
             feedbackComment = entity.feedback?.comment,
-            feedbackSent = entity.feedback?.isSent?.toLong() ?: 0
+            feedbackSent = entity.feedback?.isSent?.toLong() ?: 0,
         )
     }
 
-    override fun doDelete(id: Session.Id) {
-        return sessionQueries.deleteById(id.value)
-    }
+    override fun doDelete(id: Session.Id) = sessionQueries.deleteById(id.value)
 
-    override fun contains(id: Session.Id): Boolean {
-        return sessionQueries.existsById(id.value).executeAsOne().toBoolean()
-    }
+    override fun contains(id: Session.Id): Boolean = sessionQueries.existsById(id.value).executeAsOne().toBoolean()
 
     private fun sessionFactory(
         id: String,

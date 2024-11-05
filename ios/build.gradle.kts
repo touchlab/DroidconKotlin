@@ -15,7 +15,7 @@ kotlin {
     val targets = listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     )
 
     sourceSets {
@@ -55,7 +55,7 @@ kotlin {
                     "-linker-option", "-framework", "-linker-option", "Metal",
                     "-linker-option", "-framework", "-linker-option", "CoreText",
                     "-linker-option", "-framework", "-linker-option", "CoreGraphics",
-                    "-Xdisable-phases=VerifyBitcode"
+                    "-Xdisable-phases=VerifyBitcode",
                 )
                 linkerOpts.add("-lsqlite3")
                 export(libs.kermit)
@@ -78,7 +78,7 @@ kotlin {
 }
 
 afterEvaluate {
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>() {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile> {
         (compilerPluginClasspath as? Configuration)?.isTransitive = true
     }
 }

@@ -5,9 +5,5 @@ import kotlinx.serialization.Serializable
 object AboutDto {
 
     @Serializable
-    data class AboutItemDto(
-        val icon: String,
-        val title: String,
-        val detail: String,
-    )
+    data class AboutItemDto(val icon: String, val title: String, val detail: String)
 }

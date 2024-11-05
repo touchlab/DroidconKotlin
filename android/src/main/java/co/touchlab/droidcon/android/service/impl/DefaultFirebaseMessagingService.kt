@@ -10,7 +10,6 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import org.koin.core.component.inject
 
 class DefaultFirebaseMessagingService : FirebaseMessagingService() {
     private val notificationService: AndroidNotificationService by inject()
@@ -22,10 +21,10 @@ class DefaultFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        if (message.data.isNotEmpty() && message.data[Notification.Keys.notificationType] == Notification.Values.refreshDataType) {
+        if (message.data.isNotEmpty() && message.data[Notification.Keys.NOTIFICATION_TYPE] == Notification.Values.REFRESH_DATA_TYPE) {
             MainScope().launch {
                 notificationService.handleNotification(
-                    Notification.Remote.RefreshData
+                    Notification.Remote.RefreshData,
                 )
             }
         }

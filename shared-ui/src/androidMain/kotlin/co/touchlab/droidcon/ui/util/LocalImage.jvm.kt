@@ -1,4 +1,6 @@
-package co.touchlab.droidcon.ui.util // ktlint-disable filename
+@file:Suppress("ktlint:standard:filename")
+
+package co.touchlab.droidcon.ui.util
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -32,19 +34,19 @@ internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, 
             modifier = modifier,
             painter = painterResource(id = imageRes),
             contentDescription = contentDescription,
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.FillWidth,
         )
     } else {
         Row(
             modifier = modifier.background(MaterialTheme.colorScheme.primary, RoundedCornerShape(Dimensions.Padding.half)),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = Icons.Default.Warning,
                 contentDescription = contentDescription,
                 modifier = Modifier.padding(Dimensions.Padding.half),
-                tint = Color.White
+                tint = Color.White,
             )
             Text("Image not supported", modifier = Modifier.padding(Dimensions.Padding.default), color = Color.White)
             Spacer(modifier = Modifier.weight(1f))

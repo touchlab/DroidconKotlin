@@ -52,12 +52,12 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
                         colors = NavigationBarItemDefaults.colors(
                             indicatorColor = MaterialTheme.colorScheme.primary,
                             selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                            selectedTextColor = MaterialTheme.colorScheme.primary
-                        )
+                            selectedTextColor = MaterialTheme.colorScheme.primary,
+                        ),
                     )
                 }
             }
-        }
+        },
     ) { paddingValues ->
         Box(modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())) {
             when (selectedTab) {
@@ -66,11 +66,13 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
                     title = "Droidcon London 2024",
                     emptyText = "Sessions could not be loaded.",
                 )
+
                 ApplicationViewModel.Tab.MyAgenda -> SessionListView(
                     viewModel = viewModel.agenda,
                     title = "Agenda",
                     emptyText = "Add sessions to your agenda from session detail in schedule.",
                 )
+
                 ApplicationViewModel.Tab.Venue -> VenueView()
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
                 ApplicationViewModel.Tab.Settings -> SettingsView(viewModel.settings)

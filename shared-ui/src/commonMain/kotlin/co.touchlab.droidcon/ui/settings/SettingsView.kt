@@ -47,7 +47,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
                     if (Constants.SisterApp.showLaunchButton) {
                         PlatformSwitchApp()
                     }
-                }
+                },
             )
         },
     ) { paddingValues ->
@@ -56,7 +56,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
             modifier = Modifier
                 .padding(top = paddingValues.calculateTopPadding())
                 .fillMaxHeight()
-                .verticalScroll(scrollState)
+                .verticalScroll(scrollState),
         ) {
             IconTextSwitchRow(
                 text = "Enable feedback",
@@ -82,11 +82,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 }
 
 @Composable
-internal fun IconTextSwitchRow(
-    text: String,
-    image: ImageVector,
-    checked: MutableObservableProperty<Boolean>
-) {
+internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
     val isChecked by checked.observeAsState()
     Row(
         modifier = Modifier

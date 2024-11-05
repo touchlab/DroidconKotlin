@@ -44,7 +44,9 @@ import org.brightify.hyperdrive.multiplatformx.LifecycleGraph
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class MainActivity : ComponentActivity(), KoinComponent {
+class MainActivity :
+    ComponentActivity(),
+    KoinComponent {
 
     private val notificationSchedulingService: NotificationSchedulingService by inject()
     private val syncService: SyncService by inject()
@@ -56,7 +58,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
     private val root = LifecycleGraph.Root(this)
 
     private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
+        ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
     }
 
@@ -103,12 +105,12 @@ class MainActivity : ComponentActivity(), KoinComponent {
                         modifier = Modifier
                             .background(Colors.primary)
                             .fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_splash_screen),
                             contentDescription = getString(R.string.droidcon_title),
-                            modifier = Modifier.padding(32.dp)
+                            modifier = Modifier.padding(32.dp),
                         )
                     }
                 }

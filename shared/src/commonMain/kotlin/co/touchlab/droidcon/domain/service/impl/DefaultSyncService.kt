@@ -60,8 +60,10 @@ class DefaultSyncService(
         private const val SESSIONIZE_SYNC_SINCE_LAST_MINUTES = 15
 
         private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 1L * 60L * 60L * 1000L
+
         // 5 minutes
         private const val RSVP_SYNC_DELAY: Long = 5L * 60L * 1000L
+
         // 5 minutes
         private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
@@ -86,7 +88,10 @@ class DefaultSyncService(
                 while (isActive) {
                     val lastSessionizeSync = lastSessionizeSync
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
-                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)) {
+                    if (
+                        lastSessionizeSync == null ||
+                        lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
+                    ) {
                         try {
                             runApiDataSourcesSynchronization()
                         } catch (e: Exception) {
@@ -163,14 +168,12 @@ class DefaultSyncService(
         }
     }
 
-    override suspend fun forceSynchronize(): Boolean {
-        return try {
-            runApiDataSourcesSynchronization()
-            true
-        } catch (e: Exception) {
-            log.e(e) { "Failed to update repositories from API data source." }
-            false
-        }
+    override suspend fun forceSynchronize(): Boolean = try {
+        runApiDataSourcesSynchronization()
+        true
+    } catch (e: Exception) {
+        log.e(e) { "Failed to update repositories from API data source." }
+        false
     }
 
     private suspend fun seedLocalRepositoriesIfNeeded() {
@@ -280,7 +283,10 @@ class DefaultSyncService(
         }
     }
 
-    private fun updateSponsorsFromDataSource(sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>, sponsors: SponsorsDto.SponsorCollectionDto) {
+    private fun updateSponsorsFromDataSource(
+        sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
+        sponsors: SponsorsDto.SponsorCollectionDto,
+    ): String {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
@@ -291,7 +297,7 @@ class DefaultSyncService(
             SponsorGroup(
                 id = SponsorGroup.Id(groupName),
                 displayPriority = group.fields.displayOrder.integerValue.toInt(),
-                isProminent = group.fields.prominent?.booleanValue ?: false
+                isProminent = group.fields.prominent?.booleanValue ?: false,
             ) to group.fields.sponsors.arrayValue.values.map { it.mapValue.fields }
         }
 
@@ -327,6 +333,7 @@ class DefaultSyncService(
 
             profileRepository.setSponsorRepresentatives(sponsor, representativeIds)
         }
+        return ""
     }
 
     private fun profileFactory(speakerDto: SpeakersDto.SpeakerDto): Profile {
@@ -347,7 +354,8 @@ class DefaultSyncService(
 
     interface DataSource {
         enum class Kind {
-            Seed, Api
+            Seed,
+            Api,
         }
 
         suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>
