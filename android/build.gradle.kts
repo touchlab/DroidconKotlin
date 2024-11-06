@@ -75,8 +75,8 @@ kotlin {
 }
 
 dependencies {
-    implementation(project(":shared"))
-    implementation(project(":shared-ui"))
+    implementation(projects.shared)
+    implementation(projects.sharedUi)
 
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.koin.core)

@@ -31,8 +31,8 @@ kotlin {
             implementation(compose.material)
             implementation(compose.runtime)
 
-            api(project(":shared"))
-            api(project(":shared-ui"))
+            api(projects.shared)
+            api(projects.sharedUi)
             api(libs.kermit)
             api(libs.kermit.simple)
             api(libs.hyperdrive.multiplatformx.api)
@@ -61,8 +61,8 @@ kotlin {
                 export(libs.kermit)
                 export(libs.kermit.simple)
                 export(libs.hyperdrive.multiplatformx.api)
-                export(project(":shared"))
-                export(project(":shared-ui"))
+                export(projects.shared)
+                export(projects.sharedUi)
             }
         }
     }
