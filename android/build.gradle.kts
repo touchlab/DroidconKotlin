@@ -95,3 +95,10 @@ dependencies {
 
     coreLibraryDesugaring(libs.android.desugar)
 }
+
+// Function that copies `mock` JSON config file for google-services if there isn't one available
+// Google-services plugin requires this config file to build
+val googleServices = file("google-services.json")
+if (!googleServices.exists()) {
+    file("mock-google-services.json").copyTo(googleServices, overwrite = false)
+}
