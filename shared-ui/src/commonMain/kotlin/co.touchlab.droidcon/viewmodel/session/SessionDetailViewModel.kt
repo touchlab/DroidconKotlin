@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.viewmodel.session
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
+import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.DateTimeService
@@ -31,6 +32,7 @@ class SessionDetailViewModel(
     private val dateTimeService: DateTimeService,
     private val parseUrlViewService: ParseUrlViewService,
     private val feedbackService: FeedbackService,
+    private val notificationService: NotificationService,
     initialItem: ScheduleItem,
 ) : BaseViewModel() {
 
@@ -44,7 +46,7 @@ class SessionDetailViewModel(
                 emit(dateTimeService.now())
                 delay(10_000)
             }
-        }
+        },
     )
     private val observeTime by observe(::time)
 
@@ -86,10 +88,10 @@ class SessionDetailViewModel(
                     speaker,
                     selected = {
                         presentedSpeakerDetail = speakerDetailFactory.create(speaker)
-                    }
+                    },
                 )
             }
-        }
+        },
     )
     val observeSpeakers by observe(::speakers)
 
@@ -111,7 +113,7 @@ class SessionDetailViewModel(
             .map { it.isFeedbackEnabled }
             .combine(observeState.asFlow()) { feedbackEnabled, state ->
                 feedbackEnabled && state == SessionState.Ended
-            }
+            },
     )
     val observeShowFeedbackOption by observe(::showFeedbackOption)
 
@@ -126,6 +128,7 @@ class SessionDetailViewModel(
             item.session,
             submit = { feedback ->
                 feedbackService.submit(item.session, feedback)
+                notificationService.cancel(listOf(item.session.id))
                 presentedFeedback = null
             },
             closeAndDisable = null,
@@ -143,7 +146,9 @@ class SessionDetailViewModel(
     }
 
     enum class SessionState {
-        InConflict, InProgress, Ended
+        InConflict,
+        InProgress,
+        Ended,
     }
 
     class Factory(
@@ -156,11 +161,10 @@ class SessionDetailViewModel(
         private val dateTimeService: DateTimeService,
         private val parseUrlViewService: ParseUrlViewService,
         private val feedbackService: FeedbackService,
+        private val notificationService: NotificationService,
     ) {
 
-        fun create(
-            item: ScheduleItem,
-        ) = SessionDetailViewModel(
+        fun create(item: ScheduleItem) = SessionDetailViewModel(
             sessionGateway,
             settingsGateway,
             speakerListItemFactory,
@@ -170,6 +174,7 @@ class SessionDetailViewModel(
             dateTimeService,
             parseUrlViewService,
             feedbackService,
+            notificationService,
             item,
         )
     }

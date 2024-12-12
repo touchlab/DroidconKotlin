@@ -1,11 +1,13 @@
 package co.touchlab.droidcon.viewmodel
 
+import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.application.gateway.SettingsGateway
+import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.SyncService
-import co.touchlab.droidcon.service.NotificationHandler
+import co.touchlab.droidcon.service.DeepLinkNotificationHandler
 import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
@@ -21,9 +23,11 @@ class ApplicationViewModel(
     private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
     private val syncService: SyncService,
     private val notificationSchedulingService: NotificationSchedulingService,
+    private val notificationService: NotificationService,
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
-) : BaseViewModel(), NotificationHandler {
+) : BaseViewModel(),
+    DeepLinkNotificationHandler {
 
     val schedule by managed(scheduleFactory.create())
     val agenda by managed(agendaFactory.create())
@@ -38,13 +42,19 @@ class ApplicationViewModel(
             instanceLock.runExclusively {
                 settingsGateway.setUseComposeForIos(newValue)
             }
-        }
+        },
     )
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
     val observePresentedFeedback by observe(::presentedFeedback)
 
-    val tabs = listOf(Tab.Schedule, Tab.MyAgenda, Tab.Sponsors, Tab.Settings)
+    val tabs = listOfNotNull(
+        Tab.Schedule,
+        Tab.MyAgenda,
+        if (Constants.showVenueMap) Tab.Venue else null,
+        Tab.Sponsors,
+        Tab.Settings,
+    )
     var selectedTab: Tab by published(Tab.Schedule)
     val observeSelectedTab by observe(::selectedTab)
 
@@ -60,16 +70,17 @@ class ApplicationViewModel(
         }
     }
 
-    override fun notificationReceived(sessionId: String, notificationType: NotificationService.NotificationType) {
-        when (notificationType) {
-            NotificationService.NotificationType.Feedback ->
+    override fun handleDeepLinkNotification(notification: Notification.DeepLink) {
+        when (notification) {
+            is Notification.Local.Feedback ->
                 lifecycle.whileAttached {
                     // We're not checking whether feedback is enabled, because the user opened a feedback notification.
                     presentNextFeedback()
                 }
-            NotificationService.NotificationType.Reminder -> {
+
+            is Notification.Local.Reminder -> {
                 selectedTab = Tab.Schedule
-                schedule.openSessionDetail(sessionId)
+                schedule.openSessionDetail(notification.sessionId)
             }
         }
     }
@@ -88,6 +99,7 @@ class ApplicationViewModel(
                 session,
                 submit = { feedback ->
                     feedbackService.submit(session, feedback)
+                    notificationService.cancel(listOf(session.id))
                     presentNextFeedback()
                 },
                 closeAndDisable = {
@@ -103,6 +115,10 @@ class ApplicationViewModel(
     }
 
     enum class Tab {
-        Schedule, MyAgenda, Sponsors, Settings;
+        Schedule,
+        MyAgenda,
+        Venue,
+        Sponsors,
+        Settings,
     }
 }

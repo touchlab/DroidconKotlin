@@ -19,11 +19,11 @@ class SqlDelightProfileRepository(
     private val profileQueries: ProfileQueries,
     private val speakerQueries: SessionSpeakerQueries,
     private val representativeQueries: SponsorRepresentativeQueries,
-) : BaseRepository<Profile.Id, Profile>(), ProfileRepository {
+) : BaseRepository<Profile.Id, Profile>(),
+    ProfileRepository {
 
-    override suspend fun getSpeakersBySession(id: Session.Id): List<Profile> {
-        return profileQueries.selectBySession(id.value, ::profileFactory).executeAsList()
-    }
+    override suspend fun getSpeakersBySession(id: Session.Id): List<Profile> =
+        profileQueries.selectBySession(id.value, ::profileFactory).executeAsList()
 
     override fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>) {
         speakerQueries.deleteBySessionId(session.id.value)
@@ -48,26 +48,19 @@ class SqlDelightProfileRepository(
         }
     }
 
-    override suspend fun getSponsorRepresentatives(sponsorId: Sponsor.Id): List<Profile> {
-        return profileQueries.selectBySponsor(sponsorName = sponsorId.name, sponsorGroupName = sponsorId.group, mapper = ::profileFactory)
+    override suspend fun getSponsorRepresentatives(sponsorId: Sponsor.Id): List<Profile> =
+        profileQueries.selectBySponsor(sponsorName = sponsorId.name, sponsorGroupName = sponsorId.group, mapper = ::profileFactory)
             .executeAsList()
-    }
 
-    override fun allSync(): List<Profile> {
-        return profileQueries.selectAll(mapper = ::profileFactory).executeAsList()
-    }
+    override fun allSync(): List<Profile> = profileQueries.selectAll(mapper = ::profileFactory).executeAsList()
 
-    override fun observe(id: Profile.Id): Flow<Profile> {
-        return profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOne(Dispatchers.Main)
-    }
+    override fun observe(id: Profile.Id): Flow<Profile> =
+        profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    override fun observeOrNull(id: Profile.Id): Flow<Profile?> {
-        return profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
-    }
+    override fun observeOrNull(id: Profile.Id): Flow<Profile?> =
+        profileQueries.selectById(id.value, ::profileFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
 
-    override fun observeAll(): Flow<List<Profile>> {
-        return profileQueries.selectAll(::profileFactory).asFlow().mapToList(Dispatchers.Main)
-    }
+    override fun observeAll(): Flow<List<Profile>> = profileQueries.selectAll(::profileFactory).asFlow().mapToList(Dispatchers.Main)
 
     override fun doUpsert(entity: Profile) {
         profileQueries.upsert(
@@ -86,9 +79,7 @@ class SqlDelightProfileRepository(
         profileQueries.delete(id.value)
     }
 
-    override fun contains(id: Profile.Id): Boolean {
-        return profileQueries.existsById(id.value).executeAsOne().toBoolean()
-    }
+    override fun contains(id: Profile.Id): Boolean = profileQueries.existsById(id.value).executeAsOne().toBoolean()
 
     private fun profileFactory(
         id: String,
@@ -98,7 +89,7 @@ class SqlDelightProfileRepository(
         profilePicture: String?,
         twitter: String?,
         linkedIn: String?,
-        website: String?
+        website: String?,
     ) = Profile(
         id = Profile.Id(id),
         fullName = fullName,

@@ -6,11 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
-class SessionListItemViewModel(
-    dateTimeService: DateTimeService,
-    item: ScheduleItem,
-    val selected: () -> Unit,
-) : BaseViewModel() {
+class SessionListItemViewModel(dateTimeService: DateTimeService, item: ScheduleItem, val selected: () -> Unit) : BaseViewModel() {
     val title: String = item.session.title
     val isServiceSession: Boolean = item.session.isServiceSession
     val isAttending: Boolean = item.session.rsvp.isAttending
@@ -26,16 +22,11 @@ class SessionListItemViewModel(
                 emit(isInPast)
                 delay(10_000)
             }
-        }
+        },
     )
     val observeIsInPast by observe(::isInPast)
 
-    class Factory(
-        private val dateTimeService: DateTimeService,
-    ) {
-        fun create(
-            item: ScheduleItem,
-            selected: () -> Unit,
-        ) = SessionListItemViewModel(dateTimeService, item, selected)
+    class Factory(private val dateTimeService: DateTimeService) {
+        fun create(item: ScheduleItem, selected: () -> Unit) = SessionListItemViewModel(dateTimeService, item, selected)
     }
 }

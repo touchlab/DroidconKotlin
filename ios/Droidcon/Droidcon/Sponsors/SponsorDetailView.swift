@@ -1,5 +1,4 @@
 import SwiftUI
-import Kingfisher
 import DroidconKit
 
 struct SponsorDetailView: View {
@@ -29,8 +28,9 @@ struct SponsorDetailView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
 
                         if let imageUrl = URL(string: viewModel.imageUrl.string) {
-                            KFImage(imageUrl)
-                                .placeholder {
+                            AsyncImage(url: imageUrl) { image in
+                                    image.resizable()
+                                } placeholder: {
                                     GeometryReader { geometry in
                                         Text(viewModel.name)
                                             .bold()
@@ -41,7 +41,6 @@ struct SponsorDetailView: View {
                                             .frame(height: geometry.size.width)
                                     }
                                 }
-                                .resizable()
                                 .scaledToFit()
                                 .padding(4)
                                 .background(Color.white)

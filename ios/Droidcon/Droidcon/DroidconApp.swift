@@ -25,6 +25,7 @@ struct DroidconApp: App {
 
     private func setupNavBarAppearance() {
         let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
         appearance.backgroundColor = UIColor(named: "NavBar_Background")
         appearance.titleTextAttributes = UIColor(named: "NavBar_Foreground").map { [.foregroundColor: $0] } ?? [:]
         UINavigationBar.appearance().tintColor = UIColor(named: "NavBar_Foreground")
@@ -41,7 +42,7 @@ struct DroidconApp: App {
         itemAppearance.selected.iconColor = UIColor(named: "TabBar_Foreground_Selected")
         itemAppearance.selected.titleTextAttributes = UIColor(named: "TabBar_Foreground_Selected").map { [.foregroundColor: $0] } ?? [:]
         let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
+        appearance.configureWithDefaultBackground()
         appearance.backgroundColor = UIColor(named: "TabBar_Background")
         appearance.inlineLayoutAppearance = itemAppearance
         appearance.compactInlineLayoutAppearance = itemAppearance

@@ -48,16 +48,13 @@ class NavigationController : BaseViewModel() {
     internal sealed class NavigationStackItem {
         class BackPressHandler(val onBackPressed: BackPressHandlerScope.() -> Unit) : NavigationStackItem() {
 
-            override fun toString(): String {
-                return "BackPress@${hashCode().toUInt().toString(16)}"
-            }
+            override fun toString(): String = "BackPress@${hashCode().toUInt().toString(16)}"
         }
 
         class Push<T : Any>(val item: MutableObservableProperty<T?>, val content: @Composable (T) -> Unit) : NavigationStackItem() {
 
-            override fun toString(): String {
-                return "Push(${item.value}@${item.hashCode().toUInt().toString(16)})@${hashCode().toUInt().toString(16)}"
-            }
+            override fun toString(): String =
+                "Push(${item.value}@${item.hashCode().toUInt().toString(16)})@${hashCode().toUInt().toString(16)}"
         }
     }
 
@@ -176,9 +173,7 @@ class NavigationController : BaseViewModel() {
     }
 }
 
-internal data class NavigationViewDimensions(
-    val constraints: Constraints,
-)
+internal data class NavigationViewDimensions(val constraints: Constraints)
 
 @Composable
 internal fun rememberNavigationController(): NavigationController = remember {
@@ -213,7 +208,7 @@ internal fun BackPressHandler(onBackPressed: NavigationController.BackPressHandl
 
 internal interface NavigationStackScope {
 
-    fun <T : Any> NavigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
+    fun <T : Any> navigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
 }
 
 internal class NavigationLinkWrapper<T : Any>(
@@ -235,13 +230,11 @@ internal class NavigationLinkWrapper<T : Any>(
             }
         }
 
-    override fun equals(other: Any?): Boolean {
-        return (other as? NavigationLinkWrapper<*>)?.let { it.index == index && it.value == value } ?: false
-    }
+    override fun equals(other: Any?): Boolean = (other as? NavigationLinkWrapper<*>)?.let {
+        it.index == index && it.value == value
+    } ?: false
 
-    override fun hashCode(): Int {
-        return listOfNotNull(index, value).hashCode()
-    }
+    override fun hashCode(): Int = listOfNotNull(index, value).hashCode()
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -250,14 +243,11 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
     val activeLinkComposables by remember(key) {
         val constructedLinks = mutableListOf<ObservableProperty<NavigationLinkWrapper<*>>>()
         val scope = object : NavigationStackScope {
-            override fun <T : Any> NavigationLink(
-                item: MutableObservableProperty<T?>,
-                content: @Composable (T) -> Unit,
-            ) {
+            override fun <T : Any> navigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit) {
                 constructedLinks.add(
                     item.map {
                         NavigationLinkWrapper(index = constructedLinks.size, value = it, reset = { item.value = null }, content)
-                    }
+                    },
                 )
             }
         }
@@ -275,7 +265,7 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
                 slideInHorizontally(initialOffsetX = { -it }) with slideOutHorizontally(targetOffsetX = { it })
             }
         },
-        contentAlignment = Alignment.BottomCenter
+        contentAlignment = Alignment.BottomCenter,
     ) { activeComposables ->
         SubcomposeLayout(
             measurePolicy = { constraints ->
@@ -297,7 +287,7 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
                         it.measure(looseConstraints).place(x = 0, y = 0)
                     }
                 }
-            }
+            },
         )
     }
 }

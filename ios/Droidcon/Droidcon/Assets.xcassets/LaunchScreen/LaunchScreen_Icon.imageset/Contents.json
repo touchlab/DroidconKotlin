@@ -1,12 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "london23-splash-screen.png",
+      "filename" : "London 24-Splash screen.svg",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

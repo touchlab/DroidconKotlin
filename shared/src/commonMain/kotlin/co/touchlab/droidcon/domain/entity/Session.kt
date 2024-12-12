@@ -21,16 +21,9 @@ class Session(
 
     data class Id(val value: String)
 
-    data class RSVP(
-        val isAttending: Boolean,
-        val isSent: Boolean,
-    )
+    data class RSVP(val isAttending: Boolean, val isSent: Boolean)
 
-    data class Feedback(
-        val rating: Int,
-        val comment: String,
-        val isSent: Boolean,
-    ) {
+    data class Feedback(val rating: Int, val comment: String, val isSent: Boolean) {
         object Rating {
             const val DISSATISFIED = 1
             const val NORMAL = 2

@@ -3,11 +3,7 @@ package co.touchlab.droidcon.util
 import android.content.Context
 import android.content.Intent
 
-class IdentifiableIntent(
-    private val id: String,
-    packageContext: Context,
-    cls: Class<*>,
-) : Intent(packageContext, cls) {
+class IdentifiableIntent(private val id: String, packageContext: Context, cls: Class<*>) : Intent(packageContext, cls) {
 
     override fun filterEquals(other: Intent?): Boolean {
         if (this === other) return true

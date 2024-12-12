@@ -19,19 +19,13 @@ class SessionBlockViewModel(
                 item,
                 selected = {
                     onScheduleItemSelected(item)
-                }
+                },
             )
-        }
+        },
     )
 
-    class Factory(
-        private val sessionListItemFactory: SessionListItemViewModel.Factory,
-        private val dateFormatter: DateFormatter,
-    ) {
-        fun create(
-            startsAt: LocalDateTime,
-            items: List<ScheduleItem>,
-            onScheduleItemSelected: (ScheduleItem) -> Unit,
-        ) = SessionBlockViewModel(sessionListItemFactory, dateFormatter, startsAt, items, onScheduleItemSelected)
+    class Factory(private val sessionListItemFactory: SessionListItemViewModel.Factory, private val dateFormatter: DateFormatter) {
+        fun create(startsAt: LocalDateTime, items: List<ScheduleItem>, onScheduleItemSelected: (ScheduleItem) -> Unit) =
+            SessionBlockViewModel(sessionListItemFactory, dateFormatter, startsAt, items, onScheduleItemSelected)
     }
 }

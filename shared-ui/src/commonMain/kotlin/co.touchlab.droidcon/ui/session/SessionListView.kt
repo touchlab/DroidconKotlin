@@ -1,7 +1,7 @@
 package co.touchlab.droidcon.ui.session
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,9 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -33,12 +34,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,24 +58,24 @@ import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-internal fun SessionListView(viewModel: BaseSessionListViewModel) {
+internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String, emptyText: String) {
     NavigationStack(
         key = viewModel,
         links = {
-            NavigationLink(viewModel.observePresentedSessionDetail) {
+            navigationLink(viewModel.observePresentedSessionDetail) {
                 SessionDetailView(viewModel = it)
             }
-        }
+        },
     ) {
         val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 CenterAlignedTopAppBar(
-                    title = { Text("Droidcon London 2023") },
-                    scrollBehavior = scrollBehavior
+                    title = { Text(title) },
+                    scrollBehavior = scrollBehavior,
                 )
             },
         ) { paddingValues ->
@@ -82,47 +83,50 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
             Column(
                 modifier = Modifier
                     .onSizeChanged { size = it }
-                    .padding(top = paddingValues.calculateTopPadding())
+                    .padding(top = paddingValues.calculateTopPadding()),
             ) {
                 val days by viewModel.observeDays.observeAsState()
                 if (days?.isEmpty() != false) {
-                    EmptyView()
+                    EmptyView(emptyText)
                 } else {
                     val selectedDay by viewModel.observeSelectedDay.observeAsState()
                     val selectedTabIndex = viewModel.days?.indexOf(selectedDay) ?: 0
-                    val state = rememberLazyListState(initialFirstVisibleItemIndex = selectedTabIndex)
                     val coroutineScope = rememberCoroutineScope()
 
-                    if (state.firstVisibleItemIndex != selectedTabIndex && !state.isScrollInProgress) {
-                        coroutineScope.launch {
-                            state.scrollToItem(selectedTabIndex)
-                        }
-                    }
+                    val pagerState = rememberPagerState(
+                        initialPage = selectedTabIndex,
+                        pageCount = {
+                            days?.size ?: 0
+                        },
+                    )
 
                     TabRow(
-                        selectedTabIndex = selectedTabIndex,
+                        selectedTabIndex = pagerState.currentPage,
                         indicator = { tabPositions ->
-                            if (tabPositions.indices.contains(selectedTabIndex)) {
+                            if (tabPositions.indices.contains(pagerState.currentPage)) {
                                 TabIndicator(
-                                    Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex])
+                                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                                 )
                             } else {
-                                Logger.w("SessionList TabRow requested an indicator for selectedTabIndex: $selectedTabIndex, but only got ${tabPositions.count()} tabs.")
-                                TabRowDefaults.Indicator()
+                                Logger.w(
+                                    "SessionList TabRow requested an indicator for selectedTabIndex: " +
+                                        "${pagerState.currentPage}, but only got ${tabPositions.count()} tabs.",
+                                )
+                                TabRowDefaults.SecondaryIndicator()
                             }
-                        }
+                        },
                     ) {
                         days?.forEachIndexed { index, daySchedule ->
                             Tab(
-                                selected = selectedTabIndex == index,
+                                selected = pagerState.currentPage == index,
                                 onClick = {
                                     viewModel.selectedDay = daySchedule
 
                                     coroutineScope.launch {
-                                        state.animateScrollToItem(index)
+                                        pagerState.animateScrollToPage(index)
                                     }
                                 },
-                                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             ) {
                                 Text(
                                     text = daySchedule.day,
@@ -133,48 +137,43 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel) {
                         }
                     }
 
-                    val interaction by state.interactionSource.interactions.collectAsState(null)
-                    if (interaction is DragInteraction.Stop) {
-                        val scrollToIndex = if (state.firstVisibleItemScrollOffset >= size.width / 2) {
-                            state.firstVisibleItemIndex + 1
-                        } else {
-                            state.firstVisibleItemIndex
+                    LaunchedEffect(pagerState) {
+                        snapshotFlow { pagerState.currentPage }.collect { page ->
+                            viewModel.selectedDay = viewModel.days?.get(page)
                         }
-                        LaunchedEffect(interaction) {
-                            state.animateScrollToItem(scrollToIndex)
-                        }
-                        viewModel.selectedDay = viewModel.days?.get(scrollToIndex)
                     }
+                    HorizontalPager(
+                        state = pagerState,
+                    ) { page ->
+                        val day = days?.get(page) ?: return@HorizontalPager
+                        val scrollState = rememberLazyListState(
+                            day.scrollState.firstVisibleItemIndex,
+                            day.scrollState.firstVisibleItemScrollOffset,
+                        )
+                        if (
+                            day.scrollState.firstVisibleItemIndex != scrollState.firstVisibleItemIndex ||
+                            day.scrollState.firstVisibleItemScrollOffset != scrollState.firstVisibleItemScrollOffset
+                        ) {
+                            day.scrollState = SessionDayViewModel.ScrollState(
+                                scrollState.firstVisibleItemIndex,
+                                scrollState.firstVisibleItemScrollOffset,
+                            )
+                        }
 
-                    LazyRow(state = state) {
-                        items(days ?: emptyList()) { day ->
-                            val scrollState =
-                                rememberLazyListState(day.scrollState.firstVisibleItemIndex, day.scrollState.firstVisibleItemScrollOffset)
-                            if (
-                                day.scrollState.firstVisibleItemIndex != scrollState.firstVisibleItemIndex ||
-                                day.scrollState.firstVisibleItemScrollOffset != scrollState.firstVisibleItemScrollOffset
-                            ) {
-                                day.scrollState = SessionDayViewModel.ScrollState(
-                                    scrollState.firstVisibleItemIndex,
-                                    scrollState.firstVisibleItemScrollOffset
-                                )
-                            }
-
-                            val density = LocalDensity.current
-                            LazyColumn(
-                                state = scrollState,
-                                contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter),
-                                modifier = Modifier.width(with(density) { size.width.toDp() }),
-                            ) {
-                                items(day.blocks) { hourBlock ->
-                                    Box(
-                                        modifier = Modifier.padding(
-                                            vertical = Dimensions.Padding.quarter,
-                                            horizontal = Dimensions.Padding.half,
-                                        ),
-                                    ) {
-                                        SessionBlockView(hourBlock)
-                                    }
+                        val density = LocalDensity.current
+                        LazyColumn(
+                            state = scrollState,
+                            contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter),
+                            modifier = Modifier.width(with(density) { size.width.toDp() }),
+                        ) {
+                            items(day.blocks) { hourBlock ->
+                                Box(
+                                    modifier = Modifier.padding(
+                                        vertical = Dimensions.Padding.quarter,
+                                        horizontal = Dimensions.Padding.half,
+                                    ),
+                                ) {
+                                    SessionBlockView(hourBlock)
                                 }
                             }
                         }
@@ -193,12 +192,12 @@ private fun TabIndicator(modifier: Modifier = Modifier) {
             .padding(horizontal = 64.dp)
             .height(2.dp)
             .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-            .background(MaterialTheme.colorScheme.primary)
+            .background(MaterialTheme.colorScheme.primary),
     )
 }
 
 @Composable
-private fun EmptyView() {
+private fun EmptyView(text: String) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -214,7 +213,7 @@ private fun EmptyView() {
         )
 
         Text(
-            text = "Sessions could not be loaded.",
+            text = text,
             modifier = Modifier.padding(Dimensions.Padding.default),
             textAlign = TextAlign.Center,
         )

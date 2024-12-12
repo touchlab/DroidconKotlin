@@ -7,9 +7,11 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform).apply(false)
     alias(libs.plugins.androidLibrary).apply(false)
     alias(libs.plugins.sqlDelight).apply(false)
-    alias(libs.plugins.jetbrains.compose).apply(false)
+    alias(libs.plugins.jetbrainsCompose).apply(false)
+    alias(libs.plugins.composeCompiler).apply(false)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.serialization).apply(false)
+    alias(libs.plugins.skie).apply(false)
 }
 
 subprojects {
@@ -34,6 +36,9 @@ subprojects {
         kotlinOptions {
             jvmTarget = "1.8"
         }
+    }
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.4.0")
     }
 }
 

@@ -5,9 +5,7 @@ import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.ScheduleService
 import kotlinx.datetime.Instant
 
-class DefaultScheduleService(
-    private val sessionRepository: SessionRepository,
-) : ScheduleService {
+class DefaultScheduleService(private val sessionRepository: SessionRepository) : ScheduleService {
 
     override suspend fun isInConflict(session: Session): Boolean {
         if (!session.rsvp.isAttending) {
@@ -19,8 +17,7 @@ class DefaultScheduleService(
         }
     }
 
-    private fun ClosedRange<Instant>.intersects(otherRange: ClosedRange<Instant>): Boolean {
-        return start.epochSeconds < otherRange.endInclusive.epochSeconds &&
+    private fun ClosedRange<Instant>.intersects(otherRange: ClosedRange<Instant>): Boolean =
+        start.epochSeconds < otherRange.endInclusive.epochSeconds &&
             endInclusive.epochSeconds > otherRange.start.epochSeconds
-    }
 }

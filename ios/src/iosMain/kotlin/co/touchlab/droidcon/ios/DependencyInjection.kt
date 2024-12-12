@@ -22,10 +22,7 @@ import platform.Foundation.NSBundle
 import platform.Foundation.NSUserDefaults
 
 @OptIn(ExperimentalSettingsApi::class)
-fun initKoinIos(
-    userDefaults: NSUserDefaults,
-    analyticsService: AnalyticsService
-): KoinApplication = initKoin(
+fun initKoinIos(userDefaults: NSUserDefaults, analyticsService: AnalyticsService): KoinApplication = initKoin(
     module {
         single { BundleProvider(bundle = NSBundle.mainBundle) }
         single<ObservableSettings> { NSUserDefaultsSettings(delegate = userDefaults) }
@@ -40,7 +37,7 @@ fun initKoinIos(
         single { analyticsService }
 
         single<ParseUrlViewService> { DefaultParseUrlViewService() }
-    } + uiModule
+    } + uiModule,
 )
 
 // Workaround class for injecting an `NSObject` class.

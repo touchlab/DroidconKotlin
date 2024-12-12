@@ -17,35 +17,28 @@ class DefaultSessionGateway(
     private val scheduleService: ScheduleService,
 ) : SessionGateway {
 
-    override fun observeSchedule(): Flow<List<ScheduleItem>> {
-        return sessionRepository.observeAll().map { sessions ->
-            sessions.map { session ->
-                scheduleItemForSession(session)
-            }
-        }
-    }
-
-    override fun observeAgenda(): Flow<List<ScheduleItem>> {
-        return sessionRepository.observeAllAttending().map { sessions ->
-            sessions.map { session ->
-                scheduleItemForSession(session)
-            }
-        }
-    }
-
-    override fun observeScheduleItem(id: Session.Id): Flow<ScheduleItem> {
-        return sessionRepository.observe(id).map { session ->
+    override fun observeSchedule(): Flow<List<ScheduleItem>> = sessionRepository.observeAll().map { sessions ->
+        sessions.map { session ->
             scheduleItemForSession(session)
         }
     }
 
-    private suspend fun scheduleItemForSession(session: Session): ScheduleItem =
-        ScheduleItem(
-            session,
-            scheduleService.isInConflict(session),
-            session.room?.let { roomRepository.find(it) },
-            profileRepository.getSpeakersBySession(session.id),
-        )
+    override fun observeAgenda(): Flow<List<ScheduleItem>> = sessionRepository.observeAllAttending().map { sessions ->
+        sessions.map { session ->
+            scheduleItemForSession(session)
+        }
+    }
+
+    override fun observeScheduleItem(id: Session.Id): Flow<ScheduleItem> = sessionRepository.observe(id).map { session ->
+        scheduleItemForSession(session)
+    }
+
+    private suspend fun scheduleItemForSession(session: Session): ScheduleItem = ScheduleItem(
+        session,
+        scheduleService.isInConflict(session),
+        session.room?.let { roomRepository.find(it) },
+        profileRepository.getSpeakersBySession(session.id),
+    )
 
     override suspend fun setAttending(session: Session, attending: Boolean) {
         sessionRepository.setRsvp(session.id, Session.RSVP(attending, false))
@@ -55,7 +48,5 @@ class DefaultSessionGateway(
         sessionRepository.setFeedback(session.id, feedback)
     }
 
-    override suspend fun getScheduleItem(id: Session.Id): ScheduleItem? {
-        return sessionRepository.find(id)?.let { scheduleItemForSession(it) }
-    }
+    override suspend fun getScheduleItem(id: Session.Id): ScheduleItem? = sessionRepository.find(id)?.let { scheduleItemForSession(it) }
 }

@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.serialization)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
 }
 
 android {
@@ -31,7 +32,7 @@ android {
             listOf(
                 "src/androidMain/resources",
                 "src/commonMain/resources",
-            )
+            ),
         )
         main.manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
@@ -86,7 +87,6 @@ kotlin {
 
             implementation(libs.stately.common)
             implementation(libs.koin.core)
-
             implementation(compose.ui)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -95,12 +95,12 @@ kotlin {
             // https://issuetracker.google.com/issues/294869453
             // https://github.com/JetBrains/compose-multiplatform/issues/3927
             api(compose.runtime)
+            implementation(compose.components.resources)
+
+            implementation(libs.zoomimage.composeResources)
 
             implementation(libs.hyperdrive.multiplatformx.api)
             // implementation(libs.hyperdrive.multiplatformx.compose)
-        }
-        iosMain.dependencies {
-            implementation(libs.imageLoader)
         }
         all {
             languageSettings.apply {

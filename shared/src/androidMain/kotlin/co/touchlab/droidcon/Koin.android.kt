@@ -27,14 +27,18 @@ actual val platformModule: Module = module {
         OkHttp.create {}
     }
 
-    single<NotificationService> {
+    single<AndroidNotificationService> {
         AndroidNotificationService(
             context = get(),
             entrypointActivity = get(),
             log = getWith("AndroidNotificationService"),
+            syncService = get(),
             settings = get(),
             json = get(),
         )
+    }
+    single<NotificationService> {
+        get<AndroidNotificationService>()
     }
 
     single<DateFormatter> {

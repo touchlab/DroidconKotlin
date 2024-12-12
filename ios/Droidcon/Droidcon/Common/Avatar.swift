@@ -1,5 +1,4 @@
 import SwiftUI
-import Kingfisher
 
 struct Avatar: View {
     private(set) var url: URL
@@ -7,8 +6,11 @@ struct Avatar: View {
     private(set) var size: CGFloat
 
     var body: some View {
-        KFImage(url)
-            .resizable()
+        AsyncImage(url: url) { image in
+                image.resizable()
+            } placeholder: {
+                Color.accentColor
+            }
             .scaledToFill()
             .frame(width: size, height: size)
             .aspectRatio(1, contentMode: .fill)

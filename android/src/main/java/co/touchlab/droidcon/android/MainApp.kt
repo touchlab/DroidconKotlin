@@ -31,7 +31,7 @@ class MainApp : Application() {
                 single<Context> { this@MainApp }
                 single<Class<out Activity>> { MainActivity::class.java }
                 single<SharedPreferences> {
-                    get<Context>().getSharedPreferences("DROIDCON_SETTINGS_2023", Context.MODE_PRIVATE)
+                    get<Context>().getSharedPreferences("DROIDCON_SETTINGS_2024", Context.MODE_PRIVATE)
                 }
                 single<ObservableSettings> { SharedPreferencesSettings(delegate = get()) }
 
@@ -50,7 +50,7 @@ class MainApp : Application() {
                 single<AnalyticsService> {
                     AndroidAnalyticsService(firebaseAnalytics = Firebase.analytics)
                 }
-            } + uiModule
+            } + uiModule,
         )
     }
 }

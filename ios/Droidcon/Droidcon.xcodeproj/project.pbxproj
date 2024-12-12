@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,11 +11,14 @@
 		1821427C26B5418D0047DB71 /* sponsor_sessions.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427826B5418D0047DB71 /* sponsor_sessions.json */; };
 		1821427D26B5418D0047DB71 /* speakers.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427926B5418D0047DB71 /* speakers.json */; };
 		1821427E26B5418D0047DB71 /* schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 1821427A26B5418D0047DB71 /* schedule.json */; };
+		18240FAC2C6FD05F0099E416 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 18240FAB2C6FD05F0099E416 /* FirebaseAnalytics */; };
+		18240FAE2C6FD05F0099E416 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 18240FAD2C6FD05F0099E416 /* FirebaseCrashlytics */; };
+		18240FB52C6FEA630099E416 /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18240FB42C6FEA630099E416 /* VenueView.swift */; };
+		18240FB82C6FF1970099E416 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 18240FB72C6FF1970099E416 /* FirebaseMessaging */; };
 		1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833220F26B0CF5600D79482 /* DroidconApp.swift */; };
 		1871C5FC26C5C7A400E51894 /* sponsors.json in Resources */ = {isa = PBXBuildFile; fileRef = 1871C5FB26C5C7A400E51894 /* sponsors.json */; };
 		18E89B45283944F500C08C9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 		18E89B49283E5D2C00C08C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */; };
-		26DEAB9FA7BB7DD62F31BB4D /* Pods_Droidcon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA278C64D82609BA00FE2A5 /* Pods_Droidcon.framework */; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
 		681C959D26C554E00011330B /* FeedbackDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C959C26C554E00011330B /* FeedbackDialog.swift */; };
 		681C95A126C555D90011330B /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681C95A026C555D90011330B /* VisualEffectView.swift */; };
@@ -58,11 +61,12 @@
 		1821427826B5418D0047DB71 /* sponsor_sessions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsor_sessions.json; path = ../../../shared/src/commonMain/resources/sponsor_sessions.json; sourceTree = "<group>"; };
 		1821427926B5418D0047DB71 /* speakers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = speakers.json; path = ../../../shared/src/commonMain/resources/speakers.json; sourceTree = "<group>"; };
 		1821427A26B5418D0047DB71 /* schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = schedule.json; path = ../../../shared/src/commonMain/resources/schedule.json; sourceTree = "<group>"; };
+		18240FB42C6FEA630099E416 /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
+		18240FB62C6FED770099E416 /* Droidcon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Droidcon.entitlements; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
 		1871C5FB26C5C7A400E51894 /* sponsors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sponsors.json; path = ../../../shared/src/commonMain/resources/sponsors.json; sourceTree = "<group>"; };
 		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
-		5F15F13414AE95A028756BFE /* Pods-Droidcon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.debug.xcconfig"; path = "Target Support Files/Pods-Droidcon/Pods-Droidcon.debug.xcconfig"; sourceTree = "<group>"; };
 		681C959C26C554E00011330B /* FeedbackDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackDialog.swift; sourceTree = "<group>"; };
 		681C95A026C555D90011330B /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		681C95A226C56B100011330B /* CustomOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOverlayView.swift; sourceTree = "<group>"; };
@@ -95,8 +99,6 @@
 		A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeController.swift; sourceTree = "<group>"; };
 		A35DEF2128AA265C0072605A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A35DEF2328AA26C80072605A /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
-		DD90C0C0A4D331CEBDBE69E8 /* Pods-Droidcon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Droidcon.release.xcconfig"; path = "Target Support Files/Pods-Droidcon/Pods-Droidcon.release.xcconfig"; sourceTree = "<group>"; };
-		EBA278C64D82609BA00FE2A5 /* Pods_Droidcon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Droidcon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,21 +111,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26DEAB9FA7BB7DD62F31BB4D /* Pods_Droidcon.framework in Frameworks */,
+				18240FB82C6FF1970099E416 /* FirebaseMessaging in Frameworks */,
+				18240FAC2C6FD05F0099E416 /* FirebaseAnalytics in Frameworks */,
+				18240FAE2C6FD05F0099E416 /* FirebaseCrashlytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B926D31000917A8EC0813D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EBA278C64D82609BA00FE2A5 /* Pods_Droidcon.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		1821427626B541720047DB71 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +130,14 @@
 				1821427826B5418D0047DB71 /* sponsor_sessions.json */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		18240FB32C6FE9A90099E416 /* Venue */ = {
+			isa = PBXGroup;
+			children = (
+				18240FB42C6FEA630099E416 /* VenueView.swift */,
+			);
+			path = Venue;
 			sourceTree = "<group>";
 		};
 		684FAA7226B2A4B400673AFF /* Schedule */ = {
@@ -219,22 +223,11 @@
 			path = Speaker;
 			sourceTree = "<group>";
 		};
-		B5748AEC4B06A4FE0BE44617 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5F15F13414AE95A028756BFE /* Pods-Droidcon.debug.xcconfig */,
-				DD90C0C0A4D331CEBDBE69E8 /* Pods-Droidcon.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		F1465EF423AA94BF0055F7C3 = {
 			isa = PBXGroup;
 			children = (
 				F1465EFF23AA94BF0055F7C3 /* Droidcon */,
 				F1465EFE23AA94BF0055F7C3 /* Products */,
-				B5748AEC4B06A4FE0BE44617 /* Pods */,
-				13B926D31000917A8EC0813D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -249,6 +242,7 @@
 		F1465EFF23AA94BF0055F7C3 /* Droidcon */ = {
 			isa = PBXGroup;
 			children = (
+				18240FB62C6FED770099E416 /* Droidcon.entitlements */,
 				18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */,
 				1821427626B541720047DB71 /* Resources */,
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
@@ -264,6 +258,7 @@
 				684FAA7926B2A55500673AFF /* Sessions */,
 				684FAA7226B2A4B400673AFF /* Schedule */,
 				6881CF6126BD607D002541F0 /* Sponsors */,
+				18240FB32C6FE9A90099E416 /* Venue */,
 				684FAA7526B2A4E200673AFF /* Settings */,
 				684FAA7826B2A51100673AFF /* Utils */,
 				A35DEF2128AA265C0072605A /* Settings.bundle */,
@@ -281,19 +276,22 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1465F2723AA94C00055F7C3 /* Build configuration list for PBXNativeTarget "Droidcon" */;
 			buildPhases = (
-				A08E871D529FE29D7BFB8889 /* [CP] Check Pods Manifest.lock */,
-				0132A05A2BADE7A000360D9F /* ShellScript */,
+				0132A05A2BADE7A000360D9F /* Build and embed KMP */,
 				F1465EF923AA94BF0055F7C3 /* Sources */,
 				F1465EFA23AA94BF0055F7C3 /* Frameworks */,
 				F1465EFB23AA94BF0055F7C3 /* Resources */,
-				A33EA3A8289D4DFD008850F7 /* Crashlytics Script */,
-				D1B96CC21A1B9CA2AD709245 /* [CP] Embed Pods Frameworks */,
+				A33EA3A8289D4DFD008850F7 /* Crashlytics - Upload Symbols */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Droidcon;
+			packageProductDependencies = (
+				18240FAB2C6FD05F0099E416 /* FirebaseAnalytics */,
+				18240FAD2C6FD05F0099E416 /* FirebaseCrashlytics */,
+				18240FB72C6FF1970099E416 /* FirebaseMessaging */,
+			);
 			productName = KaMPKitiOS;
 			productReference = F1465EFD23AA94BF0055F7C3 /* Droidcon.app */;
 			productType = "com.apple.product-type.application";
@@ -322,6 +320,9 @@
 				Base,
 			);
 			mainGroup = F1465EF423AA94BF0055F7C3;
+			packageReferences = (
+				18240FAA2C6FD05F0099E416 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = F1465EFE23AA94BF0055F7C3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -352,7 +353,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0132A05A2BADE7A000360D9F /* ShellScript */ = {
+		0132A05A2BADE7A000360D9F /* Build and embed KMP */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -361,6 +362,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Build and embed KMP";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -369,29 +371,7 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/../..\"\n./gradlew :ios:embedAndSignAppleFrameworkForXcode \n";
 		};
-		A08E871D529FE29D7BFB8889 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Droidcon-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A33EA3A8289D4DFD008850F7 /* Crashlytics Script */ = {
+		A33EA3A8289D4DFD008850F7 /* Crashlytics - Upload Symbols */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -402,31 +382,14 @@
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
 				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
-			name = "Crashlytics Script";
+			name = "Crashlytics - Upload Symbols";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
-		};
-		D1B96CC21A1B9CA2AD709245 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Droidcon/Pods-Droidcon-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -443,6 +406,7 @@
 				68C86E9F26B31D6100008D15 /* LifecycleManager.swift in Sources */,
 				689DD2F726B40A9400A9B009 /* SwitchingNavigationLink.swift in Sources */,
 				684FAA7B26B2A55C00673AFF /* SessionListView.swift in Sources */,
+				18240FB52C6FEA630099E416 /* VenueView.swift in Sources */,
 				689DD2F926B40B3800A9B009 /* SessionBlockView.swift in Sources */,
 				684FAA7726B2A4EA00673AFF /* SettingsView.swift in Sources */,
 				689DD2FB26B40F1800A9B009 /* LazyView.swift in Sources */,
@@ -546,7 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -604,7 +568,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -617,12 +581,12 @@
 		};
 		F1465F2823AA94C00055F7C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F15F13414AE95A028756BFE /* Pods-Droidcon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Droidcon/Droidcon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60002;
+				CURRENT_PROJECT_VERSION = 60107;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
@@ -631,12 +595,11 @@
 					"$(SRCROOT)/../build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.2;
+				MARKETING_VERSION = 6.1.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -655,12 +618,12 @@
 		};
 		F1465F2923AA94C00055F7C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD90C0C0A4D331CEBDBE69E8 /* Pods-Droidcon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Droidcon/Droidcon.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60002;
+				CURRENT_PROJECT_VERSION = 60107;
 				DEVELOPMENT_TEAM = 8UD86646U9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -668,12 +631,11 @@
 					"$(SRCROOT)/../build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.2;
+				MARKETING_VERSION = 6.1.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -712,6 +674,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		18240FAA2C6FD05F0099E416 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		18240FAB2C6FD05F0099E416 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18240FAA2C6FD05F0099E416 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		18240FAD2C6FD05F0099E416 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18240FAA2C6FD05F0099E416 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		18240FB72C6FF1970099E416 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18240FAA2C6FD05F0099E416 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F1465EF523AA94BF0055F7C3 /* Project object */;
 }

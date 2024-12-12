@@ -12,8 +12,7 @@
         <item name="postSplashScreenTheme">@style/Theme.Droidcon</item>
     </style>
 
-    <style name="Theme.Droidcon" parent="Theme.Material.DayNight.NoActionBar">
-    </style>
+    <style name="Theme.Droidcon" parent="Theme.Material.DayNight.NoActionBar"></style>
 
     <style name="Theme.Material.DayNight.NoActionBar" parent="@android:style/Theme.Material.Light.NoActionBar" />
 </resources>

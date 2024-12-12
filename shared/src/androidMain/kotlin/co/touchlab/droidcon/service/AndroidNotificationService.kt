@@ -10,12 +10,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.RemoteException
 import androidx.core.app.NotificationCompat
+import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.util.IdentifiableIntent
 import co.touchlab.kermit.Logger
-import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
@@ -23,11 +24,11 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-@OptIn(ExperimentalSettingsApi::class)
 class AndroidNotificationService(
     private val context: Context,
     private val entrypointActivity: Class<out Activity>,
     private val log: Logger,
+    private val syncService: SyncService,
     private val settings: ObservableSettings,
     private val json: Json,
 ) : NotificationService {
@@ -43,9 +44,9 @@ class AndroidNotificationService(
     } ?: mutableMapOf()
 
     // TODO: Not called on Android.
-    private var notificationHandler: NotificationHandler? = null
+    private var notificationHandler: DeepLinkNotificationHandler? = null
 
-    override fun setHandler(notificationHandler: NotificationHandler) {
+    override fun setHandler(notificationHandler: DeepLinkNotificationHandler) {
         this.notificationHandler = notificationHandler
     }
 
@@ -71,7 +72,7 @@ class AndroidNotificationService(
         return true
     }
 
-    override suspend fun schedule(type: NotificationService.NotificationType, sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?) {
+    override suspend fun schedule(notification: Notification.Local, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at $delivery." }
         val deliveryTime = delivery.toEpochMilliseconds()
 
@@ -84,25 +85,34 @@ class AndroidNotificationService(
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setAutoCancel(true)
 
+        val requestCode = when (notification) {
+            is Notification.Local.Feedback -> NOTIFICATION_FEEDBACK_REQUEST_CODE
+            is Notification.Local.Reminder -> 0
+        }
+
+        val sessionId = when (notification) {
+            is Notification.Local.Feedback -> notification.sessionId
+            is Notification.Local.Reminder -> notification.sessionId
+        }
+
+        val typeValue = when (notification) {
+            is Notification.Local.Feedback -> Notification.Values.FEEDBACK_TYPE
+            is Notification.Local.Reminder -> Notification.Values.REMINDER_TYPE
+        }
+
         val contentIntent = PendingIntent.getActivity(
             context,
-            if (type == NotificationService.NotificationType.Feedback) NOTIFICATION_FEEDBACK_REQUEST_CODE else 0,
+            requestCode,
             Intent(context, entrypointActivity).apply {
-                putExtra(NOTIFICATION_SESSION_ID_EXTRA_KEY, sessionId.value)
-                putExtra(
-                    NOTIFICATION_TYPE_EXTRA_KEY,
-                    when (type) {
-                        NotificationService.NotificationType.Reminder -> NOTIFICATION_TYPE_EXTRA_REMINDER
-                        NotificationService.NotificationType.Feedback -> NOTIFICATION_TYPE_EXTRA_FEEDBACK
-                    }
-                )
+                putExtra(Notification.Keys.SESSION_ID, sessionId.value)
+                putExtra(Notification.Keys.NOTIFICATION_TYPE, typeValue)
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             },
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             } else {
                 PendingIntent.FLAG_UPDATE_CURRENT
-            }
+            },
         )
         builder.setContentIntent(contentIntent)
 
@@ -131,7 +141,9 @@ class AndroidNotificationService(
     }
 
     override suspend fun cancel(sessionIds: List<Session.Id>) {
-        if (sessionIds.isEmpty()) { return }
+        if (sessionIds.isEmpty()) {
+            return
+        }
 
         log.v { "Cancelling scheduled notifications with IDs: [${sessionIds.joinToString { it.value }}]" }
 
@@ -150,6 +162,62 @@ class AndroidNotificationService(
 
             deleteRegisteredNotificationIdSession(sessionId)
         }
+    }
+
+    suspend fun handleNotificationDeeplink(intent: Intent) {
+        val notification = intent.parseNotification() ?: return
+
+        handleNotification(notification)
+    }
+
+    suspend fun handleNotification(notification: Notification) {
+        when (notification) {
+            is Notification.DeepLink -> {
+                val notificationHandler = notificationHandler
+                if (notificationHandler != null) {
+                    notificationHandler.handleDeepLinkNotification(notification)
+                } else {
+                    log.w { "notificationHandler not registered when received $notification" }
+                }
+            }
+
+            Notification.Remote.RefreshData -> syncService.forceSynchronize()
+        }
+    }
+
+    private fun Intent.parseNotification(): Notification? =
+        when (val typeValue = this.getStringExtra(Notification.Keys.NOTIFICATION_TYPE)) {
+            Notification.Values.REMINDER_TYPE -> this.parseReminderNotification()
+            Notification.Values.FEEDBACK_TYPE -> this.parseFeedbackNotification()
+            Notification.Values.REFRESH_DATA_TYPE -> Notification.Remote.RefreshData
+            // Expected on Android as this could've been just a regular app open without a notification.
+            null -> null
+            else -> {
+                log.e { "Unknown notification type <$typeValue>, ignoring." }
+                null
+            }
+        }
+
+    private fun Intent.parseReminderNotification(): Notification.Local.Reminder? {
+        val sessionId = this.getStringExtra(Notification.Keys.SESSION_ID) ?: run {
+            log.e { "Couldn't parse reminder notification. Session ID doesn't exist or isn't String." }
+            return null
+        }
+
+        return Notification.Local.Reminder(
+            sessionId = Session.Id(sessionId),
+        )
+    }
+
+    private fun Intent.parseFeedbackNotification(): Notification.Local.Feedback? {
+        val sessionId = this.getStringExtra(Notification.Keys.SESSION_ID) ?: run {
+            log.e { "Couldn't parse feedback notification. Session ID doesn't exist or isn't String." }
+            return null
+        }
+
+        return Notification.Local.Feedback(
+            sessionId = Session.Id(sessionId),
+        )
     }
 
     private fun createPendingIntent(id: Int, intentTransform: Intent.() -> Unit = {}): PendingIntent {
@@ -187,14 +255,6 @@ class AndroidNotificationService(
     private fun saveRegisteredNotifications() {
         settings[NOTIFICATION_ID_MAP_KEY] = json.encodeToString(registeredNotifications)
     }
-
-    /*
-    private data class NotificationIds(
-        var reminderId: Int?,
-        var dismissId: Int?,
-        var feedbackId: Int?,
-    )
-     */
 
     companion object {
         private const val NOTIFICATION_CHANNEL_ID = "NOTIFICATION_CHANNEL_ID"

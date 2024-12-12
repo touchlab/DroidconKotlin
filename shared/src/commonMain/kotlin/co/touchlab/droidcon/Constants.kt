@@ -2,6 +2,7 @@ package co.touchlab.droidcon
 
 import kotlinx.datetime.TimeZone
 
+@Suppress("ktlint:standard:property-naming")
 object Constants {
     val conferenceTimeZone = TimeZone.of("Europe/London")
 
@@ -9,7 +10,8 @@ object Constants {
      * String of `${timeZoneString}|${Sessionize.scheduleId}` run through md5
      * When time zone is changed, generate a new hash by running `md5 -s "${timeZoneString}|${Sessionize.scheduleId}"` in command line
      */
-    val conferenceTimeZoneHash = "13a8a14c5b52a276b2fd9491ed180697"
+    val conferenceTimeZoneHash = "7f5ba3fbad43896bad6847f6e8c662ac"
+    val showVenueMap: Boolean = true
 
     object Firestore {
 
@@ -17,13 +19,21 @@ object Constants {
         const val databaseName = "(default)"
 
         // Known variants: "sponsors", "sponsors-lisbon-2019", "sponsors-sf-2019", "sponsors-sf-2022", "sponsors-berlin-2022", "sponsors-nyc-2022"
-        const val collectionName = "sponsors-london-2023"
+        const val collectionName = "sponsors-london-2024"
         const val apiKey = "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0"
     }
 
     object Sessionize {
 
-        const val scheduleId = "64k7lmps"
-        const val sponsorsId = "64k7lmps"
+        const val scheduleId = "78xrdv22"
+        const val sponsorsId = "78xrdv22"
+    }
+
+    object SisterApp {
+        val showLaunchButton: Boolean = false
+        const val name = "Fluttercon"
+        const val androidPackageName = "co.touchlab.fluttercon"
+        const val iosUrlString = "fluttercon://open"
+        const val iosAppStoreUrlString = "https://apps.apple.com/app/fluttercon/id6670623431"
     }
 }

@@ -7,7 +7,7 @@ This project has a pair of native mobile applications backed by the Sessionize d
 > ## Subscribe!
 >
 > We build solutions that get teams started smoothly with Kotlin Multiplatform and ensure their success in production. Join our community to learn how your peers are adopting KMM.
-[Sign up here](https://form.typeform.com/to/MJTpmm?typeform-source=touchlab.co)!
+[Sign up here](https://touchlab.co/?s=shownewsletter)!
 
 ## Building
 

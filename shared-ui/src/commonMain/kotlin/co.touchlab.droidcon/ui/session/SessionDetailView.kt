@@ -37,7 +37,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -63,10 +62,10 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
     NavigationStack(
         key = viewModel,
         links = {
-            NavigationLink(viewModel.observePresentedSpeakerDetail) {
+            navigationLink(viewModel.observePresentedSpeakerDetail) {
                 SpeakerDetailView(viewModel = it)
             }
-        }
+        },
     ) {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
         Scaffold(
@@ -82,7 +81,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             )
                         }
                     },
-                    scrollBehavior = scrollBehavior
+                    scrollBehavior = scrollBehavior,
                 )
             },
         ) { paddingValues ->
@@ -95,7 +94,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
             Column(
                 modifier = Modifier
                     .verticalScroll(scrollState)
-                    .padding(top = paddingValues.calculateTopPadding())
+                    .padding(top = paddingValues.calculateTopPadding()),
             ) {
                 val state by viewModel.observeState.observeAsState()
                 Box(contentAlignment = Alignment.BottomStart) {
@@ -112,8 +111,8 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             modifier = Modifier
                                 .padding(start = Dimensions.Padding.default)
                                 .size(44.dp),
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                            contentColor = MaterialTheme.colorScheme.secondary
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary,
                         ) {
                             val icon =
                                 if (isAttending) Icons.Default.BookmarkAdded else Icons.Outlined.BookmarkAdd
@@ -216,7 +215,7 @@ private fun HeaderView(title: String, locationInfo: String) {
 private fun InfoView(status: String) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.default),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = Icons.Default.Info,
@@ -253,6 +252,7 @@ private fun DescriptionView(description: String, links: List<WebLink>) {
         WebLinkText(
             text = description,
             links = links,
+            fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(
                 end = Dimensions.Padding.default,
                 top = Dimensions.Padding.half,
@@ -267,7 +267,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { speaker.selected() }
+            .clickable { speaker.selected() },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             val imageUrl = speaker.avatarUrl?.string
@@ -280,7 +280,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
                         .padding(
                             start = Dimensions.Padding.default,
                             end = Dimensions.Padding.default,
-                            top = Dimensions.Padding.half
+                            top = Dimensions.Padding.half,
                         )
                         .clip(CircleShape)
                         .aspectRatio(1f)
@@ -290,7 +290,8 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
 
             Text(
                 text = speaker.info,
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(
                     end = Dimensions.Padding.default,
                     top = Dimensions.Padding.half,
@@ -300,6 +301,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
         }
         Text(
             text = speaker.bio ?: "",
+            fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(
                 start = 80.dp,
                 end = Dimensions.Padding.default,

@@ -12,14 +12,15 @@ import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ObjCClass
+import kotlinx.cinterop.ObjCObject
 import kotlinx.cinterop.ObjCProtocol
 import kotlinx.cinterop.getOriginalKotlinClass
 import org.koin.core.Koin
+import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.Qualifier
 import org.koin.dsl.module
 
-@BetaInteropApi
 actual val platformModule = module {
     single<SqlDriver> { SqlDelightDriverFactory().createDriver() }
 
@@ -27,10 +28,14 @@ actual val platformModule = module {
         Darwin.create {}
     }
 
-    single<NotificationService> {
+    single<IOSNotificationService> {
         IOSNotificationService(
-            log = getWith("IOSNotificationService")
+            log = getWith("IOSNotificationService"),
+            syncService = get(),
         )
+    }
+    single<NotificationService> {
+        get<IOSNotificationService>()
     }
 
     val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(NSLogWriter())), tag = "Droidcon")
@@ -67,4 +72,13 @@ fun Koin.get(objCClass: ObjCClass): Any {
 fun Koin.get(objCProtocol: ObjCProtocol, qualifier: Qualifier?): Any {
     val kClazz = requireNotNull(getOriginalKotlinClass(objCProtocol)) { "Could not get original kotlin class for $objCProtocol." }
     return get(kClazz, qualifier, null)
+}
+
+fun Koin.getAny(objCObject: ObjCObject, qualifier: Qualifier?, parameters: ParametersDefinition?): Any {
+    val kclass = when (objCObject) {
+        is ObjCClass -> getOriginalKotlinClass(objCObject)
+        is ObjCProtocol -> getOriginalKotlinClass(objCObject)
+        else -> null
+    } ?: error("Couldn't resolve Kotlin Class for $objCObject")
+    return get(kclass, qualifier, parameters)
 }

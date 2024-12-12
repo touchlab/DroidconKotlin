@@ -19,9 +19,9 @@ class ScheduleViewModel(
     attendingOnly = false,
 ) {
 
-    fun openSessionDetail(sessionId: String) {
+    fun openSessionDetail(sessionId: Session.Id) {
         lifecycle.whileAttached {
-            val sessionItem = sessionGateway.getScheduleItem(Session.Id(sessionId)) ?: return@whileAttached
+            val sessionItem = sessionGateway.getScheduleItem(sessionId) ?: return@whileAttached
             presentedSessionDetail = sessionDetailFactory.create(sessionItem)
         }
     }

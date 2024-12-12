@@ -5,6 +5,8 @@ plugins {
     kotlin("android")
     alias(libs.plugins.googleServices)
     alias(libs.plugins.crashlytics)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
 }
 val releaseEnabled = file("./release.jks").exists()
 
@@ -24,8 +26,8 @@ android {
         applicationId = "co.touchlab.droidcon.london"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 20201
-        versionName = "2.2.0"
+        versionCode = 60107
+        versionName = "6.1.7"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
@@ -63,9 +65,6 @@ android {
         abortOnError = false
     }
 
-    buildFeatures {
-        compose = true
-    }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
@@ -88,10 +87,18 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.messaging)
 
     implementation(libs.hyperdrive.multiplatformx.api)
 
     implementation(libs.bundles.androidx.compose)
 
     coreLibraryDesugaring(libs.android.desugar)
+}
+
+// Function that copies `mock` JSON config file for google-services if there isn't one available
+// Google-services plugin requires this config file to build
+val googleServices = file("google-services.json")
+if (!googleServices.exists()) {
+    file("mock-google-services.json").copyTo(googleServices, overwrite = false)
 }

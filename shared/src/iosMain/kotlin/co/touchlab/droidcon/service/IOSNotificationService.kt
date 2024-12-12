@@ -1,10 +1,11 @@
 package co.touchlab.droidcon.service
 
+import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.util.wrapMultiThreadCallback
 import co.touchlab.kermit.Logger
-import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toNSDate
 import platform.Foundation.NSCalendar
@@ -23,35 +24,15 @@ import platform.UserNotifications.UNAuthorizationStatusDenied
 import platform.UserNotifications.UNAuthorizationStatusNotDetermined
 import platform.UserNotifications.UNCalendarNotificationTrigger
 import platform.UserNotifications.UNMutableNotificationContent
-import platform.UserNotifications.UNNotification
-import platform.UserNotifications.UNNotificationPresentationOptionAlert
-import platform.UserNotifications.UNNotificationPresentationOptions
 import platform.UserNotifications.UNNotificationRequest
-import platform.UserNotifications.UNNotificationResponse
 import platform.UserNotifications.UNNotificationSound
 import platform.UserNotifications.UNUserNotificationCenter
-import platform.UserNotifications.UNUserNotificationCenterDelegateProtocol
-import platform.darwin.NSObject
 
-@OptIn(
-    ExperimentalUnsignedTypes::class,
-    ExperimentalSettingsApi::class,
-)
-class IOSNotificationService(
-    private val log: Logger,
-) : NotificationService {
-    private val notificationCenter: UNUserNotificationCenter by lazy {
-        val center = UNUserNotificationCenter.currentNotificationCenter()
-        center.delegate = notificationDelegate
-        center
-    }
+class IOSNotificationService(private val log: Logger, private val syncService: SyncService) : NotificationService {
+    private val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()
+    private var notificationHandler: DeepLinkNotificationHandler? = null
 
-    private lateinit var notificationHandler: NotificationHandler
-    private val notificationDelegate: UNUserNotificationCenterDelegateProtocol by lazy {
-        NotificationDelegate(notificationHandler)
-    }
-
-    override fun setHandler(notificationHandler: NotificationHandler) {
+    override fun setHandler(notificationHandler: DeepLinkNotificationHandler) {
         this.notificationHandler = notificationHandler
     }
 
@@ -66,25 +47,30 @@ class IOSNotificationService(
         when (notificationSettings.authorizationStatus) {
             UNAuthorizationStatusNotDetermined -> {
                 val requestOptions = UNAuthorizationOptionAlert or UNAuthorizationOptionSound
-                val (isAuthorized, error) = wrapMultiThreadCallback<Boolean, NSError?> { notificationCenter.requestAuthorizationWithOptions(requestOptions, it) }
+                val (isAuthorized, error) = wrapMultiThreadCallback<Boolean, NSError?> {
+                    notificationCenter.requestAuthorizationWithOptions(requestOptions, it)
+                }
                 if (error != null) {
                     log.i { "Notifications authorization request failed with '$error'." }
                 }
                 return isAuthorized
             }
+
             UNAuthorizationStatusDenied -> {
                 log.i { "Notifications not authorized." }
                 return false
             }
+
             UNAuthorizationStatusAuthorized -> {
                 log.i { "Notifications authorized." }
                 return true
             }
+
             else -> return false
         }
     }
 
-    override suspend fun schedule(type: NotificationService.NotificationType, sessionId: Session.Id, title: String, body: String, delivery: Instant, dismiss: Instant?) {
+    override suspend fun schedule(notification: Notification.Local, title: String, body: String, delivery: Instant, dismiss: Instant?) {
         log.v { "Scheduling local notification at ${delivery.toNSDate().description}." }
         val deliveryDate = delivery.toNSDate()
         val allUnits = NSCalendarUnitSecond or
@@ -102,18 +88,18 @@ class IOSNotificationService(
         content.setTitle(title)
         content.setBody(body)
         content.setSound(UNNotificationSound.defaultSound)
-        val typeString = when (type) {
-            NotificationService.NotificationType.Reminder -> NOTIFICATION_TYPE_REMINDER
-            NotificationService.NotificationType.Feedback -> NOTIFICATION_TYPE_FEEDBACK
+        val (typeValue, sessionId) = when (notification) {
+            is Notification.Local.Feedback -> Notification.Values.FEEDBACK_TYPE to notification.sessionId
+            is Notification.Local.Reminder -> Notification.Values.REMINDER_TYPE to notification.sessionId
         }
         content.setUserInfo(
             mapOf(
-                NOTIFICATION_SESSION_ID_KEY to sessionId.value,
-                NOTIFICATION_TYPE_KEY to typeString,
-            )
+                Notification.Keys.NOTIFICATION_TYPE to typeValue,
+                Notification.Keys.SESSION_ID to sessionId.value,
+            ),
         )
 
-        val request = UNNotificationRequest.requestWithIdentifier("${sessionId.value}-$typeString", content, trigger)
+        val request = UNNotificationRequest.requestWithIdentifier("${sessionId.value}-$typeValue", content, trigger)
 
         val error = wrapMultiThreadCallback<NSError?> { notificationCenter.addNotificationRequest(request, it) }
         if (error == null) {
@@ -124,47 +110,73 @@ class IOSNotificationService(
     }
 
     override suspend fun cancel(sessionIds: List<Session.Id>) {
-        if (sessionIds.isEmpty()) { return }
+        if (sessionIds.isEmpty()) {
+            return
+        }
         log.v { "Cancelling scheduled notifications with IDs: [${sessionIds.joinToString { it.value }}]" }
         notificationCenter.removePendingNotificationRequestsWithIdentifiers(sessionIds.map { it.value })
     }
 
-    // Delegate necessary to show notification.
-    private class NotificationDelegate(
-        private val notificationHandler: NotificationHandler,
-    ) : NSObject(), UNUserNotificationCenterDelegateProtocol {
-        override fun userNotificationCenter(
-            center: UNUserNotificationCenter,
-            willPresentNotification: UNNotification,
-            withCompletionHandler: (UNNotificationPresentationOptions) -> Unit,
-        ) {
-            withCompletionHandler(UNNotificationPresentationOptionAlert)
-        }
+    @Suppress("unused")
+    suspend fun didReceiveNotificationResponse(userInfo: Map<Any?, *>) {
+        val notification = userInfo.parseNotification() ?: return
 
-        override fun userNotificationCenter(
-            center: UNUserNotificationCenter,
-            didReceiveNotificationResponse: UNNotificationResponse,
-            withCompletionHandler: () -> Unit,
-        ) {
-            val notification = didReceiveNotificationResponse.notification
-            val notificationType = when (notification.request.content.userInfo[NOTIFICATION_TYPE_KEY] as String) {
-                NOTIFICATION_TYPE_REMINDER -> NotificationService.NotificationType.Reminder
-                NOTIFICATION_TYPE_FEEDBACK -> NotificationService.NotificationType.Feedback
-                else -> null
+        handleNotification(notification)
+    }
+
+    @Suppress("unused")
+    suspend fun didReceiveRemoteNotification(userInfo: Map<Any?, *>): Boolean {
+        val notification = userInfo.parseNotification() ?: return false
+
+        handleNotification(notification)
+        return notification is Notification.Remote.RefreshData
+    }
+
+    private suspend fun handleNotification(notification: Notification) {
+        when (notification) {
+            is Notification.DeepLink -> {
+                val notificationHandler = notificationHandler
+                if (notificationHandler != null) {
+                    notificationHandler.handleDeepLinkNotification(notification)
+                } else {
+                    log.w { "notificationHandler not registered when received $notification" }
+                }
             }
-            if (notificationType != null) {
-                val sessionId = notification.request.content.userInfo[NOTIFICATION_SESSION_ID_KEY] as String
-                notificationHandler.notificationReceived(sessionId, notificationType)
-            }
-            withCompletionHandler()
+
+            Notification.Remote.RefreshData -> syncService.forceSynchronize()
         }
     }
 
-    companion object {
-        private const val NOTIFICATION_SESSION_ID_KEY = "NOTIFICATION_SESSION_ID_KEY"
+    private fun Map<Any?, *>.parseNotification(): Notification? =
+        when (val typeValue = this[Notification.Keys.NOTIFICATION_TYPE] as? String) {
+            Notification.Values.REMINDER_TYPE -> this.parseReminderNotification()
+            Notification.Values.FEEDBACK_TYPE -> this.parseFeedbackNotification()
+            Notification.Values.REFRESH_DATA_TYPE -> Notification.Remote.RefreshData
+            else -> {
+                log.e { "Unknown notification type <$typeValue>, ignoring." }
+                null
+            }
+        }
 
-        private const val NOTIFICATION_TYPE_KEY = "NOTIFICATION_TYPE_KEY"
-        private const val NOTIFICATION_TYPE_REMINDER = "NOTIFICATION_TYPE_REMINDER"
-        private const val NOTIFICATION_TYPE_FEEDBACK = "NOTIFICATION_TYPE_FEEDBACK"
+    private fun Map<Any?, *>.parseReminderNotification(): Notification.Local.Reminder? {
+        val sessionId = this[Notification.Keys.SESSION_ID] as? String ?: run {
+            log.e { "Couldn't parse reminder notification. Session ID doesn't exist or isn't String." }
+            return null
+        }
+
+        return Notification.Local.Reminder(
+            sessionId = Session.Id(sessionId),
+        )
+    }
+
+    private fun Map<Any?, *>.parseFeedbackNotification(): Notification.Local.Feedback? {
+        val sessionId = this[Notification.Keys.SESSION_ID] as? String ?: run {
+            log.e { "Couldn't parse feedback notification. Session ID doesn't exist or isn't String." }
+            return null
+        }
+
+        return Notification.Local.Feedback(
+            sessionId = Session.Id(sessionId),
+        )
     }
 }

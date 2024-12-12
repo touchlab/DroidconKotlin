@@ -22,7 +22,6 @@ import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
 import co.touchlab.kermit.Logger
-import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
@@ -35,7 +34,6 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.minus
 
-@OptIn(ExperimentalSettingsApi::class)
 class DefaultSyncService(
     private val log: Logger,
     private val settings: ObservableSettings,
@@ -62,8 +60,10 @@ class DefaultSyncService(
         private const val SESSIONIZE_SYNC_SINCE_LAST_MINUTES = 15
 
         private const val SESSIONIZE_SYNC_NEXT_DELAY: Long = 1L * 60L * 60L * 1000L
+
         // 5 minutes
         private const val RSVP_SYNC_DELAY: Long = 5L * 60L * 1000L
+
         // 5 minutes
         private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
@@ -88,17 +88,18 @@ class DefaultSyncService(
                 while (isActive) {
                     val lastSessionizeSync = lastSessionizeSync
                     // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
-                    if (lastSessionizeSync == null || lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)) {
-                        log.d { "Will sync all repositories from API data source." }
+                    if (
+                        lastSessionizeSync == null ||
+                        lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
+                    ) {
                         try {
-                            updateRepositoriesFromDataSource(apiDataSource)
+                            runApiDataSourcesSynchronization()
                         } catch (e: Exception) {
                             log.w(e) { "Failed to update repositories from API data source." }
                             delay(SESSIONIZE_SYNC_POLL_DELAY)
                             continue
                         }
                         log.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
-                        this@DefaultSyncService.lastSessionizeSync = dateTimeService.now()
                         delay(SESSIONIZE_SYNC_NEXT_DELAY)
                     } else {
                         log.d { "The sync didn't happen, so we'll try again in a short while ($SESSIONIZE_SYNC_POLL_DELAY ms)." }
@@ -167,6 +168,14 @@ class DefaultSyncService(
         }
     }
 
+    override suspend fun forceSynchronize(): Boolean = try {
+        runApiDataSourcesSynchronization()
+        true
+    } catch (e: Exception) {
+        log.e(e) { "Failed to update repositories from API data source." }
+        false
+    }
+
     private suspend fun seedLocalRepositoriesIfNeeded() {
         if (isLocalRepositoriesSeeded) {
             return
@@ -175,6 +184,12 @@ class DefaultSyncService(
         updateRepositoriesFromDataSource(seedDataSource)
 
         isLocalRepositoriesSeeded = true
+    }
+
+    private suspend fun runApiDataSourcesSynchronization() {
+        log.d { "Will sync all repositories from API data source." }
+        updateRepositoriesFromDataSource(apiDataSource)
+        lastSessionizeSync = dateTimeService.now()
     }
 
     private suspend fun updateRepositoriesFromDataSource(dataSource: DataSource) {
@@ -201,7 +216,7 @@ class DefaultSyncService(
 
         // Remove deleted speakers.
         profileRepository.allSync().map { it.id }
-            .subtract(profiles.map { it.id })
+            .subtract(profiles.map { it.id }.toSet())
             .forEach { profileRepository.remove(it) }
 
         profiles.forEach {
@@ -241,7 +256,7 @@ class DefaultSyncService(
 
         // Remove deleted rooms.
         roomRepository.allSync().map { it.id }
-            .subtract(rooms.map { it.id })
+            .subtract(rooms.map { it.id }.toSet())
             .forEach { roomRepository.remove(it) }
 
         rooms.forEach { room ->
@@ -251,7 +266,7 @@ class DefaultSyncService(
         // Remove deleted sessions.
         sessionRepository.allSync()
             .map { it.id }
-            .subtract(sessionsAndSpeakers.map { it.first.id })
+            .subtract(sessionsAndSpeakers.map { it.first.id }.toSet())
             .forEach { sessionRepository.remove(it) }
 
         sessionsAndSpeakers.forEach { (updatedSession, speakers) ->
@@ -268,7 +283,10 @@ class DefaultSyncService(
         }
     }
 
-    private fun updateSponsorsFromDataSource(sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>, sponsors: SponsorsDto.SponsorCollectionDto) {
+    private fun updateSponsorsFromDataSource(
+        sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
+        sponsors: SponsorsDto.SponsorCollectionDto,
+    ): String {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
@@ -279,7 +297,7 @@ class DefaultSyncService(
             SponsorGroup(
                 id = SponsorGroup.Id(groupName),
                 displayPriority = group.fields.displayOrder.integerValue.toInt(),
-                isProminent = group.fields.prominent?.booleanValue ?: false
+                isProminent = group.fields.prominent?.booleanValue ?: false,
             ) to group.fields.sponsors.arrayValue.values.map { it.mapValue.fields }
         }
 
@@ -299,11 +317,11 @@ class DefaultSyncService(
         }
 
         sponsorRepository.allSync().map { it.id }
-            .subtract(sponsorsAndRepresentativeIds.map { it.first.id })
+            .subtract(sponsorsAndRepresentativeIds.map { it.first.id }.toSet())
             .forEach { sponsorRepository.remove(it) }
 
         sponsorGroupRepository.allSync().map { it.id }
-            .subtract(sponsorGroupsToSponsorDtos.map { it.first.id })
+            .subtract(sponsorGroupsToSponsorDtos.map { it.first.id }.toSet())
             .forEach { sponsorGroupRepository.remove(it) }
 
         sponsorGroupsToSponsorDtos.forEach { (group, _) ->
@@ -315,6 +333,7 @@ class DefaultSyncService(
 
             profileRepository.setSponsorRepresentatives(sponsor, representativeIds)
         }
+        return ""
     }
 
     private fun profileFactory(speakerDto: SpeakersDto.SpeakerDto): Profile {
@@ -335,7 +354,8 @@ class DefaultSyncService(
 
     interface DataSource {
         enum class Kind {
-            Seed, Api
+            Seed,
+            Api,
         }
 
         suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>

@@ -5,3 +5,6 @@ import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 
 @Composable
 internal expect fun PlatformSpecificSettingsView(viewModel: SettingsViewModel)
+
+@Composable
+internal expect fun PlatformSwitchApp()

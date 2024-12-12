@@ -4,7 +4,9 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.skie)
 }
 
 version = "1.0"
@@ -13,10 +15,8 @@ kotlin {
     val targets = listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     )
-
-    applyDefaultHierarchyTemplate()
 
     sourceSets {
         all {
@@ -55,7 +55,7 @@ kotlin {
                     "-linker-option", "-framework", "-linker-option", "Metal",
                     "-linker-option", "-framework", "-linker-option", "CoreText",
                     "-linker-option", "-framework", "-linker-option", "CoreGraphics",
-                    "-Xdisable-phases=VerifyBitcode"
+                    "-Xdisable-phases=VerifyBitcode",
                 )
                 linkerOpts.add("-lsqlite3")
                 export(libs.kermit)
@@ -78,7 +78,7 @@ kotlin {
 }
 
 afterEvaluate {
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>() {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile> {
         (compilerPluginClasspath as? Configuration)?.isTransitive = true
     }
 }
