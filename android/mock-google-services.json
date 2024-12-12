@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "606665771234",
+    "project_id": "mock-firebase-project",
+    "storage_bucket": "mock-firebase-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606665771229:android:c1f0f09aa42abc12",
+        "android_client_info": {
+          "package_name": "co.touchlab.droidcon.london"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123455771229-sc9bpuefbjceq7i1qabk7gssstefrdlv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.touchlab.droidcon.london",
+            "certificate_hash": "7f254b538565cfe6c28a88744985f015b1534980"
+          }
+        },
+        {
+          "client_id": "123455771229-sc9bpuefbjceq7i1qabk7gssstefrdlv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNzhU2a9gMc_JHurHbywOrRI9Vj4VQZZZ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "413392989754-04u9tv32474rj0pmbfksirt4ti02a64r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
