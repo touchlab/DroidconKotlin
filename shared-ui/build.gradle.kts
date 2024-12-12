@@ -71,7 +71,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":shared"))
+            implementation(projects.shared)
 
             api(libs.kermit)
             api(libs.kermit.crashlytics)
