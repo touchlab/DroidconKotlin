@@ -1,6 +1,9 @@
 package co.touchlab.droidcon.web
-class DefaultResourceReader { // : ResourceReader {
-    fun readResource(name: String): String {
+
+import co.touchlab.droidcon.domain.service.impl.ResourceReader
+
+class DefaultResourceReader : ResourceReader {
+    override fun readResource(name: String): String {
         val fs = js("require('fs')")
         return fs.readFileSync(name, "utf8") as? String ?: ""
     }

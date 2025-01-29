@@ -1,17 +1,19 @@
 package co.touchlab.droidcon.web
 
-class NotificationLocalizedStringFactory { // : NotificationSchedulingService.LocalizedStringFactory {
+import co.touchlab.droidcon.application.service.NotificationSchedulingService
 
-    fun reminderTitle(roomName: String?): String {
+class NotificationLocalizedStringFactory : NotificationSchedulingService.LocalizedStringFactory {
+
+    override fun reminderTitle(roomName: String?): String {
         val ending = roomName?.let {
             DroidconStrings.notification_reminder_title_in_room.createString(it)
         } ?: ""
         return  DroidconStrings.notification_reminder_title_base.createString(ending)
     }
 
-    fun reminderBody(sessionTitle: String): String = DroidconStrings.notification_reminder_body.createString(sessionTitle)
+    override fun reminderBody(sessionTitle: String): String = DroidconStrings.notification_reminder_body.createString(sessionTitle)
 
-    fun feedbackTitle(): String = DroidconStrings.notification_feedback_title.toString()
+    override fun feedbackTitle(): String = DroidconStrings.notification_feedback_title.toString()
 
-    fun feedbackBody(): String = DroidconStrings.notification_feedback_body.toString()
+    override fun feedbackBody(): String = DroidconStrings.notification_feedback_body.toString()
 }
