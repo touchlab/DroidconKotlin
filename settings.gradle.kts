@@ -21,7 +21,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version("0.8.0")
 }
 
-include(":shared", ":shared-ui", ":android", ":ios")
+include(":shared", ":shared-ui", ":android", ":ios", ":webApp")
 
 rootProject.name = "Droidcon"
 
