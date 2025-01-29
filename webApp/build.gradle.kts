@@ -23,8 +23,8 @@ kotlin {
     version = "1.0"
 }
 dependencies {
-    // api(projects.shared)
-    // api(projects.sharedUi)
+    api(projects.shared)
+    api(projects.sharedUi)
     implementation(libs.multiplatformSettings.makeobservable)
     implementation(libs.koin.core)
     implementation(compose.runtime)

@@ -63,25 +63,17 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    /*
-    js {
-        moduleName = "composeApp"
+
+    js(IR) {
+        moduleName = "shared"
         browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
             commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(rootDirPath)
-                        add(projectDirPath)
-                    }
-                }
+                outputFileName = "shared.js"
             }
         }
         binaries.executable()
-    }*/
+        nodejs()
+    }
 
     version = "1.0"
 
