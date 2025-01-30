@@ -80,7 +80,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
+            //api(libs.kermit.crashlytics) TODO Re-add
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
@@ -103,6 +103,13 @@ kotlin {
             implementation(libs.sqldelight.driver.ios)
             implementation(libs.sqliter)
             implementation(libs.ktor.client.ios)
+        }
+        jsMain{
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(libs.ktor.client.js)
+                // implementation(libs.sqldelight.driver.js) TODO Doesn't exist yet
+            }
         }
 
         all {

@@ -87,7 +87,7 @@ kotlin {
             implementation(projects.shared)
 
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
+            //api(libs.kermit.crashlytics)  TODO Re-add
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)

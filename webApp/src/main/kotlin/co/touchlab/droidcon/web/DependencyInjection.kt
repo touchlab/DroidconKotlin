@@ -36,7 +36,7 @@ fun initKoinWeb(): KoinApplication = initKoin(
         single<ObservableSettings> { StorageSettings().makeObservable() }
         single<ParseUrlViewService> { DefaultParseUrlViewService() }
         single<ResourceReader> { DefaultResourceReader() }
-        single<NotificationSchedulingService.LocalizedStringFactory> { NotificationLocalizedStringFactory(context = get()) }
+        // single<NotificationSchedulingService.LocalizedStringFactory> { NotificationLocalizedStringFactory() } TODO add
         single<AnalyticsService> { DefaultAnalyticsService(firebaseAnalytics = Firebase.analytics) }
     } + uiModule,
 )
