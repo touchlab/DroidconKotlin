@@ -78,13 +78,4 @@ GoogleService-Info.plist
 Pods/
 *.xcworkspace
 .kotlin
-.idea/.name
-.idea/compiler.xml
-.idea/deploymentTargetSelector.xml
-.idea/gradle.xml
-.idea/kotlinc.xml
-.idea/misc.xml
-.idea/runConfigurations.xml
-.idea/vcs.xml
-.idea/workspace.xml
-.idea/caches/deviceStreaming.xml
+.idea/
