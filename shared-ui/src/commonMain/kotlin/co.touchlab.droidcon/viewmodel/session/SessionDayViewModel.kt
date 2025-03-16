@@ -27,6 +27,7 @@ class SessionDayViewModel(
                 sessionBlockFactory.create(startsAt, items, onScheduleItemSelected)
             },
     )
+    val observeBlocks by observe(::blocks)
 
     var scrollState: ScrollState
         get() = sessionDetailScrollStateStorage.getScrollState(date, attendingOnly)
