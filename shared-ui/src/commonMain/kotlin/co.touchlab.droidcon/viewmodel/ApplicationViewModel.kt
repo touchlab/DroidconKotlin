@@ -1,6 +1,4 @@
 package co.touchlab.droidcon.viewmodel
-
-import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
@@ -64,7 +62,7 @@ class ApplicationViewModel(
     val tabs = listOfNotNull(
         Tab.Schedule,
         Tab.MyAgenda,
-        if (Constants.showVenueMap) Tab.Venue else null,
+        if (conferenceConfigProvider.showVenueMap()) Tab.Venue else null,
         Tab.Sponsors,
         Tab.Settings,
     )

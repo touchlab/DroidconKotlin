@@ -140,6 +140,12 @@ private val coreModule = module {
             conferenceTimeZone = get<ConferenceConfigProvider>().getConferenceTimeZone(),
         )
     }
+
+    single {
+        co.touchlab.droidcon.util.AppChecker(
+            conferenceConfigProvider = get(),
+        )
+    }
     single<ProfileRepository> {
         SqlDelightProfileRepository(
             profileQueries = get<DroidconDatabase>().profileQueries,
@@ -187,6 +193,7 @@ private val coreModule = module {
         DefaultApiDataSource(
             client = get(),
             json = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Seed)) {
@@ -200,11 +207,13 @@ private val coreModule = module {
             roomRepository = get(),
             profileRepository = get(),
             scheduleService = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<ScheduleService> {
         DefaultScheduleService(
             sessionRepository = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<SponsorGateway> {
@@ -212,6 +221,7 @@ private val coreModule = module {
             sponsorRepository = get(),
             sponsorGroupRepository = get(),
             profileRepository = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<SettingsGateway> {
@@ -244,6 +254,7 @@ private val coreModule = module {
             settings = get(),
             json = get(),
             localizedStringFactory = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<ServerApi> {

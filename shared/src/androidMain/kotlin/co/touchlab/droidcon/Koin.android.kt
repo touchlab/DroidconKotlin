@@ -42,7 +42,10 @@ actual val platformModule: Module = module {
     }
 
     single<DateFormatter> {
-        AndroidDateFormatter(dateTimeService = get())
+        AndroidDateFormatter(
+            dateTimeService = get(),
+            conferenceConfigProvider = get(),
+        )
     }
 
     val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(LogcatWriter(), CrashlyticsLogWriter())), tag = "Droidcon")

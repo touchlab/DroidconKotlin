@@ -41,7 +41,11 @@ actual val platformModule = module {
     val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(NSLogWriter())), tag = "Droidcon")
     factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
 
-    single { AppChecker }
+    single {
+        co.touchlab.droidcon.util.AppChecker(
+            conferenceConfigProvider = get(),
+        )
+    }
 }
 
 @BetaInteropApi

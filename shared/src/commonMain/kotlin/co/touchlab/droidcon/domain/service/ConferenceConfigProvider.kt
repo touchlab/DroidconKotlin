@@ -11,5 +11,6 @@ interface ConferenceConfigProvider {
     fun getCollectionName(): String
     fun getApiKey(): String
     fun getScheduleId(): String
+    fun showVenueMap(): Boolean
     fun observeChanges(): Flow<Conference>
 }

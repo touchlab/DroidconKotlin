@@ -1,6 +1,6 @@
 package co.touchlab.droidcon.util.formatter
 
-import co.touchlab.droidcon.Constants.conferenceTimeZone
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -10,13 +10,21 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.atTime
 
-class AndroidDateFormatter(private val dateTimeService: DateTimeService) : DateFormatter {
+class AndroidDateFormatter(private val dateTimeService: DateTimeService, private val conferenceConfigProvider: ConferenceConfigProvider) :
+    DateFormatter {
 
-    // TODOKPG - May not need to set timezone. Java date has no TZ
-    private val shortDateFormat =
-        SimpleDateFormat("MMM d", Locale.getDefault()).apply { timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone.id) }
-    private val minuteHourTimeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault())
-        .apply { timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone.id) }
+    // Get timezone from ConferenceConfigProvider
+    private val conferenceTimeZone get() = conferenceConfigProvider.getConferenceTimeZone()
+
+    // Create formatters as properties to ensure they use the current conference timezone
+    private val shortDateFormat
+        get() = SimpleDateFormat("MMM d", Locale.getDefault()).apply {
+            timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone.id)
+        }
+
+    private val minuteHourTimeFormat
+        get() = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault())
+            .apply { timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone.id) }
 
     override fun monthWithDay(date: LocalDate): String = shortDateFormat.format(
         Date(with(dateTimeService) { date.atTime(0, 0).fromConferenceDateTime() }.toEpochMilliseconds()),

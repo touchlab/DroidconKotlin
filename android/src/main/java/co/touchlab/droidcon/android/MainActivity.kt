@@ -34,7 +34,6 @@ import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.AndroidNotificationService
 import co.touchlab.droidcon.ui.theme.Colors
 import co.touchlab.droidcon.ui.util.MainView
-import co.touchlab.droidcon.util.AppChecker
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import kotlinx.coroutines.awaitCancellation
@@ -66,8 +65,6 @@ class MainActivity :
         super.onCreate(savedInstanceState)
 
         installSplashScreen()
-
-        AppChecker.checkTimeZoneHash()
 
         analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
