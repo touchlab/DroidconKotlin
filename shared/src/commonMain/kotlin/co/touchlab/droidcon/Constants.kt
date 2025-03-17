@@ -4,6 +4,9 @@ import kotlinx.datetime.TimeZone
 
 @Suppress("ktlint:standard:property-naming")
 object Constants {
+    val conferenceId = 1L
+    val conferenceTimeZone = TimeZone.of("Europe/London")
+    val conferenceTimeZoneHash = "7f5ba3fbad43896bad6847f6e8c662ac"
     val showVenueMap: Boolean = true
 
     object Firestore {
@@ -20,13 +23,5 @@ object Constants {
 
         const val scheduleId = "78xrdv22"
         const val sponsorsId = "78xrdv22"
-    }
-
-    object SisterApp {
-        val showLaunchButton: Boolean = false
-        const val name = "Fluttercon"
-        const val androidPackageName = "co.touchlab.fluttercon"
-        const val iosUrlString = "fluttercon://open"
-        const val iosAppStoreUrlString = "https://apps.apple.com/app/fluttercon/id6670623431"
     }
 }
