@@ -34,6 +34,9 @@
 - Coroutines for asynchronous operations
 - Proper error handling with try/catch blocks
 
+## Architecture Notes
+- App startup logic is handled in `co.touchlab.droidcon.viewmodel.ApplicationViewModel`
+
 ## Current Task
 
 The app is designed to be configured for a single conference, and for different conferences the configuration needs to be changed, and a new app instance needs to be published to the app store. We want to refactor the app so that is can be used for all conferences, and allow the user to select the conference they want to display in the app.
