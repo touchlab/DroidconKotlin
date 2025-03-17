@@ -91,7 +91,7 @@ val uiModule = module {
     single { SponsorGroupItemViewModel.Factory() }
     single { SponsorDetailViewModel.Factory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get()) }
 
-    single { SettingsViewModel.Factory(settingsGateway = get(), aboutFactory = get()) }
+    single { SettingsViewModel.Factory(settingsGateway = get(), aboutFactory = get(), conferenceRepository = get()) }
     single { AboutViewModel.Factory(aboutRepository = get(), parseUrlViewService = get()) }
 
     single { FeedbackDialogViewModel.Factory(sessionGateway = get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }

@@ -74,6 +74,8 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 
             HorizontalDivider()
 
+            ConferenceSelectorRow(viewModel = viewModel)
+
             PlatformSpecificSettingsView(viewModel = viewModel)
 
             AboutView(viewModel.about)

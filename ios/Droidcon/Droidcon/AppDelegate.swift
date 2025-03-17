@@ -22,6 +22,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         try! appChecker.checkTimeZoneHash()
 
         analytics.logEvent(name: AnalyticsServiceCompanion().EVENT_STARTED, params: [:])
+        
+        // Initialize conferences in the database
+        AppInitKt.initializeConferences()
 
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self

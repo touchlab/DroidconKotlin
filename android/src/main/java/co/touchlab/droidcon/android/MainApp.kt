@@ -8,6 +8,7 @@ import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
 import co.touchlab.droidcon.android.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
@@ -19,10 +20,19 @@ import com.google.firebase.ktx.Firebase
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SharedPreferencesSettings
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsApi::class)
-class MainApp : Application() {
+class MainApp :
+    Application(),
+    KoinComponent {
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreate() {
         super.onCreate()
@@ -52,5 +62,15 @@ class MainApp : Application() {
                 }
             } + uiModule,
         )
+
+        // Initialize the conferences
+        initializeConferences()
+    }
+
+    private fun initializeConferences() {
+        val conferenceRepository: ConferenceRepository by inject()
+        applicationScope.launch {
+            conferenceRepository.initConferencesIfNeeded()
+        }
     }
 }

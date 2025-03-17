@@ -6,11 +6,16 @@ import app.cash.sqldelight.coroutines.mapToOne
 import co.touchlab.droidcon.db.ConferenceQueries
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.domain.repository.ConferenceRepository
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 
-class SqlDelightConferenceRepository(private val conferenceQueries: ConferenceQueries) : ConferenceRepository {
+class SqlDelightConferenceRepository(
+    private val conferenceQueries: ConferenceQueries,
+    private val log: Logger = Logger.withTag("SqlDelightConferenceRepository"),
+) : ConferenceRepository {
 
     override fun observeAll(): Flow<List<Conference>> =
         conferenceQueries.selectAll(::conferenceFactory).asFlow().mapToList(Dispatchers.Main)
@@ -25,6 +30,7 @@ class SqlDelightConferenceRepository(private val conferenceQueries: ConferenceQu
             conferenceQueries.changeSelectedConference(conferenceId)
             return true
         } catch (e: Exception) {
+            log.e(e) { "Error selecting conference" }
             return false
         }
     }
@@ -57,6 +63,7 @@ class SqlDelightConferenceRepository(private val conferenceQueries: ConferenceQu
             )
             return true
         } catch (e: Exception) {
+            log.e(e) { "Error updating conference" }
             return false
         }
     }
@@ -64,6 +71,28 @@ class SqlDelightConferenceRepository(private val conferenceQueries: ConferenceQu
     override suspend fun delete(conferenceId: Long): Boolean {
         conferenceQueries.deleteById(conferenceId)
         return true
+    }
+
+    override suspend fun initConferencesIfNeeded() {
+        try {
+            // Check if we have any conferences in the database
+            val conferences = observeAll().firstOrNull() ?: emptyList()
+
+            if (conferences.isEmpty()) {
+                log.d { "No conferences found in database, initializing with default conferences" }
+                // Insert the initial conference (current one)
+                conferenceQueries.insertInitialConference()
+
+                // Insert historical conferences
+                conferenceQueries.insertHistoricalConferences()
+
+                log.d { "Conferences initialized successfully" }
+            } else {
+                log.d { "Conferences already initialized (found ${conferences.size} conferences)" }
+            }
+        } catch (e: Exception) {
+            log.e(e) { "Error initializing conferences" }
+        }
     }
 
     private fun conferenceFactory(
