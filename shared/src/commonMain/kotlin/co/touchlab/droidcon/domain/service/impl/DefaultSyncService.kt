@@ -8,6 +8,7 @@ import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.entity.SponsorGroup
+import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
@@ -39,6 +40,7 @@ class DefaultSyncService(
     private val log: Logger,
     private val settings: ObservableSettings,
     private val dateTimeService: DateTimeService,
+    private val conferenceRepository: ConferenceRepository,
     private val profileRepository: ProfileRepository,
     private val sessionRepository: SessionRepository,
     private val roomRepository: RoomRepository,

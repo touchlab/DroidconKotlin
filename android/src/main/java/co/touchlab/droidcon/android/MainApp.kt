@@ -62,15 +62,5 @@ class MainApp :
                 }
             } + uiModule,
         )
-
-        // Initialize the conferences
-        initializeConferences()
-    }
-
-    private fun initializeConferences() {
-        val conferenceRepository: ConferenceRepository by inject()
-        applicationScope.launch {
-            conferenceRepository.initConferencesIfNeeded()
-        }
     }
 }

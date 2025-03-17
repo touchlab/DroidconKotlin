@@ -161,6 +161,7 @@ private val coreModule = module {
             log = getWith("SyncService"),
             settings = get(),
             dateTimeService = get(),
+            conferenceRepository = get(),
             profileRepository = get(),
             sessionRepository = get(),
             roomRepository = get(),
