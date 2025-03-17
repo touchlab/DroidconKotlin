@@ -1,10 +1,13 @@
 CREATE TABLE roomTable(
-    id INTEGER NOT NULL PRIMARY KEY,
-    name TEXT NOT NULL
+    id INTEGER NOT NULL,
+    conferenceId INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    PRIMARY KEY (id, conferenceId),
+    FOREIGN KEY (conferenceId) REFERENCES conferenceTable(id)
 );
 
 upsert:
-INSERT OR REPLACE INTO roomTable(id, name) VALUES(?,?);
+INSERT OR REPLACE INTO roomTable(id, conferenceId, name) VALUES(?,?,?);
 
 selectAll:
 SELECT * FROM roomTable;

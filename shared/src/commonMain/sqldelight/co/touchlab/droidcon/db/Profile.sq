@@ -1,21 +1,24 @@
 CREATE TABLE profileTable(
-    id TEXT NOT NULL PRIMARY KEY,
+    id TEXT NOT NULL,
+    conferenceId INTEGER NOT NULL,
     fullName TEXT NOT NULL,
     bio TEXT,
     tagLine TEXT,
     profilePicture TEXT,
     twitter TEXT,
     linkedIn TEXT,
-    website TEXT
+    website TEXT,
+    PRIMARY KEY (id, conferenceId),
+    FOREIGN KEY (conferenceId) REFERENCES conferenceTable(id)
 );
 
 upsert:
-INSERT OR REPLACE INTO profileTable(id, fullName, bio, tagLine, profilePicture, twitter, linkedIn, website)
-VALUES(?,?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO profileTable(id, conferenceId, fullName, bio, tagLine, profilePicture, twitter, linkedIn, website)
+VALUES(?,?,?,?,?,?,?,?,?);
 
 delete {
     DELETE FROM sessionSpeakerTable WHERE speakerId = :speakerId;
-    DELETE FROM profileTable WHERE id = :speakerId;
+    DELETE FROM profileTable WHERE id = :speakerId AND conferenceId = :conferenceId;
 }
 
 selectById:

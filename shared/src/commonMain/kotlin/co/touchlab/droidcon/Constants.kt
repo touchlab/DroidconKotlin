@@ -4,6 +4,7 @@ import kotlinx.datetime.TimeZone
 
 @Suppress("ktlint:standard:property-naming")
 object Constants {
+    val conferenceId = 1L
     val conferenceTimeZone = TimeZone.of("Europe/London")
 
     /**

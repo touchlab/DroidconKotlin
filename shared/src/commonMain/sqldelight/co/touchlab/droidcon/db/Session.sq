@@ -2,7 +2,8 @@ import kotlinx.datetime.Instant;
 import kotlin.Int;
 
 CREATE TABLE sessionTable(
-    id TEXT NOT NULL PRIMARY KEY,
+    id TEXT NOT NULL,
+    conferenceId INTEGER NOT NULL,
     title TEXT NOT NULL,
     description TEXT,
     startsAt INTEGER AS Instant NOT NULL,
@@ -14,16 +15,18 @@ CREATE TABLE sessionTable(
     feedbackRating INTEGER AS Int,
     feedbackComment TEXT,
     feedbackSent INTEGER NOT NULL DEFAULT 0,
-    FOREIGN KEY (roomId) REFERENCES roomTable(id)
+    PRIMARY KEY (id, conferenceId),
+    FOREIGN KEY (roomId) REFERENCES roomTable(id),
+    FOREIGN KEY (conferenceId) REFERENCES conferenceTable(id)
 );
 
 upsert:
-INSERT OR REPLACE INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId, rsvp, rsvpSent, feedbackRating, feedbackComment, feedbackSent)
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO sessionTable(id, conferenceId, title, description, startsAt, endsAt, serviceSession, roomId, rsvp, rsvpSent, feedbackRating, feedbackComment, feedbackSent)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 deleteById {
     DELETE FROM sessionSpeakerTable WHERE sessionId = :sessionId;
-    DELETE FROM sessionTable WHERE id = :sessionId;
+    DELETE FROM sessionTable WHERE id = :sessionId AND conferenceId = :conferenceId;
 }
 
 allSessions:

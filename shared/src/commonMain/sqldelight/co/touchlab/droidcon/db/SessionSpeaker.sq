@@ -1,15 +1,17 @@
 CREATE TABLE sessionSpeakerTable(
     sessionId TEXT NOT NULL,
     speakerId TEXT NOT NULL,
+    conferenceId INTEGER NOT NULL,
     displayOrder INTEGER NOT NULL DEFAULT 0,
-    PRIMARY KEY (sessionId, speakerId),
-    FOREIGN KEY (sessionId) REFERENCES sessionTable(id),
-    FOREIGN KEY (speakerId) REFERENCES profileTable(id)
+    PRIMARY KEY (sessionId, speakerId, conferenceId),
+    FOREIGN KEY (sessionId, conferenceId) REFERENCES sessionTable(id, conferenceId),
+    FOREIGN KEY (speakerId, conferenceId) REFERENCES profileTable(id, conferenceId),
+    FOREIGN KEY (conferenceId) REFERENCES conferenceTable(id)
 );
 
 insertUpdate:
-INSERT OR REPLACE INTO sessionSpeakerTable(sessionId, speakerId, displayOrder)
-VALUES (?,?,?);
+INSERT OR REPLACE INTO sessionSpeakerTable(sessionId, speakerId, conferenceId, displayOrder)
+VALUES (?,?,?,?);
 
 selectBySessionId:
 SELECT * FROM sessionSpeakerTable WHERE sessionId = ?;

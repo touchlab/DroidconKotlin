@@ -2,14 +2,17 @@ import kotlin.Boolean;
 import kotlin.Int;
 
 CREATE TABLE sponsorGroupTable(
-    name TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    conferenceId INTEGER NOT NULL,
     displayPriority INTEGER AS Int NOT NULL,
-    prominent INTEGER AS Boolean NOT NULL
+    prominent INTEGER AS Boolean NOT NULL,
+    PRIMARY KEY (name, conferenceId),
+    FOREIGN KEY (conferenceId) REFERENCES conferenceTable(id)
 );
 
 upsert:
-INSERT OR REPLACE INTO sponsorGroupTable(name, displayPriority, prominent)
-VALUES (?, ?, ?);
+INSERT OR REPLACE INTO sponsorGroupTable(name, conferenceId, displayPriority, prominent)
+VALUES (?, ?, ?, ?);
 
 selectAll:
 SELECT * FROM sponsorGroupTable;
@@ -24,4 +27,4 @@ deleteAll:
 DELETE FROM sponsorGroupTable;
 
 deleteByName:
-DELETE FROM sponsorGroupTable WHERE name = ?;
+DELETE FROM sponsorGroupTable WHERE name = ? AND conferenceId = ?;

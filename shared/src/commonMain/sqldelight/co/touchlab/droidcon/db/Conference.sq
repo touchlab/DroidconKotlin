@@ -1,0 +1,33 @@
+import kotlinx.datetime.TimeZone;
+
+CREATE TABLE conferenceTable(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    conferenceName TEXT NOT NULL,
+    conferenceTimeZone TEXT AS TimeZone NOT NULL,
+    projectId TEXT NOT NULL,
+    collectionName TEXT NOT NULL,
+    apiKey TEXT NOT NULL,
+    scheduleId TEXT NOT NULL
+);
+
+insert:
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId)
+VALUES (?, ?, ?, ?, ?, ?);
+
+updateConference:
+UPDATE conferenceTable
+SET conferenceName = ?, conferenceTimeZone = ?, projectId = ?, collectionName = ?, apiKey = ?, scheduleId = ?
+WHERE id = ?;
+
+selectAll:
+SELECT * FROM conferenceTable;
+
+selectById:
+SELECT * FROM conferenceTable WHERE id = ?;
+
+deleteById:
+DELETE FROM conferenceTable WHERE id = ?;
+
+insertInitialConference:
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId)
+VALUES ("Droidcon London 2024", "Europe/London", "droidcon-148cc", "sponsors-london-2024", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "78xrdv22");
