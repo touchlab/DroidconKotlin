@@ -30,6 +30,7 @@ import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.ScheduleService
@@ -37,6 +38,7 @@ import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.UserIdProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
+import co.touchlab.droidcon.domain.service.impl.DefaultConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import co.touchlab.droidcon.domain.service.impl.DefaultFeedbackService
 import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
@@ -125,10 +127,17 @@ private val coreModule = module {
         )
     }
 
+    // Add ConferenceConfigProvider
+    single<ConferenceConfigProvider> {
+        DefaultConferenceConfigProvider(
+            conferenceRepository = get(),
+        )
+    }
+
     single<DateTimeService> {
         DefaultDateTimeService(
             clock = get(),
-            conferenceTimeZone = Constants.conferenceTimeZone,
+            conferenceTimeZone = get<ConferenceConfigProvider>().getConferenceTimeZone(),
         )
     }
     single<ProfileRepository> {
@@ -171,6 +180,7 @@ private val coreModule = module {
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
             db = get(),
+            conferenceConfigProvider = get<ConferenceConfigProvider>(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {

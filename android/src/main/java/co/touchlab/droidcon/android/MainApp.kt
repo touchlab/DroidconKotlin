@@ -8,7 +8,6 @@ import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
 import co.touchlab.droidcon.android.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
-import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
@@ -23,9 +22,7 @@ import com.russhwolf.settings.SharedPreferencesSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsApi::class)

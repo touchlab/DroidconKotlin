@@ -4,14 +4,6 @@ import kotlinx.datetime.TimeZone
 
 @Suppress("ktlint:standard:property-naming")
 object Constants {
-    val conferenceId = 1L
-    val conferenceTimeZone = TimeZone.of("Europe/London")
-
-    /**
-     * String of `${timeZoneString}|${Sessionize.scheduleId}` run through md5
-     * When time zone is changed, generate a new hash by running `md5 -s "${timeZoneString}|${Sessionize.scheduleId}"` in command line
-     */
-    val conferenceTimeZoneHash = "7f5ba3fbad43896bad6847f6e8c662ac"
     val showVenueMap: Boolean = true
 
     object Firestore {

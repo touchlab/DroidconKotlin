@@ -13,6 +13,7 @@ class DefaultSettingsRepository(private val observableSettings: ObservableSettin
     private companion object {
         private const val SETTINGS_FEEDBACK_ENABLED_KEY = "SETTINGS_FEEDBACK_ENABLED"
         private const val SETTINGS_REMINDERS_ENABLED_KEY = "SETTINGS_REMINDERS_ENABLED"
+        private const val SETTINGS_FIRST_RUN_KEY = "SETTINGS_FIRST_RUN"
     }
 
     private var isFeedbackEnabled: Boolean
@@ -27,16 +28,24 @@ class DefaultSettingsRepository(private val observableSettings: ObservableSettin
             observableSettings[SETTINGS_REMINDERS_ENABLED_KEY] = value
         }
 
+    private var isFirstRun: Boolean
+        get() = observableSettings[SETTINGS_FIRST_RUN_KEY, true]
+        set(value) {
+            observableSettings[SETTINGS_FIRST_RUN_KEY] = value
+        }
+
     override val settings: MutableStateFlow<Settings> = MutableStateFlow(
         Settings(
             isFeedbackEnabled = isFeedbackEnabled,
             isRemindersEnabled = isRemindersEnabled,
+            isFirstRun = isFirstRun,
         ),
     )
 
     override suspend fun set(settings: Settings) {
         isFeedbackEnabled = settings.isFeedbackEnabled
         isRemindersEnabled = settings.isRemindersEnabled
+        isFirstRun = settings.isFirstRun
         this.settings.value = settings
     }
 
@@ -51,6 +60,13 @@ class DefaultSettingsRepository(private val observableSettings: ObservableSettin
         isRemindersEnabled = enabled
         this.settings.value = this.settings.value.copy(
             isRemindersEnabled = enabled,
+        )
+    }
+
+    override suspend fun setFirstRun(isFirstRun: Boolean) {
+        this.isFirstRun = isFirstRun
+        this.settings.value = this.settings.value.copy(
+            isFirstRun = isFirstRun,
         )
     }
 }

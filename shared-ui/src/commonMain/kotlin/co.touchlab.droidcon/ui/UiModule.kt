@@ -35,6 +35,8 @@ val uiModule = module {
             notificationService = get(),
             feedbackService = get(),
             settingsGateway = get(),
+            conferenceRepository = get(),
+            conferenceConfigProvider = get(),
         )
             .also { get<NotificationService>().setHandler(it) }
     }

@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.domain.service.impl
 
-import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.domain.entity.Profile
@@ -14,6 +13,7 @@ import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
@@ -50,6 +50,7 @@ class DefaultSyncService(
     private val apiDataSource: DataSource,
     private val serverApi: ServerApi,
     private val db: DroidconDatabase,
+    private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : SyncService {
     private companion object {
         // MARK: Settings keys
@@ -112,7 +113,9 @@ class DefaultSyncService(
             }
 
             launch {
-                sessionRepository.observeAll(Constants.conferenceId)
+                // Use the conferenceConfigProvider to get the current conference ID
+                val conferenceId = conferenceConfigProvider.getConferenceId()
+                sessionRepository.observeAll(conferenceId)
                     .collect { sessions ->
                         sessions
                             .mapNotNull { session ->
@@ -128,7 +131,12 @@ class DefaultSyncService(
                                     try {
                                         val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
                                         if (isRsvpSent) {
-                                            sessionRepository.setRsvpSent(sessionId, isAttending, Constants.conferenceId)
+                                            // Use the conferenceConfigProvider to get the current conference ID
+                                            sessionRepository.setRsvpSent(
+                                                sessionId,
+                                                isAttending,
+                                                conferenceConfigProvider.getConferenceId(),
+                                            )
                                         }
                                         break
                                     } catch (e: Exception) {
@@ -141,7 +149,9 @@ class DefaultSyncService(
             }
 
             launch {
-                sessionRepository.observeAll(Constants.conferenceId)
+                // Use the conferenceConfigProvider to get the current conference ID
+                val conferenceId = conferenceConfigProvider.getConferenceId()
+                sessionRepository.observeAll(conferenceId)
                     .collect { sessions ->
                         sessions
                             .mapNotNull { session ->
@@ -157,7 +167,12 @@ class DefaultSyncService(
                                     try {
                                         val isFeedbackSent = serverApi.setFeedback(sessionId, feedback.rating, feedback.comment)
                                         if (isFeedbackSent) {
-                                            sessionRepository.setFeedbackSent(sessionId, isFeedbackSent, Constants.conferenceId)
+                                            // Use the conferenceConfigProvider to get the current conference ID
+                                            sessionRepository.setFeedbackSent(
+                                                sessionId,
+                                                isFeedbackSent,
+                                                conferenceConfigProvider.getConferenceId(),
+                                            )
                                         }
                                         break
                                     } catch (e: Exception) {
@@ -216,19 +231,21 @@ class DefaultSyncService(
 
     private fun updateSpeakersFromDataSource(speakerDtos: List<SpeakersDto.SpeakerDto>) {
         val profiles = speakerDtos.map(::profileFactory)
+        val conferenceId = conferenceConfigProvider.getConferenceId()
 
         // Remove deleted speakers.
-        profileRepository.allSync(Constants.conferenceId).map { it.id }
+        profileRepository.allSync(conferenceId).map { it.id }
             .subtract(profiles.map { it.id }.toSet())
-            .forEach { profileRepository.remove(it, Constants.conferenceId) }
+            .forEach { profileRepository.remove(it, conferenceId) }
 
         profiles.forEach {
-            profileRepository.addOrUpdate(it, Constants.conferenceId)
+            profileRepository.addOrUpdate(it, conferenceId)
         }
     }
 
     private fun updateScheduleFromDataSource(days: List<ScheduleDto.DayDto>) {
         val roomDtos = days.flatMap { it.rooms }
+        val conferenceId = conferenceConfigProvider.getConferenceId()
 
         val rooms = roomDtos.map { room ->
             Room(
@@ -258,31 +275,31 @@ class DefaultSyncService(
         }
 
         // Remove deleted rooms.
-        roomRepository.allSync(Constants.conferenceId).map { it.id }
+        roomRepository.allSync(conferenceId).map { it.id }
             .subtract(rooms.map { it.id }.toSet())
-            .forEach { roomRepository.remove(it, Constants.conferenceId) }
+            .forEach { roomRepository.remove(it, conferenceId) }
 
         rooms.forEach { room ->
-            roomRepository.addOrUpdate(room, Constants.conferenceId)
+            roomRepository.addOrUpdate(room, conferenceId)
         }
 
         // Remove deleted sessions.
-        sessionRepository.allSync(Constants.conferenceId)
+        sessionRepository.allSync(conferenceId)
             .map { it.id }
             .subtract(sessionsAndSpeakers.map { it.first.id }.toSet())
-            .forEach { sessionRepository.remove(it, Constants.conferenceId) }
+            .forEach { sessionRepository.remove(it, conferenceId) }
 
         sessionsAndSpeakers.forEach { (updatedSession, speakers) ->
-            val existingSession = sessionRepository.findSync(updatedSession.id, Constants.conferenceId)
+            val existingSession = sessionRepository.findSync(updatedSession.id, conferenceId)
             if (existingSession != null) {
                 updatedSession.rsvp = existingSession.rsvp
                 updatedSession.feedback = existingSession.feedback
-                sessionRepository.update(updatedSession, Constants.conferenceId)
+                sessionRepository.update(updatedSession, conferenceId)
             } else {
-                sessionRepository.add(updatedSession, Constants.conferenceId)
+                sessionRepository.add(updatedSession, conferenceId)
             }
 
-            profileRepository.setSessionSpeakers(updatedSession, speakers, Constants.conferenceId)
+            profileRepository.setSessionSpeakers(updatedSession, speakers, conferenceId)
         }
     }
 
@@ -291,6 +308,8 @@ class DefaultSyncService(
         sponsors: SponsorsDto.SponsorCollectionDto,
     ): String {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
+        val conferenceId = conferenceConfigProvider.getConferenceId()
+
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
                 .split(' ').joinToString(" ") {
@@ -319,22 +338,22 @@ class DefaultSyncService(
             }
         }
 
-        sponsorRepository.allSync(Constants.conferenceId).map { it.id }
+        sponsorRepository.allSync(conferenceId).map { it.id }
             .subtract(sponsorsAndRepresentativeIds.map { it.first.id }.toSet())
-            .forEach { sponsorRepository.remove(it, Constants.conferenceId) }
+            .forEach { sponsorRepository.remove(it, conferenceId) }
 
-        sponsorGroupRepository.allSync(Constants.conferenceId).map { it.id }
+        sponsorGroupRepository.allSync(conferenceId).map { it.id }
             .subtract(sponsorGroupsToSponsorDtos.map { it.first.id }.toSet())
-            .forEach { sponsorGroupRepository.remove(it, Constants.conferenceId) }
+            .forEach { sponsorGroupRepository.remove(it, conferenceId) }
 
         sponsorGroupsToSponsorDtos.forEach { (group, _) ->
-            sponsorGroupRepository.addOrUpdate(group, Constants.conferenceId)
+            sponsorGroupRepository.addOrUpdate(group, conferenceId)
         }
 
         sponsorsAndRepresentativeIds.forEach { (sponsor, representativeIds) ->
-            sponsorRepository.addOrUpdate(sponsor, Constants.conferenceId)
+            sponsorRepository.addOrUpdate(sponsor, conferenceId)
 
-            profileRepository.setSponsorRepresentatives(sponsor, representativeIds, Constants.conferenceId)
+            profileRepository.setSponsorRepresentatives(sponsor, representativeIds, conferenceId)
         }
         return ""
     }

@@ -16,4 +16,8 @@ class DefaultSettingsGateway(private val settingsRepository: SettingsRepository)
     override suspend fun setRemindersEnabled(enabled: Boolean) {
         settingsRepository.setRemindersEnabled(enabled)
     }
+
+    override suspend fun setFirstRun(isFirstRun: Boolean) {
+        settingsRepository.setFirstRun(isFirstRun)
+    }
 }
