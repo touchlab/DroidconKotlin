@@ -15,25 +15,31 @@ class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
     BaseRepository<Sponsor.Id, Sponsor>(),
     SponsorRepository {
 
-    override fun observe(id: Sponsor.Id): Flow<Sponsor> =
-        sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOne(Dispatchers.Main)
+    override fun observe(id: Sponsor.Id, conferenceId: Long): Flow<Sponsor> =
+        sponsorQueries.sponsorById(id.name, id.group, conferenceId, ::sponsorFactory)
+            .asFlow().mapToOne(Dispatchers.Main)
 
-    override fun observeOrNull(id: Sponsor.Id): Flow<Sponsor?> =
-        sponsorQueries.sponsorById(id.name, id.group, ::sponsorFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
+    override fun observeOrNull(id: Sponsor.Id, conferenceId: Long): Flow<Sponsor?> =
+        sponsorQueries.sponsorById(id.name, id.group, conferenceId, ::sponsorFactory)
+            .asFlow().mapToOneOrNull(Dispatchers.Main)
 
-    override fun observeAll(): Flow<List<Sponsor>> = sponsorQueries.selectAll(::sponsorFactory).asFlow().mapToList(Dispatchers.Main)
+    override fun observeAll(conferenceId: Long): Flow<List<Sponsor>> = 
+        sponsorQueries.selectAll(conferenceId, ::sponsorFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun contains(id: Sponsor.Id): Boolean = sponsorQueries.existsById(id.name, id.group).executeAsOne().toBoolean()
+    override fun contains(id: Sponsor.Id, conferenceId: Long): Boolean = 
+        sponsorQueries.existsById(id.name, id.group, conferenceId).executeAsOne().toBoolean()
 
-    override suspend fun allByGroupName(group: String): List<Sponsor> =
-        sponsorQueries.sponsorsByGroup(group, ::sponsorFactory).executeAsList()
+    override suspend fun allByGroupName(group: String, conferenceId: Long): List<Sponsor> =
+        sponsorQueries.sponsorsByGroup(group, conferenceId, ::sponsorFactory).executeAsList()
 
-    override fun allSync(): List<Sponsor> = sponsorQueries.selectAll(::sponsorFactory).executeAsList()
+    override fun allSync(conferenceId: Long): List<Sponsor> = 
+        sponsorQueries.selectAll(conferenceId, ::sponsorFactory).executeAsList()
 
-    override fun doUpsert(entity: Sponsor) {
+    override fun doUpsert(entity: Sponsor, conferenceId: Long) {
         sponsorQueries.upsert(
             name = entity.id.name,
             groupName = entity.id.group,
+            conferenceId = conferenceId,
             hasDetail = entity.hasDetail,
             description = entity.description,
             iconUrl = entity.icon.string,
@@ -41,11 +47,11 @@ class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
         )
     }
 
-    override fun doDelete(id: Sponsor.Id) {
-        sponsorQueries.deleteById(id.name, id.group)
+    override fun doDelete(id: Sponsor.Id, conferenceId: Long) {
+        sponsorQueries.deleteById(id.name, id.group, conferenceId)
     }
 
-    private fun sponsorFactory(name: String, groupName: String, hasDetail: Boolean, description: String?, iconUrl: String, url: String) =
+    private fun sponsorFactory(name: String, groupName: String, conferenceId: Long, hasDetail: Boolean, description: String?, iconUrl: String, url: String) =
         Sponsor(
             id = Sponsor.Id(name, groupName),
             hasDetail = hasDetail,

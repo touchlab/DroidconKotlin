@@ -17,44 +17,49 @@ import kotlinx.datetime.Instant
 class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, private val sessionQueries: SessionQueries) :
     BaseRepository<Session.Id, Session>(),
     SessionRepository {
-    override fun observe(id: Session.Id): Flow<Session> =
-        sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
+    override fun observe(id: Session.Id, conferenceId: Long): Flow<Session> =
+        sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    fun sessionById(id: Session.Id): Session? = sessionQueries.sessionById(id.value, ::sessionFactory).executeAsOneOrNull()
+    fun sessionById(id: Session.Id, conferenceId: Long): Session? = 
+        sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).executeAsOneOrNull()
 
-    override fun observeOrNull(id: Session.Id): Flow<Session?> =
-        sessionQueries.sessionById(id.value, ::sessionFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
+    override fun observeOrNull(id: Session.Id, conferenceId: Long): Flow<Session?> =
+        sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
 
-    override fun observeAllAttending(): Flow<List<Session>> =
-        sessionQueries.attendingSessions(::sessionFactory).asFlow().mapToList(Dispatchers.Main)
+    override fun observeAllAttending(conferenceId: Long): Flow<List<Session>> =
+        sessionQueries.attendingSessions(conferenceId, ::sessionFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override suspend fun allAttending(): List<Session> = observeAllAttending().first()
+    override suspend fun allAttending(conferenceId: Long): List<Session> = observeAllAttending(conferenceId).first()
 
-    override suspend fun setRsvp(sessionId: Session.Id, rsvp: Session.RSVP) {
-        sessionQueries.updateRsvp(rsvp.isAttending.toLong(), sessionId.value)
+    override suspend fun setRsvp(sessionId: Session.Id, rsvp: Session.RSVP, conferenceId: Long) {
+        sessionQueries.updateRsvp(rsvp.isAttending.toLong(), sessionId.value, conferenceId)
     }
 
-    override suspend fun setRsvpSent(sessionId: Session.Id, isSent: Boolean) {
-        sessionQueries.updateRsvpSent(isSent.toLong(), sessionId.value)
+    override suspend fun setRsvpSent(sessionId: Session.Id, isSent: Boolean, conferenceId: Long) {
+        sessionQueries.updateRsvpSent(isSent.toLong(), sessionId.value, conferenceId)
     }
 
-    override suspend fun setFeedback(sessionId: Session.Id, feedback: Session.Feedback) {
-        sessionQueries.updateFeedBack(feedback.rating, feedback.comment, sessionId.value)
+    override suspend fun setFeedback(sessionId: Session.Id, feedback: Session.Feedback, conferenceId: Long) {
+        sessionQueries.updateFeedBack(feedback.rating, feedback.comment, sessionId.value, conferenceId)
     }
 
-    override suspend fun setFeedbackSent(sessionId: Session.Id, isSent: Boolean) {
-        sessionQueries.updateFeedBackSent(if (isSent) 1 else 0, sessionId.value)
+    override suspend fun setFeedbackSent(sessionId: Session.Id, isSent: Boolean, conferenceId: Long) {
+        sessionQueries.updateFeedBackSent(if (isSent) 1 else 0, sessionId.value, conferenceId)
     }
 
-    override fun allSync(): List<Session> = sessionQueries.allSessions(::sessionFactory).executeAsList()
+    override fun allSync(conferenceId: Long): List<Session> = 
+        sessionQueries.allSessions(conferenceId, ::sessionFactory).executeAsList()
 
-    override fun findSync(id: Session.Id): Session? = sessionQueries.sessionById(id.value, mapper = ::sessionFactory).executeAsOneOrNull()
+    override fun findSync(id: Session.Id, conferenceId: Long): Session? = 
+        sessionQueries.sessionById(id.value, conferenceId, mapper = ::sessionFactory).executeAsOneOrNull()
 
-    override fun observeAll(): Flow<List<Session>> = sessionQueries.allSessions(::sessionFactory).asFlow().mapToList(Dispatchers.Main)
+    override fun observeAll(conferenceId: Long): Flow<List<Session>> = 
+        sessionQueries.allSessions(conferenceId, ::sessionFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun doUpsert(entity: Session) {
+    override fun doUpsert(entity: Session, conferenceId: Long) {
         sessionQueries.upsert(
             id = entity.id.value,
+            conferenceId = conferenceId,
             title = entity.title,
             description = entity.description,
             startsAt = entity.startsAt,
@@ -69,12 +74,14 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
         )
     }
 
-    override fun doDelete(id: Session.Id) = sessionQueries.deleteById(id.value)
+    override fun doDelete(id: Session.Id, conferenceId: Long) = sessionQueries.deleteById(id.value, conferenceId)
 
-    override fun contains(id: Session.Id): Boolean = sessionQueries.existsById(id.value).executeAsOne().toBoolean()
+    override fun contains(id: Session.Id, conferenceId: Long): Boolean = 
+        sessionQueries.existsById(id.value, conferenceId).executeAsOne().toBoolean()
 
     private fun sessionFactory(
         id: String,
+        conferenceId: Long,
         title: String,
         description: String?,
         startsAt: Instant,
