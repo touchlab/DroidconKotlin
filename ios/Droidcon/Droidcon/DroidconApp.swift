@@ -12,13 +12,14 @@ struct DroidconApp: App {
     init() {
         setupNavBarAppearance()
         setupTabBarAppearance()
-        
-        SettingsBundleHelper.initialize()
     }
 
     var body: some Scene {
         WindowGroup {
-            SwitchingRootView(viewModel: koin.applicationViewModel)
+            ComposeController(viewModel: koin.applicationViewModel)
+                .ignoresSafeArea()
+                .attach(viewModel: koin.applicationViewModel)
+                .onAppear(perform: koin.applicationViewModel.onAppear)
                 .environmentObject(lifecycleManager)
         }
     }

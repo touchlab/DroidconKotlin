@@ -26,14 +26,6 @@ struct SettingsView: View {
                         
                         Divider().padding(.horizontal)
 
-                        Toggle(isOn: $viewModel.useCompose) {
-                            Label("Settings.Compose", systemImage: "doc.text.image")
-                        }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal)
-
-                        Divider().padding(.horizontal)
-
                         AboutView(viewModel: viewModel.about)
                     }
                 }

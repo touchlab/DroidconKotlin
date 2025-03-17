@@ -13,7 +13,6 @@ class DefaultSettingsRepository(private val observableSettings: ObservableSettin
     private companion object {
         private const val SETTINGS_FEEDBACK_ENABLED_KEY = "SETTINGS_FEEDBACK_ENABLED"
         private const val SETTINGS_REMINDERS_ENABLED_KEY = "SETTINGS_REMINDERS_ENABLED"
-        private const val SETTINGS_USE_COMPOSE_FOR_IOS_KEY = "SETTINGS_USE_COMPOSE_FOR_IOS"
     }
 
     private var isFeedbackEnabled: Boolean
@@ -28,24 +27,16 @@ class DefaultSettingsRepository(private val observableSettings: ObservableSettin
             observableSettings[SETTINGS_REMINDERS_ENABLED_KEY] = value
         }
 
-    private var useComposeForIos: Boolean
-        get() = observableSettings[SETTINGS_USE_COMPOSE_FOR_IOS_KEY, true]
-        set(value) {
-            observableSettings[SETTINGS_USE_COMPOSE_FOR_IOS_KEY] = value
-        }
-
     override val settings: MutableStateFlow<Settings> = MutableStateFlow(
         Settings(
             isFeedbackEnabled = isFeedbackEnabled,
             isRemindersEnabled = isRemindersEnabled,
-            useComposeForIos = useComposeForIos,
         ),
     )
 
     override suspend fun set(settings: Settings) {
         isFeedbackEnabled = settings.isFeedbackEnabled
         isRemindersEnabled = settings.isRemindersEnabled
-        useComposeForIos = settings.useComposeForIos
         this.settings.value = settings
     }
 
@@ -60,13 +51,6 @@ class DefaultSettingsRepository(private val observableSettings: ObservableSettin
         isRemindersEnabled = enabled
         this.settings.value = this.settings.value.copy(
             isRemindersEnabled = enabled,
-        )
-    }
-
-    override suspend fun setUseComposeForIos(useCompose: Boolean) {
-        useComposeForIos = useCompose
-        this.settings.value = this.settings.value.copy(
-            useComposeForIos = useCompose,
         )
     }
 }

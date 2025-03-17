@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -93,10 +92,6 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     modifier = Modifier
                         .height(160.dp)
                         .fillMaxWidth(),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        cursorColor = MaterialTheme.colorScheme.primary,
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                    ),
                 )
 
                 Column(

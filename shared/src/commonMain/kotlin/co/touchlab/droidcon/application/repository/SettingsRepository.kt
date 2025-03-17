@@ -12,6 +12,4 @@ interface SettingsRepository {
     suspend fun setFeedbackEnabled(enabled: Boolean)
 
     suspend fun setRemindersEnabled(enabled: Boolean)
-
-    suspend fun setUseComposeForIos(useCompose: Boolean)
 }

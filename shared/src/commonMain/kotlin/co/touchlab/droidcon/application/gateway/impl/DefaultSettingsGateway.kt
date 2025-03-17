@@ -16,8 +16,4 @@ class DefaultSettingsGateway(private val settingsRepository: SettingsRepository)
     override suspend fun setRemindersEnabled(enabled: Boolean) {
         settingsRepository.setRemindersEnabled(enabled)
     }
-
-    override suspend fun setUseComposeForIos(useCompose: Boolean) {
-        settingsRepository.setUseComposeForIos(useCompose)
-    }
 }
