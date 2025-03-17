@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.application.service.impl
 
+import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.application.composite.Settings
 import co.touchlab.droidcon.application.repository.SettingsRepository
 import co.touchlab.droidcon.application.service.Notification
@@ -50,7 +51,7 @@ class DefaultNotificationSchedulingService(
         coroutineScope {
             launch {
                 scheduleNotifications(
-                    sessionRepository.observeAllAttending(),
+                    sessionRepository.observeAllAttending(Constants.conferenceId),
                     settingsRepository.settings,
                 )
             }
@@ -60,7 +61,7 @@ class DefaultNotificationSchedulingService(
     override suspend fun rescheduleAll() {
         scheduledNotifications = emptyList()
         scheduleNotifications(
-            sessionRepository.observeAllAttending().take(1),
+            sessionRepository.observeAllAttending(Constants.conferenceId).take(1),
             settingsRepository.settings.take(1),
         )
     }
@@ -87,7 +88,7 @@ class DefaultNotificationSchedulingService(
                     val newSessions = agenda.filterNot { scheduledSessionIds.contains(it.id) }
                     for (session in newSessions) {
                         if (isRemindersEnabled) {
-                            val roomName = session.room?.let { roomRepository.get(it).name }
+                            val roomName = session.room?.let { roomRepository.get(it, Constants.conferenceId).name }
                             val reminderDelivery =
                                 session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
                             if (session.endsAt >= dateTimeService.now()) {

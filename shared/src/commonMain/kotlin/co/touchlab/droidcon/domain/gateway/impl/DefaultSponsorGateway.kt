@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.domain.gateway.impl
 
+import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Sponsor
@@ -16,16 +17,19 @@ class DefaultSponsorGateway(
     private val profileRepository: ProfileRepository,
 ) : SponsorGateway {
 
-    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> = sponsorGroupRepository.observeAll().map { groups ->
-        groups.map { group ->
-            SponsorGroupWithSponsors(
-                group,
-                sponsorRepository.allByGroupName(group.name),
-            )
+    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> = 
+        sponsorGroupRepository.observeAll(Constants.conferenceId).map { groups ->
+            groups.map { group ->
+                SponsorGroupWithSponsors(
+                    group,
+                    sponsorRepository.allByGroupName(group.name, Constants.conferenceId),
+                )
+            }
         }
-    }
 
-    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> = sponsorRepository.observe(id)
+    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> = 
+        sponsorRepository.observe(id, Constants.conferenceId)
 
-    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> = profileRepository.getSponsorRepresentatives(sponsorId)
+    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> = 
+        profileRepository.getSponsorRepresentatives(sponsorId, Constants.conferenceId)
 }

@@ -14,17 +14,17 @@ INSERT OR REPLACE INTO sessionSpeakerTable(sessionId, speakerId, conferenceId, d
 VALUES (?,?,?,?);
 
 selectBySessionId:
-SELECT * FROM sessionSpeakerTable WHERE sessionId = ?;
+SELECT * FROM sessionSpeakerTable WHERE sessionId = ? AND conferenceId = ?;
 
 deleteBySessionId:
-DELETE FROM sessionSpeakerTable WHERE sessionId = ?;
+DELETE FROM sessionSpeakerTable WHERE sessionId = ? AND conferenceId = ?;
 
 selectBySpeakerId:
-SELECT * FROM sessionSpeakerTable WHERE speakerId = ?;
+SELECT * FROM sessionSpeakerTable WHERE speakerId = ? AND conferenceId = ?;
 
 deleteBySpeakerId:
-DELETE FROM sessionSpeakerTable WHERE speakerId = ?;
+DELETE FROM sessionSpeakerTable WHERE speakerId = ? AND conferenceId = ?;
 
 deleteAll:
-DELETE FROM sessionSpeakerTable;
+DELETE FROM sessionSpeakerTable WHERE conferenceId = ?;
 

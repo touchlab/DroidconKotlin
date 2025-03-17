@@ -9,6 +9,7 @@ import co.touchlab.droidcon.application.repository.impl.DefaultAboutRepository
 import co.touchlab.droidcon.application.repository.impl.DefaultSettingsRepository
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.impl.DefaultNotificationSchedulingService
+import co.touchlab.droidcon.db.ConferenceTable
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.db.SessionTable
 import co.touchlab.droidcon.db.SponsorGroupTable
@@ -27,6 +28,7 @@ import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
+import kotlinx.datetime.TimeZone
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.ScheduleService
@@ -71,6 +73,12 @@ val intToLongAdapter = object : ColumnAdapter<Int, Long> {
 
     override fun encode(value: Int): Long = value.toLong()
 }
+
+val timeZoneAdapter = object : ColumnAdapter<TimeZone, String> {
+    override fun decode(databaseValue: String): TimeZone = TimeZone.of(databaseValue)
+    override fun encode(value: TimeZone): String = value.id
+}
+
 private val coreModule = module {
     single {
         DroidconDatabase.invoke(
@@ -82,6 +90,9 @@ private val coreModule = module {
             ),
             sponsorGroupTableAdapter = SponsorGroupTable.Adapter(
                 intToLongAdapter,
+            ),
+            conferenceTableAdapter = ConferenceTable.Adapter(
+                conferenceTimeZoneAdapter = timeZoneAdapter
             ),
         )
     }

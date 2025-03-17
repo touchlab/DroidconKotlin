@@ -18,19 +18,19 @@ INSERT OR REPLACE INTO sponsorTable(name, groupName, conferenceId, hasDetail, de
 VALUES (?, ?, ?, ?, ?, ?, ?);
 
 selectAll:
-SELECT * FROM sponsorTable;
+SELECT * FROM sponsorTable WHERE conferenceId = ?;
 
 sponsorsByGroup:
-SELECT * FROM sponsorTable WHERE groupName = ?;
+SELECT * FROM sponsorTable WHERE groupName = ? AND conferenceId = ?;
 
 sponsorById:
-SELECT * FROM sponsorTable WHERE name = ? AND groupName = ? LIMIT 1;
+SELECT * FROM sponsorTable WHERE name = ? AND groupName = ? AND conferenceId = ? LIMIT 1;
 
 existsById:
-SELECT count(1) FROM sponsorTable WHERE name = ? AND groupName = ? LIMIT 1;
+SELECT count(1) FROM sponsorTable WHERE name = ? AND groupName = ? AND conferenceId = ? LIMIT 1;
 
 deleteById:
 DELETE FROM sponsorTable WHERE name = ? AND groupName = ? AND conferenceId = ?;
 
 deleteAll:
-DELETE FROM sponsorTable;
+DELETE FROM sponsorTable WHERE conferenceId = ?;

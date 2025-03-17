@@ -15,10 +15,10 @@ INSERT OR REPLACE INTO sponsorRepresentativeTable(sponsorName, sponsorGroupName,
 VALUES (?,?,?,?,?);
 
 selectBySponsorId:
-SELECT * FROM sponsorRepresentativeTable WHERE sponsorName = ? AND sponsorGroupName = ?;
+SELECT * FROM sponsorRepresentativeTable WHERE sponsorName = ? AND sponsorGroupName = ? AND conferenceId = ?;
 
 deleteBySponsorId:
 DELETE FROM sponsorRepresentativeTable WHERE sponsorName = ? AND sponsorGroupName = ? AND conferenceId = ?;
 
 deleteAll:
-DELETE FROM sponsorRepresentativeTable;
+DELETE FROM sponsorRepresentativeTable WHERE conferenceId = ?;

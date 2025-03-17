@@ -10,15 +10,15 @@ upsert:
 INSERT OR REPLACE INTO roomTable(id, conferenceId, name) VALUES(?,?,?);
 
 selectAll:
-SELECT * FROM roomTable;
+SELECT * FROM roomTable WHERE conferenceId = ?;
 
 selectById:
-SELECT * FROM roomTable WHERE id = ?;
+SELECT * FROM roomTable WHERE id = ? AND conferenceId = ?;
 
 deleteById {
-    UPDATE sessionTable SET roomId = NULL WHERE roomId = :roomId;
-    DELETE FROM roomTable WHERE id = :roomId;
+    UPDATE sessionTable SET roomId = NULL WHERE roomId = :roomId AND conferenceId = :conferenceId;
+    DELETE FROM roomTable WHERE id = :roomId AND conferenceId = :conferenceId;
 }
 
 existsById:
-SELECT count(1) FROM roomTable WHERE id = ?;
+SELECT count(1) FROM roomTable WHERE id = ? AND conferenceId = ?;

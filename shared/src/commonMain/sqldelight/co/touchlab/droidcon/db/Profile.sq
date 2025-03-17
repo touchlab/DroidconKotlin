@@ -22,25 +22,26 @@ delete {
 }
 
 selectById:
-SELECT * FROM profileTable WHERE id = ?;
+SELECT * FROM profileTable WHERE id = ? AND conferenceId = ?;
 
 existsById:
-SELECT count(1) FROM profileTable WHERE id = ?;
+SELECT count(1) FROM profileTable WHERE id = ? AND conferenceId = ?;
 
 selectBySession:
 SELECT profileTable.*
 FROM profileTable
-JOIN sessionSpeakerTable ON sessionSpeakerTable.speakerId = id
-WHERE sessionSpeakerTable.sessionId = ?
+JOIN sessionSpeakerTable ON sessionSpeakerTable.speakerId = id AND sessionSpeakerTable.conferenceId = profileTable.conferenceId
+WHERE sessionSpeakerTable.sessionId = ? AND profileTable.conferenceId = ?
 ORDER BY sessionSpeakerTable.displayOrder;
 
 selectBySponsor:
 SELECT profileTable.*
 FROM profileTable
-JOIN sponsorRepresentativeTable ON sponsorRepresentativeTable.representativeId = id
-WHERE sponsorRepresentativeTable.sponsorName = ? AND sponsorRepresentativeTable.sponsorGroupName = ?
+JOIN sponsorRepresentativeTable ON sponsorRepresentativeTable.representativeId = id AND sponsorRepresentativeTable.conferenceId = profileTable.conferenceId
+WHERE sponsorRepresentativeTable.sponsorName = ? AND sponsorRepresentativeTable.sponsorGroupName = ? AND profileTable.conferenceId = ?
 ORDER BY sponsorRepresentativeTable.displayOrder;
 
 selectAll:
 SELECT *
-FROM profileTable;
+FROM profileTable
+WHERE conferenceId = ?;

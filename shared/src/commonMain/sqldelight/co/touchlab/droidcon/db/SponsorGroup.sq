@@ -15,16 +15,16 @@ INSERT OR REPLACE INTO sponsorGroupTable(name, conferenceId, displayPriority, pr
 VALUES (?, ?, ?, ?);
 
 selectAll:
-SELECT * FROM sponsorGroupTable;
+SELECT * FROM sponsorGroupTable WHERE conferenceId = ?;
 
 sponsorGroupByName:
-SELECT * FROM sponsorGroupTable WHERE name = ? LIMIT 1;
+SELECT * FROM sponsorGroupTable WHERE name = ? AND conferenceId = ? LIMIT 1;
 
 existsByName:
-SELECT count(1) FROM sponsorGroupTable WHERE name = ? LIMIT 1;
+SELECT count(1) FROM sponsorGroupTable WHERE name = ? AND conferenceId = ? LIMIT 1;
 
 deleteAll:
-DELETE FROM sponsorGroupTable;
+DELETE FROM sponsorGroupTable WHERE conferenceId = ?;
 
 deleteByName:
 DELETE FROM sponsorGroupTable WHERE name = ? AND conferenceId = ?;

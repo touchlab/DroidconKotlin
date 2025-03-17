@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.domain.service.impl
 
+import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.ScheduleService
@@ -12,7 +13,7 @@ class DefaultScheduleService(private val sessionRepository: SessionRepository) :
             return false
         }
         val sessionRange = session.startsAt.rangeTo(session.endsAt)
-        return sessionRepository.allAttending().any { otherSession ->
+        return sessionRepository.allAttending(Constants.conferenceId).any { otherSession ->
             otherSession.id != session.id && sessionRange.intersects(otherSession.startsAt.rangeTo(otherSession.endsAt))
         }
     }
