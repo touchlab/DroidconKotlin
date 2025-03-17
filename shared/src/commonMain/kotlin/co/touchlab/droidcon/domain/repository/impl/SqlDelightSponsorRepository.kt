@@ -23,17 +23,16 @@ class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
         sponsorQueries.sponsorById(id.name, id.group, conferenceId, ::sponsorFactory)
             .asFlow().mapToOneOrNull(Dispatchers.Main)
 
-    override fun observeAll(conferenceId: Long): Flow<List<Sponsor>> = 
+    override fun observeAll(conferenceId: Long): Flow<List<Sponsor>> =
         sponsorQueries.selectAll(conferenceId, ::sponsorFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun contains(id: Sponsor.Id, conferenceId: Long): Boolean = 
+    override fun contains(id: Sponsor.Id, conferenceId: Long): Boolean =
         sponsorQueries.existsById(id.name, id.group, conferenceId).executeAsOne().toBoolean()
 
     override suspend fun allByGroupName(group: String, conferenceId: Long): List<Sponsor> =
         sponsorQueries.sponsorsByGroup(group, conferenceId, ::sponsorFactory).executeAsList()
 
-    override fun allSync(conferenceId: Long): List<Sponsor> = 
-        sponsorQueries.selectAll(conferenceId, ::sponsorFactory).executeAsList()
+    override fun allSync(conferenceId: Long): List<Sponsor> = sponsorQueries.selectAll(conferenceId, ::sponsorFactory).executeAsList()
 
     override fun doUpsert(entity: Sponsor, conferenceId: Long) {
         sponsorQueries.upsert(
@@ -51,12 +50,19 @@ class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
         sponsorQueries.deleteById(id.name, id.group, conferenceId)
     }
 
-    private fun sponsorFactory(name: String, groupName: String, conferenceId: Long, hasDetail: Boolean, description: String?, iconUrl: String, url: String) =
-        Sponsor(
-            id = Sponsor.Id(name, groupName),
-            hasDetail = hasDetail,
-            description = description,
-            icon = Url(iconUrl),
-            url = Url(url),
-        )
+    private fun sponsorFactory(
+        name: String,
+        groupName: String,
+        conferenceId: Long,
+        hasDetail: Boolean,
+        description: String?,
+        iconUrl: String,
+        url: String,
+    ) = Sponsor(
+        id = Sponsor.Id(name, groupName),
+        hasDetail = hasDetail,
+        description = description,
+        icon = Url(iconUrl),
+        url = Url(url),
+    )
 }

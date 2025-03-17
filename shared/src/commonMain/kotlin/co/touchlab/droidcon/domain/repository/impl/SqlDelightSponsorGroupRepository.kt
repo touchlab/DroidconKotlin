@@ -14,7 +14,7 @@ class SqlDelightSponsorGroupRepository(private val sponsorGroupQueries: SponsorG
     BaseRepository<SponsorGroup.Id, SponsorGroup>(),
     SponsorGroupRepository {
 
-    override fun allSync(conferenceId: Long): List<SponsorGroup> = 
+    override fun allSync(conferenceId: Long): List<SponsorGroup> =
         sponsorGroupQueries.selectAll(conferenceId, ::sponsorGroupFactory).executeAsList()
 
     override fun observe(id: SponsorGroup.Id, conferenceId: Long): Flow<SponsorGroup> =
@@ -29,7 +29,7 @@ class SqlDelightSponsorGroupRepository(private val sponsorGroupQueries: SponsorG
         sponsorGroupQueries.selectAll(conferenceId, ::sponsorGroupFactory)
             .asFlow().mapToList(Dispatchers.Main)
 
-    override fun contains(id: SponsorGroup.Id, conferenceId: Long): Boolean = 
+    override fun contains(id: SponsorGroup.Id, conferenceId: Long): Boolean =
         sponsorGroupQueries.existsByName(id.value, conferenceId).executeAsOne().toBoolean()
 
     override fun doUpsert(entity: SponsorGroup, conferenceId: Long) {

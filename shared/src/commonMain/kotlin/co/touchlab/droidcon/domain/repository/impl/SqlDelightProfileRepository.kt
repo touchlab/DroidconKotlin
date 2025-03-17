@@ -39,9 +39,9 @@ class SqlDelightProfileRepository(
 
     override fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>, conferenceId: Long) {
         representativeQueries.deleteBySponsorId(
-            sponsorName = sponsor.id.name, 
+            sponsorName = sponsor.id.name,
             sponsorGroupName = sponsor.id.group,
-            conferenceId = conferenceId
+            conferenceId = conferenceId,
         )
         representatives.forEachIndexed { index, representativeId ->
             representativeQueries.insertUpdate(
@@ -56,13 +56,13 @@ class SqlDelightProfileRepository(
 
     override suspend fun getSponsorRepresentatives(sponsorId: Sponsor.Id, conferenceId: Long): List<Profile> =
         profileQueries.selectBySponsor(
-            sponsorName = sponsorId.name, 
+            sponsorName = sponsorId.name,
             sponsorGroupName = sponsorId.group,
             conferenceId = conferenceId,
-            mapper = ::profileFactory
+            mapper = ::profileFactory,
         ).executeAsList()
 
-    override fun allSync(conferenceId: Long): List<Profile> = 
+    override fun allSync(conferenceId: Long): List<Profile> =
         profileQueries.selectAll(conferenceId, mapper = ::profileFactory).executeAsList()
 
     override fun observe(id: Profile.Id, conferenceId: Long): Flow<Profile> =
@@ -71,7 +71,7 @@ class SqlDelightProfileRepository(
     override fun observeOrNull(id: Profile.Id, conferenceId: Long): Flow<Profile?> =
         profileQueries.selectById(id.value, conferenceId, ::profileFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
 
-    override fun observeAll(conferenceId: Long): Flow<List<Profile>> = 
+    override fun observeAll(conferenceId: Long): Flow<List<Profile>> =
         profileQueries.selectAll(conferenceId, ::profileFactory).asFlow().mapToList(Dispatchers.Main)
 
     override fun doUpsert(entity: Profile, conferenceId: Long) {
@@ -92,7 +92,7 @@ class SqlDelightProfileRepository(
         profileQueries.delete(id.value, conferenceId)
     }
 
-    override fun contains(id: Profile.Id, conferenceId: Long): Boolean = 
+    override fun contains(id: Profile.Id, conferenceId: Long): Boolean =
         profileQueries.existsById(id.value, conferenceId).executeAsOne().toBoolean()
 
     private fun profileFactory(

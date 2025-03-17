@@ -17,18 +17,19 @@ import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.domain.gateway.impl.DefaultSessionGateway
 import co.touchlab.droidcon.domain.gateway.impl.DefaultSponsorGateway
+import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
+import co.touchlab.droidcon.domain.repository.impl.SqlDelightConferenceRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightProfileRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightRoomRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
-import kotlinx.datetime.TimeZone
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.ScheduleService
@@ -47,6 +48,7 @@ import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -79,6 +81,13 @@ val timeZoneAdapter = object : ColumnAdapter<TimeZone, String> {
     override fun encode(value: TimeZone): String = value.id
 }
 
+// We defined this adapter but it's not being used automatically by SQLDelight yet
+// Will be used when we manually handle the selected flag
+val booleanAdapter = object : ColumnAdapter<Boolean, Long> {
+    override fun decode(databaseValue: Long): Boolean = databaseValue == 1L
+    override fun encode(value: Boolean): Long = if (value) 1L else 0L
+}
+
 private val coreModule = module {
     single {
         DroidconDatabase.invoke(
@@ -92,7 +101,8 @@ private val coreModule = module {
                 intToLongAdapter,
             ),
             conferenceTableAdapter = ConferenceTable.Adapter(
-                conferenceTimeZoneAdapter = timeZoneAdapter
+                conferenceTimeZoneAdapter = timeZoneAdapter,
+                // Note: selectedAdapter will be added when the adapter is regenerated
             ),
         )
     }
@@ -142,6 +152,9 @@ private val coreModule = module {
     }
     single<SponsorGroupRepository> {
         SqlDelightSponsorGroupRepository(sponsorGroupQueries = get<DroidconDatabase>().sponsorGroupQueries)
+    }
+    single<ConferenceRepository> {
+        SqlDelightConferenceRepository(conferenceQueries = get<DroidconDatabase>().conferenceQueries)
     }
     single<SyncService> {
         DefaultSyncService(

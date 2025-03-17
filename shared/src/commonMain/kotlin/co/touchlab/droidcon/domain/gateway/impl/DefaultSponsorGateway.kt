@@ -17,7 +17,7 @@ class DefaultSponsorGateway(
     private val profileRepository: ProfileRepository,
 ) : SponsorGateway {
 
-    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> = 
+    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> =
         sponsorGroupRepository.observeAll(Constants.conferenceId).map { groups ->
             groups.map { group ->
                 SponsorGroupWithSponsors(
@@ -27,9 +27,8 @@ class DefaultSponsorGateway(
             }
         }
 
-    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> = 
-        sponsorRepository.observe(id, Constants.conferenceId)
+    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> = sponsorRepository.observe(id, Constants.conferenceId)
 
-    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> = 
+    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> =
         profileRepository.getSponsorRepresentatives(sponsorId, Constants.conferenceId)
 }

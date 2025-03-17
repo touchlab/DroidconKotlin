@@ -20,7 +20,7 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
     override fun observe(id: Session.Id, conferenceId: Long): Flow<Session> =
         sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    fun sessionById(id: Session.Id, conferenceId: Long): Session? = 
+    fun sessionById(id: Session.Id, conferenceId: Long): Session? =
         sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).executeAsOneOrNull()
 
     override fun observeOrNull(id: Session.Id, conferenceId: Long): Flow<Session?> =
@@ -47,13 +47,12 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
         sessionQueries.updateFeedBackSent(if (isSent) 1 else 0, sessionId.value, conferenceId)
     }
 
-    override fun allSync(conferenceId: Long): List<Session> = 
-        sessionQueries.allSessions(conferenceId, ::sessionFactory).executeAsList()
+    override fun allSync(conferenceId: Long): List<Session> = sessionQueries.allSessions(conferenceId, ::sessionFactory).executeAsList()
 
-    override fun findSync(id: Session.Id, conferenceId: Long): Session? = 
+    override fun findSync(id: Session.Id, conferenceId: Long): Session? =
         sessionQueries.sessionById(id.value, conferenceId, mapper = ::sessionFactory).executeAsOneOrNull()
 
-    override fun observeAll(conferenceId: Long): Flow<List<Session>> = 
+    override fun observeAll(conferenceId: Long): Flow<List<Session>> =
         sessionQueries.allSessions(conferenceId, ::sessionFactory).asFlow().mapToList(Dispatchers.Main)
 
     override fun doUpsert(entity: Session, conferenceId: Long) {
@@ -76,7 +75,7 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
 
     override fun doDelete(id: Session.Id, conferenceId: Long) = sessionQueries.deleteById(id.value, conferenceId)
 
-    override fun contains(id: Session.Id, conferenceId: Long): Boolean = 
+    override fun contains(id: Session.Id, conferenceId: Long): Boolean =
         sessionQueries.existsById(id.value, conferenceId).executeAsOne().toBoolean()
 
     private fun sessionFactory(
