@@ -94,20 +94,24 @@ class ApplicationViewModel(
             }
         }
 
-        // Initialize conferences
+        // Initialize conferences - in a non-blocking way
         lifecycle.whileAttached {
-            log.d { "Initializing conferences" }
+            log.d { "Initializing conferences asynchronously" }
             try {
-                // Initialize the conference database if needed
-                log.d { "About to call initConferencesIfNeeded()" }
-                conferenceRepository.initConferencesIfNeeded()
-                log.d { "Conference initialization complete" }
-
-                // Load all conferences
+                // First load all conferences
                 log.d { "Starting to observe all conferences" }
                 conferenceRepository.observeAll().collect { conferences ->
                     log.d { "Received ${conferences.size} conferences from repository" }
                     _allConferences.value = conferences
+
+                    // Only initialize if we have no conferences
+                    if (conferences.isEmpty()) {
+                        log.d { "No conferences found, initializing database" }
+                        conferenceRepository.initConferencesIfNeeded()
+                        log.d { "Conference initialization complete" }
+                    } else {
+                        log.d { "Using existing conferences" }
+                    }
                 }
             } catch (e: Exception) {
                 log.e(e) { "Error initializing conferences" }
@@ -118,6 +122,11 @@ class ApplicationViewModel(
         lifecycle.whileAttached {
             log.d { "Starting to observe conference changes" }
             try {
+                // First load the selected conference
+                log.d { "Loading selected conference data asynchronously" }
+                conferenceConfigProvider.loadSelectedConference()
+
+                // Then observe changes
                 conferenceConfigProvider.observeChanges().collect { conference ->
                     log.d { "Conference changed to: ${conference.name} (ID: ${conference.id})" }
                     _currentConference.value = conference

@@ -5,7 +5,6 @@ import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.TimeZone
 
 class DefaultConferenceConfigProvider(private val conferenceRepository: ConferenceRepository) : ConferenceConfigProvider {
@@ -24,17 +23,11 @@ class DefaultConferenceConfigProvider(private val conferenceRepository: Conferen
     // New property added to replace showVenueMap from Constants
     private val fallbackShowVenueMap = true
 
+    // No blocking initialization in constructor
+    // Instead we'll use fallback values until the conference is loaded asynchronously
+
     init {
-        // Initialize with a blocking call to get the current conference
-        runBlocking {
-            try {
-                currentConference = conferenceRepository.getSelected()
-                log.d { "Initialized with conference: ${currentConference?.name}" }
-            } catch (e: Exception) {
-                log.e(e) { "Error initializing current conference, using fallback values" }
-                // If we can't get the selected conference, fallback to default values
-            }
-        }
+        log.d { "Initializing with fallback values until conference is loaded" }
     }
 
     override fun getConferenceId(): Long = currentConference?.id ?: fallbackConferenceId
@@ -52,4 +45,14 @@ class DefaultConferenceConfigProvider(private val conferenceRepository: Conferen
     override fun showVenueMap(): Boolean = true // Default to true, will be configurable per conference later
 
     override fun observeChanges(): Flow<Conference> = conferenceRepository.observeSelected()
+
+    // Implementation of the interface method to load the conference asynchronously
+    override suspend fun loadSelectedConference() {
+        try {
+            currentConference = conferenceRepository.getSelected()
+            log.d { "Loaded conference: ${currentConference?.name}" }
+        } catch (e: Exception) {
+            log.e(e) { "Error loading conference, continuing with fallback values" }
+        }
+    }
 }

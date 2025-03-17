@@ -64,25 +64,14 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        installSplashScreen()
+        // Keep the splash screen visible until we're ready to display UI
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition { true }
 
-        analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
-
-        applicationViewModel.lifecycle.removeFromParent()
-        root.addChild(applicationViewModel.lifecycle)
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.CREATED) {
-                syncService.runSynchronization()
-            }
-        }
-
-        lifecycleScope.launch {
-            notificationService.handleNotificationDeeplink(intent)
-        }
-
+        // Do the minimal setup needed for launching the app
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
+        // Set up the UI immediately
         setContent {
             MainView(viewModel = applicationViewModel)
 
@@ -110,6 +99,29 @@ class MainActivity :
                             modifier = Modifier.padding(32.dp),
                         )
                     }
+                }
+            }
+        }
+
+        // Initialize the app after the UI is shown
+        lifecycleScope.launch {
+            // First tell the splash screen it can go away
+            splashScreen.setKeepOnScreenCondition { false }
+
+            // Log analytics after UI is displayed
+            analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
+
+            // Now set up view model lifecycle
+            applicationViewModel.lifecycle.removeFromParent()
+            root.addChild(applicationViewModel.lifecycle)
+
+            // Process any notification deeplinks
+            notificationService.handleNotificationDeeplink(intent)
+
+            // Start sync service in a background task
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.CREATED) {
+                    syncService.runSynchronization()
                 }
             }
         }
