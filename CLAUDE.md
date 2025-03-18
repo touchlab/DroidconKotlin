@@ -41,6 +41,4 @@
 
 The app is designed to be configured for a single conference, and for different conferences the configuration needs to be changed, and a new app instance needs to be published to the app store. We want to refactor the app so that is can be used for all conferences, and allow the user to select the conference they want to display in the app.
 
-The overall tasks:
-- The UI needs to be updated to allow the user to select the conference to show data for. They will need to select the conference on first run, and they should be able to change the selection by going into settings.
-- 
+We have done significant work on updating the app, but need to continue fixing various issues.
