@@ -48,11 +48,8 @@ changeSelectedConference {
     UPDATE conferenceTable SET selected = 1 WHERE id = :conferenceId;
 }
 
-insertInitialConference:
 INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
 VALUES ("Droidcon London 2024", "Europe/London", "droidcon-148cc", "sponsors-london-2024", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "78xrdv22", 1);
-
-insertHistoricalConferences:
 -- Add NYC 2024
 INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
 VALUES ("Droidcon NYC 2024", "America/New_York", "droidcon-148cc", "sponsors-nyc-2024", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "orzenzbc", 0);

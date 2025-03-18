@@ -20,7 +20,12 @@ import androidx.compose.ui.window.Dialog
 import co.touchlab.droidcon.domain.entity.Conference
 
 @Composable
-fun FirstRunConferenceSelector(conferences: List<Conference>, onConferenceSelected: (Conference) -> Unit, onDismiss: () -> Unit) {
+fun FirstRunConferenceSelector(
+    conferences: List<Conference>,
+    onConferenceSelected: (Conference) -> Unit,
+    onDismiss: () -> Unit,
+    selectedConference: Conference? = null,
+) {
     Dialog(onDismissRequest = onDismiss) {
         Column(
             modifier = Modifier
@@ -45,19 +50,30 @@ fun FirstRunConferenceSelector(conferences: List<Conference>, onConferenceSelect
 
             LazyColumn {
                 items(conferences) { conference ->
+                    val isSelected = conference.id == selectedConference?.id
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable { onConferenceSelected(conference) }
+                            .clickable {
+                                // Explicitly call selection function
+                                onConferenceSelected(conference)
+                            }
                             .padding(vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         RadioButton(
-                            selected = false,
-                            onClick = { onConferenceSelected(conference) },
+                            selected = isSelected,
+                            onClick = {
+                                // Handle radio button click separately
+                                onConferenceSelected(conference)
+                            },
                         )
                         Text(
-                            text = conference.name,
+                            text = if (isSelected) {
+                                "${conference.name} (Selected)"
+                            } else {
+                                conference.name
+                            },
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(start = 8.dp),
                         )

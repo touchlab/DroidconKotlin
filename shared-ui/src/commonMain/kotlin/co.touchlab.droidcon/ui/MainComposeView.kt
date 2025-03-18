@@ -28,8 +28,12 @@ internal fun MainComposeView(viewModel: ApplicationViewModel, modifier: Modifier
     DroidconTheme {
         // Show first run dialog if needed
         if (isFirstRun && conferences.isNotEmpty()) {
+            // Get currently selected conference if any
+            val currentConference = viewModel.currentConference.value
+
             FirstRunConferenceSelector(
                 conferences = conferences,
+                selectedConference = currentConference,
                 onConferenceSelected = { conference ->
                     viewModel.selectConference(conference.id)
                     // Navigate to the schedule tab after selection

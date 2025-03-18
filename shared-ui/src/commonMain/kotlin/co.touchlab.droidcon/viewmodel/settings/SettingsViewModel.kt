@@ -3,6 +3,7 @@ package co.touchlab.droidcon.viewmodel.settings
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.domain.repository.ConferenceRepository
+import co.touchlab.kermit.Logger
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
@@ -12,6 +13,7 @@ class SettingsViewModel(
     private val aboutFactory: AboutViewModel.Factory,
     private val conferenceRepository: ConferenceRepository,
 ) : BaseViewModel() {
+    private val log = Logger.withTag("SettingsViewModel")
 
     // Settings
     var isFeedbackEnabled by binding(
@@ -60,8 +62,22 @@ class SettingsViewModel(
     }
 
     fun selectConference(conferenceId: Long) {
+        log.d { "selectConference called with conferenceId: $conferenceId" }
         instanceLock.runExclusively {
-            conferenceRepository.select(conferenceId)
+            log.d { "About to call conferenceRepository.select($conferenceId)" }
+            val result = conferenceRepository.select(conferenceId)
+            log.d { "conferenceRepository.select() returned: $result" }
+            // Force an immediate refresh of the selected conference
+            // This is a workaround to ensure the UI updates promptly
+            lifecycle.whileAttached {
+                try {
+                    val selectedConf = conferenceRepository.getSelected()
+                    log.d { "Got updated conference: ${selectedConf.name} (ID: ${selectedConf.id})" }
+                    _selectedConference.value = selectedConf
+                } catch (e: Exception) {
+                    log.e(e) { "Error getting selected conference after selection" }
+                }
+            }
         }
     }
 

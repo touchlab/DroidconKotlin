@@ -17,6 +17,4 @@ interface ConferenceRepository {
     suspend fun update(conference: Conference): Boolean
 
     suspend fun delete(conferenceId: Long): Boolean
-
-    suspend fun initConferencesIfNeeded()
 }

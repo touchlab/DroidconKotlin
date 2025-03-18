@@ -103,15 +103,6 @@ class ApplicationViewModel(
                 conferenceRepository.observeAll().collect { conferences ->
                     log.d { "Received ${conferences.size} conferences from repository" }
                     _allConferences.value = conferences
-
-                    // Only initialize if we have no conferences
-                    if (conferences.isEmpty()) {
-                        log.d { "No conferences found, initializing database" }
-                        conferenceRepository.initConferencesIfNeeded()
-                        log.d { "Conference initialization complete" }
-                    } else {
-                        log.d { "Using existing conferences" }
-                    }
                 }
             } catch (e: Exception) {
                 log.e(e) { "Error initializing conferences" }

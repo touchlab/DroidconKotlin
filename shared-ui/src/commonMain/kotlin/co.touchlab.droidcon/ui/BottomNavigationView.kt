@@ -16,6 +16,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import co.touchlab.droidcon.ui.session.SessionListView
@@ -28,6 +29,7 @@ import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 @Composable
 internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
+    val currentConference by viewModel.currentConference.collectAsState(null)
 
     Scaffold(
         modifier = modifier,
@@ -63,7 +65,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
             when (selectedTab) {
                 ApplicationViewModel.Tab.Schedule -> SessionListView(
                     viewModel = viewModel.schedule,
-                    title = "Droidcon London 2024",
+                    title = currentConference?.name ?: "Schedule",
                     emptyText = "Sessions could not be loaded.",
                 )
 

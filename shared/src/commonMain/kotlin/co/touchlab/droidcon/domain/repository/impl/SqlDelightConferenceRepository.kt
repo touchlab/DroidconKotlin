@@ -73,28 +73,6 @@ class SqlDelightConferenceRepository(
         return true
     }
 
-    override suspend fun initConferencesIfNeeded() {
-        try {
-            // Check if we have any conferences in the database
-            val conferences = observeAll().firstOrNull() ?: emptyList()
-
-            if (conferences.isEmpty()) {
-                log.d { "No conferences found in database, initializing with default conferences" }
-                // Insert the initial conference (current one)
-                conferenceQueries.insertInitialConference()
-
-                // Insert historical conferences
-                conferenceQueries.insertHistoricalConferences()
-
-                log.d { "Conferences initialized successfully" }
-            } else {
-                log.d { "Conferences already initialized (found ${conferences.size} conferences)" }
-            }
-        } catch (e: Exception) {
-            log.e(e) { "Error initializing conferences" }
-        }
-    }
-
     private fun conferenceFactory(
         id: Long,
         conferenceName: String,

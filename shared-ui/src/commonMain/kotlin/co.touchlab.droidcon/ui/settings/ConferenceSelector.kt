@@ -54,7 +54,7 @@ internal fun ConferenceSelectorRow(viewModel: SettingsViewModel) {
                 Text(text = "Conference")
                 selectedConference?.let {
                     Text(
-                        text = it.name,
+                        text = it.name + " (Selected)",
                         modifier = Modifier.padding(top = 4.dp),
                     )
                 }
@@ -103,13 +103,28 @@ private fun ConferenceDropdownMenu(
         HorizontalDivider()
 
         conferences.forEach { conference ->
+            val isSelected = conference.id == selectedConference?.id
             DropdownMenuItem(
-                text = { Text(conference.name) },
-                onClick = { onConferenceSelected(conference) },
+                text = {
+                    Text(
+                        text = if (isSelected) {
+                            "${conference.name} (Selected)"
+                        } else {
+                            conference.name
+                        },
+                    )
+                },
+                onClick = {
+                    // Explicitly call the selection function to ensure it runs
+                    onConferenceSelected(conference)
+                },
                 leadingIcon = {
                     RadioButton(
-                        selected = conference.id == selectedConference?.id,
-                        onClick = { onConferenceSelected(conference) },
+                        selected = isSelected,
+                        onClick = {
+                            // Handle click on the radio button separately to ensure it runs
+                            onConferenceSelected(conference)
+                        },
                     )
                 },
             )
