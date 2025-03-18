@@ -46,7 +46,6 @@ class DefaultSyncService(
     private val roomRepository: RoomRepository,
     private val sponsorRepository: SponsorRepository,
     private val sponsorGroupRepository: SponsorGroupRepository,
-    private val seedDataSource: DataSource,
     private val apiDataSource: DataSource,
     private val serverApi: ServerApi,
     private val db: DroidconDatabase,
@@ -54,7 +53,6 @@ class DefaultSyncService(
 ) : SyncService {
     private companion object {
         // MARK: Settings keys
-        private const val LOCAL_REPOSITORIES_SEEDED_KEY = "LOCAL_REPOSITORIES_SEEDED"
         private const val LAST_SESSIONIZE_SYNC_KEY = "LAST_SESSIONIZE_SYNC_TIME"
 
         // MARK: Delays
@@ -72,12 +70,6 @@ class DefaultSyncService(
         private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
 
-    private var isLocalRepositoriesSeeded: Boolean
-        get() = settings[LOCAL_REPOSITORIES_SEEDED_KEY, false]
-        set(value) {
-            settings[LOCAL_REPOSITORIES_SEEDED_KEY] = value
-        }
-
     private var lastSessionizeSync: Instant?
         get() = settings.getLongOrNull(LAST_SESSIONIZE_SYNC_KEY)?.let { Instant.fromEpochMilliseconds(it) }
         set(value) {
@@ -85,8 +77,6 @@ class DefaultSyncService(
         }
 
     override suspend fun runSynchronization() {
-        seedLocalRepositoriesIfNeeded()
-
         coroutineScope {
             launch {
                 while (isActive) {
@@ -192,16 +182,6 @@ class DefaultSyncService(
     } catch (e: Exception) {
         log.e(e) { "Failed to update repositories from API data source." }
         false
-    }
-
-    private suspend fun seedLocalRepositoriesIfNeeded() {
-        if (isLocalRepositoriesSeeded) {
-            return
-        }
-
-        updateRepositoriesFromDataSource(seedDataSource)
-
-        isLocalRepositoriesSeeded = true
     }
 
     private suspend fun runApiDataSourcesSynchronization() {
@@ -376,7 +356,6 @@ class DefaultSyncService(
 
     interface DataSource {
         enum class Kind {
-            Seed,
             Api,
         }
 

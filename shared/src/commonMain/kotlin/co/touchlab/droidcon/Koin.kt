@@ -47,7 +47,6 @@ import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
-import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
 import io.ktor.client.HttpClient
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -182,7 +181,6 @@ private val coreModule = module {
             roomRepository = get(),
             sponsorRepository = get(),
             sponsorGroupRepository = get(),
-            seedDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Seed)),
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
             db = get(),
@@ -194,11 +192,6 @@ private val coreModule = module {
             client = get(),
             json = get(),
             conferenceConfigProvider = get(),
-        )
-    }
-    single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Seed)) {
-        JsonSeedResourceDataSource(
-            jsonResourceReader = get(),
         )
     }
     single<SessionGateway> {
