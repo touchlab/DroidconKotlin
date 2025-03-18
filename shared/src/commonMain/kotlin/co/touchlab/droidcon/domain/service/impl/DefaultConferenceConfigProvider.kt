@@ -11,6 +11,9 @@ class DefaultConferenceConfigProvider(private val conferenceRepository: Conferen
     private val log = Logger.withTag("DefaultConferenceConfigProvider")
     private var currentConference: Conference? = null
 
+    // Track whether we've started observing the conference changes
+    private var isObservingStarted = false
+
     // Default fallback values (previously in Constants)
     private val fallbackConferenceId = 1L
     private val fallbackTimeZone = TimeZone.of("Europe/London")
@@ -47,12 +50,40 @@ class DefaultConferenceConfigProvider(private val conferenceRepository: Conferen
     override fun observeChanges(): Flow<Conference> = conferenceRepository.observeSelected()
 
     // Implementation of the interface method to load the conference asynchronously
+    // Also sets up continuous observation of conference changes
     override suspend fun loadSelectedConference() {
-        try {
-            currentConference = conferenceRepository.getSelected()
-            log.d { "Loaded conference: ${currentConference?.name}" }
-        } catch (e: Exception) {
-            log.e(e) { "Error loading conference, continuing with fallback values" }
+        if (!isObservingStarted) {
+            // Start observing conference changes
+            isObservingStarted = true
+            try {
+                // Initial load
+                currentConference = conferenceRepository.getSelected()
+                log.d { "Initial conference load: ${currentConference?.name}" }
+
+                // Setup continuous monitoring
+                conferenceRepository.observeSelected().collect { conference ->
+                    val oldConferenceId = currentConference?.id
+                    currentConference = conference
+
+                    // Log the change
+                    if (oldConferenceId != conference.id) {
+                        log.d { "Conference changed from ID $oldConferenceId to ${conference.id} (${conference.name})" }
+                    }
+                }
+            } catch (e: Exception) {
+                log.e(e) { "Error loading/observing conference, continuing with fallback values" }
+            }
+        } else {
+            // If we're already observing, just log that this was called again
+            log.d { "loadSelectedConference called again, but observation already started" }
+
+            // We can still force a refresh of the current value
+            try {
+                currentConference = conferenceRepository.getSelected()
+                log.d { "Refreshed current conference: ${currentConference?.name}" }
+            } catch (e: Exception) {
+                log.e(e) { "Error refreshing current conference" }
+            }
         }
     }
 }

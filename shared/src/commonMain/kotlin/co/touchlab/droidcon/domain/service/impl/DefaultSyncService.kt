@@ -54,6 +54,7 @@ class DefaultSyncService(
     private companion object {
         // MARK: Settings keys
         private const val LAST_SESSIONIZE_SYNC_KEY = "LAST_SESSIONIZE_SYNC_TIME"
+        private const val LAST_CONFERENCE_ID_KEY = "LAST_CONFERENCE_ID"
 
         // MARK: Delays
         // 5 minutes
@@ -76,25 +77,55 @@ class DefaultSyncService(
             settings[LAST_SESSIONIZE_SYNC_KEY] = value?.toEpochMilliseconds()
         }
 
+    private var lastConferenceId: Long?
+        get() = settings.getLongOrNull(LAST_CONFERENCE_ID_KEY)
+        set(value) {
+            if (value != null) {
+                settings[LAST_CONFERENCE_ID_KEY] = value
+            } else {
+                settings.remove(LAST_CONFERENCE_ID_KEY)
+            }
+        }
+
     override suspend fun runSynchronization() {
         coroutineScope {
+            // Start monitoring for conference changes directly
+            launch {
+                monitorConferenceChanges()
+            }
             launch {
                 while (isActive) {
                     val lastSessionizeSync = lastSessionizeSync
-                    // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
-                    if (
-                        lastSessionizeSync == null ||
+
+                    // Check if conference has changed or if it's time for a scheduled sync
+                    val conferenceChanged = hasConferenceChanged()
+                    val timeToSync = lastSessionizeSync == null ||
                         lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
-                    ) {
+
+                    // Run sync if either condition is true
+                    if (conferenceChanged || timeToSync) {
                         try {
+                            if (conferenceChanged) {
+                                log.d { "Conference changed - running sync" }
+                            } else if (timeToSync) {
+                                log.d { "Scheduled sync time reached - running sync" }
+                            }
+
                             runApiDataSourcesSynchronization()
                         } catch (e: Exception) {
                             log.w(e) { "Failed to update repositories from API data source." }
                             delay(SESSIONIZE_SYNC_POLL_DELAY)
                             continue
                         }
-                        log.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
-                        delay(SESSIONIZE_SYNC_NEXT_DELAY)
+
+                        // After successful sync
+                        if (conferenceChanged) {
+                            log.d { "Conference change sync completed, starting normal sync cycles" }
+                            delay(SESSIONIZE_SYNC_POLL_DELAY) // Shorter delay after conference change
+                        } else {
+                            log.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
+                            delay(SESSIONIZE_SYNC_NEXT_DELAY)
+                        }
                     } else {
                         log.d { "The sync didn't happen, so we'll try again in a short while ($SESSIONIZE_SYNC_POLL_DELAY ms)." }
                         delay(SESSIONIZE_SYNC_POLL_DELAY)
@@ -185,9 +216,69 @@ class DefaultSyncService(
     }
 
     private suspend fun runApiDataSourcesSynchronization() {
-        log.d { "Will sync all repositories from API data source." }
+        val currentConferenceId = conferenceConfigProvider.getConferenceId()
+        log.d { "Will sync all repositories from API data source for conference ID: $currentConferenceId" }
+
+        // Track the conference ID change
+        val conferenceChanged = lastConferenceId != currentConferenceId
+        if (conferenceChanged) {
+            log.d { "Conference changed from ${lastConferenceId ?: "unknown"} to $currentConferenceId - forcing sync" }
+        }
+
+        // Update the repositories
         updateRepositoriesFromDataSource(apiDataSource)
+
+        // Update the tracking info
         lastSessionizeSync = dateTimeService.now()
+        lastConferenceId = currentConferenceId
+    }
+
+    /**
+     * Checks if the conference has changed since the last sync
+     */
+    private fun hasConferenceChanged(): Boolean {
+        val currentConferenceId = conferenceConfigProvider.getConferenceId()
+        val changed = lastConferenceId != null && lastConferenceId != currentConferenceId
+
+        if (changed) {
+            log.d { "Conference changed from $lastConferenceId to $currentConferenceId" }
+        }
+
+        return changed
+    }
+
+    /**
+     * Monitor conference changes directly from the repository.
+     * This ensures we detect changes even if the normal sync cycles miss them.
+     */
+    private suspend fun monitorConferenceChanges() {
+        try {
+            log.d { "Starting direct monitoring of conference changes" }
+
+            // Get initial conference ID to compare against
+            var previousConferenceId = conferenceConfigProvider.getConferenceId()
+            log.d { "Initial conference ID: $previousConferenceId" }
+
+            // Observe conference changes
+            conferenceConfigProvider.observeChanges().collect { conference ->
+                if (previousConferenceId != conference.id) {
+                    log.d { "Conference change detected through direct monitoring: $previousConferenceId -> ${conference.id}" }
+
+                    // Force synchronization when conference changes
+                    try {
+                        runApiDataSourcesSynchronization()
+                        log.d { "Forced sync completed due to conference change" }
+                    } catch (e: Exception) {
+                        log.e(e) { "Error during forced sync after conference change" }
+                    }
+
+                    // Update previous ID for next comparison
+                    previousConferenceId = conference.id
+                }
+            }
+        } catch (e: Exception) {
+            log.e(e) { "Error monitoring conference changes" }
+        }
     }
 
     private suspend fun updateRepositoriesFromDataSource(dataSource: DataSource) {
