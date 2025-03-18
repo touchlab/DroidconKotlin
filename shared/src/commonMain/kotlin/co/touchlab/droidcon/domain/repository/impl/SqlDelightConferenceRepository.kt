@@ -22,7 +22,7 @@ class SqlDelightConferenceRepository(
     override fun observeSelected(): Flow<Conference> =
         conferenceQueries.selectSelected(::conferenceFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    override suspend fun getSelected(): Conference = observeSelected().first()
+    override suspend fun getSelected(): Conference = conferenceQueries.selectSelected(::conferenceFactory).executeAsOne()
 
     override suspend fun select(conferenceId: Long): Boolean {
         try {
