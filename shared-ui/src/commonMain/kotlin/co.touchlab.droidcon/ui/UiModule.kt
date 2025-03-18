@@ -48,6 +48,7 @@ val uiModule = module {
             sessionDetailFactory = get(),
             sessionDetailScrollStateStorage = get(),
             dateTimeService = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single {
@@ -57,6 +58,7 @@ val uiModule = module {
             sessionDetailFactory = get(),
             sessionDetailScrollStateStorage = get(),
             dateTimeService = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single { SessionBlockViewModel.Factory(sessionListItemFactory = get(), dateFormatter = get()) }

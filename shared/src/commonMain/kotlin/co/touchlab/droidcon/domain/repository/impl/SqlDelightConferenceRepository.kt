@@ -10,7 +10,6 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 
 class SqlDelightConferenceRepository(
     private val conferenceQueries: ConferenceQueries,
