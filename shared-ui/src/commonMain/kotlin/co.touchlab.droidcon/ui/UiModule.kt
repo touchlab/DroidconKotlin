@@ -3,6 +3,7 @@ package co.touchlab.droidcon.ui
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
+import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionBlockViewModel
@@ -39,6 +40,10 @@ val uiModule = module {
             conferenceConfigProvider = get(),
         )
             .also { get<NotificationService>().setHandler(it) }
+    }
+
+    single {
+        WaitForLoadedContextModel(conferenceConfigProvider = get())
     }
 
     single {

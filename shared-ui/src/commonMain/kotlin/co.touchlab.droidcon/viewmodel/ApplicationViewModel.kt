@@ -115,7 +115,6 @@ class ApplicationViewModel(
             try {
                 // First load the selected conference
                 log.d { "Loading selected conference data asynchronously" }
-                conferenceConfigProvider.loadSelectedConference()
 
                 // Then observe changes
                 conferenceConfigProvider.observeChanges().collect { conference ->
@@ -181,33 +180,8 @@ class ApplicationViewModel(
                     presentNextFeedback()
                 }
 
-                // Check if this is the first run
-                log.d { "Checking if this is first run" }
-                checkFirstRun()
             } catch (e: Exception) {
                 log.e(e) { "Error in onAppear" }
-            }
-        }
-    }
-
-    // Function to check if this is the first app run
-    fun checkFirstRun() {
-        log.d { "checkFirstRun called" }
-        lifecycle.whileAttached {
-            log.d { "Checking first run status" }
-            try {
-                log.d { "About to get settings().first()" }
-                val isFirstRunValue = settingsGateway.settings().first().isFirstRun
-                log.d { "First run status from settings: $isFirstRunValue" }
-                if (isFirstRunValue) {
-                    log.d { "This is first run, navigating to Settings tab" }
-                    // If it's the first run, navigate to settings to show conference selection
-                    selectedTab = Tab.Settings
-                } else {
-                    log.d { "Not first run" }
-                }
-            } catch (e: Exception) {
-                log.e(e) { "Error checking first run status" }
             }
         }
     }

@@ -15,8 +15,7 @@ interface ConferenceConfigProvider {
     fun observeChanges(): Flow<Conference>
 
     /**
-     * Loads the selected conference asynchronously.
-     * This is called after startup to ensure we have the correct conference data.
+     * Initiates conference observation.
      */
     suspend fun loadSelectedConference()
 }

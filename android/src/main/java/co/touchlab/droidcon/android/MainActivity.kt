@@ -36,6 +36,7 @@ import co.touchlab.droidcon.ui.theme.Colors
 import co.touchlab.droidcon.ui.util.MainView
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
+import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -53,6 +54,7 @@ class MainActivity :
     private val notificationService: AndroidNotificationService by inject()
 
     private val applicationViewModel: ApplicationViewModel by inject()
+    private val waitForLoadedContextModel: WaitForLoadedContextModel by inject()
 
     private val root = LifecycleGraph.Root(this)
 
@@ -73,7 +75,7 @@ class MainActivity :
 
         // Set up the UI immediately
         setContent {
-            MainView(viewModel = applicationViewModel)
+            MainView(waitForLoadedContextModel = waitForLoadedContextModel, viewModel = applicationViewModel)
 
             val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
             if (!showSplashScreen) {
