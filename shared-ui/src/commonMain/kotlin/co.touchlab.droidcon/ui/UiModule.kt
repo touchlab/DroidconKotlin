@@ -70,6 +70,7 @@ val uiModule = module {
             sessionBlockFactory = get(),
             dateFormatter = get(),
             dateTimeService = get(),
+            conferenceConfigProvider = get(),
             sessionDetailScrollStateStorage = get(),
         )
     }
@@ -86,6 +87,7 @@ val uiModule = module {
             settingsGateway = get(),
             feedbackDialogFactory = get(),
             feedbackService = get(),
+            conferenceConfigProvider = get(),
             notificationService = get(),
         )
     }

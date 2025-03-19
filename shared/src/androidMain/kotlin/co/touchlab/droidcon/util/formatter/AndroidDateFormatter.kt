@@ -27,11 +27,11 @@ class AndroidDateFormatter(private val dateTimeService: DateTimeService, private
             .apply { timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone.id) }
 
     override fun monthWithDay(date: LocalDate): String = shortDateFormat.format(
-        Date(with(dateTimeService) { date.atTime(0, 0).fromConferenceDateTime() }.toEpochMilliseconds()),
+        Date(with(dateTimeService) { date.atTime(0, 0).fromConferenceDateTime(conferenceTimeZone) }.toEpochMilliseconds()),
     ).uppercase()
 
     override fun timeOnly(dateTime: LocalDateTime): String? = minuteHourTimeFormat.format(
-        Date(with(dateTimeService) { dateTime.fromConferenceDateTime() }.toEpochMilliseconds()),
+        Date(with(dateTimeService) { dateTime.fromConferenceDateTime(conferenceTimeZone) }.toEpochMilliseconds()),
     )
 
     override fun timeOnlyInterval(fromDateTime: LocalDateTime, toDateTime: LocalDateTime): String =

@@ -236,8 +236,8 @@ class DefaultSyncService(
                     id = Session.Id(dto.id),
                     title = dto.title,
                     description = dto.description,
-                    startsAt = LocalDateTime.parse(dto.startsAt).fromConferenceDateTime(dateTimeService),
-                    endsAt = LocalDateTime.parse(dto.endsAt).fromConferenceDateTime(dateTimeService),
+                    startsAt = LocalDateTime.parse(dto.startsAt).fromConferenceDateTime(dateTimeService, conference.timeZone),
+                    endsAt = LocalDateTime.parse(dto.endsAt).fromConferenceDateTime(dateTimeService, conference.timeZone),
                     isServiceSession = dto.isServiceSession,
                     room = Room.Id(dto.roomID),
                     rsvp = Session.RSVP(

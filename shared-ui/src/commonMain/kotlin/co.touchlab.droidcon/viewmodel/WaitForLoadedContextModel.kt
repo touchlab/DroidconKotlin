@@ -11,7 +11,7 @@ import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class WaitForLoadedContextModel(
     private val conferenceConfigProvider: ConferenceConfigProvider,
-    private val applicationViewModelFactory: ApplicationViewModel.Factory,
+    applicationViewModelFactory: ApplicationViewModel.Factory,
 ) : BaseViewModel() {
     sealed interface State {
         data object Loading : State
@@ -20,7 +20,7 @@ class WaitForLoadedContextModel(
 
     private val _state = MutableStateFlow<State>(State.Loading)
     val state: StateFlow<State> = _state
-    private var vm: ApplicationViewModel? = null
+    val applicationViewModel by managed(applicationViewModelFactory.create())
 
     suspend fun monitorConferenceChanges() {
         conferenceConfigProvider.loadSelectedConference()
@@ -34,25 +34,5 @@ class WaitForLoadedContextModel(
                 _state.emit(State.Ready(conference))
             }
         }
-    }
-
-     fun replaceViewModel(conference: Conference?): ApplicationViewModel? {
-        this.vm?.let {
-            lifecycle.removeChild(it.lifecycle)
-            this.vm = null
-        }
-        return conference?.let { conf ->
-            val vm = applicationViewModelFactory.create(conf)
-            this.vm = vm
-            lifecycle.addChild(vm.lifecycle)
-            vm
-        }
-    }
-
-    fun createApplicationViewModel(conference: Conference): ApplicationViewModel {
-        val vm = applicationViewModelFactory.create(conference)
-        this.vm = vm
-        lifecycle.addChild(vm.lifecycle)
-        return vm
     }
 }

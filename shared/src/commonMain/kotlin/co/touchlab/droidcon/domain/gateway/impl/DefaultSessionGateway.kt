@@ -9,6 +9,7 @@ import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.ScheduleService
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 
 class DefaultSessionGateway(
@@ -21,7 +22,9 @@ class DefaultSessionGateway(
 
     private val conferenceId get() = conferenceConfigProvider.getConferenceId()
 
-    override fun observeSchedule(): Flow<List<ScheduleItem>> = sessionRepository.observeAll(conferenceId).map { sessions ->
+    override fun observeSchedule(): Flow<List<ScheduleItem>> = conferenceConfigProvider.observeChanges().flatMapLatest { conf ->
+        sessionRepository.observeAll(conf.id)
+    }.map { sessions ->
         sessions.map { session ->
             scheduleItemForSession(session)
         }

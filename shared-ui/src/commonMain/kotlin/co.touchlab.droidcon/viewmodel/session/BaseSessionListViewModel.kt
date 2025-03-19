@@ -40,7 +40,7 @@ abstract class BaseSessionListViewModel(
         itemsFlow
             .collect { items ->
                 items
-                    .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).date }
+                    .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService, conferenceConfigProvider.getConferenceTimeZone()).date }
                     .map { (date, items) ->
                         sessionDayFactory.create(date, attendingOnly, items) { item ->
                             if (item.session.isServiceSession) {

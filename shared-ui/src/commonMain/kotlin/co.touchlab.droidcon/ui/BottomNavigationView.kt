@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.session.SessionListView
 import co.touchlab.droidcon.ui.settings.SettingsView
 import co.touchlab.droidcon.ui.sponsors.SponsorsView
@@ -27,15 +28,14 @@ import co.touchlab.droidcon.ui.venue.VenueView
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 
 @Composable
-internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
+internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConference: Conference, modifier: Modifier = Modifier) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
-    val currentConference by viewModel.currentConference.collectAsState(null)
 
     Scaffold(
         modifier = modifier,
         bottomBar = {
             NavigationBar {
-                viewModel.tabs.forEach { tab ->
+                viewModel.listTabs(currentConference).forEach { tab ->
                     val (title, icon) = when (tab) {
                         ApplicationViewModel.Tab.Schedule -> "Schedule" to Icons.Filled.CalendarMonth
                         // FIXME: Was originally "My agenda" but then it doesn't seem to fit.

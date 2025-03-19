@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.theme.DroidconTheme
 import co.touchlab.droidcon.ui.util.dcImageLoader
+import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import coil3.annotation.ExperimentalCoilApi
@@ -46,24 +47,22 @@ private fun MainAppBody(
     selectedConference: Conference,
     modifier: Modifier,
 ) {
-    val viewModel = waitForLoadedContextModel.createApplicationViewModel(conference = selectedConference)
-    DisposableEffect(Unit){
-        onDispose {
-            waitForLoadedContextModel.replaceViewModel(null)
-        }
+    LaunchedEffect(selectedConference){
+        waitForLoadedContextModel.applicationViewModel.runAllLiveTasks(selectedConference)
     }
+
+    val viewModel = waitForLoadedContextModel.applicationViewModel
+
     // Get state from viewModel directly
-    val isFirstRun = viewModel.isFirstRun.value
+    val isFirstRun by viewModel.isFirstRun.observeAsState()
     val conferences = viewModel.allConferences.value
 
     // Show first run dialog if needed
     if (isFirstRun && conferences.isNotEmpty()) {
         // Get currently selected conference if any
-        val currentConference = viewModel.currentConference.value
-
         FirstRunConferenceSelector(
             conferences = conferences,
-            selectedConference = currentConference,
+            selectedConference = selectedConference,
             onConferenceSelected = { conference ->
                 viewModel.selectConference(conference.id)
                 // Navigate to the schedule tab after selection
@@ -80,5 +79,5 @@ private fun MainAppBody(
         )
     }
 
-    BottomNavigationView(viewModel = viewModel, modifier = modifier)
+    BottomNavigationView(viewModel = viewModel, currentConference = selectedConference, modifier = modifier)
 }

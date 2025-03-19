@@ -4,6 +4,7 @@ import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.gateway.SessionGateway
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.dto.WebLink
@@ -25,6 +26,7 @@ import org.brightify.hyperdrive.multiplatformx.property.map
 class SessionDetailViewModel(
     private val sessionGateway: SessionGateway,
     private val settingsGateway: SettingsGateway,
+    private val conferenceConfigProvider: ConferenceConfigProvider,
     private val speakerListItemFactory: SpeakerListItemViewModel.Factory,
     private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
     private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
@@ -57,8 +59,8 @@ class SessionDetailViewModel(
             it.room?.name,
             with(dateTimeService) {
                 dateFormatter.timeOnlyInterval(
-                    it.session.startsAt.toConferenceDateTime(),
-                    it.session.endsAt.toConferenceDateTime(),
+                    it.session.startsAt.toConferenceDateTime(conferenceConfigProvider.getConferenceTimeZone()),
+                    it.session.endsAt.toConferenceDateTime(conferenceConfigProvider.getConferenceTimeZone()),
                 )
             },
         ).joinToString()
@@ -154,6 +156,7 @@ class SessionDetailViewModel(
     class Factory(
         private val sessionGateway: SessionGateway,
         private val settingsGateway: SettingsGateway,
+        private val conferenceConfigProvider: ConferenceConfigProvider,
         private val speakerListItemFactory: SpeakerListItemViewModel.Factory,
         private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
         private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
@@ -165,17 +168,18 @@ class SessionDetailViewModel(
     ) {
 
         fun create(item: ScheduleItem) = SessionDetailViewModel(
-            sessionGateway,
-            settingsGateway,
-            speakerListItemFactory,
-            speakerDetailFactory,
-            feedbackDialogFactory,
-            dateFormatter,
-            dateTimeService,
-            parseUrlViewService,
-            feedbackService,
-            notificationService,
-            item,
+            sessionGateway = sessionGateway,
+            settingsGateway = settingsGateway,
+            conferenceConfigProvider = conferenceConfigProvider,
+            speakerListItemFactory = speakerListItemFactory,
+            speakerDetailFactory = speakerDetailFactory,
+            feedbackDialogFactory = feedbackDialogFactory,
+            dateFormatter = dateFormatter,
+            dateTimeService = dateTimeService,
+            parseUrlViewService = parseUrlViewService,
+            feedbackService = feedbackService,
+            notificationService = notificationService,
+            initialItem = item,
         )
     }
 }

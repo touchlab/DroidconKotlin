@@ -142,7 +142,6 @@ private val coreModule = module {
     single<DateTimeService> {
         DefaultDateTimeService(
             clock = get(),
-            conferenceTimeZone = get<ConferenceConfigProvider>().getConferenceTimeZone(),
         )
     }
 
