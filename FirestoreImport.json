@@ -9,7 +9,7 @@
       "apiKey": "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0",
       "scheduleId": "78xrdv22",
       "selected": true,
-      "venueMap": "",
+      "venueMap": "https://raw.githubusercontent.com/touchlab/DroidconKotlin/kpg/big-conf-refactor/venuemaps/dcldn-2024-venue-map-1.jpg",
       "year": 2024
     },
     "nyc-2024": {
@@ -21,7 +21,7 @@
       "apiKey": "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0",
       "scheduleId": "orzenzbc",
       "selected": false,
-      "venueMap": null,
+      "venueMap": "https://raw.githubusercontent.com/touchlab/DroidconKotlin/kpg/big-conf-refactor/venuemaps/dcnyc-2024-venue-map-1.jpg",
       "year": 2024
     },
     "london-2023": {
