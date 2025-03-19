@@ -1,0 +1,64 @@
+{
+  "conferenceList": {
+    "london-2024": {
+      "id": "london-2024",
+      "conferenceName": "Droidcon London 2024",
+      "conferenceTimeZone": "Europe/London",
+      "projectId": "droidcon-148cc",
+      "collectionName": "sponsors-london-2024",
+      "apiKey": "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0",
+      "scheduleId": "78xrdv22",
+      "selected": true,
+      "venueMap": "",
+      "year": 2024
+    },
+    "nyc-2024": {
+      "id": "nyc-2024",
+      "conferenceName": "Droidcon NYC 2024",
+      "conferenceTimeZone": "America/New_York",
+      "projectId": "droidcon-148cc",
+      "collectionName": "sponsors-nyc-2024",
+      "apiKey": "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0",
+      "scheduleId": "orzenzbc",
+      "selected": false,
+      "venueMap": null,
+      "year": 2024
+    },
+    "london-2023": {
+      "id": "london-2023",
+      "conferenceName": "Droidcon London 2023",
+      "conferenceTimeZone": "Europe/London",
+      "projectId": "droidcon-148cc",
+      "collectionName": "sponsors-london-2023",
+      "apiKey": "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0",
+      "scheduleId": "64k7lmps",
+      "selected": false,
+      "venueMap": null,
+      "year": 2023
+    },
+    "nyc-2023": {
+      "id": "nyc-2023",
+      "conferenceName": "Droidcon NY 2023",
+      "conferenceTimeZone": "America/New_York",
+      "projectId": "droidcon-148cc",
+      "collectionName": "sponsors-nyc-2023",
+      "apiKey": "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0",
+      "scheduleId": "gxz4vyyr",
+      "selected": false,
+      "venueMap": null,
+      "year": 2023
+    },
+    "sf-2023": {
+      "id": "sf-2023",
+      "conferenceName": "Droidcon SF 2023",
+      "conferenceTimeZone": "America/Los_Angeles",
+      "projectId": "droidcon-148cc",
+      "collectionName": "sponsors-sf-2023",
+      "apiKey": "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0",
+      "scheduleId": "eewr8kdk",
+      "selected": false,
+      "venueMap": null,
+      "year": 2023
+    }
+  }
+} 
