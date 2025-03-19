@@ -38,6 +38,9 @@ class DefaultConferenceConfigProvider(
 
     override fun observeChanges(): Flow<Conference> = conferenceRepository.observeSelected()
 
+    // Implementation of the interface method to get the currently selected conference
+    override suspend fun getSelectedConference(): Conference = conferenceRepository.getSelected()
+
     // Implementation of the interface method to load the conference asynchronously
     // Also sets up continuous observation of conference changes
     override suspend fun loadSelectedConference() {

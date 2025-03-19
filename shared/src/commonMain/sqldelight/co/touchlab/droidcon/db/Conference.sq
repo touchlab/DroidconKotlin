@@ -9,20 +9,24 @@ CREATE TABLE conferenceTable(
     collectionName TEXT NOT NULL,
     apiKey TEXT NOT NULL,
     scheduleId TEXT NOT NULL,
-    selected INTEGER AS Boolean NOT NULL DEFAULT 0
+    selected INTEGER AS Boolean NOT NULL DEFAULT 0,
+    active INTEGER AS Boolean NOT NULL DEFAULT 1
 );
 
 insert:
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES (?, ?, ?, ?, ?, ?, ?);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
 
 updateConference:
 UPDATE conferenceTable
-SET conferenceName = ?, conferenceTimeZone = ?, projectId = ?, collectionName = ?, apiKey = ?, scheduleId = ?, selected = ?
+SET conferenceName = ?, conferenceTimeZone = ?, projectId = ?, collectionName = ?, apiKey = ?, scheduleId = ?, selected = ?, active = ?
 WHERE id = ?;
 
 selectAll:
 SELECT * FROM conferenceTable;
+
+selectAllActive:
+SELECT * FROM conferenceTable WHERE active = 1;
 
 selectById:
 SELECT * FROM conferenceTable WHERE id = ?;
@@ -48,38 +52,38 @@ changeSelectedConference {
     UPDATE conferenceTable SET selected = 1 WHERE id = :conferenceId;
 }
 
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon London 2024", "Europe/London", "droidcon-148cc", "sponsors-london-2024", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "78xrdv22", 1);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon London 2024", "Europe/London", "droidcon-148cc", "sponsors-london-2024", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "78xrdv22", 1, 1);
 -- Add NYC 2024
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon NYC 2024", "America/New_York", "droidcon-148cc", "sponsors-nyc-2024", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "orzenzbc", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon NYC 2024", "America/New_York", "droidcon-148cc", "sponsors-nyc-2024", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "orzenzbc", 0, 1);
 -- Add London 2023
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon London 2023", "Europe/London", "droidcon-148cc", "sponsors-london-2023", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "64k7lmps", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon London 2023", "Europe/London", "droidcon-148cc", "sponsors-london-2023", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "64k7lmps", 0, 1);
 -- Add NYC 2023
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon NY 2023", "America/New_York", "droidcon-148cc", "sponsors-nyc-2023", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "gxz4vyyr", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon NY 2023", "America/New_York", "droidcon-148cc", "sponsors-nyc-2023", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "gxz4vyyr", 0, 1);
 -- Add SF 2023
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon SF 2023", "America/Los_Angeles", "droidcon-148cc", "sponsors-sf-2023", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "eewr8kdk", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon SF 2023", "America/Los_Angeles", "droidcon-148cc", "sponsors-sf-2023", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "eewr8kdk", 0, 1);
 -- Add London 2022
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon London 2022", "Europe/London", "droidcon-148cc", "sponsors-london-2022", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "qi0g29hw", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon London 2022", "Europe/London", "droidcon-148cc", "sponsors-london-2022", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "qi0g29hw", 0, 1);
 -- Add New York 2022
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon New York 2022", "America/New_York", "droidcon-148cc", "sponsors-nyc-2022", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "xh3jkd5m", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon New York 2022", "America/New_York", "droidcon-148cc", "sponsors-nyc-2022", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "xh3jkd5m", 0, 1);
 -- Add Berlin 2022
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon Berlin 2022", "Europe/Berlin", "droidcon-148cc", "sponsors-berlin-2022", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "zwd2wtgt", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon Berlin 2022", "Europe/Berlin", "droidcon-148cc", "sponsors-berlin-2022", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "zwd2wtgt", 0, 1);
 -- Add SF 2022
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon SF 2022", "America/Los_Angeles", "droidcon-148cc", "sponsors-sf-2022", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "qx6mydae", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon SF 2022", "America/Los_Angeles", "droidcon-148cc", "sponsors-sf-2022", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "qx6mydae", 0, 1);
 -- Add London 2021
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon London 2021", "Europe/London", "droidcon-148cc", "sponsors-london-2021", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "4b752cf5", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon London 2021", "Europe/London", "droidcon-148cc", "sponsors-london-2021", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "4b752cf5", 0, 1);
 -- Add Berlin 2021
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected)
-VALUES ("Droidcon Berlin 2021", "Europe/Berlin", "droidcon-148cc", "sponsors-berlin-2021", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "2wi6ppp2", 0);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
+VALUES ("Droidcon Berlin 2021", "Europe/Berlin", "droidcon-148cc", "sponsors-berlin-2021", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "2wi6ppp2", 0, 1);
 
 lastInsertRowId:
 SELECT last_insert_rowid();

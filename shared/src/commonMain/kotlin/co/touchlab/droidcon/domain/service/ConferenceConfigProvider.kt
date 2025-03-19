@@ -15,6 +15,11 @@ interface ConferenceConfigProvider {
     fun observeChanges(): Flow<Conference>
 
     /**
+     * Get the currently selected conference
+     */
+    suspend fun getSelectedConference(): Conference
+
+    /**
      * Initiates conference observation.
      */
     suspend fun loadSelectedConference()

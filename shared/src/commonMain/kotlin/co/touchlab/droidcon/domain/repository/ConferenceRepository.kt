@@ -4,6 +4,9 @@ import co.touchlab.droidcon.domain.entity.Conference
 import kotlinx.coroutines.flow.Flow
 
 interface ConferenceRepository {
+    /**
+     * Observes all active conferences
+     */
     fun observeAll(): Flow<List<Conference>>
 
     fun observeSelected(): Flow<Conference>

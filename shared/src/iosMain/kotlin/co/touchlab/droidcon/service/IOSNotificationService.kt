@@ -3,6 +3,8 @@ package co.touchlab.droidcon.service
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
+import co.touchlab.droidcon.service.DeepLinkNotificationHandler
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.util.wrapMultiThreadCallback
 import co.touchlab.kermit.Logger
@@ -17,18 +19,28 @@ import platform.Foundation.NSCalendarUnitSecond
 import platform.Foundation.NSCalendarUnitTimeZone
 import platform.Foundation.NSCalendarUnitYear
 import platform.Foundation.NSError
+import platform.Foundation.NSNotification
+import platform.Foundation.NSNotificationCenter
+import platform.Foundation.NSNotificationName
 import platform.UserNotifications.UNAuthorizationOptionAlert
+import platform.UserNotifications.UNAuthorizationOptionBadge
 import platform.UserNotifications.UNAuthorizationOptionSound
 import platform.UserNotifications.UNAuthorizationStatusAuthorized
 import platform.UserNotifications.UNAuthorizationStatusDenied
+import platform.UserNotifications.UNAuthorizationStatusEphemeral
 import platform.UserNotifications.UNAuthorizationStatusNotDetermined
+import platform.UserNotifications.UNAuthorizationStatusProvisional
 import platform.UserNotifications.UNCalendarNotificationTrigger
 import platform.UserNotifications.UNMutableNotificationContent
 import platform.UserNotifications.UNNotificationRequest
 import platform.UserNotifications.UNNotificationSound
 import platform.UserNotifications.UNUserNotificationCenter
 
-class IOSNotificationService(private val log: Logger, private val syncService: SyncService) : NotificationService {
+class IOSNotificationService(
+    private val log: Logger, 
+    private val syncService: SyncService,
+    private val conferenceConfigProvider: ConferenceConfigProvider
+) : NotificationService {
     private val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()
     private var notificationHandler: DeepLinkNotificationHandler? = null
 
@@ -143,7 +155,7 @@ class IOSNotificationService(private val log: Logger, private val syncService: S
                 }
             }
 
-            Notification.Remote.RefreshData -> syncService.forceSynchronize()
+            Notification.Remote.RefreshData -> syncService.forceSynchronize(conferenceConfigProvider.getSelectedConference())
         }
     }
 

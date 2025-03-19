@@ -32,6 +32,7 @@ actual val platformModule = module {
         IOSNotificationService(
             log = getWith("IOSNotificationService"),
             syncService = get(),
+            conferenceConfigProvider = get()
         )
     }
     single<NotificationService> {

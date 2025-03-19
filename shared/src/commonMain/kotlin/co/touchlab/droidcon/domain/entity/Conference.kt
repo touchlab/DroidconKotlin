@@ -11,6 +11,7 @@ data class Conference(
     val apiKey: String,
     val scheduleId: String,
     val selected: Boolean = false,
+    val active: Boolean = true,
 ) : DomainEntity<Long>() {
     val showVenueMap: Boolean = true //We'll need to add this to the table
     override val id: Long

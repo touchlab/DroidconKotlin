@@ -17,7 +17,7 @@ class SqlDelightConferenceRepository(
 ) : ConferenceRepository {
 
     override fun observeAll(): Flow<List<Conference>> =
-        conferenceQueries.selectAll(::conferenceFactory).asFlow().mapToList(Dispatchers.Main)
+        conferenceQueries.selectAllActive(::conferenceFactory).asFlow().mapToList(Dispatchers.Main)
 
     override fun observeSelected(): Flow<Conference> =
         conferenceQueries.selectSelected(::conferenceFactory).asFlow().mapToOne(Dispatchers.Main)
@@ -43,6 +43,7 @@ class SqlDelightConferenceRepository(
             apiKey = conference.apiKey,
             scheduleId = conference.scheduleId,
             selected = conference.selected,
+            active = conference.active,
         )
         // Return the last inserted ID
         return conferenceQueries.lastInsertRowId().executeAsOne()
@@ -58,6 +59,7 @@ class SqlDelightConferenceRepository(
                 apiKey = conference.apiKey,
                 scheduleId = conference.scheduleId,
                 selected = conference.selected,
+                active = conference.active,
                 id = conference.id,
             )
             return true
@@ -81,6 +83,7 @@ class SqlDelightConferenceRepository(
         apiKey: String,
         scheduleId: String,
         selected: Boolean,
+        active: Boolean,
     ): Conference = Conference(
         _id = id,
         name = conferenceName,
@@ -90,5 +93,6 @@ class SqlDelightConferenceRepository(
         apiKey = apiKey,
         scheduleId = scheduleId,
         selected = selected,
+        active = active,
     )
 }
