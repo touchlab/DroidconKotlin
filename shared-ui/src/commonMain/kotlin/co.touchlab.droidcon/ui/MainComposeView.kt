@@ -2,10 +2,12 @@ package co.touchlab.droidcon.ui
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.theme.DroidconTheme
 import co.touchlab.droidcon.ui.util.dcImageLoader
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
@@ -15,13 +17,13 @@ import coil3.compose.setSingletonImageLoaderFactory
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-internal fun MainComposeView(waitForLoadedContextModel:WaitForLoadedContextModel, viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
+internal fun MainComposeView(waitForLoadedContextModel:WaitForLoadedContextModel, modifier: Modifier = Modifier) {
     setSingletonImageLoaderFactory { context ->
         dcImageLoader(context, true)
     }
 
     LaunchedEffect(Unit){
-        waitForLoadedContextModel.waitTillReady()
+        waitForLoadedContextModel.watchConferenceChanges(this)
     }
 
     LaunchedEffect(Unit){
@@ -31,18 +33,25 @@ internal fun MainComposeView(waitForLoadedContextModel:WaitForLoadedContextModel
     val loadingState by waitForLoadedContextModel.state.collectAsState()
 
     DroidconTheme {
-        when(loadingState){
+        when(val state = loadingState){
             WaitForLoadedContextModel.State.Loading -> Text("Loading")
-            WaitForLoadedContextModel.State.Ready -> MainAppBody(viewModel, modifier)
+            is WaitForLoadedContextModel.State.Ready -> MainAppBody(waitForLoadedContextModel, state.conference, modifier)
         }
     }
 }
 
 @Composable
 private fun MainAppBody(
-    viewModel: ApplicationViewModel,
+    waitForLoadedContextModel:WaitForLoadedContextModel,
+    selectedConference: Conference,
     modifier: Modifier,
 ) {
+    val viewModel = waitForLoadedContextModel.createApplicationViewModel(conference = selectedConference)
+    DisposableEffect(Unit){
+        onDispose {
+            waitForLoadedContextModel.replaceViewModel(null)
+        }
+    }
     // Get state from viewModel directly
     val isFirstRun = viewModel.isFirstRun.value
     val conferences = viewModel.allConferences.value

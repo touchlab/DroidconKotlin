@@ -13,6 +13,8 @@ import androidx.core.app.NotificationCompat
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.domain.repository.ConferenceRepository
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.util.IdentifiableIntent
@@ -29,6 +31,7 @@ class AndroidNotificationService(
     private val entrypointActivity: Class<out Activity>,
     private val log: Logger,
     private val syncService: SyncService,
+    private val conferenceRepository: ConferenceRepository,
     private val settings: ObservableSettings,
     private val json: Json,
 ) : NotificationService {
@@ -181,7 +184,7 @@ class AndroidNotificationService(
                 }
             }
 
-            Notification.Remote.RefreshData -> syncService.forceSynchronize()
+            Notification.Remote.RefreshData -> syncService.forceSynchronize(conferenceRepository.getSelected())
         }
     }
 

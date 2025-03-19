@@ -179,9 +179,7 @@ private val coreModule = module {
     single<SyncService> {
         DefaultSyncService(
             log = getWith("SyncService"),
-            settings = get(),
             dateTimeService = get(),
-            conferenceRepository = get(),
             profileRepository = get(),
             sessionRepository = get(),
             roomRepository = get(),
@@ -190,7 +188,6 @@ private val coreModule = module {
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
             db = get(),
-            conferenceConfigProvider = get<ConferenceConfigProvider>(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {

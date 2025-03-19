@@ -25,7 +25,7 @@ import org.koin.dsl.module
 val uiModule = module {
     // MARK: View model factories.
     single {
-        ApplicationViewModel(
+        ApplicationViewModel.Factory(
             scheduleFactory = get(),
             agendaFactory = get(),
             sponsorsFactory = get(),
@@ -37,13 +37,11 @@ val uiModule = module {
             feedbackService = get(),
             settingsGateway = get(),
             conferenceRepository = get(),
-            conferenceConfigProvider = get(),
         )
-            .also { get<NotificationService>().setHandler(it) }
     }
 
     single {
-        WaitForLoadedContextModel(conferenceConfigProvider = get())
+        WaitForLoadedContextModel(conferenceConfigProvider = get(), applicationViewModelFactory = get())
     }
 
     single {

@@ -1,4 +1,5 @@
 package co.touchlab.droidcon.viewmodel
+
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
@@ -16,7 +17,6 @@ import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
@@ -32,10 +32,47 @@ class ApplicationViewModel(
     private val notificationService: NotificationService,
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
+    private val conference: Conference,
     private val conferenceRepository: ConferenceRepository,
-    private val conferenceConfigProvider: ConferenceConfigProvider,
+    // private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : BaseViewModel(),
     DeepLinkNotificationHandler {
+
+    class Factory(
+        private val scheduleFactory: ScheduleViewModel.Factory,
+        private val agendaFactory: AgendaViewModel.Factory,
+        private val sponsorsFactory: SponsorListViewModel.Factory,
+        private val settingsFactory: SettingsViewModel.Factory,
+        private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
+        private val syncService: SyncService,
+        private val notificationSchedulingService: NotificationSchedulingService,
+        private val notificationService: NotificationService,
+        private val feedbackService: FeedbackService,
+        private val settingsGateway: SettingsGateway,
+        private val conferenceRepository: ConferenceRepository,
+        // private val conferenceConfigProvider: ConferenceConfigProvider,
+    ) {
+
+        fun create(conference:Conference): ApplicationViewModel {
+            val applicationViewModel = ApplicationViewModel(
+                scheduleFactory = scheduleFactory,
+                agendaFactory = agendaFactory,
+                sponsorsFactory = sponsorsFactory,
+                settingsFactory = settingsFactory,
+                feedbackDialogFactory = feedbackDialogFactory,
+                syncService = syncService,
+                notificationSchedulingService = notificationSchedulingService,
+                notificationService = notificationService,
+                feedbackService = feedbackService,
+                settingsGateway = settingsGateway,
+                conference = conference,
+                conferenceRepository = conferenceRepository,
+                // conferenceConfigProvider = conferenceConfigProvider,
+            )
+            notificationService.setHandler(applicationViewModel)
+            return applicationViewModel
+        }
+    }
 
     private val log = Logger.withTag("ApplicationViewModel")
 
@@ -62,7 +99,7 @@ class ApplicationViewModel(
     val tabs = listOfNotNull(
         Tab.Schedule,
         Tab.MyAgenda,
-        if (conferenceConfigProvider.showVenueMap()) Tab.Venue else null,
+        if (conference.showVenueMap) Tab.Venue else null,
         Tab.Sponsors,
         Tab.Settings,
     )
@@ -87,7 +124,7 @@ class ApplicationViewModel(
         lifecycle.whileAttached {
             log.d { "Starting sync service" }
             try {
-                syncService.runSynchronization()
+                syncService.runSynchronization(conference = conference)
                 log.d { "Sync service started successfully" }
             } catch (e: Exception) {
                 log.e(e) { "Error starting sync service" }
@@ -109,26 +146,6 @@ class ApplicationViewModel(
             }
         }
 
-        // Observe conference changes
-        lifecycle.whileAttached {
-            log.d { "Starting to observe conference changes" }
-            try {
-                // First load the selected conference
-                log.d { "Loading selected conference data asynchronously" }
-
-                // Then observe changes
-                conferenceConfigProvider.observeChanges().collect { conference ->
-                    log.d { "Conference changed to: ${conference.name} (ID: ${conference.id})" }
-                    _currentConference.value = conference
-                    // Force a data reload when conference changes
-                    log.d { "Triggering data refresh due to conference change" }
-                    refreshData()
-                }
-            } catch (e: Exception) {
-                log.e(e) { "Error observing conference changes" }
-            }
-        }
-
         // Observe first run status
         lifecycle.whileAttached {
             log.d { "Starting to observe first run status" }
@@ -138,6 +155,20 @@ class ApplicationViewModel(
                 _isFirstRun.value = isFirstRunValue
             } catch (e: Exception) {
                 log.e(e) { "Error observing first run status" }
+            }
+        }
+
+        lifecycle.whileAttached {
+            log.d { "Processing onAppear" }
+            try {
+                val feedbackEnabled = settingsGateway.settings().value.isFeedbackEnabled
+                log.d { "Feedback enabled: $feedbackEnabled" }
+                if (feedbackEnabled) {
+                    log.d { "Presenting next feedback" }
+                    presentNextFeedback()
+                }
+            } catch (e: Exception) {
+                log.e(e) { "Error in onAppear" }
             }
         }
 
@@ -168,24 +199,6 @@ class ApplicationViewModel(
         }
     }
 
-    fun onAppear() {
-        log.d { "onAppear called" }
-        lifecycle.whileAttached {
-            log.d { "Processing onAppear" }
-            try {
-                val feedbackEnabled = settingsGateway.settings().value.isFeedbackEnabled
-                log.d { "Feedback enabled: $feedbackEnabled" }
-                if (feedbackEnabled) {
-                    log.d { "Presenting next feedback" }
-                    presentNextFeedback()
-                }
-
-            } catch (e: Exception) {
-                log.e(e) { "Error in onAppear" }
-            }
-        }
-    }
-
     // Function to set the selected conference
     fun selectConference(conferenceId: Long) {
         log.d { "selectConference called with conferenceId: $conferenceId" }
@@ -202,31 +215,6 @@ class ApplicationViewModel(
                 log.d { "First run set to false successfully" }
             } catch (e: Exception) {
                 log.e(e) { "Error selecting conference" }
-            }
-        }
-    }
-
-    // Function to refresh data when conference changes
-    private fun refreshData() {
-        log.d { "refreshData called" }
-        lifecycle.whileAttached {
-            log.d { "Starting data refresh" }
-            try {
-                // Clear splash screen if it's still showing
-                log.d { "Hiding splash screen" }
-                showSplashScreen.value = false
-
-                // Force sync to reload data for the new conference
-                log.d { "Starting force synchronization" }
-                val success = syncService.forceSynchronize()
-                log.d { "Force synchronization completed with success: $success" }
-
-                // Reset the selected tab to Schedule
-                log.d { "Switching to Schedule tab" }
-                selectedTab = Tab.Schedule
-                log.d { "Data refresh completed successfully" }
-            } catch (e: Exception) {
-                log.e(e) { "Error during data refresh" }
             }
         }
     }

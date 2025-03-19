@@ -12,6 +12,7 @@ data class Conference(
     val scheduleId: String,
     val selected: Boolean = false,
 ) : DomainEntity<Long>() {
+    val showVenueMap: Boolean = true //We'll need to add this to the table
     override val id: Long
         get() = requireNotNull(_id) { "Conference id cannot be null" }
 }

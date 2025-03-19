@@ -33,6 +33,7 @@ actual val platformModule: Module = module {
             entrypointActivity = get(),
             log = getWith("AndroidNotificationService"),
             syncService = get(),
+            conferenceRepository = get(),
             settings = get(),
             json = get(),
         )

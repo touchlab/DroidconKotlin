@@ -8,6 +8,6 @@ import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 
 @Composable
-fun MainView(waitForLoadedContextModel: WaitForLoadedContextModel, viewModel: ApplicationViewModel) {
-    MainComposeView(waitForLoadedContextModel= waitForLoadedContextModel, viewModel = viewModel, modifier = Modifier.systemBarsPadding())
+fun MainView(waitForLoadedContextModel: WaitForLoadedContextModel) {
+    MainComposeView(waitForLoadedContextModel= waitForLoadedContextModel, modifier = Modifier.systemBarsPadding())
 }

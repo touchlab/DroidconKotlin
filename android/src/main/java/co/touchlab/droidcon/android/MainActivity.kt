@@ -17,6 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -49,11 +52,9 @@ class MainActivity :
     KoinComponent {
 
     private val notificationSchedulingService: NotificationSchedulingService by inject()
-    private val syncService: SyncService by inject()
     private val analyticsService: AnalyticsService by inject()
     private val notificationService: AndroidNotificationService by inject()
 
-    private val applicationViewModel: ApplicationViewModel by inject()
     private val waitForLoadedContextModel: WaitForLoadedContextModel by inject()
 
     private val root = LifecycleGraph.Root(this)
@@ -75,9 +76,10 @@ class MainActivity :
 
         // Set up the UI immediately
         setContent {
-            MainView(waitForLoadedContextModel = waitForLoadedContextModel, viewModel = applicationViewModel)
+            MainView(waitForLoadedContextModel = waitForLoadedContextModel)
 
-            val showSplashScreen by applicationViewModel.showSplashScreen.collectAsState()
+            var showSplashScreen by remember { mutableStateOf(true) }
+
             if (!showSplashScreen) {
                 LaunchedEffect(Unit) {
                     askNotificationPermission()
@@ -85,9 +87,9 @@ class MainActivity :
             }
             Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
                 if (shouldShowSplashScreen) {
-                    LaunchedEffect(applicationViewModel) {
+                    LaunchedEffect(Unit) {
                         delay(1_000)
-                        applicationViewModel.showSplashScreen.value = false
+                        showSplashScreen = false
                     }
                     Box(
                         modifier = Modifier
@@ -114,18 +116,13 @@ class MainActivity :
             analyticsService.logEvent(AnalyticsService.EVENT_STARTED)
 
             // Now set up view model lifecycle
-            applicationViewModel.lifecycle.removeFromParent()
-            root.addChild(applicationViewModel.lifecycle)
+            waitForLoadedContextModel.lifecycle.removeFromParent()
+            root.addChild(waitForLoadedContextModel.lifecycle)
 
             // Process any notification deeplinks
             notificationService.handleNotificationDeeplink(intent)
 
-            // Start sync service in a background task
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.CREATED) {
-                    syncService.runSynchronization()
-                }
-            }
+
         }
 
         lifecycleScope.launchWhenResumed {
@@ -146,16 +143,11 @@ class MainActivity :
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        applicationViewModel.onAppear()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         // Workaround for a crash we could not reproduce: https://console.firebase.google.com/project/droidcon-148cc/crashlytics/app/android:co.touchlab.droidcon.london/issues/8c559569e69164d7109bd6b1be99ade5
-        if (root.hasChild(applicationViewModel.lifecycle)) {
-            root.removeChild(applicationViewModel.lifecycle)
+        if (root.hasChild(waitForLoadedContextModel.lifecycle)) {
+            root.removeChild(waitForLoadedContextModel.lifecycle)
         }
     }
 
