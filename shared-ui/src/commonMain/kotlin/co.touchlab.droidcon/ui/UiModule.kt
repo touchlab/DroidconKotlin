@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.ui
 
-import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
@@ -41,7 +40,12 @@ val uiModule = module {
     }
 
     single {
-        WaitForLoadedContextModel(conferenceConfigProvider = get(), applicationViewModelFactory = get())
+        WaitForLoadedContextModel(
+            conferenceConfigProvider = get(),
+            applicationViewModelFactory = get(),
+            syncService = get(),
+            settingsGateway = get(),
+        )
     }
 
     single {

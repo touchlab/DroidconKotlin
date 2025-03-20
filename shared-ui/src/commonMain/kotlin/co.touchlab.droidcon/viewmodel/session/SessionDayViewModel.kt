@@ -24,7 +24,12 @@ class SessionDayViewModel(
     val day: String = dateFormatter.monthWithDay(date) ?: ""
     val blocks: List<SessionBlockViewModel> by managedList(
         items
-            .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService, conferenceTimeZone = conferenceConfigProvider.getConferenceTimeZone()).startOfMinute }
+            .groupBy {
+                it.session.startsAt.toConferenceDateTime(
+                    dateTimeService,
+                    conferenceTimeZone = conferenceConfigProvider.getConferenceTimeZone(),
+                ).startOfMinute
+            }
             .map { (startsAt, items) ->
                 sessionBlockFactory.create(startsAt, items, onScheduleItemSelected)
             },

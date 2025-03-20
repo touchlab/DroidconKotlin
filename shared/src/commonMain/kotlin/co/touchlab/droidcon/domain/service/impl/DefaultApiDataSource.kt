@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.domain.service.impl
 
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
+import co.touchlab.droidcon.domain.service.impl.dto.ConferencesDto
 import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
@@ -51,6 +52,18 @@ class DefaultApiDataSource(
             firestore("/v1/projects/$projectId/databases/$databaseName/documents/$collectionName?key=$apiKey")
         }.bodyAsText()
         return json.decodeFromString(SponsorsDto.SponsorCollectionDto.serializer(), jsonString)
+    }
+
+    suspend fun getConferences(): ConferencesDto.ConferenceCollectionDto {
+        val projectId = conferenceConfigProvider.getProjectId()
+        val apiKey = conferenceConfigProvider.getApiKey()
+        val databaseName = "(default)"
+        val conferenceListCollection = "conferenceListMobile"
+
+        val jsonString = client.get {
+            firestore("/v1/projects/$projectId/databases/$databaseName/documents/$conferenceListCollection?key=$apiKey")
+        }.bodyAsText()
+        return json.decodeFromString(ConferencesDto.ConferenceCollectionDto.serializer(), jsonString)
     }
 
     private fun HttpRequestBuilder.sessionize(path: String) {

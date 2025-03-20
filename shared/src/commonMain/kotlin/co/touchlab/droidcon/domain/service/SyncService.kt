@@ -6,5 +6,7 @@ interface SyncService {
 
     suspend fun runSynchronization(conference: Conference)
 
-    suspend fun forceSynchronize(conference:Conference): Boolean
+    suspend fun forceSynchronize(conference: Conference): Boolean
+
+    suspend fun syncConferences()
 }

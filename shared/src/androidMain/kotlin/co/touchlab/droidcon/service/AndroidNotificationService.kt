@@ -14,7 +14,6 @@ import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.ConferenceRepository
-import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.shared.R
 import co.touchlab.droidcon.util.IdentifiableIntent

@@ -48,6 +48,7 @@ import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpTimeout
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -111,7 +112,11 @@ private val coreModule = module {
     single<Clock> { Clock.System }
 
     single {
-        HttpClient(engine = get()) {}
+        HttpClient(engine = get()) {
+            install(HttpTimeout) {
+                requestTimeoutMillis = 5000
+            }
+        }
     }
 
     single {
@@ -135,7 +140,7 @@ private val coreModule = module {
         }
         DefaultConferenceConfigProvider(
             conferenceRepository = get(),
-            initialConference = selectedConference
+            initialConference = selectedConference,
         )
     }
 
@@ -187,6 +192,7 @@ private val coreModule = module {
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
             db = get(),
+            conferenceRepository = get(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {

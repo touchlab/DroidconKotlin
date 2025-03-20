@@ -14,7 +14,6 @@ import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
-import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
@@ -25,16 +24,15 @@ import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
 import co.touchlab.kermit.Logger
-import com.russhwolf.settings.ObservableSettings
-import com.russhwolf.settings.get
-import com.russhwolf.settings.set
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 
 class DefaultSyncService(
@@ -48,11 +46,9 @@ class DefaultSyncService(
     private val apiDataSource: DataSource,
     private val serverApi: ServerApi,
     private val db: DroidconDatabase,
+    private val conferenceRepository: ConferenceRepository,
 ) : SyncService {
     private companion object {
-        // MARK: Settings keys
-        private const val LAST_CONFERENCE_ID_KEY = "LAST_CONFERENCE_ID"
-
         // MARK: Delays
         // 5 minutes
         private const val SESSIONIZE_SYNC_POLL_DELAY: Long = 5L * 60L * 1000L
@@ -68,14 +64,15 @@ class DefaultSyncService(
         private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
 
-    override suspend fun runSynchronization(conference:Conference) {
+    override suspend fun runSynchronization(conference: Conference) {
         coroutineScope {
             launch {
                 var lastSessionizeSyncThisLoop: Instant = dateTimeService.now().minus(3, DateTimeUnit.HOUR)
                 while (isActive) {
                     val lastSessionizeSync = lastSessionizeSyncThisLoop
 
-                    val timeToSync = lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
+                    val timeToSync =
+                        lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
 
                     log.w("DATASYNC runSynchronization called with $conference")
                     try {// Run sync if either condition is true
@@ -171,6 +168,7 @@ class DefaultSyncService(
 
     override suspend fun forceSynchronize(conference: Conference): Boolean = try {
         runApiDataSourcesSynchronization(conference)
+        syncConferences() // Also sync conferences when forced
         true
     } catch (e: Exception) {
         log.e(e) { "Failed to update repositories from API data source." }
@@ -194,13 +192,117 @@ class DefaultSyncService(
         // The repo architecture will likely need to change. Everything is suspend and unconcerned with thread, but that's not good practice.
         db.transaction {
             updateSpeakersFromDataSource(speakerDtos, conference)
-            updateScheduleFromDataSource(days,conference)
+            updateScheduleFromDataSource(days, conference)
         }
 
         // Sponsors may fail due to firebase errors, so we'll do this separate
         val sponsors = dataSource.getSponsors()
         db.transaction {
             updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors, conference)
+        }
+    }
+
+    /**
+     * Synchronizes conference data from Firestore with the local database
+     */
+    override suspend fun syncConferences() {
+        log.d { "Syncing conferences from Firestore" }
+        try {
+            val apiDataSource = apiDataSource as? DefaultApiDataSource
+                ?: throw IllegalStateException("apiDataSource is not DefaultApiDataSource")
+
+            // Get conferences from Firestore
+            val conferencesFromFirestore = apiDataSource.getConferences()
+
+            // Get all local conferences (need to collect from Flow first)
+            val localConferences = conferenceRepository.observeAll().first()
+
+            // Map conferences by name for easy lookup
+            val conferencesMap = localConferences.associateBy { it.name }
+            val firestoreConferenceNames = mutableSetOf<String>()
+
+            // Process each conference from Firestore
+            conferencesFromFirestore.conferences.forEach { conferenceDto ->
+                val conferenceFields = conferenceDto.fields
+                val conferenceName = conferenceFields.conferenceName.stringValue
+                firestoreConferenceNames.add(conferenceName)
+
+                // Check if conference exists locally by name
+                val existingConference = conferencesMap[conferenceName]
+
+                if (existingConference != null) {
+                    // Check if there are any actual changes before updating
+                    val timeZone = TimeZone.of(conferenceFields.conferenceTimeZone.stringValue)
+                    val projectId = conferenceFields.projectId.stringValue
+                    val collectionName = conferenceFields.collectionName.stringValue
+                    val apiKey = conferenceFields.apiKey.stringValue
+                    val scheduleId = conferenceFields.scheduleId.stringValue
+
+                    // Only update if any field has changed
+                    val needsUpdate = existingConference.timeZone != timeZone ||
+                        existingConference.projectId != projectId ||
+                        existingConference.collectionName != collectionName ||
+                        existingConference.apiKey != apiKey ||
+                        existingConference.scheduleId != scheduleId
+
+                    if (needsUpdate) {
+                        val updatedConference = Conference(
+                            _id = existingConference.id,
+                            name = conferenceName,
+                            timeZone = timeZone,
+                            projectId = projectId,
+                            collectionName = collectionName,
+                            apiKey = apiKey,
+                            scheduleId = scheduleId,
+                            selected = existingConference.selected,
+                            active = existingConference.active,
+                        )
+                        conferenceRepository.update(updatedConference)
+                        log.d { "Updated conference: $conferenceName (fields changed)" }
+                    } else {
+                        log.d { "Skipped updating conference: $conferenceName (no changes)" }
+                    }
+                } else {
+                    // Add new conference as active
+                    val newConference = Conference(
+                        name = conferenceName,
+                        timeZone = TimeZone.of(conferenceFields.conferenceTimeZone.stringValue),
+                        projectId = conferenceFields.projectId.stringValue,
+                        collectionName = conferenceFields.collectionName.stringValue,
+                        apiKey = conferenceFields.apiKey.stringValue,
+                        scheduleId = conferenceFields.scheduleId.stringValue,
+                        selected = false,
+                        active = true,
+                    )
+                    conferenceRepository.add(newConference)
+                    log.d { "Added new conference: $conferenceName" }
+                }
+            }
+
+            // Mark conferences that don't exist in Firestore as inactive,
+            // but only if they're currently active
+            conferencesMap.forEach { (name, conference) ->
+                if (name !in firestoreConferenceNames && conference.active) {
+                    val deactivatedConference = Conference(
+                        _id = conference.id,
+                        name = conference.name,
+                        timeZone = conference.timeZone,
+                        projectId = conference.projectId,
+                        collectionName = conference.collectionName,
+                        apiKey = conference.apiKey,
+                        scheduleId = conference.scheduleId,
+                        selected = conference.selected,
+                        active = false,
+                    )
+                    conferenceRepository.update(deactivatedConference)
+                    log.d { "Marked conference as inactive: $name" }
+                }
+            }
+
+            log.d { "Conference sync completed successfully" }
+        } catch (e: Exception) {
+            log.e(e) { "Error during conference sync" }
+            throw e
         }
     }
 
@@ -281,7 +383,7 @@ class DefaultSyncService(
     private fun updateSponsorsFromDataSource(
         sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
         sponsors: SponsorsDto.SponsorCollectionDto,
-        conference: Conference
+        conference: Conference,
     ): String {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
         val conferenceId = conference.id

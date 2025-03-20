@@ -7,12 +7,11 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.datetime.TimeZone
 
 class DefaultConferenceConfigProvider(
     private val conferenceRepository: ConferenceRepository,
-    initialConference: Conference
+    initialConference: Conference,
 ) : ConferenceConfigProvider {
     private val log = Logger.withTag("DefaultConferenceConfigProvider")
     private val _currentConferenceState = MutableStateFlow(initialConference)
