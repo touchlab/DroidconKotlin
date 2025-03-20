@@ -39,6 +39,4 @@
 
 ## Current Task
 
-The app is designed to be configured for a single conference, and for different conferences the configuration needs to be changed, and a new app instance needs to be published to the app store. We want to refactor the app so that is can be used for all conferences, and allow the user to select the conference they want to display in the app.
-
-We have done significant work on updating the app, but need to continue fixing various issues.
+Cleaning up the app and prepping for release
