@@ -22,7 +22,6 @@ import org.brightify.hyperdrive.multiplatformx.property.flatMapLatest
 import org.brightify.hyperdrive.multiplatformx.property.identityEqualityPolicy
 import org.brightify.hyperdrive.multiplatformx.property.map
 
-// TODO: Make all properties observable when API is updated.
 class SessionDetailViewModel(
     private val sessionGateway: SessionGateway,
     private val settingsGateway: SettingsGateway,

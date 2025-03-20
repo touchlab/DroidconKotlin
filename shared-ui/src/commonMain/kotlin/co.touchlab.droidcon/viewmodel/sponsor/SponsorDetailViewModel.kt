@@ -6,7 +6,6 @@ import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
-// TODO: Connect to a gateway.
 class SponsorDetailViewModel(
     private val sponsorGateway: SponsorGateway,
     private val speakerListItemFactory: SpeakerListItemViewModel.Factory,

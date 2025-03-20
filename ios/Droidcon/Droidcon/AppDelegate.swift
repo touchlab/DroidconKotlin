@@ -19,8 +19,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         startKoin()
 
-        try! appChecker.checkTimeZoneHash()
-
         analytics.logEvent(name: AnalyticsServiceCompanion().EVENT_STARTED, params: [:])
 
         UNUserNotificationCenter.current().delegate = self

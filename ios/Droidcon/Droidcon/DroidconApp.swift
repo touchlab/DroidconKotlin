@@ -16,10 +16,10 @@ struct DroidconApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ComposeController(viewModel: koin.applicationViewModel)
+            let viewModel = koin.waitForLoadedContextModel
+            ComposeController(viewModel: viewModel)
                 .ignoresSafeArea()
-                .attach(viewModel: koin.applicationViewModel)
-                .onAppear(perform: koin.applicationViewModel.onAppear)
+                .attach(viewModel: viewModel)
                 .environmentObject(lifecycleManager)
         }
     }
