@@ -65,11 +65,7 @@ private fun LoadingScreen() {
 }
 
 @Composable
-private fun MainAppBody(
-    waitForLoadedContextModel: WaitForLoadedContextModel,
-    selectedConference: Conference,
-    modifier: Modifier,
-) {
+private fun MainAppBody(waitForLoadedContextModel: WaitForLoadedContextModel, selectedConference: Conference, modifier: Modifier) {
     LaunchedEffect(selectedConference) {
         waitForLoadedContextModel.applicationViewModel.runAllLiveTasks(selectedConference)
     }

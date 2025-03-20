@@ -32,7 +32,6 @@ class WaitForLoadedContextModel(
     }
 
     suspend fun watchConferenceChanges() {
-
         val isFirstRun = settingsGateway.settings().value.isFirstRun
         lifecycle.whileAttached {
             if (isFirstRun) {

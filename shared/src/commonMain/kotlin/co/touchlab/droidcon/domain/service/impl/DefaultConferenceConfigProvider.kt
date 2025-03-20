@@ -9,10 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.TimeZone
 
-class DefaultConferenceConfigProvider(
-    private val conferenceRepository: ConferenceRepository,
-    initialConference: Conference,
-) : ConferenceConfigProvider {
+class DefaultConferenceConfigProvider(private val conferenceRepository: ConferenceRepository, initialConference: Conference) :
+    ConferenceConfigProvider {
     private val log = Logger.withTag("DefaultConferenceConfigProvider")
     private val _currentConferenceState = MutableStateFlow(initialConference)
     val currentConferenceState: StateFlow<Conference> = _currentConferenceState
@@ -32,8 +30,7 @@ class DefaultConferenceConfigProvider(
 
     override fun getScheduleId(): String = currentConference.scheduleId
 
-    override fun showVenueMap(): Boolean =
-        true // Default to true, will be configurable per conference later
+    override fun showVenueMap(): Boolean = true // Default to true, will be configurable per conference later
 
     override fun observeChanges(): Flow<Conference> = conferenceRepository.observeSelected()
 

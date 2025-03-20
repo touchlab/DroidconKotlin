@@ -12,12 +12,7 @@ object ConferencesDto {
     )
 
     @Serializable
-    data class ConferenceDocumentDto(
-        val name: String,
-        val fields: ConferenceFields,
-        val createTime: String,
-        val updateTime: String,
-    )
+    data class ConferenceDocumentDto(val name: String, val fields: ConferenceFields, val createTime: String, val updateTime: String)
 
     @Serializable
     data class ConferenceFields(
@@ -31,4 +26,4 @@ object ConferencesDto {
 
     @Serializable
     data class StringValue(val stringValue: String)
-} 
+}

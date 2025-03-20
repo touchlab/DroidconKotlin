@@ -11,7 +11,6 @@ import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.BundleResourceReader
 import co.touchlab.droidcon.util.formatter.DateFormatter
-import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.NSUserDefaultsSettings

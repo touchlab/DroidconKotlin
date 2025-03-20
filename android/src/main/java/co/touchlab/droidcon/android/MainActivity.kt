@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,18 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import co.touchlab.droidcon.R
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
-import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.AndroidNotificationService
 import co.touchlab.droidcon.ui.theme.Colors
 import co.touchlab.droidcon.ui.util.MainView
 import co.touchlab.droidcon.util.NavigationController
-import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
@@ -121,8 +116,6 @@ class MainActivity :
 
             // Process any notification deeplinks
             notificationService.handleNotificationDeeplink(intent)
-
-
         }
 
         lifecycleScope.launchWhenResumed {
