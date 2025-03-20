@@ -34,6 +34,7 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
+import kotlinx.datetime.plus
 
 class DefaultSyncService(
     private val log: Logger,
@@ -322,7 +323,53 @@ class DefaultSyncService(
         }
     }
 
-    private fun updateScheduleFromDataSource(days: List<ScheduleDto.DayDto>, conference: Conference) {
+    private fun dateFromString(dateTimeString: String): String = dateTimeString.split("T")[0]
+    private fun timeFromString(dateTimeString: String): String = dateTimeString.split("T")[1]
+
+    private fun updateScheduleFromDataSource(_days: List<ScheduleDto.DayDto>, conference: Conference) {
+        val originalToAdjustedDateMap = _days.flatMap { dayDto ->
+            dayDto.rooms.flatMap { roomDto -> roomDto.sessions }
+        }.map { sessionDto -> dateFromString(sessionDto.startsAt) }.toSet().toList().sorted().mapIndexed { index, date ->
+            val adjustedInstant = dateTimeService.now().plus(index * 24, DateTimeUnit.HOUR)
+            Pair(date, dateFromString(adjustedInstant.toString()))
+        }.toMap()
+
+        fun updateDateTimeString(dateTimeString: String): String {
+            return originalToAdjustedDateMap.get(dateFromString(dateTimeString)) + "T" + timeFromString(dateTimeString)
+        }
+
+        val days = kotlin.runCatching { if(testNotificationTimes) {
+            _days.map { originalDay ->
+                ScheduleDto.DayDto(
+                    originalToAdjustedDateMap.get(dateFromString(originalDay.date))!!,
+                    originalDay.rooms.map { room ->
+                        ScheduleDto.RoomDto(
+                            room.id, room.name,
+                            room.sessions.map { originalSession ->
+                                ScheduleDto.SessionDto(
+                                    id = originalSession.id,
+                                    title = originalSession.title,
+                                    description = originalSession.description,
+                                    startsAt = updateDateTimeString(originalSession.startsAt),
+                                    endsAt = updateDateTimeString(originalSession.endsAt),
+                                    isServiceSession = originalSession.isServiceSession,
+                                    isPlenumSession = originalSession.isPlenumSession,
+                                    speakers = originalSession.speakers,
+                                    categories = originalSession.categories,
+                                    roomID = originalSession.roomID,
+                                    room = originalSession.room,
+                                )
+                            },
+                        )
+                    },
+                )
+            }
+        } else {
+            _days
+        }}.let { result ->
+            result.getOrThrow()
+        }
+
         val roomDtos = days.flatMap { it.rooms }
         val conferenceId = conference.id
 
@@ -351,11 +398,6 @@ class DefaultSyncService(
                     feedback = null,
                 ) to dto.speakers.map { Profile.Id(it.id) }
             }
-        }
-
-        // Test notification times by adjusting session dates to current time
-        if (testNotificationTimes) {
-            sessionsAndSpeakers = adjustSessionDatesToCurrentTime(sessionsAndSpeakers, conference)
         }
 
         // Remove deleted rooms.
@@ -471,105 +513,5 @@ class DefaultSyncService(
         suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto>
 
         suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto
-    }
-
-    /**
-     * Adjusts session dates to be relative to the current date while preserving the original time.
-     * This is used for testing notifications.
-     */
-    private fun adjustSessionDatesToCurrentTime(
-        sessionsAndSpeakers: List<Pair<Session, List<Profile.Id>>>,
-        conference: Conference,
-    ): List<Pair<Session, List<Profile.Id>>> {
-        // Find the earliest date in the sessions
-        val sessions = sessionsAndSpeakers.map { it.first }
-        if (sessions.isEmpty()) {
-            return sessionsAndSpeakers
-        }
-
-        val earliestDate = sessions.minByOrNull { it.startsAt }?.startsAt ?: return sessionsAndSpeakers
-
-        // Get today's date
-        val today = dateTimeService.now()
-        val todayDate = today.toString().split("T")[0]
-        val earliestDateStr = earliestDate.toString().split("T")[0]
-
-        // Map of original dates to new dates
-        val dateMap = mutableMapOf<String, String>()
-
-        // Create a mapping of original dates to adjusted dates
-        sessions.forEach { session ->
-            val sessionDate = session.startsAt.toString().split("T")[0]
-            if (!dateMap.containsKey(sessionDate)) {
-                // If we haven't seen this date before, add it to the map
-                // Calculate days difference from earliest date
-                val daysDiff = if (sessionDate == earliestDateStr) {
-                    0
-                } else {
-                    // Simple way to get days difference without using more complex date calculation
-                    // Just increment by 1 for each new date we encounter
-                    dateMap.size
-                }
-
-                // Add days to today to get the new date
-                val newDate = if (daysDiff == 0) {
-                    todayDate
-                } else {
-                    // Calculate new date by adding days to today
-                    // This is a simple implementation - in reality you'd want to use proper date manipulation
-                    val todayYear = todayDate.split("-")[0].toInt()
-                    val todayMonth = todayDate.split("-")[1].toInt()
-                    val todayDay = todayDate.split("-")[2].toInt()
-                    val newDay = todayDay + daysDiff
-                    "$todayYear-${todayMonth.toString().padStart(2, '0')}-${newDay.toString().padStart(2, '0')}"
-                }
-
-                dateMap[sessionDate] = newDate
-            }
-        }
-
-        log.d { "Date mapping for testing notifications: $dateMap" }
-
-        // Update all session dates using the mapping
-        val updatedSessionsAndSpeakers = sessionsAndSpeakers.map { (session, speakers) ->
-            // Get original date and time parts
-            val startsAtStr = session.startsAt.toString().dropLast(1)
-            val startsAtDate = startsAtStr.split("T")[0]
-            val startsAtTime = startsAtStr.split("T")[1]
-
-            val endsAtStr = session.endsAt.toString().dropLast(1)
-            val endsAtDate = endsAtStr.split("T")[0]
-            val endsAtTime = endsAtStr.split("T")[1]
-
-            // Get new dates
-            val newStartsAtDate = dateMap[startsAtDate] ?: startsAtDate
-            val newEndsAtDate = dateMap[endsAtDate] ?: endsAtDate
-
-            // Create new LocalDateTime objects with the new dates but same times
-            val newStartsAt = LocalDateTime.parse("${newStartsAtDate}T$startsAtTime")
-                .fromConferenceDateTime(dateTimeService, conference.timeZone)
-            val newEndsAt = LocalDateTime.parse("${newEndsAtDate}T$endsAtTime")
-                .fromConferenceDateTime(dateTimeService, conference.timeZone)
-
-            // Create a new session with the updated dates
-            val updatedSession = Session(
-                dateTimeService = dateTimeService,
-                id = session.id,
-                title = session.title,
-                description = session.description,
-                startsAt = newStartsAt,
-                endsAt = newEndsAt,
-                isServiceSession = session.isServiceSession,
-                room = session.room,
-                rsvp = session.rsvp,
-                feedback = session.feedback,
-            )
-
-            // Return updated session with speakers
-            updatedSession to speakers
-        }
-
-        log.d { "Adjusted session dates for notification testing" }
-        return updatedSessionsAndSpeakers
     }
 }

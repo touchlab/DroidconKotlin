@@ -22,7 +22,7 @@ class DefaultConferenceConfigProvider(private val conferenceRepository: Conferen
 
     override fun getConferenceTimeZone(): TimeZone = currentConference.timeZone
 
-    override fun getProjectId(): String = currentConference.projectId
+    override fun getProjectId(): String = "droidcon-148cc"
 
     override fun getCollectionName(): String = currentConference.collectionName
 
