@@ -34,6 +34,9 @@
 - Coroutines for asynchronous operations
 - Proper error handling with try/catch blocks
 
+## Claude Document Formats and Instructions
+See APISummaryFormat.md and StructuredInstructionFormats.md
+
 ## Architecture Notes
 - App startup logic is handled in `co.touchlab.droidcon.viewmodel.ApplicationViewModel`
 
