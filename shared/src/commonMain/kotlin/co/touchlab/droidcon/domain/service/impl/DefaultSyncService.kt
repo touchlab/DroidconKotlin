@@ -533,11 +533,11 @@ class DefaultSyncService(
         // Update all session dates using the mapping
         val updatedSessionsAndSpeakers = sessionsAndSpeakers.map { (session, speakers) ->
             // Get original date and time parts
-            val startsAtStr = session.startsAt.toString()
+            val startsAtStr = session.startsAt.toString().dropLast(1)
             val startsAtDate = startsAtStr.split("T")[0]
             val startsAtTime = startsAtStr.split("T")[1]
 
-            val endsAtStr = session.endsAt.toString()
+            val endsAtStr = session.endsAt.toString().dropLast(1)
             val endsAtDate = endsAtStr.split("T")[0]
             val endsAtTime = endsAtStr.split("T")[1]
 
