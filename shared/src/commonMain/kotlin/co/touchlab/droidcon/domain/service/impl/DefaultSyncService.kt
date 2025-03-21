@@ -49,7 +49,7 @@ class DefaultSyncService(
     private val db: DroidconDatabase,
     private val conferenceRepository: ConferenceRepository,
 ) : SyncService {
-    private val testNotificationTimes = true
+    private val testNotificationTimes = false
 
     private companion object {
         // MARK: Delays
