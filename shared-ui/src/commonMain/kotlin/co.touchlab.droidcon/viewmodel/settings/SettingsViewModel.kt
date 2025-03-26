@@ -50,6 +50,13 @@ class SettingsViewModel(
     val about by managed(aboutFactory.create())
 
     override suspend fun whileAttached() {
+        // Initialize selected conference immediately
+        try {
+            _selectedConference.value = conferenceRepository.getSelected()
+        } catch (e: Exception) {
+            log.e(e) { "Error getting initial selected conference" }
+        }
+
         // Load conferences
         conferenceRepository.observeAll().collect { conferences ->
             _allConferences.value = conferences
