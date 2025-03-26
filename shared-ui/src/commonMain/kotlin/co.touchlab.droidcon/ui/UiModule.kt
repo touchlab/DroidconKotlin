@@ -1,8 +1,8 @@
 package co.touchlab.droidcon.ui
 
-import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
+import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionBlockViewModel
@@ -24,7 +24,7 @@ import org.koin.dsl.module
 val uiModule = module {
     // MARK: View model factories.
     single {
-        ApplicationViewModel(
+        ApplicationViewModel.Factory(
             scheduleFactory = get(),
             agendaFactory = get(),
             sponsorsFactory = get(),
@@ -35,8 +35,17 @@ val uiModule = module {
             notificationService = get(),
             feedbackService = get(),
             settingsGateway = get(),
+            conferenceRepository = get(),
         )
-            .also { get<NotificationService>().setHandler(it) }
+    }
+
+    single {
+        WaitForLoadedContextModel(
+            conferenceConfigProvider = get(),
+            applicationViewModelFactory = get(),
+            syncService = get(),
+            settingsGateway = get(),
+        )
     }
 
     single {
@@ -46,6 +55,7 @@ val uiModule = module {
             sessionDetailFactory = get(),
             sessionDetailScrollStateStorage = get(),
             dateTimeService = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single {
@@ -55,6 +65,7 @@ val uiModule = module {
             sessionDetailFactory = get(),
             sessionDetailScrollStateStorage = get(),
             dateTimeService = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single { SessionBlockViewModel.Factory(sessionListItemFactory = get(), dateFormatter = get()) }
@@ -63,6 +74,7 @@ val uiModule = module {
             sessionBlockFactory = get(),
             dateFormatter = get(),
             dateTimeService = get(),
+            conferenceConfigProvider = get(),
             sessionDetailScrollStateStorage = get(),
         )
     }
@@ -79,6 +91,7 @@ val uiModule = module {
             settingsGateway = get(),
             feedbackDialogFactory = get(),
             feedbackService = get(),
+            conferenceConfigProvider = get(),
             notificationService = get(),
         )
     }
@@ -91,7 +104,7 @@ val uiModule = module {
     single { SponsorGroupItemViewModel.Factory() }
     single { SponsorDetailViewModel.Factory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get()) }
 
-    single { SettingsViewModel.Factory(settingsGateway = get(), aboutFactory = get()) }
+    single { SettingsViewModel.Factory(settingsGateway = get(), aboutFactory = get(), conferenceRepository = get()) }
     single { AboutViewModel.Factory(aboutRepository = get(), parseUrlViewService = get()) }
 
     single { FeedbackDialogViewModel.Factory(sessionGateway = get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }

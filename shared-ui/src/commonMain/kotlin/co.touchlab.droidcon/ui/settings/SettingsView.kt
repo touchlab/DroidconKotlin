@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
-import co.touchlab.droidcon.Constants
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
@@ -43,11 +42,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
             TopAppBar(
                 title = { Text("Settings") },
                 scrollBehavior = scrollBehavior,
-                actions = {
-                    if (Constants.SisterApp.showLaunchButton) {
-                        PlatformSwitchApp()
-                    }
-                },
+                // No actions
             )
         },
     ) { paddingValues ->
@@ -73,6 +68,8 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
             )
 
             HorizontalDivider()
+
+            ConferenceSelectorRow(viewModel = viewModel)
 
             PlatformSpecificSettingsView(viewModel = viewModel)
 

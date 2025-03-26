@@ -6,16 +6,6 @@
 	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Use Compose</string>
-			<key>Key</key>
-			<string>use_compose_preference</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
 	</array>
 </dict>
 </plist>

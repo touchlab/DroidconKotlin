@@ -45,7 +45,7 @@ class IOSDateFormatter : DateFormatter {
 
     private fun LocalDate.date() = NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents())
 
-    // TODOKPG - Pretty sure this is device time zone, might be OK. Just for local formating
+    // This uses the device time zone, which is appropriate for local date/time formatting
     private fun LocalDateTime.date() = NSCalendar.currentCalendar.dateFromComponents(toNSDateComponents())
 
     private fun interval(from: String?, to: String?) = listOfNotNull(from, to).joinToString(" – ")

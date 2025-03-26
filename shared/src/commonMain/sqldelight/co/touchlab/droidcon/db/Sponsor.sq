@@ -3,32 +3,34 @@ import kotlin.Boolean;
 CREATE TABLE sponsorTable(
     name TEXT NOT NULL,
     groupName TEXT NOT NULL,
+    conferenceId INTEGER NOT NULL,
     hasDetail INTEGER AS Boolean NOT NULL,
     description TEXT,
     iconUrl TEXT NOT NULL,
     url TEXT NOT NULL,
-    PRIMARY KEY (name, groupName),
-    FOREIGN KEY (groupName) REFERENCES sponsorGroupTable(name)
+    PRIMARY KEY (name, groupName, conferenceId),
+    FOREIGN KEY (groupName, conferenceId) REFERENCES sponsorGroupTable(name, conferenceId),
+    FOREIGN KEY (conferenceId) REFERENCES conferenceTable(id)
 );
 
 upsert:
-INSERT OR REPLACE INTO sponsorTable(name, groupName, hasDetail, description, iconUrl, url)
-VALUES (?, ?, ?, ?, ?, ?);
+INSERT OR REPLACE INTO sponsorTable(name, groupName, conferenceId, hasDetail, description, iconUrl, url)
+VALUES (?, ?, ?, ?, ?, ?, ?);
 
 selectAll:
-SELECT * FROM sponsorTable;
+SELECT * FROM sponsorTable WHERE conferenceId = ?;
 
 sponsorsByGroup:
-SELECT * FROM sponsorTable WHERE groupName = ?;
+SELECT * FROM sponsorTable WHERE groupName = ? AND conferenceId = ?;
 
 sponsorById:
-SELECT * FROM sponsorTable WHERE name = ? AND groupName = ? LIMIT 1;
+SELECT * FROM sponsorTable WHERE name = ? AND groupName = ? AND conferenceId = ? LIMIT 1;
 
 existsById:
-SELECT count(1) FROM sponsorTable WHERE name = ? AND groupName = ? LIMIT 1;
+SELECT count(1) FROM sponsorTable WHERE name = ? AND groupName = ? AND conferenceId = ? LIMIT 1;
 
 deleteById:
-DELETE FROM sponsorTable WHERE name = ? AND groupName = ?;
+DELETE FROM sponsorTable WHERE name = ? AND groupName = ? AND conferenceId = ?;
 
 deleteAll:
-DELETE FROM sponsorTable;
+DELETE FROM sponsorTable WHERE conferenceId = ?;

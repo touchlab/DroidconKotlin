@@ -3,6 +3,7 @@ package co.touchlab.droidcon.service
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.util.wrapMultiThreadCallback
 import co.touchlab.kermit.Logger
@@ -28,7 +29,11 @@ import platform.UserNotifications.UNNotificationRequest
 import platform.UserNotifications.UNNotificationSound
 import platform.UserNotifications.UNUserNotificationCenter
 
-class IOSNotificationService(private val log: Logger, private val syncService: SyncService) : NotificationService {
+class IOSNotificationService(
+    private val log: Logger,
+    private val syncService: SyncService,
+    private val conferenceConfigProvider: ConferenceConfigProvider,
+) : NotificationService {
     private val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()
     private var notificationHandler: DeepLinkNotificationHandler? = null
 
@@ -143,7 +148,7 @@ class IOSNotificationService(private val log: Logger, private val syncService: S
                 }
             }
 
-            Notification.Remote.RefreshData -> syncService.forceSynchronize()
+            Notification.Remote.RefreshData -> syncService.forceSynchronize(conferenceConfigProvider.getSelectedConference())
         }
     }
 

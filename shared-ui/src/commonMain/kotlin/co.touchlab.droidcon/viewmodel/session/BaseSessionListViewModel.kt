@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.viewmodel.session
 
 import co.touchlab.droidcon.domain.gateway.SessionGateway
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
@@ -11,6 +12,7 @@ abstract class BaseSessionListViewModel(
     private val sessionDetailFactory: SessionDetailViewModel.Factory,
     private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     private val dateTimeService: DateTimeService,
+    private val conferenceConfigProvider: ConferenceConfigProvider,
     val attendingOnly: Boolean,
 ) : BaseViewModel() {
 
@@ -25,6 +27,10 @@ abstract class BaseSessionListViewModel(
     val observePresentedSessionDetail by observe(::presentedSessionDetail)
 
     override suspend fun whileAttached() {
+        // We don't need to explicitly subscribe to conference changes
+        // The Repository/Gateway classes already filter by the current conference
+        // So we just need to observe the sessions which will automatically
+        // use the current conference ID from conferenceConfigProvider
         val itemsFlow = if (attendingOnly) {
             sessionGateway.observeAgenda()
         } else {
@@ -34,7 +40,12 @@ abstract class BaseSessionListViewModel(
         itemsFlow
             .collect { items ->
                 items
-                    .groupBy { it.session.startsAt.toConferenceDateTime(dateTimeService).date }
+                    .groupBy {
+                        it.session.startsAt.toConferenceDateTime(
+                            dateTimeService,
+                            conferenceConfigProvider.getConferenceTimeZone(),
+                        ).date
+                    }
                     .map { (date, items) ->
                         sessionDayFactory.create(date, attendingOnly, items) { item ->
                             if (item.session.isServiceSession) {

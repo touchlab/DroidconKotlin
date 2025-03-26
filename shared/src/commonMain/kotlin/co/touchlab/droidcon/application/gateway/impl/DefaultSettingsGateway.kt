@@ -17,7 +17,7 @@ class DefaultSettingsGateway(private val settingsRepository: SettingsRepository)
         settingsRepository.setRemindersEnabled(enabled)
     }
 
-    override suspend fun setUseComposeForIos(useCompose: Boolean) {
-        settingsRepository.setUseComposeForIos(useCompose)
+    override suspend fun setFirstRun(isFirstRun: Boolean) {
+        settingsRepository.setFirstRun(isFirstRun)
     }
 }

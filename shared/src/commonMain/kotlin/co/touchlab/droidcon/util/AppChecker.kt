@@ -1,19 +1,10 @@
 package co.touchlab.droidcon.util
 
-import co.touchlab.droidcon.Constants
-import korlibs.crypto.md5
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 
-object AppChecker {
-
-    /**
-     * Checks the generated MD5 hash against the hash saved in Constants.
-     */
-    @Throws(IllegalStateException::class)
-    fun checkTimeZoneHash() {
-        check(Constants.conferenceTimeZoneHash == toMD5("${Constants.conferenceTimeZone.id}|${Constants.Sessionize.scheduleId}")) {
-            "TimeZone hash is incorrect."
-        }
-    }
-
-    private fun toMD5(text: String): String = text.encodeToByteArray().md5().hex
-}
+/**
+ * Utility class for app-specific checks.
+ * Previously contained time zone hash checking, which has been removed.
+ * Keeping the class for potential future app verification checks.
+ */
+class AppChecker(private val conferenceConfigProvider: ConferenceConfigProvider)

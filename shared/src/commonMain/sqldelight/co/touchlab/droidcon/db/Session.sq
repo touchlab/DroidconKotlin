@@ -2,7 +2,8 @@ import kotlinx.datetime.Instant;
 import kotlin.Int;
 
 CREATE TABLE sessionTable(
-    id TEXT NOT NULL PRIMARY KEY,
+    id TEXT NOT NULL,
+    conferenceId INTEGER NOT NULL,
     title TEXT NOT NULL,
     description TEXT,
     startsAt INTEGER AS Instant NOT NULL,
@@ -14,60 +15,62 @@ CREATE TABLE sessionTable(
     feedbackRating INTEGER AS Int,
     feedbackComment TEXT,
     feedbackSent INTEGER NOT NULL DEFAULT 0,
-    FOREIGN KEY (roomId) REFERENCES roomTable(id)
+    PRIMARY KEY (id, conferenceId),
+    FOREIGN KEY (roomId) REFERENCES roomTable(id),
+    FOREIGN KEY (conferenceId) REFERENCES conferenceTable(id)
 );
 
 upsert:
-INSERT OR REPLACE INTO sessionTable(id, title, description, startsAt, endsAt, serviceSession, roomId, rsvp, rsvpSent, feedbackRating, feedbackComment, feedbackSent)
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO sessionTable(id, conferenceId, title, description, startsAt, endsAt, serviceSession, roomId, rsvp, rsvpSent, feedbackRating, feedbackComment, feedbackSent)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
 
 deleteById {
     DELETE FROM sessionSpeakerTable WHERE sessionId = :sessionId;
-    DELETE FROM sessionTable WHERE id = :sessionId;
+    DELETE FROM sessionTable WHERE id = :sessionId AND conferenceId = :conferenceId;
 }
 
 allSessions:
-SELECT * FROM sessionTable ORDER BY sessionTable.startsAt ASC;
+SELECT * FROM sessionTable WHERE conferenceId = ? ORDER BY sessionTable.startsAt ASC;
 
 attendingSessions:
-SELECT * FROM sessionTable WHERE rsvp != 0 ORDER BY sessionTable.startsAt ASC;
+SELECT * FROM sessionTable WHERE rsvp != 0 AND conferenceId = ? ORDER BY sessionTable.startsAt ASC;
 
 existsById:
-SELECT count(1) FROM sessionTable WHERE id = ?;
+SELECT count(1) FROM sessionTable WHERE id = ? AND conferenceId = ?;
 
 sessionById:
-SELECT * FROM sessionTable WHERE id = ?;
+SELECT * FROM sessionTable WHERE id = ? AND conferenceId = ?;
 
 mySessions:
 SELECT sessionTable.id, sessionTable.title, sessionTable.startsAt, sessionTable.endsAt, sessionTable.feedbackRating, roomTable.name AS roomName
 FROM sessionTable
-JOIN roomTable ON sessionTable.roomId = roomTable.id
-WHERE rsvp != 0 ORDER BY sessionTable.startsAt ASC;
+JOIN roomTable ON sessionTable.roomId = roomTable.id AND roomTable.conferenceId = sessionTable.conferenceId
+WHERE rsvp != 0 AND sessionTable.conferenceId = ? ORDER BY sessionTable.startsAt ASC;
 
 myPastSession:
 SELECT sessionTable.id, sessionTable.title, sessionTable.endsAt, sessionTable.feedbackRating
 FROM sessionTable
-WHERE rsvp != 0 AND sessionTable.feedbackRating IS NULL;
+WHERE rsvp != 0 AND sessionTable.feedbackRating IS NULL AND conferenceId = ?;
 
 userSessions:
 SELECT sessionTable.* FROM sessionTable
-JOIN sessionSpeakerTable ON sessionTable.id = sessionSpeakerTable.sessionId
-WHERE sessionSpeakerTable.speakerId = ?;
+JOIN sessionSpeakerTable ON sessionTable.id = sessionSpeakerTable.sessionId AND sessionTable.conferenceId = sessionSpeakerTable.conferenceId
+WHERE sessionSpeakerTable.speakerId = ? AND sessionTable.conferenceId = ?;
 
 updateRsvp:
-UPDATE sessionTable SET rsvp = ? WHERE id = ?;
+UPDATE sessionTable SET rsvp = ? WHERE id = ? AND conferenceId = ?;
 
 updateRsvpSent:
-UPDATE sessionTable SET rsvpSent = ? WHERE id = :sessionId;
+UPDATE sessionTable SET rsvpSent = ? WHERE id = :sessionId AND conferenceId = :conferenceId;
 
 updateFeedBack:
-UPDATE sessionTable SET feedbackRating = ?, feedbackComment = ?, feedbackSent = 0 WHERE id = :sessionId;
+UPDATE sessionTable SET feedbackRating = ?, feedbackComment = ?, feedbackSent = 0 WHERE id = :sessionId AND conferenceId = :conferenceId;
 
 updateFeedBackSent:
-UPDATE sessionTable SET feedbackSent = ? WHERE id = :sessionId;
+UPDATE sessionTable SET feedbackSent = ? WHERE id = :sessionId AND conferenceId = :conferenceId;
 
 sessionFeedbackToSend:
-SELECT * FROM sessionTable WHERE feedbackRating IS NOT NULL AND feedbackSent = 0;
+SELECT * FROM sessionTable WHERE feedbackRating IS NOT NULL AND feedbackSent = 0 AND conferenceId = ?;
 
 --Special query for schedule view
 sessionWithRoom:
@@ -79,7 +82,9 @@ FROM sessionTable
 LEFT JOIN (
     SELECT sessionId, group_concat(fullName, ', ') AS allNames
     FROM sessionSpeakerTable
-    JOIN profileTable ON profileTable.id = sessionSpeakerTable.speakerId
+    JOIN profileTable ON profileTable.id = sessionSpeakerTable.speakerId AND profileTable.conferenceId = sessionSpeakerTable.conferenceId
+    WHERE sessionSpeakerTable.conferenceId = ?
     GROUP BY sessionId
 ) AS speakers ON speakers.sessionId = sessionTable.id
-JOIN roomTable ON sessionTable.roomId = roomTable.id;
+JOIN roomTable ON sessionTable.roomId = roomTable.id AND roomTable.conferenceId = sessionTable.conferenceId
+WHERE sessionTable.conferenceId = ?;

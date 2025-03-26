@@ -6,5 +6,5 @@ import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import co.touchlab.droidcon.db.DroidconDatabase
 
 actual class SqlDelightDriverFactory(private val context: Context) {
-    actual fun createDriver(): SqlDriver = AndroidSqliteDriver(DroidconDatabase.Schema, context, "new-droidcon2024.db")
+    actual fun createDriver(): SqlDriver = AndroidSqliteDriver(DroidconDatabase.Schema, context, "droidcon.db")
 }
