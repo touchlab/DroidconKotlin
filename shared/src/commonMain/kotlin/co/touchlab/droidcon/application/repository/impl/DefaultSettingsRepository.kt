@@ -40,7 +40,17 @@ class DefaultSettingsRepository(private val observableSettings: ObservableSettin
             isRemindersEnabled = isRemindersEnabled,
             useComposeForIos = useComposeForIos,
         ),
-    )
+    ).also { flow ->
+        observableSettings.addBooleanListener(SETTINGS_FEEDBACK_ENABLED_KEY) { newValue ->
+            flow.value = flow.value.copy(isFeedbackEnabled = newValue)
+        }
+        observableSettings.addBooleanListener(SETTINGS_REMINDERS_ENABLED_KEY) { newValue ->
+            flow.value = flow.value.copy(isRemindersEnabled = newValue)
+        }
+        observableSettings.addBooleanListener(SETTINGS_USE_COMPOSE_FOR_IOS_KEY) { newValue ->
+            flow.value = flow.value.copy(useComposeForIos = newValue)
+        }
+    }
 
     override suspend fun set(settings: Settings) {
         isFeedbackEnabled = settings.isFeedbackEnabled
