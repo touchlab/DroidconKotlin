@@ -30,7 +30,9 @@ class DefaultSessionGateway(
         }
     }
 
-    override fun observeAgenda(): Flow<List<ScheduleItem>> = sessionRepository.observeAllAttending(conferenceId).map { sessions ->
+    override fun observeAgenda(): Flow<List<ScheduleItem>> = conferenceConfigProvider.observeChanges().flatMapLatest { conf ->
+        sessionRepository.observeAllAttending(conf.id)
+    }.map { sessions ->
         sessions.map { session ->
             scheduleItemForSession(session)
         }
