@@ -43,6 +43,8 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
@@ -75,6 +77,11 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
             topBar = {
                 CenterAlignedTopAppBar(
                     title = { Text(title) },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                        titleContentColor = MaterialTheme.colorScheme.onSurface,
+                    ),
                     scrollBehavior = scrollBehavior,
                 )
             },
@@ -115,6 +122,9 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                                 TabRowDefaults.SecondaryIndicator()
                             }
                         },
+                        contentColor = MaterialTheme.colorScheme.primary,
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        modifier = Modifier.shadow(elevation = 5.dp),
                     ) {
                         days?.forEachIndexed { index, daySchedule ->
                             Tab(
@@ -126,7 +136,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                                         pagerState.animateScrollToPage(index)
                                     }
                                 },
-                                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                unselectedContentColor = MaterialTheme.colorScheme.onBackground,
                             ) {
                                 Text(
                                     text = daySchedule.day,

@@ -14,6 +14,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -88,7 +89,7 @@ class MainActivity :
                     }
                     Box(
                         modifier = Modifier
-                            .background(Colors.primary)
+                            .background(MaterialTheme.colors.primary)
                             .fillMaxSize(),
                         contentAlignment = Alignment.Center,
                     ) {

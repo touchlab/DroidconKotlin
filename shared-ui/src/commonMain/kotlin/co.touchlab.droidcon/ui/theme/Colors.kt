@@ -7,5 +7,15 @@ object Colors {
     val droidconBlue = Color(0xFF010DEB)
     val droidconRed = Color(0xFFF66E4D)
 
-    val primary = droidconGreen
+
+    val darkDroidconGreen = Color(0xFFa2f7e5)
+    val darkDroidconBlue = Color(0xFFabaff9)
+    val darkDroidconRed = Color(0xFFf7ad9b)
+
+    val textColor = Color(0xFF20201E)
+    val secondaryTextColor = Color(0xFF606060)
+
+
+    val darkTextColor = Color(0xFFdfdfe1)
+    val darkSecondaryTextColor = Color(0xFF9f9f9f)
 }

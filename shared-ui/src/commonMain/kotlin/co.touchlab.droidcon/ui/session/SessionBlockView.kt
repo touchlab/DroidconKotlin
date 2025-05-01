@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.ui.theme.Colors
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.session.SessionBlockViewModel
@@ -58,6 +61,11 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                             session.selected()
                         },
                         enabled = isClickable,
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            contentColor = MaterialTheme.colorScheme.onSurface,
+                        ),
+                        elevation = CardDefaults.elevatedCardElevation(3.dp)
                     ) {
                         Column {
                             Text(
@@ -75,11 +83,12 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                                         bottom = Dimensions.Padding.half,
                                     ),
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
                             }
                             Text(
                                 text = session.speakers,
+                                color = MaterialTheme.colorScheme.secondary,
                                 modifier = Modifier.padding(
                                     start = Dimensions.Padding.half,
                                     end = Dimensions.Padding.half,
