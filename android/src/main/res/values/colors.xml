@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="droidcon_green">#FF4CE2C3</color>
+    <color name="droidcon_blue">#FF010DEB</color>
+    <color name="droidcon_red">#FFF66E4D</color>
+
     <color name="background">#FFffffff</color>
-    <color name="ic_launcher_background">#FF7de1c3</color>
+    <color name="ic_launcher_background">@color/droidcon_green</color>
 </resources>
