@@ -9,10 +9,6 @@
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
 
-    <queries>
-        <package android:name="co.touchlab.fluttercon" />
-    </queries>
-
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

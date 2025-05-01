@@ -1,7 +1,7 @@
 package co.touchlab.droidcon.android.util
 
 import android.content.Context
-import co.touchlab.droidcon.R
+import com.droidcon.app.R
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 
 class NotificationLocalizedStringFactory(private val context: Context) : NotificationSchedulingService.LocalizedStringFactory {
