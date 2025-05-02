@@ -3,13 +3,9 @@ package co.touchlab.droidcon.viewmodel.settings
 import co.touchlab.droidcon.application.composite.AboutItem
 import co.touchlab.droidcon.application.repository.AboutRepository
 import co.touchlab.droidcon.service.ParseUrlViewService
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class AboutViewModel(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) : BaseViewModel() {
-
-    @Suppress("ktlint:standard:backing-property-naming")
-    private val _uiState = MutableStateFlow("")
 
     var items: List<AboutItem> by published(emptyList())
         private set
