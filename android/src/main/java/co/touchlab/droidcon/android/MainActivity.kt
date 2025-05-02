@@ -27,7 +27,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
-import com.droidcon.app.R
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.service.AndroidNotificationService
@@ -35,6 +34,7 @@ import co.touchlab.droidcon.ui.theme.Colors
 import co.touchlab.droidcon.ui.util.MainView
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
+import com.droidcon.app.R
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
