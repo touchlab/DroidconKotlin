@@ -19,15 +19,15 @@ try {
 val releasePassword = properties.getProperty("releasePassword", "")
 
 android {
-    namespace = "co.touchlab.droidcon"
+    namespace = "com.droidcon.app"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.droidcon.app"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 60107
-        versionName = "6.1.7"
+        versionCode = 10000
+        versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
