@@ -45,6 +45,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.ui.FeedbackDialog
+import co.touchlab.droidcon.ui.theme.Colors
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.DcAsyncImage
 import co.touchlab.droidcon.ui.util.WebLinkText
@@ -77,11 +78,16 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                         IconButton(onClick = { NavigationController.root.handleBackPress() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                tint = MaterialTheme.colorScheme.onSecondary,
                                 contentDescription = "Back",
                             )
                         }
                     },
                     scrollBehavior = scrollBehavior,
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                        titleContentColor = MaterialTheme.colorScheme.onSecondary,
+                    ),
                 )
             },
         ) { paddingValues ->
@@ -158,19 +164,21 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                     DescriptionView(it, descriptionLinks)
                 }
 
-                val speakers by viewModel.observeSpeakers.observeAsState()
-                if (speakers.isNotEmpty()) {
-                    Text(
-                        text = "Speakers",
-                        modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
-                        style = MaterialTheme.typography.headlineSmall,
-                        textAlign = TextAlign.Center,
-                    )
 
-                    Divider()
+                Column(Modifier.padding(top = 10.dp).background(MaterialTheme.colorScheme.primary)) {
+                    val speakers by viewModel.observeSpeakers.observeAsState()
+                    if (speakers.isNotEmpty()) {
+                        Text(
+                            text = "Speakers",
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
+                            style = MaterialTheme.typography.headlineSmall,
+                            textAlign = TextAlign.Center,
+                        )
 
-                    speakers.forEach { speaker ->
-                        SpeakerView(speaker)
+                        speakers.forEach { speaker ->
+                            SpeakerView(speaker)
+                        }
                     }
                 }
             }
@@ -186,11 +194,12 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
 @Composable
 private fun HeaderView(title: String, locationInfo: String) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.secondary),
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
             text = title,
+            color = MaterialTheme.colorScheme.onSecondary,
             style = MaterialTheme.typography.headlineSmall,
             maxLines = 3,
             overflow = TextOverflow.Ellipsis,
@@ -202,6 +211,7 @@ private fun HeaderView(title: String, locationInfo: String) {
         )
         Text(
             text = locationInfo,
+            color = MaterialTheme.colorScheme.onSecondary,
             modifier = Modifier.padding(
                 start = Dimensions.Padding.double,
                 end = Dimensions.Padding.double,
@@ -223,7 +233,7 @@ private fun InfoView(status: String) {
             modifier = Modifier
                 .padding(Dimensions.Padding.half)
                 .width(64.dp),
-            tint = MaterialTheme.colorScheme.onSurface,
+            tint = MaterialTheme.colorScheme.tertiary,
         )
         Text(
             text = status,
@@ -234,7 +244,7 @@ private fun InfoView(status: String) {
                 top = Dimensions.Padding.half,
                 bottom = Dimensions.Padding.half,
             ),
-            color = MaterialTheme.colorScheme.onSurface,
+            color = MaterialTheme.colorScheme.tertiary,
         )
     }
 }
@@ -251,6 +261,7 @@ private fun DescriptionView(description: String, links: List<WebLink>) {
         )
         WebLinkText(
             text = description,
+            normalTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
             links = links,
             fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(
@@ -264,11 +275,7 @@ private fun DescriptionView(description: String, links: List<WebLink>) {
 
 @Composable
 private fun SpeakerView(speaker: SpeakerListItemViewModel) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { speaker.selected() },
-    ) {
+    Column(modifier = Modifier.fillMaxWidth().clickable { speaker.selected() }) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             val imageUrl = speaker.avatarUrl?.string
             if (imageUrl != null) {
@@ -290,7 +297,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
 
             Text(
                 text = speaker.info,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(
                     end = Dimensions.Padding.default,
@@ -301,6 +308,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
         }
         Text(
             text = speaker.bio ?: "",
+            color = MaterialTheme.colorScheme.onPrimary,
             fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(
                 start = 80.dp,

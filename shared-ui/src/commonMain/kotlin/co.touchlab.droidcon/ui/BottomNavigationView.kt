@@ -18,6 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.session.SessionListView
 import co.touchlab.droidcon.ui.settings.SettingsView
@@ -33,7 +36,10 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConfer
     Scaffold(
         modifier = modifier,
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = MaterialTheme.colorScheme.surface,
+                modifier = Modifier.shadow(elevation = 10.dp),
+            ) {
                 viewModel.listTabs(currentConference).forEach { tab ->
                     val (title, icon) = when (tab) {
                         ApplicationViewModel.Tab.Schedule -> "Schedule" to Icons.Filled.CalendarMonth
@@ -51,9 +57,11 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConfer
                             viewModel.selectedTab = tab
                         },
                         colors = NavigationBarItemDefaults.colors(
-                            indicatorColor = MaterialTheme.colorScheme.primary,
-                            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                            selectedTextColor = MaterialTheme.colorScheme.primary,
+                            indicatorColor = MaterialTheme.colorScheme.secondary,
+                            selectedIconColor = Color.White,
+                            selectedTextColor = MaterialTheme.colorScheme.onBackground,
+                            unselectedIconColor = MaterialTheme.colorScheme.onBackground,
+                            unselectedTextColor = MaterialTheme.colorScheme.onBackground,
                         ),
                     )
                 }

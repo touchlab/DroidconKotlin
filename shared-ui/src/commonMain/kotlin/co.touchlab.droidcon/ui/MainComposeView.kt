@@ -40,11 +40,10 @@ internal fun MainComposeView(waitForLoadedContextModel: WaitForLoadedContextMode
 
     val loadingState by waitForLoadedContextModel.state.collectAsState()
 
-    DroidconTheme {
-        when (val state = loadingState) {
-            WaitForLoadedContextModel.State.Loading -> LoadingScreen()
-            is WaitForLoadedContextModel.State.Ready -> MainAppBody(waitForLoadedContextModel, state.conference, modifier)
-        }
+
+    when (val state = loadingState) {
+        WaitForLoadedContextModel.State.Loading -> LoadingScreen()
+        is WaitForLoadedContextModel.State.Ready -> MainAppBody(waitForLoadedContextModel, state.conference, modifier)
     }
 }
 

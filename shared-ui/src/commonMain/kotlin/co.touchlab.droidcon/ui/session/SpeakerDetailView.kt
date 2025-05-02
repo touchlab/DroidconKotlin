@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ui.session
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -61,6 +62,11 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
                     }
                 },
                 scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+                )
             )
         },
     ) { paddingValues ->
@@ -68,19 +74,20 @@ internal fun SpeakerDetailView(viewModel: SpeakerDetailViewModel) {
         Column(
             modifier = Modifier.verticalScroll(scrollState).padding(paddingValues),
         ) {
-            HeaderView(viewModel.name, viewModel.position ?: "", viewModel.avatarUrl)
+            Column(Modifier.background(MaterialTheme.colorScheme.primary)) {
+                HeaderView(viewModel.name, viewModel.position ?: "", viewModel.avatarUrl)
 
-            viewModel.socials.website?.let {
-                SocialView(WebLink.fromUrl(it), Icons.Default.Language)
-            }
-            viewModel.socials.twitter?.let {
-                SocialView(WebLink.fromUrl(it), "twitter")
-            }
-            viewModel.socials.linkedIn?.let {
-                SocialView(WebLink.fromUrl(it), "linkedin")
+                viewModel.socials.website?.let {
+                    SocialView(WebLink.fromUrl(it), Icons.Default.Language)
+                }
+                viewModel.socials.twitter?.let {
+                    SocialView(WebLink.fromUrl(it), "twitter")
+                }
+                viewModel.socials.linkedIn?.let {
+                    SocialView(WebLink.fromUrl(it), "linkedin")
+                }
             }
 
-            Divider()
 
             viewModel.bio?.let {
                 BioView(it, viewModel.bioWebLinks)
@@ -114,6 +121,7 @@ private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
             Text(
                 text = name,
                 style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.onPrimary,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(
@@ -123,6 +131,7 @@ private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
             )
             Text(
                 text = tagLine,
+                color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.padding(
                     end = Dimensions.Padding.double,
                     bottom = Dimensions.Padding.default,
@@ -163,6 +172,7 @@ private fun SocialView(url: WebLink, icon: ImageVector) {
                 .padding(Dimensions.Padding.default)
                 .size(28.dp),
             contentDescription = null,
+            tint = MaterialTheme.colorScheme.onPrimary,
         )
         WebLinkText(
             text = url.link,
@@ -188,7 +198,7 @@ private fun BioView(bio: String, webLinks: List<WebLink>) {
             modifier = Modifier
                 .padding(Dimensions.Padding.default)
                 .size(28.dp),
-            tint = MaterialTheme.colorScheme.onSurface,
+            tint = MaterialTheme.colorScheme.onPrimary,
         )
         WebLinkText(
             text = bio,

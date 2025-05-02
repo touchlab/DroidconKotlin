@@ -1,6 +1,8 @@
 package co.touchlab.droidcon.ui.sponsors
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +22,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +36,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalUriHandler
@@ -67,6 +71,12 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
                 TopAppBar(
                     title = { Text("Sponsors") },
                     scrollBehavior = scrollBehavior,
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        titleContentColor = MaterialTheme.colorScheme.onSurface,
+                        scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                        ),
+                    modifier = Modifier.shadow(5.dp)
                 )
             },
         ) { paddingValues ->
@@ -101,6 +111,12 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
             vertical = Dimensions.Padding.quarter,
             horizontal = Dimensions.Padding.half,
         ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 3.dp
+        )
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
@@ -129,6 +145,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                                 .padding(Dimensions.Padding.quarter)
                                 .clip(CircleShape)
                                 .background(Color.White)
+                                .border(4.dp, MaterialTheme.colorScheme.primary, CircleShape)
                                 .clickable {
                                     sponsor.selected()
                                 },

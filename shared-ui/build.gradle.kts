@@ -102,6 +102,10 @@ kotlin {
             implementation(libs.hyperdrive.multiplatformx.api)
             // implementation(libs.hyperdrive.multiplatformx.compose)
         }
+        androidMain.dependencies {
+            implementation(libs.accompanist.systemuicontroller)
+
+        }
         all {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
