@@ -38,7 +38,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConfer
         bottomBar = {
             NavigationBar(
                 containerColor = MaterialTheme.colorScheme.surface,
-                modifier = Modifier.shadow(elevation = 5.dp),
+                modifier = Modifier.shadow(elevation = 10.dp),
             ) {
                 viewModel.listTabs(currentConference).forEach { tab ->
                     val (title, icon) = when (tab) {

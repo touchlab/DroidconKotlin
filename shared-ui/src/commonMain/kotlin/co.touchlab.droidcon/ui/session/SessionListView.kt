@@ -122,7 +122,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                                 TabRowDefaults.SecondaryIndicator()
                             }
                         },
-                        contentColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.secondary,
                         containerColor = MaterialTheme.colorScheme.surface,
                         modifier = Modifier.shadow(elevation = 5.dp),
                     ) {
@@ -202,7 +202,7 @@ private fun TabIndicator(modifier: Modifier = Modifier) {
             .padding(horizontal = 64.dp)
             .height(2.dp)
             .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-            .background(MaterialTheme.colorScheme.primary),
+            .background(MaterialTheme.colorScheme.secondary),
     )
 }
 

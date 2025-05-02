@@ -14,7 +14,7 @@ object Colors {
 
     val textColor = Color(0xFF20201E)
     val secondaryTextColor = Color(0xFF606060)
-
+    val disabled = Color(0xFFc0e3dc)
 
     val darkTextColor = Color(0xFFdfdfe1)
     val darkSecondaryTextColor = Color(0xFF9f9f9f)

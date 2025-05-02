@@ -64,6 +64,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surface,
                             contentColor = MaterialTheme.colorScheme.onSurface,
+                            disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
                         ),
                         elevation = CardDefaults.elevatedCardElevation(3.dp)
                     ) {

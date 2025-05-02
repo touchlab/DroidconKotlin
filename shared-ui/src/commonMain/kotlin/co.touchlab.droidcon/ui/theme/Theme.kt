@@ -14,6 +14,7 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Colors.textColor,
     onSurfaceVariant = Colors.secondaryTextColor,
     primary = Colors.droidconGreen,
+    primaryContainer = Colors.disabled,
     onPrimary = Color.White,
     secondary = Colors.droidconBlue,
     onSecondary = Color.White,

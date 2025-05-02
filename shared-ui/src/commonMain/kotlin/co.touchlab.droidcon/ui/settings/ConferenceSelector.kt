@@ -12,6 +12,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -93,6 +94,7 @@ private fun ConferenceDropdownMenu(
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
+        containerColor = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxWidth(0.9f),
     ) {
         Text(
