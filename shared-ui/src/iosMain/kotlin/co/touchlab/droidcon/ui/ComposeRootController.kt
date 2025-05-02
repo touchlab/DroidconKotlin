@@ -1,12 +1,15 @@
 package co.touchlab.droidcon.ui
 
 import androidx.compose.ui.window.ComposeUIViewController
+import co.touchlab.droidcon.ui.theme.DroidconTheme
 import co.touchlab.droidcon.ui.venue.VenueBodyView
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 
 @Suppress("unused")
 fun getRootController(viewModel: WaitForLoadedContextModel) = ComposeUIViewController {
-    MainComposeView(viewModel)
+    DroidconTheme {
+        MainComposeView(viewModel)
+    }
 }
 
 @Suppress("unused")

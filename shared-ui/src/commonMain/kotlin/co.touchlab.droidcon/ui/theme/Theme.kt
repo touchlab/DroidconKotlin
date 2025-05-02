@@ -30,14 +30,15 @@ private val DarkColorScheme = darkColorScheme(
     surface = Color.DarkGray,
     onSurface = Colors.darkTextColor,
     onSurfaceVariant = Colors.darkSecondaryTextColor,
-    primary = Colors.droidconGreen,
+    primary = Colors.darkDroidconGreen,
+    primaryContainer = Colors.darkDisabled,
     onPrimary = Color.White,
-    secondary = Colors.droidconGreen,
+    secondary = Colors.darkDroidconBlue,
     onSecondary = Color.White,
     tertiary = Colors.droidconRed,
     onTertiary = Color.White,
     surfaceVariant = Color.White,
-    surfaceContainer = Colors.droidconGreen,
+    surfaceContainer = Colors.darkDroidconBlue,
 )
 
 @Composable

@@ -10,12 +10,15 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -61,6 +64,7 @@ class MainActivity :
     ) { isGranted: Boolean ->
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -70,35 +74,37 @@ class MainActivity :
 
         // Do the minimal setup needed for launching the app
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        enableEdgeToEdge()
+
         // Set up the UI immediately
         setContent {
-            MainView(waitForLoadedContextModel = waitForLoadedContextModel)
+            CompositionLocalProvider(LocalOverscrollConfiguration provides null) {
+                MainView(waitForLoadedContextModel = waitForLoadedContextModel)
 
-            var showSplashScreen by remember { mutableStateOf(true) }
+                var showSplashScreen by remember { mutableStateOf(true) }
 
-            if (!showSplashScreen) {
-                LaunchedEffect(Unit) {
-                    askNotificationPermission()
-                }
-            }
-            Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
-                if (shouldShowSplashScreen) {
+                if (!showSplashScreen) {
                     LaunchedEffect(Unit) {
-                        delay(1_000)
-                        showSplashScreen = false
+                        askNotificationPermission()
                     }
-                    Box(
-                        modifier = Modifier
-                            .background(Colors.splash)
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_splash_screen),
-                            contentDescription = getString(R.string.droidcon_title),
-                            modifier = Modifier.padding(32.dp),
-                        )
+                }
+                Crossfade(targetState = showSplashScreen) { shouldShowSplashScreen ->
+                    if (shouldShowSplashScreen) {
+                        LaunchedEffect(Unit) {
+                            delay(1_000)
+                            showSplashScreen = false
+                        }
+                        Box(
+                            modifier = Modifier
+                                .background(Colors.splash)
+                                .fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_splash_screen),
+                                contentDescription = getString(R.string.droidcon_title),
+                                modifier = Modifier.padding(32.dp),
+                            )
+                        }
                     }
                 }
             }

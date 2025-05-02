@@ -1,5 +1,6 @@
 [versions]
 ## SDK Versions
+accompanistSystemuicontroller = "0.30.1"
 minSdk = "21"
 targetSdk = "35"
 compileSdk = "35"
@@ -53,6 +54,7 @@ zoomimage = "1.1.0-alpha06"
 skie = "0.10.1"
 
 [libraries]
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 sqliter = { module = "co.touchlab:sqliter-driver", version.ref = "sqliter" }
