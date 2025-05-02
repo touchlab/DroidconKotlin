@@ -6,7 +6,7 @@ object Colors {
     val droidconGreen = Color(0xFF4CE2C3)
     val droidconBlue = Color(0xFF010DEB)
     val droidconRed = Color(0xFFF66E4D)
-
+    val splash = Color(0xff7de1c3)
 
     val darkDroidconGreen = Color(0xFFa2f7e5)
     val darkDroidconBlue = Color(0xFFabaff9)

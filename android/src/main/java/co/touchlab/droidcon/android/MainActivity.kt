@@ -90,7 +90,7 @@ class MainActivity :
                     }
                     Box(
                         modifier = Modifier
-                            .background(MaterialTheme.colors.primary)
+                            .background(Colors.splash)
                             .fillMaxSize(),
                         contentAlignment = Alignment.Center,
                     ) {
