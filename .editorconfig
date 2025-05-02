@@ -11,7 +11,6 @@ ij_kotlin_line_break_after_multiline_when_entry = true
 indent_size = 4
 indent_style = space
 insert_final_newline = true
-parameter-list-wrapping = true
 ktlint_argument_list_wrapping_ignore_when_parameter_count_greater_or_equal_than = 8
 ktlint_chain_method_rule_force_multiline_when_chain_operator_count_greater_or_equal_than = 4
 ktlint_code_style = android_studio
@@ -20,5 +19,6 @@ ktlint_function_naming_ignore_when_annotated_with = Composable
 ktlint_function_signature_body_expression_wrapping = default
 ktlint_ignore_back_ticked_identifier = false
 max_line_length = 140
+parameter-list-wrapping = true
 
 
