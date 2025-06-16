@@ -17,15 +17,6 @@ plugins {
 subprojects {
     apply(plugin = rootProject.libs.plugins.ktlint.get().pluginId)
 
-    ktlint {
-        version.set("0.37.2")
-        enableExperimentalRules.set(true)
-        verbose.set(true)
-        filter {
-            exclude { it.file.path.contains("build/") }
-        }
-    }
-
     afterEvaluate {
         tasks.named("check") {
             dependsOn(tasks.getByName("ktlintCheck"))
@@ -39,6 +30,11 @@ subprojects {
     }
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         version.set("1.4.0")
+        enableExperimentalRules.set(true)
+        verbose.set(true)
+        filter {
+            exclude { it.file.path.contains("build/") }
+        }
     }
 }
 

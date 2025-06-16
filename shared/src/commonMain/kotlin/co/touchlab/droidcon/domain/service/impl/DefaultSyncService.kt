@@ -334,39 +334,41 @@ class DefaultSyncService(
             Pair(date, dateFromString(adjustedInstant.toString()))
         }.toMap()
 
-        fun updateDateTimeString(dateTimeString: String): String {
-            return originalToAdjustedDateMap.get(dateFromString(dateTimeString)) + "T" + timeFromString(dateTimeString)
-        }
+        fun updateDateTimeString(dateTimeString: String): String =
+            originalToAdjustedDateMap.get(dateFromString(dateTimeString)) + "T" + timeFromString(dateTimeString)
 
-        val days = kotlin.runCatching { if(testNotificationTimes) {
-            _days.map { originalDay ->
-                ScheduleDto.DayDto(
-                    originalToAdjustedDateMap.get(dateFromString(originalDay.date))!!,
-                    originalDay.rooms.map { room ->
-                        ScheduleDto.RoomDto(
-                            room.id, room.name,
-                            room.sessions.map { originalSession ->
-                                ScheduleDto.SessionDto(
-                                    id = originalSession.id,
-                                    title = originalSession.title,
-                                    description = originalSession.description,
-                                    startsAt = updateDateTimeString(originalSession.startsAt),
-                                    endsAt = updateDateTimeString(originalSession.endsAt),
-                                    isServiceSession = originalSession.isServiceSession,
-                                    isPlenumSession = originalSession.isPlenumSession,
-                                    speakers = originalSession.speakers,
-                                    categories = originalSession.categories,
-                                    roomID = originalSession.roomID,
-                                    room = originalSession.room,
-                                )
-                            },
-                        )
-                    },
-                )
+        val days = kotlin.runCatching {
+            if (testNotificationTimes) {
+                _days.map { originalDay ->
+                    ScheduleDto.DayDto(
+                        originalToAdjustedDateMap.get(dateFromString(originalDay.date))!!,
+                        originalDay.rooms.map { room ->
+                            ScheduleDto.RoomDto(
+                                room.id,
+                                room.name,
+                                room.sessions.map { originalSession ->
+                                    ScheduleDto.SessionDto(
+                                        id = originalSession.id,
+                                        title = originalSession.title,
+                                        description = originalSession.description,
+                                        startsAt = updateDateTimeString(originalSession.startsAt),
+                                        endsAt = updateDateTimeString(originalSession.endsAt),
+                                        isServiceSession = originalSession.isServiceSession,
+                                        isPlenumSession = originalSession.isPlenumSession,
+                                        speakers = originalSession.speakers,
+                                        categories = originalSession.categories,
+                                        roomID = originalSession.roomID,
+                                        room = originalSession.room,
+                                    )
+                                },
+                            )
+                        },
+                    )
+                }
+            } else {
+                _days
             }
-        } else {
-            _days
-        }}.let { result ->
+        }.let { result ->
             result.getOrThrow()
         }
 
