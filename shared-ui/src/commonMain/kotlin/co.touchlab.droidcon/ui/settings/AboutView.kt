@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import co.touchlab.droidcon.ui.theme.Colors
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.WebLinkText
@@ -49,6 +51,7 @@ private fun AboutItemView(viewModel: AboutItemViewModel) {
 
             WebLinkText(
                 text = viewModel.detail,
+                normalTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 links = viewModel.webLinks,
                 modifier = Modifier.padding(end = Dimensions.Padding.default),
             )
