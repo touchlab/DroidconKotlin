@@ -240,13 +240,15 @@ class DefaultSyncService(
                     val collectionName = conferenceFields.collectionName.stringValue
                     val apiKey = conferenceFields.apiKey.stringValue
                     val scheduleId = conferenceFields.scheduleId.stringValue
+                    val venueMap = conferenceFields.venueMap?.stringValue
 
                     // Only update if any field has changed
                     val needsUpdate = existingConference.timeZone != timeZone ||
                         existingConference.projectId != projectId ||
                         existingConference.collectionName != collectionName ||
                         existingConference.apiKey != apiKey ||
-                        existingConference.scheduleId != scheduleId
+                        existingConference.scheduleId != scheduleId ||
+                        existingConference.venueMap != venueMap
 
                     if (needsUpdate) {
                         val updatedConference = Conference(
@@ -259,6 +261,7 @@ class DefaultSyncService(
                             scheduleId = scheduleId,
                             selected = existingConference.selected,
                             active = existingConference.active,
+                            venueMap = venueMap,
                         )
                         conferenceRepository.update(updatedConference)
                         log.d { "Updated conference: $conferenceName (fields changed)" }
@@ -276,6 +279,7 @@ class DefaultSyncService(
                         scheduleId = conferenceFields.scheduleId.stringValue,
                         selected = false,
                         active = true,
+                        venueMap = conferenceFields.venueMap?.stringValue
                     )
                     conferenceRepository.add(newConference)
                     log.d { "Added new conference: $conferenceName" }
@@ -296,6 +300,7 @@ class DefaultSyncService(
                         scheduleId = conference.scheduleId,
                         selected = conference.selected,
                         active = false,
+                        venueMap = conference.venueMap,
                     )
                     conferenceRepository.update(deactivatedConference)
                     log.d { "Marked conference as inactive: $name" }
