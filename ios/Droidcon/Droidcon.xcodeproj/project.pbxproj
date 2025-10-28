@@ -396,13 +396,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 60107;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 8UD86646U9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Droidcon;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -416,7 +417,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london;
+				PRODUCT_BUNDLE_IDENTIFIER = com.droidcon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -432,13 +433,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 60107;
-				DEVELOPMENT_TEAM = 8UD86646U9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Droidcon/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Droidcon;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -452,7 +454,7 @@
 					"\"DroidconKit\"",
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.droidcon.ios.london;
+				PRODUCT_BUNDLE_IDENTIFIER = com.droidcon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
