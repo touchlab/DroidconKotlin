@@ -74,7 +74,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConfer
                     emptyText = "Add sessions to your agenda from session detail in schedule.",
                 )
 
-                ApplicationViewModel.Tab.Venue -> VenueView(currentConference)
+                ApplicationViewModel.Tab.Venue -> VenueView(currentConference.venueMap)
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
                 ApplicationViewModel.Tab.Settings -> SettingsView(viewModel.settings)
             }

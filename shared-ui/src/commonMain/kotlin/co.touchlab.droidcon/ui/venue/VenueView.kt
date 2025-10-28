@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.ui.venue
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,24 +19,23 @@ import coil3.compose.rememberAsyncImagePainter
 import com.github.panpf.zoomimage.ZoomImage
 
 @Composable
-fun VenueView(currentConference: Conference) {
+fun VenueView(venueMapUrl: String?) {
     Scaffold { paddingValues ->
         VenueBodyView(
             modifier = Modifier.padding(paddingValues),
-            currentConference,
+            venueMapUrl,
         )
     }
 }
 
 @Composable
-fun VenueBodyView(modifier: Modifier = Modifier, currentConference: Conference) {
-    val painter = rememberAsyncImagePainter(currentConference.venueMap)
+fun VenueBodyView(modifier: Modifier = Modifier, venueMapUrl: String?) {
+    val painter = rememberAsyncImagePainter(venueMapUrl)
     val state by painter.state.collectAsState()
 
-    Column(
+    Box(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        contentAlignment = Alignment.Center,
     ) {
         when (state) {
             is AsyncImagePainter.State.Empty,
