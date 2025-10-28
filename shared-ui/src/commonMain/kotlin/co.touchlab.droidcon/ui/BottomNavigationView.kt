@@ -64,7 +64,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConfer
             when (selectedTab) {
                 ApplicationViewModel.Tab.Schedule -> SessionListView(
                     viewModel = viewModel.schedule,
-                    title = currentConference?.name ?: "Schedule",
+                    title = currentConference.name,
                     emptyText = "Sessions could not be loaded.",
                 )
 
@@ -74,7 +74,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConfer
                     emptyText = "Add sessions to your agenda from session detail in schedule.",
                 )
 
-                ApplicationViewModel.Tab.Venue -> VenueView()
+                ApplicationViewModel.Tab.Venue -> VenueView(currentConference.venueMap)
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
                 ApplicationViewModel.Tab.Settings -> SettingsView(viewModel.settings)
             }

@@ -43,6 +43,7 @@ class SqlDelightConferenceRepository(
             scheduleId = conference.scheduleId,
             selected = conference.selected,
             active = conference.active,
+            venueMap = conference.venueMap,
         )
         // Return the last inserted ID
         return conferenceQueries.lastInsertRowId().executeAsOne()
@@ -60,6 +61,7 @@ class SqlDelightConferenceRepository(
                 selected = conference.selected,
                 active = conference.active,
                 id = conference.id,
+                venueMap = conference.venueMap,
             )
             return true
         } catch (e: Exception) {
@@ -83,6 +85,7 @@ class SqlDelightConferenceRepository(
         scheduleId: String,
         selected: Boolean,
         active: Boolean,
+        venueMap: String?,
     ): Conference = Conference(
         _id = id,
         name = conferenceName,
@@ -93,5 +96,6 @@ class SqlDelightConferenceRepository(
         scheduleId = scheduleId,
         selected = selected,
         active = active,
+        venueMap = venueMap,
     )
 }

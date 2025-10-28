@@ -88,7 +88,6 @@ private fun MainAppBody(waitForLoadedContextModel: WaitForLoadedContextModel, se
         if (conferences.size == 1) {
             onConferenceSelected(conferences.get(0))
         } else if (conferences.size > 1) {
-
             FirstRunConferenceSelector(
                 conferences = conferences,
                 selectedConference = selectedConference,

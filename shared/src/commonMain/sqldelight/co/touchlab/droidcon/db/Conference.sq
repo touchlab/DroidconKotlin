@@ -10,16 +10,17 @@ CREATE TABLE conferenceTable(
     apiKey TEXT NOT NULL,
     scheduleId TEXT NOT NULL,
     selected INTEGER AS Boolean NOT NULL DEFAULT 0,
-    active INTEGER AS Boolean NOT NULL DEFAULT 1
+    active INTEGER AS Boolean NOT NULL DEFAULT 1,
+    venueMap TEXT
 );
 
 insert:
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active, venueMap)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 updateConference:
 UPDATE conferenceTable
-SET conferenceName = ?, conferenceTimeZone = ?, projectId = ?, collectionName = ?, apiKey = ?, scheduleId = ?, selected = ?, active = ?
+SET conferenceName = ?, conferenceTimeZone = ?, projectId = ?, collectionName = ?, apiKey = ?, scheduleId = ?, selected = ?, active = ?, venueMap = ?
 WHERE id = ?;
 
 selectAll:
@@ -52,8 +53,8 @@ changeSelectedConference {
     UPDATE conferenceTable SET selected = 1 WHERE id = :conferenceId;
 }
 
-INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active)
-VALUES ("Droidcon NYC 2025", "America/New_York", "droidcon-148cc", "sponsors-nyc-2025", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "4lffd9w7", 1, 1);
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active, venueMap)
+VALUES ("Droidcon NYC 2025", "America/New_York", "droidcon-148cc", "sponsors-nyc-2025", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "4lffd9w7", 1, 1, NULL);
 
 lastInsertRowId:
 SELECT last_insert_rowid();
