@@ -279,7 +279,7 @@ class DefaultSyncService(
                         scheduleId = conferenceFields.scheduleId.stringValue,
                         selected = false,
                         active = true,
-                        venueMap = conferenceFields.venueMap?.stringValue
+                        venueMap = conferenceFields.venueMap?.stringValue,
                     )
                     conferenceRepository.add(newConference)
                     log.d { "Added new conference: $conferenceName" }
