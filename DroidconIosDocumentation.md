@@ -139,7 +139,7 @@ The framework provides integration with Compose Multiplatform for UI rendering:
 func getRootController(viewModel: DroidconKitWaitForLoadedContextModel) -> UIViewController
 
 // Creates a specific view controller for the venue screen
-func venueBodyViewController() -> UIViewController
+func venueBodyViewController(venueMapUrl:String?) -> UIViewController
 ```
 
 ### Session Management

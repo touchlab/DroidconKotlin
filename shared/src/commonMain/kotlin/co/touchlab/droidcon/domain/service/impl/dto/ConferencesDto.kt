@@ -22,6 +22,7 @@ object ConferencesDto {
         val collectionName: StringValue,
         val apiKey: StringValue,
         val scheduleId: StringValue,
+        val venueMap: StringValue? = null,
     )
 
     @Serializable

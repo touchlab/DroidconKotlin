@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:606665771229:android:c1f0f09aa42abc12",
         "android_client_info": {
-          "package_name": "co.touchlab.droidcon.london"
+          "package_name": "com.droidcon.app"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "123455771229-sc9bpuefbjceq7i1qabk7gssstefrdlv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "co.touchlab.droidcon.london",
+            "package_name": "com.droidcon.app",
             "certificate_hash": "7f254b538565cfe6c28a88744985f015b1534980"
           }
         },

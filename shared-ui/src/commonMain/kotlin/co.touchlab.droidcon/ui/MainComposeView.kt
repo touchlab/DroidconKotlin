@@ -79,23 +79,29 @@ private fun MainAppBody(waitForLoadedContextModel: WaitForLoadedContextModel, se
     if (isFirstRun) {
         val conferences = viewModel.allConferences.value
 
-        FirstRunConferenceSelector(
-            conferences = conferences,
-            selectedConference = selectedConference,
-            onConferenceSelected = { conference ->
-                viewModel.selectConference(conference.id)
-                // Navigate to the schedule tab after selection
-                viewModel.selectedTab = ApplicationViewModel.Tab.Schedule
-            },
-            onDismiss = {
-                // Use the first conference as default if user dismisses
-                if (conferences.isNotEmpty()) {
-                    viewModel.selectConference(conferences.first().id)
-                }
-                // Navigate to the schedule tab
-                viewModel.selectedTab = ApplicationViewModel.Tab.Schedule
-            },
-        )
+        val onConferenceSelected: (Conference) -> Unit = { conference ->
+            viewModel.selectConference(conference.id)
+            // Navigate to the schedule tab after selection
+            viewModel.selectedTab = ApplicationViewModel.Tab.Schedule
+        }
+
+        if (conferences.size == 1) {
+            onConferenceSelected(conferences.get(0))
+        } else if (conferences.size > 1) {
+            FirstRunConferenceSelector(
+                conferences = conferences,
+                selectedConference = selectedConference,
+                onConferenceSelected = onConferenceSelected,
+                onDismiss = {
+                    // Use the first conference as default if user dismisses
+                    if (conferences.isNotEmpty()) {
+                        viewModel.selectConference(conferences.first().id)
+                    }
+                    // Navigate to the schedule tab
+                    viewModel.selectedTab = ApplicationViewModel.Tab.Schedule
+                },
+            )
+        }
     }
 
     BottomNavigationView(viewModel = viewModel, currentConference = selectedConference, modifier = modifier)
