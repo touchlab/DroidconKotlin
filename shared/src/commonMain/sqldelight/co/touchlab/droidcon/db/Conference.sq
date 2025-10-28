@@ -54,7 +54,7 @@ changeSelectedConference {
 }
 
 INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active, venueMap)
-VALUES ("Droidcon NYC 2025", "America/New_York", "droidcon-148cc", "sponsors-nyc-2025", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "4lffd9w7", 1, 1, "https://www.google.com");
+VALUES ("Droidcon NYC 2025", "America/New_York", "droidcon-148cc", "sponsors-nyc-2025", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "4lffd9w7", 1, 1, NULL);
 
 lastInsertRowId:
 SELECT last_insert_rowid();
