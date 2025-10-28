@@ -1,1 +1,0 @@
-ALTER TABLE conferenceTable ADD COLUMN venueMap TEXT;
