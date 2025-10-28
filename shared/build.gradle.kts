@@ -108,6 +108,5 @@ kotlin {
 sqldelight {
     databases.create("DroidconDatabase") {
         packageName.set("co.touchlab.droidcon.db")
-        schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
     }
 }
