@@ -10,6 +10,6 @@ fun getRootController(viewModel: WaitForLoadedContextModel) = ComposeUIViewContr
 }
 
 @Suppress("unused")
-fun venueBodyViewController() = ComposeUIViewController {
-    VenueBodyView()
+fun venueBodyViewController(venueMapUrl:String?) = ComposeUIViewController {
+    VenueBodyView(venueMapUrl = venueMapUrl)
 }
