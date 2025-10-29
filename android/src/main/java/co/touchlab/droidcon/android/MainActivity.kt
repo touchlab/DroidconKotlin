@@ -68,8 +68,6 @@ class MainActivity :
         splashScreen.setKeepOnScreenCondition { true }
 
         // Do the minimal setup needed for launching the app
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
         enableEdgeToEdge()
 
         // Set up the UI immediately
