@@ -38,7 +38,6 @@ fun FirstRunConferenceSelector(
                 Text(
                     text = "Welcome to Droidcon!",
                     style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(bottom = 16.dp),
                 )
 
