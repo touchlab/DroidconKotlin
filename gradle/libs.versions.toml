@@ -30,10 +30,9 @@ gms-google-services = "4.4.2"
 # TODO: Update Compose libraries. There is currently a conflicing issue with the HorizontalPager
 compose-androidx-ui = "1.7.8"
 compose-compiler = "1.5.15"
-composeNavigation = "2.8.9"
+composeNavigation = "2.9.5"
 compose-jb = "1.7.3"
 
-accompanistNavigationAnimation = "0.36.0"
 splashscreen = "1.0.1"
 junit = "4.13.2"
 junitKtx = "1.2.1"
@@ -59,7 +58,6 @@ sqliter = { module = "co.touchlab:sqliter-driver", version.ref = "sqliter" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 
-accompanist-navigationAnimation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanistNavigationAnimation" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version = "_" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "_" }

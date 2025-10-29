@@ -78,12 +78,12 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                     scrollBehavior = scrollBehavior,
                 )
             },
-        ) { paddingValues ->
+        ) { innerPadding ->
             var size by remember { mutableStateOf(IntSize(0, 0)) }
             Column(
                 modifier = Modifier
                     .onSizeChanged { size = it }
-                    .padding(top = paddingValues.calculateTopPadding()),
+                    .padding(top = innerPadding.calculateTopPadding()),
             ) {
                 val days by viewModel.observeDays.observeAsState()
                 if (days?.isEmpty() != false) {

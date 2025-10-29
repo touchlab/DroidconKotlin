@@ -83,7 +83,6 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.coil.compose)
-    implementation(libs.accompanist.navigationAnimation)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)

@@ -59,8 +59,8 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConfer
                 }
             }
         },
-    ) { paddingValues ->
-        Box(modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())) {
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())) {
             when (selectedTab) {
                 ApplicationViewModel.Tab.Schedule -> SessionListView(
                     viewModel = viewModel.schedule,
