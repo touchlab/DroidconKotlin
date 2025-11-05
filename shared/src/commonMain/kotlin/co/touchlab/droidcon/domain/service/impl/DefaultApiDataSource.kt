@@ -1,6 +1,7 @@
 package co.touchlab.droidcon.domain.service.impl
 
-import co.touchlab.droidcon.Constants
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
+import co.touchlab.droidcon.domain.service.impl.dto.ConferencesDto
 import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
@@ -14,36 +15,55 @@ import io.ktor.http.takeFrom
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 
-class DefaultApiDataSource(private val client: HttpClient, private val json: Json) : DefaultSyncService.DataSource {
+class DefaultApiDataSource(
+    private val client: HttpClient,
+    private val json: Json,
+    private val conferenceConfigProvider: ConferenceConfigProvider,
+) : DefaultSyncService.DataSource {
     override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto> {
         val jsonString = client.get {
-            // We want to use the `sponsorsId` to get "speakers" for the sponsors as well as speakers for real sessions.
-            sessionize("/api/v2/${Constants.Sessionize.sponsorsId}/view/speakers")
+            // We want to use the same scheduleId for speakers and schedule
+            sessionize("/api/v2/${conferenceConfigProvider.getScheduleId()}/view/speakers")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(SpeakersDto.SpeakerDto.serializer()), jsonString)
     }
 
     override suspend fun getSchedule(): List<ScheduleDto.DayDto> {
         val jsonString = client.get {
-            sessionize("/api/v2/${Constants.Sessionize.scheduleId}/view/gridtable")
+            sessionize("/api/v2/${conferenceConfigProvider.getScheduleId()}/view/gridtable")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(ScheduleDto.DayDto.serializer()), jsonString)
     }
 
     override suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto> {
         val jsonString = client.get {
-            sessionize("/api/v2/${Constants.Sessionize.sponsorsId}/view/sessions")
+            sessionize("/api/v2/${conferenceConfigProvider.getScheduleId()}/view/sessions")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(SponsorSessionsDto.SessionGroupDto.serializer()), jsonString)
     }
 
     override suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto {
+        val projectId = conferenceConfigProvider.getProjectId()
+        val collectionName = conferenceConfigProvider.getCollectionName()
+        val apiKey = conferenceConfigProvider.getApiKey()
+        val databaseName = "(default)" // This could be moved to ConferenceConfigProvider if needed
+
         val jsonString = client.get {
-            with(Constants.Firestore) {
-                firestore("/v1/projects/$projectId/databases/$databaseName/documents/$collectionName?key=$apiKey")
-            }
+            firestore("/v1/projects/$projectId/databases/$databaseName/documents/$collectionName?key=$apiKey")
         }.bodyAsText()
         return json.decodeFromString(SponsorsDto.SponsorCollectionDto.serializer(), jsonString)
+    }
+
+    suspend fun getConferences(): ConferencesDto.ConferenceCollectionDto {
+        val projectId = conferenceConfigProvider.getProjectId()
+        val apiKey = conferenceConfigProvider.getApiKey()
+        val databaseName = "(default)"
+        val conferenceListCollection = "conferenceListMobile"
+
+        val jsonString = client.get {
+            firestore("/v1/projects/$projectId/databases/$databaseName/documents/$conferenceListCollection?key=$apiKey")
+        }.bodyAsText()
+        return json.decodeFromString(ConferencesDto.ConferenceCollectionDto.serializer(), jsonString)
     }
 
     private fun HttpRequestBuilder.sessionize(path: String) {

@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.session.SessionListView
 import co.touchlab.droidcon.ui.settings.SettingsView
 import co.touchlab.droidcon.ui.sponsors.SponsorsView
@@ -26,14 +27,14 @@ import co.touchlab.droidcon.ui.venue.VenueView
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 
 @Composable
-internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Modifier = Modifier) {
+internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConference: Conference, modifier: Modifier = Modifier) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
 
     Scaffold(
         modifier = modifier,
         bottomBar = {
             NavigationBar {
-                viewModel.tabs.forEach { tab ->
+                viewModel.listTabs(currentConference).forEach { tab ->
                     val (title, icon) = when (tab) {
                         ApplicationViewModel.Tab.Schedule -> "Schedule" to Icons.Filled.CalendarMonth
                         // FIXME: Was originally "My agenda" but then it doesn't seem to fit.
@@ -58,12 +59,12 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
                 }
             }
         },
-    ) { paddingValues ->
-        Box(modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())) {
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())) {
             when (selectedTab) {
                 ApplicationViewModel.Tab.Schedule -> SessionListView(
                     viewModel = viewModel.schedule,
-                    title = "Droidcon London 2024",
+                    title = currentConference.name,
                     emptyText = "Sessions could not be loaded.",
                 )
 
@@ -73,7 +74,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, modifier: Mod
                     emptyText = "Add sessions to your agenda from session detail in schedule.",
                 )
 
-                ApplicationViewModel.Tab.Venue -> VenueView()
+                ApplicationViewModel.Tab.Venue -> VenueView(currentConference.venueMap)
                 ApplicationViewModel.Tab.Sponsors -> SponsorsView(viewModel.sponsors)
                 ApplicationViewModel.Tab.Settings -> SettingsView(viewModel.settings)
             }

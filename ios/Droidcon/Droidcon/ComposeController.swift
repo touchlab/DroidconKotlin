@@ -3,7 +3,7 @@ import DroidconKit
 
 struct ComposeController: UIViewControllerRepresentable {
     
-    let viewModel: ApplicationViewModel
+    let viewModel: WaitForLoadedContextModel
     
     func makeUIViewController(context: Context) -> some UIViewController {
         getRootController(viewModel: viewModel)

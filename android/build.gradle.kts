@@ -19,15 +19,15 @@ try {
 val releasePassword = properties.getProperty("releasePassword", "")
 
 android {
-    namespace = "co.touchlab.droidcon"
+    namespace = "com.droidcon.app"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "co.touchlab.droidcon.london"
+        applicationId = "com.droidcon.app"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 60107
-        versionName = "6.1.7"
+        versionCode = 10003
+        versionName = "1.0.3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
@@ -83,7 +83,6 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.coil.compose)
-    implementation(libs.accompanist.navigationAnimation)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)

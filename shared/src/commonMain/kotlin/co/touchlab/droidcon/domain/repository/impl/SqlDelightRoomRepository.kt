@@ -14,24 +14,30 @@ class SqlDelightRoomRepository(private val roomQueries: RoomQueries) :
     BaseRepository<Room.Id, Room>(),
     RoomRepository {
 
-    override fun allSync(): List<Room> = roomQueries.selectAll(::roomFactory).executeAsList()
+    override fun allSync(conferenceId: Long): List<Room> = roomQueries.selectAll(conferenceId, ::roomFactory).executeAsList()
 
-    override fun observe(id: Room.Id): Flow<Room> = roomQueries.selectById(id.value, ::roomFactory).asFlow().mapToOne(Dispatchers.Main)
+    override fun observe(id: Room.Id, conferenceId: Long): Flow<Room> =
+        roomQueries.selectById(id.value, conferenceId, ::roomFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    override fun observeOrNull(id: Room.Id): Flow<Room?> =
-        roomQueries.selectById(id.value, ::roomFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
+    override fun observeOrNull(id: Room.Id, conferenceId: Long): Flow<Room?> =
+        roomQueries.selectById(id.value, conferenceId, ::roomFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
 
-    override fun observeAll(): Flow<List<Room>> = roomQueries.selectAll(::roomFactory).asFlow().mapToList(Dispatchers.Main)
+    override fun observeAll(conferenceId: Long): Flow<List<Room>> =
+        roomQueries.selectAll(conferenceId, ::roomFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun doUpsert(entity: Room) {
-        roomQueries.upsert(id = entity.id.value, name = entity.name)
+    override fun doUpsert(entity: Room, conferenceId: Long) {
+        roomQueries.upsert(
+            id = entity.id.value,
+            conferenceId = conferenceId,
+            name = entity.name,
+        )
     }
 
-    override fun doDelete(id: Room.Id) {
-        roomQueries.deleteById(id.value)
+    override fun doDelete(id: Room.Id, conferenceId: Long) {
+        roomQueries.deleteById(id.value, conferenceId)
     }
 
-    override fun contains(id: Room.Id): Boolean = roomQueries.existsById(id.value).executeAsOne() != 0L
+    override fun contains(id: Room.Id, conferenceId: Long): Boolean = roomQueries.existsById(id.value, conferenceId).executeAsOne() != 0L
 
-    private fun roomFactory(id: Long, name: String) = Room(id = Room.Id(id), name = name)
+    private fun roomFactory(id: Long, conferenceId: Long, name: String) = Room(id = Room.Id(id), name = name)
 }

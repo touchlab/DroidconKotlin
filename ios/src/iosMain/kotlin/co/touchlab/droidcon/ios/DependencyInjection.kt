@@ -11,7 +11,7 @@ import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.BundleResourceReader
 import co.touchlab.droidcon.util.formatter.DateFormatter
-import co.touchlab.droidcon.viewmodel.ApplicationViewModel
+import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.ObservableSettings
@@ -44,5 +44,6 @@ fun initKoinIos(userDefaults: NSUserDefaults, analyticsService: AnalyticsService
 // When not used, an error "KClass of Objective-C classes is not supported." is thrown.
 data class BundleProvider(val bundle: NSBundle)
 
-val Koin.applicationViewModel: ApplicationViewModel
+@Suppress("unused")
+val Koin.waitForLoadedContextModel: WaitForLoadedContextModel
     get() = get()

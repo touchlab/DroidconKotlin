@@ -93,10 +93,6 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     modifier = Modifier
                         .height(160.dp)
                         .fillMaxWidth(),
-                    colors = outlinedTextFieldColors(
-                        cursorColor = MaterialTheme.colorScheme.primary,
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                    ),
                 )
 
                 Column(

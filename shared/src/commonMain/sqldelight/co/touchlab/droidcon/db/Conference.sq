@@ -1,0 +1,60 @@
+import kotlinx.datetime.TimeZone;
+import kotlin.Boolean;
+
+CREATE TABLE conferenceTable(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    conferenceName TEXT NOT NULL,
+    conferenceTimeZone TEXT AS TimeZone NOT NULL,
+    projectId TEXT NOT NULL,
+    collectionName TEXT NOT NULL,
+    apiKey TEXT NOT NULL,
+    scheduleId TEXT NOT NULL,
+    selected INTEGER AS Boolean NOT NULL DEFAULT 0,
+    active INTEGER AS Boolean NOT NULL DEFAULT 1,
+    venueMap TEXT
+);
+
+insert:
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active, venueMap)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateConference:
+UPDATE conferenceTable
+SET conferenceName = ?, conferenceTimeZone = ?, projectId = ?, collectionName = ?, apiKey = ?, scheduleId = ?, selected = ?, active = ?, venueMap = ?
+WHERE id = ?;
+
+selectAll:
+SELECT * FROM conferenceTable;
+
+selectAllActive:
+SELECT * FROM conferenceTable WHERE active = 1;
+
+selectById:
+SELECT * FROM conferenceTable WHERE id = ?;
+
+deleteById:
+DELETE FROM conferenceTable WHERE id = ?;
+
+selectSelected:
+SELECT * FROM conferenceTable WHERE selected = 1 LIMIT 1;
+
+updateSelected:
+UPDATE conferenceTable
+SET selected = 0
+WHERE selected = 1;
+
+setSelected:
+UPDATE conferenceTable
+SET selected = 1
+WHERE id = ?;
+
+changeSelectedConference {
+    UPDATE conferenceTable SET selected = 0 WHERE selected = 1;
+    UPDATE conferenceTable SET selected = 1 WHERE id = :conferenceId;
+}
+
+INSERT INTO conferenceTable(conferenceName, conferenceTimeZone, projectId, collectionName, apiKey, scheduleId, selected, active, venueMap)
+VALUES ("Droidcon NYC 2025", "America/New_York", "droidcon-148cc", "sponsors-nyc-2025", "AIzaSyCkD5DH2rUJ8aZuJzANpIFj0AVuCNik1l0", "4lffd9w7", 1, 1, NULL);
+
+lastInsertRowId:
+SELECT last_insert_rowid();

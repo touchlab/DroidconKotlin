@@ -11,5 +11,5 @@ interface SettingsGateway {
 
     suspend fun setRemindersEnabled(enabled: Boolean)
 
-    suspend fun setUseComposeForIos(useCompose: Boolean)
+    suspend fun setFirstRun(isFirstRun: Boolean)
 }

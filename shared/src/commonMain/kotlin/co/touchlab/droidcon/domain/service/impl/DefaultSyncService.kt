@@ -2,11 +2,13 @@ package co.touchlab.droidcon.domain.service.impl
 
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.db.DroidconDatabase
+import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.entity.SponsorGroup
+import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
@@ -22,37 +24,34 @@ import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
 import co.touchlab.kermit.Logger
-import com.russhwolf.settings.ObservableSettings
-import com.russhwolf.settings.get
-import com.russhwolf.settings.set
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
+import kotlinx.datetime.plus
 
 class DefaultSyncService(
     private val log: Logger,
-    private val settings: ObservableSettings,
     private val dateTimeService: DateTimeService,
     private val profileRepository: ProfileRepository,
     private val sessionRepository: SessionRepository,
     private val roomRepository: RoomRepository,
     private val sponsorRepository: SponsorRepository,
     private val sponsorGroupRepository: SponsorGroupRepository,
-    private val seedDataSource: DataSource,
     private val apiDataSource: DataSource,
     private val serverApi: ServerApi,
     private val db: DroidconDatabase,
+    private val conferenceRepository: ConferenceRepository,
 ) : SyncService {
-    private companion object {
-        // MARK: Settings keys
-        private const val LOCAL_REPOSITORIES_SEEDED_KEY = "LOCAL_REPOSITORIES_SEEDED"
-        private const val LAST_SESSIONIZE_SYNC_KEY = "LAST_SESSIONIZE_SYNC_TIME"
+    private val testNotificationTimes = false
 
+    private companion object {
         // MARK: Delays
         // 5 minutes
         private const val SESSIONIZE_SYNC_POLL_DELAY: Long = 5L * 60L * 1000L
@@ -68,48 +67,41 @@ class DefaultSyncService(
         private const val FEEDBACK_SYNC_DELAY: Long = 5L * 60L * 1000L
     }
 
-    private var isLocalRepositoriesSeeded: Boolean
-        get() = settings[LOCAL_REPOSITORIES_SEEDED_KEY, false]
-        set(value) {
-            settings[LOCAL_REPOSITORIES_SEEDED_KEY] = value
-        }
-
-    private var lastSessionizeSync: Instant?
-        get() = settings.getLongOrNull(LAST_SESSIONIZE_SYNC_KEY)?.let { Instant.fromEpochMilliseconds(it) }
-        set(value) {
-            settings[LAST_SESSIONIZE_SYNC_KEY] = value?.toEpochMilliseconds()
-        }
-
-    override suspend fun runSynchronization() {
-        seedLocalRepositoriesIfNeeded()
-
+    override suspend fun runSynchronization(conference: Conference) {
         coroutineScope {
             launch {
+                var lastSessionizeSyncThisLoop: Instant = dateTimeService.now().minus(3, DateTimeUnit.HOUR)
                 while (isActive) {
-                    val lastSessionizeSync = lastSessionizeSync
-                    // If this is the first Sessionize sync or if the last sync occurred more than 2 hours ago.
-                    if (
-                        lastSessionizeSync == null ||
+                    val lastSessionizeSync = lastSessionizeSyncThisLoop
+
+                    val timeToSync =
                         lastSessionizeSync <= dateTimeService.now().minus(SESSIONIZE_SYNC_SINCE_LAST_MINUTES, DateTimeUnit.MINUTE)
-                    ) {
-                        try {
-                            runApiDataSourcesSynchronization()
-                        } catch (e: Exception) {
-                            log.w(e) { "Failed to update repositories from API data source." }
+
+                    log.w("DATASYNC runSynchronization called with $conference")
+                    try { // Run sync if either condition is true
+                        if (timeToSync) {
+                            try {
+                                runApiDataSourcesSynchronization(conference)
+                                lastSessionizeSyncThisLoop = dateTimeService.now()
+                            } catch (e: Exception) {
+                                delay(SESSIONIZE_SYNC_POLL_DELAY)
+                                continue
+                            }
+                            delay(SESSIONIZE_SYNC_NEXT_DELAY)
+                        } else {
                             delay(SESSIONIZE_SYNC_POLL_DELAY)
-                            continue
                         }
-                        log.d { "Sync successful, waiting for next sync in $SESSIONIZE_SYNC_NEXT_DELAY ms." }
-                        delay(SESSIONIZE_SYNC_NEXT_DELAY)
-                    } else {
-                        log.d { "The sync didn't happen, so we'll try again in a short while ($SESSIONIZE_SYNC_POLL_DELAY ms)." }
-                        delay(SESSIONIZE_SYNC_POLL_DELAY)
+                    } catch (e: Exception) {
+                        log.w("DATASYNC runSynchronization exiting with $conference")
+                        throw e
                     }
+                    log.w("DATASYNC runSynchronization looped with $conference")
                 }
             }
 
             launch {
-                sessionRepository.observeAll()
+                val conferenceId = conference.id
+                sessionRepository.observeAll(conferenceId)
                     .collect { sessions ->
                         sessions
                             .mapNotNull { session ->
@@ -125,7 +117,11 @@ class DefaultSyncService(
                                     try {
                                         val isRsvpSent = serverApi.setRsvp(sessionId, isAttending)
                                         if (isRsvpSent) {
-                                            sessionRepository.setRsvpSent(sessionId, isAttending)
+                                            sessionRepository.setRsvpSent(
+                                                sessionId,
+                                                isAttending,
+                                                conferenceId,
+                                            )
                                         }
                                         break
                                     } catch (e: Exception) {
@@ -138,7 +134,8 @@ class DefaultSyncService(
             }
 
             launch {
-                sessionRepository.observeAll()
+                val conferenceId = conference.id
+                sessionRepository.observeAll(conferenceId)
                     .collect { sessions ->
                         sessions
                             .mapNotNull { session ->
@@ -154,7 +151,11 @@ class DefaultSyncService(
                                     try {
                                         val isFeedbackSent = serverApi.setFeedback(sessionId, feedback.rating, feedback.comment)
                                         if (isFeedbackSent) {
-                                            sessionRepository.setFeedbackSent(sessionId, isFeedbackSent)
+                                            sessionRepository.setFeedbackSent(
+                                                sessionId,
+                                                isFeedbackSent,
+                                                conferenceId,
+                                            )
                                         }
                                         break
                                     } catch (e: Exception) {
@@ -168,31 +169,24 @@ class DefaultSyncService(
         }
     }
 
-    override suspend fun forceSynchronize(): Boolean = try {
-        runApiDataSourcesSynchronization()
+    override suspend fun forceSynchronize(conference: Conference): Boolean = try {
+        runApiDataSourcesSynchronization(conference)
+        syncConferences() // Also sync conferences when forced
         true
     } catch (e: Exception) {
         log.e(e) { "Failed to update repositories from API data source." }
         false
     }
 
-    private suspend fun seedLocalRepositoriesIfNeeded() {
-        if (isLocalRepositoriesSeeded) {
-            return
-        }
+    private suspend fun runApiDataSourcesSynchronization(conference: Conference) {
+        val currentConferenceId = conference.id
+        log.d { "Will sync all repositories from API data source for conference ID: $currentConferenceId" }
 
-        updateRepositoriesFromDataSource(seedDataSource)
-
-        isLocalRepositoriesSeeded = true
+        // Update the repositories
+        updateRepositoriesFromDataSource(apiDataSource, conference)
     }
 
-    private suspend fun runApiDataSourcesSynchronization() {
-        log.d { "Will sync all repositories from API data source." }
-        updateRepositoriesFromDataSource(apiDataSource)
-        lastSessionizeSync = dateTimeService.now()
-    }
-
-    private suspend fun updateRepositoriesFromDataSource(dataSource: DataSource) {
+    private suspend fun updateRepositoriesFromDataSource(dataSource: DataSource, conference: Conference) {
         val speakerDtos = dataSource.getSpeakers()
         val days = dataSource.getSchedule()
         val sponsorSessionsGroups = dataSource.getSponsorSessions()
@@ -200,32 +194,191 @@ class DefaultSyncService(
         // DB Transactions for db mods are ridiculously faster than non-trans changes. Also, if something fails, thd db will roll back.
         // The repo architecture will likely need to change. Everything is suspend and unconcerned with thread, but that's not good practice.
         db.transaction {
-            updateSpeakersFromDataSource(speakerDtos)
-            updateScheduleFromDataSource(days)
+            updateSpeakersFromDataSource(speakerDtos, conference)
+            updateScheduleFromDataSource(days, conference)
         }
 
         // Sponsors may fail due to firebase errors, so we'll do this separate
         val sponsors = dataSource.getSponsors()
         db.transaction {
-            updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors)
+            updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors, conference)
         }
     }
 
-    private fun updateSpeakersFromDataSource(speakerDtos: List<SpeakersDto.SpeakerDto>) {
+    /**
+     * Synchronizes conference data from Firestore with the local database
+     */
+    override suspend fun syncConferences() {
+        log.d { "Syncing conferences from Firestore" }
+        try {
+            val apiDataSource = apiDataSource as? DefaultApiDataSource
+                ?: throw IllegalStateException("apiDataSource is not DefaultApiDataSource")
+
+            // Get conferences from Firestore
+            val conferencesFromFirestore = apiDataSource.getConferences()
+
+            // Get all local conferences (need to collect from Flow first)
+            val localConferences = conferenceRepository.observeAll().first()
+
+            // Map conferences by name for easy lookup
+            val conferencesMap = localConferences.associateBy { it.name }
+            val firestoreConferenceNames = mutableSetOf<String>()
+
+            // Process each conference from Firestore
+            conferencesFromFirestore.conferences.forEach { conferenceDto ->
+                val conferenceFields = conferenceDto.fields
+                val conferenceName = conferenceFields.conferenceName.stringValue
+                firestoreConferenceNames.add(conferenceName)
+
+                // Check if conference exists locally by name
+                val existingConference = conferencesMap[conferenceName]
+
+                if (existingConference != null) {
+                    // Check if there are any actual changes before updating
+                    val timeZone = TimeZone.of(conferenceFields.conferenceTimeZone.stringValue)
+                    val projectId = conferenceFields.projectId.stringValue
+                    val collectionName = conferenceFields.collectionName.stringValue
+                    val apiKey = conferenceFields.apiKey.stringValue
+                    val scheduleId = conferenceFields.scheduleId.stringValue
+                    val venueMap = conferenceFields.venueMap?.stringValue
+
+                    // Only update if any field has changed
+                    val needsUpdate = existingConference.timeZone != timeZone ||
+                        existingConference.projectId != projectId ||
+                        existingConference.collectionName != collectionName ||
+                        existingConference.apiKey != apiKey ||
+                        existingConference.scheduleId != scheduleId ||
+                        existingConference.venueMap != venueMap
+
+                    if (needsUpdate) {
+                        val updatedConference = Conference(
+                            _id = existingConference.id,
+                            name = conferenceName,
+                            timeZone = timeZone,
+                            projectId = projectId,
+                            collectionName = collectionName,
+                            apiKey = apiKey,
+                            scheduleId = scheduleId,
+                            selected = existingConference.selected,
+                            active = existingConference.active,
+                            venueMap = venueMap,
+                        )
+                        conferenceRepository.update(updatedConference)
+                        log.d { "Updated conference: $conferenceName (fields changed)" }
+                    } else {
+                        log.d { "Skipped updating conference: $conferenceName (no changes)" }
+                    }
+                } else {
+                    // Add new conference as active
+                    val newConference = Conference(
+                        name = conferenceName,
+                        timeZone = TimeZone.of(conferenceFields.conferenceTimeZone.stringValue),
+                        projectId = conferenceFields.projectId.stringValue,
+                        collectionName = conferenceFields.collectionName.stringValue,
+                        apiKey = conferenceFields.apiKey.stringValue,
+                        scheduleId = conferenceFields.scheduleId.stringValue,
+                        selected = false,
+                        active = true,
+                        venueMap = conferenceFields.venueMap?.stringValue,
+                    )
+                    conferenceRepository.add(newConference)
+                    log.d { "Added new conference: $conferenceName" }
+                }
+            }
+
+            // Mark conferences that don't exist in Firestore as inactive,
+            // but only if they're currently active
+            conferencesMap.forEach { (name, conference) ->
+                if (name !in firestoreConferenceNames && conference.active) {
+                    val deactivatedConference = Conference(
+                        _id = conference.id,
+                        name = conference.name,
+                        timeZone = conference.timeZone,
+                        projectId = conference.projectId,
+                        collectionName = conference.collectionName,
+                        apiKey = conference.apiKey,
+                        scheduleId = conference.scheduleId,
+                        selected = conference.selected,
+                        active = false,
+                        venueMap = conference.venueMap,
+                    )
+                    conferenceRepository.update(deactivatedConference)
+                    log.d { "Marked conference as inactive: $name" }
+                }
+            }
+
+            log.d { "Conference sync completed successfully" }
+        } catch (e: Exception) {
+            log.e(e) { "Error during conference sync" }
+            throw e
+        }
+    }
+
+    private fun updateSpeakersFromDataSource(speakerDtos: List<SpeakersDto.SpeakerDto>, conference: Conference) {
         val profiles = speakerDtos.map(::profileFactory)
+        val conferenceId = conference.id
 
         // Remove deleted speakers.
-        profileRepository.allSync().map { it.id }
+        profileRepository.allSync(conferenceId).map { it.id }
             .subtract(profiles.map { it.id }.toSet())
-            .forEach { profileRepository.remove(it) }
+            .forEach { profileRepository.remove(it, conferenceId) }
 
         profiles.forEach {
-            profileRepository.addOrUpdate(it)
+            profileRepository.addOrUpdate(it, conferenceId)
         }
     }
 
-    private fun updateScheduleFromDataSource(days: List<ScheduleDto.DayDto>) {
+    private fun dateFromString(dateTimeString: String): String = dateTimeString.split("T")[0]
+    private fun timeFromString(dateTimeString: String): String = dateTimeString.split("T")[1]
+
+    private fun updateScheduleFromDataSource(_days: List<ScheduleDto.DayDto>, conference: Conference) {
+        val originalToAdjustedDateMap = _days.flatMap { dayDto ->
+            dayDto.rooms.flatMap { roomDto -> roomDto.sessions }
+        }.map { sessionDto -> dateFromString(sessionDto.startsAt) }.toSet().toList().sorted().mapIndexed { index, date ->
+            val adjustedInstant = dateTimeService.now().plus(index * 24, DateTimeUnit.HOUR)
+            Pair(date, dateFromString(adjustedInstant.toString()))
+        }.toMap()
+
+        fun updateDateTimeString(dateTimeString: String): String =
+            originalToAdjustedDateMap.get(dateFromString(dateTimeString)) + "T" + timeFromString(dateTimeString)
+
+        val days = kotlin.runCatching {
+            if (testNotificationTimes) {
+                _days.map { originalDay ->
+                    ScheduleDto.DayDto(
+                        originalToAdjustedDateMap.get(dateFromString(originalDay.date))!!,
+                        originalDay.rooms.map { room ->
+                            ScheduleDto.RoomDto(
+                                room.id,
+                                room.name,
+                                room.sessions.map { originalSession ->
+                                    ScheduleDto.SessionDto(
+                                        id = originalSession.id,
+                                        title = originalSession.title,
+                                        description = originalSession.description,
+                                        startsAt = updateDateTimeString(originalSession.startsAt),
+                                        endsAt = updateDateTimeString(originalSession.endsAt),
+                                        isServiceSession = originalSession.isServiceSession,
+                                        isPlenumSession = originalSession.isPlenumSession,
+                                        speakers = originalSession.speakers,
+                                        categories = originalSession.categories,
+                                        roomID = originalSession.roomID,
+                                        room = originalSession.room,
+                                    )
+                                },
+                            )
+                        },
+                    )
+                }
+            } else {
+                _days
+            }
+        }.let { result ->
+            result.getOrThrow()
+        }
+
         val roomDtos = days.flatMap { it.rooms }
+        val conferenceId = conference.id
 
         val rooms = roomDtos.map { room ->
             Room(
@@ -234,15 +387,15 @@ class DefaultSyncService(
             )
         }
 
-        val sessionsAndSpeakers = roomDtos.flatMap { room ->
+        var sessionsAndSpeakers = roomDtos.flatMap { room ->
             room.sessions.map { dto ->
                 Session(
                     dateTimeService = dateTimeService,
                     id = Session.Id(dto.id),
                     title = dto.title,
                     description = dto.description,
-                    startsAt = LocalDateTime.parse(dto.startsAt).fromConferenceDateTime(dateTimeService),
-                    endsAt = LocalDateTime.parse(dto.endsAt).fromConferenceDateTime(dateTimeService),
+                    startsAt = LocalDateTime.parse(dto.startsAt).fromConferenceDateTime(dateTimeService, conference.timeZone),
+                    endsAt = LocalDateTime.parse(dto.endsAt).fromConferenceDateTime(dateTimeService, conference.timeZone),
                     isServiceSession = dto.isServiceSession,
                     room = Room.Id(dto.roomID),
                     rsvp = Session.RSVP(
@@ -255,39 +408,42 @@ class DefaultSyncService(
         }
 
         // Remove deleted rooms.
-        roomRepository.allSync().map { it.id }
+        roomRepository.allSync(conferenceId).map { it.id }
             .subtract(rooms.map { it.id }.toSet())
-            .forEach { roomRepository.remove(it) }
+            .forEach { roomRepository.remove(it, conferenceId) }
 
         rooms.forEach { room ->
-            roomRepository.addOrUpdate(room)
+            roomRepository.addOrUpdate(room, conferenceId)
         }
 
         // Remove deleted sessions.
-        sessionRepository.allSync()
+        sessionRepository.allSync(conferenceId)
             .map { it.id }
             .subtract(sessionsAndSpeakers.map { it.first.id }.toSet())
-            .forEach { sessionRepository.remove(it) }
+            .forEach { sessionRepository.remove(it, conferenceId) }
 
         sessionsAndSpeakers.forEach { (updatedSession, speakers) ->
-            val existingSession = sessionRepository.findSync(updatedSession.id)
+            val existingSession = sessionRepository.findSync(updatedSession.id, conferenceId)
             if (existingSession != null) {
                 updatedSession.rsvp = existingSession.rsvp
                 updatedSession.feedback = existingSession.feedback
-                sessionRepository.update(updatedSession)
+                sessionRepository.update(updatedSession, conferenceId)
             } else {
-                sessionRepository.add(updatedSession)
+                sessionRepository.add(updatedSession, conferenceId)
             }
 
-            profileRepository.setSessionSpeakers(updatedSession, speakers)
+            profileRepository.setSessionSpeakers(updatedSession, speakers, conferenceId)
         }
     }
 
     private fun updateSponsorsFromDataSource(
         sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
         sponsors: SponsorsDto.SponsorCollectionDto,
+        conference: Conference,
     ): String {
         val sponsorSessions = sponsorSessionsGroups.flatMap { it.sessions }.associateBy { it.id }
+        val conferenceId = conference.id
+
         val sponsorGroupsToSponsorDtos = sponsors.groups.map { group ->
             val groupName = (group.name.split('/').lastOrNull() ?: group.name)
                 .split(' ').joinToString(" ") {
@@ -316,22 +472,22 @@ class DefaultSyncService(
             }
         }
 
-        sponsorRepository.allSync().map { it.id }
+        sponsorRepository.allSync(conferenceId).map { it.id }
             .subtract(sponsorsAndRepresentativeIds.map { it.first.id }.toSet())
-            .forEach { sponsorRepository.remove(it) }
+            .forEach { sponsorRepository.remove(it, conferenceId) }
 
-        sponsorGroupRepository.allSync().map { it.id }
+        sponsorGroupRepository.allSync(conferenceId).map { it.id }
             .subtract(sponsorGroupsToSponsorDtos.map { it.first.id }.toSet())
-            .forEach { sponsorGroupRepository.remove(it) }
+            .forEach { sponsorGroupRepository.remove(it, conferenceId) }
 
         sponsorGroupsToSponsorDtos.forEach { (group, _) ->
-            sponsorGroupRepository.addOrUpdate(group)
+            sponsorGroupRepository.addOrUpdate(group, conferenceId)
         }
 
         sponsorsAndRepresentativeIds.forEach { (sponsor, representativeIds) ->
-            sponsorRepository.addOrUpdate(sponsor)
+            sponsorRepository.addOrUpdate(sponsor, conferenceId)
 
-            profileRepository.setSponsorRepresentatives(sponsor, representativeIds)
+            profileRepository.setSponsorRepresentatives(sponsor, representativeIds, conferenceId)
         }
         return ""
     }
@@ -354,7 +510,6 @@ class DefaultSyncService(
 
     interface DataSource {
         enum class Kind {
-            Seed,
             Api,
         }
 

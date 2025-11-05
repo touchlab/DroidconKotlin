@@ -19,10 +19,17 @@ import com.google.firebase.ktx.Firebase
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SharedPreferencesSettings
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import org.koin.core.component.KoinComponent
 import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsApi::class)
-class MainApp : Application() {
+class MainApp :
+    Application(),
+    KoinComponent {
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreate() {
         super.onCreate()

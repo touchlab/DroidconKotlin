@@ -8,6 +8,7 @@ import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.set
@@ -31,6 +32,7 @@ class DefaultNotificationSchedulingService(
     private val settings: ObservableSettings,
     private val json: Json,
     private val localizedStringFactory: NotificationSchedulingService.LocalizedStringFactory,
+    private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : NotificationSchedulingService {
     private companion object {
         // MARK: Settings keys
@@ -50,7 +52,7 @@ class DefaultNotificationSchedulingService(
         coroutineScope {
             launch {
                 scheduleNotifications(
-                    sessionRepository.observeAllAttending(),
+                    sessionRepository.observeAllAttending(conferenceConfigProvider.getConferenceId()),
                     settingsRepository.settings,
                 )
             }
@@ -60,7 +62,7 @@ class DefaultNotificationSchedulingService(
     override suspend fun rescheduleAll() {
         scheduledNotifications = emptyList()
         scheduleNotifications(
-            sessionRepository.observeAllAttending().take(1),
+            sessionRepository.observeAllAttending(conferenceConfigProvider.getConferenceId()).take(1),
             settingsRepository.settings.take(1),
         )
     }
@@ -87,7 +89,9 @@ class DefaultNotificationSchedulingService(
                     val newSessions = agenda.filterNot { scheduledSessionIds.contains(it.id) }
                     for (session in newSessions) {
                         if (isRemindersEnabled) {
-                            val roomName = session.room?.let { roomRepository.get(it).name }
+                            val roomName = session.room?.let {
+                                roomRepository.get(it, conferenceConfigProvider.getConferenceId()).name
+                            }
                             val reminderDelivery =
                                 session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
                             if (session.endsAt >= dateTimeService.now()) {

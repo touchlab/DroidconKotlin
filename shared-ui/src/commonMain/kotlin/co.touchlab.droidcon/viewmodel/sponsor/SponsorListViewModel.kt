@@ -23,7 +23,6 @@ class SponsorListViewModel(
                                 if (sponsor.hasDetail) {
                                     presentedSponsorDetail = sponsorDetailFactory.create(sponsor, sponsorGroup.group.name)
                                 } else {
-                                    // UIApplication.sharedApplication.openURL(NSURL(string = sponsor.url.string))
                                     presentedUrl = sponsor.url
                                 }
                             },

@@ -23,6 +23,7 @@ class SessionBlockViewModel(
             )
         },
     )
+    val observeSessions by observe(::sessions)
 
     class Factory(private val sessionListItemFactory: SessionListItemViewModel.Factory, private val dateFormatter: DateFormatter) {
         fun create(startsAt: LocalDateTime, items: List<ScheduleItem>, onScheduleItemSelected: (ScheduleItem) -> Unit) =

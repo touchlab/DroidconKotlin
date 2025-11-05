@@ -9,6 +9,7 @@ import co.touchlab.droidcon.application.repository.impl.DefaultAboutRepository
 import co.touchlab.droidcon.application.repository.impl.DefaultSettingsRepository
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.impl.DefaultNotificationSchedulingService
+import co.touchlab.droidcon.db.ConferenceTable
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.db.SessionTable
 import co.touchlab.droidcon.db.SponsorGroupTable
@@ -16,17 +17,20 @@ import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.domain.gateway.impl.DefaultSessionGateway
 import co.touchlab.droidcon.domain.gateway.impl.DefaultSponsorGateway
+import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
+import co.touchlab.droidcon.domain.repository.impl.SqlDelightConferenceRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightProfileRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightRoomRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
+import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.ScheduleService
@@ -34,6 +38,7 @@ import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.UserIdProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
+import co.touchlab.droidcon.domain.service.impl.DefaultConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
 import co.touchlab.droidcon.domain.service.impl.DefaultFeedbackService
 import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
@@ -42,9 +47,11 @@ import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
-import co.touchlab.droidcon.domain.service.impl.json.JsonSeedResourceDataSource
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpTimeout
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -71,6 +78,19 @@ val intToLongAdapter = object : ColumnAdapter<Int, Long> {
 
     override fun encode(value: Int): Long = value.toLong()
 }
+
+val timeZoneAdapter = object : ColumnAdapter<TimeZone, String> {
+    override fun decode(databaseValue: String): TimeZone = TimeZone.of(databaseValue)
+    override fun encode(value: TimeZone): String = value.id
+}
+
+// We defined this adapter but it's not being used automatically by SQLDelight yet
+// Will be used when we manually handle the selected flag
+val booleanAdapter = object : ColumnAdapter<Boolean, Long> {
+    override fun decode(databaseValue: Long): Boolean = databaseValue == 1L
+    override fun encode(value: Boolean): Long = if (value) 1L else 0L
+}
+
 private val coreModule = module {
     single {
         DroidconDatabase.invoke(
@@ -83,12 +103,20 @@ private val coreModule = module {
             sponsorGroupTableAdapter = SponsorGroupTable.Adapter(
                 intToLongAdapter,
             ),
+            conferenceTableAdapter = ConferenceTable.Adapter(
+                conferenceTimeZoneAdapter = timeZoneAdapter,
+                // Note: selectedAdapter will be added when the adapter is regenerated
+            ),
         )
     }
     single<Clock> { Clock.System }
 
     single {
-        HttpClient(engine = get()) {}
+        HttpClient(engine = get()) {
+            install(HttpTimeout) {
+                requestTimeoutMillis = 5000
+            }
+        }
     }
 
     single {
@@ -104,10 +132,27 @@ private val coreModule = module {
         )
     }
 
+    // Add ConferenceConfigProvider
+    single<ConferenceConfigProvider> {
+        val conferenceRepository: ConferenceRepository = get()
+        val selectedConference = runBlocking {
+            conferenceRepository.getSelected()
+        }
+        DefaultConferenceConfigProvider(
+            conferenceRepository = get(),
+            initialConference = selectedConference,
+        )
+    }
+
     single<DateTimeService> {
         DefaultDateTimeService(
             clock = get(),
-            conferenceTimeZone = Constants.conferenceTimeZone,
+        )
+    }
+
+    single {
+        co.touchlab.droidcon.util.AppChecker(
+            conferenceConfigProvider = get(),
         )
     }
     single<ProfileRepository> {
@@ -132,31 +177,29 @@ private val coreModule = module {
     single<SponsorGroupRepository> {
         SqlDelightSponsorGroupRepository(sponsorGroupQueries = get<DroidconDatabase>().sponsorGroupQueries)
     }
+    single<ConferenceRepository> {
+        SqlDelightConferenceRepository(conferenceQueries = get<DroidconDatabase>().conferenceQueries)
+    }
     single<SyncService> {
         DefaultSyncService(
             log = getWith("SyncService"),
-            settings = get(),
             dateTimeService = get(),
             profileRepository = get(),
             sessionRepository = get(),
             roomRepository = get(),
             sponsorRepository = get(),
             sponsorGroupRepository = get(),
-            seedDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Seed)),
             apiDataSource = get(qualifier(DefaultSyncService.DataSource.Kind.Api)),
             serverApi = get(),
             db = get(),
+            conferenceRepository = get(),
         )
     }
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {
         DefaultApiDataSource(
             client = get(),
             json = get(),
-        )
-    }
-    single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Seed)) {
-        JsonSeedResourceDataSource(
-            jsonResourceReader = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<SessionGateway> {
@@ -165,11 +208,13 @@ private val coreModule = module {
             roomRepository = get(),
             profileRepository = get(),
             scheduleService = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<ScheduleService> {
         DefaultScheduleService(
             sessionRepository = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<SponsorGateway> {
@@ -177,6 +222,7 @@ private val coreModule = module {
             sponsorRepository = get(),
             sponsorGroupRepository = get(),
             profileRepository = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<SettingsGateway> {
@@ -209,6 +255,7 @@ private val coreModule = module {
             settings = get(),
             json = get(),
             localizedStringFactory = get(),
+            conferenceConfigProvider = get(),
         )
     }
     single<ServerApi> {
