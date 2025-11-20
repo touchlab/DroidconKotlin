@@ -67,14 +67,20 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
     version = "1.0"
+
+
 
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared)
 
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
+            //api(libs.kermit.crashlytics)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
@@ -99,7 +105,7 @@ kotlin {
 
             implementation(libs.zoomimage.composeResources)
 
-            implementation(libs.hyperdrive.multiplatformx.api)
+            //implementation(libs.hyperdrive.multiplatformx.api)
             // implementation(libs.hyperdrive.multiplatformx.compose)
         }
         all {

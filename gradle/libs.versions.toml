@@ -5,7 +5,7 @@ targetSdk = "35"
 compileSdk = "35"
 
 # Dependencies
-kotlin = "2.1.10"
+kotlin = "2.2.0"
 
 ## Gradle Plugin version must be compatible with Multiplatform
 ## https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
@@ -16,13 +16,13 @@ ktor = "3.0.3"
 
 stately = "2.1.0"
 java = "21"
-kermit = "2.0.5"
+kermit = "2.0.8"
 sqliter = "1.3.1"
 
 hyperdrive = "0.1.148"
 
 multiplatformSettings = "1.2.0"
-sqlDelight = "2.0.2"
+sqlDelight = "2.1.0"
 firebase-bom = "33.10.0"
 firebase-crashlytics-gradle = "3.0.3"
 gms-google-services = "4.4.2"
@@ -50,6 +50,7 @@ ktlint = "12.1.1"
 coil = "3.1.0"
 zoomimage = "1.1.0-alpha06"
 skie = "0.10.1"
+jetbrainsKotlinJvm = "2.2.0"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
@@ -126,6 +127,7 @@ sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
+jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
 [bundles]
 ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serialization", "ktor-client-contentNegotiation"]

@@ -1,4 +1,7 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
@@ -62,12 +65,17 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
+
     version = "1.0"
 
     sourceSets {
         commonMain.dependencies {
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
+            //api(libs.kermit.crashlytics)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
@@ -78,7 +86,7 @@ kotlin {
 
             implementation(libs.stately.common)
             implementation(libs.koin.core)
-            implementation(libs.korio)
+            //implementation(libs.korio)
         }
         androidMain.dependencies {
             implementation(libs.sqldelight.driver.android)

@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.serialization).apply(false)
     alias(libs.plugins.skie).apply(false)
+    alias(libs.plugins.jetbrainsKotlinJvm) apply false
 }
 
 subprojects {
@@ -24,8 +25,8 @@ subprojects {
     }
 
     tasks.withType(KotlinCompile::class).all {
-        kotlinOptions {
-            jvmTarget = "1.8"
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
         }
     }
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
@@ -38,6 +39,7 @@ subprojects {
     }
 }
 
+/*
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
-}
+}*/

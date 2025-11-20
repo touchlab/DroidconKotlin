@@ -10,7 +10,7 @@ import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogcatWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
-import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
+//import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
 import com.russhwolf.settings.ExperimentalSettingsApi
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
@@ -49,6 +49,6 @@ actual val platformModule: Module = module {
         )
     }
 
-    val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(LogcatWriter(), CrashlyticsLogWriter())), tag = "Droidcon")
+    val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(LogcatWriter())), tag = "Droidcon")
     factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
 }
