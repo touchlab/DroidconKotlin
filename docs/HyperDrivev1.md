@@ -103,7 +103,7 @@ Hyperdrive provides a lifecycle system to manage resources properly:
 val lifecycle: Lifecycle
 
 // Execute code while view model is attached
-lifecycle.whileAttached {
+viewModelScope.launch {
     // Collect flows, perform periodic tasks, etc.
     // This block is cancelled when the view model detaches
 }

@@ -43,7 +43,7 @@ class WaitForLoadedContextModel(
     }
 
     suspend fun watchConferenceChanges() {
-        lifecycle.whileAttached {
+        viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
                     syncService.syncConferences()

@@ -1,6 +1,10 @@
 package co.touchlab.droidcon.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
@@ -24,6 +28,9 @@ import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class ApplicationViewModel(
     scheduleFactory: ScheduleViewModel.Factory,
@@ -99,15 +106,15 @@ class ApplicationViewModel(
         Tab.Settings,
     )
 
-    var selectedTab: Tab by published(Tab.Schedule)
-    val observeSelectedTab by observe(::selectedTab)
+    var selectedTab: MutableStateFlow<Tab> = MutableStateFlow(Tab.Schedule)
+    val observeSelectedTab: StateFlow<Tab> = selectedTab
 
     val showSplashScreen = MutableStateFlow(true)
 
     suspend fun runAllLiveTasks(conference: Conference) {
-        selectedTab = Tab.Schedule
+        selectedTab.value = Tab.Schedule
 
-        lifecycle.whileAttached {
+        viewModelScope.launch {
             try {
                 notificationSchedulingService.runScheduling()
             } catch (e: Exception) {
@@ -115,14 +122,14 @@ class ApplicationViewModel(
             }
         }
 
-        lifecycle.whileAttached {
+        viewModelScope.launch {
             try {
                 syncService.runSynchronization(conference = conference)
             } catch (e: Exception) {
                 log.e(e) { "Error starting sync service" }
             }
         }
-        lifecycle.whileAttached {
+        viewModelScope.launch {
             try {
                 val feedbackEnabled = settingsGateway.settings().value.isFeedbackEnabled
                 if (feedbackEnabled) {
@@ -138,7 +145,7 @@ class ApplicationViewModel(
         log.i { "ApplicationViewModel initialization starting" }
 
         // Initialize conferences - in a non-blocking way
-        lifecycle.whileAttached {
+        viewModelScope.launch {
             try {
                 // First load all conferences
                 conferenceRepository.observeAll().collect { conferences ->
@@ -150,7 +157,7 @@ class ApplicationViewModel(
         }
 
         // Observe first run status
-        lifecycle.whileAttached {
+        viewModelScope.launch {
             try {
                 settingsGateway.settings().collect { settings ->
                     _isFirstRun.value = settings.isFirstRun
@@ -166,7 +173,7 @@ class ApplicationViewModel(
     override fun handleDeepLinkNotification(notification: Notification.DeepLink) {
         when (notification) {
             is Notification.Local.Feedback ->
-                lifecycle.whileAttached {
+                viewModelScope.launch {
                     // We're not checking whether feedback is enabled, because the user opened a feedback notification.
                     try {
                         presentNextFeedback()
@@ -176,7 +183,7 @@ class ApplicationViewModel(
                 }
 
             is Notification.Local.Reminder -> {
-                selectedTab = Tab.Schedule
+                selectedTab.value = Tab.Schedule
                 schedule.openSessionDetail(notification.sessionId)
             }
         }
@@ -184,7 +191,7 @@ class ApplicationViewModel(
 
     // Function to set the selected conference
     fun selectConference(conferenceId: Long) {
-        lifecycle.whileAttached {
+        viewModelScope.launch {
             try {
                 conferenceRepository.select(conferenceId)
 

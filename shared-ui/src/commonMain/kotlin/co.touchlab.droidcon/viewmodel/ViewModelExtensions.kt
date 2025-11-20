@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-
+/*
 // Type aliases for compatibility
 typealias ObservableProperty<T> = StateFlow<T>
 typealias MutableObservableProperty<T> = MutableStateFlow<T>
@@ -198,7 +198,7 @@ fun <T> ViewModel.collected(
     }
 }
 
-// Helper for lifecycle.whileAttached - use viewModelScope.launch instead
+// Helper for viewModelScope.launch - use viewModelScope.launch instead
 class LifecycleHelper(private val viewModel: ViewModel) {
     fun whileAttached(block: suspend () -> Unit) {
         viewModel.viewModelScope.launch {
@@ -209,26 +209,6 @@ class LifecycleHelper(private val viewModel: ViewModel) {
 
 val ViewModel.lifecycle: LifecycleHelper
     get() = LifecycleHelper(this)
-
-// Helper for instanceLock
-class InstanceLock {
-    private var isLocked = false
-
-    suspend fun <T> runExclusively(block: suspend () -> T): T {
-        while (isLocked) {
-            kotlinx.coroutines.delay(10)
-        }
-        isLocked = true
-        try {
-            return block()
-        } finally {
-            isLocked = false
-        }
-    }
-}
-
-val ViewModel.instanceLock: InstanceLock
-    get() = InstanceLock()
 
 // Helper for identityEqualityPolicy
 fun <T> identityEqualityPolicy(): (T, T) -> Boolean = { a, b -> a === b }
@@ -318,4 +298,4 @@ fun <T> ReadWriteProperty<ViewModel, T>.asFlow(viewModel: ViewModel): kotlinx.co
         }
         kotlinx.coroutines.delay(50)
     }
-}
+}*/

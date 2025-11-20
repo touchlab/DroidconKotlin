@@ -72,7 +72,7 @@ class SettingsViewModel(
             log.d { "conferenceRepository.select() returned: $result" }
             // Force an immediate refresh of the selected conference
             // This is a workaround to ensure the UI updates promptly
-            lifecycle.whileAttached {
+            viewModelScope.launch {
                 try {
                     val selectedConf = conferenceRepository.getSelected()
                     log.d { "Got updated conference: ${selectedConf.name} (ID: ${selectedConf.id})" }

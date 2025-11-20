@@ -23,7 +23,7 @@ class ScheduleViewModel(
 ) {
 
     fun openSessionDetail(sessionId: Session.Id) {
-        lifecycle.whileAttached {
+        viewModelScope.launch {
             val sessionItem = sessionGateway.getScheduleItem(sessionId) ?: return@whileAttached
             presentedSessionDetail = sessionDetailFactory.create(sessionItem)
         }
