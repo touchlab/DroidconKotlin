@@ -3,7 +3,6 @@ package co.touchlab.droidcon.viewmodel.sponsor
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import kotlinx.coroutines.flow.map
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SponsorListViewModel(
     private val sponsorGateway: SponsorGateway,

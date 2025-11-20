@@ -35,7 +35,6 @@ kotlin {
             api(projects.sharedUi)
             api(libs.kermit)
             api(libs.kermit.simple)
-            api(libs.hyperdrive.multiplatformx.api)
         }
 
         matching { it.name.endsWith("Test") }
@@ -60,7 +59,6 @@ kotlin {
                 linkerOpts.add("-lsqlite3")
                 export(libs.kermit)
                 export(libs.kermit.simple)
-                export(libs.hyperdrive.multiplatformx.api)
                 export(projects.shared)
                 export(projects.sharedUi)
             }

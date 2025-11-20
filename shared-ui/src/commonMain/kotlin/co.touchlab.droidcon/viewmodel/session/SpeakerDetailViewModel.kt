@@ -4,7 +4,6 @@ import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.service.ParseUrlViewService
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SpeakerDetailViewModel(private val parseUrlViewService: ParseUrlViewService, profile: Profile) : BaseViewModel() {
 

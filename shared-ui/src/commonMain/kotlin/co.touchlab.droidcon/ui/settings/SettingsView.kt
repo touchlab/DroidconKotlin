@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
-import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

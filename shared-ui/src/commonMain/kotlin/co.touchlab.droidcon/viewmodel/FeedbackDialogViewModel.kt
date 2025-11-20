@@ -3,8 +3,6 @@ package co.touchlab.droidcon.viewmodel
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.kermit.Logger
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
-import org.brightify.hyperdrive.multiplatformx.property.map
 
 class FeedbackDialogViewModel(
     private val sessionGateway: SessionGateway,

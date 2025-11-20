@@ -98,9 +98,7 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.zoomimage.composeResources)
-
-            implementation(libs.hyperdrive.multiplatformx.api)
-            // implementation(libs.hyperdrive.multiplatformx.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
         }
         all {
             languageSettings.apply {

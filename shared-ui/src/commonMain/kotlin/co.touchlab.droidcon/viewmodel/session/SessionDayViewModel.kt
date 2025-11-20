@@ -7,7 +7,6 @@ import co.touchlab.droidcon.domain.service.toConferenceDateTime
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.util.startOfMinute
 import kotlinx.datetime.LocalDate
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SessionDayViewModel(
     sessionBlockFactory: SessionBlockViewModel.Factory,

@@ -15,9 +15,6 @@ import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
-import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
-import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
 
 class ApplicationViewModel(
     scheduleFactory: ScheduleViewModel.Factory,

@@ -4,7 +4,6 @@ import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SessionListItemViewModel(dateTimeService: DateTimeService, item: ScheduleItem, val selected: () -> Unit) : BaseViewModel() {
     val title: String = item.session.title

@@ -4,7 +4,6 @@ import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SponsorDetailViewModel(
     private val sponsorGateway: SponsorGateway,

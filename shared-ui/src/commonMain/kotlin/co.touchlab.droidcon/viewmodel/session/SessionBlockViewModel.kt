@@ -3,7 +3,6 @@ package co.touchlab.droidcon.viewmodel.session
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import kotlinx.datetime.LocalDateTime
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SessionBlockViewModel(
     sessionListItemFactory: SessionListItemViewModel.Factory,

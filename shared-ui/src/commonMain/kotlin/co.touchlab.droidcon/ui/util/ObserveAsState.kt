@@ -6,9 +6,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.neverEqualPolicy
 import androidx.compose.runtime.remember
-import org.brightify.hyperdrive.multiplatformx.ManageableViewModel
-import org.brightify.hyperdrive.multiplatformx.ObservableObject
-import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
 
 /**
  * Observe a view model as its properties change to update the view.
