@@ -49,7 +49,6 @@ import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
-import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
@@ -134,13 +133,9 @@ private val coreModule = module {
 
     // Add ConferenceConfigProvider
     single<ConferenceConfigProvider> {
-        val conferenceRepository: ConferenceRepository = get()
-        val selectedConference = runBlocking {
-            conferenceRepository.getSelected()
-        }
         DefaultConferenceConfigProvider(
             conferenceRepository = get(),
-            initialConference = selectedConference,
+            initialConference = null, // Will be loaded asynchronously via loadSelectedConference()
         )
     }
 

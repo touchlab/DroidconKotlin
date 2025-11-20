@@ -75,7 +75,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.kermit)
-            //api(libs.kermit.crashlytics)
+            // api(libs.kermit.crashlytics)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
@@ -86,7 +86,7 @@ kotlin {
 
             implementation(libs.stately.common)
             implementation(libs.koin.core)
-            //implementation(libs.korio)
+            // implementation(libs.korio)
         }
         androidMain.dependencies {
             implementation(libs.sqldelight.driver.android)

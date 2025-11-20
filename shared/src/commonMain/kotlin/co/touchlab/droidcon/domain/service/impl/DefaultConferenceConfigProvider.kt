@@ -9,26 +9,26 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.TimeZone
 
-class DefaultConferenceConfigProvider(private val conferenceRepository: ConferenceRepository, initialConference: Conference) :
+class DefaultConferenceConfigProvider(private val conferenceRepository: ConferenceRepository, initialConference: Conference?) :
     ConferenceConfigProvider {
     private val log = Logger.withTag("DefaultConferenceConfigProvider")
     private val _currentConferenceState = MutableStateFlow(initialConference)
-    val currentConferenceState: StateFlow<Conference> = _currentConferenceState
+    val currentConferenceState: StateFlow<Conference?> = _currentConferenceState
 
-    private val currentConference: Conference
+    private val currentConference: Conference?
         get() = currentConferenceState.value
 
-    override fun getConferenceId(): Long = currentConference.id
+    override fun getConferenceId(): Long = currentConference?.id ?: 0L
 
-    override fun getConferenceTimeZone(): TimeZone = currentConference.timeZone
+    override fun getConferenceTimeZone(): TimeZone = currentConference?.timeZone ?: TimeZone.UTC
 
     override fun getProjectId(): String = "droidcon-148cc"
 
-    override fun getCollectionName(): String = currentConference.collectionName
+    override fun getCollectionName(): String = currentConference?.collectionName ?: ""
 
-    override fun getApiKey(): String = currentConference.apiKey
+    override fun getApiKey(): String = currentConference?.apiKey ?: ""
 
-    override fun getScheduleId(): String = currentConference.scheduleId
+    override fun getScheduleId(): String = currentConference?.scheduleId ?: ""
 
     override fun showVenueMap(): Boolean = true // Default to true, will be configurable per conference later
 

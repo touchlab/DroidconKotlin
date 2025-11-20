@@ -74,10 +74,9 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
     }
 
     override fun doDelete(id: Session.Id, conferenceId: Long) {
-
     }
 
-    //override fun doDelete(id: Session.Id, conferenceId: Long) = sessionQueries.deleteById(id.value, conferenceId)
+    // override fun doDelete(id: Session.Id, conferenceId: Long) = sessionQueries.deleteById(id.value, conferenceId)
 
     override fun contains(id: Session.Id, conferenceId: Long): Boolean =
         sessionQueries.existsById(id.value, conferenceId).executeAsOne().toBoolean()
