@@ -37,7 +37,7 @@ import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.ui.session.SpeakerDetailView
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.DcAsyncImage
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
@@ -87,7 +87,7 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
                     DescriptionView(description = it)
                 }
 
-                val representatives by viewModel.observeRepresentatives.observeAsState()
+                val representatives by viewModel.observeRepresentatives.collectAsState()
                 representatives.forEach {
                     RepresentativeInfoView(profile = it)
                 }

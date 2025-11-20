@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.theme.DroidconTheme
 import co.touchlab.droidcon.ui.util.dcImageLoader
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import coil3.annotation.ExperimentalCoilApi
@@ -73,7 +73,7 @@ private fun MainAppBody(waitForLoadedContextModel: WaitForLoadedContextModel, se
     val viewModel = waitForLoadedContextModel.applicationViewModel
 
     // Get state from viewModel directly
-    val isFirstRun by viewModel.isFirstRun.observeAsState()
+    val isFirstRun by viewModel.isFirstRun.collectAsState()
 
     // Show first run dialog if needed
     if (isFirstRun) {

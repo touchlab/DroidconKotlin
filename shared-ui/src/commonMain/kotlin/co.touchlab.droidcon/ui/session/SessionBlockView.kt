@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.viewmodel.session.SessionBlockViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +42,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
         Column(modifier = Modifier.padding(start = 72.dp), verticalArrangement = Arrangement.spacedBy(Dimensions.Padding.quarter)) {
             sessionsBlock.sessions.forEach { session ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    val isInPast by session.observeIsInPast.observeAsState()
+                    val isInPast by session.observeIsInPast.collectAsState()
                     val badgeColor = when {
                         !session.isAttending -> Color.Transparent
                         isInPast -> MaterialTheme.colorScheme.outlineVariant

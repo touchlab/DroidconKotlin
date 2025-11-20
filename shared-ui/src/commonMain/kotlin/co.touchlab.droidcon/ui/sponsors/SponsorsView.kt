@@ -41,7 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.DcAsyncImage
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
@@ -72,7 +72,7 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
         ) { paddingValues ->
             val uriHandler = LocalUriHandler.current
 
-            val sponsorGroups by viewModel.observeSponsorGroups.observeAsState()
+            val sponsorGroups by viewModel.observeSponsorGroups.collectAsState()
             Column(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
                 if (sponsorGroups.isEmpty()) {
                     EmptyView()
@@ -85,7 +85,7 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
                 }
             }
 
-            val presentedUrl by viewModel.observePresentedUrl.observeAsState()
+            val presentedUrl by viewModel.observePresentedUrl.collectAsState()
             presentedUrl?.let {
                 uriHandler.openUri(it.string)
                 viewModel.presentedUrl = null
@@ -115,7 +115,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
             )
             val columnCount = if (sponsorGroup.isProminent) 3 else 4
 
-            val sponsors by sponsorGroup.observeSponsors.observeAsState()
+            val sponsors by sponsorGroup.observeSponsors.collectAsState()
 
             repeat(sponsors.size / columnCount + if (sponsors.size % columnCount == 0) 0 else 1) { rowIndex ->
                 Row(modifier = Modifier.padding(horizontal = Dimensions.Padding.half)) {

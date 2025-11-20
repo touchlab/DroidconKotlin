@@ -16,19 +16,19 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.session.SessionListView
 import co.touchlab.droidcon.ui.settings.SettingsView
 import co.touchlab.droidcon.ui.sponsors.SponsorsView
-import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.ui.venue.VenueView
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 
 @Composable
 internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConference: Conference, modifier: Modifier = Modifier) {
-    val selectedTab by viewModel.observeSelectedTab.observeAsState()
+    val selectedTab:  by viewModel.observeSelectedTab.collectAsState()
 
     Scaffold(
         modifier = modifier,
@@ -81,7 +81,7 @@ internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConfer
         }
     }
 
-    val feedback by viewModel.observePresentedFeedback.observeAsState()
+    val feedback by viewModel.observePresentedFeedback.collectAsState()
     feedback?.let {
         FeedbackDialog(it)
     }

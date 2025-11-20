@@ -92,12 +92,15 @@ kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
 kermit-crashlytics = { module = "co.touchlab:kermit-crashlytics", version.ref = "kermit" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "stately" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime", version.ref = "androidx-lifecycle" }
+
 
 # Sample - Android
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
-androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-compose-ktx = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-androidx-ui" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-androidx-ui" }
@@ -129,9 +132,9 @@ ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serializa
 app-ui = [
     "compose-compiler",
     "androidx-core",
-    "androidx-lifecycle-runtime",
-    "androidx-lifecycle-viewmodel",
-    "androidx-lifecycle-compose",
+    "androidx-lifecycle-runtime-ktx",
+    "androidx-lifecycle-viewmodel-ktx",
+    "androidx-lifecycle-compose-ktx",
     "compose-ui",
     "compose-tooling",
     "compose-foundation",

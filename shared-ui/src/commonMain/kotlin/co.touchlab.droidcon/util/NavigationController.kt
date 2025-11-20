@@ -16,7 +16,7 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
 import androidx.lifecycle.ViewModel
 import co.touchlab.droidcon.ui.util.NavigationBackPressWrapper
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 
 private val LocalNavigationController = staticCompositionLocalOf {
     NavigationController.root
@@ -108,7 +108,7 @@ class NavigationController : ViewModel() {
 
     @Composable
     internal fun PushedStack(itemModifier: Modifier = Modifier) {
-        val currentStack by observeStack.observeAsState()
+        val currentStack by observeStack.collectAsState()
 
         var i = 0
         while (i < currentStack.count()) {
@@ -122,7 +122,7 @@ class NavigationController : ViewModel() {
     @Composable
     private fun <T : Any> PushedStackItem(item: NavigationStackItem.Push<T>, itemModifier: Modifier) {
         println("$item")
-        val itemValue by item.item.observeAsState()
+        val itemValue by item.item.collectAsState()
 
         itemValue?.let {
             Surface(modifier = itemModifier) {
@@ -247,7 +247,7 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
         scope.links()
 
         combine(constructedLinks)
-    }.observeAsState()
+    }.collectAsState()
 
     AnimatedContent(
         targetState = activeLinkComposables,

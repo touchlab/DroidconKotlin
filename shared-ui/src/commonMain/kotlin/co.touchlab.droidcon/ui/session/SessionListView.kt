@@ -51,7 +51,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.BaseSessionListViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
@@ -85,11 +85,11 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                     .onSizeChanged { size = it }
                     .padding(top = innerPadding.calculateTopPadding()),
             ) {
-                val days by viewModel.observeDays.observeAsState()
+                val days by viewModel.observeDays.collectAsState()
                 if (days?.isEmpty() != false) {
                     EmptyView(emptyText)
                 } else {
-                    val selectedDay by viewModel.observeSelectedDay.observeAsState()
+                    val selectedDay by viewModel.observeSelectedDay.collectAsState()
                     val selectedTabIndex = viewModel.days?.indexOf(selectedDay) ?: 0
                     val coroutineScope = rememberCoroutineScope()
 

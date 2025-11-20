@@ -24,14 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 
 @Composable
 internal fun ConferenceSelectorRow(viewModel: SettingsViewModel) {
     var expanded by remember { mutableStateOf(false) }
-    val conferences by viewModel.allConferences.observeAsState()
-    val selectedConference by viewModel.selectedConference.observeAsState()
+    val conferences by viewModel.allConferences.collectAsState()
+    val selectedConference by viewModel.selectedConference.collectAsState()
 
     Column {
         Row(

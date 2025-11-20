@@ -48,7 +48,7 @@ import co.touchlab.droidcon.ui.FeedbackDialog
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.DcAsyncImage
 import co.touchlab.droidcon.ui.util.WebLinkText
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
@@ -96,16 +96,16 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                     .verticalScroll(scrollState)
                     .padding(top = paddingValues.calculateTopPadding()),
             ) {
-                val state by viewModel.observeState.observeAsState()
+                val state by viewModel.observeState.collectAsState()
                 Box(contentAlignment = Alignment.BottomStart) {
                     Column(modifier = Modifier.padding(bottom = 22.dp)) {
-                        val title by viewModel.observeTitle.observeAsState()
-                        val locationInfo by viewModel.observeInfo.observeAsState()
+                        val title by viewModel.observeTitle.collectAsState()
+                        val locationInfo by viewModel.observeInfo.collectAsState()
                         HeaderView(title, locationInfo)
                         Divider()
                     }
                     if (state != SessionDetailViewModel.SessionState.Ended) {
-                        val isAttending by viewModel.observeIsAttending.observeAsState()
+                        val isAttending by viewModel.observeIsAttending.collectAsState()
                         FloatingActionButton(
                             onClick = viewModel::attendingTapped,
                             modifier = Modifier
@@ -134,7 +134,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                 }
                 InfoView(status)
 
-                val showFeedbackOption by viewModel.observeShowFeedbackOption.observeAsState()
+                val showFeedbackOption by viewModel.observeShowFeedbackOption.collectAsState()
                 if (showFeedbackOption) {
                     Button(
                         onClick = viewModel::writeFeedbackTapped,
@@ -142,7 +142,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             .padding(Dimensions.Padding.default)
                             .align(Alignment.CenterHorizontally),
                     ) {
-                        val feedbackAlreadyWritten by viewModel.observeFeedbackAlreadyWritten.observeAsState()
+                        val feedbackAlreadyWritten by viewModel.observeFeedbackAlreadyWritten.collectAsState()
                         val text = if (feedbackAlreadyWritten) {
                             "Change your feedback"
                         } else {
@@ -152,13 +152,13 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                     }
                 }
 
-                val description by viewModel.observeAbstract.observeAsState()
-                val descriptionLinks by viewModel.observeAbstractLinks.observeAsState()
+                val description by viewModel.observeAbstract.collectAsState()
+                val descriptionLinks by viewModel.observeAbstractLinks.collectAsState()
                 description?.let {
                     DescriptionView(it, descriptionLinks)
                 }
 
-                val speakers by viewModel.observeSpeakers.observeAsState()
+                val speakers by viewModel.observeSpeakers.collectAsState()
                 if (speakers.isNotEmpty()) {
                     Text(
                         text = "Speakers",
@@ -177,7 +177,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
         }
     }
 
-    val feedback by viewModel.observePresentedFeedback.observeAsState()
+    val feedback by viewModel.observePresentedFeedback.collectAsState()
     feedback?.let {
         FeedbackDialog(it)
     }

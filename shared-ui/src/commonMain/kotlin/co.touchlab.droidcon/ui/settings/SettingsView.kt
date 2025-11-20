@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,7 +79,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 
 @Composable
 internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
-    val isChecked by checked.observeAsState()
+    val isChecked by checked.collectAsState()
     Row(
         modifier = Modifier
             .fillMaxWidth()

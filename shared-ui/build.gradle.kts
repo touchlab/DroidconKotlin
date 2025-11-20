@@ -105,15 +105,12 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.zoomimage.composeResources)
-            // Use lifecycle-viewmodel (without -ktx) for KMP compatibility
-            api("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
-            // Use lifecycle-runtime (without -ktx) for KMP compatibility
-            implementation("androidx.lifecycle:lifecycle-runtime:2.8.7")
+            api(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.runtime)
         }
         androidMain.dependencies {
-            // Add ktx versions for Android to get viewModelScope and other extensions
-            implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
-            implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+            implementation(libs.androidx.lifecycle.viewmodel.ktx)
+            implementation(libs.androidx.lifecycle.runtime.ktx)
         }
         all {
             languageSettings.apply {

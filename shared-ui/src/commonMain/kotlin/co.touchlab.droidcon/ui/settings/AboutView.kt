@@ -16,13 +16,13 @@ import androidx.compose.ui.text.font.FontWeight
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.LocalImage
 import co.touchlab.droidcon.ui.util.WebLinkText
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.viewmodel.settings.AboutItemViewModel
 import co.touchlab.droidcon.viewmodel.settings.AboutViewModel
 
 @Composable
 internal fun AboutView(viewModel: AboutViewModel) {
-    val items by viewModel.observeItemViewModels.observeAsState()
+    val items by viewModel.observeItemViewModels.collectAsState()
     items.forEach { aboutItem ->
         AboutItemView(aboutItem)
     }

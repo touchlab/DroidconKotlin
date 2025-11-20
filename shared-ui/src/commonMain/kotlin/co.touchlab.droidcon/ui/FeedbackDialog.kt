@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.Dialog
-import co.touchlab.droidcon.ui.util.observeAsState
+import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,7 +57,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
-                    val selected by feedback.observeRating.observeAsState()
+                    val selected by feedback.observeRating.collectAsState()
 
                     FeedbackDialogViewModel.Rating.entries.forEach { rating ->
                         val image = when (rating) {
@@ -78,7 +78,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     }
                 }
 
-                val comment by feedback.observeComment.observeAsState()
+                val comment by feedback.observeComment.collectAsState()
                 OutlinedTextField(
                     value = comment,
                     onValueChange = { feedback.comment = it },
@@ -98,7 +98,7 @@ internal fun FeedbackDialog(feedback: FeedbackDialogViewModel) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.End,
                 ) {
-                    val isSubmitDisabled by feedback.observeIsSubmitDisabled.observeAsState()
+                    val isSubmitDisabled by feedback.observeIsSubmitDisabled.collectAsState()
                     TextButton(onClick = feedback::submitTapped, enabled = !isSubmitDisabled) {
                         Text(
                             text = "SUBMIT",
