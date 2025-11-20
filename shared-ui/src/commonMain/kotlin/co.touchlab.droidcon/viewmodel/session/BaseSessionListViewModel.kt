@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.viewmodel.session
 
+import androidx.lifecycle.ViewModel
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService

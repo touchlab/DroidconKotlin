@@ -1,4 +1,9 @@
 package co.touchlab.droidcon.viewmodel.sponsor
+import androidx.lifecycle.ViewModel
+import co.touchlab.droidcon.viewmodel.managed
+import co.touchlab.droidcon.viewmodel.managedList
+import co.touchlab.droidcon.viewmodel.observe
+import co.touchlab.droidcon.viewmodel.published
 
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.gateway.SponsorGateway

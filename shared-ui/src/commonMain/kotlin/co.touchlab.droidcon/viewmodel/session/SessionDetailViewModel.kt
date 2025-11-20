@@ -1,4 +1,8 @@
 package co.touchlab.droidcon.viewmodel.session
+import androidx.lifecycle.ViewModel
+import co.touchlab.droidcon.viewmodel.collected
+import co.touchlab.droidcon.viewmodel.observe
+import co.touchlab.droidcon.viewmodel.identityEqualityPolicy
 
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.NotificationService

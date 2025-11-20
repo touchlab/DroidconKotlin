@@ -1,4 +1,5 @@
 package co.touchlab.droidcon.viewmodel.sponsor
+import androidx.lifecycle.ViewModel
 
 import co.touchlab.droidcon.domain.entity.Sponsor
 import io.ktor.http.URLParserException

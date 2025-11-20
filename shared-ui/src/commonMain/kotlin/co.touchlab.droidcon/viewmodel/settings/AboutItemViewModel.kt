@@ -1,4 +1,5 @@
 package co.touchlab.droidcon.viewmodel.settings
+import androidx.lifecycle.ViewModel
 
 import co.touchlab.droidcon.dto.WebLink
 

@@ -1,4 +1,5 @@
 package co.touchlab.droidcon.util
+import androidx.lifecycle.ViewModel
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi

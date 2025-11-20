@@ -1,5 +1,15 @@
 package co.touchlab.droidcon.viewmodel.session
 
+import co.touchlab.droidcon.viewmodel.managed
+import co.touchlab.droidcon.viewmodel.managedList
+import co.touchlab.droidcon.viewmodel.observe
+import co.touchlab.droidcon.viewmodel.published
+import co.touchlab.droidcon.viewmodel.binding
+import co.touchlab.droidcon.viewmodel.collected
+import co.touchlab.droidcon.viewmodel.lifecycle
+import co.touchlab.droidcon.viewmodel.instanceLock
+import androidx.lifecycle.ViewModel
+
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
