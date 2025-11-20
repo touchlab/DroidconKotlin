@@ -26,7 +26,7 @@ private val LocalNavigationViewDimensions = staticCompositionLocalOf<NavigationV
     error("NavigationView hasn't been used.")
 }
 
-class NavigationController : BaseViewModel() {
+class NavigationController : ViewModel() {
 
     private val stack = mutableListOf<NavigationStackItem>()
     private var stackTracking: MutableList<NavigationStackItem> by published(stack, equalityPolicy = neverEqualPolicy())

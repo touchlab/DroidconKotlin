@@ -28,7 +28,7 @@ class ApplicationViewModel(
     private val feedbackService: FeedbackService,
     private val settingsGateway: SettingsGateway,
     private val conferenceRepository: ConferenceRepository,
-) : BaseViewModel(),
+) : ViewModel(),
     DeepLinkNotificationHandler {
 
     class Factory(

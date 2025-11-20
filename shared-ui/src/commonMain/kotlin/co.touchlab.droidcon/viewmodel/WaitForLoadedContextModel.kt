@@ -17,7 +17,7 @@ class WaitForLoadedContextModel(
     applicationViewModelFactory: ApplicationViewModel.Factory,
     private val syncService: SyncService,
     private val settingsGateway: SettingsGateway,
-) : BaseViewModel() {
+) : ViewModel() {
     sealed interface State {
         data object Loading : State
         data class Ready(val conference: Conference) : State

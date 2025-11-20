@@ -9,7 +9,7 @@ class SettingsViewModel(
     settingsGateway: SettingsGateway,
     private val aboutFactory: AboutViewModel.Factory,
     private val conferenceRepository: ConferenceRepository,
-) : BaseViewModel() {
+) : ViewModel() {
     private val log = Logger.withTag("SettingsViewModel")
 
     // Settings

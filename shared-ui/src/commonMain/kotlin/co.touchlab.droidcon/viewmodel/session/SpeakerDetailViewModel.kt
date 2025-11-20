@@ -5,7 +5,7 @@ import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.service.ParseUrlViewService
 
-class SpeakerDetailViewModel(private val parseUrlViewService: ParseUrlViewService, profile: Profile) : BaseViewModel() {
+class SpeakerDetailViewModel(private val parseUrlViewService: ParseUrlViewService, profile: Profile) : ViewModel() {
 
     val avatarUrl = profile.profilePicture
 

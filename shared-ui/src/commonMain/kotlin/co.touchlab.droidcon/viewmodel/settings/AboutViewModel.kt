@@ -4,7 +4,7 @@ import co.touchlab.droidcon.application.composite.AboutItem
 import co.touchlab.droidcon.application.repository.AboutRepository
 import co.touchlab.droidcon.service.ParseUrlViewService
 
-class AboutViewModel(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) : BaseViewModel() {
+class AboutViewModel(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) : ViewModel() {
 
     var items: List<AboutItem> by published(emptyList())
         private set

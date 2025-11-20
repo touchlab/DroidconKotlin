@@ -2,7 +2,7 @@ package co.touchlab.droidcon.viewmodel.session
 
 import co.touchlab.droidcon.domain.entity.Profile
 
-class SpeakerListItemViewModel(profile: Profile, val selected: () -> Unit) : BaseViewModel() {
+class SpeakerListItemViewModel(profile: Profile, val selected: () -> Unit) : ViewModel() {
     val avatarUrl = profile.profilePicture
     val info = listOfNotNull(profile.fullName, profile.tagLine).joinToString()
     val bio = profile.bio

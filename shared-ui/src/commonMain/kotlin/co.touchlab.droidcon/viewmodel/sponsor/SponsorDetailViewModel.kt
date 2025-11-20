@@ -11,7 +11,7 @@ class SponsorDetailViewModel(
     private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
     private val sponsor: Sponsor,
     val groupName: String,
-) : BaseViewModel() {
+) : ViewModel() {
 
     val name = sponsor.name
     val imageUrl = sponsor.icon

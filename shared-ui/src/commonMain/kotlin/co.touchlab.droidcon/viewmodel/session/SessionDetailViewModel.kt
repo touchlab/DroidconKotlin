@@ -30,7 +30,7 @@ class SessionDetailViewModel(
     private val feedbackService: FeedbackService,
     private val notificationService: NotificationService,
     initialItem: ScheduleItem,
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val item by collected(initialItem, sessionGateway.observeScheduleItem(initialItem.session.id), identityEqualityPolicy())
     private val observeItem by observe(::item)

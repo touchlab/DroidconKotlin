@@ -10,7 +10,7 @@ class SessionBlockViewModel(
     startsAt: LocalDateTime,
     items: List<ScheduleItem>,
     onScheduleItemSelected: (ScheduleItem) -> Unit,
-) : BaseViewModel() {
+) : ViewModel() {
     val time: String = dateFormatter.timeOnly(startsAt) ?: ""
     val sessions: List<SessionListItemViewModel> by managedList(
         items.map { item ->

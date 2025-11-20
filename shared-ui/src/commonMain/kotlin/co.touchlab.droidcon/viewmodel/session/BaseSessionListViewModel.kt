@@ -13,7 +13,7 @@ abstract class BaseSessionListViewModel(
     private val dateTimeService: DateTimeService,
     private val conferenceConfigProvider: ConferenceConfigProvider,
     val attendingOnly: Boolean,
-) : BaseViewModel() {
+) : ViewModel() {
 
     var days: List<SessionDayViewModel>? by published(null)
         private set

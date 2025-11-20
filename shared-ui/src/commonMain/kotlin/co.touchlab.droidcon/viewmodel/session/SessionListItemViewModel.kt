@@ -5,7 +5,7 @@ import co.touchlab.droidcon.domain.service.DateTimeService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 
-class SessionListItemViewModel(dateTimeService: DateTimeService, item: ScheduleItem, val selected: () -> Unit) : BaseViewModel() {
+class SessionListItemViewModel(dateTimeService: DateTimeService, item: ScheduleItem, val selected: () -> Unit) : ViewModel() {
     val title: String = item.session.title
     val isServiceSession: Boolean = item.session.isServiceSession
     val isAttending: Boolean = item.session.rsvp.isAttending

@@ -11,7 +11,7 @@ class FeedbackDialogViewModel(
     private val submit: suspend (Session.Feedback) -> Unit,
     private val closeAndDisable: (suspend () -> Unit)?,
     private val skip: suspend () -> Unit,
-) : BaseViewModel() {
+) : ViewModel() {
 
     val sessionTitle = session.title
     var rating: Rating? by published(session.feedback?.rating?.let(::feedbackRatingToRating))

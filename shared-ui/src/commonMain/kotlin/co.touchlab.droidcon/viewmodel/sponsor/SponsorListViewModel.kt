@@ -8,7 +8,7 @@ class SponsorListViewModel(
     private val sponsorGateway: SponsorGateway,
     private val sponsorGroupFactory: SponsorGroupViewModel.Factory,
     private val sponsorDetailFactory: SponsorDetailViewModel.Factory,
-) : BaseViewModel() {
+) : ViewModel() {
     val sponsorGroups: List<SponsorGroupViewModel> by managedList(
         emptyList(),
         sponsorGateway.observeSponsors()

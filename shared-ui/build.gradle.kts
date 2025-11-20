@@ -63,10 +63,17 @@ kotlin {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         unitTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach {
+        it.binaries.framework {
+            // Add this line to all the targets you want to export this dependency
+            export(libs.androidx.lifecycle.viewmodel)
+            baseName = "shared-ui"
+        }
+    }
     version = "1.0"
 
     sourceSets {
@@ -98,7 +105,7 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.zoomimage.composeResources)
-            implementation(libs.androidx.lifecycle.viewmodel)
+            api(libs.androidx.lifecycle.viewmodel)
         }
         all {
             languageSettings.apply {

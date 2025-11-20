@@ -7,7 +7,7 @@ class SponsorGroupViewModel(
     sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory,
     sponsorGroup: SponsorGroupWithSponsors,
     onSponsorSelected: (Sponsor) -> Unit,
-) : BaseViewModel() {
+) : ViewModel() {
     val title = sponsorGroup.group.name
     val isProminent = sponsorGroup.group.isProminent
     val sponsors by managedList(
