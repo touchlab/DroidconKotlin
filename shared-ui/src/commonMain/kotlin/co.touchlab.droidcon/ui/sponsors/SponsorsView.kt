@@ -43,6 +43,7 @@ import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.DcAsyncImage
 import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.util.NavigationStack
+import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
 import kotlin.math.min
@@ -55,7 +56,10 @@ internal fun SponsorsView(viewModel: SponsorListViewModel) {
     NavigationStack(
         key = viewModel,
         links = {
-            navigationLink(viewModel.observePresentedSponsorDetail) {
+            navigationLink<SponsorDetailViewModel>(
+                viewModel.observePresentedSponsorDetail,
+                reset = { viewModel.presentedSponsorDetail = null },
+            ) {
                 SponsorDetailView(viewModel = it)
             }
         },

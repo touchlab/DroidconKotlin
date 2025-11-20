@@ -19,12 +19,15 @@ typealias MutableObservableProperty<T> = MutableStateFlow<T>
 private val publishedFlows = mutableMapOf<Any, MutableStateFlow<*>>()
 
 // Replacement for hyperdrive's published delegate
-fun <T> ViewModel.published(initialValue: T): ReadWriteProperty<ViewModel, T> {
+fun <T> ViewModel.published(initialValue: T, equalityPolicy: ((T, T) -> Boolean)? = null): ReadWriteProperty<ViewModel, T> {
     val stateFlow = MutableStateFlow(initialValue)
     return object : ReadWriteProperty<ViewModel, T> {
         override fun getValue(thisRef: ViewModel, property: KProperty<*>): T = stateFlow.value
         override fun setValue(thisRef: ViewModel, property: KProperty<*>, value: T) {
-            stateFlow.value = value
+            val shouldUpdate = equalityPolicy?.let { !it(stateFlow.value, value) } ?: (stateFlow.value != value)
+            if (shouldUpdate) {
+                stateFlow.value = value
+            }
         }
     }.also {
         // Store the flow for observe to access
@@ -229,6 +232,9 @@ val ViewModel.instanceLock: InstanceLock
 
 // Helper for identityEqualityPolicy
 fun <T> identityEqualityPolicy(): (T, T) -> Boolean = { a, b -> a === b }
+
+// Helper for neverEqualPolicy - always returns false (never equal)
+fun <T> neverEqualPolicy(): (T, T) -> Boolean = { _, _ -> false }
 
 // Extension functions to make StateFlow.map work as property delegates
 // These create a StateFlow that automatically updates when the source changes

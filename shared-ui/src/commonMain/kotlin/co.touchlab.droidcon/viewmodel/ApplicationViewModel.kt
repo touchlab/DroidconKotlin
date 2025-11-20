@@ -83,11 +83,11 @@ class ApplicationViewModel(
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
     val observePresentedFeedback by observe(::presentedFeedback)
 
-    private val _allConferences = MutableObservableProperty<List<Conference>>(emptyList())
+    private val _allConferences = MutableStateFlow<List<Conference>>(emptyList())
     val allConferences: ObservableProperty<List<Conference>> = _allConferences
     val observeAllConferences by observe(::allConferences)
 
-    private val _isFirstRun = MutableObservableProperty<Boolean>(true)
+    private val _isFirstRun = MutableStateFlow<Boolean>(true)
     val isFirstRun: ObservableProperty<Boolean> = _isFirstRun
     val observeIsFirstRun by observe(::isFirstRun)
 

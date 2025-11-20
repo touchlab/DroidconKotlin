@@ -30,8 +30,8 @@ import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 @Composable
 internal fun ConferenceSelectorRow(viewModel: SettingsViewModel) {
     var expanded by remember { mutableStateOf(false) }
-    val conferences by viewModel.allConferences.collectAsState()
-    val selectedConference by viewModel.selectedConference.collectAsState()
+    val conferences by viewModel.allConferences.collectAsState<List<Conference>>()
+    val selectedConference by viewModel.selectedConference.collectAsState<Conference?>()
 
     Column {
         Row(

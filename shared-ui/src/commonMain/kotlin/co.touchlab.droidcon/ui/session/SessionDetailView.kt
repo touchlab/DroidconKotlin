@@ -51,7 +51,9 @@ import co.touchlab.droidcon.ui.util.WebLinkText
 import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.util.NavigationStack
+import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
+import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 
 private const val LOG_TAG = "SessionDetailView"
@@ -62,7 +64,10 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
     NavigationStack(
         key = viewModel,
         links = {
-            navigationLink(viewModel.observePresentedSpeakerDetail) {
+            navigationLink(
+                viewModel.observePresentedSpeakerDetail,
+                reset = { viewModel.presentedSpeakerDetail = null },
+            ) {
                 SpeakerDetailView(viewModel = it)
             }
         },
@@ -99,13 +104,13 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                 val state by viewModel.observeState.collectAsState()
                 Box(contentAlignment = Alignment.BottomStart) {
                     Column(modifier = Modifier.padding(bottom = 22.dp)) {
-                        val title by viewModel.observeTitle.collectAsState()
-                        val locationInfo by viewModel.observeInfo.collectAsState()
+                        val title by viewModel.observeTitle.collectAsState<String>()
+                        val locationInfo by viewModel.observeInfo.collectAsState<String>()
                         HeaderView(title, locationInfo)
                         Divider()
                     }
                     if (state != SessionDetailViewModel.SessionState.Ended) {
-                        val isAttending by viewModel.observeIsAttending.collectAsState()
+                        val isAttending by viewModel.observeIsAttending.collectAsState<Boolean>()
                         FloatingActionButton(
                             onClick = viewModel::attendingTapped,
                             modifier = Modifier
@@ -142,7 +147,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                             .padding(Dimensions.Padding.default)
                             .align(Alignment.CenterHorizontally),
                     ) {
-                        val feedbackAlreadyWritten by viewModel.observeFeedbackAlreadyWritten.collectAsState()
+                        val feedbackAlreadyWritten by viewModel.observeFeedbackAlreadyWritten.collectAsState<Boolean>()
                         val text = if (feedbackAlreadyWritten) {
                             "Change your feedback"
                         } else {
@@ -152,7 +157,7 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
                     }
                 }
 
-                val description by viewModel.observeAbstract.collectAsState()
+                val description by viewModel.observeAbstract.collectAsState<String?>()
                 val descriptionLinks by viewModel.observeAbstractLinks.collectAsState()
                 description?.let {
                     DescriptionView(it, descriptionLinks)

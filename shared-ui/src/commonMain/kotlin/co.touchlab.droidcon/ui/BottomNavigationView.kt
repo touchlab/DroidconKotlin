@@ -28,7 +28,7 @@ import co.touchlab.droidcon.viewmodel.ApplicationViewModel
 
 @Composable
 internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConference: Conference, modifier: Modifier = Modifier) {
-    val selectedTab:  by viewModel.observeSelectedTab.collectAsState()
+    val selectedTab by viewModel.observeSelectedTab.collectAsState()
 
     Scaffold(
         modifier = modifier,

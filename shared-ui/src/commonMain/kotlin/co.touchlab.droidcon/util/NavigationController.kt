@@ -17,6 +17,15 @@ import androidx.compose.ui.unit.Constraints
 import androidx.lifecycle.ViewModel
 import co.touchlab.droidcon.ui.util.NavigationBackPressWrapper
 import androidx.compose.runtime.collectAsState
+import co.touchlab.droidcon.viewmodel.MutableObservableProperty
+import co.touchlab.droidcon.viewmodel.ObservableProperty
+import co.touchlab.droidcon.viewmodel.neverEqualPolicy
+import co.touchlab.droidcon.viewmodel.observe
+import co.touchlab.droidcon.viewmodel.published
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 
 private val LocalNavigationController = staticCompositionLocalOf {
     NavigationController.root
@@ -97,9 +106,9 @@ class NavigationController : ViewModel() {
         }
     }
 
-    fun branch(child: NavigationController): CancellationToken {
+    fun branch(child: NavigationController): () -> Unit {
         activeChild = child
-        return CancellationToken {
+        return {
             if (activeChild === child) {
                 activeChild = null
             }
@@ -161,7 +170,8 @@ class NavigationController : ViewModel() {
 
     private inline fun <T> notifyingStackChange(block: () -> T): T {
         val result = block()
-        observeStack.value = stack
+        // Update the published property directly
+        stackTracking = stack
         return result
     }
 }
@@ -202,6 +212,8 @@ internal fun BackPressHandler(onBackPressed: NavigationController.BackPressHandl
 internal interface NavigationStackScope {
 
     fun <T : Any> navigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit)
+
+    fun <T : Any> navigationLink(item: ObservableProperty<T?>, reset: () -> Unit, content: @Composable (T) -> Unit)
 }
 
 internal class NavigationLinkWrapper<T : Any>(
@@ -237,17 +249,41 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
         val constructedLinks = mutableListOf<ObservableProperty<NavigationLinkWrapper<*>>>()
         val scope = object : NavigationStackScope {
             override fun <T : Any> navigationLink(item: MutableObservableProperty<T?>, content: @Composable (T) -> Unit) {
-                constructedLinks.add(
-                    item.map {
-                        NavigationLinkWrapper(index = constructedLinks.size, value = it, reset = { item.value = null }, content)
-                    },
+                val wrapperFlow = kotlinx.coroutines.flow.MutableStateFlow(
+                    NavigationLinkWrapper(index = constructedLinks.size, value = item.value, reset = { item.value = null }, content),
                 )
+                // Use GlobalScope for collection since we don't have a ViewModel here
+                kotlinx.coroutines.GlobalScope.launch {
+                    item.collect { value ->
+                        wrapperFlow.value = NavigationLinkWrapper(index = constructedLinks.size, value = value, reset = { item.value = null }, content)
+                    }
+                }
+                constructedLinks.add(wrapperFlow)
+            }
+
+            override fun <T : Any> navigationLink(item: ObservableProperty<T?>, reset: () -> Unit, content: @Composable (T) -> Unit) {
+                val wrapperFlow = kotlinx.coroutines.flow.MutableStateFlow(
+                    NavigationLinkWrapper(index = constructedLinks.size, value = item.value, reset = reset, content),
+                )
+                // Use GlobalScope for collection since we don't have a ViewModel here
+                GlobalScope.launch {
+                    item.collect { value ->
+                        wrapperFlow.value = NavigationLinkWrapper(index = constructedLinks.size, value = value, reset = reset, content)
+                    }
+                }
+                constructedLinks.add(wrapperFlow)
             }
         }
         scope.links()
 
-        combine(constructedLinks)
-    }.collectAsState()
+        if (constructedLinks.isEmpty()) {
+            flowOf<List<NavigationLinkWrapper<*>>>(emptyList())
+        } else {
+            combine(constructedLinks) { values: Array<NavigationLinkWrapper<*>> ->
+                values.toList()
+            }
+        }
+    }.collectAsState(initial = emptyList())
 
     AnimatedContent(
         targetState = activeLinkComposables,

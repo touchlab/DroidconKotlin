@@ -55,6 +55,7 @@ import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.BaseSessionListViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
+import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 
@@ -64,7 +65,10 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
     NavigationStack(
         key = viewModel,
         links = {
-            navigationLink(viewModel.observePresentedSessionDetail) {
+            navigationLink<SessionDetailViewModel>(
+                viewModel.observePresentedSessionDetail,
+                reset = { viewModel.presentedSessionDetail = null },
+            ) {
                 SessionDetailView(viewModel = it)
             }
         },
@@ -85,11 +89,11 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                     .onSizeChanged { size = it }
                     .padding(top = innerPadding.calculateTopPadding()),
             ) {
-                val days by viewModel.observeDays.collectAsState()
+                val days by viewModel.observeDays.collectAsState<List<SessionDayViewModel>?>()
                 if (days?.isEmpty() != false) {
                     EmptyView(emptyText)
                 } else {
-                    val selectedDay by viewModel.observeSelectedDay.collectAsState()
+                    val selectedDay by viewModel.observeSelectedDay.collectAsState<SessionDayViewModel?>()
                     val selectedTabIndex = viewModel.days?.indexOf(selectedDay) ?: 0
                     val coroutineScope = rememberCoroutineScope()
 

@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import co.touchlab.droidcon.ui.theme.Dimensions
 import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
+import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,6 +57,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
                 text = "Enable feedback",
                 image = Icons.Default.MailOutline,
                 checked = viewModel.observeIsFeedbackEnabled,
+                onCheckedChange = { viewModel.isFeedbackEnabled = it },
             )
 
             HorizontalDivider()
@@ -64,6 +66,7 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
                 text = "Enable reminders",
                 image = Icons.Default.Notifications,
                 checked = viewModel.observeIsRemindersEnabled,
+                onCheckedChange = { viewModel.isRemindersEnabled = it },
             )
 
             HorizontalDivider()
@@ -78,12 +81,12 @@ internal fun SettingsView(viewModel: SettingsViewModel) {
 }
 
 @Composable
-internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: MutableObservableProperty<Boolean>) {
+internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: StateFlow<Boolean>, onCheckedChange: (Boolean) -> Unit) {
     val isChecked by checked.collectAsState()
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { checked.value = !checked.value },
+            .clickable { onCheckedChange(!isChecked) },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -98,7 +101,7 @@ internal fun IconTextSwitchRow(text: String, image: ImageVector, checked: Mutabl
         Switch(
             modifier = Modifier.padding(vertical = Dimensions.Padding.half, horizontal = 24.dp),
             checked = isChecked,
-            onCheckedChange = { checked.value = it },
+            onCheckedChange = onCheckedChange,
         )
     }
 }

@@ -40,6 +40,7 @@ import co.touchlab.droidcon.ui.util.DcAsyncImage
 import androidx.compose.runtime.collectAsState
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.util.NavigationStack
+import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailViewModel
 
@@ -51,7 +52,10 @@ internal fun SponsorDetailView(viewModel: SponsorDetailViewModel) {
     NavigationStack(
         key = viewModel,
         links = {
-            navigationLink(viewModel.observePresentedSpeakerDetail) {
+            navigationLink<SpeakerDetailViewModel>(
+                viewModel.observePresentedSpeakerDetail,
+                reset = { viewModel.presentedSpeakerDetail = null },
+            ) {
                 SpeakerDetailView(viewModel = it)
             }
         },
