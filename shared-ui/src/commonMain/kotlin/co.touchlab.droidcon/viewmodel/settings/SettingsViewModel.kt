@@ -4,7 +4,7 @@ import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.kermit.Logger
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
 
@@ -12,7 +12,7 @@ class SettingsViewModel(
     settingsGateway: SettingsGateway,
     private val aboutFactory: AboutViewModel.Factory,
     private val conferenceRepository: ConferenceRepository,
-) : BaseViewModel() {
+) : ViewModel() {
     private val log = Logger.withTag("SettingsViewModel")
 
     // Settings

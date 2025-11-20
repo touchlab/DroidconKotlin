@@ -4,7 +4,7 @@ import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 
 abstract class BaseSessionListViewModel(
     private val sessionGateway: SessionGateway,
@@ -14,7 +14,7 @@ abstract class BaseSessionListViewModel(
     private val dateTimeService: DateTimeService,
     private val conferenceConfigProvider: ConferenceConfigProvider,
     val attendingOnly: Boolean,
-) : BaseViewModel() {
+) : ViewModel() {
 
     var days: List<SessionDayViewModel>? by published(null)
         private set

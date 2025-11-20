@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Instant
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 import org.brightify.hyperdrive.multiplatformx.property.asFlow
 import org.brightify.hyperdrive.multiplatformx.property.flatMapLatest
 import org.brightify.hyperdrive.multiplatformx.property.identityEqualityPolicy
@@ -35,7 +35,7 @@ class SessionDetailViewModel(
     private val feedbackService: FeedbackService,
     private val notificationService: NotificationService,
     initialItem: ScheduleItem,
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val item by collected(initialItem, sessionGateway.observeScheduleItem(initialItem.session.id), identityEqualityPolicy())
     private val observeItem by observe(::item)

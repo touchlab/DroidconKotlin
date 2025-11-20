@@ -3,7 +3,7 @@ package co.touchlab.droidcon.viewmodel
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.kermit.Logger
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 import org.brightify.hyperdrive.multiplatformx.property.map
 
 class FeedbackDialogViewModel(
@@ -13,7 +13,7 @@ class FeedbackDialogViewModel(
     private val submit: suspend (Session.Feedback) -> Unit,
     private val closeAndDisable: (suspend () -> Unit)?,
     private val skip: suspend () -> Unit,
-) : BaseViewModel() {
+) : ViewModel() {
 
     val sessionTitle = session.title
     var rating: Rating? by published(session.feedback?.rating?.let(::feedbackRatingToRating))

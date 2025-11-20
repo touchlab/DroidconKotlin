@@ -17,7 +17,7 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
 import co.touchlab.droidcon.ui.util.NavigationBackPressWrapper
 import co.touchlab.droidcon.ui.util.observeAsState
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 import org.brightify.hyperdrive.multiplatformx.CancellationToken
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty
 import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
@@ -33,7 +33,7 @@ private val LocalNavigationViewDimensions = staticCompositionLocalOf<NavigationV
     error("NavigationView hasn't been used.")
 }
 
-class NavigationController : BaseViewModel() {
+class NavigationController : ViewModel() {
 
     private val stack = mutableListOf<NavigationStackItem>()
     private var stackTracking: MutableList<NavigationStackItem> by published(stack, equalityPolicy = neverEqualPolicy())

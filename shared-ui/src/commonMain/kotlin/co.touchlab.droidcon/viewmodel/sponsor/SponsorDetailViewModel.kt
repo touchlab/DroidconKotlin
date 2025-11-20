@@ -1,10 +1,11 @@
 package co.touchlab.droidcon.viewmodel.sponsor
 
+import androidx.lifecycle.ViewModel
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 
 class SponsorDetailViewModel(
     private val sponsorGateway: SponsorGateway,
@@ -12,7 +13,7 @@ class SponsorDetailViewModel(
     private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
     private val sponsor: Sponsor,
     val groupName: String,
-) : BaseViewModel() {
+) : ViewModel() {
 
     val name = sponsor.name
     val imageUrl = sponsor.icon

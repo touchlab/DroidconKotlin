@@ -108,8 +108,13 @@ kotlin {
 
             implementation(libs.zoomimage.composeResources)
 
+            implementation(libs.androidx.lifecycle.viewmodel)
+
             //implementation(libs.hyperdrive.multiplatformx.api)
             // implementation(libs.hyperdrive.multiplatformx.compose)
+        }
+        jsMain.dependencies {
+            implementation("androidx.lifecycle:lifecycle-viewmodel-js:2.10.0")
         }
         all {
             languageSettings.apply {

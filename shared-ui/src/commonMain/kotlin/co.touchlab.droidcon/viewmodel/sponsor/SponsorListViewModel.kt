@@ -3,13 +3,13 @@ package co.touchlab.droidcon.viewmodel.sponsor
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import kotlinx.coroutines.flow.map
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 
 class SponsorListViewModel(
     private val sponsorGateway: SponsorGateway,
     private val sponsorGroupFactory: SponsorGroupViewModel.Factory,
     private val sponsorDetailFactory: SponsorDetailViewModel.Factory,
-) : BaseViewModel() {
+) : ViewModel() {
     val sponsorGroups: List<SponsorGroupViewModel> by managedList(
         emptyList(),
         sponsorGateway.observeSponsors()

@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 
 class WaitForLoadedContextModel(
     private val conferenceConfigProvider: ConferenceConfigProvider,
     applicationViewModelFactory: ApplicationViewModel.Factory,
     private val syncService: SyncService,
     private val settingsGateway: SettingsGateway,
-) : BaseViewModel() {
+) : ViewModel() {
     sealed interface State {
         data object Loading : State
         data class Ready(val conference: Conference) : State

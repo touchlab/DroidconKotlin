@@ -7,7 +7,7 @@ import co.touchlab.droidcon.domain.service.toConferenceDateTime
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.util.startOfMinute
 import kotlinx.datetime.LocalDate
-import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 
 class SessionDayViewModel(
     sessionBlockFactory: SessionBlockViewModel.Factory,
@@ -19,7 +19,7 @@ class SessionDayViewModel(
     private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     items: List<ScheduleItem>,
     onScheduleItemSelected: (ScheduleItem) -> Unit,
-) : BaseViewModel() {
+) : ViewModel() {
 
     val day: String = dateFormatter.monthWithDay(date) ?: ""
     val blocks: List<SessionBlockViewModel> by managedList(

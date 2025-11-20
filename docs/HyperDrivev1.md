@@ -15,7 +15,7 @@ The central class in Hyperdrive is `BaseViewModel`, which serves as the foundati
 
 ```kotlin
 @ViewModel
-class MyViewModel: BaseViewModel() {
+class MyViewModel: ViewModel() {
     // View model implementation
 }
 ```
@@ -160,7 +160,7 @@ Marks a class as a view model and enables property observation:
 
 ```kotlin
 @ViewModel
-class ProfileViewModel: BaseViewModel() {
+class ProfileViewModel: ViewModel() {
     var name by published("")
     
     // The compiler plugin automatically generates:
@@ -179,7 +179,7 @@ class UserViewModel(
     private val userRepository: UserRepository,
     @Provided
     private val userId: String
-): BaseViewModel() {
+): ViewModel() {
     // Implementation
 }
 
@@ -285,7 +285,7 @@ class ContactViewModel(
     private val contactRepository: ContactRepository,
     @Provided
     private val contactId: String? = null
-): BaseViewModel() {
+): ViewModel() {
     // Properties
     var firstName by published("")
     var lastName by published("")
