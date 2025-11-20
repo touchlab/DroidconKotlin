@@ -1,19 +1,18 @@
 package co.touchlab.droidcon.viewmodel
 
-import co.touchlab.droidcon.viewmodel.managed
-import co.touchlab.droidcon.viewmodel.managedList
-import co.touchlab.droidcon.viewmodel.observe
-import co.touchlab.droidcon.viewmodel.published
-import co.touchlab.droidcon.viewmodel.binding
-import co.touchlab.droidcon.viewmodel.collected
-import co.touchlab.droidcon.viewmodel.lifecycle
-import co.touchlab.droidcon.viewmodel.instanceLock
-
 import androidx.lifecycle.ViewModel
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.viewmodel.binding
+import co.touchlab.droidcon.viewmodel.collected
+import co.touchlab.droidcon.viewmodel.instanceLock
+import co.touchlab.droidcon.viewmodel.lifecycle
+import co.touchlab.droidcon.viewmodel.managed
+import co.touchlab.droidcon.viewmodel.managedList
+import co.touchlab.droidcon.viewmodel.observe
+import co.touchlab.droidcon.viewmodel.published
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO

@@ -1,14 +1,6 @@
 package co.touchlab.droidcon.viewmodel
 
-import co.touchlab.droidcon.viewmodel.managed
-import co.touchlab.droidcon.viewmodel.managedList
-import co.touchlab.droidcon.viewmodel.observe
-import co.touchlab.droidcon.viewmodel.published
-import co.touchlab.droidcon.viewmodel.binding
-import co.touchlab.droidcon.viewmodel.collected
-import co.touchlab.droidcon.viewmodel.lifecycle
-import co.touchlab.droidcon.viewmodel.instanceLock
-
+import androidx.lifecycle.ViewModel
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.Notification
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
@@ -18,11 +10,18 @@ import co.touchlab.droidcon.domain.repository.ConferenceRepository
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.DeepLinkNotificationHandler
+import co.touchlab.droidcon.viewmodel.binding
+import co.touchlab.droidcon.viewmodel.collected
+import co.touchlab.droidcon.viewmodel.instanceLock
+import co.touchlab.droidcon.viewmodel.lifecycle
+import co.touchlab.droidcon.viewmodel.managed
+import co.touchlab.droidcon.viewmodel.managedList
+import co.touchlab.droidcon.viewmodel.observe
+import co.touchlab.droidcon.viewmodel.published
 import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
-import androidx.lifecycle.ViewModel
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
 

@@ -4,8 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.StateFlow
 
 /**
@@ -13,6 +11,4 @@ import kotlinx.coroutines.flow.StateFlow
  * Uses StateFlow's collectAsState for Compose integration.
  */
 @Composable
-internal fun <T> StateFlow<T>.observeAsState(): State<T> {
-    return collectAsState()
-}
+internal fun <T> StateFlow<T>.observeAsState(): State<T> = collectAsState()

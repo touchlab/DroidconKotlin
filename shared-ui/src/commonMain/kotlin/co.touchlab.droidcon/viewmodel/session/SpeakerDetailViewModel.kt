@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.viewmodel.session
 import androidx.lifecycle.ViewModel
-
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.dto.WebLink

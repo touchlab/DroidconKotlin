@@ -1,18 +1,11 @@
 package co.touchlab.droidcon.viewmodel.settings
 
-import co.touchlab.droidcon.viewmodel.managed
-import co.touchlab.droidcon.viewmodel.managedList
-import co.touchlab.droidcon.viewmodel.observe
-import co.touchlab.droidcon.viewmodel.published
-import co.touchlab.droidcon.viewmodel.binding
-import co.touchlab.droidcon.viewmodel.collected
-import co.touchlab.droidcon.viewmodel.lifecycle
-import co.touchlab.droidcon.viewmodel.instanceLock
 import androidx.lifecycle.ViewModel
-
 import co.touchlab.droidcon.application.composite.AboutItem
 import co.touchlab.droidcon.application.repository.AboutRepository
 import co.touchlab.droidcon.service.ParseUrlViewService
+import co.touchlab.droidcon.viewmodel.observe
+import co.touchlab.droidcon.viewmodel.published
 
 class AboutViewModel(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) : ViewModel() {
 

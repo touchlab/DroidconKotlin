@@ -1,6 +1,4 @@
 package co.touchlab.droidcon.util
-import androidx.lifecycle.ViewModel
-
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInHorizontally
@@ -16,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
+import androidx.lifecycle.ViewModel
 import co.touchlab.droidcon.ui.util.NavigationBackPressWrapper
 import co.touchlab.droidcon.ui.util.observeAsState
 

@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.viewmodel.session
 import androidx.lifecycle.ViewModel
-
 import co.touchlab.droidcon.domain.entity.Profile
 
 class SpeakerListItemViewModel(profile: Profile, val selected: () -> Unit) : ViewModel() {
