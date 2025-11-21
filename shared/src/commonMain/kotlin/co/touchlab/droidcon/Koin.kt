@@ -92,7 +92,6 @@ val booleanAdapter = object : ColumnAdapter<Boolean, Long> {
     override fun encode(value: Boolean): Long = if (value) 1L else 0L
 }
 
-@OptIn(ExperimentalTime::class)
 private val coreModule = module {
     single {
         DroidconDatabase.invoke(
