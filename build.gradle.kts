@@ -23,11 +23,12 @@ subprojects {
         }
     }
 
+    /*
     tasks.withType(KotlinCompile::class).all {
         kotlinOptions {
             jvmTarget = "1.8"
         }
-    }
+    }*/
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         version.set("1.4.0")
         enableExperimentalRules.set(true)

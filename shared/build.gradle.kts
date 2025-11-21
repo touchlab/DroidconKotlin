@@ -105,6 +105,11 @@ kotlin {
                 implementation(libs.ktor.client.ios)
             }
         }
+        jsMain.dependencies {
+            implementation(libs.ktor.client.cio)
+            implementation(libs.sqldelight.driver.js)
+
+        }
 
         all {
             languageSettings.apply {
