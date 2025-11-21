@@ -7,7 +7,7 @@ import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.util.wrapMultiThreadCallback
 import co.touchlab.kermit.Logger
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.toNSDate
 import platform.Foundation.NSCalendar
 import platform.Foundation.NSCalendarUnitDay

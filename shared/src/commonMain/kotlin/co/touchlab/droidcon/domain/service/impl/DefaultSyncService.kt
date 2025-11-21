@@ -24,13 +24,13 @@ import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto.LinkType
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
 import co.touchlab.kermit.Logger
+import kotlin.time.Instant
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus

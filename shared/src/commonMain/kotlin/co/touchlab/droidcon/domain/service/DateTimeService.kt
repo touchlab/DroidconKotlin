@@ -1,6 +1,6 @@
 package co.touchlab.droidcon.domain.service
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 

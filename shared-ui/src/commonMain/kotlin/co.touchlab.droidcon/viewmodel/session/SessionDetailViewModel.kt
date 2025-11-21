@@ -11,11 +11,11 @@ import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
+import kotlin.time.Instant
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.Instant
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.property.asFlow
 import org.brightify.hyperdrive.multiplatformx.property.flatMapLatest

@@ -4,7 +4,7 @@ import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.ScheduleService
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 class DefaultScheduleService(
     private val sessionRepository: SessionRepository,

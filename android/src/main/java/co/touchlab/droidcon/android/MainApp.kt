@@ -14,8 +14,8 @@ import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.ClasspathResourceReader
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.analytics
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SharedPreferencesSettings
