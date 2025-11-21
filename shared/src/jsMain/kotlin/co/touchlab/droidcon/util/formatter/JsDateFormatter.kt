@@ -3,7 +3,7 @@ package co.touchlab.droidcon.util.formatter
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 
-class JsDateFormatter() : DateFormatter {
+class JsDateFormatter : DateFormatter {
 
     override fun monthWithDay(date: LocalDate): String? = null
 

@@ -8,13 +8,7 @@ import kotlinx.datetime.Instant
 class JsNotificationService : NotificationService {
     override suspend fun initialize(): Boolean = false
 
-    override suspend fun schedule(
-        notification: Notification.Local,
-        title: String,
-        body: String,
-        delivery: Instant,
-        dismiss: Instant?,
-    ) {
+    override suspend fun schedule(notification: Notification.Local, title: String, body: String, delivery: Instant, dismiss: Instant?) {
     }
 
     override suspend fun cancel(sessionIds: List<Session.Id>) {

@@ -24,7 +24,7 @@ subprojects {
         }
     }
 
-    /*
+
     tasks.withType(KotlinCompile::class).all {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
@@ -36,7 +36,7 @@ subprojects {
         compilerOptions {
             freeCompilerArgs.add("-opt-in=kotlin.time.ExperimentalTime")
         }
-    }*/
+    }
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         version.set("1.4.0")
         enableExperimentalRules.set(true)

@@ -105,10 +105,18 @@ kotlin {
                 implementation(libs.ktor.client.ios)
             }
         }
+
+        // Connect iOS target source sets to iosMain
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+
+        iosX64Main.dependsOn(iosMain.get())
+        iosArm64Main.dependsOn(iosMain.get())
+        iosSimulatorArm64Main.dependsOn(iosMain.get())
         jsMain.dependencies {
             implementation(libs.ktor.client.cio)
             implementation(libs.sqldelight.driver.js)
-
         }
 
         all {
