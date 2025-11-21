@@ -34,11 +34,7 @@ android {
         )
         main.manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
-}
 
-version = "1.0"
-
-android {
     configurations {
         create("androidTestApi")
         create("androidTestDebugApi")
@@ -48,6 +44,8 @@ android {
         create("testReleaseApi")
     }
 }
+
+version = "1.0"
 
 kotlin {
     compilerOptions {
@@ -61,13 +59,16 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
 
     version = "1.0"
 
     sourceSets {
         commonMain.dependencies {
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
@@ -80,16 +81,29 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.korio)
         }
-        androidMain.dependencies {
-            implementation(libs.sqldelight.driver.android)
-            implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.ktor.client.okhttp)
-            implementation(libs.androidx.core)
+        val mobileMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                api(libs.kermit.crashlytics)
+            }
         }
-        iosMain.dependencies {
-            implementation(libs.sqldelight.driver.ios)
-            implementation(libs.sqliter)
-            implementation(libs.ktor.client.ios)
+
+        androidMain {
+            dependsOn(mobileMain)
+            dependencies {
+                implementation(libs.sqldelight.driver.android)
+                implementation(libs.kotlinx.coroutines.android)
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.androidx.core)
+            }
+        }
+        iosMain {
+            dependsOn(mobileMain)
+            dependencies {
+                implementation(libs.sqldelight.driver.ios)
+                implementation(libs.sqliter)
+                implementation(libs.ktor.client.ios)
+            }
         }
 
         all {
