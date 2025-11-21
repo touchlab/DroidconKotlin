@@ -21,7 +21,7 @@ import co.touchlab.kermit.Logger
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 

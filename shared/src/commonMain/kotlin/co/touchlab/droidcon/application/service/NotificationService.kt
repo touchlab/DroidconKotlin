@@ -2,7 +2,7 @@ package co.touchlab.droidcon.application.service
 
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.service.DeepLinkNotificationHandler
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 interface NotificationService {
     suspend fun initialize(): Boolean

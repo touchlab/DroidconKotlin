@@ -1,7 +1,7 @@
 [versions]
 ## SDK Versions
-minSdk = "21"
-targetSdk = "35"
+minSdk = "23"
+targetSdk = "36"
 compileSdk = "36"
 
 # Dependencies
@@ -23,6 +23,9 @@ hyperdrive = "0.1.148"
 
 multiplatformSettings = "1.3.0"
 sqlDelight = "2.2.1"
+firebase-analytics = "22.5.0"
+firebase-crashlytics = "19.4.4"
+firebase-messaging = "24.1.2"
 firebase-bom = "34.6.0"
 firebase-crashlytics-gradle = "3.0.6"
 gms-google-services = "4.4.4"
@@ -59,9 +62,9 @@ compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref 
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version = "_" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "_" }
-firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx", version = "_" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase-messaging" }
 hyperdrive-multiplatformx-api = { module = "org.brightify.hyperdrive:multiplatformx-api", version.ref = "hyperdrive" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }

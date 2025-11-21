@@ -78,6 +78,7 @@ fun Koin.get(objCProtocol: ObjCProtocol, qualifier: Qualifier?): Any {
     return get(kClazz, qualifier, null)
 }
 
+@OptIn(BetaInteropApi::class)
 fun Koin.getAny(objCObject: ObjCObject, qualifier: Qualifier?, parameters: ParametersDefinition?): Any {
     val kclass = when (objCObject) {
         is ObjCClass -> getOriginalKotlinClass(objCObject)
