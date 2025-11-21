@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
@@ -26,6 +27,12 @@ subprojects {
     tasks.withType(KotlinCompile::class).all {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+            freeCompilerArgs.add("-opt-in=kotlin.time.ExperimentalTime")
+        }
+    }
+
+    tasks.withType(KotlinNativeCompile::class).all {
+        compilerOptions {
             freeCompilerArgs.add("-opt-in=kotlin.time.ExperimentalTime")
         }
     }
