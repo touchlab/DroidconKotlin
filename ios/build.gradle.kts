@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -49,7 +48,6 @@ kotlin {
             framework {
                 baseName = "DroidconKit"
                 isStatic = true
-                embedBitcodeMode = BitcodeEmbeddingMode.DISABLE
 
                 freeCompilerArgs += listOf(
                     "-linker-option", "-framework", "-linker-option", "Metal",

@@ -24,8 +24,9 @@ subprojects {
     }
 
     tasks.withType(KotlinCompile::class).all {
-        kotlinOptions {
-            jvmTarget = "1.8"
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+            freeCompilerArgs.add("-opt-in=kotlin.time.ExperimentalTime")
         }
     }
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
