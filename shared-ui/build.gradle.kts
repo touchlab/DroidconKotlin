@@ -66,6 +66,10 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
 
     version = "1.0"
 
@@ -74,7 +78,6 @@ kotlin {
             implementation(projects.shared)
 
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
@@ -100,8 +103,22 @@ kotlin {
             implementation(libs.zoomimage.composeResources)
 
             implementation(libs.hyperdrive.multiplatformx.api)
-            // implementation(libs.hyperdrive.multiplatformx.compose)
         }
+        val mobileMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                api(libs.kermit.crashlytics)
+            }
+        }
+
+        androidMain {
+            dependsOn(mobileMain)
+        }
+        iosMain {
+            dependsOn(mobileMain)
+        }
+
+
         all {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
