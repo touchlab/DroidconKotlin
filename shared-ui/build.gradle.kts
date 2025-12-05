@@ -118,6 +118,17 @@ kotlin {
             dependsOn(mobileMain)
         }
 
+        val iosArm64Main by getting {
+            dependsOn(iosMain.get())
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain.get())
+        }
+
+        val iosX64Main by getting {
+            dependsOn(iosMain.get())
+        }
 
         all {
             languageSettings.apply {

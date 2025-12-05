@@ -4,9 +4,8 @@ import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
+import co.touchlab.droidcon.ui.util.IODispatcher
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -36,7 +35,7 @@ class WaitForLoadedContextModel(
 
     suspend fun watchConferenceChanges() {
         lifecycle.whileAttached {
-            withContext(Dispatchers.IO) {
+            withContext(IODispatcher) {
                 try {
                     syncService.syncConferences()
                 } catch (e: Exception) {

@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.ui.util
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,28 +12,45 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import co.touchlab.droidcon.ui.theme.Dimensions
+import kotlinx.browser.window
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import platform.UIKit.UIImage
+import kotlinx.coroutines.await
+import org.jetbrains.skia.Image.Companion.makeFromEncoded
+import org.khronos.webgl.Int8Array
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 @Composable
 internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, contentDescription: String?) {
-    val painter = remember { UIImage.imageNamed(imageResourceName)?.toSkiaImage()?.toComposeImageBitmap()?.let(::BitmapPainter) }
-    if (painter != null) {
-        androidx.compose.foundation.Image(
-            modifier = modifier,
-            painter = painter,
+    val painter: Painter? by produceState(null, imageResourceName) {
+        value = try {
+            val fetched = window.fetch("drawable/$imageResourceName").await()
+            if (fetched.ok) {
+                val bytes = Int8Array(fetched.arrayBuffer().await()).unsafeCast<ByteArray>()
+                makeFromEncoded(bytes).toComposeImageBitmap().let(::BitmapPainter)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    val currentPainter = painter
+    if (currentPainter != null) {
+        Image(
+            painter = currentPainter,
             contentDescription = contentDescription,
+            modifier = modifier,
             contentScale = ContentScale.FillWidth,
         )
     } else {
@@ -53,4 +71,4 @@ internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, 
     }
 }
 
-actual val IODispatcher: CoroutineDispatcher = Dispatchers.IO
+actual val IODispatcher: CoroutineDispatcher = Dispatchers.Default
