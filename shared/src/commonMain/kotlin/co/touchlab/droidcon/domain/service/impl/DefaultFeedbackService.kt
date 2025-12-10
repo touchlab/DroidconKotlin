@@ -6,9 +6,8 @@ import co.touchlab.droidcon.domain.service.FeedbackService
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.set
+import kotlin.time.Clock
 import kotlinx.coroutines.flow.first
-import kotlinx.datetime.Clock
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalSettingsApi::class)

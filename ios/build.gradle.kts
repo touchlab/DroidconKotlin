@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -23,6 +22,7 @@ kotlin {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.time.ExperimentalTime")
             }
         }
         iosMain.dependencies {
@@ -49,7 +49,6 @@ kotlin {
             framework {
                 baseName = "DroidconKit"
                 isStatic = true
-                embedBitcodeMode = BitcodeEmbeddingMode.DISABLE
 
                 freeCompilerArgs += listOf(
                     "-linker-option", "-framework", "-linker-option", "Metal",

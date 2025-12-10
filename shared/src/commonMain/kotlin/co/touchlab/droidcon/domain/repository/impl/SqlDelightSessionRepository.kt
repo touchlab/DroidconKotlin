@@ -9,10 +9,10 @@ import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
+import kotlin.time.Instant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.datetime.Instant
 
 class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, private val sessionQueries: SessionQueries) :
     BaseRepository<Session.Id, Session>(),
@@ -73,7 +73,9 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
         )
     }
 
-    override fun doDelete(id: Session.Id, conferenceId: Long) = sessionQueries.deleteById(id.value, conferenceId)
+    override fun doDelete(id: Session.Id, conferenceId: Long) {
+        sessionQueries.deleteById(id.value, conferenceId)
+    }
 
     override fun contains(id: Session.Id, conferenceId: Long): Boolean =
         sessionQueries.existsById(id.value, conferenceId).executeAsOne().toBoolean()
