@@ -24,7 +24,6 @@ subprojects {
         }
     }
 
-
     tasks.withType(KotlinCompile::class).all {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
