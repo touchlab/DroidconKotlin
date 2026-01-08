@@ -6,12 +6,14 @@ import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.ui.util.IODispatcher
 import co.touchlab.kermit.Logger
+import kotlin.js.JsExport
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
+@JsExport // TODO: Try this?
 class WaitForLoadedContextModel(
     private val conferenceConfigProvider: ConferenceConfigProvider,
     applicationViewModelFactory: ApplicationViewModel.Factory,
