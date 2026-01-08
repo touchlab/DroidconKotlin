@@ -7,23 +7,28 @@ plugins {
 }
 
 kotlin {
-    js {
+    js(IR) {
         browser()
         binaries.executable()
     }
 
+    /*
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
         binaries.executable()
-    }
+    }*/
 
     sourceSets {
         commonMain.dependencies {
-
+            implementation(projects.shared)
+            implementation(projects.sharedUi)
+            implementation(libs.koin.core)
             implementation(compose.ui)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(libs.multiplatformSettings.core)
+            implementation(libs.multiplatform.settings.make.observable)
         }
         commonTest.dependencies {
             // implementation(libs.kotlin.test)
