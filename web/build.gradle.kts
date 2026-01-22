@@ -29,6 +29,8 @@ kotlin {
             implementation(compose.material3)
             implementation(libs.multiplatformSettings.core)
             implementation(libs.multiplatform.settings.make.observable)
+            implementation(libs.koin.compose)
+            implementation("androidx.lifecycle:lifecycle-viewmodel: 2.10.0")
         }
         commonTest.dependencies {
             // implementation(libs.kotlin.test)
