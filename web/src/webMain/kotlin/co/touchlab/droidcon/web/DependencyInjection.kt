@@ -4,6 +4,7 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
+import co.touchlab.droidcon.service.JsNotificationService
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.formatter.DateFormatter
@@ -23,21 +24,24 @@ import com.russhwolf.settings.observable.makeObservable
 @OptIn(ExperimentalSettingsApi::class)
 fun startKoin(): KoinApplication =
     initKoin(
-        module {
-            single<ObservableSettings> {
-                val storageSettings: Settings = StorageSettings()
-                storageSettings.makeObservable()
-            }
-            single<ResourceReader> { WebResourceReader() }
+            module {
+                single<ObservableSettings> {
+                    val storageSettings: Settings = StorageSettings()
+                    storageSettings.makeObservable()
+                }
+                single<ResourceReader> { WebResourceReader() }
 
-            single<DateFormatter> { WebDateFormatter() }
+                single<DateFormatter> { WebDateFormatter() }
 
-            single<NotificationSchedulingService.LocalizedStringFactory> { NotificationLocalizedStringFactory() }
+                single<NotificationSchedulingService.LocalizedStringFactory> { NotificationLocalizedStringFactory() }
 
-            single<AnalyticsService> { WebAnalyticsService() }
+                single<AnalyticsService> { WebAnalyticsService() }
 
-            single<ParseUrlViewService> { DefaultParseUrlViewService() }
-        } + uiModule,
+                single<ParseUrlViewService> { DefaultParseUrlViewService() }
+
+                // Provide JsNotificationService which is required by the JS platform module
+                single<JsNotificationService> { JsNotificationService() }
+            } + uiModule
     )
 
 @OptIn(ExperimentalWasmJsInterop::class)

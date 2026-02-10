@@ -27,7 +27,7 @@ class SessionDayViewModel(
             .groupBy {
                 it.session.startsAt.toConferenceDateTime(
                     dateTimeService,
-                    conferenceTimeZone = conferenceConfigProvider.getConferenceTimeZone(),
+                    conferenceTimeZone = conferenceConfigProvider.getConferenceTimeZone() ?: kotlinx.datetime.TimeZone.UTC,
                 ).startOfMinute
             }
             .map { (startsAt, items) ->

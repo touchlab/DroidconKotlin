@@ -33,7 +33,9 @@ kotlin {
             implementation("androidx.lifecycle:lifecycle-viewmodel: 2.10.0")
         }
         commonTest.dependencies {
-            // implementation(libs.kotlin.test)
+            implementation("org.jetbrains.kotlin:kotlin-test:2.2.21")
+            //implementation(libs.kotlin.test)
+            implementation(libs.koin.test)
         }
     }
 }

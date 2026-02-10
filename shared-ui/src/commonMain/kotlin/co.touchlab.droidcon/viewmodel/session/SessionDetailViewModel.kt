@@ -57,9 +57,10 @@ class SessionDetailViewModel(
         listOfNotNull(
             it.room?.name,
             with(dateTimeService) {
+                val timeZone = conferenceConfigProvider.getConferenceTimeZone() ?: kotlinx.datetime.TimeZone.UTC
                 dateFormatter.timeOnlyInterval(
-                    it.session.startsAt.toConferenceDateTime(conferenceConfigProvider.getConferenceTimeZone()),
-                    it.session.endsAt.toConferenceDateTime(conferenceConfigProvider.getConferenceTimeZone()),
+                    it.session.startsAt.toConferenceDateTime(timeZone),
+                    it.session.endsAt.toConferenceDateTime(timeZone),
                 )
             },
         ).joinToString()

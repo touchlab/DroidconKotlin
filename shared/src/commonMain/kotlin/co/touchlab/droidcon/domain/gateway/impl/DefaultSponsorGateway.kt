@@ -18,19 +18,28 @@ class DefaultSponsorGateway(
     private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : SponsorGateway {
 
-    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> =
-        sponsorGroupRepository.observeAll(conferenceConfigProvider.getConferenceId()).map { groups ->
+    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> {
+        val conferenceId = conferenceConfigProvider.getConferenceId()
+            ?: return kotlinx.coroutines.flow.flowOf(emptyList())
+        return sponsorGroupRepository.observeAll(conferenceId).map { groups ->
             groups.map { group ->
                 SponsorGroupWithSponsors(
                     group,
-                    sponsorRepository.allByGroupName(group.name, conferenceConfigProvider.getConferenceId()),
+                    sponsorRepository.allByGroupName(group.name, conferenceId),
                 )
             }
         }
+    }
 
-    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> =
-        sponsorRepository.observe(id, conferenceConfigProvider.getConferenceId())
+    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> {
+        val conferenceId = conferenceConfigProvider.getConferenceId()
+            ?: throw IllegalStateException("Conference ID is not available")
+        return sponsorRepository.observe(id, conferenceId)
+    }
 
-    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> =
-        profileRepository.getSponsorRepresentatives(sponsorId, conferenceConfigProvider.getConferenceId())
+    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> {
+        val conferenceId = conferenceConfigProvider.getConferenceId()
+            ?: throw IllegalStateException("Conference ID is not available")
+        return profileRepository.getSponsorRepresentatives(sponsorId, conferenceId)
+    }
 }

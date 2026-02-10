@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
-
-@JsExport // TODO: Try this?
 class WaitForLoadedContextModel(
     private val conferenceConfigProvider: ConferenceConfigProvider,
     applicationViewModelFactory: ApplicationViewModel.Factory,
@@ -47,7 +45,9 @@ class WaitForLoadedContextModel(
 
             launch {
                 conferenceConfigProvider.observeChanges().collect { conference ->
-                    _state.emit(State.Ready(conference))
+                    if (conference != null) {
+                        _state.emit(State.Ready(conference))
+                    }
                 }
             }
         }

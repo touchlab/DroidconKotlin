@@ -14,24 +14,25 @@ class AndroidDateFormatter(private val dateTimeService: DateTimeService, private
     DateFormatter {
 
     // Get timezone from ConferenceConfigProvider
-    private val conferenceTimeZone get() = conferenceConfigProvider.getConferenceTimeZone()
+    private val conferenceTimeZone: kotlinx.datetime.TimeZone?
+        get() = conferenceConfigProvider.getConferenceTimeZone()
 
     // Create formatters as properties to ensure they use the current conference timezone
     private val shortDateFormat
         get() = SimpleDateFormat("MMM d", Locale.getDefault()).apply {
-            timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone.id)
+            timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone?.id ?: "UTC")
         }
 
     private val minuteHourTimeFormat
         get() = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault())
-            .apply { timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone.id) }
+            .apply { timeZone = java.util.TimeZone.getTimeZone(conferenceTimeZone?.id ?: "UTC") }
 
     override fun monthWithDay(date: LocalDate): String = shortDateFormat.format(
-        Date(with(dateTimeService) { date.atTime(0, 0).fromConferenceDateTime(conferenceTimeZone) }.toEpochMilliseconds()),
+        Date(with(dateTimeService) { date.atTime(0, 0).fromConferenceDateTime(conferenceTimeZone ?: kotlinx.datetime.TimeZone.UTC) }.toEpochMilliseconds()),
     ).uppercase()
 
     override fun timeOnly(dateTime: LocalDateTime): String? = minuteHourTimeFormat.format(
-        Date(with(dateTimeService) { dateTime.fromConferenceDateTime(conferenceTimeZone) }.toEpochMilliseconds()),
+        Date(with(dateTimeService) { dateTime.fromConferenceDateTime(conferenceTimeZone ?: kotlinx.datetime.TimeZone.UTC) }.toEpochMilliseconds()),
     )
 
     override fun timeOnlyInterval(fromDateTime: LocalDateTime, toDateTime: LocalDateTime): String =

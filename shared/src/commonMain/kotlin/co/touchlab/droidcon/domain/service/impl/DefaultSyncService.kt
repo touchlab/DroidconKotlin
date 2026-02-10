@@ -193,15 +193,19 @@ class DefaultSyncService(
 
         // DB Transactions for db mods are ridiculously faster than non-trans changes. Also, if something fails, thd db will roll back.
         // The repo architecture will likely need to change. Everything is suspend and unconcerned with thread, but that's not good practice.
-        db.transaction {
-            updateSpeakersFromDataSource(speakerDtos, conference)
-            updateScheduleFromDataSource(days, conference)
+        if (speakerDtos != null && days != null) {
+            db.transaction {
+                updateSpeakersFromDataSource(speakerDtos, conference)
+                updateScheduleFromDataSource(days, conference)
+            }
         }
 
         // Sponsors may fail due to firebase errors, so we'll do this separate
         val sponsors = dataSource.getSponsors()
-        db.transaction {
-            updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors, conference)
+        if (sponsorSessionsGroups != null && sponsors != null) {
+            db.transaction {
+                updateSponsorsFromDataSource(sponsorSessionsGroups, sponsors, conference)
+            }
         }
     }
 
@@ -216,6 +220,10 @@ class DefaultSyncService(
 
             // Get conferences from Firestore
             val conferencesFromFirestore = apiDataSource.getConferences()
+                ?: run {
+                    log.w { "Unable to sync conferences: conference configuration is not available" }
+                    return
+                }
 
             // Get all local conferences (need to collect from Flow first)
             val localConferences = conferenceRepository.observeAll().first()
@@ -513,12 +521,12 @@ class DefaultSyncService(
             Api,
         }
 
-        suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>
+        suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>?
 
-        suspend fun getSchedule(): List<ScheduleDto.DayDto>
+        suspend fun getSchedule(): List<ScheduleDto.DayDto>?
 
-        suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto>
+        suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto>?
 
-        suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto
+        suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto?
     }
 }

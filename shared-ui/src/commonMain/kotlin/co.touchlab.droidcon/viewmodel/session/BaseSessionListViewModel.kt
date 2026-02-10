@@ -43,7 +43,7 @@ abstract class BaseSessionListViewModel(
                     .groupBy {
                         it.session.startsAt.toConferenceDateTime(
                             dateTimeService,
-                            conferenceConfigProvider.getConferenceTimeZone(),
+                            conferenceConfigProvider.getConferenceTimeZone() ?: kotlinx.datetime.TimeZone.UTC,
                         ).date
                     }
                     .map { (date, items) ->

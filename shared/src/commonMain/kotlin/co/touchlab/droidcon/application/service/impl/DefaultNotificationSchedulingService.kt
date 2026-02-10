@@ -48,11 +48,12 @@ class DefaultNotificationSchedulingService(
         }
 
     override suspend fun runScheduling() {
+        val conferenceId = conferenceConfigProvider.getConferenceId() ?: return
         notificationService.initialize()
         coroutineScope {
             launch {
                 scheduleNotifications(
-                    sessionRepository.observeAllAttending(conferenceConfigProvider.getConferenceId()),
+                    sessionRepository.observeAllAttending(conferenceId),
                     settingsRepository.settings,
                 )
             }
@@ -60,9 +61,10 @@ class DefaultNotificationSchedulingService(
     }
 
     override suspend fun rescheduleAll() {
+        val conferenceId = conferenceConfigProvider.getConferenceId() ?: return
         scheduledNotifications = emptyList()
         scheduleNotifications(
-            sessionRepository.observeAllAttending(conferenceConfigProvider.getConferenceId()).take(1),
+            sessionRepository.observeAllAttending(conferenceId).take(1),
             settingsRepository.settings.take(1),
         )
     }
@@ -90,7 +92,12 @@ class DefaultNotificationSchedulingService(
                     for (session in newSessions) {
                         if (isRemindersEnabled) {
                             val roomName = session.room?.let {
-                                roomRepository.get(it, conferenceConfigProvider.getConferenceId()).name
+                                val conferenceId = conferenceConfigProvider.getConferenceId()
+                                if (conferenceId != null) {
+                                    roomRepository.get(it, conferenceId).name
+                                } else {
+                                    null
+                                }
                             }
                             val reminderDelivery =
                                 session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)

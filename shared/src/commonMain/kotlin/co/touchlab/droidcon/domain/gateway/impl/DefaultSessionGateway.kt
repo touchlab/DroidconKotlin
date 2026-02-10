@@ -10,6 +10,7 @@ import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.ScheduleService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 class DefaultSessionGateway(
@@ -20,10 +21,15 @@ class DefaultSessionGateway(
     private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : SessionGateway {
 
-    private val conferenceId get() = conferenceConfigProvider.getConferenceId()
+    private val conferenceId: Long?
+        get() = conferenceConfigProvider.getConferenceId()
 
     override fun observeSchedule(): Flow<List<ScheduleItem>> = conferenceConfigProvider.observeChanges().flatMapLatest { conf ->
-        sessionRepository.observeAll(conf.id)
+        if (conf == null) {
+            flowOf(emptyList())
+        } else {
+            sessionRepository.observeAll(conf.id)
+        }
     }.map { sessions ->
         sessions.map { session ->
             scheduleItemForSession(session)
@@ -31,32 +37,46 @@ class DefaultSessionGateway(
     }
 
     override fun observeAgenda(): Flow<List<ScheduleItem>> = conferenceConfigProvider.observeChanges().flatMapLatest { conf ->
-        sessionRepository.observeAllAttending(conf.id)
+        if (conf == null) {
+            flowOf(emptyList())
+        } else {
+            sessionRepository.observeAllAttending(conf.id)
+        }
     }.map { sessions ->
         sessions.map { session ->
             scheduleItemForSession(session)
         }
     }
 
-    override fun observeScheduleItem(id: Session.Id): Flow<ScheduleItem> = sessionRepository.observe(id, conferenceId).map { session ->
-        scheduleItemForSession(session)
+    override fun observeScheduleItem(id: Session.Id): Flow<ScheduleItem> {
+        val confId = conferenceId ?: throw IllegalStateException("Conference ID is not available")
+        return sessionRepository.observe(id, confId).map { session ->
+            scheduleItemForSession(session)
+        }
     }
 
-    private suspend fun scheduleItemForSession(session: Session): ScheduleItem = ScheduleItem(
-        session,
-        scheduleService.isInConflict(session),
-        session.room?.let { roomRepository.find(it, conferenceId) },
-        profileRepository.getSpeakersBySession(session.id, conferenceId),
-    )
+    private suspend fun scheduleItemForSession(session: Session): ScheduleItem {
+        val confId = conferenceId ?: throw IllegalStateException("Conference ID is not available")
+        return ScheduleItem(
+            session,
+            scheduleService.isInConflict(session),
+            session.room?.let { roomRepository.find(it, confId) },
+            profileRepository.getSpeakersBySession(session.id, confId),
+        )
+    }
 
     override suspend fun setAttending(session: Session, attending: Boolean) {
-        sessionRepository.setRsvp(session.id, Session.RSVP(attending, false), conferenceId)
+        val confId = conferenceId ?: throw IllegalStateException("Conference ID is not available")
+        sessionRepository.setRsvp(session.id, Session.RSVP(attending, false), confId)
     }
 
     override suspend fun setFeedback(session: Session, feedback: Session.Feedback) {
-        sessionRepository.setFeedback(session.id, feedback, conferenceId)
+        val confId = conferenceId ?: throw IllegalStateException("Conference ID is not available")
+        sessionRepository.setFeedback(session.id, feedback, confId)
     }
 
-    override suspend fun getScheduleItem(id: Session.Id): ScheduleItem? =
-        sessionRepository.find(id, conferenceId)?.let { scheduleItemForSession(it) }
+    override suspend fun getScheduleItem(id: Session.Id): ScheduleItem? {
+        val confId = conferenceId ?: return null
+        return sessionRepository.find(id, confId)?.let { scheduleItemForSession(it) }
+    }
 }

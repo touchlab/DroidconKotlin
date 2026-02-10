@@ -5,5 +5,5 @@ import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.droidcon.db.DroidconDatabase
 
 actual class SqlDelightDriverFactory {
-    actual suspend fun createDriver(): SqlDriver = NativeSqliteDriver(DroidconDatabase.Schema, "droidcon.db")
+    actual fun createDriver(): SqlDriver = NativeSqliteDriver(DroidconDatabase.Schema, "droidcon.db")
 }
