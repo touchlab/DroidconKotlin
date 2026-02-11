@@ -20,10 +20,10 @@ import org.brightify.hyperdrive.multiplatformx.property.MutableObservablePropert
 import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
 
 class ApplicationViewModel(
-    scheduleFactory: ScheduleViewModel.Factory,
-    agendaFactory: AgendaViewModel.Factory,
-    sponsorsFactory: SponsorListViewModel.Factory,
-    settingsFactory: SettingsViewModel.Factory,
+    val schedule: ScheduleViewModel,
+    val agenda: AgendaViewModel,
+    val sponsors: SponsorListViewModel,
+    val settings: SettingsViewModel,
     private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
     private val syncService: SyncService,
     private val notificationSchedulingService: NotificationSchedulingService,
@@ -34,45 +34,11 @@ class ApplicationViewModel(
 ) : BaseViewModel(),
     DeepLinkNotificationHandler {
 
-    class Factory(
-        private val scheduleFactory: ScheduleViewModel.Factory,
-        private val agendaFactory: AgendaViewModel.Factory,
-        private val sponsorsFactory: SponsorListViewModel.Factory,
-        private val settingsFactory: SettingsViewModel.Factory,
-        private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
-        private val syncService: SyncService,
-        private val notificationSchedulingService: NotificationSchedulingService,
-        private val notificationService: NotificationService,
-        private val feedbackService: FeedbackService,
-        private val settingsGateway: SettingsGateway,
-        private val conferenceRepository: ConferenceRepository,
-    ) {
-
-        fun create(): ApplicationViewModel {
-            val applicationViewModel = ApplicationViewModel(
-                scheduleFactory = scheduleFactory,
-                agendaFactory = agendaFactory,
-                sponsorsFactory = sponsorsFactory,
-                settingsFactory = settingsFactory,
-                feedbackDialogFactory = feedbackDialogFactory,
-                syncService = syncService,
-                notificationSchedulingService = notificationSchedulingService,
-                notificationService = notificationService,
-                feedbackService = feedbackService,
-                settingsGateway = settingsGateway,
-                conferenceRepository = conferenceRepository,
-            )
-            notificationService.setHandler(applicationViewModel)
-            return applicationViewModel
-        }
-    }
-
     private val log = Logger.withTag("ApplicationViewModel")
 
-    val schedule by managed(scheduleFactory.create())
-    val agenda by managed(agendaFactory.create())
-    val sponsors by managed(sponsorsFactory.create())
-    val settings by managed(settingsFactory.create())
+    init {
+        notificationService.setHandler(this)
+    }
 
     var presentedFeedback: FeedbackDialogViewModel? by managed(null)
     val observePresentedFeedback by observe(::presentedFeedback)

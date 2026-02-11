@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 class WaitForLoadedContextModel(
     private val conferenceConfigProvider: ConferenceConfigProvider,
-    applicationViewModelFactory: ApplicationViewModel.Factory,
+    val applicationViewModel: ApplicationViewModel,
     private val syncService: SyncService,
     private val settingsGateway: SettingsGateway,
 ) : BaseViewModel() {
@@ -25,7 +25,6 @@ class WaitForLoadedContextModel(
 
     private val _state = MutableStateFlow<State>(State.Loading)
     val state: StateFlow<State> = _state
-    val applicationViewModel by managed(applicationViewModelFactory.create())
 
     private val log = Logger.withTag("WaitForLoadedContextModel")
 
