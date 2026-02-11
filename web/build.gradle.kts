@@ -20,22 +20,25 @@ kotlin {
     }*/
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(projects.shared)
-            implementation(projects.sharedUi)
-            implementation(libs.koin.core)
-            implementation(compose.ui)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(libs.multiplatformSettings.core)
-            implementation(libs.multiplatform.settings.make.observable)
-            implementation(libs.koin.compose)
-            implementation("androidx.lifecycle:lifecycle-viewmodel: 2.10.0")
+        val jsMain by getting {
+            dependencies {
+                implementation(projects.shared)
+                implementation(projects.sharedUi)
+                implementation(libs.koin.core)
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(libs.multiplatformSettings.core)
+                implementation(libs.multiplatform.settings.make.observable)
+                implementation(libs.koin.compose)
+            }
         }
-        commonTest.dependencies {
-            implementation("org.jetbrains.kotlin:kotlin-test:2.2.21")
-            //implementation(libs.kotlin.test)
-            implementation(libs.koin.test)
+        val jsTest by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlin:kotlin-test:2.2.21")
+                //implementation(libs.kotlin.test)
+                implementation(libs.koin.test)
+            }
         }
     }
 }

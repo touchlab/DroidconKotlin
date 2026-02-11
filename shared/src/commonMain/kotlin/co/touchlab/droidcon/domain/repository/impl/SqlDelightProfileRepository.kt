@@ -25,7 +25,7 @@ class SqlDelightProfileRepository(
     override suspend fun getSpeakersBySession(id: Session.Id, conferenceId: Long): List<Profile> =
         profileQueries.selectBySession(id.value, conferenceId, ::profileFactory).executeAsList()
 
-    override fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>, conferenceId: Long) {
+    override suspend fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>, conferenceId: Long) {
         speakerQueries.deleteBySessionId(session.id.value, conferenceId)
         speakers.forEachIndexed { index, speakerId ->
             speakerQueries.insertUpdate(
@@ -37,7 +37,7 @@ class SqlDelightProfileRepository(
         }
     }
 
-    override fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>, conferenceId: Long) {
+    override suspend fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>, conferenceId: Long) {
         representativeQueries.deleteBySponsorId(
             sponsorName = sponsor.id.name,
             sponsorGroupName = sponsor.id.group,
@@ -74,7 +74,7 @@ class SqlDelightProfileRepository(
     override fun observeAll(conferenceId: Long): Flow<List<Profile>> =
         profileQueries.selectAll(conferenceId, ::profileFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun doUpsert(entity: Profile, conferenceId: Long) {
+    override suspend fun doUpsert(entity: Profile, conferenceId: Long) {
         profileQueries.upsert(
             id = entity.id.value,
             conferenceId = conferenceId,
@@ -88,7 +88,7 @@ class SqlDelightProfileRepository(
         )
     }
 
-    override fun doDelete(id: Profile.Id, conferenceId: Long) {
+    override suspend fun doDelete(id: Profile.Id, conferenceId: Long) {
         profileQueries.delete(id.value, conferenceId)
     }
 

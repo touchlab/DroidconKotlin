@@ -25,7 +25,7 @@ class SqlDelightRoomRepository(private val roomQueries: RoomQueries) :
     override fun observeAll(conferenceId: Long): Flow<List<Room>> =
         roomQueries.selectAll(conferenceId, ::roomFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun doUpsert(entity: Room, conferenceId: Long) {
+    override suspend fun doUpsert(entity: Room, conferenceId: Long) {
         roomQueries.upsert(
             id = entity.id.value,
             conferenceId = conferenceId,
@@ -33,7 +33,7 @@ class SqlDelightRoomRepository(private val roomQueries: RoomQueries) :
         )
     }
 
-    override fun doDelete(id: Room.Id, conferenceId: Long) {
+    override suspend fun doDelete(id: Room.Id, conferenceId: Long) {
         roomQueries.deleteById(id.value, conferenceId)
     }
 

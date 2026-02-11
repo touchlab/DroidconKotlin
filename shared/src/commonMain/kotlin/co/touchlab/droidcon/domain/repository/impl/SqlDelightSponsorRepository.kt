@@ -34,7 +34,7 @@ class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
 
     override fun allSync(conferenceId: Long): List<Sponsor> = sponsorQueries.selectAll(conferenceId, ::sponsorFactory).executeAsList()
 
-    override fun doUpsert(entity: Sponsor, conferenceId: Long) {
+    override suspend fun doUpsert(entity: Sponsor, conferenceId: Long) {
         sponsorQueries.upsert(
             name = entity.id.name,
             groupName = entity.id.group,
@@ -46,7 +46,7 @@ class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
         )
     }
 
-    override fun doDelete(id: Sponsor.Id, conferenceId: Long) {
+    override suspend fun doDelete(id: Sponsor.Id, conferenceId: Long) {
         sponsorQueries.deleteById(id.name, id.group, conferenceId)
     }
 

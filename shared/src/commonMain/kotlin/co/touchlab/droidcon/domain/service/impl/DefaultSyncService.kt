@@ -322,7 +322,7 @@ class DefaultSyncService(
         }
     }
 
-    private fun updateSpeakersFromDataSource(speakerDtos: List<SpeakersDto.SpeakerDto>, conference: Conference) {
+    private suspend fun updateSpeakersFromDataSource(speakerDtos: List<SpeakersDto.SpeakerDto>, conference: Conference) {
         val profiles = speakerDtos.map(::profileFactory)
         val conferenceId = conference.id
 
@@ -339,7 +339,7 @@ class DefaultSyncService(
     private fun dateFromString(dateTimeString: String): String = dateTimeString.split("T")[0]
     private fun timeFromString(dateTimeString: String): String = dateTimeString.split("T")[1]
 
-    private fun updateScheduleFromDataSource(_days: List<ScheduleDto.DayDto>, conference: Conference) {
+    private suspend fun updateScheduleFromDataSource(_days: List<ScheduleDto.DayDto>, conference: Conference) {
         val originalToAdjustedDateMap = _days.flatMap { dayDto ->
             dayDto.rooms.flatMap { roomDto -> roomDto.sessions }
         }.map { sessionDto -> dateFromString(sessionDto.startsAt) }.toSet().toList().sorted().mapIndexed { index, date ->
@@ -444,7 +444,7 @@ class DefaultSyncService(
         }
     }
 
-    private fun updateSponsorsFromDataSource(
+    private suspend fun updateSponsorsFromDataSource(
         sponsorSessionsGroups: List<SponsorSessionsDto.SessionGroupDto>,
         sponsors: SponsorsDto.SponsorCollectionDto,
         conference: Conference,

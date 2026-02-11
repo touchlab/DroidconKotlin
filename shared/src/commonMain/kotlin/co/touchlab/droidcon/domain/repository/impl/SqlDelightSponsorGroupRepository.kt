@@ -32,7 +32,7 @@ class SqlDelightSponsorGroupRepository(private val sponsorGroupQueries: SponsorG
     override fun contains(id: SponsorGroup.Id, conferenceId: Long): Boolean =
         sponsorGroupQueries.existsByName(id.value, conferenceId).executeAsOne().toBoolean()
 
-    override fun doUpsert(entity: SponsorGroup, conferenceId: Long) {
+    override suspend fun doUpsert(entity: SponsorGroup, conferenceId: Long) {
         sponsorGroupQueries.upsert(
             name = entity.id.value,
             conferenceId = conferenceId,
@@ -41,7 +41,7 @@ class SqlDelightSponsorGroupRepository(private val sponsorGroupQueries: SponsorG
         )
     }
 
-    override fun doDelete(id: SponsorGroup.Id, conferenceId: Long) {
+    override suspend fun doDelete(id: SponsorGroup.Id, conferenceId: Long) {
         sponsorGroupQueries.deleteByName(id.value, conferenceId)
     }
 

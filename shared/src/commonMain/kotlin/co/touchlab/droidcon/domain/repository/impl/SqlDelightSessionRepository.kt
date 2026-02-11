@@ -55,7 +55,7 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
     override fun observeAll(conferenceId: Long): Flow<List<Session>> =
         sessionQueries.allSessions(conferenceId, ::sessionFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun doUpsert(entity: Session, conferenceId: Long) {
+    override suspend fun doUpsert(entity: Session, conferenceId: Long) {
         sessionQueries.upsert(
             id = entity.id.value,
             conferenceId = conferenceId,
@@ -73,7 +73,7 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
         )
     }
 
-    override fun doDelete(id: Session.Id, conferenceId: Long) {
+    override suspend fun doDelete(id: Session.Id, conferenceId: Long) {
         sessionQueries.deleteById(id.value, conferenceId)
     }
 

@@ -8,9 +8,9 @@ interface ProfileRepository : Repository<Profile.Id, Profile> {
 
     suspend fun getSpeakersBySession(id: Session.Id, conferenceId: Long): List<Profile>
 
-    fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>, conferenceId: Long)
+    suspend fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>, conferenceId: Long)
 
-    fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>, conferenceId: Long)
+    suspend fun setSponsorRepresentatives(sponsor: Sponsor, representatives: List<Profile.Id>, conferenceId: Long)
 
     suspend fun getSponsorRepresentatives(sponsorId: Sponsor.Id, conferenceId: Long): List<Profile>
 
