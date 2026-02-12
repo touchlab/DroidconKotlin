@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.viewmodel.session
 
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.composite.ScheduleItem
@@ -26,9 +27,9 @@ class SessionDetailViewModel(
     private val sessionGateway: SessionGateway,
     private val settingsGateway: SettingsGateway,
     private val conferenceConfigProvider: ConferenceConfigProvider,
-    private val speakerListItemFactory: SpeakerListItemViewModel.Factory,
-    private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
-    private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
+    private val speakerListItemFactory: ViewModelFactory.SpeakerListItemViewModelFactory,
+    private val speakerDetailFactory: ViewModelFactory.SpeakerDetailViewModelFactory,
+    private val feedbackDialogFactory: ViewModelFactory.FeedbackDialogViewModelFactory,
     private val dateFormatter: DateFormatter,
     private val dateTimeService: DateTimeService,
     private val parseUrlViewService: ParseUrlViewService,
@@ -151,35 +152,5 @@ class SessionDetailViewModel(
         InConflict,
         InProgress,
         Ended,
-    }
-
-    class Factory(
-        private val sessionGateway: SessionGateway,
-        private val settingsGateway: SettingsGateway,
-        private val conferenceConfigProvider: ConferenceConfigProvider,
-        private val speakerListItemFactory: SpeakerListItemViewModel.Factory,
-        private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
-        private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
-        private val dateFormatter: DateFormatter,
-        private val dateTimeService: DateTimeService,
-        private val parseUrlViewService: ParseUrlViewService,
-        private val feedbackService: FeedbackService,
-        private val notificationService: NotificationService,
-    ) {
-
-        fun create(item: ScheduleItem) = SessionDetailViewModel(
-            sessionGateway = sessionGateway,
-            settingsGateway = settingsGateway,
-            conferenceConfigProvider = conferenceConfigProvider,
-            speakerListItemFactory = speakerListItemFactory,
-            speakerDetailFactory = speakerDetailFactory,
-            feedbackDialogFactory = feedbackDialogFactory,
-            dateFormatter = dateFormatter,
-            dateTimeService = dateTimeService,
-            parseUrlViewService = parseUrlViewService,
-            feedbackService = feedbackService,
-            notificationService = notificationService,
-            initialItem = item,
-        )
     }
 }

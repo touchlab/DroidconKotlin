@@ -7,8 +7,4 @@ class SpeakerListItemViewModel(profile: Profile, val selected: () -> Unit) : Bas
     val avatarUrl = profile.profilePicture
     val info = listOfNotNull(profile.fullName, profile.tagLine).joinToString()
     val bio = profile.bio
-
-    class Factory {
-        fun create(profile: Profile, selected: () -> Unit) = SpeakerListItemViewModel(profile, selected)
-    }
 }

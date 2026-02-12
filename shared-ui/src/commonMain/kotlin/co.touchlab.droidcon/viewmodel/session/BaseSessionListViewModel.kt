@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.viewmodel.session
 
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
@@ -8,8 +9,8 @@ import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 abstract class BaseSessionListViewModel(
     private val sessionGateway: SessionGateway,
-    private val sessionDayFactory: SessionDayViewModel.Factory,
-    private val sessionDetailFactory: SessionDetailViewModel.Factory,
+    private val sessionDayFactory: ViewModelFactory.SessionDayViewModelFactory,
+    private val sessionDetailFactory: ViewModelFactory.SessionDetailViewModelFactory,
     private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
     private val dateTimeService: DateTimeService,
     private val conferenceConfigProvider: ConferenceConfigProvider,
@@ -37,6 +38,7 @@ abstract class BaseSessionListViewModel(
             sessionGateway.observeSchedule()
         }
 
+        print("Collecting Item Flows")
         itemsFlow
             .collect { items ->
                 items

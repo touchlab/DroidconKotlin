@@ -25,8 +25,4 @@ class SessionListItemViewModel(dateTimeService: DateTimeService, item: ScheduleI
         },
     )
     val observeIsInPast by observe(::isInPast)
-
-    class Factory(private val dateTimeService: DateTimeService) {
-        fun create(item: ScheduleItem, selected: () -> Unit) = SessionListItemViewModel(dateTimeService, item, selected)
-    }
 }

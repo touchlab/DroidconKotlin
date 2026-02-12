@@ -61,14 +61,4 @@ class FeedbackDialogViewModel(
                 Satisfied -> Session.Feedback.Rating.SATISFIED
             }
     }
-
-    class Factory(private val sessionGateway: SessionGateway, private val log: Logger) {
-
-        fun create(
-            session: Session,
-            submit: suspend (Session.Feedback) -> Unit,
-            closeAndDisable: (suspend () -> Unit)?,
-            skip: suspend () -> Unit,
-        ) = FeedbackDialogViewModel(sessionGateway, session, log, submit, closeAndDisable, skip)
-    }
 }

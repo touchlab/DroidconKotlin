@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.viewmodel.session
 
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
@@ -10,7 +11,7 @@ import kotlinx.datetime.LocalDate
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SessionDayViewModel(
-    sessionBlockFactory: SessionBlockViewModel.Factory,
+    sessionBlockFactory: ViewModelFactory.SessionBlockViewModelFactory,
     dateFormatter: DateFormatter,
     dateTimeService: DateTimeService,
     private val conferenceConfigProvider: ConferenceConfigProvider,
@@ -43,26 +44,4 @@ class SessionDayViewModel(
         }
 
     class ScrollState(val firstVisibleItemIndex: Int, val firstVisibleItemScrollOffset: Int)
-
-    class Factory(
-        private val sessionBlockFactory: SessionBlockViewModel.Factory,
-        private val dateFormatter: DateFormatter,
-        private val dateTimeService: DateTimeService,
-        private val conferenceConfigProvider: ConferenceConfigProvider,
-        private val sessionDetailScrollStateStorage: SessionDetailScrollStateStorage,
-    ) {
-
-        fun create(date: LocalDate, attendingOnly: Boolean, items: List<ScheduleItem>, onScheduleItemSelected: (ScheduleItem) -> Unit) =
-            SessionDayViewModel(
-                sessionBlockFactory,
-                dateFormatter,
-                dateTimeService,
-                conferenceConfigProvider,
-                date,
-                attendingOnly,
-                sessionDetailScrollStateStorage,
-                items,
-                onScheduleItemSelected,
-            )
-    }
 }

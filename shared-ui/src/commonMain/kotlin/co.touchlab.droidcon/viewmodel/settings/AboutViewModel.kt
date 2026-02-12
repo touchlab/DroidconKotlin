@@ -20,9 +20,4 @@ class AboutViewModel(private val aboutRepository: AboutRepository, private val p
             AboutItemViewModel(it.title, it.detail, links, it.icon)
         }
     }
-
-    class Factory(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) {
-
-        fun create() = AboutViewModel(aboutRepository, parseUrlViewService)
-    }
 }
