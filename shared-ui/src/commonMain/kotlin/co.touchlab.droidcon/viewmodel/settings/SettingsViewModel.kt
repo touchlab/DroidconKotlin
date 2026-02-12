@@ -10,7 +10,7 @@ import org.brightify.hyperdrive.multiplatformx.property.ObservableProperty
 
 class SettingsViewModel(
     settingsGateway: SettingsGateway,
-    val about: AboutViewModel,
+    private val aboutFactory: AboutViewModel.Factory,
     private val conferenceRepository: ConferenceRepository,
 ) : BaseViewModel() {
     private val log = Logger.withTag("SettingsViewModel")
@@ -47,6 +47,7 @@ class SettingsViewModel(
     private val _selectedConference = MutableObservableProperty<Conference?>(null)
     val selectedConference: ObservableProperty<Conference?> = _selectedConference
 
+    val about by managed(aboutFactory.create())
 
     override suspend fun whileAttached() {
         // Load conferences
@@ -80,4 +81,11 @@ class SettingsViewModel(
         }
     }
 
+    class Factory(
+        private val settingsGateway: SettingsGateway,
+        private val aboutFactory: AboutViewModel.Factory,
+        private val conferenceRepository: ConferenceRepository,
+    ) {
+        fun create() = SettingsViewModel(settingsGateway, aboutFactory, conferenceRepository)
+    }
 }

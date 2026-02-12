@@ -22,9 +22,52 @@ import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 val uiModule = module {
-    single { SessionDetailScrollStateStorage() }
+    // MARK: View model factories.
+    single {
+        ApplicationViewModel.Factory(
+            scheduleFactory = get(),
+            agendaFactory = get(),
+            sponsorsFactory = get(),
+            settingsFactory = get(),
+            feedbackDialogFactory = get(),
+            syncService = get(),
+            notificationSchedulingService = get(),
+            notificationService = get(),
+            feedbackService = get(),
+            settingsGateway = get(),
+            conferenceRepository = get(),
+        )
+    }
 
-    // Factories for parameterized ViewModels (used by the ViewModels below)
+    single {
+        WaitForLoadedContextModel(
+            conferenceConfigProvider = get(),
+            applicationViewModelFactory = get(),
+            syncService = get(),
+            settingsGateway = get(),
+        )
+    }
+
+    single {
+        ScheduleViewModel.Factory(
+            sessionGateway = get(),
+            sessionDayFactory = get(),
+            sessionDetailFactory = get(),
+            sessionDetailScrollStateStorage = get(),
+            dateTimeService = get(),
+            conferenceConfigProvider = get(),
+        )
+    }
+    single {
+        AgendaViewModel.Factory(
+            sessionGateway = get(),
+            sessionDayFactory = get(),
+            sessionDetailFactory = get(),
+            sessionDetailScrollStateStorage = get(),
+            dateTimeService = get(),
+            conferenceConfigProvider = get(),
+        )
+    }
     single { SessionBlockViewModel.Factory(sessionListItemFactory = get(), dateFormatter = get()) }
     single {
         SessionDayViewModel.Factory(
@@ -36,6 +79,7 @@ val uiModule = module {
         )
     }
     single { SessionListItemViewModel.Factory(dateTimeService = get()) }
+
     single {
         SessionDetailViewModel.Factory(
             sessionGateway = get(),
@@ -52,75 +96,18 @@ val uiModule = module {
         )
     }
     single { SpeakerListItemViewModel.Factory() }
+
     single { SpeakerDetailViewModel.Factory(parseUrlViewService = get()) }
+
+    single { SponsorListViewModel.Factory(sponsorGateway = get(), sponsorGroupFactory = get(), sponsorDetailFactory = get()) }
     single { SponsorGroupViewModel.Factory(sponsorGroupItemFactory = get()) }
     single { SponsorGroupItemViewModel.Factory() }
-    single {
-        SponsorDetailViewModel.Factory(
-            sponsorGateway = get(),
-            speakerListItemFactory = get(),
-            speakerDetailFactory = get(),
-        )
-    }
+    single { SponsorDetailViewModel.Factory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get()) }
+
+    single { SettingsViewModel.Factory(settingsGateway = get(), aboutFactory = get(), conferenceRepository = get()) }
+    single { AboutViewModel.Factory(aboutRepository = get(), parseUrlViewService = get()) }
+
     single { FeedbackDialogViewModel.Factory(sessionGateway = get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
 
-    // ViewModels provided by Koin
-    single {
-        ScheduleViewModel(
-            sessionGateway = get(),
-            sessionDayFactory = get(),
-            sessionDetailFactory = get(),
-            sessionDetailScrollStateStorage = get(),
-            dateTimeService = get(),
-            conferenceConfigProvider = get(),
-        )
-    }
-    single {
-        AgendaViewModel(
-            sessionGateway = get(),
-            sessionDayFactory = get(),
-            sessionDetailFactory = get(),
-            sessionDetailScrollStateStorage = get(),
-            dateTimeService = get(),
-            conferenceConfigProvider = get(),
-        )
-    }
-    single {
-        SponsorListViewModel(
-            sponsorGateway = get(),
-            sponsorGroupFactory = get(),
-            sponsorDetailFactory = get(),
-        )
-    }
-    single { AboutViewModel(aboutRepository = get(), parseUrlViewService = get()) }
-    single {
-        SettingsViewModel(
-            settingsGateway = get(),
-            about = get(),
-            conferenceRepository = get(),
-        )
-    }
-    single {
-        ApplicationViewModel(
-            schedule = get(),
-            agenda = get(),
-            sponsors = get(),
-            settings = get(),
-            feedbackDialogFactory = get(),
-            syncService = get(),
-            notificationSchedulingService = get(),
-            notificationService = get(),
-            feedbackService = get(),
-            settingsGateway = get(),
-            conferenceRepository = get(),
-        )
-    }
-    single {
-        WaitForLoadedContextModel(
-            conferenceConfigProvider = get(),
-            applicationViewModel = get(),
-            syncService = get(),
-            settingsGateway = get(),
-        )
-    }
+    single { SessionDetailScrollStateStorage() }
 }
