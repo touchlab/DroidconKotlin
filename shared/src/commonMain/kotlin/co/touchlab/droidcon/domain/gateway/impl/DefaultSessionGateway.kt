@@ -55,15 +55,22 @@ class DefaultSessionGateway(
         }
     }
 
-    private suspend fun scheduleItemForSession(session: Session): ScheduleItem {
-        val confId = conferenceId ?: throw IllegalStateException("Conference ID is not available")
-        return ScheduleItem(
-            session,
-            scheduleService.isInConflict(session),
-            session.room?.let { roomRepository.find(it, confId) },
-            profileRepository.getSpeakersBySession(session.id, confId),
-        )
-    }
+    private suspend fun scheduleItemForSession(session: Session): ScheduleItem =
+        if (conferenceId != null)
+            ScheduleItem(
+                session,
+                scheduleService.isInConflict(session),
+                session.room?.let { roomRepository.find(it, conferenceId!!) },
+                profileRepository.getSpeakersBySession(session.id, conferenceId!!),
+            )
+
+        else
+            ScheduleItem(
+                session,
+                scheduleService.isInConflict(session),
+                null,
+                emptyList(),
+            )
 
     override suspend fun setAttending(session: Session, attending: Boolean) {
         val confId = conferenceId ?: throw IllegalStateException("Conference ID is not available")
