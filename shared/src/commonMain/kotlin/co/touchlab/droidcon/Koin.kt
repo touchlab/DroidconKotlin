@@ -63,9 +63,9 @@ import org.koin.dsl.module
 fun initKoin(additionalModules: List<Module>): KoinApplication {
     val koinApplication = startKoin {
         modules(
-            additionalModules +
                 platformModule +
-                coreModule,
+                coreModule + 
+                additionalModules,
         )
     }
 
@@ -135,7 +135,6 @@ private val coreModule = module {
     single<ConferenceConfigProvider> {
         DefaultConferenceConfigProvider(
             conferenceRepository = get(),
-            initialConference = null,
         )
     }
 

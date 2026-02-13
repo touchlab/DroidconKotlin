@@ -42,24 +42,8 @@ internal fun MainComposeView(waitForLoadedContextModel: WaitForLoadedContextMode
 
     DroidconTheme {
         when (val state = loadingState) {
-            WaitForLoadedContextModel.State.Loading -> LoadingScreen()
+            WaitForLoadedContextModel.State.Loading -> CircularProgressIndicator("Updating Droidcon Events!")
             is WaitForLoadedContextModel.State.Ready -> MainAppBody(waitForLoadedContextModel, state.conference, modifier)
-        }
-    }
-}
-
-@Composable
-private fun LoadingScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            CircularProgressIndicator()
-            Spacer(modifier = Modifier.height(16.dp))
-            Text("Updating Droidcon Events!")
         }
     }
 }
@@ -85,6 +69,7 @@ private fun MainAppBody(waitForLoadedContextModel: WaitForLoadedContextModel, se
             viewModel.selectedTab = ApplicationViewModel.Tab.Schedule
         }
 
+        print("isFirstRun")
         if (conferences.size == 1) {
             LaunchedEffect(conferences) {
                 onConferenceSelected(conferences.first())

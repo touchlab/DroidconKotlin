@@ -8,6 +8,7 @@ import co.touchlab.droidcon.domain.repository.RoomRepository
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.ScheduleService
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -21,16 +22,21 @@ class DefaultSessionGateway(
     private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : SessionGateway {
 
+    private val log = Logger.withTag("DefaultSessionGateway")
+
     private val conferenceId: Long?
         get() = conferenceConfigProvider.getConferenceId()
 
     override fun observeSchedule(): Flow<List<ScheduleItem>> = conferenceConfigProvider.observeChanges().flatMapLatest { conf ->
+        log.i { "observeSchedule: Conference: ${conf?.id}" }
         if (conf == null) {
             flowOf(emptyList())
         } else {
             sessionRepository.observeAll(conf.id)
         }
     }.map { sessions ->
+        log.i { "observeSchedule: Map: $sessions" }
+
         sessions.map { session ->
             scheduleItemForSession(session)
         }

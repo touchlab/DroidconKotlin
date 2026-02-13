@@ -1,5 +1,7 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -23,7 +25,7 @@ class SqlDelightProfileRepository(
     ProfileRepository {
 
     override suspend fun getSpeakersBySession(id: Session.Id, conferenceId: Long): List<Profile> =
-        profileQueries.selectBySession(id.value, conferenceId, ::profileFactory).executeAsList()
+        profileQueries.selectBySession(id.value, conferenceId, ::profileFactory).awaitAsList()
 
     override suspend fun setSessionSpeakers(session: Session, speakers: List<Profile.Id>, conferenceId: Long) {
         speakerQueries.deleteBySessionId(session.id.value, conferenceId)
@@ -62,8 +64,8 @@ class SqlDelightProfileRepository(
             mapper = ::profileFactory,
         ).executeAsList()
 
-    override fun allSync(conferenceId: Long): List<Profile> =
-        profileQueries.selectAll(conferenceId, mapper = ::profileFactory).executeAsList()
+    override suspend fun allSync(conferenceId: Long): List<Profile> =
+        profileQueries.selectAll(conferenceId, mapper = ::profileFactory).awaitAsList()
 
     override fun observe(id: Profile.Id, conferenceId: Long): Flow<Profile> =
         profileQueries.selectById(id.value, conferenceId, ::profileFactory).asFlow().mapToOne(Dispatchers.Main)
@@ -92,8 +94,8 @@ class SqlDelightProfileRepository(
         profileQueries.delete(id.value, conferenceId)
     }
 
-    override fun contains(id: Profile.Id, conferenceId: Long): Boolean =
-        profileQueries.existsById(id.value, conferenceId).executeAsOne().toBoolean()
+    override suspend fun contains(id: Profile.Id, conferenceId: Long): Boolean =
+        profileQueries.existsById(id.value, conferenceId).awaitAsOne().toBoolean()
 
     private fun profileFactory(
         id: String,

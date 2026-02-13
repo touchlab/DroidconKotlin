@@ -8,7 +8,13 @@ import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 
 class DefaultSponsorGateway(
@@ -18,17 +24,40 @@ class DefaultSponsorGateway(
     private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : SponsorGateway {
 
+    private val log = Logger.withTag("DefaultSponsorGateway")
+
     override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> {
+        log.i { "observeSponsors" }
+
+        return conferenceConfigProvider.observeChanges()
+            .filterNotNull()
+            .map { conference -> conference.id }
+            .distinctUntilChanged()
+            .flatMapLatest { id ->
+                sponsorGroupRepository.observeAll(id).map { groups ->
+                    groups.map { group ->
+                        log.i { "Found a Group of Sponsors" }
+                        SponsorGroupWithSponsors(
+                            group,
+                            sponsorRepository.allByGroupName(group.name, id),
+                        )
+                    }
+                }
+            }
+/*
         val conferenceId = conferenceConfigProvider.getConferenceId()
-            ?: return kotlinx.coroutines.flow.flowOf(emptyList())
+
+        log.i { "Got the Conference ID" }
         return sponsorGroupRepository.observeAll(conferenceId).map { groups ->
             groups.map { group ->
+                log.i { "Found a Group of Sponsors" }
+
                 SponsorGroupWithSponsors(
                     group,
                     sponsorRepository.allByGroupName(group.name, conferenceId),
                 )
             }
-        }
+        }*/
     }
 
     override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> {

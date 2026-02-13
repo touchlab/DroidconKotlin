@@ -6,6 +6,7 @@ import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
+import co.touchlab.kermit.Logger
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
@@ -20,6 +21,9 @@ class DefaultApiDataSource(
     private val json: Json,
     private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : DefaultSyncService.DataSource {
+
+    private val log = Logger.withTag("DefaultApiDataSource")
+
     override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>? {
         val scheduleId = conferenceConfigProvider.getScheduleId() ?: return null
         val jsonString = client.get {
@@ -46,6 +50,7 @@ class DefaultApiDataSource(
     }
 
     override suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto? {
+        log.i { "gettingSponsors" }
         val projectId = conferenceConfigProvider.getProjectId() ?: return null
         val collectionName = conferenceConfigProvider.getCollectionName() ?: return null
         val apiKey = conferenceConfigProvider.getApiKey() ?: return null
@@ -58,8 +63,11 @@ class DefaultApiDataSource(
     }
 
     suspend fun getConferences(): ConferencesDto.ConferenceCollectionDto? {
+        log.i { "getConferences" }
         val projectId = conferenceConfigProvider.getProjectId() ?: return null
+        log.i { "Have Project ID: $projectId" }
         val apiKey = conferenceConfigProvider.getApiKey() ?: return null
+        log.i { "Have API Key" }
         val databaseName = "(default)"
         val conferenceListCollection = "conferenceListMobile"
 

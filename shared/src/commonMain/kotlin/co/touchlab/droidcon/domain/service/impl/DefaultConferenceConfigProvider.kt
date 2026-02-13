@@ -22,7 +22,9 @@ class DefaultConferenceConfigProvider(
     private val currentConference: Conference?
         get() = currentConferenceState.value
 
-    override fun getConferenceId(): Long? = currentConference?.id
+    override fun getConferenceId(): Long? {
+        return currentConference?.id
+    }
 
     override fun getConferenceTimeZone(): TimeZone? = currentConference?.timeZone
 
@@ -30,7 +32,10 @@ class DefaultConferenceConfigProvider(
 
     override fun getCollectionName(): String? = currentConference?.collectionName
 
-    override fun getApiKey(): String? = currentConference?.apiKey
+    override fun getApiKey(): String? {
+        log.i { "Getting API Key $currentConference" }
+        return currentConference?.apiKey
+    }
 
     override fun getScheduleId(): String? = currentConference?.scheduleId
 
@@ -51,6 +56,7 @@ class DefaultConferenceConfigProvider(
     // Implementation of the interface method to load the conference asynchronously
     // Also sets up continuous observation of conference changes
     override suspend fun loadSelectedConference() {
+        log.i { "DefaultConferenceConfigProvider: loadSelectedConference" }
         conferenceRepository.observeSelected()
             .map<Conference, Conference?> { it }
             .catch { e ->
@@ -58,6 +64,7 @@ class DefaultConferenceConfigProvider(
                 emit(null)
             }
             .collect { conference ->
+                log.i { "loadSelectedConference: Emitting Conference! $conference" }
                 _currentConferenceState.value = conference
             }
     }

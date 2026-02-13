@@ -28,5 +28,5 @@ interface Repository<ID : Any, ENTITY : DomainEntity<ID>> {
 
     suspend fun addOrUpdate(entity: ENTITY, conferenceId: Long)
 
-    fun contains(id: ID, conferenceId: Long): Boolean
+    suspend fun contains(id: ID, conferenceId: Long): Boolean
 }

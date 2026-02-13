@@ -138,7 +138,7 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                             if (imageUrl != null) {
                                 DcAsyncImage(
                                     logTag = LOG_TAG,
-                                    model = imageUrl,
+                                    url = imageUrl,
                                     contentDescription = sponsor.name,
                                 )
                             } else {

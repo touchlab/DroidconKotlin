@@ -31,6 +31,8 @@ kotlin {
                 implementation(libs.multiplatformSettings.core)
                 implementation(libs.multiplatform.settings.make.observable)
                 implementation(libs.koin.compose)
+                implementation(libs.hyperdrive.multiplatformx.api)
+
             }
         }
         val jsTest by getting {

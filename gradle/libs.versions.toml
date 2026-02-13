@@ -1,5 +1,6 @@
 [versions]
 ## SDK Versions
+kamelImageDefault = "1.0.9"
 minSdk = "23"
 targetSdk = "36"
 compileSdk = "36"
@@ -57,6 +58,7 @@ skie = "0.10.8"
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+kamel-image-default = { module = "media.kamel:kamel-image-default", version.ref = "kamelImageDefault" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 multiplatform-settings-make-observable = { module = "com.russhwolf:multiplatform-settings-make-observable", version.ref = "multiplatformSettings" }
 sqliter = { module = "co.touchlab:sqliter-driver", version.ref = "sqliter" }

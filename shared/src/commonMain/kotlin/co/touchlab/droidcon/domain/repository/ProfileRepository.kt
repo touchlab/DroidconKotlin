@@ -14,5 +14,5 @@ interface ProfileRepository : Repository<Profile.Id, Profile> {
 
     suspend fun getSponsorRepresentatives(sponsorId: Sponsor.Id, conferenceId: Long): List<Profile>
 
-    fun allSync(conferenceId: Long): List<Profile>
+    suspend fun allSync(conferenceId: Long): List<Profile>
 }

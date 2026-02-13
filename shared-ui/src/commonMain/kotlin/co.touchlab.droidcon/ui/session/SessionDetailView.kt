@@ -274,7 +274,7 @@ private fun SpeakerView(speaker: SpeakerListItemViewModel) {
             if (imageUrl != null) {
                 DcAsyncImage(
                     logTag = LOG_TAG,
-                    model = imageUrl,
+                    url = imageUrl,
                     contentDescription = speaker.info,
                     modifier = Modifier.width(80.dp)
                         .padding(

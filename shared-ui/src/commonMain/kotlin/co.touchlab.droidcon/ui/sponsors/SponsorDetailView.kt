@@ -132,7 +132,7 @@ private fun HeaderView(name: String, groupTitle: String, imageUrl: Url?) {
         if (imageUrl != null) {
             DcAsyncImage(
                 logTag = LOG_TAG,
-                model = imageUrl.string,
+                url = imageUrl.string,
                 modifier = Modifier
                     .width(120.dp)
                     .padding(horizontal = Dimensions.Padding.default)
@@ -204,7 +204,7 @@ private fun RepresentativeInfoView(profile: SpeakerListItemViewModel) {
             } else {
                 DcAsyncImage(
                     logTag = LOG_TAG,
-                    model = imageUrl.string,
+                    url = imageUrl.string,
                     contentDescription = profile.info,
                     modifier = Modifier
                         .width(80.dp)

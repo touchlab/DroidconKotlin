@@ -1,5 +1,8 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.async.coroutines.awaitAsOne
+import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -9,19 +12,30 @@ import co.touchlab.droidcon.domain.entity.Room
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.repository.SessionRepository
 import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.kermit.Logger
 import kotlin.time.Instant
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 
 class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, private val sessionQueries: SessionQueries) :
     BaseRepository<Session.Id, Session>(),
     SessionRepository {
+
+    private val log = Logger.withTag("SqlDelightSessionRepository")
+    val lifecycleScope = CoroutineScope(SupervisorJob()) + Dispatchers.Main
+
+
+
     override fun observe(id: Session.Id, conferenceId: Long): Flow<Session> =
         sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    fun sessionById(id: Session.Id, conferenceId: Long): Session? =
-        sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).executeAsOneOrNull()
+    suspend fun sessionById(id: Session.Id, conferenceId: Long): Session? =
+        sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).awaitAsOneOrNull()
 
     override fun observeOrNull(id: Session.Id, conferenceId: Long): Flow<Session?> =
         sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).asFlow().mapToOneOrNull(Dispatchers.Main)
@@ -47,10 +61,10 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
         sessionQueries.updateFeedBackSent(if (isSent) 1 else 0, sessionId.value, conferenceId)
     }
 
-    override fun allSync(conferenceId: Long): List<Session> = sessionQueries.allSessions(conferenceId, ::sessionFactory).executeAsList()
+    override suspend fun allSync(conferenceId: Long): List<Session> = sessionQueries.allSessions(conferenceId, ::sessionFactory).awaitAsList()
 
-    override fun findSync(id: Session.Id, conferenceId: Long): Session? =
-        sessionQueries.sessionById(id.value, conferenceId, mapper = ::sessionFactory).executeAsOneOrNull()
+    override suspend fun findSync(id: Session.Id, conferenceId: Long): Session? =
+        sessionQueries.sessionById(id.value, conferenceId, mapper = ::sessionFactory).awaitAsOneOrNull()
 
     override fun observeAll(conferenceId: Long): Flow<List<Session>> =
         sessionQueries.allSessions(conferenceId, ::sessionFactory).asFlow().mapToList(Dispatchers.Main)
@@ -77,8 +91,8 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
         sessionQueries.deleteById(id.value, conferenceId)
     }
 
-    override fun contains(id: Session.Id, conferenceId: Long): Boolean =
-        sessionQueries.existsById(id.value, conferenceId).executeAsOne().toBoolean()
+    override suspend fun contains(id: Session.Id, conferenceId: Long): Boolean =
+        sessionQueries.existsById(id.value, conferenceId).awaitAsOne().toBoolean()
 
     private fun sessionFactory(
         id: String,

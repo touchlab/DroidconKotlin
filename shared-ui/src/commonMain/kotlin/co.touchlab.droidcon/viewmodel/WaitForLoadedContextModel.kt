@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 class WaitForLoadedContextModel(
     private val conferenceConfigProvider: ConferenceConfigProvider,
-    applicationViewModelFactory: ApplicationViewModel.Factory,
+    applicationViewModelFactory: ViewModelFactory.ApplicationViewModelFactory,
     private val syncService: SyncService,
     private val settingsGateway: SettingsGateway,
 ) : BaseViewModel() {
@@ -34,19 +34,24 @@ class WaitForLoadedContextModel(
     }
 
     suspend fun watchConferenceChanges() {
+        log.i { "watchConferenceChanges" }
         lifecycle.whileAttached {
-            withContext(IODispatcher) {
-                try {
-                    syncService.syncConferences()
-                } catch (e: Exception) {
-                    log.e(e) { "Failed to sync conferences" }
-                }
-            }
-
+            log.i { "Starting to Sync Conferences" }
             launch {
+                log.i { "Observing conferenceConfigProvider" }
                 conferenceConfigProvider.observeChanges().collect { conference ->
                     if (conference != null) {
+                        log.i { "WaitForLoadedContextModel: Emitting Conference!" }
                         _state.emit(State.Ready(conference))
+
+                        withContext(IODispatcher) {
+                            try {
+                                log.i { "syncConferences" }
+                                syncService.syncConferences()
+                            } catch (e: Exception) {
+                                log.e(e) { "Failed to sync conferences" }
+                            }
+                        }
                     }
                 }
             }

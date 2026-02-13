@@ -129,6 +129,9 @@ kotlin {
         val iosX64Main by getting {
             dependsOn(iosMain.get())
         }
+        jsMain.dependencies {
+            implementation(libs.kamel.image.default)
+        }
 
         all {
             languageSettings.apply {

@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -21,7 +22,7 @@ class SqlDelightConferenceRepository(
     override fun observeSelected(): Flow<Conference> =
         conferenceQueries.selectSelected(::conferenceFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    override suspend fun getSelected(): Conference = conferenceQueries.selectSelected(::conferenceFactory).executeAsOne()
+    override suspend fun getSelected(): Conference = conferenceQueries.selectSelected(::conferenceFactory).awaitAsOne()
 
     override suspend fun select(conferenceId: Long): Boolean {
         try {
@@ -46,7 +47,7 @@ class SqlDelightConferenceRepository(
             venueMap = conference.venueMap,
         )
         // Return the last inserted ID
-        return conferenceQueries.lastInsertRowId().executeAsOne()
+        return conferenceQueries.lastInsertRowId().awaitAsOne()
     }
 
     override suspend fun update(conference: Conference): Boolean {

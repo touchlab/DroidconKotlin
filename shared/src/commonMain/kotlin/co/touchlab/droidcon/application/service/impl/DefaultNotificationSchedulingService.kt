@@ -41,7 +41,8 @@ class DefaultNotificationSchedulingService(
 
     private var scheduledNotifications: List<Session.Id>
         get() = settings.getStringOrNull(SCHEDULED_NOTIFICATIONS_KEY)?.let { serializedList ->
-            json.decodeFromString<List<String>>(serializedList).map { Session.Id(it) }
+            if(serializedList.isBlank()) emptyList()
+            else json.decodeFromString<List<String>>(serializedList).map { Session.Id(it) }
         } ?: emptyList()
         set(value) {
             settings[SCHEDULED_NOTIFICATIONS_KEY] = json.encodeToString(value.map { it.value })

@@ -11,6 +11,7 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.js.Js
 import org.koin.dsl.module
 
 actual val platformModule: org.koin.core.module.Module = module {
@@ -19,7 +20,7 @@ actual val platformModule: org.koin.core.module.Module = module {
     }
 
     single<HttpClientEngine> {
-        CIO.create()
+        Js.create()
     }
 
     single<NotificationService> {
