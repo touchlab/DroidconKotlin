@@ -1,12 +1,13 @@
 [versions]
 ## SDK Versions
 kamelImageDefault = "1.0.9"
+kotlinxBrowser = "0.5.0"
 minSdk = "23"
 targetSdk = "36"
 compileSdk = "36"
 
 # Dependencies
-kotlin = "2.2.21"
+kotlin = "2.3.10"
 
 ## Gradle Plugin version must be compatible with Multiplatform
 ## https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
@@ -53,12 +54,13 @@ uuid = "0.8.4"
 ktlint = "14.0.1"
 coil = "3.3.0"
 zoomimage = "1.4.0"
-skie = "0.10.8"
+skie = "0.10.10"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 kamel-image-default = { module = "media.kamel:kamel-image-default", version.ref = "kamelImageDefault" }
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinxBrowser" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 multiplatform-settings-make-observable = { module = "com.russhwolf:multiplatform-settings-make-observable", version.ref = "multiplatformSettings" }
 sqliter = { module = "co.touchlab:sqliter-driver", version.ref = "sqliter" }
@@ -123,6 +125,7 @@ koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 
 zoomimage-composeResources = { module = "io.github.panpf.zoomimage:zoomimage-compose-resources", version.ref = "zoomimage" }
+zoomimage-compose = { module = "io.github.panpf.zoomimage:zoomimage-compose", version.ref = "zoomimage" }
 
 [plugins]
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }

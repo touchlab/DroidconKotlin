@@ -8,18 +8,25 @@ import io.kamel.image.asyncPainterResource
 
 @Composable
 actual fun DcAsyncImage(logTag: String, url: String?, contentDescription: String?, modifier: Modifier) {
-    KamelImage(
-        resource = {
-            asyncPainterResource(data = "url")
-        },
-        contentDescription = "Profile",
-        modifier = Modifier,
-        onFailure = {
-            Logger.e(
-                tag = logTag,
-                throwable = it,
-                messageString = "AsyncImage OnError Request = ${it}\n",
-            )
-        },
-    )
+    if(url != null) {
+        KamelImage(
+            resource = { asyncPainterResource(data = url) },
+            modifier = modifier,
+            contentDescription = "Profile",
+
+            onFailure = { exception ->
+                Logger.e(
+                    logTag,
+                    throwable = exception,
+                    message = {
+                        "AsyncImage OnError Request = ${exception}\n"
+                    },
+                )
+            },
+        )
+    }
+}
+
+@Composable
+actual fun InitImageLoader() {
 }

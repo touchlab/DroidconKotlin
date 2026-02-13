@@ -9,6 +9,11 @@ plugins {
     alias(libs.plugins.composeCompiler)
 }
 
+// Force Kotlin stdlib for JS so compiler sees stdlib (fixes "Symbol for Any not found")
+configurations.all {
+    resolutionStrategy.force("org.jetbrains.kotlin:kotlin-stdlib-js:${libs.versions.kotlin.get()}")
+}
+
 android {
     namespace = "co.touchlab.droidcon.sharedui"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -82,8 +87,6 @@ kotlin {
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
             api(libs.uuid)
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network)
 
             implementation(libs.bundles.ktor.common)
             implementation(libs.bundles.sqldelight.common)
@@ -103,11 +106,15 @@ kotlin {
             implementation(libs.zoomimage.composeResources)
 
             implementation(libs.hyperdrive.multiplatformx.api)
+            implementation(libs.kamel.image.default)
         }
         val mobileMain by creating {
             dependsOn(commonMain.get())
             dependencies {
                 api(libs.kermit.crashlytics)
+                implementation(libs.coil.compose)
+                implementation(libs.coil.network)
+                implementation(compose.components.resources)
             }
         }
 
@@ -130,7 +137,11 @@ kotlin {
             dependsOn(iosMain.get())
         }
         jsMain.dependencies {
-            implementation(libs.kamel.image.default)
+            implementation(kotlin("stdlib-js"))
+            implementation(libs.kotlinx.browser)
+            implementation(libs.zoomimage.compose)
+            implementation(libs.kamel.image.default)   // add this
+
         }
 
         all {
