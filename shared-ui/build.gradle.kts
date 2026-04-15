@@ -107,6 +107,11 @@ kotlin {
 
             implementation(libs.hyperdrive.multiplatformx.api)
             implementation(libs.kamel.image.default)
+            implementation(libs.adaptive)
+            implementation(libs.adaptive.layout)
+            implementation(libs.adaptive.navigation)
+            implementation(libs.material3.adaptive.navigation.suite)
+
         }
         val mobileMain by creating {
             dependsOn(commonMain.get())

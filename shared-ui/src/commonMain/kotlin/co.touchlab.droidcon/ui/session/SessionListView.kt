@@ -50,6 +50,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.ui.CircularProgressIndicator
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.util.NavigationStack
@@ -86,7 +87,9 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                     .padding(top = innerPadding.calculateTopPadding()),
             ) {
                 val days by viewModel.observeDays.observeAsState()
-                if (days?.isEmpty() != false) {
+                if(days == null){
+                    CircularProgressIndicator("Updating Droidcon Events!")
+                } else if (days?.isEmpty() != false) {
                     EmptyView(emptyText)
                 } else {
                     val selectedDay by viewModel.observeSelectedDay.observeAsState()

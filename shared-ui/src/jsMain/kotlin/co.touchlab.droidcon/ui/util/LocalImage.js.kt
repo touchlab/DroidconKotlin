@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import co.touchlab.droidcon.ui.theme.Dimensions
+import kotlin.js.js
 import kotlinx.browser.window
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -33,9 +34,10 @@ import org.khronos.webgl.Int8Array
 internal actual fun __LocalImage(imageResourceName: String, modifier: Modifier, contentDescription: String?) {
     val painter: Painter? by produceState(null, imageResourceName) {
         value = try {
-            val fetched = window.fetch("drawable/$imageResourceName").await()
+            val fetched = window.fetch("drawable/$imageResourceName", js("{}")).await()
             if (fetched.ok) {
-                val bytes = Int8Array(fetched.arrayBuffer().await()).unsafeCast<ByteArray>()
+                val buffer = fetched.arrayBuffer().await()
+                val bytes = Int8Array(buffer).unsafeCast<ByteArray>()
                 makeFromEncoded(bytes).toComposeImageBitmap().let(::BitmapPainter)
             } else {
                 null

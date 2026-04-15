@@ -79,6 +79,7 @@ class ApplicationViewModel(
         lifecycle.whileAttached {
             try {
                 syncService.runSynchronization(conference = conference)
+                syncService.forceSynchronize(conference)
             } catch (e: Exception) {
                 log.e(e) { "Error starting sync service" }
             }
