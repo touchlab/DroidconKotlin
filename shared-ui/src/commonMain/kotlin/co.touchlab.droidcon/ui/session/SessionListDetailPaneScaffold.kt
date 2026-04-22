@@ -4,7 +4,11 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -16,12 +20,16 @@ import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaf
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.window.core.layout.WindowSizeClass
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.session.BaseSessionListViewModel
+import droidcon.shared_ui.generated.resources.Res
+import droidcon.shared_ui.generated.resources.event_note
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
@@ -78,10 +86,26 @@ fun SessionListDetailPaneScaffold(viewModel: BaseSessionListViewModel, title: St
                                 viewModel.presentedSessionDetail = null
                             }
                         },
+                        attendingTapped = { attending ->
+                            if (!attending) {
+                                scope.launch {
+                                    viewModel.presentedSessionDetail = null
+                                    navigator.navigateBack()
+                                    if (!fullWidth) {
+                                        delay(1000)
+                                    }
+                                }
+                            }
+                        },
                     )
                 } else {
-                    Column {
-                        Text("TODO")
+                    Column(
+                        Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        Text("No session selected. Please select a session for more details", style = MaterialTheme.typography.titleLarge)
+                        Icon(modifier = Modifier.fillMaxSize(0.33f), painter = painterResource(Res.drawable.event_note), contentDescription = "No Session Selected")
                     }
                 }
             }

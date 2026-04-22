@@ -33,6 +33,7 @@ actual fun VenueBodyView(modifier: Modifier, venueMapUrl: String?){
                 }
                 is Resource.Failure -> {
                     Text("Error loading venue map.")
+                    print(resource.exception.message)
                 }
             }
         } else {

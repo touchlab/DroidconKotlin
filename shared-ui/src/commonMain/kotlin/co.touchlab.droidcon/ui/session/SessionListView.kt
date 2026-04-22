@@ -35,6 +35,7 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -84,83 +85,85 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                 EmptyView(emptyText)
             } else {
                 val selectedDay by viewModel.observeSelectedDay.observeAsState()
-                val selectedTabIndex = viewModel.days?.indexOf(selectedDay) ?: 0
-                val coroutineScope = rememberCoroutineScope()
+                key(days) {
+                    val selectedTabIndex = (viewModel.days?.indexOf(selectedDay) ?: 0).coerceAtLeast(0)
+                    val coroutineScope = rememberCoroutineScope()
 
-                val pagerState = rememberPagerState(
-                    initialPage = selectedTabIndex,
-                    pageCount = {
-                        days?.size ?: 0
-                    },
-                )
+                    val pagerState = rememberPagerState(
+                        initialPage = selectedTabIndex,
+                        pageCount = {
+                            days?.size ?: 0
+                        },
+                    )
 
-                PrimaryTabRow(
-                    selectedTabIndex = pagerState.currentPage,
-                    indicator = {
-                        SessionDayTabIndicator(
-                            selectedTabIndex = pagerState.currentPage,
-                            tabCount = days?.size ?: 0,
-                        )
-                    },
-                ) {
-                    days?.forEachIndexed { index, daySchedule ->
-                        Tab(
-                            selected = pagerState.currentPage == index,
-                            onClick = {
-                                viewModel.selectedDay = daySchedule
-
-                                coroutineScope.launch {
-                                    pagerState.animateScrollToPage(index)
-                                }
-                            },
-                            unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        ) {
-                            Text(
-                                text = daySchedule.day,
-                                modifier = Modifier.padding(Dimensions.Padding.default),
-                                fontWeight = FontWeight.Bold,
+                    PrimaryTabRow(
+                        selectedTabIndex = pagerState.currentPage,
+                        indicator = {
+                            SessionDayTabIndicator(
+                                selectedTabIndex = pagerState.currentPage,
+                                tabCount = days?.size ?: 0,
                             )
+                        },
+                    ) {
+                        days?.forEachIndexed { index, daySchedule ->
+                            Tab(
+                                selected = pagerState.currentPage == index,
+                                onClick = {
+                                    viewModel.selectedDay = daySchedule
+
+                                    coroutineScope.launch {
+                                        pagerState.animateScrollToPage(index)
+                                    }
+                                },
+                                unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            ) {
+                                Text(
+                                    text = daySchedule.day,
+                                    modifier = Modifier.padding(Dimensions.Padding.default),
+                                    fontWeight = FontWeight.Bold,
+                                )
+                            }
                         }
                     }
-                }
 
-                LaunchedEffect(pagerState) {
-                    snapshotFlow { pagerState.currentPage }.collect { page ->
-                        viewModel.selectedDay = viewModel.days?.get(page)
+                    LaunchedEffect(pagerState) {
+                        snapshotFlow { pagerState.currentPage }.collect { page ->
+                            viewModel.selectedDay = viewModel.days?.get(page)
+                        }
                     }
-                }
-                HorizontalPager(
-                    state = pagerState,
-                ) { page ->
-                    val day = days?.get(page) ?: return@HorizontalPager
-                    val scrollState = rememberLazyListState(
-                        day.scrollState.firstVisibleItemIndex,
-                        day.scrollState.firstVisibleItemScrollOffset,
-                    )
-                    if (
-                        day.scrollState.firstVisibleItemIndex != scrollState.firstVisibleItemIndex ||
-                        day.scrollState.firstVisibleItemScrollOffset != scrollState.firstVisibleItemScrollOffset
-                    ) {
-                        day.scrollState = SessionDayViewModel.ScrollState(
-                            scrollState.firstVisibleItemIndex,
-                            scrollState.firstVisibleItemScrollOffset,
+                    HorizontalPager(
+                        state = pagerState,
+                    ) { page ->
+                        val day = days?.get(page) ?: return@HorizontalPager
+                        val scrollState = rememberLazyListState(
+                            day.scrollState.firstVisibleItemIndex,
+                            day.scrollState.firstVisibleItemScrollOffset,
                         )
-                    }
+                        if (
+                            day.scrollState.firstVisibleItemIndex != scrollState.firstVisibleItemIndex ||
+                            day.scrollState.firstVisibleItemScrollOffset != scrollState.firstVisibleItemScrollOffset
+                        ) {
+                            day.scrollState = SessionDayViewModel.ScrollState(
+                                scrollState.firstVisibleItemIndex,
+                                scrollState.firstVisibleItemScrollOffset,
+                            )
+                        }
 
-                    val density = LocalDensity.current
-                    LazyColumn(
-                        state = scrollState,
-                        contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter),
-                        modifier = Modifier.width(with(density) { size.width.toDp() }),
-                    ) {
-                        items(day.blocks) { hourBlock ->
-                            Box(
-                                modifier = Modifier.padding(
-                                    vertical = Dimensions.Padding.quarter,
-                                    horizontal = Dimensions.Padding.half,
-                                ),
-                            ) {
-                                SessionBlockView(hourBlock, onClick = onClick)
+                        val density = LocalDensity.current
+                        LazyColumn(
+                            state = scrollState,
+                            contentPadding = PaddingValues(vertical = Dimensions.Padding.quarter),
+                            modifier = Modifier.width(with(density) { size.width.toDp() }),
+                        ) {
+                            items(day.blocks) { hourBlock ->
+                                Box(
+                                    modifier = Modifier.padding(
+                                        vertical = Dimensions.Padding.quarter,
+                                        horizontal = Dimensions.Padding.half,
+                                    ),
+                                ) {
+                                    SessionBlockView(hourBlock, onClick = onClick)
+                                }
                             }
                         }
                     }

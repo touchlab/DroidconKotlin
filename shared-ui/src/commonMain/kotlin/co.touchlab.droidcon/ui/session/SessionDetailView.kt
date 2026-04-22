@@ -202,6 +202,7 @@ internal fun SessionDetailView(
     viewModel: SessionDetailViewModel,
     showBackButton: Boolean,
     onBack: (() -> Unit)?,
+    attendingTapped: (Boolean) -> Unit,
 ) {
     NavigationStack(
         key = viewModel,
@@ -236,7 +237,10 @@ internal fun SessionDetailView(
             showBackButton = showBackButton,
             speakers = speakers,
             feedback = feedback,
-            attendingTapped = viewModel::attendingTapped,
+            attendingTapped = {
+                attendingTapped(!viewModel.isAttending)
+                viewModel.attendingTapped()
+            },
             writeFeedbackTapped = viewModel::writeFeedbackTapped,
             onScrollStateChanged = { viewModel.scrollState = it },
             onBack = onBack,
