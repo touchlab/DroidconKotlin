@@ -2,6 +2,7 @@ package co.touchlab.droidcon.web
 
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
+import co.touchlab.droidcon.domain.service.impl.ComposeResourceReader
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.service.JsNotificationService
 import co.touchlab.droidcon.service.ParseUrlViewService
@@ -32,7 +33,7 @@ class MyTest : KoinTest {
                 val storageSettings: Settings = StorageSettings()
                 storageSettings.makeObservable()
             }
-            single<ResourceReader> { WebResourceReader() }
+            single<ResourceReader> { ComposeResourceReader() }
 
             single<DateFormatter> { KotlinXDateFormatter() }
 

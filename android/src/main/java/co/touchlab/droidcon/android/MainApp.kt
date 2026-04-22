@@ -9,11 +9,11 @@ import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
 import co.touchlab.droidcon.android.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
+import co.touchlab.droidcon.domain.service.impl.ComposeResourceReader
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
-import co.touchlab.droidcon.util.ClasspathResourceReader
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.analytics
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -47,7 +47,7 @@ class MainApp :
                 }
 
                 single<ResourceReader> {
-                    ClasspathResourceReader()
+                    ComposeResourceReader()
                 }
 
                 single<NotificationSchedulingService.LocalizedStringFactory> {

@@ -4,14 +4,14 @@ import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
-import co.touchlab.droidcon.ui.util.IODispatcher
 import co.touchlab.kermit.Logger
-import kotlin.js.JsExport
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
+
 class WaitForLoadedContextModel(
     private val conferenceConfigProvider: ConferenceConfigProvider,
     applicationViewModelFactory: ViewModelFactory.ApplicationViewModelFactory,
@@ -44,7 +44,7 @@ class WaitForLoadedContextModel(
                         log.i { "WaitForLoadedContextModel: Emitting Conference!" }
                         _state.emit(State.Ready(conference))
 
-                        withContext(IODispatcher) {
+                        withContext(Dispatchers.Default) {
                             try {
                                 log.i { "syncConferences" }
                                 syncService.syncConferences()

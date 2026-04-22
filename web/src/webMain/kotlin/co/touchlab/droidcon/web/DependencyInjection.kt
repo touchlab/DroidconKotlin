@@ -9,6 +9,7 @@ import co.touchlab.droidcon.db.SponsorGroupTable
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
 import co.touchlab.droidcon.domain.service.AnalyticsService
+import co.touchlab.droidcon.domain.service.impl.ComposeResourceReader
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.intToLongAdapter
@@ -57,7 +58,7 @@ suspend fun startKoin(): KoinApplication {
                 val storageSettings: Settings = StorageSettings()
                 storageSettings.makeObservable()
             }
-            single<ResourceReader> { WebResourceReader() }
+            single<ResourceReader> { ComposeResourceReader() }
 
             single<NotificationSchedulingService.LocalizedStringFactory> { NotificationLocalizedStringFactory() }
 

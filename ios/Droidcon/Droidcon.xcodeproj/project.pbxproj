@@ -25,7 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
+		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/composeResources/files/about.json; sourceTree = "<group>"; };
 		18240FB62C6FED770099E416 /* Droidcon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Droidcon.entitlements; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
 		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };

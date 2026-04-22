@@ -2,6 +2,7 @@ package co.touchlab.droidcon.ios
 
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
+import co.touchlab.droidcon.domain.service.impl.ComposeResourceReader
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.ios.service.DefaultParseUrlViewService
@@ -24,7 +25,7 @@ fun initKoinIos(userDefaults: NSUserDefaults, analyticsService: AnalyticsService
     module {
         single { BundleProvider(bundle = NSBundle.mainBundle) }
         single<ObservableSettings> { NSUserDefaultsSettings(delegate = userDefaults) }
-        single<ResourceReader> { BundleResourceReader(bundle = get<BundleProvider>().bundle) }
+        single<ResourceReader> { ComposeResourceReader() /*BundleResourceReader(bundle = get<BundleProvider>().bundle)*/ }
 
         single<NotificationSchedulingService.LocalizedStringFactory> {
             NotificationLocalizedStringFactory(bundle = get<BundleProvider>().bundle)

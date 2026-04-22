@@ -7,6 +7,7 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.layout.AnimatedPane
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
@@ -16,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.window.core.layout.WindowSizeClass
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.viewmodel.session.BaseSessionListViewModel
 import kotlinx.coroutines.delay
@@ -29,10 +31,13 @@ fun SessionListDetailPaneScaffold(viewModel: BaseSessionListViewModel, title: St
     val presentedSessionDetail by viewModel.observePresentedSessionDetail.observeAsState()
     val listPaneAdapted = navigator.scaffoldValue[ListDetailPaneScaffoldRole.List]
     val fullWidth = listPaneAdapted == PaneAdaptedValue.Hidden
-    val listEnterTransition = if (fullWidth) slideInHorizontally { -it } else EnterTransition.None
-    val listExitTransition = if (fullWidth) slideOutHorizontally { -it } else ExitTransition.None
-    val detailEnterTransition = if (fullWidth) slideInHorizontally { it } else EnterTransition.None
-    val detailExitTransition = if (fullWidth) slideOutHorizontally { it } else ExitTransition.None
+    val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+    val isCompactWidth = !windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND)
+    val usePaneSlideAnimation = fullWidth && isCompactWidth
+    val listEnterTransition = if (usePaneSlideAnimation) slideInHorizontally { -it } else EnterTransition.None
+    val listExitTransition = if (usePaneSlideAnimation) slideOutHorizontally { -it } else ExitTransition.None
+    val detailEnterTransition = if (usePaneSlideAnimation) slideInHorizontally { it } else EnterTransition.None
+    val detailExitTransition = if (usePaneSlideAnimation) slideOutHorizontally { it } else ExitTransition.None
 
     ListDetailPaneScaffold(
         modifier = modifier,
