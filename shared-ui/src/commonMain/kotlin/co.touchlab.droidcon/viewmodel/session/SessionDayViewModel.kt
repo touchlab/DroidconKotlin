@@ -1,12 +1,12 @@
 package co.touchlab.droidcon.viewmodel.session
 
-import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.util.startOfMinute
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import kotlinx.datetime.LocalDate
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 

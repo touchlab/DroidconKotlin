@@ -10,13 +10,10 @@ import co.touchlab.droidcon.domain.repository.SponsorRepository
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
 
 class DefaultSponsorGateway(
     private val sponsorRepository: SponsorRepository,
@@ -61,13 +58,11 @@ class DefaultSponsorGateway(
         }*/
     }
 
-    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> {
-        return conferenceConfigProvider.observeChanges()
-            .filterNotNull()
-            .flatMapLatest { conference ->
+    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> = conferenceConfigProvider.observeChanges()
+        .filterNotNull()
+        .flatMapLatest { conference ->
             sponsorRepository.observe(id, conference.id)
         }
-    }
 
     override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> {
         val conferenceId = conferenceConfigProvider.getConferenceId()

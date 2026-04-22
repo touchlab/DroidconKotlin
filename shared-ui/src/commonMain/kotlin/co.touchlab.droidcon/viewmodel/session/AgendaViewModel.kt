@@ -1,9 +1,9 @@
 package co.touchlab.droidcon.viewmodel.session
 
-import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 
 class AgendaViewModel(
     sessionGateway: SessionGateway,
@@ -20,5 +20,4 @@ class AgendaViewModel(
     dateTimeService,
     conferenceConfigProvider,
     attendingOnly = true,
-) {
-}
+)

@@ -20,19 +20,17 @@ import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import co.touchlab.droidcon.web.service.DefaultParseUrlViewService
 import co.touchlab.droidcon.web.util.NotificationLocalizedStringFactory
-import co.touchlab.droidcon.web.util.WebResourceReader
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.StorageSettings
-import org.koin.core.KoinApplication
-import org.koin.dsl.module
 import com.russhwolf.settings.observable.makeObservable
 import kotlin.time.ExperimentalTime
+import org.koin.core.KoinApplication
+import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsApi::class, ExperimentalTime::class)
 suspend fun startKoin(): KoinApplication {
-
     val driver = SqlDelightDriverFactory().createDriver()
     DroidconDatabase.Schema.create(driver).await()
 
@@ -71,7 +69,7 @@ suspend fun startKoin(): KoinApplication {
 
             single<SqlDriver> { driver }
             single<DroidconDatabase> { db }
-        } + uiModule
+        } + uiModule,
     )
 }
 

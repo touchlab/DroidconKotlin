@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
@@ -32,13 +30,12 @@ kotlin {
                 implementation(libs.multiplatform.settings.make.observable)
                 implementation(libs.koin.compose)
                 implementation(libs.hyperdrive.multiplatformx.api)
-
             }
         }
         val jsTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test:2.2.21")
-                //implementation(libs.kotlin.test)
+                // implementation(libs.kotlin.test)
                 implementation(libs.koin.test)
             }
         }

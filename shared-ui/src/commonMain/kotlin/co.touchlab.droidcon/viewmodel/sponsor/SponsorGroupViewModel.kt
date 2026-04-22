@@ -1,8 +1,8 @@
 package co.touchlab.droidcon.viewmodel.sponsor
 
-import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
 import co.touchlab.droidcon.domain.entity.Sponsor
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SponsorGroupViewModel(

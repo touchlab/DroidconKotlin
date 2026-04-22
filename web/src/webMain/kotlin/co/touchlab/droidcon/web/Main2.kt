@@ -36,11 +36,10 @@ suspend fun main() {
     }
 
     ComposeViewport {
-        val viewModel:WaitForLoadedContextModel = koinInject() // Works
+        val viewModel: WaitForLoadedContextModel = koinInject() // Works
         viewModel.lifecycle.removeFromParent()
         root.addChild(viewModel.lifecycle)
 
         MainView(viewModel)
-
     }
 }

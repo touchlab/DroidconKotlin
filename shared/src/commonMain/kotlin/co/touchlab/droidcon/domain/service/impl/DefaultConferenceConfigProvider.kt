@@ -12,10 +12,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.TimeZone
 
-class DefaultConferenceConfigProvider(
-    private val conferenceRepository: ConferenceRepository,
-    initialConference: Conference? = null
-) : ConferenceConfigProvider {
+class DefaultConferenceConfigProvider(private val conferenceRepository: ConferenceRepository, initialConference: Conference? = null) :
+    ConferenceConfigProvider {
     private val log = Logger.withTag("DefaultConferenceConfigProvider")
     private val _currentConferenceState = MutableStateFlow(initialConference)
     val currentConferenceState: StateFlow<Conference?> = _currentConferenceState
@@ -59,7 +57,7 @@ class DefaultConferenceConfigProvider(
     }
 
     private suspend fun getConference(): Conference {
-        if(currentConference != null) return currentConference!!
+        if (currentConference != null) return currentConference!!
         val conference = conferenceRepository.getSelected()
         _currentConferenceState.update { conference }
         return conference

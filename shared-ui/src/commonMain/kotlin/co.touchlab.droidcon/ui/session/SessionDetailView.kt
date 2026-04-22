@@ -52,7 +52,6 @@ import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
-import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel.SessionState
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
@@ -74,12 +73,11 @@ internal fun SessionDetailView(
     showBackButton: Boolean,
     speakers: List<SpeakerListItemViewModel>,
     feedback: FeedbackDialogViewModel?,
-    attendingTapped:()-> Unit,
+    attendingTapped: () -> Unit,
     writeFeedbackTapped: () -> Unit,
-    onScrollStateChanged:(Int)-> Unit,
+    onScrollStateChanged: (Int) -> Unit,
     onBack: (() -> Unit)? = null,
 ) {
-
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -87,7 +85,7 @@ internal fun SessionDetailView(
             TopAppBar(
                 title = { Text("Session") },
                 navigationIcon = {
-                    if(showBackButton) {
+                    if (showBackButton) {
                         IconButton(
                             onClick = {
                                 if (onBack != null) {
@@ -168,7 +166,6 @@ internal fun SessionDetailView(
                     Text(text = text)
                 }
             }
-
 
             description?.let {
                 DescriptionView(it, descriptionLinks)

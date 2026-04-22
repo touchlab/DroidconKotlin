@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.ContentScale.Companion
 import co.touchlab.droidcon.ui.theme.Dimensions
 import droidcon.shared_ui.generated.resources.Res
 import droidcon.shared_ui.generated.resources.about_droidcon
@@ -25,13 +24,16 @@ import droidcon.shared_ui.generated.resources.about_touchlab
 import droidcon.shared_ui.generated.resources.linkedin
 import droidcon.shared_ui.generated.resources.twitter
 import droidcon.shared_ui.generated.resources.venue_map_1
-import kotlinx.coroutines.CoroutineDispatcher
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun LocalImage(imageResourceName: String, modifier: Modifier = Modifier, contentDescription: String? = null, contentScale: ContentScale = ContentScale.FillWidth) {
-    val imageRes = when(imageResourceName.lowercase()){
+internal fun LocalImage(
+    imageResourceName: String,
+    modifier: Modifier = Modifier,
+    contentDescription: String? = null,
+    contentScale: ContentScale = ContentScale.FillWidth,
+) {
+    val imageRes = when (imageResourceName.lowercase()) {
         "about_droidcon" -> Res.drawable.about_droidcon
         "about_touchlab" -> Res.drawable.about_touchlab
         "about_kotlin" -> Res.drawable.about_kotlin

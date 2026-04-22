@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqlDelight)
+    // Compose used for Resources
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.jetbrainsCompose)
 }
 
 android {
@@ -62,14 +65,15 @@ kotlin {
     js(IR) {
         browser()
         binaries.executable()
-
-
     }
 
     version = "1.0"
 
     sourceSets {
         commonMain.dependencies {
+            // Required when composeCompiler plugin is applied in this module.
+            implementation(compose.runtime)
+            implementation(compose.components.resources)
             api(libs.kermit)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
@@ -78,6 +82,7 @@ kotlin {
 
             implementation(libs.bundles.ktor.common)
             implementation(libs.bundles.sqldelight.common)
+            implementation(libs.sqldelight.async.extensions)
 
             implementation(libs.stately.common)
             implementation(libs.koin.core)
@@ -119,17 +124,9 @@ kotlin {
         jsMain.dependencies {
             implementation(libs.ktor.client.cio)
             implementation(libs.sqldelight.driver.js)
-            //implementation(devNpm("copy-webpack-plugin", "9.1.0"))
             implementation(npm("sql.js", "1.8.0"))
             implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.2.1"))
             implementation(npm("@js-joda/timezone", "2.22.0"))
-/*
-            implementation(npm("path-browserify", "1.0.1"))
-            implementation(npm("crypto-browserify", "3.12.0"))
-            implementation(npm("os-browserify", "0.3.0"))
-            implementation(npm("buffer", "6.0.3"))
-            implementation(npm("stream-browserify", "3.0.0"))
-            implementation(npm("vm-browserify", "1.1.2"))*/
         }
 
         all {
@@ -147,7 +144,7 @@ kotlin {
 }
 
 sqldelight {
-    databases{
+    databases {
         create("DroidconDatabase") {
             packageName.set("co.touchlab.droidcon.db")
             generateAsync = true

@@ -111,7 +111,6 @@ kotlin {
             implementation(libs.adaptive.layout)
             implementation(libs.adaptive.navigation)
             implementation(libs.material3.adaptive.navigation.suite)
-
         }
         val mobileMain by creating {
             dependsOn(commonMain.get())
@@ -145,8 +144,7 @@ kotlin {
             implementation(kotlin("stdlib-js"))
             implementation(libs.kotlinx.browser)
             implementation(libs.zoomimage.compose)
-            implementation(libs.kamel.image.default)   // add this
-
+            implementation(libs.kamel.image.default) // add this
         }
 
         all {

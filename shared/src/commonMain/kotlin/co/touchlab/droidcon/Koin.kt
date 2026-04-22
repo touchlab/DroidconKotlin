@@ -45,10 +45,10 @@ import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
 import co.touchlab.droidcon.domain.service.impl.DefaultServerApi
 import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
-import co.touchlab.droidcon.util.formatter.DateFormatter
-import co.touchlab.droidcon.util.formatter.KotlinXDateFormatter
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
+import co.touchlab.droidcon.util.formatter.DateFormatter
+import co.touchlab.droidcon.util.formatter.KotlinXDateFormatter
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import kotlin.time.Clock
@@ -65,8 +65,8 @@ import org.koin.dsl.module
 fun initKoin(additionalModules: List<Module>): KoinApplication {
     val koinApplication = startKoin {
         modules(
-                platformModule +
-                coreModule + 
+            platformModule +
+                coreModule +
                 additionalModules,
         )
     }

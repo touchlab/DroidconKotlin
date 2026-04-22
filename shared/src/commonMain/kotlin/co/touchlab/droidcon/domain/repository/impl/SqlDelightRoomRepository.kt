@@ -39,7 +39,8 @@ class SqlDelightRoomRepository(private val roomQueries: RoomQueries) :
         roomQueries.deleteById(id.value, conferenceId)
     }
 
-    override suspend fun contains(id: Room.Id, conferenceId: Long): Boolean = roomQueries.existsById(id.value, conferenceId).awaitAsOne() != 0L
+    override suspend fun contains(id: Room.Id, conferenceId: Long): Boolean =
+        roomQueries.existsById(id.value, conferenceId).awaitAsOne() != 0L
 
     private fun roomFactory(id: Long, conferenceId: Long, name: String) = Room(id = Room.Id(id), name = name)
 }

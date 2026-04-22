@@ -1,7 +1,6 @@
 package co.touchlab.droidcon.domain.gateway.impl
 
 import co.touchlab.droidcon.domain.composite.ScheduleItem
-import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.repository.ProfileRepository
@@ -55,17 +54,15 @@ class DefaultSessionGateway(
         }
     }
 
-    override fun observeScheduleItem(id: Session.Id): Flow<ScheduleItem> {
-        return conferenceConfigProvider.observeChanges()
-            .filterNotNull()
-            .map { conference -> conference.id }
-            .distinctUntilChanged()
-            .flatMapLatest { confId ->
-                sessionRepository.observe(id, confId).map { session ->
-                    scheduleItemForSession(session)
-                }
+    override fun observeScheduleItem(id: Session.Id): Flow<ScheduleItem> = conferenceConfigProvider.observeChanges()
+        .filterNotNull()
+        .map { conference -> conference.id }
+        .distinctUntilChanged()
+        .flatMapLatest { confId ->
+            sessionRepository.observe(id, confId).map { session ->
+                scheduleItemForSession(session)
             }
-    }
+        }
 
     private suspend fun scheduleItemForSession(session: Session): ScheduleItem {
         val conferenceId = conferenceConfigProvider.getConferenceId()

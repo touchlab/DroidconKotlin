@@ -8,7 +8,7 @@ import io.kamel.image.asyncPainterResource
 
 @Composable
 actual fun DcAsyncImage(logTag: String, url: String?, contentDescription: String?, modifier: Modifier) {
-    if(url != null) {
+    if (url != null) {
         KamelImage(
             resource = { asyncPainterResource(data = url) },
             modifier = modifier,

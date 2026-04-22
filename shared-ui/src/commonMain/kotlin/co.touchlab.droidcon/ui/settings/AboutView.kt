@@ -2,7 +2,6 @@ package co.touchlab.droidcon.ui.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
@@ -74,7 +73,7 @@ private fun AboutItemView(viewModel: AboutItemViewModel) {
                         top = Dimensions.Padding.default,
                         bottom = Dimensions.Padding.default,
                     ),
-                contentScale = ContentScale.Fit
+                contentScale = ContentScale.Fit,
             )
         }
     }

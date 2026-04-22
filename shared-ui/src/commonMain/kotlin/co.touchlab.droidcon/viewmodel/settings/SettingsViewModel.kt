@@ -1,9 +1,9 @@
 package co.touchlab.droidcon.viewmodel.settings
 
-import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.domain.repository.ConferenceRepository
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.kermit.Logger
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.property.MutableObservableProperty

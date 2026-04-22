@@ -8,4 +8,3 @@ import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 fun MainView(waitForLoadedContextModel: WaitForLoadedContextModel) {
     MainComposeView(waitForLoadedContextModel = waitForLoadedContextModel, modifier = Modifier)
 }
-

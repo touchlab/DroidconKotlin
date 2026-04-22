@@ -1,9 +1,9 @@
 package co.touchlab.droidcon.ui.session
 
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -105,7 +105,11 @@ fun SessionListDetailPaneScaffold(viewModel: BaseSessionListViewModel, title: St
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text("No session selected. Please select a session for more details", style = MaterialTheme.typography.titleLarge)
-                        Icon(modifier = Modifier.fillMaxSize(0.33f), painter = painterResource(Res.drawable.event_note), contentDescription = "No Session Selected")
+                        Icon(
+                            modifier = Modifier.fillMaxSize(0.25f),
+                            painter = painterResource(Res.drawable.event_note),
+                            contentDescription = "No Session Selected",
+                        )
                     }
                 }
             }

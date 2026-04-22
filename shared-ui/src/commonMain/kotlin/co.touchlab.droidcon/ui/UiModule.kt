@@ -84,15 +84,26 @@ val uiModule = module {
 
     single { ViewModelFactory.SpeakerDetailViewModelFactory(parseUrlViewService = get()) }
 
-    single { ViewModelFactory.SponsorListViewModelFactory(sponsorGateway = get(), sponsorGroupFactory = get(), sponsorDetailFactory = get()) }
+    single {
+        ViewModelFactory.SponsorListViewModelFactory(sponsorGateway = get(), sponsorGroupFactory = get(), sponsorDetailFactory = get())
+    }
     single { ViewModelFactory.SponsorGroupViewModelFactory(sponsorGroupItemFactory = get()) }
     single { ViewModelFactory.SponsorGroupItemViewModelFactory() }
-    single { ViewModelFactory.SponsorDetailViewModelFactory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get()) }
+    single {
+        ViewModelFactory.SponsorDetailViewModelFactory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get())
+    }
 
     single { ViewModelFactory.SettingsViewModelFactory(settingsGateway = get(), aboutFactory = get(), conferenceRepository = get()) }
     single { ViewModelFactory.AboutViewModelFactory(aboutRepository = get(), parseUrlViewService = get()) }
 
-    single { ViewModelFactory.FeedbackDialogViewModelFactory(sessionGateway = get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
+    single {
+        ViewModelFactory.FeedbackDialogViewModelFactory(
+            sessionGateway = get(),
+            get(parameters = {
+                parametersOf("FeedbackDialogViewModel")
+            }),
+        )
+    }
 
     single { SessionDetailScrollStateStorage() }
 }

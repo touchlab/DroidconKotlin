@@ -22,8 +22,11 @@ class DefaultFeedbackService(
     }
 
     private var completedSessionIds: Set<String> = settings.getStringOrNull(COMPLETED_SESSION_FEEDBACKS_KEY)?.let {
-        if(it.isBlank()) emptySet()
-        else json.decodeFromString(it)
+        if (it.isBlank()) {
+            emptySet()
+        } else {
+            json.decodeFromString(it)
+        }
     } ?: emptySet()
 
     override suspend fun next(): Session? = sessionGateway.observeAgenda().first()

@@ -1,8 +1,8 @@
 package co.touchlab.droidcon.viewmodel.session
 
-import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.util.formatter.DateFormatter
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import kotlinx.datetime.LocalDateTime
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 

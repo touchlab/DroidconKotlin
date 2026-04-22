@@ -19,7 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 
 class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, private val sessionQueries: SessionQueries) :
@@ -28,8 +27,6 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
 
     private val log = Logger.withTag("SqlDelightSessionRepository")
     val lifecycleScope = CoroutineScope(SupervisorJob()) + Dispatchers.Main
-
-
 
     override fun observe(id: Session.Id, conferenceId: Long): Flow<Session> =
         sessionQueries.sessionById(id.value, conferenceId, ::sessionFactory).asFlow().mapToOne(Dispatchers.Main)
@@ -61,7 +58,8 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
         sessionQueries.updateFeedBackSent(if (isSent) 1 else 0, sessionId.value, conferenceId)
     }
 
-    override suspend fun allSync(conferenceId: Long): List<Session> = sessionQueries.allSessions(conferenceId, ::sessionFactory).awaitAsList()
+    override suspend fun allSync(conferenceId: Long): List<Session> =
+        sessionQueries.allSessions(conferenceId, ::sessionFactory).awaitAsList()
 
     override suspend fun findSync(id: Session.Id, conferenceId: Long): Session? =
         sessionQueries.sessionById(id.value, conferenceId, mapper = ::sessionFactory).awaitAsOneOrNull()

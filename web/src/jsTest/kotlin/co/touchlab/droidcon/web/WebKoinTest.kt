@@ -11,7 +11,6 @@ import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.util.formatter.KotlinXDateFormatter
 import co.touchlab.droidcon.web.service.DefaultParseUrlViewService
 import co.touchlab.droidcon.web.util.NotificationLocalizedStringFactory
-import co.touchlab.droidcon.web.util.WebResourceReader
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
@@ -23,7 +22,7 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.check.checkModules
 
-class MyTest : KoinTest {
+class WebKoinTest : KoinTest {
 
     @OptIn(ExperimentalSettingsApi::class)
     @Test
@@ -48,9 +47,8 @@ class MyTest : KoinTest {
         }
 
         koinApplication {
-            modules(mainModule,uiModule)
+            modules(mainModule, uiModule)
             checkModules()
         }
     }
 }
-

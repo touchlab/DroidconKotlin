@@ -1,12 +1,12 @@
 package co.touchlab.droidcon.viewmodel
 
-import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.repository.AboutRepository
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.composite.ScheduleItem
 import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
+import co.touchlab.droidcon.domain.entity.Profile
 import co.touchlab.droidcon.domain.entity.Session
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.gateway.SessionGateway
@@ -17,6 +17,7 @@ import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.service.ParseUrlViewService
+import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
 import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionBlockViewModel
@@ -33,31 +34,25 @@ import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupItemViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupViewModel
 import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
 import co.touchlab.kermit.Logger
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
-import co.touchlab.droidcon.util.formatter.DateFormatter
 import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 
 @OptIn(ExperimentalJsExport::class)
 @JsExport
 object ViewModelFactory {
 
-    class AboutViewModelFactory(
-        private val aboutRepository: AboutRepository,
-        private val parseUrlViewService: ParseUrlViewService,
-    ) {
+    class AboutViewModelFactory(private val aboutRepository: AboutRepository, private val parseUrlViewService: ParseUrlViewService) {
         fun create() = AboutViewModel(aboutRepository, parseUrlViewService)
     }
 
     class SessionListItemViewModelFactory(private val dateTimeService: DateTimeService) {
-        fun create(item: ScheduleItem, selected: () -> Unit) =
-            SessionListItemViewModel(dateTimeService, item, selected)
+        fun create(item: ScheduleItem, selected: () -> Unit) = SessionListItemViewModel(dateTimeService, item, selected)
     }
 
     class SpeakerListItemViewModelFactory {
-        fun create(profile: Profile, selected: () -> Unit) =
-            SpeakerListItemViewModel(profile, selected)
+        fun create(profile: Profile, selected: () -> Unit) = SpeakerListItemViewModel(profile, selected)
     }
 
     class SpeakerDetailViewModelFactory(private val parseUrlViewService: ParseUrlViewService) {
@@ -168,8 +163,7 @@ object ViewModelFactory {
     }
 
     class SponsorGroupItemViewModelFactory {
-        fun create(sponsor: Sponsor, selected: () -> Unit) =
-            SponsorGroupItemViewModel(sponsor, selected)
+        fun create(sponsor: Sponsor, selected: () -> Unit) = SponsorGroupItemViewModel(sponsor, selected)
     }
 
     class SponsorGroupViewModelFactory(private val sponsorGroupItemFactory: SponsorGroupItemViewModelFactory) {

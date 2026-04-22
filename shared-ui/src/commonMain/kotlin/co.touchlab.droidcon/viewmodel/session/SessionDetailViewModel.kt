@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.viewmodel.session
 
-import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.application.gateway.SettingsGateway
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.composite.ScheduleItem
@@ -12,6 +11,7 @@ import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import kotlin.time.Instant
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine

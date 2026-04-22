@@ -14,7 +14,7 @@ import coil3.compose.rememberAsyncImagePainter
 import com.github.panpf.zoomimage.ZoomImage
 
 @Composable
-actual fun VenueBodyView(modifier: Modifier, venueMapUrl: String?){
+actual fun VenueBodyView(modifier: Modifier, venueMapUrl: String?) {
     val painter = rememberAsyncImagePainter(venueMapUrl)
     val state by painter.state.collectAsState()
 
@@ -25,7 +25,9 @@ actual fun VenueBodyView(modifier: Modifier, venueMapUrl: String?){
         when (state) {
             is AsyncImagePainter.State.Empty,
             is AsyncImagePainter.State.Loading,
-            -> { CircularProgressIndicator() }
+            -> {
+                CircularProgressIndicator()
+            }
             is AsyncImagePainter.State.Error -> {
                 Text("Error loading venue map.")
             }

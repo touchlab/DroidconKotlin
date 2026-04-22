@@ -11,7 +11,7 @@ class DefaultParseUrlViewService : ParseUrlViewService {
     override fun parse(text: String): List<WebLink> = urlRegex.findAll(text).map {
         WebLink(
             it.range,
-            it.value
+            it.value,
         )
     }.toList()
 }

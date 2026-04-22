@@ -17,7 +17,6 @@ import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteItemCo
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import co.touchlab.droidcon.domain.entity.Conference
 import co.touchlab.droidcon.ui.session.SessionListDetailPaneScaffold
@@ -26,15 +25,10 @@ import co.touchlab.droidcon.ui.sponsors.SponsorsView
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.ui.venue.VenueView
 import co.touchlab.droidcon.viewmodel.ApplicationViewModel
-import co.touchlab.droidcon.viewmodel.session.BaseSessionListViewModel
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
-internal fun BottomNavigationView(
-    viewModel: ApplicationViewModel,
-    currentConference: Conference,
-    modifier: Modifier = Modifier,
-) {
+internal fun BottomNavigationView(viewModel: ApplicationViewModel, currentConference: Conference, modifier: Modifier = Modifier) {
     val selectedTab by viewModel.observeSelectedTab.observeAsState()
     val iconColor = MaterialTheme.colorScheme.onPrimary
     val textColor = MaterialTheme.colorScheme.primary
@@ -110,10 +104,6 @@ internal fun BottomNavigationView(
             }
         },
     )
-
-
-
-
 
     val feedback by viewModel.observePresentedFeedback.observeAsState()
     feedback?.let {

@@ -13,7 +13,7 @@ import io.kamel.core.Resource
 import io.kamel.image.asyncPainterResource
 
 @Composable
-actual fun VenueBodyView(modifier: Modifier, venueMapUrl: String?){
+actual fun VenueBodyView(modifier: Modifier, venueMapUrl: String?) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,

@@ -25,4 +25,4 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Check, Assemble Android and compile iOS
-        run: ./gradlew ktlintCheck assembleDebug compileKotlinIosX64 --no-daemon
+        run: ./gradlew ktlintCheck assembleDebug compileKotlinIosSimulatorArm64 --no-daemon
