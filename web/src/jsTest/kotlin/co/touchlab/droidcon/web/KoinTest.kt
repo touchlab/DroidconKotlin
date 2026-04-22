@@ -7,10 +7,10 @@ import co.touchlab.droidcon.service.JsNotificationService
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.util.formatter.DateFormatter
+import co.touchlab.droidcon.util.formatter.KotlinXDateFormatter
 import co.touchlab.droidcon.web.service.DefaultParseUrlViewService
 import co.touchlab.droidcon.web.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.web.util.WebResourceReader
-import co.touchlab.droidcon.web.util.formatter.WebDateFormatter
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
@@ -34,7 +34,7 @@ class MyTest : KoinTest {
             }
             single<ResourceReader> { WebResourceReader() }
 
-            single<DateFormatter> { WebDateFormatter() }
+            single<DateFormatter> { KotlinXDateFormatter() }
 
             single<NotificationSchedulingService.LocalizedStringFactory> { NotificationLocalizedStringFactory() }
 

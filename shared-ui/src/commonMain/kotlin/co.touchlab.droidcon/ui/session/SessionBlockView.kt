@@ -29,7 +29,7 @@ import co.touchlab.droidcon.viewmodel.session.SessionBlockViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
+internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel, onClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopStart) {
         Text(
             text = sessionsBlock.time,
@@ -56,6 +56,7 @@ internal fun SessionBlockView(sessionsBlock: SessionBlockViewModel) {
                         modifier = Modifier.weight(1f),
                         onClick = {
                             session.selected()
+                            onClick()
                         },
                         enabled = isClickable,
                     ) {

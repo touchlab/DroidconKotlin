@@ -16,12 +16,10 @@ import co.touchlab.droidcon.service.JsNotificationService
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.timeZoneAdapter
 import co.touchlab.droidcon.ui.uiModule
-import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import co.touchlab.droidcon.web.service.DefaultParseUrlViewService
 import co.touchlab.droidcon.web.util.NotificationLocalizedStringFactory
 import co.touchlab.droidcon.web.util.WebResourceReader
-import co.touchlab.droidcon.web.util.formatter.WebDateFormatter
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
@@ -60,8 +58,6 @@ suspend fun startKoin(): KoinApplication {
                 storageSettings.makeObservable()
             }
             single<ResourceReader> { WebResourceReader() }
-
-            single<DateFormatter> { WebDateFormatter() }
 
             single<NotificationSchedulingService.LocalizedStringFactory> { NotificationLocalizedStringFactory() }
 

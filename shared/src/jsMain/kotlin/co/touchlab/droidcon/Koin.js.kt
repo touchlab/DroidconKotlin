@@ -4,8 +4,6 @@ import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.droidcon.service.JsNotificationService
-import co.touchlab.droidcon.util.formatter.DateFormatter
-import co.touchlab.droidcon.util.formatter.JsDateFormatter
 import co.touchlab.kermit.CommonWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
@@ -25,10 +23,6 @@ actual val platformModule: org.koin.core.module.Module = module {
 
     single<NotificationService> {
         get<JsNotificationService>()
-    }
-
-    single<DateFormatter> {
-        JsDateFormatter()
     }
 
     val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(CommonWriter())), tag = "Droidcon")

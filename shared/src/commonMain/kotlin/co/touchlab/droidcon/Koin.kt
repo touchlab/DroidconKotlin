@@ -45,6 +45,8 @@ import co.touchlab.droidcon.domain.service.impl.DefaultScheduleService
 import co.touchlab.droidcon.domain.service.impl.DefaultServerApi
 import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
+import co.touchlab.droidcon.util.formatter.DateFormatter
+import co.touchlab.droidcon.util.formatter.KotlinXDateFormatter
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import io.ktor.client.HttpClient
@@ -142,6 +144,10 @@ private val coreModule = module {
         DefaultDateTimeService(
             clock = get(),
         )
+    }
+
+    single<DateFormatter> {
+        KotlinXDateFormatter()
     }
 
     single {

@@ -51,14 +51,158 @@ import co.touchlab.droidcon.ui.util.WebLinkText
 import co.touchlab.droidcon.ui.util.observeAsState
 import co.touchlab.droidcon.util.NavigationController
 import co.touchlab.droidcon.util.NavigationStack
+import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
+import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
+import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel.SessionState
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 
 private const val LOG_TAG = "SessionDetailView"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
+internal fun SessionDetailView(
+    scrollStateValue: Int,
+    state: SessionState?,
+    title: String,
+    description: String?,
+    descriptionLinks: List<WebLink>,
+    locationInfo: String,
+    isAttending: Boolean,
+    showFeedbackOption: Boolean,
+    feedbackAlreadyWritten: Boolean,
+    showBackButton: Boolean,
+    speakers: List<SpeakerListItemViewModel>,
+    feedback: FeedbackDialogViewModel?,
+    attendingTapped:()-> Unit,
+    writeFeedbackTapped: () -> Unit,
+    onScrollStateChanged:(Int)-> Unit,
+    onBack: (() -> Unit)? = null,
+) {
+
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            TopAppBar(
+                title = { Text("Session") },
+                navigationIcon = {
+                    if(showBackButton) {
+                        IconButton(
+                            onClick = {
+                                if (onBack != null) {
+                                    onBack()
+                                } else {
+                                    NavigationController.root.handleBackPress()
+                                }
+                            },
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                contentDescription = "Back",
+                            )
+                        }
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+            )
+        },
+    ) { paddingValues ->
+        val scrollState = rememberScrollState(scrollStateValue)
+
+        if (scrollStateValue != scrollState.value) {
+            onScrollStateChanged(scrollState.value)
+        }
+
+        Column(
+            modifier = Modifier
+                .verticalScroll(scrollState)
+                .padding(top = paddingValues.calculateTopPadding()),
+        ) {
+            Box(contentAlignment = Alignment.BottomStart) {
+                Column(modifier = Modifier.padding(bottom = 22.dp)) {
+                    HeaderView(title, locationInfo)
+                    HorizontalDivider()
+                }
+                if (state != SessionDetailViewModel.SessionState.Ended) {
+                    FloatingActionButton(
+                        onClick = attendingTapped,
+                        modifier = Modifier
+                            .padding(start = Dimensions.Padding.default)
+                            .size(44.dp),
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                    ) {
+                        val icon =
+                            if (isAttending) Icons.Default.BookmarkAdded else Icons.Outlined.BookmarkAdd
+                        val description = if (isAttending) {
+                            "Do not attend"
+                        } else {
+                            "Attend"
+                        }
+                        Icon(imageVector = icon, contentDescription = description)
+                    }
+                }
+            }
+
+            val status = when (state) {
+                SessionState.InConflict -> "This session is in conflict with another session in your schedule."
+                SessionState.InProgress -> "This session is happening now."
+                SessionState.Ended -> "This session has already ended."
+                null -> "This session hasn't started yet."
+            }
+            InfoView(status)
+
+            if (showFeedbackOption) {
+                Button(
+                    onClick = writeFeedbackTapped,
+                    modifier = Modifier
+                        .padding(Dimensions.Padding.default)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    val text = if (feedbackAlreadyWritten) {
+                        "Change your feedback"
+                    } else {
+                        "Add feedback"
+                    }
+                    Text(text = text)
+                }
+            }
+
+
+            description?.let {
+                DescriptionView(it, descriptionLinks)
+            }
+
+            if (speakers.isNotEmpty()) {
+                Text(
+                    text = "Speakers",
+                    modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
+                    style = MaterialTheme.typography.headlineSmall,
+                    textAlign = TextAlign.Center,
+                )
+
+                HorizontalDivider()
+
+                speakers.forEach { speaker ->
+                    SpeakerView(speaker)
+                }
+            }
+        }
+    }
+
+    feedback?.let {
+        FeedbackDialog(it)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun SessionDetailView(
+    viewModel: SessionDetailViewModel,
+    showBackButton: Boolean,
+    onBack: (() -> Unit)?,
+) {
     NavigationStack(
         key = viewModel,
         links = {
@@ -67,119 +211,36 @@ internal fun SessionDetailView(viewModel: SessionDetailViewModel) {
             }
         },
     ) {
-        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                TopAppBar(
-                    title = { Text("Session") },
-                    navigationIcon = {
-                        IconButton(onClick = { NavigationController.root.handleBackPress() }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                contentDescription = "Back",
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior,
-                )
-            },
-        ) { paddingValues ->
-            val scrollState = rememberScrollState(viewModel.scrollState)
+        val scrollStateValue = viewModel.scrollState
+        val state by viewModel.observeState.observeAsState()
+        val title by viewModel.observeTitle.observeAsState()
+        val description by viewModel.observeAbstract.observeAsState()
+        val descriptionLinks by viewModel.observeAbstractLinks.observeAsState()
+        val locationInfo by viewModel.observeInfo.observeAsState()
+        val isAttending by viewModel.observeIsAttending.observeAsState()
+        val showFeedbackOption by viewModel.observeShowFeedbackOption.observeAsState()
+        val feedbackAlreadyWritten by viewModel.observeFeedbackAlreadyWritten.observeAsState()
+        val speakers by viewModel.observeSpeakers.observeAsState()
+        val feedback by viewModel.observePresentedFeedback.observeAsState()
 
-            if (viewModel.scrollState != scrollState.value) {
-                viewModel.scrollState = scrollState.value
-            }
-
-            Column(
-                modifier = Modifier
-                    .verticalScroll(scrollState)
-                    .padding(top = paddingValues.calculateTopPadding()),
-            ) {
-                val state by viewModel.observeState.observeAsState()
-                Box(contentAlignment = Alignment.BottomStart) {
-                    Column(modifier = Modifier.padding(bottom = 22.dp)) {
-                        val title by viewModel.observeTitle.observeAsState()
-                        val locationInfo by viewModel.observeInfo.observeAsState()
-                        HeaderView(title, locationInfo)
-                        HorizontalDivider()
-                    }
-                    if (state != SessionDetailViewModel.SessionState.Ended) {
-                        val isAttending by viewModel.observeIsAttending.observeAsState()
-                        FloatingActionButton(
-                            onClick = viewModel::attendingTapped,
-                            modifier = Modifier
-                                .padding(start = Dimensions.Padding.default)
-                                .size(44.dp),
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary,
-                        ) {
-                            val icon =
-                                if (isAttending) Icons.Default.BookmarkAdded else Icons.Outlined.BookmarkAdd
-                            val description = if (isAttending) {
-                                "Do not attend"
-                            } else {
-                                "Attend"
-                            }
-                            Icon(imageVector = icon, contentDescription = description)
-                        }
-                    }
-                }
-
-                val status = when (state) {
-                    SessionDetailViewModel.SessionState.InConflict -> "This session is in conflict with another session in your schedule."
-                    SessionDetailViewModel.SessionState.InProgress -> "This session is happening now."
-                    SessionDetailViewModel.SessionState.Ended -> "This session has already ended."
-                    null -> "This session hasn't started yet."
-                }
-                InfoView(status)
-
-                val showFeedbackOption by viewModel.observeShowFeedbackOption.observeAsState()
-                if (showFeedbackOption) {
-                    Button(
-                        onClick = viewModel::writeFeedbackTapped,
-                        modifier = Modifier
-                            .padding(Dimensions.Padding.default)
-                            .align(Alignment.CenterHorizontally),
-                    ) {
-                        val feedbackAlreadyWritten by viewModel.observeFeedbackAlreadyWritten.observeAsState()
-                        val text = if (feedbackAlreadyWritten) {
-                            "Change your feedback"
-                        } else {
-                            "Add feedback"
-                        }
-                        Text(text = text)
-                    }
-                }
-
-                val description by viewModel.observeAbstract.observeAsState()
-                val descriptionLinks by viewModel.observeAbstractLinks.observeAsState()
-                description?.let {
-                    DescriptionView(it, descriptionLinks)
-                }
-
-                val speakers by viewModel.observeSpeakers.observeAsState()
-                if (speakers.isNotEmpty()) {
-                    Text(
-                        text = "Speakers",
-                        modifier = Modifier.fillMaxWidth().padding(Dimensions.Padding.default),
-                        style = MaterialTheme.typography.headlineSmall,
-                        textAlign = TextAlign.Center,
-                    )
-
-                    HorizontalDivider()
-
-                    speakers.forEach { speaker ->
-                        SpeakerView(speaker)
-                    }
-                }
-            }
-        }
-    }
-
-    val feedback by viewModel.observePresentedFeedback.observeAsState()
-    feedback?.let {
-        FeedbackDialog(it)
+        SessionDetailView(
+            scrollStateValue = scrollStateValue,
+            state = state,
+            title = title,
+            description = description,
+            descriptionLinks = descriptionLinks,
+            locationInfo = locationInfo,
+            isAttending = isAttending,
+            showFeedbackOption = showFeedbackOption,
+            feedbackAlreadyWritten = feedbackAlreadyWritten,
+            showBackButton = showBackButton,
+            speakers = speakers,
+            feedback = feedback,
+            attendingTapped = viewModel::attendingTapped,
+            writeFeedbackTapped = viewModel::writeFeedbackTapped,
+            onScrollStateChanged = { viewModel.scrollState = it },
+            onBack = onBack,
+        )
     }
 }
 
