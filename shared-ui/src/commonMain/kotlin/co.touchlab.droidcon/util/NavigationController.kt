@@ -1,7 +1,9 @@
 package co.touchlab.droidcon.util
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
@@ -259,7 +261,12 @@ internal fun NavigationStack(key: Any?, links: NavigationStackScope.() -> Unit, 
     AnimatedContent(
         targetState = activeLinkComposables,
         transitionSpec = {
-            if (initialState.indexOfLast { it.body != null } < targetState.indexOfLast { it.body != null }) {
+            val initialDepth = initialState.indexOfLast { it.body != null }
+            val targetDepth = targetState.indexOfLast { it.body != null }
+
+            if (initialDepth == -1 && targetDepth == -1) {
+                EnterTransition.None.togetherWith(ExitTransition.None)
+            } else if (initialDepth < targetDepth) {
                 slideInHorizontally(initialOffsetX = { it }).togetherWith(slideOutHorizontally(targetOffsetX = { -it }))
             } else {
                 slideInHorizontally(initialOffsetX = { -it }).togetherWith(slideOutHorizontally(targetOffsetX = { it }))

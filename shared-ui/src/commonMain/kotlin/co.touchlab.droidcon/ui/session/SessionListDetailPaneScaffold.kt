@@ -2,6 +2,8 @@ package co.touchlab.droidcon.ui.session
 
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
@@ -25,6 +27,12 @@ fun SessionListDetailPaneScaffold(viewModel: BaseSessionListViewModel, title: St
     val scope = rememberCoroutineScope()
     val navigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
     val presentedSessionDetail by viewModel.observePresentedSessionDetail.observeAsState()
+    val listPaneAdapted = navigator.scaffoldValue[ListDetailPaneScaffoldRole.List]
+    val fullWidth = listPaneAdapted == PaneAdaptedValue.Hidden
+    val listEnterTransition = if (fullWidth) slideInHorizontally { -it } else EnterTransition.None
+    val listExitTransition = if (fullWidth) slideOutHorizontally { -it } else ExitTransition.None
+    val detailEnterTransition = if (fullWidth) slideInHorizontally { it } else EnterTransition.None
+    val detailExitTransition = if (fullWidth) slideOutHorizontally { it } else ExitTransition.None
 
     ListDetailPaneScaffold(
         modifier = modifier,
@@ -32,8 +40,8 @@ fun SessionListDetailPaneScaffold(viewModel: BaseSessionListViewModel, title: St
         value = navigator.scaffoldValue,
         listPane = {
             AnimatedPane(
-                enterTransition = slideInHorizontally { -it },
-                exitTransition = slideOutHorizontally { -it },
+                enterTransition = listEnterTransition,
+                exitTransition = listExitTransition,
             ) {
                 SessionListView(
                     viewModel = viewModel,
@@ -48,11 +56,9 @@ fun SessionListDetailPaneScaffold(viewModel: BaseSessionListViewModel, title: St
         },
         detailPane = {
             AnimatedPane(
-                enterTransition = slideInHorizontally { it },
-                exitTransition = slideOutHorizontally { it },
+                enterTransition = detailEnterTransition,
+                exitTransition = detailExitTransition,
             ) {
-                val listPaneAdapted = navigator.scaffoldValue[ListDetailPaneScaffoldRole.List]
-                val fullWidth = listPaneAdapted == PaneAdaptedValue.Hidden
                 val detailViewModel = presentedSessionDetail
                 if (detailViewModel != null) {
                     SessionDetailView(

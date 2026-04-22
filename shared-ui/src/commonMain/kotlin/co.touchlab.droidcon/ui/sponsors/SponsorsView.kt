@@ -4,9 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +16,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -27,6 +33,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,6 +46,9 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
+import androidx.window.core.layout.WindowSizeClass
+import androidx.window.core.layout.WindowWidthSizeClass
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.DcAsyncImage
 import co.touchlab.droidcon.ui.util.observeAsState
@@ -113,25 +123,36 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                 ),
                 style = MaterialTheme.typography.headlineLarge,
             )
-            val columnCount = if (sponsorGroup.isProminent) 3 else 4
+
+            val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+
+            val maxItemsInEeachRow = if (sponsorGroup.isProminent) 3 else 4
+            val sizingModifier = when {
+                windowSizeClass.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND) ->
+                    Modifier
+                        .sizeIn(maxWidth = 200.dp, maxHeight = 200.dp)
+                        .aspectRatio(1f, matchHeightConstraintsFirst = true)
+
+                else ->
+                    Modifier
+                        .fillMaxWidth(1f / maxItemsInEeachRow)
+                        .aspectRatio(1f)
+            }
 
             val sponsors by sponsorGroup.observeSponsors.observeAsState()
-
-            repeat(sponsors.size / columnCount + if (sponsors.size % columnCount == 0) 0 else 1) { rowIndex ->
-                Row(modifier = Modifier.padding(horizontal = Dimensions.Padding.half)) {
-                    val startIndex = rowIndex * columnCount
-                    val endIndex = min(startIndex + columnCount, sponsors.size)
-                    sponsors.subList(startIndex, endIndex).forEach { sponsor ->
+            if (sponsors.isNotEmpty()) {
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = Dimensions.Padding.half),
+                    horizontalArrangement = Arrangement.spacedBy(Dimensions.Padding.half),
+                    verticalArrangement = Arrangement.spacedBy(Dimensions.Padding.half),
+                    maxItemsInEachRow = maxItemsInEeachRow,
+                ) {
+                    sponsors.forEach { sponsor ->
                         Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .aspectRatio(1f)
-                                .padding(Dimensions.Padding.quarter)
+                            modifier = sizingModifier
                                 .clip(CircleShape)
                                 .background(Color.White)
-                                .clickable {
-                                    sponsor.selected()
-                                },
+                                .clickable { sponsor.selected() },
                             contentAlignment = Alignment.Center,
                         ) {
                             val imageUrl = sponsor.validImageUrl
@@ -151,9 +172,6 @@ private fun SponsorGroupView(sponsorGroup: SponsorGroupViewModel) {
                                 )
                             }
                         }
-                    }
-                    repeat(columnCount - endIndex + startIndex) {
-                        Spacer(modifier = Modifier.weight(1f))
                     }
                 }
             }
