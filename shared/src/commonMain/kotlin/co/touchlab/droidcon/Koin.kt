@@ -52,7 +52,6 @@ import co.touchlab.droidcon.util.formatter.KotlinXDateFormatter
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import kotlin.time.Clock
-import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication

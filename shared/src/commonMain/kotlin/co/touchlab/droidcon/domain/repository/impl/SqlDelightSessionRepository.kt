@@ -15,7 +15,6 @@ import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.kermit.Logger
 import kotlin.time.Instant
 import kotlinx.coroutines.CoroutineScope
-import kotlin.time.Instant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
