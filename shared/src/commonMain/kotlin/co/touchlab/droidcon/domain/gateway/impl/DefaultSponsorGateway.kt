@@ -42,20 +42,6 @@ class DefaultSponsorGateway(
                     }
                 }
             }
-/*
-        val conferenceId = conferenceConfigProvider.getConferenceId()
-
-        log.i { "Got the Conference ID" }
-        return sponsorGroupRepository.observeAll(conferenceId).map { groups ->
-            groups.map { group ->
-                log.i { "Found a Group of Sponsors" }
-
-                SponsorGroupWithSponsors(
-                    group,
-                    sponsorRepository.allByGroupName(group.name, conferenceId),
-                )
-            }
-        }*/
     }
 
     override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> = conferenceConfigProvider.observeChanges()

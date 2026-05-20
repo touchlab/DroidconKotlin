@@ -11,7 +11,6 @@ interface ConferenceConfigProvider {
     suspend fun getCollectionName(): String
     suspend fun getApiKey(): String
     suspend fun getScheduleId(): String
-    suspend fun showVenueMap(): Boolean
     fun observeChanges(): Flow<Conference?>
 
     /**

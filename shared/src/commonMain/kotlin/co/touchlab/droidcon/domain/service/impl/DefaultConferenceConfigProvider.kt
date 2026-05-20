@@ -33,8 +33,6 @@ class DefaultConferenceConfigProvider(private val conferenceRepository: Conferen
 
     override suspend fun getScheduleId(): String = getConference().scheduleId
 
-    override suspend fun showVenueMap(): Boolean = true // Default to true, will be configurable per conference later
-
     override fun observeChanges(): Flow<Conference> = conferenceRepository.observeSelected()
 
     // Implementation of the interface method to get the currently selected conference
