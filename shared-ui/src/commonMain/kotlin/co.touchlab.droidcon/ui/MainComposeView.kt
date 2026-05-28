@@ -55,7 +55,6 @@ private fun MainAppBody(waitForLoadedContextModel: WaitForLoadedContextModel, se
             viewModel.selectedTab = ApplicationViewModel.Tab.Schedule
         }
 
-        print("isFirstRun")
         if (conferences.size == 1) {
             LaunchedEffect(conferences) {
                 onConferenceSelected(conferences.first())
