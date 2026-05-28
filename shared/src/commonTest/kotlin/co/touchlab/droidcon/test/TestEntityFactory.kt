@@ -31,11 +31,7 @@ object TestEntityFactory {
         website = website,
     )
 
-    fun sponsorGroup(
-        name: String = "Gold",
-        displayPriority: Int = 1,
-        isProminent: Boolean = true,
-    ): SponsorGroup = SponsorGroup(
+    fun sponsorGroup(name: String = "Gold", displayPriority: Int = 1, isProminent: Boolean = true): SponsorGroup = SponsorGroup(
         id = SponsorGroup.Id(name),
         displayPriority = displayPriority,
         isProminent = isProminent,

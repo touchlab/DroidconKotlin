@@ -149,5 +149,4 @@ class SessionRepositoryTest {
         dateTimeService = TestSessionFactory.dateTimeService,
         sessionQueries = testDb.database.sessionQueries,
     )
-
 }

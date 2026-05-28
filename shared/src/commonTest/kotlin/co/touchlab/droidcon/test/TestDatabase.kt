@@ -35,10 +35,7 @@ internal suspend fun DroidconDatabase.conferenceIdForName(conferenceName: String
         id to name
     }.awaitAsList().first { (_, name) -> name == conferenceName }.first
 
-internal suspend fun seedSecondConference(
-    database: DroidconDatabase,
-    conferenceName: String = "Second Conference",
-): Long {
+internal suspend fun seedSecondConference(database: DroidconDatabase, conferenceName: String = "Second Conference"): Long {
     database.conferenceQueries.insert(
         conferenceName = conferenceName,
         conferenceTimeZone = TimeZone.of("Europe/Berlin"),

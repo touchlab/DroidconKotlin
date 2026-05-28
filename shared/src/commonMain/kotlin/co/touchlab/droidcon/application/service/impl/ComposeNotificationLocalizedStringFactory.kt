@@ -16,8 +16,7 @@ class ComposeNotificationLocalizedStringFactory : NotificationSchedulingService.
         return getString(Res.string.notification_reminder_title_base, ending)
     }
 
-    override suspend fun reminderBody(sessionTitle: String): String =
-        getString(Res.string.notification_reminder_body, sessionTitle)
+    override suspend fun reminderBody(sessionTitle: String): String = getString(Res.string.notification_reminder_body, sessionTitle)
 
     override suspend fun feedbackTitle(): String = getString(Res.string.notification_feedback_title)
 
