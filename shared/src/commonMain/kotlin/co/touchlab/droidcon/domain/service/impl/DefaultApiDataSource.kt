@@ -63,11 +63,8 @@ class DefaultApiDataSource(
     }
 
     suspend fun getConferences(): ConferencesDto.ConferenceCollectionDto? {
-        log.i { "getConferences" }
         val projectId = conferenceConfigProvider.getProjectId() ?: return null
-        log.i { "Have Project ID: $projectId" }
         val apiKey = conferenceConfigProvider.getApiKey()
-        log.i { "Have API Key" }
         val databaseName = "(default)"
         val conferenceListCollection = "conferenceListMobile"
 

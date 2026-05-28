@@ -5,6 +5,7 @@ import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.toConferenceDateTime
 import co.touchlab.droidcon.viewmodel.ViewModelFactory
+import kotlinx.datetime.TimeZone
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 abstract class BaseSessionListViewModel(
@@ -38,14 +39,14 @@ abstract class BaseSessionListViewModel(
             sessionGateway.observeSchedule()
         }
 
-        print("Collecting Item Flows")
         itemsFlow
             .collect { items ->
                 items
                     .groupBy {
                         it.session.startsAt.toConferenceDateTime(
                             dateTimeService,
-                            conferenceConfigProvider.getConferenceTimeZone() ?: TimeZone.UTC,
+                            // Defaulting to default Conference added in the database. This is mostly a race condition.
+                            conferenceConfigProvider.getConferenceTimeZone() ?: TimeZone.of("America/New_York"),
                         ).date
                     }
                     .map { (date, items) ->
