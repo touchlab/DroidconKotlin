@@ -34,7 +34,7 @@ class DefaultApiDataSource(
     }
 
     override suspend fun getSchedule(): List<ScheduleDto.DayDto>? {
-        val scheduleId = conferenceConfigProvider.getScheduleId() ?: return null
+        val scheduleId = conferenceConfigProvider.getScheduleId()
         val jsonString = client.get {
             sessionize("/api/v2/$scheduleId/view/gridtable")
         }.bodyAsText()
