@@ -30,5 +30,6 @@ jobs:
           compileKotlinIosSimulatorArm64
           compileKotlinJs
           :web:jsBrowserProductionWebpack
+          :shared:jsTest
           :web:jsTest
           --no-daemon

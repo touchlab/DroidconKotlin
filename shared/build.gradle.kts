@@ -129,6 +129,10 @@ kotlin {
             implementation(npm("@js-joda/timezone", "2.22.0"))
         }
 
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
+
         all {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
