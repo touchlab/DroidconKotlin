@@ -51,9 +51,9 @@ class DefaultApiDataSource(
 
     override suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto? {
         log.i { "gettingSponsors" }
-        val projectId = conferenceConfigProvider.getProjectId() ?: return null
-        val collectionName = conferenceConfigProvider.getCollectionName() ?: return null
-        val apiKey = conferenceConfigProvider.getApiKey() ?: return null
+        val projectId = conferenceConfigProvider.getProjectId()
+        val collectionName = conferenceConfigProvider.getCollectionName()
+        val apiKey = conferenceConfigProvider.getApiKey()
         val databaseName = "(default)" // This could be moved to ConferenceConfigProvider if needed
 
         val jsonString = client.get {
@@ -63,7 +63,7 @@ class DefaultApiDataSource(
     }
 
     suspend fun getConferences(): ConferencesDto.ConferenceCollectionDto? {
-        val projectId = conferenceConfigProvider.getProjectId() ?: return null
+        val projectId = conferenceConfigProvider.getProjectId()
         val apiKey = conferenceConfigProvider.getApiKey()
         val databaseName = "(default)"
         val conferenceListCollection = "conferenceListMobile"
