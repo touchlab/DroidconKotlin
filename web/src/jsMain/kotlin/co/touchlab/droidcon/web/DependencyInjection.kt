@@ -1,7 +1,6 @@
 package co.touchlab.droidcon.web
 
 import app.cash.sqldelight.db.SqlDriver
-import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.droidcon.domain.service.AnalyticsService
@@ -13,7 +12,6 @@ import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
 import co.touchlab.droidcon.web.service.DefaultParseUrlViewService
-import co.touchlab.droidcon.web.util.NotificationLocalizedStringFactory
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
@@ -31,8 +29,6 @@ fun webAppModule(driver: SqlDriver? = null): Module = module {
         storageSettings.makeObservable()
     }
     single<ResourceReader> { ComposeResourceReader() }
-
-    single<NotificationSchedulingService.LocalizedStringFactory> { NotificationLocalizedStringFactory() }
 
     single<AnalyticsService> { WebAnalyticsService() }
 

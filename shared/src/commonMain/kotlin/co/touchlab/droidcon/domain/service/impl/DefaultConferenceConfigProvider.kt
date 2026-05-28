@@ -9,12 +9,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.datetime.TimeZone
 
 class DefaultConferenceConfigProvider(private val conferenceRepository: ConferenceRepository, initialConference: Conference? = null) :
     ConferenceConfigProvider {
     private val log = Logger.withTag("DefaultConferenceConfigProvider")
+    private val conferenceMutex = Mutex()
     private val _currentConferenceState = MutableStateFlow(initialConference)
     val currentConferenceState: StateFlow<Conference?> = _currentConferenceState
 
@@ -55,9 +57,11 @@ class DefaultConferenceConfigProvider(private val conferenceRepository: Conferen
     }
 
     private suspend fun getConference(): Conference {
-        if (currentConference != null) return currentConference!!
-        val conference = conferenceRepository.getSelected()
-        _currentConferenceState.update { conference }
-        return conference
+        currentConference?.let { return it }
+        return conferenceMutex.withLock {
+            currentConference ?: conferenceRepository.getSelected().also { conference ->
+                _currentConferenceState.value = conference
+            }
+        }
     }
 }

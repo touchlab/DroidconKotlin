@@ -14,10 +14,10 @@ interface NotificationSchedulingService {
 
     interface LocalizedStringFactory {
 
-        fun reminderTitle(roomName: String?): String
-        fun reminderBody(sessionTitle: String): String
+        suspend fun reminderTitle(roomName: String?): String
+        suspend fun reminderBody(sessionTitle: String): String
 
-        fun feedbackTitle(): String
-        fun feedbackBody(): String
+        suspend fun feedbackTitle(): String
+        suspend fun feedbackBody(): String
     }
 }

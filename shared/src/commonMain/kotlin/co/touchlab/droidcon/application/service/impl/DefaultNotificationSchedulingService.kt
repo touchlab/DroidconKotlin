@@ -110,8 +110,8 @@ class DefaultNotificationSchedulingService(
                                     notification = Notification.Local.Reminder(
                                         sessionId = session.id,
                                     ),
-                                    title = localizedStringFactory.reminderTitle(roomName),
-                                    body = localizedStringFactory.reminderBody(session.title),
+                                    title = localizedStringFactory.reminderTitle(roomName = roomName),
+                                    body = localizedStringFactory.reminderBody(sessionTitle = session.title),
                                     delivery = reminderDelivery,
                                     dismiss = reminderDelivery.plus(
                                         NotificationSchedulingService.REMINDER_DISMISS_OFFSET,

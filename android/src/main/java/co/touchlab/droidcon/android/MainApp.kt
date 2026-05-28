@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
-import co.touchlab.droidcon.android.util.NotificationLocalizedStringFactory
-import co.touchlab.droidcon.application.service.NotificationSchedulingService
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ComposeResourceReader
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
@@ -48,10 +46,6 @@ class MainApp :
 
                 single<ResourceReader> {
                     ComposeResourceReader()
-                }
-
-                single<NotificationSchedulingService.LocalizedStringFactory> {
-                    NotificationLocalizedStringFactory(context = get())
                 }
 
                 single<AnalyticsService> {
