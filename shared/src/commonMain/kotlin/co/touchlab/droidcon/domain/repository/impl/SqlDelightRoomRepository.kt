@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.await
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.coroutines.asFlow
@@ -36,7 +37,7 @@ class SqlDelightRoomRepository(private val roomQueries: RoomQueries) :
     }
 
     override suspend fun doDelete(id: Room.Id, conferenceId: Long) {
-        roomQueries.deleteById(id.value, conferenceId)
+        roomQueries.deleteById(id.value, conferenceId).await()
     }
 
     override suspend fun contains(id: Room.Id, conferenceId: Long): Boolean =

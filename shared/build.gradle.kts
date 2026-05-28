@@ -131,6 +131,27 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(libs.test.coroutines)
+            implementation(libs.sqldelight.coroutines)
+            implementation(libs.sqldelight.async.extensions)
+            implementation(libs.ktor.client.mock)
+        }
+
+        androidUnitTest.dependencies {
+            implementation(libs.sqldelight.driver.sqlite)
+        }
+
+        val iosTest by creating {
+            dependsOn(commonTest.get())
+        }
+        val iosX64Test by getting {
+            dependsOn(iosTest)
+        }
+        val iosArm64Test by getting {
+            dependsOn(iosTest)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
         }
 
         all {

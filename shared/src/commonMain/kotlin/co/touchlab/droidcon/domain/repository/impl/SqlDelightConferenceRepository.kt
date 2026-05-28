@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.await
 import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
@@ -26,7 +27,7 @@ class SqlDelightConferenceRepository(
 
     override suspend fun select(conferenceId: Long): Boolean {
         try {
-            conferenceQueries.changeSelectedConference(conferenceId)
+            conferenceQueries.changeSelectedConference(conferenceId).await()
             return true
         } catch (e: Exception) {
             log.e(e) { "Error selecting conference" }

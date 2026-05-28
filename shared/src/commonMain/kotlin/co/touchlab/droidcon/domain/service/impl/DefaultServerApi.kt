@@ -13,7 +13,12 @@ import io.ktor.http.isSuccess
 import io.ktor.http.takeFrom
 import kotlinx.serialization.json.Json
 
-class DefaultServerApi(private val userIdProvider: UserIdProvider, private val client: HttpClient, private val json: Json) : ServerApi {
+class DefaultServerApi(
+    private val userIdProvider: UserIdProvider,
+    private val client: HttpClient,
+    private val json: Json,
+    private val baseUrl: String = "https://droidcon-server.herokuapp.com",
+) : ServerApi {
     override suspend fun setRsvp(sessionId: Session.Id, isAttending: Boolean): Boolean {
         val methodName = if (isAttending) {
             "sessionizeRsvpEvent"
@@ -38,7 +43,7 @@ class DefaultServerApi(private val userIdProvider: UserIdProvider, private val c
 
     private fun HttpRequestBuilder.droidcon(path: String) {
         url {
-            takeFrom("https://droidcon-server.herokuapp.com")
+            takeFrom(baseUrl)
             encodedPath = path
         }
     }

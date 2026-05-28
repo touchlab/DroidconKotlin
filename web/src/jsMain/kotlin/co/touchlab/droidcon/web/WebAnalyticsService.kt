@@ -3,7 +3,6 @@ package co.touchlab.droidcon.web
 import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.kermit.Logger
 
-
 // Firebase Analytics does not support Web KMP, so we're using Kermit for now.
 class WebAnalyticsService : AnalyticsService {
 

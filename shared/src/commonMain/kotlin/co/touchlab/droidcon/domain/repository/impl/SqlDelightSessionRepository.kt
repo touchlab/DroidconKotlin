@@ -1,5 +1,6 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.await
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
@@ -86,7 +87,7 @@ class SqlDelightSessionRepository(private val dateTimeService: DateTimeService, 
     }
 
     override suspend fun doDelete(id: Session.Id, conferenceId: Long) {
-        sessionQueries.deleteById(id.value, conferenceId)
+        sessionQueries.deleteById(id.value, conferenceId).await()
     }
 
     override suspend fun contains(id: Session.Id, conferenceId: Long): Boolean =
