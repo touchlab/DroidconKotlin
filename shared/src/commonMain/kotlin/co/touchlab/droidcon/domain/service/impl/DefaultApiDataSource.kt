@@ -25,7 +25,7 @@ class DefaultApiDataSource(
     private val log = Logger.withTag("DefaultApiDataSource")
 
     override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>? {
-        val scheduleId = conferenceConfigProvider.getScheduleId() ?: return null
+        val scheduleId = conferenceConfigProvider.getScheduleId()
         val jsonString = client.get {
             // We want to use the same scheduleId for speakers and schedule
             sessionize("/api/v2/$scheduleId/view/speakers")
