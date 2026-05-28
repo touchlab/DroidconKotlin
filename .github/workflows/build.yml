@@ -29,5 +29,6 @@ jobs:
           ./gradlew ktlintCheck assembleDebug
           compileKotlinIosSimulatorArm64
           compileKotlinJs
+          :web:jsBrowserProductionWebpack
           :web:jsTest
           --no-daemon

@@ -4,10 +4,14 @@ import co.touchlab.droidcon.application.service.NotificationSchedulingService
 
 class NotificationLocalizedStringFactory : NotificationSchedulingService.LocalizedStringFactory {
 
-    override fun reminderTitle(roomName: String?): String = ""
-    override fun reminderBody(sessionTitle: String): String = ""
+    override fun reminderTitle(roomName: String?): String {
+        val ending = roomName?.let { " in $it" } ?: ""
+        return "Upcoming event$ending"
+    }
 
-    override fun feedbackTitle(): String = ""
+    override fun reminderBody(sessionTitle: String): String = "$sessionTitle is starting soon."
 
-    override fun feedbackBody(): String = ""
+    override fun feedbackTitle(): String = "Feedback Time!"
+
+    override fun feedbackBody(): String = "Your Feedback is Requested."
 }

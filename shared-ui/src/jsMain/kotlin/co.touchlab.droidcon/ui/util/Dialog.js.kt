@@ -12,13 +12,20 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 internal actual fun Dialog(dismiss: () -> Unit, content: @Composable (() -> Unit)) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.3f))
-            .clickable(interactionSource = MutableInteractionSource(), indication = null) { },
-        contentAlignment = Alignment.Center,
-    ) {
-        content()
+    Box(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.3f))
+                .clickable(interactionSource = MutableInteractionSource(), indication = null) {
+                    dismiss()
+                },
+        )
+        Box(
+            modifier = Modifier.align(Alignment.Center),
+            contentAlignment = Alignment.Center,
+        ) {
+            content()
+        }
     }
 }
