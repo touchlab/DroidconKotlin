@@ -122,7 +122,7 @@ kotlin {
         iosArm64Main.dependsOn(iosMain.get())
         iosSimulatorArm64Main.dependsOn(iosMain.get())
         jsMain.dependencies {
-            implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.js)
             implementation(libs.sqldelight.driver.js)
             implementation(npm("sql.js", "1.8.0"))
             implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.2.1"))

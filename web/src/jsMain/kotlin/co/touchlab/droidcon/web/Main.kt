@@ -16,14 +16,13 @@ import org.koin.compose.koinInject
 
 @OptIn(ExperimentalComposeUiApi::class)
 suspend fun main() {
-    val koinApplication = startKoin()
+    startKoin()
 
     val lifecycleScope = CoroutineScope(SupervisorJob()) + Dispatchers.Main
 
     @Suppress("UNUSED_VARIABLE")
     val tz = TimezoneInit
 
-    // Now set up view model lifecycle
     val root = LifecycleGraph.Root("…")
 
     lifecycleScope.launch {
@@ -36,7 +35,7 @@ suspend fun main() {
     }
 
     ComposeViewport {
-        val viewModel: WaitForLoadedContextModel = koinInject() // Works
+        val viewModel: WaitForLoadedContextModel = koinInject()
         viewModel.lifecycle.removeFromParent()
         root.addChild(viewModel.lifecycle)
 

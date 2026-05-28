@@ -34,8 +34,7 @@ kotlin {
         }
         val jsTest by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-test:2.2.21")
-                // implementation(libs.kotlin.test)
+                implementation(kotlin("test"))
                 implementation(libs.koin.test)
             }
         }

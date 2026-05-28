@@ -1,8 +1,6 @@
 package co.touchlab.droidcon
 
-import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.droidcon.application.service.NotificationService
-import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.droidcon.service.JsNotificationService
 import co.touchlab.kermit.CommonWriter
 import co.touchlab.kermit.Logger
@@ -12,10 +10,6 @@ import io.ktor.client.engine.js.Js
 import org.koin.dsl.module
 
 actual val platformModule: org.koin.core.module.Module = module {
-    single<SqlDriver> {
-        SqlDelightDriverFactory().createDriver()
-    }
-
     single<HttpClientEngine> {
         Js.create()
     }
