@@ -42,7 +42,7 @@ class DefaultApiDataSource(
     }
 
     override suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto>? {
-        val scheduleId = conferenceConfigProvider.getScheduleId() ?: return null
+        val scheduleId = conferenceConfigProvider.getScheduleId()
         val jsonString = client.get {
             sessionize("/api/v2/$scheduleId/view/sessions")
         }.bodyAsText()
