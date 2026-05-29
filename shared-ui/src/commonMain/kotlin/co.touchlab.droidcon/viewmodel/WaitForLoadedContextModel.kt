@@ -34,19 +34,13 @@ class WaitForLoadedContextModel(
     }
 
     suspend fun watchConferenceChanges() {
-        log.i { "watchConferenceChanges" }
         lifecycle.whileAttached {
-            log.i { "Starting to Sync Conferences" }
             launch {
-                log.i { "Observing conferenceConfigProvider" }
                 conferenceConfigProvider.observeChanges().collect { conference ->
                     if (conference != null) {
-                        log.i { "WaitForLoadedContextModel: Emitting Conference!" }
                         _state.emit(State.Ready(conference))
-
                         withContext(Dispatchers.Default) {
                             try {
-                                log.i { "syncConferences" }
                                 syncService.syncConferences()
                             } catch (e: Exception) {
                                 log.e(e) { "Failed to sync conferences" }

@@ -87,6 +87,7 @@ kotlin {
             implementation(libs.stately.common)
             implementation(libs.koin.core)
             implementation(libs.korio)
+            implementation(libs.gitlive.firebase.analytics)
         }
         val mobileMain by creating {
             dependsOn(commonMain.get())

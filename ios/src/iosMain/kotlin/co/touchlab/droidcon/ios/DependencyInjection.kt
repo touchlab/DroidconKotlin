@@ -1,6 +1,5 @@
 package co.touchlab.droidcon.ios
 
-import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ComposeResourceReader
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
@@ -17,14 +16,12 @@ import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
 
 @OptIn(ExperimentalSettingsApi::class)
-fun initKoinIos(userDefaults: NSUserDefaults, analyticsService: AnalyticsService): KoinApplication = initKoin(
+fun initKoinIos(userDefaults: NSUserDefaults): KoinApplication = initKoin(
     module {
         single<ObservableSettings> { NSUserDefaultsSettings(delegate = userDefaults) }
         single<ResourceReader> {
             ComposeResourceReader()
         }
-
-        single { analyticsService }
 
         single<ParseUrlViewService> { DefaultParseUrlViewService() }
     } + uiModule,

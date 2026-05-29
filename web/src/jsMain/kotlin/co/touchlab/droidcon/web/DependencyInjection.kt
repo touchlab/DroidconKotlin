@@ -3,7 +3,6 @@ package co.touchlab.droidcon.web
 import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.droidcon.db.DroidconDatabase
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
-import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ComposeResourceReader
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
@@ -29,8 +28,6 @@ fun webAppModule(driver: SqlDriver? = null): Module = module {
         storageSettings.makeObservable()
     }
     single<ResourceReader> { ComposeResourceReader() }
-
-    single<AnalyticsService> { WebAnalyticsService() }
 
     single<ParseUrlViewService> { DefaultParseUrlViewService() }
 

@@ -2,6 +2,7 @@ package co.touchlab.droidcon.web
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
+import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.ui.MainView
 import co.touchlab.droidcon.ui.util.TimezoneInit
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
@@ -16,7 +17,8 @@ import org.koin.compose.koinInject
 
 @OptIn(ExperimentalComposeUiApi::class)
 suspend fun main() {
-    startKoin()
+    val koinApplication = startKoin()
+    koinApplication.koin.get<AnalyticsService>().logEvent(AnalyticsService.EVENT_STARTED)
 
     val lifecycleScope = CoroutineScope(SupervisorJob()) + Dispatchers.Main
 

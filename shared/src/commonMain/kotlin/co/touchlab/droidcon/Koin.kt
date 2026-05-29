@@ -27,6 +27,7 @@ import co.touchlab.droidcon.domain.repository.impl.SqlDelightRoomRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
+import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
@@ -34,6 +35,7 @@ import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.UserIdProvider
+import co.touchlab.droidcon.domain.service.impl.DefaultAnalyticsService
 import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
 import co.touchlab.droidcon.domain.service.impl.DefaultConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
@@ -46,6 +48,7 @@ import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.util.formatter.KotlinXDateFormatter
+import co.touchlab.droidcon.util.initializeFirebase
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import kotlin.time.Clock
@@ -60,6 +63,8 @@ import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
 fun initKoin(additionalModules: List<Module>): KoinApplication {
+    initializeFirebase()
+
     val koinApplication = startKoin {
         modules(
             additionalModules +
@@ -264,6 +269,10 @@ private val coreModule = module {
             json = get(),
             clock = get(),
         )
+    }
+
+    single<AnalyticsService> {
+        DefaultAnalyticsService()
     }
 }
 

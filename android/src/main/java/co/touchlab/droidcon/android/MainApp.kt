@@ -4,16 +4,12 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import co.touchlab.droidcon.android.service.impl.AndroidAnalyticsService
 import co.touchlab.droidcon.android.service.impl.DefaultParseUrlViewService
-import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.impl.ComposeResourceReader
 import co.touchlab.droidcon.domain.service.impl.ResourceReader
 import co.touchlab.droidcon.initKoin
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.ui.uiModule
-import com.google.firebase.Firebase
-import com.google.firebase.analytics.analytics
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SharedPreferencesSettings
@@ -46,10 +42,6 @@ class MainApp :
 
                 single<ResourceReader> {
                     ComposeResourceReader()
-                }
-
-                single<AnalyticsService> {
-                    AndroidAnalyticsService(firebaseAnalytics = Firebase.analytics)
                 }
             } + uiModule,
         )
