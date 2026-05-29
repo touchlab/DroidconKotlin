@@ -35,21 +35,21 @@ class SqlDelightConferenceRepository(
         }
     }
 
-    override suspend fun add(conference: Conference): Long {
-        conferenceQueries.insert(
-            conferenceName = conference.name,
-            conferenceTimeZone = conference.timeZone,
-            projectId = conference.projectId,
-            collectionName = conference.collectionName,
-            apiKey = conference.apiKey,
-            scheduleId = conference.scheduleId,
-            selected = conference.selected,
-            active = conference.active,
-            venueMap = conference.venueMap,
-        )
-        // Return the last inserted ID
-        return conferenceQueries.lastInsertRowId().awaitAsOne()
-    }
+    override suspend fun add(conference: Conference): Long =
+        conferenceQueries.transactionWithResult {
+            conferenceQueries.insert(
+                conferenceName = conference.name,
+                conferenceTimeZone = conference.timeZone,
+                projectId = conference.projectId,
+                collectionName = conference.collectionName,
+                apiKey = conference.apiKey,
+                scheduleId = conference.scheduleId,
+                selected = conference.selected,
+                active = conference.active,
+                venueMap = conference.venueMap,
+            )
+            conferenceQueries.lastInsertRowId().awaitAsOne()
+        }
 
     override suspend fun update(conference: Conference): Boolean {
         try {
