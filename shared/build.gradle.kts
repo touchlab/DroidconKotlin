@@ -127,6 +127,7 @@ kotlin {
             implementation(npm("sql.js", "1.8.0"))
             implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.2.1"))
             implementation(npm("@js-joda/timezone", "2.22.0"))
+            implementation(devNpm("copy-webpack-plugin", "9.1.0"))
         }
 
         commonTest.dependencies {

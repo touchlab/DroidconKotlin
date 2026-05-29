@@ -63,7 +63,7 @@ class SqlDelightProfileRepository(
             sponsorGroupName = sponsorId.group,
             conferenceId = conferenceId,
             mapper = ::profileFactory,
-        ).executeAsList()
+        ).awaitAsList()
 
     override suspend fun allSync(conferenceId: Long): List<Profile> =
         profileQueries.selectAll(conferenceId, mapper = ::profileFactory).awaitAsList()
