@@ -14,15 +14,16 @@
 
 - android: The Android app
 - ios: The iOS app
+- web: The Kotlin/JS web app
 - shared: Shared logic code
-- shared-ui: UI implemented with Compose Multiplatform and used by both Android and iOS
+- shared-ui: UI implemented with Compose Multiplatform and used by Android, iOS, and web
 
 ## Libraries
 
 - Hyperdrive: KMP-focused architecture library. It is open source but rarely used by other apps. See docs/HyperDrivev1.md
 
 ## Code Style
-- Kotlin Multiplatform project (Android/iOS)
+- Kotlin Multiplatform project (Android/iOS/Web)
 - Use ktlint for formatting (version 1.4.0)
 - Follow dependency injection pattern with Koin
 - Repository pattern for data access
