@@ -9,6 +9,11 @@ plugins {
     alias(libs.plugins.composeCompiler)
 }
 
+// Force Kotlin stdlib for JS so compiler sees stdlib (fixes "Symbol for Any not found")
+configurations.all {
+    resolutionStrategy.force("org.jetbrains.kotlin:kotlin-stdlib-js:${libs.versions.kotlin.get()}")
+}
+
 android {
     namespace = "co.touchlab.droidcon.sharedui"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -66,6 +71,10 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
 
     version = "1.0"
 
@@ -74,13 +83,10 @@ kotlin {
             implementation(projects.shared)
 
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
             api(libs.uuid)
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network)
 
             implementation(libs.bundles.ktor.common)
             implementation(libs.bundles.sqldelight.common)
@@ -100,8 +106,47 @@ kotlin {
             implementation(libs.zoomimage.composeResources)
 
             implementation(libs.hyperdrive.multiplatformx.api)
-            // implementation(libs.hyperdrive.multiplatformx.compose)
+            implementation(libs.kamel.image.default)
+            implementation(libs.adaptive)
+            implementation(libs.adaptive.layout)
+            implementation(libs.adaptive.navigation)
+            implementation(libs.material3.adaptive.navigation.suite)
         }
+        val mobileMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                api(libs.kermit.crashlytics)
+                implementation(libs.coil.compose)
+                implementation(libs.coil.network)
+                implementation(compose.components.resources)
+            }
+        }
+
+        androidMain {
+            dependsOn(mobileMain)
+        }
+        iosMain {
+            dependsOn(mobileMain)
+        }
+
+        val iosArm64Main by getting {
+            dependsOn(iosMain.get())
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain.get())
+        }
+
+        val iosX64Main by getting {
+            dependsOn(iosMain.get())
+        }
+        jsMain.dependencies {
+            implementation(kotlin("stdlib-js"))
+            implementation(libs.kotlinx.browser)
+            implementation(libs.zoomimage.compose)
+            implementation(libs.kamel.image.default) // add this
+        }
+
         all {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")

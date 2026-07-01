@@ -17,7 +17,7 @@ interface SessionRepository : Repository<Session.Id, Session> {
 
     suspend fun setFeedbackSent(sessionId: Session.Id, isSent: Boolean, conferenceId: Long)
 
-    fun allSync(conferenceId: Long): List<Session>
+    suspend fun allSync(conferenceId: Long): List<Session>
 
-    fun findSync(id: Session.Id, conferenceId: Long): Session?
+    suspend fun findSync(id: Session.Id, conferenceId: Long): Session?
 }

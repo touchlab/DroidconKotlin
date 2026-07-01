@@ -24,17 +24,18 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabIndicatorScope
 import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -50,9 +51,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import co.touchlab.droidcon.ui.CircularProgressIndicator
 import co.touchlab.droidcon.ui.theme.Dimensions
 import co.touchlab.droidcon.ui.util.observeAsState
-import co.touchlab.droidcon.util.NavigationStack
 import co.touchlab.droidcon.viewmodel.session.BaseSessionListViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
 import co.touchlab.kermit.Logger
@@ -60,37 +61,32 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String, emptyText: String) {
-    NavigationStack(
-        key = viewModel,
-        links = {
-            navigationLink(viewModel.observePresentedSessionDetail) {
-                SessionDetailView(viewModel = it)
-            }
+internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String, emptyText: String, onClick: () -> Unit) {
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text(title) },
+                scrollBehavior = scrollBehavior,
+            )
         },
-    ) {
-        val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = { Text(title) },
-                    scrollBehavior = scrollBehavior,
-                )
-            },
-        ) { innerPadding ->
-            var size by remember { mutableStateOf(IntSize(0, 0)) }
-            Column(
-                modifier = Modifier
-                    .onSizeChanged { size = it }
-                    .padding(top = innerPadding.calculateTopPadding()),
-            ) {
-                val days by viewModel.observeDays.observeAsState()
-                if (days?.isEmpty() != false) {
-                    EmptyView(emptyText)
-                } else {
-                    val selectedDay by viewModel.observeSelectedDay.observeAsState()
-                    val selectedTabIndex = viewModel.days?.indexOf(selectedDay) ?: 0
+    ) { innerPadding ->
+        var size by remember { mutableStateOf(IntSize(0, 0)) }
+        Column(
+            modifier = Modifier
+                .onSizeChanged { size = it }
+                .padding(top = innerPadding.calculateTopPadding()),
+        ) {
+            val days by viewModel.observeDays.observeAsState()
+            if (days == null) {
+                CircularProgressIndicator("Updating Droidcon Events!")
+            } else if (days?.isEmpty() != false) {
+                EmptyView(emptyText)
+            } else {
+                val selectedDay by viewModel.observeSelectedDay.observeAsState()
+                key(days) {
+                    val selectedTabIndex = (viewModel.days?.indexOf(selectedDay) ?: 0).coerceAtLeast(0)
                     val coroutineScope = rememberCoroutineScope()
 
                     val pagerState = rememberPagerState(
@@ -100,20 +96,13 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                         },
                     )
 
-                    TabRow(
+                    PrimaryTabRow(
                         selectedTabIndex = pagerState.currentPage,
-                        indicator = { tabPositions ->
-                            if (tabPositions.indices.contains(pagerState.currentPage)) {
-                                TabIndicator(
-                                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
-                                )
-                            } else {
-                                Logger.w(
-                                    "SessionList TabRow requested an indicator for selectedTabIndex: " +
-                                        "${pagerState.currentPage}, but only got ${tabPositions.count()} tabs.",
-                                )
-                                TabRowDefaults.SecondaryIndicator()
-                            }
+                        indicator = {
+                            SessionDayTabIndicator(
+                                selectedTabIndex = pagerState.currentPage,
+                                tabCount = days?.size ?: 0,
+                            )
                         },
                     ) {
                         days?.forEachIndexed { index, daySchedule ->
@@ -173,7 +162,7 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
                                         horizontal = Dimensions.Padding.half,
                                     ),
                                 ) {
-                                    SessionBlockView(hourBlock)
+                                    SessionBlockView(hourBlock, onClick = onClick)
                                 }
                             }
                         }
@@ -185,15 +174,26 @@ internal fun SessionListView(viewModel: BaseSessionListViewModel, title: String,
 }
 
 @Composable
-private fun TabIndicator(modifier: Modifier = Modifier) {
-    Box(
-        modifier
-            .fillMaxWidth()
-            .padding(horizontal = 64.dp)
-            .height(2.dp)
-            .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-            .background(MaterialTheme.colorScheme.primary),
-    )
+private fun TabIndicatorScope.SessionDayTabIndicator(selectedTabIndex: Int, tabCount: Int) {
+    if (tabCount > 0 && selectedTabIndex in 0 until tabCount) {
+        Box(
+            Modifier
+                .tabIndicatorOffset(selectedTabIndex, matchContentSize = true)
+                .fillMaxWidth()
+                .padding(horizontal = 64.dp)
+                .height(2.dp)
+                .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+                .background(MaterialTheme.colorScheme.primary),
+        )
+    } else {
+        Logger.w(
+            "SessionList PrimaryTabRow requested an indicator for selectedTabIndex: " +
+                "$selectedTabIndex, but only got $tabCount tabs.",
+        )
+        TabRowDefaults.PrimaryIndicator(
+            modifier = Modifier.tabIndicatorOffset(0, matchContentSize = true),
+        )
+    }
 }
 
 @Composable

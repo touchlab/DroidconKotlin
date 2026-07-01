@@ -6,7 +6,6 @@ import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -15,7 +14,7 @@ import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class WaitForLoadedContextModel(
     private val conferenceConfigProvider: ConferenceConfigProvider,
-    applicationViewModelFactory: ApplicationViewModel.Factory,
+    applicationViewModelFactory: ViewModelFactory.ApplicationViewModelFactory,
     private val syncService: SyncService,
     private val settingsGateway: SettingsGateway,
 ) : BaseViewModel() {
@@ -36,17 +35,18 @@ class WaitForLoadedContextModel(
 
     suspend fun watchConferenceChanges() {
         lifecycle.whileAttached {
-            withContext(Dispatchers.IO) {
-                try {
-                    syncService.syncConferences()
-                } catch (e: Exception) {
-                    log.e(e) { "Failed to sync conferences" }
-                }
-            }
-
             launch {
                 conferenceConfigProvider.observeChanges().collect { conference ->
-                    _state.emit(State.Ready(conference))
+                    if (conference != null) {
+                        _state.emit(State.Ready(conference))
+                        withContext(Dispatchers.Default) {
+                            try {
+                                syncService.syncConferences()
+                            } catch (e: Exception) {
+                                log.e(e) { "Failed to sync conferences" }
+                            }
+                        }
+                    }
                 }
             }
         }

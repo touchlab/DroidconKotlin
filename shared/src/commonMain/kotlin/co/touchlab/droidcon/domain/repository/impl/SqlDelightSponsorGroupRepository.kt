@@ -1,5 +1,7 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -14,8 +16,8 @@ class SqlDelightSponsorGroupRepository(private val sponsorGroupQueries: SponsorG
     BaseRepository<SponsorGroup.Id, SponsorGroup>(),
     SponsorGroupRepository {
 
-    override fun allSync(conferenceId: Long): List<SponsorGroup> =
-        sponsorGroupQueries.selectAll(conferenceId, ::sponsorGroupFactory).executeAsList()
+    override suspend fun allSync(conferenceId: Long): List<SponsorGroup> =
+        sponsorGroupQueries.selectAll(conferenceId, ::sponsorGroupFactory).awaitAsList()
 
     override fun observe(id: SponsorGroup.Id, conferenceId: Long): Flow<SponsorGroup> =
         sponsorGroupQueries.sponsorGroupByName(id.value, conferenceId, ::sponsorGroupFactory)
@@ -29,10 +31,10 @@ class SqlDelightSponsorGroupRepository(private val sponsorGroupQueries: SponsorG
         sponsorGroupQueries.selectAll(conferenceId, ::sponsorGroupFactory)
             .asFlow().mapToList(Dispatchers.Main)
 
-    override fun contains(id: SponsorGroup.Id, conferenceId: Long): Boolean =
-        sponsorGroupQueries.existsByName(id.value, conferenceId).executeAsOne().toBoolean()
+    override suspend fun contains(id: SponsorGroup.Id, conferenceId: Long): Boolean =
+        sponsorGroupQueries.existsByName(id.value, conferenceId).awaitAsOne().toBoolean()
 
-    override fun doUpsert(entity: SponsorGroup, conferenceId: Long) {
+    override suspend fun doUpsert(entity: SponsorGroup, conferenceId: Long) {
         sponsorGroupQueries.upsert(
             name = entity.id.value,
             conferenceId = conferenceId,
@@ -41,7 +43,7 @@ class SqlDelightSponsorGroupRepository(private val sponsorGroupQueries: SponsorG
         )
     }
 
-    override fun doDelete(id: SponsorGroup.Id, conferenceId: Long) {
+    override suspend fun doDelete(id: SponsorGroup.Id, conferenceId: Long) {
         sponsorGroupQueries.deleteByName(id.value, conferenceId)
     }
 

@@ -2,10 +2,11 @@ package co.touchlab.droidcon.viewmodel.sponsor
 
 import co.touchlab.droidcon.domain.composite.SponsorGroupWithSponsors
 import co.touchlab.droidcon.domain.entity.Sponsor
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SponsorGroupViewModel(
-    sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory,
+    sponsorGroupItemFactory: ViewModelFactory.SponsorGroupItemViewModelFactory,
     sponsorGroup: SponsorGroupWithSponsors,
     onSponsorSelected: (Sponsor) -> Unit,
 ) : BaseViewModel() {
@@ -17,9 +18,4 @@ class SponsorGroupViewModel(
         },
     )
     val observeSponsors by observe(::sponsors)
-
-    class Factory(private val sponsorGroupItemFactory: SponsorGroupItemViewModel.Factory) {
-        fun create(sponsorGroup: SponsorGroupWithSponsors, onSponsorSelected: (Sponsor) -> Unit) =
-            SponsorGroupViewModel(sponsorGroupItemFactory, sponsorGroup, onSponsorSelected)
-    }
 }

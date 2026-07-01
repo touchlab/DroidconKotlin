@@ -16,9 +16,4 @@ class SponsorGroupItemViewModel(private val sponsor: Sponsor, val selected: () -
         } catch (e: URLParserException) {
             null
         }
-
-    class Factory {
-
-        fun create(sponsor: Sponsor, selected: () -> Unit) = SponsorGroupItemViewModel(sponsor, selected)
-    }
 }

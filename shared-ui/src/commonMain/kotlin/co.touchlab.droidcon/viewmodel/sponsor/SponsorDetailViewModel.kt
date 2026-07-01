@@ -2,14 +2,15 @@ package co.touchlab.droidcon.viewmodel.sponsor
 
 import co.touchlab.droidcon.domain.entity.Sponsor
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
 import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SponsorDetailViewModel(
     private val sponsorGateway: SponsorGateway,
-    private val speakerListItemFactory: SpeakerListItemViewModel.Factory,
-    private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
+    private val speakerListItemFactory: ViewModelFactory.SpeakerListItemViewModelFactory,
+    private val speakerDetailFactory: ViewModelFactory.SpeakerDetailViewModelFactory,
     private val sponsor: Sponsor,
     val groupName: String,
 ) : BaseViewModel() {
@@ -34,15 +35,5 @@ class SponsorDetailViewModel(
                 },
             )
         }
-    }
-
-    class Factory(
-        private val sponsorGateway: SponsorGateway,
-        private val speakerListItemFactory: SpeakerListItemViewModel.Factory,
-        private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
-    ) {
-
-        fun create(sponsor: Sponsor, groupName: String) =
-            SponsorDetailViewModel(sponsorGateway, speakerListItemFactory, speakerDetailFactory, sponsor, groupName)
     }
 }

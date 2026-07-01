@@ -18,15 +18,15 @@ interface Repository<ID : Any, ENTITY : DomainEntity<ID>> {
 
     fun observeAll(conferenceId: Long): Flow<List<ENTITY>>
 
-    fun add(entity: ENTITY, conferenceId: Long)
+    suspend fun add(entity: ENTITY, conferenceId: Long)
 
-    fun remove(entity: ENTITY, conferenceId: Long): Boolean
+    suspend fun remove(entity: ENTITY, conferenceId: Long): Boolean
 
-    fun remove(id: ID, conferenceId: Long): Boolean
+    suspend fun remove(id: ID, conferenceId: Long): Boolean
 
-    fun update(entity: ENTITY, conferenceId: Long)
+    suspend fun update(entity: ENTITY, conferenceId: Long)
 
-    fun addOrUpdate(entity: ENTITY, conferenceId: Long)
+    suspend fun addOrUpdate(entity: ENTITY, conferenceId: Long)
 
-    fun contains(id: ID, conferenceId: Long): Boolean
+    suspend fun contains(id: ID, conferenceId: Long): Boolean
 }

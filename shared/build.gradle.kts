@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqlDelight)
+    // Compose used for Resources
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.jetbrainsCompose)
 }
 
 android {
@@ -34,11 +37,7 @@ android {
         )
         main.manifest.srcFile("src/androidMain/AndroidManifest.xml")
     }
-}
 
-version = "1.0"
-
-android {
     configurations {
         create("androidTestApi")
         create("androidTestDebugApi")
@@ -48,6 +47,8 @@ android {
         create("testReleaseApi")
     }
 }
+
+version = "1.0"
 
 kotlin {
     compilerOptions {
@@ -61,13 +62,19 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
 
     version = "1.0"
 
     sourceSets {
         commonMain.dependencies {
+            // Required when composeCompiler plugin is applied in this module.
+            implementation(compose.runtime)
+            implementation(compose.components.resources)
             api(libs.kermit)
-            api(libs.kermit.crashlytics)
             api(libs.kotlinx.coroutines.core)
             api(libs.kotlinx.datetime)
             api(libs.multiplatformSettings.core)
@@ -75,21 +82,78 @@ kotlin {
 
             implementation(libs.bundles.ktor.common)
             implementation(libs.bundles.sqldelight.common)
+            implementation(libs.sqldelight.async.extensions)
 
             implementation(libs.stately.common)
             implementation(libs.koin.core)
             implementation(libs.korio)
+            implementation(libs.gitlive.firebase.analytics)
         }
-        androidMain.dependencies {
-            implementation(libs.sqldelight.driver.android)
-            implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.ktor.client.okhttp)
-            implementation(libs.androidx.core)
+        val mobileMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                api(libs.kermit.crashlytics)
+            }
         }
-        iosMain.dependencies {
-            implementation(libs.sqldelight.driver.ios)
-            implementation(libs.sqliter)
-            implementation(libs.ktor.client.ios)
+
+        androidMain {
+            dependsOn(mobileMain)
+            dependencies {
+                implementation(libs.sqldelight.driver.android)
+                implementation(libs.kotlinx.coroutines.android)
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.androidx.core)
+            }
+        }
+        iosMain {
+            dependsOn(mobileMain)
+            dependencies {
+                implementation(libs.sqldelight.driver.ios)
+                implementation(libs.sqliter)
+                implementation(libs.ktor.client.ios)
+            }
+        }
+
+        // Connect iOS target source sets to iosMain
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+
+        iosX64Main.dependsOn(iosMain.get())
+        iosArm64Main.dependsOn(iosMain.get())
+        iosSimulatorArm64Main.dependsOn(iosMain.get())
+        jsMain.dependencies {
+            implementation(libs.ktor.client.js)
+            implementation(libs.sqldelight.driver.js)
+            implementation(npm("sql.js", "1.8.0"))
+            implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.2.1"))
+            implementation(npm("@js-joda/timezone", "2.22.0"))
+            implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.test.coroutines)
+            implementation(libs.sqldelight.coroutines)
+            implementation(libs.sqldelight.async.extensions)
+            implementation(libs.ktor.client.mock)
+        }
+
+        androidUnitTest.dependencies {
+            implementation(libs.sqldelight.driver.sqlite)
+        }
+
+        val iosTest by creating {
+            dependsOn(commonTest.get())
+        }
+        val iosX64Test by getting {
+            dependsOn(iosTest)
+        }
+        val iosArm64Test by getting {
+            dependsOn(iosTest)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
         }
 
         all {
@@ -107,7 +171,10 @@ kotlin {
 }
 
 sqldelight {
-    databases.create("DroidconDatabase") {
-        packageName.set("co.touchlab.droidcon.db")
+    databases {
+        create("DroidconDatabase") {
+            packageName.set("co.touchlab.droidcon.db")
+            generateAsync = true
+        }
     }
 }

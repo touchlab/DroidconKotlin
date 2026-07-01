@@ -17,7 +17,6 @@
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
 		684FAA8926B2C31800673AFF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 684FAA8B26B2C31800673AFF /* Localizable.strings */; };
 		68C86E9F26B31D6100008D15 /* LifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C86E9E26B31D6100008D15 /* LifecycleManager.swift */; };
-		8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */; };
 		A35DC2E328AB6C6F00C7B298 /* ComposeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */; };
 		A35DEF2228AA265C0072605A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A35DEF2128AA265C0072605A /* Settings.bundle */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
@@ -25,14 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/resources/about.json; sourceTree = "<group>"; };
+		1821427726B5418D0047DB71 /* about.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = about.json; path = ../../../shared/src/commonMain/composeResources/files/about.json; sourceTree = "<group>"; };
 		18240FB62C6FED770099E416 /* Droidcon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Droidcon.entitlements; sourceTree = "<group>"; };
 		1833220F26B0CF5600D79482 /* DroidconApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidconApp.swift; sourceTree = "<group>"; };
 		18E89B48283E5D2C00C08C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
 		684FAA8A26B2C31800673AFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68C86E9E26B31D6100008D15 /* LifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleManager.swift; sourceTree = "<group>"; };
-		8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAnalyticsService.swift; sourceTree = "<group>"; };
 		A35DC2E228AB6C6F00C7B298 /* ComposeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeController.swift; sourceTree = "<group>"; };
 		A35DEF2128AA265C0072605A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* Droidcon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Droidcon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,7 +94,6 @@
 				1821427626B541720047DB71 /* Resources */,
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
 				46B5284C249C5CF400A7725D /* Koin.swift */,
-				8404D80D26C64B9E00AE200F /* IOSAnalyticsService.swift */,
 				F1465F0923AA94BF0055F7C3 /* Assets.xcassets */,
 				F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */,
 				F1465F0E23AA94BF0055F7C3 /* Info.plist */,
@@ -234,7 +231,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8404D80E26C64B9E00AE200F /* IOSAnalyticsService.swift in Sources */,
 				68C86E9F26B31D6100008D15 /* LifecycleManager.swift in Sources */,
 				1833221026B0CF5600D79482 /* DroidconApp.swift in Sources */,
 				46B5284D249C5CF400A7725D /* Koin.swift in Sources */,

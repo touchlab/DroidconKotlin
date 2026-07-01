@@ -5,14 +5,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.TimeZone
 
 interface ConferenceConfigProvider {
-    fun getConferenceId(): Long
-    fun getConferenceTimeZone(): TimeZone
+    suspend fun getConferenceId(): Long
+    fun getConferenceTimeZone(): TimeZone?
     fun getProjectId(): String
-    fun getCollectionName(): String
-    fun getApiKey(): String
-    fun getScheduleId(): String
-    fun showVenueMap(): Boolean
-    fun observeChanges(): Flow<Conference>
+    suspend fun getCollectionName(): String
+    suspend fun getApiKey(): String
+    suspend fun getScheduleId(): String
+    fun observeChanges(): Flow<Conference?>
 
     /**
      * Get the currently selected conference

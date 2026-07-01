@@ -11,11 +11,13 @@ import co.touchlab.droidcon.dto.WebLink
 import co.touchlab.droidcon.service.ParseUrlViewService
 import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import kotlin.time.Instant
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.TimeZone
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 import org.brightify.hyperdrive.multiplatformx.property.asFlow
 import org.brightify.hyperdrive.multiplatformx.property.flatMapLatest
@@ -26,9 +28,9 @@ class SessionDetailViewModel(
     private val sessionGateway: SessionGateway,
     private val settingsGateway: SettingsGateway,
     private val conferenceConfigProvider: ConferenceConfigProvider,
-    private val speakerListItemFactory: SpeakerListItemViewModel.Factory,
-    private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
-    private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
+    private val speakerListItemFactory: ViewModelFactory.SpeakerListItemViewModelFactory,
+    private val speakerDetailFactory: ViewModelFactory.SpeakerDetailViewModelFactory,
+    private val feedbackDialogFactory: ViewModelFactory.FeedbackDialogViewModelFactory,
     private val dateFormatter: DateFormatter,
     private val dateTimeService: DateTimeService,
     private val parseUrlViewService: ParseUrlViewService,
@@ -57,9 +59,10 @@ class SessionDetailViewModel(
         listOfNotNull(
             it.room?.name,
             with(dateTimeService) {
+                val timeZone = conferenceConfigProvider.getConferenceTimeZone() ?: TimeZone.UTC
                 dateFormatter.timeOnlyInterval(
-                    it.session.startsAt.toConferenceDateTime(conferenceConfigProvider.getConferenceTimeZone()),
-                    it.session.endsAt.toConferenceDateTime(conferenceConfigProvider.getConferenceTimeZone()),
+                    it.session.startsAt.toConferenceDateTime(timeZone),
+                    it.session.endsAt.toConferenceDateTime(timeZone),
                 )
             },
         ).joinToString()
@@ -150,35 +153,5 @@ class SessionDetailViewModel(
         InConflict,
         InProgress,
         Ended,
-    }
-
-    class Factory(
-        private val sessionGateway: SessionGateway,
-        private val settingsGateway: SettingsGateway,
-        private val conferenceConfigProvider: ConferenceConfigProvider,
-        private val speakerListItemFactory: SpeakerListItemViewModel.Factory,
-        private val speakerDetailFactory: SpeakerDetailViewModel.Factory,
-        private val feedbackDialogFactory: FeedbackDialogViewModel.Factory,
-        private val dateFormatter: DateFormatter,
-        private val dateTimeService: DateTimeService,
-        private val parseUrlViewService: ParseUrlViewService,
-        private val feedbackService: FeedbackService,
-        private val notificationService: NotificationService,
-    ) {
-
-        fun create(item: ScheduleItem) = SessionDetailViewModel(
-            sessionGateway = sessionGateway,
-            settingsGateway = settingsGateway,
-            conferenceConfigProvider = conferenceConfigProvider,
-            speakerListItemFactory = speakerListItemFactory,
-            speakerDetailFactory = speakerDetailFactory,
-            feedbackDialogFactory = feedbackDialogFactory,
-            dateFormatter = dateFormatter,
-            dateTimeService = dateTimeService,
-            parseUrlViewService = parseUrlViewService,
-            feedbackService = feedbackService,
-            notificationService = notificationService,
-            initialItem = item,
-        )
     }
 }

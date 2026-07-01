@@ -30,9 +30,4 @@ class SpeakerDetailViewModel(private val parseUrlViewService: ParseUrlViewServic
             linkedIn,
         ).isEmpty()
     }
-
-    class Factory(private val parseUrlViewService: ParseUrlViewService) {
-
-        fun create(profile: Profile) = SpeakerDetailViewModel(parseUrlViewService, profile)
-    }
 }

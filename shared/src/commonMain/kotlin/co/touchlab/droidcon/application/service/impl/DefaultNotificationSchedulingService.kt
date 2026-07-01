@@ -41,18 +41,23 @@ class DefaultNotificationSchedulingService(
 
     private var scheduledNotifications: List<Session.Id>
         get() = settings.getStringOrNull(SCHEDULED_NOTIFICATIONS_KEY)?.let { serializedList ->
-            json.decodeFromString<List<String>>(serializedList).map { Session.Id(it) }
+            if (serializedList.isBlank()) {
+                emptyList()
+            } else {
+                json.decodeFromString<List<String>>(serializedList).map { Session.Id(it) }
+            }
         } ?: emptyList()
         set(value) {
             settings[SCHEDULED_NOTIFICATIONS_KEY] = json.encodeToString(value.map { it.value })
         }
 
     override suspend fun runScheduling() {
+        val conferenceId = conferenceConfigProvider.getConferenceId() ?: return
         notificationService.initialize()
         coroutineScope {
             launch {
                 scheduleNotifications(
-                    sessionRepository.observeAllAttending(conferenceConfigProvider.getConferenceId()),
+                    sessionRepository.observeAllAttending(conferenceId),
                     settingsRepository.settings,
                 )
             }
@@ -60,9 +65,10 @@ class DefaultNotificationSchedulingService(
     }
 
     override suspend fun rescheduleAll() {
+        val conferenceId = conferenceConfigProvider.getConferenceId() ?: return
         scheduledNotifications = emptyList()
         scheduleNotifications(
-            sessionRepository.observeAllAttending(conferenceConfigProvider.getConferenceId()).take(1),
+            sessionRepository.observeAllAttending(conferenceId).take(1),
             settingsRepository.settings.take(1),
         )
     }
@@ -90,7 +96,12 @@ class DefaultNotificationSchedulingService(
                     for (session in newSessions) {
                         if (isRemindersEnabled) {
                             val roomName = session.room?.let {
-                                roomRepository.get(it, conferenceConfigProvider.getConferenceId()).name
+                                val conferenceId = conferenceConfigProvider.getConferenceId()
+                                if (conferenceId != null) {
+                                    roomRepository.get(it, conferenceId).name
+                                } else {
+                                    null
+                                }
                             }
                             val reminderDelivery =
                                 session.startsAt.plus(NotificationSchedulingService.REMINDER_DELIVERY_START_OFFSET, DateTimeUnit.MINUTE)
@@ -99,8 +110,8 @@ class DefaultNotificationSchedulingService(
                                     notification = Notification.Local.Reminder(
                                         sessionId = session.id,
                                     ),
-                                    title = localizedStringFactory.reminderTitle(roomName),
-                                    body = localizedStringFactory.reminderBody(session.title),
+                                    title = localizedStringFactory.reminderTitle(roomName = roomName),
+                                    body = localizedStringFactory.reminderBody(sessionTitle = session.title),
                                     delivery = reminderDelivery,
                                     dismiss = reminderDelivery.plus(
                                         NotificationSchedulingService.REMINDER_DISMISS_OFFSET,

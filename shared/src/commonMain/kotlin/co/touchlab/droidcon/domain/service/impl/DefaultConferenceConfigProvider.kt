@@ -7,30 +7,33 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.datetime.TimeZone
 
-class DefaultConferenceConfigProvider(private val conferenceRepository: ConferenceRepository, initialConference: Conference) :
+class DefaultConferenceConfigProvider(private val conferenceRepository: ConferenceRepository, initialConference: Conference? = null) :
     ConferenceConfigProvider {
     private val log = Logger.withTag("DefaultConferenceConfigProvider")
+    private val conferenceMutex = Mutex()
     private val _currentConferenceState = MutableStateFlow(initialConference)
-    val currentConferenceState: StateFlow<Conference> = _currentConferenceState
+    val currentConferenceState: StateFlow<Conference?> = _currentConferenceState
 
-    private val currentConference: Conference
+    private val currentConference: Conference?
         get() = currentConferenceState.value
 
-    override fun getConferenceId(): Long = currentConference.id
+    override suspend fun getConferenceId(): Long = getConference().id
 
-    override fun getConferenceTimeZone(): TimeZone = currentConference.timeZone
+    override fun getConferenceTimeZone(): TimeZone? = currentConference?.timeZone
 
     override fun getProjectId(): String = "droidcon-148cc"
 
-    override fun getCollectionName(): String = currentConference.collectionName
+    override suspend fun getCollectionName(): String = getConference().collectionName
 
-    override fun getApiKey(): String = currentConference.apiKey
+    override suspend fun getApiKey(): String = getConference().apiKey
 
-    override fun getScheduleId(): String = currentConference.scheduleId
-
-    override fun showVenueMap(): Boolean = true // Default to true, will be configurable per conference later
+    override suspend fun getScheduleId(): String = getConference().scheduleId
 
     override fun observeChanges(): Flow<Conference> = conferenceRepository.observeSelected()
 
@@ -40,8 +43,25 @@ class DefaultConferenceConfigProvider(private val conferenceRepository: Conferen
     // Implementation of the interface method to load the conference asynchronously
     // Also sets up continuous observation of conference changes
     override suspend fun loadSelectedConference() {
-        conferenceRepository.observeSelected().collect { conference ->
-            _currentConferenceState.emit(conference)
+        log.i { "DefaultConferenceConfigProvider: loadSelectedConference" }
+        conferenceRepository.observeSelected()
+            .map<Conference, Conference?> { it }
+            .catch { e ->
+                log.w(e) { "Error observing selected conference, emitting null" }
+                emit(null)
+            }
+            .collect { conference ->
+                log.i { "loadSelectedConference: Emitting Conference! $conference" }
+                _currentConferenceState.value = conference
+            }
+    }
+
+    private suspend fun getConference(): Conference {
+        currentConference?.let { return it }
+        return conferenceMutex.withLock {
+            currentConference ?: conferenceRepository.getSelected().also { conference ->
+                _currentConferenceState.value = conference
+            }
         }
     }
 }

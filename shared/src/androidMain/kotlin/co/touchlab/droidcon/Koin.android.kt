@@ -4,8 +4,6 @@ import app.cash.sqldelight.db.SqlDriver
 import co.touchlab.droidcon.application.service.NotificationService
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightDriverFactory
 import co.touchlab.droidcon.service.AndroidNotificationService
-import co.touchlab.droidcon.util.formatter.AndroidDateFormatter
-import co.touchlab.droidcon.util.formatter.DateFormatter
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogcatWriter
 import co.touchlab.kermit.Logger
@@ -40,13 +38,6 @@ actual val platformModule: Module = module {
     }
     single<NotificationService> {
         get<AndroidNotificationService>()
-    }
-
-    single<DateFormatter> {
-        AndroidDateFormatter(
-            dateTimeService = get(),
-            conferenceConfigProvider = get(),
-        )
     }
 
     val baseKermit = Logger(config = StaticConfig(logWriterList = listOf(LogcatWriter(), CrashlyticsLogWriter())), tag = "Droidcon")

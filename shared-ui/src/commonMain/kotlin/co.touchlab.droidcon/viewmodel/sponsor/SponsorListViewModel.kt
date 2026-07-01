@@ -2,14 +2,16 @@ package co.touchlab.droidcon.viewmodel.sponsor
 
 import co.touchlab.droidcon.composite.Url
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import kotlinx.coroutines.flow.map
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class SponsorListViewModel(
     private val sponsorGateway: SponsorGateway,
-    private val sponsorGroupFactory: SponsorGroupViewModel.Factory,
-    private val sponsorDetailFactory: SponsorDetailViewModel.Factory,
+    private val sponsorGroupFactory: ViewModelFactory.SponsorGroupViewModelFactory,
+    private val sponsorDetailFactory: ViewModelFactory.SponsorDetailViewModelFactory,
 ) : BaseViewModel() {
+
     val sponsorGroups: List<SponsorGroupViewModel> by managedList(
         emptyList(),
         sponsorGateway.observeSponsors()
@@ -37,13 +39,4 @@ class SponsorListViewModel(
 
     var presentedUrl: Url? by published(null)
     val observePresentedUrl by observe(::presentedUrl)
-
-    class Factory(
-        private val sponsorGateway: SponsorGateway,
-        private val sponsorGroupFactory: SponsorGroupViewModel.Factory,
-        private val sponsorDetailFactory: SponsorDetailViewModel.Factory,
-    ) {
-
-        fun create() = SponsorListViewModel(sponsorGateway, sponsorGroupFactory, sponsorDetailFactory)
-    }
 }

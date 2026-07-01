@@ -24,5 +24,5 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Check, Assemble Android and compile iOS
-        run: ./gradlew ktlintCheck assembleDebug compileKotlinIosX64 --no-daemon
+      - name: Check, assemble Android, and compile iOS and JS
+        run: ./gradlew ktlintCheck assembleDebug compileKotlinIosX64 compileKotlinJs --no-daemon

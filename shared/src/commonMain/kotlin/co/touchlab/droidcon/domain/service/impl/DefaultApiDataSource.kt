@@ -6,6 +6,7 @@ import co.touchlab.droidcon.domain.service.impl.dto.ScheduleDto
 import co.touchlab.droidcon.domain.service.impl.dto.SpeakersDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorSessionsDto
 import co.touchlab.droidcon.domain.service.impl.dto.SponsorsDto
+import co.touchlab.kermit.Logger
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
@@ -20,29 +21,36 @@ class DefaultApiDataSource(
     private val json: Json,
     private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : DefaultSyncService.DataSource {
-    override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto> {
+
+    private val log = Logger.withTag("DefaultApiDataSource")
+
+    override suspend fun getSpeakers(): List<SpeakersDto.SpeakerDto>? {
+        val scheduleId = conferenceConfigProvider.getScheduleId()
         val jsonString = client.get {
             // We want to use the same scheduleId for speakers and schedule
-            sessionize("/api/v2/${conferenceConfigProvider.getScheduleId()}/view/speakers")
+            sessionize("/api/v2/$scheduleId/view/speakers")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(SpeakersDto.SpeakerDto.serializer()), jsonString)
     }
 
-    override suspend fun getSchedule(): List<ScheduleDto.DayDto> {
+    override suspend fun getSchedule(): List<ScheduleDto.DayDto>? {
+        val scheduleId = conferenceConfigProvider.getScheduleId()
         val jsonString = client.get {
-            sessionize("/api/v2/${conferenceConfigProvider.getScheduleId()}/view/gridtable")
+            sessionize("/api/v2/$scheduleId/view/gridtable")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(ScheduleDto.DayDto.serializer()), jsonString)
     }
 
-    override suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto> {
+    override suspend fun getSponsorSessions(): List<SponsorSessionsDto.SessionGroupDto>? {
+        val scheduleId = conferenceConfigProvider.getScheduleId()
         val jsonString = client.get {
-            sessionize("/api/v2/${conferenceConfigProvider.getScheduleId()}/view/sessions")
+            sessionize("/api/v2/$scheduleId/view/sessions")
         }.bodyAsText()
         return json.decodeFromString(ListSerializer(SponsorSessionsDto.SessionGroupDto.serializer()), jsonString)
     }
 
-    override suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto {
+    override suspend fun getSponsors(): SponsorsDto.SponsorCollectionDto? {
+        log.i { "gettingSponsors" }
         val projectId = conferenceConfigProvider.getProjectId()
         val collectionName = conferenceConfigProvider.getCollectionName()
         val apiKey = conferenceConfigProvider.getApiKey()
@@ -54,7 +62,7 @@ class DefaultApiDataSource(
         return json.decodeFromString(SponsorsDto.SponsorCollectionDto.serializer(), jsonString)
     }
 
-    suspend fun getConferences(): ConferencesDto.ConferenceCollectionDto {
+    suspend fun getConferences(): ConferencesDto.ConferenceCollectionDto? {
         val projectId = conferenceConfigProvider.getProjectId()
         val apiKey = conferenceConfigProvider.getApiKey()
         val databaseName = "(default)"

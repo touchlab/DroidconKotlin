@@ -1,5 +1,7 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.awaitAsList
+import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -26,15 +28,15 @@ class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
     override fun observeAll(conferenceId: Long): Flow<List<Sponsor>> =
         sponsorQueries.selectAll(conferenceId, ::sponsorFactory).asFlow().mapToList(Dispatchers.Main)
 
-    override fun contains(id: Sponsor.Id, conferenceId: Long): Boolean =
-        sponsorQueries.existsById(id.name, id.group, conferenceId).executeAsOne().toBoolean()
+    override suspend fun contains(id: Sponsor.Id, conferenceId: Long): Boolean =
+        sponsorQueries.existsById(id.name, id.group, conferenceId).awaitAsOne().toBoolean()
 
     override suspend fun allByGroupName(group: String, conferenceId: Long): List<Sponsor> =
-        sponsorQueries.sponsorsByGroup(group, conferenceId, ::sponsorFactory).executeAsList()
+        sponsorQueries.sponsorsByGroup(group, conferenceId, ::sponsorFactory).awaitAsList()
 
-    override fun allSync(conferenceId: Long): List<Sponsor> = sponsorQueries.selectAll(conferenceId, ::sponsorFactory).executeAsList()
+    override suspend fun allSync(conferenceId: Long): List<Sponsor> = sponsorQueries.selectAll(conferenceId, ::sponsorFactory).awaitAsList()
 
-    override fun doUpsert(entity: Sponsor, conferenceId: Long) {
+    override suspend fun doUpsert(entity: Sponsor, conferenceId: Long) {
         sponsorQueries.upsert(
             name = entity.id.name,
             groupName = entity.id.group,
@@ -46,7 +48,7 @@ class SqlDelightSponsorRepository(private val sponsorQueries: SponsorQueries) :
         )
     }
 
-    override fun doDelete(id: Sponsor.Id, conferenceId: Long) {
+    override suspend fun doDelete(id: Sponsor.Id, conferenceId: Long) {
         sponsorQueries.deleteById(id.name, id.group, conferenceId)
     }
 

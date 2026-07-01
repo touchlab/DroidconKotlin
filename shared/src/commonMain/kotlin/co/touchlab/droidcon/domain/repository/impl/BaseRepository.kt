@@ -14,7 +14,7 @@ abstract class BaseRepository<ID : Any, ENTITY : DomainEntity<ID>> : Repository<
 
     override suspend fun all(conferenceId: Long): List<ENTITY> = observeAll(conferenceId).first()
 
-    override fun add(entity: ENTITY, conferenceId: Long) {
+    override suspend fun add(entity: ENTITY, conferenceId: Long) {
         if (!contains(entity.id, conferenceId)) {
             doUpsert(entity, conferenceId)
         } else {
@@ -23,9 +23,9 @@ abstract class BaseRepository<ID : Any, ENTITY : DomainEntity<ID>> : Repository<
         }
     }
 
-    override fun remove(entity: ENTITY, conferenceId: Long) = remove(entity.id, conferenceId)
+    override suspend fun remove(entity: ENTITY, conferenceId: Long) = remove(entity.id, conferenceId)
 
-    override fun remove(id: ID, conferenceId: Long): Boolean {
+    override suspend fun remove(id: ID, conferenceId: Long): Boolean {
         val idExists = contains(id, conferenceId)
         if (idExists) {
             doDelete(id, conferenceId)
@@ -33,7 +33,7 @@ abstract class BaseRepository<ID : Any, ENTITY : DomainEntity<ID>> : Repository<
         return idExists
     }
 
-    override fun update(entity: ENTITY, conferenceId: Long) {
+    override suspend fun update(entity: ENTITY, conferenceId: Long) {
         if (contains(entity.id, conferenceId)) {
             doUpsert(entity, conferenceId)
         } else {
@@ -42,11 +42,11 @@ abstract class BaseRepository<ID : Any, ENTITY : DomainEntity<ID>> : Repository<
         }
     }
 
-    override fun addOrUpdate(entity: ENTITY, conferenceId: Long) = doUpsert(entity, conferenceId)
+    override suspend fun addOrUpdate(entity: ENTITY, conferenceId: Long) = doUpsert(entity, conferenceId)
 
-    protected abstract fun doUpsert(entity: ENTITY, conferenceId: Long)
+    protected abstract suspend fun doUpsert(entity: ENTITY, conferenceId: Long)
 
-    protected abstract fun doDelete(id: ID, conferenceId: Long)
+    protected abstract suspend fun doDelete(id: ID, conferenceId: Long)
 
     protected fun Long.toBoolean(): Boolean = this != 0L
 

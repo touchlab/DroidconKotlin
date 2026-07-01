@@ -8,11 +8,9 @@ import co.touchlab.droidcon.application.repository.SettingsRepository
 import co.touchlab.droidcon.application.repository.impl.DefaultAboutRepository
 import co.touchlab.droidcon.application.repository.impl.DefaultSettingsRepository
 import co.touchlab.droidcon.application.service.NotificationSchedulingService
+import co.touchlab.droidcon.application.service.impl.ComposeNotificationLocalizedStringFactory
 import co.touchlab.droidcon.application.service.impl.DefaultNotificationSchedulingService
-import co.touchlab.droidcon.db.ConferenceTable
 import co.touchlab.droidcon.db.DroidconDatabase
-import co.touchlab.droidcon.db.SessionTable
-import co.touchlab.droidcon.db.SponsorGroupTable
 import co.touchlab.droidcon.domain.gateway.SessionGateway
 import co.touchlab.droidcon.domain.gateway.SponsorGateway
 import co.touchlab.droidcon.domain.gateway.impl.DefaultSessionGateway
@@ -29,7 +27,7 @@ import co.touchlab.droidcon.domain.repository.impl.SqlDelightRoomRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSessionRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.impl.SqlDelightSponsorRepository
-import co.touchlab.droidcon.domain.repository.impl.adapter.InstantSqlDelightAdapter
+import co.touchlab.droidcon.domain.service.AnalyticsService
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.DateTimeService
 import co.touchlab.droidcon.domain.service.FeedbackService
@@ -37,6 +35,7 @@ import co.touchlab.droidcon.domain.service.ScheduleService
 import co.touchlab.droidcon.domain.service.ServerApi
 import co.touchlab.droidcon.domain.service.SyncService
 import co.touchlab.droidcon.domain.service.UserIdProvider
+import co.touchlab.droidcon.domain.service.impl.DefaultAnalyticsService
 import co.touchlab.droidcon.domain.service.impl.DefaultApiDataSource
 import co.touchlab.droidcon.domain.service.impl.DefaultConferenceConfigProvider
 import co.touchlab.droidcon.domain.service.impl.DefaultDateTimeService
@@ -47,10 +46,12 @@ import co.touchlab.droidcon.domain.service.impl.DefaultSyncService
 import co.touchlab.droidcon.domain.service.impl.DefaultUserIdProvider
 import co.touchlab.droidcon.domain.service.impl.json.AboutJsonResourceDataSource
 import co.touchlab.droidcon.domain.service.impl.json.JsonResourceReader
+import co.touchlab.droidcon.util.formatter.DateFormatter
+import co.touchlab.droidcon.util.formatter.KotlinXDateFormatter
+import co.touchlab.droidcon.util.initializeFirebase
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import kotlin.time.Clock
-import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.json.Json
 import org.koin.core.KoinApplication
@@ -62,6 +63,8 @@ import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
 fun initKoin(additionalModules: List<Module>): KoinApplication {
+    initializeFirebase()
+
     val koinApplication = startKoin {
         modules(
             additionalModules +
@@ -93,21 +96,7 @@ val booleanAdapter = object : ColumnAdapter<Boolean, Long> {
 
 private val coreModule = module {
     single {
-        DroidconDatabase.invoke(
-            driver = get(),
-            sessionTableAdapter = SessionTable.Adapter(
-                startsAtAdapter = InstantSqlDelightAdapter,
-                endsAtAdapter = InstantSqlDelightAdapter,
-                feedbackRatingAdapter = intToLongAdapter,
-            ),
-            sponsorGroupTableAdapter = SponsorGroupTable.Adapter(
-                intToLongAdapter,
-            ),
-            conferenceTableAdapter = ConferenceTable.Adapter(
-                conferenceTimeZoneAdapter = timeZoneAdapter,
-                // Note: selectedAdapter will be added when the adapter is regenerated
-            ),
-        )
+        createDroidconDatabase(driver = get())
     }
     single<Clock> { Clock.System }
 
@@ -134,13 +123,8 @@ private val coreModule = module {
 
     // Add ConferenceConfigProvider
     single<ConferenceConfigProvider> {
-        val conferenceRepository: ConferenceRepository = get()
-        val selectedConference = runBlocking {
-            conferenceRepository.getSelected()
-        }
         DefaultConferenceConfigProvider(
             conferenceRepository = get(),
-            initialConference = selectedConference,
         )
     }
 
@@ -148,6 +132,10 @@ private val coreModule = module {
         DefaultDateTimeService(
             clock = get(),
         )
+    }
+
+    single<DateFormatter> {
+        KotlinXDateFormatter()
     }
 
     single {
@@ -195,6 +183,7 @@ private val coreModule = module {
             conferenceRepository = get(),
         )
     }
+
     single<DefaultSyncService.DataSource>(qualifier(DefaultSyncService.DataSource.Kind.Api)) {
         DefaultApiDataSource(
             client = get(),
@@ -245,6 +234,9 @@ private val coreModule = module {
             aboutJsonResourceDataSource = get(),
         )
     }
+    single<NotificationSchedulingService.LocalizedStringFactory> {
+        ComposeNotificationLocalizedStringFactory()
+    }
     single<NotificationSchedulingService> {
         DefaultNotificationSchedulingService(
             sessionRepository = get(),
@@ -277,6 +269,10 @@ private val coreModule = module {
             json = get(),
             clock = get(),
         )
+    }
+
+    single<AnalyticsService> {
+        DefaultAnalyticsService()
     }
 }
 

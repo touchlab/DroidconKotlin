@@ -8,7 +8,11 @@ import co.touchlab.droidcon.domain.repository.ProfileRepository
 import co.touchlab.droidcon.domain.repository.SponsorGroupRepository
 import co.touchlab.droidcon.domain.repository.SponsorRepository
 import co.touchlab.droidcon.domain.service.ConferenceConfigProvider
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 
 class DefaultSponsorGateway(
@@ -18,19 +22,36 @@ class DefaultSponsorGateway(
     private val conferenceConfigProvider: ConferenceConfigProvider,
 ) : SponsorGateway {
 
-    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> =
-        sponsorGroupRepository.observeAll(conferenceConfigProvider.getConferenceId()).map { groups ->
-            groups.map { group ->
-                SponsorGroupWithSponsors(
-                    group,
-                    sponsorRepository.allByGroupName(group.name, conferenceConfigProvider.getConferenceId()),
-                )
+    private val log = Logger.withTag("DefaultSponsorGateway")
+
+    override fun observeSponsors(): Flow<List<SponsorGroupWithSponsors>> {
+        log.i { "observeSponsors" }
+
+        return conferenceConfigProvider.observeChanges()
+            .filterNotNull()
+            .map { conference -> conference.id }
+            .distinctUntilChanged()
+            .flatMapLatest { id ->
+                sponsorGroupRepository.observeAll(id).map { groups ->
+                    groups.map { group ->
+                        log.i { "Found a Group of Sponsors" }
+                        SponsorGroupWithSponsors(
+                            group,
+                            sponsorRepository.allByGroupName(group.name, id),
+                        )
+                    }
+                }
             }
+    }
+
+    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> = conferenceConfigProvider.observeChanges()
+        .filterNotNull()
+        .flatMapLatest { conference ->
+            sponsorRepository.observe(id, conference.id)
         }
 
-    override fun observeSponsorById(id: Sponsor.Id): Flow<Sponsor> =
-        sponsorRepository.observe(id, conferenceConfigProvider.getConferenceId())
-
-    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> =
-        profileRepository.getSponsorRepresentatives(sponsorId, conferenceConfigProvider.getConferenceId())
+    override suspend fun getRepresentatives(sponsorId: Sponsor.Id): List<Profile> {
+        val conferenceId = conferenceConfigProvider.getConferenceId()
+        return profileRepository.getSponsorRepresentatives(sponsorId, conferenceId)
+    }
 }

@@ -17,6 +17,7 @@ class DefaultScheduleService(
         }
         val sessionRange = session.startsAt.rangeTo(session.endsAt)
         val conferenceId = conferenceConfigProvider.getConferenceId()
+            ?: return false
         return sessionRepository.allAttending(conferenceId).any { otherSession ->
             otherSession.id != session.id && sessionRange.intersects(otherSession.startsAt.rangeTo(otherSession.endsAt))
         }

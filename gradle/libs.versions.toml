@@ -1,18 +1,22 @@
 [versions]
 ## SDK Versions
+adaptive = "1.3.0-alpha02"
+kamelImageDefault = "1.0.9"
+kotlinxBrowser = "0.5.0"
+material3AdaptiveNavigationSuiteVersion = "1.9.0"
 minSdk = "23"
 targetSdk = "36"
 compileSdk = "36"
 
 # Dependencies
-kotlin = "2.2.21"
+kotlin = "2.3.10"
 
 ## Gradle Plugin version must be compatible with Multiplatform
 ## https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
-android-gradle-plugin = "8.13.1"
+android-gradle-plugin = "8.13.2"
 coroutines = "1.10.2"
 kotlinx-datetime = "0.7.1"
-ktor = "3.3.2"
+ktor = "3.3.3"
 
 stately = "2.1.0"
 java = "21"
@@ -23,15 +27,15 @@ hyperdrive = "0.1.148"
 
 multiplatformSettings = "1.3.0"
 sqlDelight = "2.2.1"
-firebase-analytics = "22.5.0"
 firebase-crashlytics = "19.4.4"
 firebase-messaging = "24.1.2"
-firebase-bom = "34.6.0"
+firebase-bom = "34.7.0"
 firebase-crashlytics-gradle = "3.0.6"
 gms-google-services = "4.4.4"
+gitlive-firebase = "2.4.0"
 
 # TODO: Update Compose libraries. There is currently a conflicing issue with the HorizontalPager
-compose-androidx-ui = "1.9.5"
+compose-androidx-ui = "1.10.0"
 compose-compiler = "1.5.15"
 composeNavigation = "2.9.6"
 compose-jb = "1.9.3"
@@ -52,19 +56,26 @@ uuid = "0.8.4"
 ktlint = "14.0.1"
 coil = "3.3.0"
 zoomimage = "1.4.0"
-skie = "0.10.8"
+skie = "0.10.10"
 
 [libraries]
+adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "adaptive" }
+adaptive-layout = { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "adaptive" }
+adaptive-navigation = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "adaptive" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+kamel-image-default = { module = "media.kamel:kamel-image-default", version.ref = "kamelImageDefault" }
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinxBrowser" }
+material3-adaptive-navigation-suite = { module = "org.jetbrains.compose.material3:material3-adaptive-navigation-suite", version.ref = "material3AdaptiveNavigationSuiteVersion" }
+multiplatform-settings-make-observable = { module = "com.russhwolf:multiplatform-settings-make-observable", version.ref = "multiplatformSettings" }
 sqliter = { module = "co.touchlab:sqliter-driver", version.ref = "sqliter" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase-messaging" }
+gitlive-firebase-analytics = { module = "dev.gitlive:firebase-analytics", version.ref = "gitlive-firebase" }
 hyperdrive-multiplatformx-api = { module = "org.brightify.hyperdrive:multiplatformx-api", version.ref = "hyperdrive" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
@@ -81,17 +92,22 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
+ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 
 multiplatformSettings-core = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatformSettings" }
 
 sqldelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqldelight-driver-ios = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+sqldelight-driver-js = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqlDelight" }
+sqldelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+sqldelight-async-extensions = { module = "app.cash.sqldelight:async-extensions", version.ref = "sqlDelight" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
 
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
@@ -115,8 +131,10 @@ compose-navigation = { module = "androidx.navigation:navigation-compose", versio
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 
 zoomimage-composeResources = { module = "io.github.panpf.zoomimage:zoomimage-compose-resources", version.ref = "zoomimage" }
+zoomimage-compose = { module = "io.github.panpf.zoomimage:zoomimage-compose", version.ref = "zoomimage" }
 
 [plugins]
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle" }

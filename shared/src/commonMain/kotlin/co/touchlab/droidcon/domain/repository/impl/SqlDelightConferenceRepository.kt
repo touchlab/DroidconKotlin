@@ -1,5 +1,7 @@
 package co.touchlab.droidcon.domain.repository.impl
 
+import app.cash.sqldelight.async.coroutines.await
+import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -21,11 +23,11 @@ class SqlDelightConferenceRepository(
     override fun observeSelected(): Flow<Conference> =
         conferenceQueries.selectSelected(::conferenceFactory).asFlow().mapToOne(Dispatchers.Main)
 
-    override suspend fun getSelected(): Conference = conferenceQueries.selectSelected(::conferenceFactory).executeAsOne()
+    override suspend fun getSelected(): Conference = conferenceQueries.selectSelected(::conferenceFactory).awaitAsOne()
 
     override suspend fun select(conferenceId: Long): Boolean {
         try {
-            conferenceQueries.changeSelectedConference(conferenceId)
+            conferenceQueries.changeSelectedConference(conferenceId).await()
             return true
         } catch (e: Exception) {
             log.e(e) { "Error selecting conference" }
@@ -33,7 +35,7 @@ class SqlDelightConferenceRepository(
         }
     }
 
-    override suspend fun add(conference: Conference): Long {
+    override suspend fun add(conference: Conference): Long = conferenceQueries.transactionWithResult {
         conferenceQueries.insert(
             conferenceName = conference.name,
             conferenceTimeZone = conference.timeZone,
@@ -45,8 +47,7 @@ class SqlDelightConferenceRepository(
             active = conference.active,
             venueMap = conference.venueMap,
         )
-        // Return the last inserted ID
-        return conferenceQueries.lastInsertRowId().executeAsOne()
+        conferenceQueries.lastInsertRowId().awaitAsOne()
     }
 
     override suspend fun update(conference: Conference): Boolean {

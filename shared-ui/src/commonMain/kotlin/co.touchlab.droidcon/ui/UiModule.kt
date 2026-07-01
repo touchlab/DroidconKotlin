@@ -1,30 +1,15 @@
 package co.touchlab.droidcon.ui
 
-import co.touchlab.droidcon.viewmodel.ApplicationViewModel
-import co.touchlab.droidcon.viewmodel.FeedbackDialogViewModel
+import co.touchlab.droidcon.viewmodel.ViewModelFactory
 import co.touchlab.droidcon.viewmodel.WaitForLoadedContextModel
-import co.touchlab.droidcon.viewmodel.session.AgendaViewModel
-import co.touchlab.droidcon.viewmodel.session.ScheduleViewModel
-import co.touchlab.droidcon.viewmodel.session.SessionBlockViewModel
-import co.touchlab.droidcon.viewmodel.session.SessionDayViewModel
 import co.touchlab.droidcon.viewmodel.session.SessionDetailScrollStateStorage
-import co.touchlab.droidcon.viewmodel.session.SessionDetailViewModel
-import co.touchlab.droidcon.viewmodel.session.SessionListItemViewModel
-import co.touchlab.droidcon.viewmodel.session.SpeakerDetailViewModel
-import co.touchlab.droidcon.viewmodel.session.SpeakerListItemViewModel
-import co.touchlab.droidcon.viewmodel.settings.AboutViewModel
-import co.touchlab.droidcon.viewmodel.settings.SettingsViewModel
-import co.touchlab.droidcon.viewmodel.sponsor.SponsorDetailViewModel
-import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupItemViewModel
-import co.touchlab.droidcon.viewmodel.sponsor.SponsorGroupViewModel
-import co.touchlab.droidcon.viewmodel.sponsor.SponsorListViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 val uiModule = module {
     // MARK: View model factories.
     single {
-        ApplicationViewModel.Factory(
+        ViewModelFactory.ApplicationViewModelFactory(
             scheduleFactory = get(),
             agendaFactory = get(),
             sponsorsFactory = get(),
@@ -49,7 +34,7 @@ val uiModule = module {
     }
 
     single {
-        ScheduleViewModel.Factory(
+        ViewModelFactory.ScheduleViewModelFactory(
             sessionGateway = get(),
             sessionDayFactory = get(),
             sessionDetailFactory = get(),
@@ -59,7 +44,7 @@ val uiModule = module {
         )
     }
     single {
-        AgendaViewModel.Factory(
+        ViewModelFactory.AgendaViewModelFactory(
             sessionGateway = get(),
             sessionDayFactory = get(),
             sessionDetailFactory = get(),
@@ -68,9 +53,9 @@ val uiModule = module {
             conferenceConfigProvider = get(),
         )
     }
-    single { SessionBlockViewModel.Factory(sessionListItemFactory = get(), dateFormatter = get()) }
+    single { ViewModelFactory.SessionBlockViewModelFactory(sessionListItemFactory = get(), dateFormatter = get()) }
     single {
-        SessionDayViewModel.Factory(
+        ViewModelFactory.SessionDayViewModelFactory(
             sessionBlockFactory = get(),
             dateFormatter = get(),
             dateTimeService = get(),
@@ -78,10 +63,10 @@ val uiModule = module {
             sessionDetailScrollStateStorage = get(),
         )
     }
-    single { SessionListItemViewModel.Factory(dateTimeService = get()) }
+    single { ViewModelFactory.SessionListItemViewModelFactory(dateTimeService = get()) }
 
     single {
-        SessionDetailViewModel.Factory(
+        ViewModelFactory.SessionDetailViewModelFactory(
             sessionGateway = get(),
             speakerListItemFactory = get(),
             speakerDetailFactory = get(),
@@ -95,19 +80,30 @@ val uiModule = module {
             notificationService = get(),
         )
     }
-    single { SpeakerListItemViewModel.Factory() }
+    single { ViewModelFactory.SpeakerListItemViewModelFactory() }
 
-    single { SpeakerDetailViewModel.Factory(parseUrlViewService = get()) }
+    single { ViewModelFactory.SpeakerDetailViewModelFactory(parseUrlViewService = get()) }
 
-    single { SponsorListViewModel.Factory(sponsorGateway = get(), sponsorGroupFactory = get(), sponsorDetailFactory = get()) }
-    single { SponsorGroupViewModel.Factory(sponsorGroupItemFactory = get()) }
-    single { SponsorGroupItemViewModel.Factory() }
-    single { SponsorDetailViewModel.Factory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get()) }
+    single {
+        ViewModelFactory.SponsorListViewModelFactory(sponsorGateway = get(), sponsorGroupFactory = get(), sponsorDetailFactory = get())
+    }
+    single { ViewModelFactory.SponsorGroupViewModelFactory(sponsorGroupItemFactory = get()) }
+    single { ViewModelFactory.SponsorGroupItemViewModelFactory() }
+    single {
+        ViewModelFactory.SponsorDetailViewModelFactory(sponsorGateway = get(), speakerListItemFactory = get(), speakerDetailFactory = get())
+    }
 
-    single { SettingsViewModel.Factory(settingsGateway = get(), aboutFactory = get(), conferenceRepository = get()) }
-    single { AboutViewModel.Factory(aboutRepository = get(), parseUrlViewService = get()) }
+    single { ViewModelFactory.SettingsViewModelFactory(settingsGateway = get(), aboutFactory = get(), conferenceRepository = get()) }
+    single { ViewModelFactory.AboutViewModelFactory(aboutRepository = get(), parseUrlViewService = get()) }
 
-    single { FeedbackDialogViewModel.Factory(sessionGateway = get(), get(parameters = { parametersOf("FeedbackDialogViewModel") })) }
+    single {
+        ViewModelFactory.FeedbackDialogViewModelFactory(
+            sessionGateway = get(),
+            get(parameters = {
+                parametersOf("FeedbackDialogViewModel")
+            }),
+        )
+    }
 
     single { SessionDetailScrollStateStorage() }
 }

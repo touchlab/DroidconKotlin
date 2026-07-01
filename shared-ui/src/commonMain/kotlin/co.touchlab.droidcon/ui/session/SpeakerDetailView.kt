@@ -98,7 +98,7 @@ private fun HeaderView(name: String, tagLine: String, imageUrl: Url?) {
         if (imageUrl != null) {
             DcAsyncImage(
                 logTag = LOG_TAG,
-                model = imageUrl.string,
+                url = imageUrl.string,
                 contentDescription = name,
                 modifier = Modifier
                     .width(100.dp)
