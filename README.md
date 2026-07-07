@@ -1,8 +1,8 @@
-# Droidcon Mobile Clients
+# Droidcon Clients
 
 ## General Info
 
-This project has a pair of native mobile applications for Global Droidcon events. It is built with Compose Multiplatform to run on both Android and iOS.
+This project has native mobile applications for Global Droidcon events, plus a web app. It is built with Compose Multiplatform to run on Android, iOS, and the web (via Kotlin/JS).
 
 > ## Subscribe!
 >
@@ -13,6 +13,8 @@ This project has a pair of native mobile applications for Global Droidcon events
 
 The apps need a Firebase account set up to run. You'll need to get the `google-services.json` and put it in `android/google-services.json` for Android, and
 the `GoogleService-Info.plist` and put that in `ios/Droidcon/Droidcon/GoogleService-Info.plist` for iOS.
+
+To run the web app locally: `./gradlew :web:jsBrowserDevelopmentRun`
 
 ## Compose UI for both!
 
